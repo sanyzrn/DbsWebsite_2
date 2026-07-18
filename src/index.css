@@ -555,9 +555,10 @@ section[id] {
   --fqn-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.55);
 }
 
-/* Mobile: centered under the main header */
+/* Mobile: horizontally centered at the bottom of the viewport */
 .floating-quick-nav {
-  top: var(--fqn-mobile-top);
+  top: auto;
+  bottom: var(--fqn-mobile-bottom);
   left: 50%;
   transform: translateX(-50%);
 }

@@ -9,8 +9,8 @@ import { cn } from "../utils/cn";
 const FQN = {
   /** Desktop dock inset from physical bottom-right (stays bottom-right in RTL too). */
   desktopInsetPx: 24,
-  /** Header is 72px; clear it + gap below safe-area. */
-  mobileTop: "calc(env(safe-area-inset-top, 0px) + 80px)",
+  /** Mobile: centered above the home indicator / safe area. */
+  mobileBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)",
   scrollThreshold: 400,
   gooMs: 520,
 } as const;
@@ -62,7 +62,7 @@ function isNavActive(pathname: string, item: "home" | "projects" | "about") {
  * Always-visible quick-nav dock (glass pill). Complements — does not replace — Nav.tsx.
  *
  * Desktop corner uses physical `right` so the dock stays bottom-right in both LTR and RTL
- * (avoids colliding with start-side chrome / reading flow). Mobile is horizontally centered.
+ * (avoids colliding with start-side chrome / reading flow). Mobile is bottom-centered.
  */
 export default function FloatingQuickNav() {
   const { t, lang } = useApp();
@@ -133,7 +133,7 @@ export default function FloatingQuickNav() {
       style={
         {
           "--fqn-desktop-inset": `${FQN.desktopInsetPx}px`,
-          "--fqn-mobile-top": FQN.mobileTop,
+          "--fqn-mobile-bottom": FQN.mobileBottom,
           "--fqn-goo-ms": `${FQN.gooMs}ms`,
         } as CSSProperties
       }
