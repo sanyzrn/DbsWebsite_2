@@ -274,6 +274,32 @@ section[id] {
   mask-image: radial-gradient(130% 100% at 50% 0%, #000 25%, transparent 78%);
 }
 
+/* Hero atmosphere — topo contours + soft glow + grain (replaces grid) */
+.hero-atmosphere {
+  opacity: 1;
+  -webkit-mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
+  mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
+}
+
+.hero-atmosphere-topo {
+  opacity: 0.9;
+}
+
+.hero-atmosphere-grain {
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.dark .hero-atmosphere-topo {
+  opacity: 0.7;
+}
+
+.dark .hero-atmosphere-grain {
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Motion                                                              */
 /* ------------------------------------------------------------------ */
@@ -407,6 +433,47 @@ section[id] {
   animation: fade-up-hero 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Hero name underline — fully drawn at rest; redraws on hover (pointer devices) */
+.hero-name-underline path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0.55;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-name:hover .hero-name-underline path {
+    animation: hero-underline-draw 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes hero-underline-draw {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0.35;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.7;
+  }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  margin-inline-start: 0.12em;
+  flex-shrink: 0;
+  background: var(--accent);
+  vertical-align: -0.08em;
+  animation: typewriter-blink 1s step-end infinite;
+}
+
+@keyframes typewriter-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -419,11 +486,16 @@ section[id] {
   .drift,
   .pulse-dot,
   .hero-in,
+  .typewriter-cursor,
+  .hero-name-underline path,
   .practice-flow,
   .practice-glow,
   .practice-product-ring,
   .practice-product-core {
     animation: none;
+  }
+  .typewriter-cursor {
+    display: none;
   }
   .practice-flow {
     opacity: 0;

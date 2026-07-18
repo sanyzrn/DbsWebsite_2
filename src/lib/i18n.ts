@@ -22,18 +22,19 @@ const fa = {
     name: "سعید زرینی",
     nameAccent: "زرینی",
     sloganA: "از یک ایده،",
-    sloganB: "تا یک محصول واقعی.",
-    sloganAccent: "محصول واقعی",
+    sloganCycle: [
+      "یک محصول واقعی",
+      "یک تجربه‌ی زنده",
+      "یک راه‌حل هوشمند",
+      "کدی که کار می‌کند",
+      "یک برند به‌یادماندنی",
+      "یک آینده‌ی قابل‌لمس",
+    ],
     body: "من سعید زرینی هستم؛ طراح، مهندس محصول و متخصص راهکارهای هوش مصنوعی. بیش از ۱۶ سال است که با طراحی و ساختن سروکار دارم؛ از طراحی گرافیک و بسته‌بندی‌های دارویی تا طراحی تجربه کاربری، توسعه نرم‌افزار و ساخت محصولات مبتنی بر هوش مصنوعی.",
     body2:
       "امروز مسئله برای من فقط زیباتر کردن یک محصول یا نوشتن کد بیشتر نیست. مسئله این است که یک ایده را بفهمم، آن را درست طراحی کنم و به محصولی تبدیل کنم که واقعاً کار کند.",
     ctaPrimary: "پروژه‌ها را ببینید",
     ctaSecondary: "درباره من",
-    stats: [
-      { value: "+۱۶", label: "سال تجربه طراحی و ساخت" },
-      { value: "۷", label: "محصول واقعیِ طراحی و توسعه‌یافته" },
-      { value: "۳", label: "تخصص در یک مسیر: طراحی، مهندسی، هوش" },
-    ],
   },
   ecosystem: {
     label: "گراف عمل DBSGraphic",
@@ -358,18 +359,19 @@ const en: Dict = {
     name: "Saeed Zarrini",
     nameAccent: "Zarrini",
     sloganA: "From an idea,",
-    sloganB: "to a real product.",
-    sloganAccent: "real product",
+    sloganCycle: [
+      "a real product",
+      "a living experience",
+      "a smart solution",
+      "code that works",
+      "a brand people remember",
+      "a tangible future",
+    ],
     body: "I'm Saeed Zarrini — designer, product engineer and AI solutions specialist. For over 16 years I've been designing and building: from graphic design and pharmaceutical packaging to UX design, software development and AI-powered products.",
     body2:
       "Today, the question isn't about making a product prettier or writing more code. It's about understanding an idea, designing it properly, and turning it into a product that actually works.",
     ctaPrimary: "See the projects",
     ctaSecondary: "About me",
-    stats: [
-      { value: "16+", label: "Years of designing & building" },
-      { value: "7", label: "Real products designed & engineered" },
-      { value: "3", label: "Disciplines, one path: design, engineering, AI" },
-    ],
   },
   ecosystem: {
     label: "DBSGraphic practice graph",
