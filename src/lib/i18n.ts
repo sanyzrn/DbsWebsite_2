@@ -36,9 +36,15 @@ const fa = {
     ],
   },
   ecosystem: {
-    label: "تحول محصول DBSGraphic",
-    fig: "fig. 02 — product morph",
-    lead: "از اسکیس تا محصول.",
+    label: "گراف عمل DBSGraphic",
+    fig: "fig. 02 — practice graph",
+    lead: "سه تخصص. یک مسیر.",
+    sources: {
+      design: "طراحی",
+      engineering: "مهندسی",
+      intelligence: "هوش",
+    },
+    product: "محصول",
     caption: "design → engineering → intelligence",
   },
   intro: {
@@ -366,9 +372,15 @@ const en: Dict = {
     ],
   },
   ecosystem: {
-    label: "DBSGraphic product morph",
-    fig: "fig. 02 — product morph",
-    lead: "From sketch to product.",
+    label: "DBSGraphic practice graph",
+    fig: "fig. 02 — practice graph",
+    lead: "Three disciplines. One practice.",
+    sources: {
+      design: "Design",
+      engineering: "Engineering",
+      intelligence: "Intelligence",
+    },
+    product: "Product",
     caption: "design → engineering → intelligence",
   },
   intro: {
