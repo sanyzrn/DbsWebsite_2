@@ -31,7 +31,7 @@ export default function Expertise() {
               return (
                 <article
                   key={card.en}
-                  className="group relative flex h-full flex-col rounded-lg border border-line bg-page p-7 transition-all duration-400 hover:-translate-y-1.5 hover:border-hi/60"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-line bg-page p-7 transition-all duration-400 md:hover:-translate-y-1.5 hover:border-hi/60"
                 >
                   <div className="mb-8 flex items-start justify-between">
                     <span className="flex h-12 w-12 items-center justify-center rounded-sm border border-line bg-surface text-hi transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page">
@@ -63,7 +63,7 @@ export default function Expertise() {
                   </a>
 
                   <span
-                    className="pointer-events-none absolute -bottom-5 end-3 select-none font-mono text-[110px] font-bold leading-none text-ink opacity-[0.04] transition-opacity duration-500 group-hover:opacity-[0.08]"
+                    className="pointer-events-none absolute -bottom-3 end-3 hidden select-none font-mono text-[110px] font-bold leading-none text-ink opacity-[0.04] transition-opacity duration-500 group-hover:opacity-[0.08] md:block"
                     aria-hidden="true"
                   >
                     {i + 1}
