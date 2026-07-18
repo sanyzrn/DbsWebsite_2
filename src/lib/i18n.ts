@@ -34,8 +34,6 @@ const fa = {
       { value: "۷", label: "محصول واقعیِ طراحی و توسعه‌یافته" },
       { value: "۳", label: "تخصص در یک مسیر: طراحی، مهندسی، هوش" },
     ],
-    canvasCaption: "design → engineering → intelligence",
-    canvasFig: "fig. 01 — product canvas",
   },
   ecosystem: {
     label: "نقشه استودیوی DBSGraphic",
@@ -376,8 +374,6 @@ const en: Dict = {
       { value: "7", label: "Real products designed & engineered" },
       { value: "3", label: "Disciplines, one path: design, engineering, AI" },
     ],
-    canvasCaption: "design → engineering → intelligence",
-    canvasFig: "fig. 01 — product canvas",
   },
   ecosystem: {
     label: "The DBSGraphic studio map",

@@ -359,135 +359,6 @@ section[id] {
   animation: fade-up-hero 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Hero morph — sketch → wireframe → product (play once)               */
-/* ------------------------------------------------------------------ */
-
-.hero-morph-stage {
-  opacity: 0;
-  pointer-events: none;
-  will-change: opacity, filter;
-}
-
-.hero-morph-floater {
-  opacity: 0;
-  pointer-events: none;
-  will-change: opacity, transform;
-}
-
-/* Idle: show sketch only, waiting for scroll trigger */
-.hero-morph.is-idle .hero-morph-sketch {
-  opacity: 1;
-}
-
-/* Reduced motion / finished static: product + all floaters */
-.hero-morph.is-static .hero-morph-product {
-  opacity: 1;
-}
-.hero-morph.is-static .hero-morph-floater {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Playing: single shared 12s timeline, hold on final state */
-.hero-morph.is-playing .hero-morph-sketch {
-  animation: hero-morph-sketch 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.hero-morph.is-playing .hero-morph-wire {
-  animation: hero-morph-wire 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.hero-morph.is-playing .hero-morph-product {
-  animation: hero-morph-product 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.hero-morph.is-playing .hero-morph-chip {
-  animation: hero-morph-chip 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.hero-morph.is-playing .hero-morph-code {
-  animation: hero-morph-code 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.hero-morph.is-playing .hero-morph-agent {
-  animation: hero-morph-agent 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes hero-morph-sketch {
-  0%, 14% {
-    opacity: 1;
-    filter: none;
-  }
-  22% {
-    opacity: 0;
-    filter: blur(2px);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(2px);
-  }
-}
-
-@keyframes hero-morph-wire {
-  0%, 12% {
-    opacity: 0;
-    filter: blur(3px);
-  }
-  22%, 46% {
-    opacity: 1;
-    filter: none;
-  }
-  56% {
-    opacity: 0;
-    filter: blur(2px);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(2px);
-  }
-}
-
-@keyframes hero-morph-product {
-  0%, 46% {
-    opacity: 0;
-    filter: blur(4px) saturate(0.6);
-  }
-  56%, 100% {
-    opacity: 1;
-    filter: none;
-  }
-}
-
-/* design → engineering → intelligence floater sequence */
-@keyframes hero-morph-chip {
-  0%, 26% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  36%, 100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes hero-morph-code {
-  0%, 60% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  70%, 100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes hero-morph-agent {
-  0%, 72% {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.96);
-  }
-  82%, 100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -501,28 +372,12 @@ section[id] {
   .atlas-node,
   .drift,
   .pulse-dot,
-  .hero-in,
-  .hero-morph.is-playing .hero-morph-sketch,
-  .hero-morph.is-playing .hero-morph-wire,
-  .hero-morph.is-playing .hero-morph-product,
-  .hero-morph.is-playing .hero-morph-chip,
-  .hero-morph.is-playing .hero-morph-code,
-  .hero-morph.is-playing .hero-morph-agent {
+  .hero-in {
     animation: none;
   }
   .atlas-node {
     opacity: 1;
     transform: none;
-  }
-  .hero-morph .hero-morph-sketch,
-  .hero-morph .hero-morph-wire {
-    opacity: 0 !important;
-  }
-  .hero-morph .hero-morph-product,
-  .hero-morph .hero-morph-floater {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
   }
 }
 
