@@ -17,7 +17,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 function Layout() {
   const { t } = useApp();
   return (
-    <div id="top" className="min-h-screen bg-page font-sans text-ink">
+    <div className="min-h-screen bg-page font-sans text-ink">
       <a href="#main" className="skip-link">
         {t.a11y.skip}
       </a>
