@@ -11,11 +11,17 @@ type PageMetaProps = {
   slug?: string;
 };
 
-/** Emits document head tags (React 19 hoists these) + JSON-LD for the current page. */
+/** Emits document head tags (React 19 hoists these) + JSON-LD for the current page.
+ *  Skipped during SSR — `scripts/prerender.mjs` injects the authoritative head per route.
+ */
 export function PageMeta({ page, slug }: PageMetaProps) {
   const { lang } = useApp();
   const project = page === "project" && slug ? localizedProjectForLang(lang, slug) : undefined;
   const seo = resolvePageSeo(lang, page, project ? { project } : undefined);
+
+  if (import.meta.env.SSR) {
+    return null;
+  }
 
   return (
     <>
