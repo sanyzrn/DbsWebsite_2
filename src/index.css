@@ -319,16 +319,6 @@ section[id] {
   }
 }
 
-.atlas-spine {
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--line) 8%,
-    var(--line) 92%,
-    transparent
-  );
-}
-
 @keyframes drift {
   0%, 100% {
     transform: translateY(0);
