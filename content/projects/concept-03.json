@@ -1,0 +1,47 @@
+{
+  "id": "concept-03",
+  "slug": "concept-03",
+  "status": "concept",
+  "featured": false,
+  "order": 10,
+  "name": {
+    "fa": "طرح مفهومی ۳",
+    "en": "Concept 03"
+  },
+  "subtitle": {
+    "fa": "اکتشاف هوش مصنوعی — جزئیات به‌زودی.",
+    "en": "AI exploration — details soon."
+  },
+  "desc": {
+    "fa": "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
+    "en": "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی"
+    ],
+    "en": [
+      "Design"
+    ]
+  },
+  "tech": [
+    "TBD"
+  ],
+  "tags": [
+    "AI"
+  ],
+  "image_url": null,
+  "mock": "concept"
+}

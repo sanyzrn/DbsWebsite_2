@@ -1,0 +1,54 @@
+{
+  "id": "hesabyar",
+  "slug": "hesabyar",
+  "status": "production",
+  "featured": false,
+  "order": 7,
+  "name": {
+    "fa": "حسابیار",
+    "en": "Hesabyar"
+  },
+  "subtitle": {
+    "fa": "مدیریت مالی، به زبان زندگی واقعی.",
+    "en": "Personal finance, in the language of real life."
+  },
+  "desc": {
+    "fa": "یک سیستم مدیریت مالی شخصی برای مدیریت حساب‌ها، هزینه‌ها، اقساط، چک‌ها، وام‌ها، بودجه‌بندی و اهداف مالی؛ طراحی‌شده با در نظر گرفتن نیازهای واقعی کاربران ایرانی و تقویم شمسی.",
+    "en": "A personal finance system for accounts, expenses, installments, cheques, loans, budgeting and financial goals — designed around the real needs of Iranian users and the Jalali calendar."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی محصول",
+      "توسعه فول‌استک",
+      "PWA"
+    ],
+    "en": [
+      "Product Design",
+      "Full-Stack Development",
+      "PWA"
+    ]
+  },
+  "tech": [
+    "PHP",
+    "MySQL",
+    "PWA"
+  ],
+  "tags": [
+    "Full-Stack",
+    "Design"
+  ],
+  "image_url": null,
+  "mock": "hesabyar"
+}

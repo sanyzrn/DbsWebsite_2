@@ -1,0 +1,52 @@
+{
+  "id": "dbstools",
+  "slug": "dbstools",
+  "status": "production",
+  "featured": false,
+  "order": 6,
+  "name": {
+    "fa": "DbsTools",
+    "en": "DbsTools"
+  },
+  "subtitle": {
+    "fa": "ابزارهای کوچک برای کارهای تکراری و زمان‌بر.",
+    "en": "Small tools for repetitive, time-consuming work."
+  },
+  "desc": {
+    "fa": "مجموعه‌ای از ابزارهای تخصصی برای پردازش اسناد، ترجمه، تولید محتوا و اتوماسیون فرآیندها؛ با هدف تبدیل کارهای تکراری و زمان‌بر به فرآیندهای سریع‌تر و هوشمندتر.",
+    "en": "A collection of specialized tools for document processing, translation, content generation and process automation — turning repetitive, time-consuming work into faster, smarter flows."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی و توسعه",
+      "اتوماسیون فرآیند"
+    ],
+    "en": [
+      "Design & Development",
+      "Process Automation"
+    ]
+  },
+  "tech": [
+    "Automation",
+    "Document Processing",
+    "AI APIs"
+  ],
+  "tags": [
+    "Automation",
+    "AI"
+  ],
+  "image_url": null,
+  "mock": "tools"
+}

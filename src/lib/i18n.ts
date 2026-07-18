@@ -1,5 +1,7 @@
 export type Lang = "fa" | "en";
 
+import { getLocalizedProjects, type LocalizedProject } from "./projects";
+
 const fa = {
   dir: "rtl" as "rtl" | "ltr",
   brand: {
@@ -147,132 +149,10 @@ const fa = {
     pageKicker: "پروژه‌ها",
     pageTitle: "همه پروژه‌ها",
     pageLead: "محصولات تولیدشده و طرح‌های مفهومی — از سیستم‌های سازمانی تا اکتشاف‌های طراحی.",
+    problemLabel: "مسئله",
+    approachLabel: "رویکرد",
+    resultLabel: "نتیجه",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
-    items: [
-      {
-        id: "dbspulse",
-        name: "DbsPulse",
-        subtitle: "وقتی ارزیابی عملکرد، از یک فرم ساده فراتر می‌رود.",
-        desc: "یک پلتفرم سازمانی برای مدیریت فرآیند ارزیابی عملکرد، از ثبت اطلاعات اولیه تا بررسی، تأیید و تحلیل نهایی. این پروژه یک فرآیند چندمرحله‌ای و پیچیده را به یک سیستم دیجیتال ساختاریافته، قابل‌پیگیری و قابل‌تحلیل تبدیل می‌کند.",
-        role: ["طراحی محصول", "معماری سیستم", "توسعه فول‌استک", "طراحی دیتابیس", "احراز هویت و دسترسی", "استقرار"],
-        tech: ["React", "FastAPI", "PostgreSQL", "Docker", "JWT", "Argon2"],
-        tags: ["Full-Stack", "Design"],
-        status: "production" as const,
-        mock: "pulse" as const,
-      },
-      {
-        id: "dbsai",
-        name: "DbsAI",
-        subtitle: "یک محیط هوشمند برای کار سازمانی.",
-        desc: "یک پلتفرم داخلی برای استفاده سازمانی از مدل‌های مختلف هوش مصنوعی. هدف، ایجاد یک محیط متمرکز برای استفاده از مدل‌های مختلف، مدیریت کاربران، دسترسی‌ها، سهمیه مصرف و قابلیت‌های هوشمند سازمانی است.",
-        caps: [
-          "اتصال چند ارائه‌دهنده هوش مصنوعی",
-          "مدیریت کاربران",
-          "دسترسی نقش‌محور",
-          "سهمیه و محدودیت مصرف",
-          "تخصیص توکن",
-          "مدیریت قابلیت‌های هوشمند",
-          "فضای کاری متمرکز",
-        ],
-        role: ["معماری محصول AI", "یکپارچه‌سازی هوش مصنوعی", "توسعه فول‌استک", "طراحی محصول"],
-        tech: ["AI APIs", "LLM", "Multi-provider", "Full-Stack"],
-        tags: ["AI", "Full-Stack"],
-        status: "production" as const,
-        mock: "ai" as const,
-      },
-      {
-        id: "dbskeep",
-        name: "DbsKeep",
-        subtitle: "اطلاعات شخصی، همیشه در دسترس.",
-        desc: "یک سیستم مدیریت اطلاعات شخصی برای یادداشت‌ها، وظایف، ایده‌ها و اطلاعات مهم؛ با تمرکز بر سرعت، حریم خصوصی، دسترسی آفلاین و جست‌وجوی سریع.",
-        role: ["طراحی محصول", "توسعه دسکتاپ"],
-        tech: ["Tauri", "Rust", "JavaScript"],
-        tags: ["Desktop", "Design"],
-        status: "production" as const,
-        mock: "keep" as const,
-      },
-      {
-        id: "dbsbrain",
-        name: "DbsBrain",
-        subtitle: "برای ذهنی که قرار نیست همه‌چیز را به خاطر بسپارد.",
-        desc: "یک سیستم شخصی برای مدیریت اطلاعات، اهداف، عادت‌ها، پروژه‌ها و زندگی روزمره.",
-        role: ["طراحی محصول", "توسعه اندروید"],
-        tech: ["Kotlin", "Jetpack Compose", "Room", "SQLCipher"],
-        tags: ["Mobile", "Design"],
-        status: "production" as const,
-        mock: "brain" as const,
-      },
-      {
-        id: "dbschatbot",
-        name: "DbsChatBot",
-        subtitle: "وقتی یک وب‌سایت فقط نباید اطلاعات بدهد.",
-        desc: "یک ربات گفتگوی هوشمند برای WordPress با پایگاه دانش اختصاصی و قابلیت پاسخ‌گویی به سؤالات کاربران. این پروژه، هوش مصنوعی را از یک ابزار جداگانه به بخشی از تجربه‌ی واقعی کاربر تبدیل می‌کند.",
-        role: ["معماری محصول", "توسعه افزونه", "یکپارچه‌سازی AI"],
-        tech: ["WordPress", "PHP", "JavaScript", "AI APIs"],
-        tags: ["AI", "Automation"],
-        status: "production" as const,
-        mock: "chatbot" as const,
-      },
-      {
-        id: "dbstools",
-        name: "DbsTools",
-        subtitle: "ابزارهای کوچک برای کارهای تکراری و زمان‌بر.",
-        desc: "مجموعه‌ای از ابزارهای تخصصی برای پردازش اسناد، ترجمه، تولید محتوا و اتوماسیون فرآیندها؛ با هدف تبدیل کارهای تکراری و زمان‌بر به فرآیندهای سریع‌تر و هوشمندتر.",
-        role: ["طراحی و توسعه", "اتوماسیون فرآیند"],
-        tech: ["Automation", "Document Processing", "AI APIs"],
-        tags: ["Automation", "AI"],
-        status: "production" as const,
-        mock: "tools" as const,
-      },
-      {
-        id: "hesabyar",
-        name: "حسابیار",
-        subtitle: "مدیریت مالی، به زبان زندگی واقعی.",
-        desc: "یک سیستم مدیریت مالی شخصی برای مدیریت حساب‌ها، هزینه‌ها، اقساط، چک‌ها، وام‌ها، بودجه‌بندی و اهداف مالی؛ طراحی‌شده با در نظر گرفتن نیازهای واقعی کاربران ایرانی و تقویم شمسی.",
-        role: ["طراحی محصول", "توسعه فول‌استک", "PWA"],
-        tech: ["PHP", "MySQL", "PWA"],
-        tags: ["Full-Stack", "Design"],
-        status: "production" as const,
-        mock: "hesabyar" as const,
-      },
-
-      // PLACEHOLDER — Saeed will replace with real concept details later.
-      {
-        id: "concept-01",
-        name: "طرح مفهومی ۱",
-        subtitle: "اکتشاف طراحی — جزئیات به‌زودی.",
-        desc: "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
-        role: ["طراحی"],
-        tech: ["TBD"],
-        tags: ["Design"],
-        status: "concept" as const,
-        mock: "concept" as const,
-      },
-      // PLACEHOLDER — Saeed will replace with real concept details later.
-      {
-        id: "concept-02",
-        name: "طرح مفهومی ۲",
-        subtitle: "اکتشاف محصول — جزئیات به‌زودی.",
-        desc: "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
-        role: ["طراحی محصول"],
-        tech: ["TBD"],
-        tags: ["Full-Stack"],
-        status: "concept" as const,
-        mock: "concept" as const,
-      },
-      // PLACEHOLDER — Saeed will replace with real concept details later.
-      {
-        id: "concept-03",
-        name: "طرح مفهومی ۳",
-        subtitle: "اکتشاف هوش مصنوعی — جزئیات به‌زودی.",
-        desc: "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
-        role: ["طراحی"],
-        tech: ["TBD"],
-        tags: ["AI"],
-        status: "concept" as const,
-        mock: "concept" as const,
-      },
-    ],
   },
   about: {
     kicker: "درباره من",
@@ -400,9 +280,9 @@ const fa = {
   theme: { toDark: "حالت تیره", toLight: "حالت روشن", lang: "English" },
 };
 
-export type Dict = typeof fa;
+export type UiDict = typeof fa;
 
-const en: Dict = {
+const en: UiDict = {
   dir: "ltr" as const,
   brand: {
     name: "SaeedZarrini",
@@ -549,132 +429,10 @@ const en: Dict = {
     pageKicker: "Projects",
     pageTitle: "All projects",
     pageLead: "Shipped products and concept explorations — from organizational systems to design probes.",
+    problemLabel: "Problem",
+    approachLabel: "Approach",
+    resultLabel: "Result",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
-    items: [
-      {
-        id: "dbspulse",
-        name: "DbsPulse",
-        subtitle: "When performance review goes beyond a simple form.",
-        desc: "An organizational platform for managing the performance evaluation process — from initial data entry to review, approval and final analysis. It turns a complex, multi-stage workflow into a structured, traceable and analyzable digital system.",
-        role: ["Product Design", "System Architecture", "Full-Stack Development", "Database Design", "Authentication & Authorization", "Deployment"],
-        tech: ["React", "FastAPI", "PostgreSQL", "Docker", "JWT", "Argon2"],
-        tags: ["Full-Stack", "Design"],
-        status: "production" as const,
-        mock: "pulse" as const,
-      },
-      {
-        id: "dbsai",
-        name: "DbsAI",
-        subtitle: "An intelligent workspace for organizational work.",
-        desc: "An internal platform for using multiple AI models across an organization — a centralized environment for models, user management, access control, usage quotas and intelligent capabilities.",
-        caps: [
-          "Multi-provider AI integration",
-          "User management",
-          "Role-based access",
-          "Usage limits",
-          "Token allocation",
-          "AI capabilities management",
-          "Centralized workspace",
-        ],
-        role: ["AI Product Architecture", "AI Integration", "Full-Stack Development", "Product Design"],
-        tech: ["AI APIs", "LLM", "Multi-provider", "Full-Stack"],
-        tags: ["AI", "Full-Stack"],
-        status: "production" as const,
-        mock: "ai" as const,
-      },
-      {
-        id: "dbskeep",
-        name: "DbsKeep",
-        subtitle: "Personal information, always within reach.",
-        desc: "A personal information manager for notes, tasks, ideas and important data — focused on speed, privacy, offline access and fast search.",
-        role: ["Product Design", "Desktop Development"],
-        tech: ["Tauri", "Rust", "JavaScript"],
-        tags: ["Desktop", "Design"],
-        status: "production" as const,
-        mock: "keep" as const,
-      },
-      {
-        id: "dbsbrain",
-        name: "DbsBrain",
-        subtitle: "For minds that shouldn't have to remember everything.",
-        desc: "A personal system for managing information, goals, habits, projects and everyday life.",
-        role: ["Product Design", "Android Development"],
-        tech: ["Kotlin", "Jetpack Compose", "Room", "SQLCipher"],
-        tags: ["Mobile", "Design"],
-        status: "production" as const,
-        mock: "brain" as const,
-      },
-      {
-        id: "dbschatbot",
-        name: "DbsChatBot",
-        subtitle: "When a website shouldn't just inform.",
-        desc: "An intelligent chatbot for WordPress with a dedicated knowledge base, answering visitors' questions — turning AI from a separate tool into part of the real user experience.",
-        role: ["Product Architecture", "Plugin Development", "AI Integration"],
-        tech: ["WordPress", "PHP", "JavaScript", "AI APIs"],
-        tags: ["AI", "Automation"],
-        status: "production" as const,
-        mock: "chatbot" as const,
-      },
-      {
-        id: "dbstools",
-        name: "DbsTools",
-        subtitle: "Small tools for repetitive, time-consuming work.",
-        desc: "A collection of specialized tools for document processing, translation, content generation and process automation — turning repetitive, time-consuming work into faster, smarter flows.",
-        role: ["Design & Development", "Process Automation"],
-        tech: ["Automation", "Document Processing", "AI APIs"],
-        tags: ["Automation", "AI"],
-        status: "production" as const,
-        mock: "tools" as const,
-      },
-      {
-        id: "hesabyar",
-        name: "Hesabyar",
-        subtitle: "Personal finance, in the language of real life.",
-        desc: "A personal finance system for accounts, expenses, installments, cheques, loans, budgeting and financial goals — designed around the real needs of Iranian users and the Jalali calendar.",
-        role: ["Product Design", "Full-Stack Development", "PWA"],
-        tech: ["PHP", "MySQL", "PWA"],
-        tags: ["Full-Stack", "Design"],
-        status: "production" as const,
-        mock: "hesabyar" as const,
-      },
-
-      // PLACEHOLDER — Saeed will replace with real concept details later.
-      {
-        id: "concept-01",
-        name: "Concept 01",
-        subtitle: "Design exploration — details soon.",
-        desc: "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later.",
-        role: ["Design"],
-        tech: ["TBD"],
-        tags: ["Design"],
-        status: "concept" as const,
-        mock: "concept" as const,
-      },
-      // PLACEHOLDER — Saeed will replace with real concept details later.
-      {
-        id: "concept-02",
-        name: "Concept 02",
-        subtitle: "Product exploration — details soon.",
-        desc: "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later.",
-        role: ["Product Design"],
-        tech: ["TBD"],
-        tags: ["Full-Stack"],
-        status: "concept" as const,
-        mock: "concept" as const,
-      },
-      // PLACEHOLDER — Saeed will replace with real concept details later.
-      {
-        id: "concept-03",
-        name: "Concept 03",
-        subtitle: "AI exploration — details soon.",
-        desc: "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later.",
-        role: ["Design"],
-        tech: ["TBD"],
-        tags: ["AI"],
-        status: "concept" as const,
-        mock: "concept" as const,
-      },
-    ],
   },
   about: {
     kicker: "About me",
@@ -802,4 +560,20 @@ const en: Dict = {
   theme: { toDark: "Dark mode", toLight: "Light mode", lang: "فارسی" },
 };
 
-export const dictionaries: Record<Lang, Dict> = { fa, en };
+export const dictionaries: Record<Lang, UiDict> = { fa, en };
+
+/** Full UI dictionary including projects loaded from content/projects/*.json */
+export type Dict = UiDict & {
+  projects: UiDict["projects"] & { items: LocalizedProject[] };
+};
+
+export function getDictionary(lang: Lang): Dict {
+  const base = dictionaries[lang];
+  return {
+    ...base,
+    projects: {
+      ...base.projects,
+      items: getLocalizedProjects(lang),
+    },
+  };
+}

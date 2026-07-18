@@ -1,0 +1,52 @@
+{
+  "id": "dbskeep",
+  "slug": "dbskeep",
+  "status": "production",
+  "featured": false,
+  "order": 3,
+  "name": {
+    "fa": "DbsKeep",
+    "en": "DbsKeep"
+  },
+  "subtitle": {
+    "fa": "اطلاعات شخصی، همیشه در دسترس.",
+    "en": "Personal information, always within reach."
+  },
+  "desc": {
+    "fa": "یک سیستم مدیریت اطلاعات شخصی برای یادداشت‌ها، وظایف، ایده‌ها و اطلاعات مهم؛ با تمرکز بر سرعت، حریم خصوصی، دسترسی آفلاین و جست‌وجوی سریع.",
+    "en": "A personal information manager for notes, tasks, ideas and important data — focused on speed, privacy, offline access and fast search."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی محصول",
+      "توسعه دسکتاپ"
+    ],
+    "en": [
+      "Product Design",
+      "Desktop Development"
+    ]
+  },
+  "tech": [
+    "Tauri",
+    "Rust",
+    "JavaScript"
+  ],
+  "tags": [
+    "Desktop",
+    "Design"
+  ],
+  "image_url": null,
+  "mock": "keep"
+}
