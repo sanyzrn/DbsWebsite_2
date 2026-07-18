@@ -54,6 +54,10 @@ Reserve **`پایگاه دانش`** for knowledge-base contexts (not as a synony
 Lead-in is fixed: `از یک ایده،` + connector ` تا ` + cycling phrase.  
 Do not reintroduce the old standalone `از ایده تا محصول واقعی` wording elsewhere.
 
-## Access-control phrasing
+## Avoid circular philosophy copy
 
-Prefer **`دسترسی نقش‌محور`** over longer calques like `کنترل دسترسی مبتنی بر نقش`.
+Keep **one** strong statement of the core philosophy (prefer Intro / About):
+disciplines as tools, turning ideas into a real product, understanding the
+problem. Elsewhere prefer concrete capabilities — APIs, flows, deployment,
+quotas, role-based access — instead of restating `محصول واقعی` / `واقعاً کار کند`
+/ `مسئله` / `مسیر` / `ایده را بفهمم` (and English equivalents).

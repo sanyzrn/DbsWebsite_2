@@ -28,7 +28,7 @@ const fa = {
     nameAccent: "زرینی",
     sloganA: "از یک ایده،",
     sloganCycle: [
-      "یک محصول واقعی",
+      "یک سرویس پایدار",
       "یک تجربه‌ی زنده",
       "یک راه‌حل هوشمند",
       "کدی که کار می‌کند",
@@ -37,14 +37,14 @@ const fa = {
     ],
     body: "به تیم‌ها و کسب‌وکارها کمک می‌کنم ایده‌شان را با طراحی محصول، مهندسی نرم‌افزار و یکپارچه‌سازی هوش مصنوعی به یک محصول دیجیتال واقعی تبدیل کنند — نه فقط یک طرح یا یک دمو.",
     body2:
-      "بیش از ۱۶ سال است که می‌سازم؛ از هویت بصری و بسته‌بندی دارویی تا UI/UX، سیستم‌های سازمانی و محصولات مبتنی بر AI. مسئله این است که ایده را بفهمم و به چیزی تبدیل کنم که واقعاً کار کند.",
+      "امروز تمرکزم روی تحویل چیزهایی است که تیم‌ها هر روز استفاده می‌کنند: رابط‌های شفاف، APIهای پایدار، و لایه‌های هوش مصنوعی که داخل جریان کار واقعی جا می‌گیرند — نه فقط در اسلاید یا دمو.",
     ctaPrimary: "پروژه‌ها را ببینید",
     ctaSecondary: "درباره من",
   },
   ecosystem: {
     label: "گراف عمل DBSGraphic",
     fig: "fig. 02 — practice graph",
-    lead: "سه تخصص. یک مسیر.",
+    lead: "سه تخصص. یک خروجی مشترک.",
     sources: {
       design: "طراحی",
       engineering: "مهندسی",
@@ -64,7 +64,7 @@ const fa = {
   expertise: {
     kicker: "توانمندی‌ها",
     title: "طراحی می‌کنم. می‌سازم. هوشمند می‌کنم.",
-    lead: "چهار حوزه، یک مسیر واحد؛ از فهم مسئله تا تحویل محصول.",
+    lead: "چهار حوزه؛ از هویت بصری تا API، موبایل و یکپارچه‌سازی مدل‌های زبانی.",
     more: "اطلاعات بیشتر",
     cards: [
       {
@@ -88,7 +88,7 @@ const fa = {
       {
         en: "Think Product",
         title: "تفکر محصولی",
-        desc: "درک مسئله، طراحی راه‌حل و ساخت محصولی که فقط زیبا نباشد، بلکه واقعاً مفید باشد.",
+        desc: "اولویت‌بندی قابلیت‌ها، معماری قابل‌توسعه و تحویل نسخه‌ای که تیم بتواند نگه دارد.",
         tags: ["استراتژی", "معماری", "تحویل"],
       },
     ],
@@ -101,28 +101,28 @@ const fa = {
     questions: [
       "چه چیزی باید بهتر شود؟",
       "چه کسی از محصول استفاده می‌کند؟",
-      "مشکل واقعی کجاست؟",
+      "گلوگاه عملیاتی کجاست؟",
       "چه چیزی باید ساده‌تر، سریع‌تر یا هوشمندتر شود؟",
     ],
-    closing: "بعد، مسیر را طراحی می‌کنیم.",
+    closing: "بعد، محدوده، معیار موفقیت و گام بعدی را مشخص می‌کنیم.",
   },
   process: {
     kicker: "فرآیند",
-    title: "از مسئله تا محصول.",
-    lead: "یک مسیر شفاف و تکرارشونده؛ بدون پیچیدگی مصنوعی.",
+    title: "از کشف نیاز تا انتشار نسخه.",
+    lead: "شش مرحله‌ی مشخص و تکرارشونده؛ بدون تشریفات اضافه.",
     steps: [
-      { en: "Understand", title: "درک", desc: "درک مسئله، نیازها و هدف واقعی پروژه." },
+      { en: "Understand", title: "درک", desc: "مصاحبه با ذی‌نفعان، نقشه‌ی نیازها و هدف قابل‌اندازه‌گیری." },
       { en: "Shape", title: "شکل‌دهی", desc: "تبدیل ایده خام به ساختار و راه‌حل قابل‌فهم." },
-      { en: "Design", title: "طراحی", desc: "طراحی تجربه، رابط و مسیر استفاده از محصول." },
-      { en: "Engineer", title: "مهندسی", desc: "ساخت محصول با معماری و فناوری مناسب." },
+      { en: "Design", title: "طراحی", desc: "جریان‌های کاربری، رابط و نمونه‌های تعاملی." },
+      { en: "Engineer", title: "مهندسی", desc: "ساخت با معماری مناسب، تست‌پذیر و قابل‌نگهداری." },
       { en: "Integrate", title: "یکپارچه‌سازی", desc: "اتصال سرویس‌ها، APIها و قابلیت‌های هوش مصنوعی در صورت نیاز." },
-      { en: "Deliver", title: "تحویل", desc: "تبدیل ایده به یک محصول واقعی، قابل استفاده و قابل توسعه." },
+      { en: "Deliver", title: "تحویل", desc: "استقرار، مستندات و نسخه‌ای که تیم شما بتواند ادامه دهد." },
     ],
   },
   projects: {
     kicker: "نمونه‌کارها",
     title: "پروژه‌های منتخب",
-    lead: "محصولاتی که طراحی و توسعه داده‌ام؛ هر کدام پاسخی به یک مسئله واقعی.",
+    lead: "نمونه‌هایی از سیستم‌های سازمانی، ابزارهای شخصی و یکپارچه‌سازی AI که طراحی و توسعه داده‌ام.",
     roleLabel: "نقش",
     techLabel: "فناوری",
     view: "جزئیات پروژه",
@@ -195,7 +195,7 @@ const fa = {
       {
         id: "dbstools",
         name: "DbsTools",
-        subtitle: "ابزارهای کوچک برای حل مسئله‌های واقعی.",
+        subtitle: "ابزارهای کوچک برای کارهای تکراری و زمان‌بر.",
         desc: "مجموعه‌ای از ابزارهای تخصصی برای پردازش اسناد، ترجمه، تولید محتوا و اتوماسیون فرآیندها؛ با هدف تبدیل کارهای تکراری و زمان‌بر به فرآیندهای سریع‌تر و هوشمندتر.",
         role: ["طراحی و توسعه", "اتوماسیون فرآیند"],
         tech: ["Automation", "Document Processing", "AI APIs"],
@@ -228,7 +228,7 @@ const fa = {
     expClosing: "تجربه، زمانی ارزشمند است که بتواند خودش را با آینده تطبیق دهد.",
     path: ["طراحی گرافیک و بسته‌بندی", "وب و UI/UX", "توسعه نرم‌افزار", "محصولات هوشمند و AI"],
     pathYears: ["۲۰۰۸", "۲۰۱۴", "۲۰۱۹", "امروز"],
-    studioNote: "تمام این مسیر، زیر چتر استودیو خلاقیت و محصول DBSGraphic ادامه دارد.",
+    studioNote: "تمام این کارها زیر چتر استودیو خلاقیت و محصول DBSGraphic ادامه دارد.",
   },
   skills: {
     kicker: "مهارت‌ها",
@@ -265,9 +265,9 @@ const fa = {
     lines: [
       "لازم نیست از ابتدا بدانید چه فناوری‌ای برای پروژه شما مناسب است.",
       "لازم نیست دقیقاً بدانید هوش مصنوعی کجا می‌تواند به کسب‌وکار شما کمک کند.",
-      "لازم نیست تمام مسیر را از قبل بدانید.",
+      "لازم نیست همه‌ی جزئیات فنی را از قبل بدانید.",
     ],
-    strong: "کار من این است که مسئله را بفهمم، مسیر را پیدا کنم و راه‌حل را بسازم.",
+    strong: "کار من این است که نیاز را به معماری، رابط و یکپارچه‌سازی قابل‌اجرا تبدیل کنم.",
     cta: "بیایید ایده را بررسی کنیم",
     secondary: "شروع یک پروژه",
     emailLabel: "ایمیل",
@@ -280,7 +280,7 @@ const fa = {
     response: "معمولاً کمتر از ۲۴ ساعت",
     form: {
       title: "فرم شروع پروژه",
-      desc: "چند خط درباره ایده‌تان بنویسید؛ بقیه مسیر را با هم پیدا می‌کنیم.",
+      desc: "چند خط درباره ایده‌تان بنویسید؛ محدوده‌ی کار و گام بعدی را با هم شفاف می‌کنیم.",
       name: "نام شما",
       namePh: "نام و نام خانوادگی",
       email: "ایمیل",
@@ -289,7 +289,7 @@ const fa = {
       companyPh: "اختیاری",
       type: "نوع پروژه",
       message: "شرح پروژه",
-      messagePh: "مسئله‌ای که می‌خواهید حل شود، در چند جمله…",
+      messagePh: "نیاز یا هدف کسب‌وکارتان را در چند جمله بنویسید…",
       budget: "بازه بودجه",
       budgetPh: "اختیاری",
       timeline: "زمان‌بندی مدنظر",
@@ -320,7 +320,7 @@ const fa = {
   footer: {
     tagline: "مهندس راهکارهای هوش مصنوعی و سازنده محصولات دیجیتال",
     studio: "استودیو محصول و خلاقیت DBSGraphic",
-    desc: "طراحی، مهندسی نرم‌افزار و هوش مصنوعی؛ برای تبدیل ایده‌ها به محصولاتی که واقعاً کار می‌کنند.",
+    desc: "از هویت بصری و UI تا فول‌استک و یکپارچه‌سازی مدل‌های زبانی — برای محصولاتی که به دست کاربر می‌رسند.",
     navTitle: "دسترسی سریع",
     socialTitle: "شبکه‌های اجتماعی",
     rights: "تمامی حقوق محفوظ است.",
@@ -370,7 +370,7 @@ const en: Dict = {
     nameAccent: "Zarrini",
     sloganA: "From an idea,",
     sloganCycle: [
-      "a real product",
+      "a durable service",
       "a living experience",
       "a smart solution",
       "code that works",
@@ -379,14 +379,18 @@ const en: Dict = {
     ],
     body: "I help teams turn ideas into real digital products — product design, software engineering, and AI integration in one continuous path, not just a mockup or a demo.",
     body2:
+<<<<<<< HEAD
       "Over 16 years of building: brand and packaging, UX, organizational systems, and AI-powered products. The job is understanding the idea and turning it into something that actually works.",
+=======
+      "Today I focus on shipping what teams use every day: clear interfaces, stable APIs, and AI layers that sit inside real workflows — not just slides or demos.",
+>>>>>>> ea0b00d (Diversify recurring philosophy copy across i18n sections)
     ctaPrimary: "See the projects",
     ctaSecondary: "About me",
   },
   ecosystem: {
     label: "DBSGraphic practice graph",
     fig: "fig. 02 — practice graph",
-    lead: "Three disciplines. One practice.",
+    lead: "Three disciplines. One shared output.",
     sources: {
       design: "Design",
       engineering: "Engineering",
@@ -406,7 +410,7 @@ const en: Dict = {
   expertise: {
     kicker: "Expertise",
     title: "I design. I build. I make things intelligent.",
-    lead: "Four areas, one continuous path — from understanding the problem to shipping the product.",
+    lead: "Four areas — from visual identity to APIs, mobile apps, and LLM integration.",
     more: "Learn more",
     cards: [
       {
@@ -430,7 +434,7 @@ const en: Dict = {
       {
         en: "Think Product",
         title: "Think Product",
-        desc: "Understanding the problem, designing the solution, and building something that is not only beautiful — but genuinely useful.",
+        desc: "Prioritizing capabilities, durable architecture, and a release your team can actually maintain.",
         tags: ["Strategy", "Architecture", "Delivery"],
       },
     ],
@@ -443,28 +447,28 @@ const en: Dict = {
     questions: [
       "What needs to get better?",
       "Who actually uses the product?",
-      "Where is the real problem?",
+      "Where is the operational bottleneck?",
       "What should become simpler, faster or smarter?",
     ],
-    closing: "Then, we design the path.",
+    closing: "Then we define scope, success criteria, and the next step.",
   },
   process: {
     kicker: "Process",
-    title: "From problem to product.",
-    lead: "A clear, repeatable path — without artificial complexity.",
+    title: "From discovery to release.",
+    lead: "Six concrete, repeatable stages — without ceremony.",
     steps: [
-      { en: "Understand", title: "Understand", desc: "Understanding the problem, the needs and the real goal of the project." },
+      { en: "Understand", title: "Understand", desc: "Stakeholder interviews, a needs map, and a measurable goal." },
       { en: "Shape", title: "Shape", desc: "Turning a raw idea into a clear structure and a tangible solution." },
-      { en: "Design", title: "Design", desc: "Designing the experience, the interface and the product journey." },
-      { en: "Engineer", title: "Engineer", desc: "Building the product with the right architecture and technology." },
+      { en: "Design", title: "Design", desc: "User flows, interface design, and interactive prototypes." },
+      { en: "Engineer", title: "Engineer", desc: "Building with architecture that is testable and maintainable." },
       { en: "Integrate", title: "Integrate", desc: "Connecting services, APIs and AI capabilities where they matter." },
-      { en: "Deliver", title: "Deliver", desc: "Turning the idea into a real, usable and scalable product." },
+      { en: "Deliver", title: "Deliver", desc: "Deployment, documentation, and a release your team can continue." },
     ],
   },
   projects: {
     kicker: "Selected work",
     title: "Featured projects",
-    lead: "Products I have designed and engineered — each one an answer to a real problem.",
+    lead: "Examples of organizational systems, personal tools, and AI integrations I've designed and engineered.",
     roleLabel: "Role",
     techLabel: "Technology",
     view: "Project details",
@@ -537,7 +541,7 @@ const en: Dict = {
       {
         id: "dbstools",
         name: "DbsTools",
-        subtitle: "Small tools for real problems.",
+        subtitle: "Small tools for repetitive, time-consuming work.",
         desc: "A collection of specialized tools for document processing, translation, content generation and process automation — turning repetitive, time-consuming work into faster, smarter flows.",
         role: ["Design & Development", "Process Automation"],
         tech: ["Automation", "Document Processing", "AI APIs"],
@@ -570,7 +574,7 @@ const en: Dict = {
     expClosing: "Experience is valuable when it can adapt itself to the future.",
     path: ["Graphic & Packaging", "Web & UI/UX", "Software Engineering", "AI Products"],
     pathYears: ["2008", "2014", "2019", "Today"],
-    studioNote: "This whole journey continues under the DBSGraphic creative & product studio.",
+    studioNote: "All of this work continues under the DBSGraphic creative & product studio.",
   },
   skills: {
     kicker: "Skills",
@@ -607,9 +611,9 @@ const en: Dict = {
     lines: [
       "You don't need to know from the start which technology fits your project.",
       "You don't need to know exactly where AI can help your business.",
-      "You don't need to know the whole path in advance.",
+      "You don't need every technical detail locked in advance.",
     ],
-    strong: "My job is to understand the problem, find the path — and build the solution.",
+    strong: "My job is to turn a need into architecture, interface, and integration you can run.",
     cta: "Let's review the idea",
     secondary: "Start a project",
     emailLabel: "Email",
@@ -622,7 +626,7 @@ const en: Dict = {
     response: "Usually within 24 hours",
     form: {
       title: "Project inquiry",
-      desc: "Write a few lines about your idea — we'll find the rest of the path together.",
+      desc: "Write a few lines about your idea — we'll clarify scope and the next step together.",
       name: "Your name",
       namePh: "Full name",
       email: "Email",
@@ -631,7 +635,7 @@ const en: Dict = {
       companyPh: "Optional",
       type: "Project type",
       message: "Project description",
-      messagePh: "The problem you want solved, in a few sentences…",
+      messagePh: "Your need or business goal, in a few sentences…",
       budget: "Budget range",
       budgetPh: "Optional",
       timeline: "Timeline",
@@ -662,7 +666,7 @@ const en: Dict = {
   footer: {
     tagline: "AI Solutions Engineer & Digital Product Builder",
     studio: "A DBSGraphic creative & product studio",
-    desc: "Design, software engineering and AI — turning ideas into products that actually work.",
+    desc: "From visual identity and UI to full-stack and LLM integration — for products that reach end users.",
     navTitle: "Quick links",
     socialTitle: "Social",
     rights: "All rights reserved.",
