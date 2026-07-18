@@ -3,14 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SaeedZarrini — سعید زرینی | مهندس راهکارهای هوش مصنوعی و سازنده محصولات دیجیتال</title>
+    <title>Saeed Zarrini | مهندس راهکارهای هوش مصنوعی</title>
     <meta
       name="description"
-      content="سعید زرینی — طراح، مهندس محصول و متخصص راهکارهای هوش مصنوعی. بیش از ۱۶ سال تجربه در طراحی گرافیک، بسته‌بندی دارویی، UI/UX، توسعه فول‌استک و ساخت محصولات مبتنی بر هوش مصنوعی. AI Solutions Engineer & Digital Product Builder."
-    />
-    <meta
-      name="keywords"
-      content="متخصص هوش مصنوعی, مهندس راهکارهای هوش مصنوعی, توسعه‌دهنده فول‌استک, طراحی محصول دیجیتال, طراحی UI UX, طراحی بسته‌بندی دارویی, اتوماسیون هوش مصنوعی, ساخت چت‌بات, AI Solutions Engineer, Digital Product Builder, AI Integration, Full-Stack Developer"
+      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
     />
     <meta name="author" content="Saeed Zarrini" />
     <meta name="theme-color" content="#F5F0E8" media="(prefers-color-scheme: light)" />
@@ -22,10 +18,10 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://saeedzarrini.com/" />
-    <meta property="og:title" content="SaeedZarrini — AI Solutions Engineer & Digital Product Builder" />
+    <meta property="og:title" content="Saeed Zarrini | مهندس راهکارهای هوش مصنوعی" />
     <meta
       property="og:description"
-      content="از یک ایده، تا یک محصول واقعی. طراحی، مهندسی نرم‌افزار و هوش مصنوعی — در یک مسیر. A DBSGraphic creative & product studio."
+      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
     />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:locale:alternate" content="en_US" />
@@ -34,10 +30,10 @@
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="SaeedZarrini — AI Solutions Engineer & Digital Product Builder" />
+    <meta name="twitter:title" content="Saeed Zarrini | مهندس راهکارهای هوش مصنوعی" />
     <meta
       name="twitter:description"
-      content="Design, software engineering and AI — turning ideas into products that actually work."
+      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
     />
     <meta name="twitter:image" content="https://saeedzarrini.com/og.jpg" />
 
@@ -48,9 +44,25 @@
           var root = document.documentElement;
           var lang = localStorage.getItem("sz-lang");
           var theme = localStorage.getItem("sz-theme");
-          if (lang === "en") {
+          var isEn = lang === "en";
+          if (isEn) {
             root.lang = "en";
             root.dir = "ltr";
+            document.title = "Saeed Zarrini | AI Solutions Engineer";
+            var desc =
+              "For founders and teams stuck between idea and shipping: I design, engineer, and integrate AI into digital products that actually work.";
+            var metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute("content", desc);
+            var ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute("content", document.title);
+            var ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute("content", desc);
+            var ogLocale = document.querySelector('meta[property="og:locale"]');
+            if (ogLocale) ogLocale.setAttribute("content", "en_US");
+            var twTitle = document.querySelector('meta[name="twitter:title"]');
+            if (twTitle) twTitle.setAttribute("content", document.title);
+            var twDesc = document.querySelector('meta[name="twitter:description"]');
+            if (twDesc) twDesc.setAttribute("content", desc);
           } else {
             root.lang = "fa";
             root.dir = "rtl";
