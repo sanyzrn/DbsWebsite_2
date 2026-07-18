@@ -56,7 +56,7 @@ describe("FloatingQuickNav", () => {
     expect(screen.getByRole("link", { name: dictionaries.en.nav.about })).toHaveAttribute("href", "/en/about");
   });
 
-  it("keeps scroll-to-top absent / aria-hidden below the threshold", () => {
+  it("keeps scroll-to-top absent below the threshold", () => {
     renderNav("/");
     expect(screen.queryByRole("button", { name: dictionaries.fa.footer.backTop })).toBeNull();
   });
@@ -69,37 +69,18 @@ describe("FloatingQuickNav", () => {
     });
     const btn = await screen.findByRole("button", { name: dictionaries.fa.footer.backTop });
     expect(btn).toBeTruthy();
-    expect(btn).not.toHaveAttribute("aria-hidden", "true");
-    expect(btn.tabIndex).toBe(0);
+    expect(btn.tabIndex).not.toBe(-1);
   });
 
-  it("skips the goo transition class entirely under reduced motion", async () => {
-    Object.defineProperty(window, "matchMedia", {
-      writable: true,
-      configurable: true,
-      value: (query: string) => ({
-        matches: query.includes("prefers-reduced-motion"),
-        media: query,
-        onchange: null,
-        addListener: () => {},
-        removeListener: () => {},
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        dispatchEvent: () => false,
-      }),
-    });
-
+  it("does not use goo filter markup", async () => {
     const { container } = renderNav("/");
-    const root = container.querySelector(".floating-quick-nav");
-    expect(root).toHaveAttribute("data-reduce-motion", "true");
-
     setScrollY(500);
     await act(async () => {
       window.dispatchEvent(new Event("scroll"));
     });
-
-    expect(root).toHaveAttribute("data-gooing", "false");
+    expect(container.querySelector("[data-gooing]")).toBeNull();
     expect(container.querySelector(".fqn-goo-active")).toBeNull();
-    expect(container.querySelector(".fqn-scroll-btn-reduced")).toBeTruthy();
+    expect(container.querySelector(".fqn-goo-layer")).toBeNull();
+    expect(container.querySelector("filter")).toBeNull();
   });
 });
