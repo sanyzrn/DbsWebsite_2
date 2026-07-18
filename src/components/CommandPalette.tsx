@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Languages, Mail, Moon, Phone, Search, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 
 type Cmd = {
@@ -15,6 +17,7 @@ type Cmd = {
  */
 export default function CommandPalette() {
   const { t, toggleLang, toggleTheme, theme, lang } = useApp();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
@@ -26,22 +29,23 @@ export default function CommandPalette() {
   }, []);
 
   const commands = useMemo<Cmd[]>(() => {
-    const jump = (href: string, label: string): Cmd => ({
-      id: href,
+    const go = (to: string, label: string, hint?: string): Cmd => ({
+      id: to,
       label,
-      hint: href,
+      hint: hint ?? to,
       run: () => {
         close();
-        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+        navigate(to);
       },
     });
 
+    const home = localePath(lang, "/");
     return [
-      jump("#projects", t.nav.projects),
-      jump("#expertise", t.nav.expertise),
-      jump("#process", t.nav.process),
-      jump("#about", t.nav.about),
-      jump("#contact", t.nav.contact),
+      go(localePath(lang, "/projects"), t.nav.projects),
+      go(`${home}#expertise`, t.nav.expertise),
+      go(`${home}#process`, t.nav.process),
+      go(localePath(lang, "/about"), t.nav.about),
+      go(`${localePath(lang, "/about")}#contact`, t.nav.contact),
       {
         id: "theme",
         label: theme === "dark" ? t.theme.toLight : t.theme.toDark,
@@ -79,7 +83,7 @@ export default function CommandPalette() {
         },
       },
     ];
-  }, [t, theme, lang, toggleTheme, toggleLang, close]);
+  }, [t, theme, lang, toggleTheme, toggleLang, close, navigate]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();

@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AlertCircle, CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Phone, Send, X } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
@@ -35,6 +36,8 @@ function buildMailto(fields: Fields): string {
 
 export default function Contact() {
   const { t } = useApp();
+  const location = useLocation();
+  const navigate = useNavigate();
   const f = t.contact.form;
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -50,21 +53,16 @@ export default function Contact() {
 
   const openModal = () => {
     setStatus("idle");
-    setOpen(true);
-    if (location.hash !== START_HASH) history.replaceState(null, "", START_HASH);
+    navigate({ pathname: location.pathname, search: location.search, hash: "contact/start" }, { replace: true });
   };
 
   const closeModal = () => {
-    setOpen(false);
-    if (location.hash === START_HASH) history.replaceState(null, "", "#contact");
+    navigate({ pathname: location.pathname, search: location.search, hash: "contact" }, { replace: true });
   };
 
   useEffect(() => {
-    const sync = () => setOpen(location.hash === START_HASH);
-    sync();
-    window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
-  }, []);
+    setOpen(location.hash === START_HASH);
+  }, [location.hash]);
 
   useEffect(() => {
     if (!open) return;

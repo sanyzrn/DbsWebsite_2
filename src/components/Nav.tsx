@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
 
 export default function Nav() {
-  const { t, theme, toggleTheme, toggleLang } = useApp();
+  const { t, theme, toggleTheme, toggleLang, lang } = useApp();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -25,13 +27,15 @@ export default function Nav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const home = localePath(lang, "/");
   const links = [
-    { label: t.nav.projects, href: "#projects" },
-    { label: t.nav.expertise, href: "#expertise" },
-    { label: t.nav.process, href: "#process" },
-    { label: t.nav.about, href: "#about" },
-    { label: t.nav.contact, href: "#contact" },
+    { label: t.nav.projects, to: localePath(lang, "/projects") },
+    { label: t.nav.expertise, to: `${home}#expertise` },
+    { label: t.nav.process, to: `${home}#process` },
+    { label: t.nav.about, to: localePath(lang, "/about") },
+    { label: t.nav.contact, to: `${localePath(lang, "/about")}#contact` },
   ];
+  const ctaTo = `${localePath(lang, "/about")}#contact/start`;
 
   return (
     <header
@@ -41,7 +45,7 @@ export default function Nav() {
       )}
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
-        <a href="#top" className="group flex items-center gap-2.5" aria-label="Saeed Zarrini — home">
+        <Link to={home} className="group flex items-center gap-2.5" aria-label="Saeed Zarrini — home">
           <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain opacity-90 transition-opacity group-hover:opacity-100" alt="" />
           <span className="flex flex-col leading-none">
             <span dir="ltr" className="text-[17px] font-extrabold tracking-tight">
@@ -50,17 +54,17 @@ export default function Nav() {
             </span>
             <span className="mt-1.5 text-[10px] font-medium text-ink2">{t.brand.sub}</span>
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
+            <Link
+              key={l.to}
+              to={l.to}
               className="rounded-sm px-3.5 py-2 text-[13.5px] font-semibold text-ink2 transition-colors duration-300 hover:text-hi"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -80,9 +84,9 @@ export default function Nav() {
           >
             {theme === "light" ? <Moon className="h-[17px] w-[17px]" strokeWidth={2} /> : <Sun className="h-[18px] w-[18px]" strokeWidth={2} />}
           </button>
-          <a href="#contact/start" className="btn btn-primary hidden h-10 px-5 text-[13px] md:inline-flex">
+          <Link to={ctaTo} className="btn btn-primary hidden h-10 px-5 text-[13px] md:inline-flex">
             {t.nav.cta}
-          </a>
+          </Link>
           <button
             onClick={() => setOpen(!open)}
             aria-label={open ? t.nav.close : t.nav.menu}
@@ -94,7 +98,6 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* Compact dropdown panel (not full-screen) */}
       <div
         className={cn(
           "absolute inset-x-0 top-full z-50 px-4 pt-2 transition-all duration-300 lg:hidden",
@@ -107,21 +110,21 @@ export default function Nav() {
         >
           <div className="flex flex-col p-2">
             {links.map((l, i) => (
-              <a
-                key={l.href}
-                href={l.href}
+              <Link
+                key={l.to}
+                to={l.to}
                 onClick={() => setOpen(false)}
                 className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
               >
                 {l.label}
                 <span className="font-mono text-[10px] font-medium text-ink3">0{i + 1}</span>
-              </a>
+              </Link>
             ))}
           </div>
           <div className="border-t border-line p-3">
-            <a href="#contact/start" onClick={() => setOpen(false)} className="btn btn-primary h-11 w-full text-[13px]">
+            <Link to={ctaTo} onClick={() => setOpen(false)} className="btn btn-primary h-11 w-full text-[13px]">
               {t.nav.cta}
-            </a>
+            </Link>
           </div>
         </nav>
       </div>

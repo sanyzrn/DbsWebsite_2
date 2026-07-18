@@ -1,10 +1,12 @@
-import { Fragment, useEffect, useState, type ReactNode } from "react";
+import { Fragment, useMemo, useState, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { Check, Database, FileSearch, FileText, Languages, Lock, Plus, Repeat2, Send, Sparkles, Wand2 } from "lucide-react";
 import { useApp } from "../lib/app";
+import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import { DirArrow, Reveal, SectionHead, SnapCarousel } from "./ui";
 
-type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar";
+type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar" | "concept";
 
 /* ------------------------------------------------------------------ */
 /*  Screenshot shell                                                    */
@@ -311,6 +313,16 @@ function MockHesabyar() {
   );
 }
 
+function MockConcept() {
+  return (
+    <div className="absolute inset-4 flex flex-col items-center justify-center gap-3 rounded-[10px] border border-dashed border-shotline bg-shotpanel/80 sm:inset-6">
+      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-shotmut">concept</span>
+      <span className="h-px w-16 bg-shotline" />
+      <span className="max-w-[70%] text-center font-mono text-[9px] leading-4 text-shotmut">placeholder exploration</span>
+    </div>
+  );
+}
+
 const mocks: Record<MockKind, () => ReactNode> = {
   pulse: MockPulse,
   ai: MockAI,
@@ -319,6 +331,7 @@ const mocks: Record<MockKind, () => ReactNode> = {
   chatbot: MockChatBot,
   tools: MockTools,
   hesabyar: MockHesabyar,
+  concept: MockConcept,
 };
 
 /* ------------------------------------------------------------------ */
@@ -340,174 +353,184 @@ function Meta({ label, items, mono }: { label: string; items: string[]; mono?: b
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Section                                                             */
-/* ------------------------------------------------------------------ */
+export type ProjectItem = (typeof import("../lib/i18n").dictionaries.en.projects.items)[number];
 
-type ProjectItem = (typeof import("../lib/i18n").dictionaries.en.projects.items)[number];
-
-export default function Projects() {
+function StatusBadge({ status }: { status?: "production" | "concept" }) {
   const { t } = useApp();
-  const [filter, setFilter] = useState<string>("all");
-  const [active, setActive] = useState<ProjectItem | null>(null);
+  if (status === "concept") {
+    return (
+      <span className="shrink-0 rounded-xs border border-dashed border-ink3/50 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-ink3">
+        {t.projects.statusConcept}
+      </span>
+    );
+  }
+  return null;
+}
 
-  const filtered = t.projects.items.filter((p) => filter === "all" || p.tags.includes(filter));
-  const source = filtered.length ? filtered : t.projects.items;
+function ProjectShot({ project, className }: { project: ProjectItem; className?: string }) {
+  const Mock = mocks[project.mock as MockKind] ?? MockConcept;
+  return (
+    <Shot className={className}>
+      <Mock />
+    </Shot>
+  );
+}
+
+/** Home-page teaser: strongest production picks + concept placeholders. */
+const TEASER_IDS = ["dbspulse", "dbsai", "dbschatbot", "hesabyar", "concept-01", "concept-02"];
+
+type ProjectsProps = {
+  mode?: "teaser" | "full";
+};
+
+export default function Projects({ mode = "full" }: ProjectsProps) {
+  const { t, lang } = useApp();
+  const [filter, setFilter] = useState("all");
+
+  const items = useMemo(() => {
+    if (mode === "teaser") {
+      return TEASER_IDS.map((id) => t.projects.items.find((p) => p.id === id)).filter(Boolean) as ProjectItem[];
+    }
+    return t.projects.items;
+  }, [mode, t.projects.items]);
+
+  const filtered = items.filter((p) => filter === "all" || p.tags.includes(filter));
+  const source = filtered.length ? filtered : items;
   const [featured, ...grid] = source;
 
-  const open = (p: ProjectItem) => {
-    setActive(p);
-    history.replaceState(null, "", `#project/${p.id}`);
-  };
-
-  const close = () => {
-    setActive(null);
-    if (location.hash.startsWith("#project/")) history.replaceState(null, "", "#projects");
-  };
-
-  useEffect(() => {
-    const match = location.hash.match(/^#project\/([\w-]+)/);
-    if (match) {
-      const found = t.projects.items.find((p) => p.id === match[1]);
-      if (found) setActive(found);
-    }
-  }, [t.projects.items]);
-
-  useEffect(() => {
-    if (!active) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setActive(null);
-        if (location.hash.startsWith("#project/")) history.replaceState(null, "", "#projects");
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
+  const detailTo = (id: string) => localePath(lang, `/projects/${id}`);
 
   return (
     <section id="projects" className="section-pad border-t border-line">
       <div className="wrap">
-        <SectionHead kicker={t.projects.kicker} title={t.projects.title} lead={t.projects.lead} />
+        <SectionHead
+          kicker={mode === "full" ? t.projects.pageKicker : t.projects.kicker}
+          title={mode === "full" ? t.projects.pageTitle : t.projects.title}
+          lead={mode === "full" ? t.projects.pageLead : t.projects.lead}
+        />
 
-        {/* filter chips */}
-        <div className="mt-7 flex flex-wrap gap-2 sm:mt-10">
-          <button
-            type="button"
-            onClick={() => setFilter("all")}
-            className={cn("chip chip-hover", filter === "all" && "border-hi text-hi")}
-          >
-            {t.projects.filterAll}
-          </button>
-          {t.projects.filters.map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => setFilter(tag)}
-              className={cn("chip chip-mono chip-hover", filter === tag && "border-hi text-hi")}
-            >
-              {tag}
+        {mode === "full" && (
+          <div className="mt-7 flex flex-wrap gap-2 sm:mt-10">
+            <button type="button" onClick={() => setFilter("all")} className={cn("chip chip-hover", filter === "all" && "border-hi text-hi")}>
+              {t.projects.filterAll}
             </button>
-          ))}
-        </div>
+            {t.projects.filters.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setFilter(tag)}
+                className={cn("chip chip-mono chip-hover", filter === tag && "border-hi text-hi")}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
 
-        {/* ------------------------------ mobile carousel ------------------------------ */}
-        <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={filter}>
+        <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={`${mode}-${filter}`}>
           {source.map((p, i) => (
             <article
               key={p.id}
-              className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface"
+              className={cn(
+                "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface",
+                p.status === "concept" ? "border-dashed border-line2" : "border-line"
+              )}
             >
-              <button type="button" onClick={() => open(p)} className="overflow-hidden text-start">
-                <Shot>
-                  {mocks[p.mock as MockKind]()}
-                </Shot>
-              </button>
+              <Link to={detailTo(p.id)} className="overflow-hidden text-start">
+                <ProjectShot project={p} />
+              </Link>
               <div className="flex flex-1 flex-col gap-3 p-5">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-[20px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
                     {p.name}
                   </h3>
-                  {filter === "all" && i === 0 && (
-                    <span className="shrink-0 rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
-                      {t.projects.featured}
-                    </span>
-                  )}
+                  <StatusBadge status={p.status} />
                 </div>
+                {filter === "all" && mode === "full" && i === 0 && p.status !== "concept" && (
+                  <span className="w-fit rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
+                    {t.projects.featured}
+                  </span>
+                )}
                 <p className="text-[13px] font-bold leading-6 text-hi">{p.subtitle}</p>
                 <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{p.desc}</p>
-                <button
-                  type="button"
-                  onClick={() => open(p)}
-                  className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2"
-                >
+                <Link to={detailTo(p.id)} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2">
                   {t.projects.view}
                   <DirArrow className="h-4 w-4" />
-                </button>
+                </Link>
               </div>
             </article>
           ))}
         </SnapCarousel>
 
-        {/* ------------------------------ desktop: featured + grid ------------------------------ */}
         <div className="mt-8 hidden md:block">
-          <Reveal>
-            <article className="group grid overflow-hidden rounded-lg border border-line bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5">
-              <button type="button" onClick={() => open(featured)} className="relative overflow-hidden text-start lg:col-span-3">
-                <Shot className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto">
-                  {mocks[featured.mock as MockKind]()}
-                </Shot>
-                {filter === "all" && (
-                  <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
-                    {t.projects.featured}
-                  </span>
+          {featured && (
+            <Reveal>
+              <article
+                className={cn(
+                  "group grid overflow-hidden rounded-lg border bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5",
+                  featured.status === "concept" ? "border-dashed border-line2" : "border-line"
                 )}
-              </button>
-              <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
-                <div>
-                  <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
-                    {featured.name}
-                  </h3>
-                  <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
-                  <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
+              >
+                <Link to={detailTo(featured.id)} className="relative overflow-hidden text-start lg:col-span-3">
+                  <ProjectShot project={featured} className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto" />
+                  {mode === "full" && filter === "all" && featured.status !== "concept" && (
+                    <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
+                      {t.projects.featured}
+                    </span>
+                  )}
+                </Link>
+                <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
+                        {featured.name}
+                      </h3>
+                      <StatusBadge status={featured.status} />
+                    </div>
+                    <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
+                    <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
+                  </div>
+                  <Meta label={t.projects.roleLabel} items={featured.role} />
+                  <Meta label={t.projects.techLabel} items={featured.tech} mono />
+                  <Link
+                    to={detailTo(featured.id)}
+                    className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
+                  >
+                    {t.projects.view}
+                    <DirArrow className="h-4 w-4" />
+                  </Link>
                 </div>
-                <Meta label={t.projects.roleLabel} items={featured.role} />
-                <Meta label={t.projects.techLabel} items={featured.tech} mono />
-                <button
-                  type="button"
-                  onClick={() => open(featured)}
-                  className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
-                >
-                  {t.projects.view}
-                  <DirArrow className="h-4 w-4" />
-                </button>
-              </div>
-            </article>
-          </Reveal>
+              </article>
+            </Reveal>
+          )}
 
           <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {grid.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
-                <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60">
-                  <button type="button" onClick={() => open(p)} className="overflow-hidden text-start">
-                    <Shot className="transition-transform duration-700 group-hover:scale-[1.03]">
-                      {mocks[p.mock as MockKind]()}
-                    </Shot>
-                  </button>
+                <article
+                  className={cn(
+                    "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60",
+                    p.status === "concept" ? "border-dashed border-line2" : "border-line"
+                  )}
+                >
+                  <Link to={detailTo(p.id)} className="overflow-hidden text-start">
+                    <ProjectShot project={p} className="transition-transform duration-700 group-hover:scale-[1.03]" />
+                  </Link>
                   <div className="flex flex-1 flex-col gap-5 p-6">
                     <div>
-                      <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
-                        {p.name}
-                      </h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
+                          {p.name}
+                        </h3>
+                        <StatusBadge status={p.status} />
+                      </div>
                       <p className="mt-1.5 text-[13.5px] font-bold leading-7 text-hi">{p.subtitle}</p>
                       <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
                     </div>
 
                     {"caps" in p && p.caps && (
                       <div>
-                        <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">
-                          {t.projects.capsLabel}
-                        </span>
+                        <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
                         <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
                           {p.caps.map((c) => (
                             <li key={c} className="flex items-center gap-1.5 text-[11.5px] font-medium leading-5 text-ink2">
@@ -522,14 +545,10 @@ export default function Projects() {
                     <div className="mt-auto space-y-5 border-t border-line pt-5">
                       <Meta label={t.projects.roleLabel} items={p.role} />
                       <Meta label={t.projects.techLabel} items={p.tech} mono />
-                      <button
-                        type="button"
-                        onClick={() => open(p)}
-                        className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi"
-                      >
+                      <Link to={detailTo(p.id)} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
                         {t.projects.view}
                         <DirArrow className="h-4 w-4" />
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </article>
@@ -537,62 +556,61 @@ export default function Projects() {
             ))}
           </div>
         </div>
-      </div>
 
-      {/* in-app case study panel */}
-      {active && (
-        <div className="fixed inset-0 z-[90] flex items-end justify-center bg-ink/45 p-0 backdrop-blur-sm sm:items-center sm:p-6" onClick={close} role="presentation">
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="project-dialog-title"
-            className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-t-lg border border-line bg-page shadow-2xl sm:rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sticky top-0 z-[1] flex items-center justify-between border-b border-line bg-page/95 px-5 py-4 backdrop-blur">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink3">{active.tags.join(" · ")}</p>
-                <h3 id="project-dialog-title" className="mt-1 text-[22px] font-black tracking-tight" dir={active.id === "hesabyar" ? undefined : "ltr"}>
-                  {active.name}
-                </h3>
-              </div>
-              <button type="button" onClick={close} className="rounded-sm border border-line px-3 py-1.5 text-[12px] font-bold hover:border-hi hover:text-hi">
-                {t.projects.close}
-              </button>
-            </div>
-            <div className="p-5 md:p-8">
-              <Shot className="rounded-md border border-line">
-                {mocks[active.mock as MockKind]()}
-              </Shot>
-              <p className="mt-6 text-[16px] font-bold leading-8 text-hi">{active.subtitle}</p>
-              <p className="mt-3 text-[14.5px] leading-[1.95] text-ink2">{active.desc}</p>
-              {"caps" in active && active.caps && (
-                <div className="mt-6">
-                  <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">
-                    {t.projects.capsLabel}
-                  </span>
-                  <ul className="grid gap-2 sm:grid-cols-2">
-                    {active.caps.map((c) => (
-                      <li key={c} className="flex items-center gap-2 text-[13px] font-medium text-ink2">
-                        <Check className="h-4 w-4 shrink-0 text-sage" strokeWidth={2.5} />
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              <div className="mt-6 grid gap-5 sm:grid-cols-2">
-                <Meta label={t.projects.roleLabel} items={active.role} />
-                <Meta label={t.projects.techLabel} items={active.tech} mono />
-              </div>
-              <a href="#contact/start" onClick={close} className="btn btn-primary mt-8 w-full sm:w-auto">
-                {t.projects.discuss}
-                <DirArrow className="h-4 w-4" />
-              </a>
-            </div>
+        {mode === "teaser" && (
+          <div className="mt-10 flex justify-center">
+            <Link to={localePath(lang, "/projects")} className="btn btn-primary h-12 px-7 text-[14px]">
+              {t.projects.seeAll}
+              <DirArrow className="h-[18px] w-[18px]" />
+            </Link>
           </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export function ProjectDetailView({ project }: { project: ProjectItem }) {
+  const { t, lang } = useApp();
+  return (
+    <div className="wrap section-pad">
+      <Link to={localePath(lang, "/projects")} className="inline-flex items-center gap-2 text-[13px] font-bold text-ink2 transition-colors hover:text-hi">
+        <DirArrow className="h-4 w-4 rotate-180" />
+        {t.projects.pageTitle}
+      </Link>
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <h1 className="text-[32px] font-black tracking-tight md:text-[40px]" dir={project.id === "hesabyar" ? undefined : "ltr"}>
+          {project.name}
+        </h1>
+        <StatusBadge status={project.status} />
+      </div>
+      <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink3">{project.tags.join(" · ")}</p>
+      <div className="mt-8 overflow-hidden rounded-lg border border-line">
+        <ProjectShot project={project} />
+      </div>
+      <p className="mt-8 text-[18px] font-bold leading-8 text-hi md:text-[20px]">{project.subtitle}</p>
+      <p className="mt-4 max-w-3xl text-[15px] leading-[1.95] text-ink2">{project.desc}</p>
+      {"caps" in project && project.caps && (
+        <div className="mt-8">
+          <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {project.caps.map((c) => (
+              <li key={c} className="flex items-center gap-2 text-[13px] font-medium text-ink2">
+                <Check className="h-4 w-4 shrink-0 text-sage" strokeWidth={2.5} />
+                {c}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
-    </section>
+      <div className="mt-8 grid gap-5 sm:grid-cols-2">
+        <Meta label={t.projects.roleLabel} items={project.role} />
+        <Meta label={t.projects.techLabel} items={project.tech} mono />
+      </div>
+      <Link to={`${localePath(lang, "/about")}#contact/start`} className="btn btn-primary mt-10 w-full sm:w-auto">
+        {t.projects.discuss}
+        <DirArrow className="h-4 w-4" />
+      </Link>
+    </div>
   );
 }

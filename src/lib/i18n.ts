@@ -10,6 +10,14 @@ const fa = {
     title: "Saeed Zarrini | مهندس راهکارهای هوش مصنوعی",
     description:
       "برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم.",
+    projects: {
+      title: "پروژه‌ها | Saeed Zarrini",
+      description: "پروژه‌های تولیدشده و طرح‌های مفهومی — سیستم‌های سازمانی، ابزارهای شخصی و یکپارچه‌سازی هوش مصنوعی.",
+    },
+    about: {
+      title: "درباره من | Saeed Zarrini",
+      description: "مسیر طراحی تا مهندسی و هوش مصنوعی، مهارت‌ها، و راه‌های شروع همکاری با سعید زرینی.",
+    },
   },
   nav: {
     projects: "پروژه‌ها",
@@ -131,6 +139,12 @@ const fa = {
     featured: "پروژه شاخص",
     capsLabel: "قابلیت‌های اصلی",
     filterAll: "همه",
+    seeAll: "مشاهده همه پروژه‌ها",
+    statusProduction: "تولید",
+    statusConcept: "طرح مفهومی",
+    pageKicker: "پروژه‌ها",
+    pageTitle: "همه پروژه‌ها",
+    pageLead: "محصولات تولیدشده و طرح‌های مفهومی — از سیستم‌های سازمانی تا اکتشاف‌های طراحی.",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
     items: [
       {
@@ -141,6 +155,7 @@ const fa = {
         role: ["طراحی محصول", "معماری سیستم", "توسعه فول‌استک", "طراحی دیتابیس", "احراز هویت و دسترسی", "استقرار"],
         tech: ["React", "FastAPI", "PostgreSQL", "Docker", "JWT", "Argon2"],
         tags: ["Full-Stack", "Design"],
+        status: "production" as const,
         mock: "pulse" as const,
       },
       {
@@ -160,6 +175,7 @@ const fa = {
         role: ["معماری محصول AI", "یکپارچه‌سازی هوش مصنوعی", "توسعه فول‌استک", "طراحی محصول"],
         tech: ["AI APIs", "LLM", "Multi-provider", "Full-Stack"],
         tags: ["AI", "Full-Stack"],
+        status: "production" as const,
         mock: "ai" as const,
       },
       {
@@ -170,6 +186,7 @@ const fa = {
         role: ["طراحی محصول", "توسعه دسکتاپ"],
         tech: ["Tauri", "Rust", "JavaScript"],
         tags: ["Desktop", "Design"],
+        status: "production" as const,
         mock: "keep" as const,
       },
       {
@@ -180,6 +197,7 @@ const fa = {
         role: ["طراحی محصول", "توسعه اندروید"],
         tech: ["Kotlin", "Jetpack Compose", "Room", "SQLCipher"],
         tags: ["Mobile", "Design"],
+        status: "production" as const,
         mock: "brain" as const,
       },
       {
@@ -190,6 +208,7 @@ const fa = {
         role: ["معماری محصول", "توسعه افزونه", "یکپارچه‌سازی AI"],
         tech: ["WordPress", "PHP", "JavaScript", "AI APIs"],
         tags: ["AI", "Automation"],
+        status: "production" as const,
         mock: "chatbot" as const,
       },
       {
@@ -200,6 +219,7 @@ const fa = {
         role: ["طراحی و توسعه", "اتوماسیون فرآیند"],
         tech: ["Automation", "Document Processing", "AI APIs"],
         tags: ["Automation", "AI"],
+        status: "production" as const,
         mock: "tools" as const,
       },
       {
@@ -210,7 +230,45 @@ const fa = {
         role: ["طراحی محصول", "توسعه فول‌استک", "PWA"],
         tech: ["PHP", "MySQL", "PWA"],
         tags: ["Full-Stack", "Design"],
+        status: "production" as const,
         mock: "hesabyar" as const,
+      },
+
+      // PLACEHOLDER — Saeed will replace with real concept details later.
+      {
+        id: "concept-01",
+        name: "طرح مفهومی ۱",
+        subtitle: "اکتشاف طراحی — جزئیات به‌زودی.",
+        desc: "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
+        role: ["طراحی"],
+        tech: ["TBD"],
+        tags: ["Design"],
+        status: "concept" as const,
+        mock: "concept" as const,
+      },
+      // PLACEHOLDER — Saeed will replace with real concept details later.
+      {
+        id: "concept-02",
+        name: "طرح مفهومی ۲",
+        subtitle: "اکتشاف محصول — جزئیات به‌زودی.",
+        desc: "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
+        role: ["طراحی محصول"],
+        tech: ["TBD"],
+        tags: ["Full-Stack"],
+        status: "concept" as const,
+        mock: "concept" as const,
+      },
+      // PLACEHOLDER — Saeed will replace with real concept details later.
+      {
+        id: "concept-03",
+        name: "طرح مفهومی ۳",
+        subtitle: "اکتشاف هوش مصنوعی — جزئیات به‌زودی.",
+        desc: "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
+        role: ["طراحی"],
+        tech: ["TBD"],
+        tags: ["AI"],
+        status: "concept" as const,
+        mock: "concept" as const,
       },
     ],
   },
@@ -352,6 +410,14 @@ const en: Dict = {
     title: "Saeed Zarrini | AI Solutions Engineer",
     description:
       "For founders and teams stuck between idea and shipping: I design, engineer, and integrate AI into digital products that actually work.",
+    projects: {
+      title: "Projects | Saeed Zarrini",
+      description: "Shipped products and concept explorations — organizational systems, personal tools, and AI integrations.",
+    },
+    about: {
+      title: "About | Saeed Zarrini",
+      description: "Background, skills, and how to start a project with Saeed Zarrini — design, engineering, and AI.",
+    },
   },
   nav: {
     projects: "Projects",
@@ -473,6 +539,12 @@ const en: Dict = {
     featured: "Featured project",
     capsLabel: "Core capabilities",
     filterAll: "All",
+    seeAll: "See all projects",
+    statusProduction: "Production",
+    statusConcept: "Concept",
+    pageKicker: "Projects",
+    pageTitle: "All projects",
+    pageLead: "Shipped products and concept explorations — from organizational systems to design probes.",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
     items: [
       {
@@ -483,6 +555,7 @@ const en: Dict = {
         role: ["Product Design", "System Architecture", "Full-Stack Development", "Database Design", "Authentication & Authorization", "Deployment"],
         tech: ["React", "FastAPI", "PostgreSQL", "Docker", "JWT", "Argon2"],
         tags: ["Full-Stack", "Design"],
+        status: "production" as const,
         mock: "pulse" as const,
       },
       {
@@ -502,6 +575,7 @@ const en: Dict = {
         role: ["AI Product Architecture", "AI Integration", "Full-Stack Development", "Product Design"],
         tech: ["AI APIs", "LLM", "Multi-provider", "Full-Stack"],
         tags: ["AI", "Full-Stack"],
+        status: "production" as const,
         mock: "ai" as const,
       },
       {
@@ -512,6 +586,7 @@ const en: Dict = {
         role: ["Product Design", "Desktop Development"],
         tech: ["Tauri", "Rust", "JavaScript"],
         tags: ["Desktop", "Design"],
+        status: "production" as const,
         mock: "keep" as const,
       },
       {
@@ -522,6 +597,7 @@ const en: Dict = {
         role: ["Product Design", "Android Development"],
         tech: ["Kotlin", "Jetpack Compose", "Room", "SQLCipher"],
         tags: ["Mobile", "Design"],
+        status: "production" as const,
         mock: "brain" as const,
       },
       {
@@ -532,6 +608,7 @@ const en: Dict = {
         role: ["Product Architecture", "Plugin Development", "AI Integration"],
         tech: ["WordPress", "PHP", "JavaScript", "AI APIs"],
         tags: ["AI", "Automation"],
+        status: "production" as const,
         mock: "chatbot" as const,
       },
       {
@@ -542,6 +619,7 @@ const en: Dict = {
         role: ["Design & Development", "Process Automation"],
         tech: ["Automation", "Document Processing", "AI APIs"],
         tags: ["Automation", "AI"],
+        status: "production" as const,
         mock: "tools" as const,
       },
       {
@@ -552,7 +630,45 @@ const en: Dict = {
         role: ["Product Design", "Full-Stack Development", "PWA"],
         tech: ["PHP", "MySQL", "PWA"],
         tags: ["Full-Stack", "Design"],
+        status: "production" as const,
         mock: "hesabyar" as const,
+      },
+
+      // PLACEHOLDER — Saeed will replace with real concept details later.
+      {
+        id: "concept-01",
+        name: "Concept 01",
+        subtitle: "Design exploration — details soon.",
+        desc: "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later.",
+        role: ["Design"],
+        tech: ["TBD"],
+        tags: ["Design"],
+        status: "concept" as const,
+        mock: "concept" as const,
+      },
+      // PLACEHOLDER — Saeed will replace with real concept details later.
+      {
+        id: "concept-02",
+        name: "Concept 02",
+        subtitle: "Product exploration — details soon.",
+        desc: "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later.",
+        role: ["Product Design"],
+        tech: ["TBD"],
+        tags: ["Full-Stack"],
+        status: "concept" as const,
+        mock: "concept" as const,
+      },
+      // PLACEHOLDER — Saeed will replace with real concept details later.
+      {
+        id: "concept-03",
+        name: "Concept 03",
+        subtitle: "AI exploration — details soon.",
+        desc: "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later.",
+        role: ["Design"],
+        tech: ["TBD"],
+        tags: ["AI"],
+        status: "concept" as const,
+        mock: "concept" as const,
       },
     ],
   },

@@ -1,11 +1,13 @@
 import { Code2, Compass, Palette, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useApp } from "../lib/app";
+import { localePath } from "../lib/paths";
 import { DirArrow, Reveal, SectionHead, SnapCarousel } from "./ui";
 
 const cardIcons = [Palette, Code2, Sparkles, Compass];
 
 export default function Expertise() {
-  const { t } = useApp();
+  const { t, lang } = useApp();
 
   return (
     <section id="expertise" className="section-pad border-t border-line bg-surface">
@@ -54,13 +56,13 @@ export default function Expertise() {
                     ))}
                   </div>
 
-                  <a
-                    href="#skills"
+                  <Link
+                    to={`${localePath(lang, "/about")}#skills`}
                     className="mt-7 inline-flex items-center gap-2 border-t border-line pt-5 text-[12.5px] font-bold text-ink2 transition-colors duration-300 group-hover:text-hi"
                   >
                     {t.expertise.more}
                     <DirArrow className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 rtl:group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
-                  </a>
+                  </Link>
 
                   <span
                     className="pointer-events-none absolute -bottom-3 end-3 hidden select-none font-mono text-[110px] font-bold leading-none text-ink opacity-[0.04] transition-opacity duration-500 group-hover:opacity-[0.08] md:block"
