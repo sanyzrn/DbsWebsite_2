@@ -410,11 +410,11 @@ section[id] {
 }
 
 @keyframes hero-morph-sketch {
-  0%, 18% {
+  0%, 14% {
     opacity: 1;
     filter: none;
   }
-  28% {
+  22% {
     opacity: 0;
     filter: blur(2px);
   }
@@ -425,15 +425,15 @@ section[id] {
 }
 
 @keyframes hero-morph-wire {
-  0%, 16% {
+  0%, 12% {
     opacity: 0;
     filter: blur(3px);
   }
-  28%, 48% {
+  22%, 46% {
     opacity: 1;
     filter: none;
   }
-  58% {
+  56% {
     opacity: 0;
     filter: blur(2px);
   }
@@ -444,11 +444,11 @@ section[id] {
 }
 
 @keyframes hero-morph-product {
-  0%, 48% {
+  0%, 46% {
     opacity: 0;
     filter: blur(4px) saturate(0.6);
   }
-  58%, 100% {
+  56%, 100% {
     opacity: 1;
     filter: none;
   }
@@ -456,33 +456,33 @@ section[id] {
 
 /* design → engineering → intelligence floater sequence */
 @keyframes hero-morph-chip {
-  0%, 32% {
+  0%, 26% {
     opacity: 0;
     transform: translateY(10px);
   }
-  42%, 100% {
+  36%, 100% {
     opacity: 1;
     transform: none;
   }
 }
 
 @keyframes hero-morph-code {
-  0%, 62% {
+  0%, 60% {
     opacity: 0;
     transform: translateY(12px);
   }
-  72%, 100% {
+  70%, 100% {
     opacity: 1;
     transform: none;
   }
 }
 
 @keyframes hero-morph-agent {
-  0%, 74% {
+  0%, 72% {
     opacity: 0;
     transform: translateY(-10px) scale(0.96);
   }
-  84%, 100% {
+  82%, 100% {
     opacity: 1;
     transform: none;
   }
