@@ -7,16 +7,16 @@ export default function Hero() {
   const statIcons = [Award, Boxes, Waypoints];
 
   return (
-    <section id="top" className="relative overflow-hidden pt-[108px] pb-10 md:pt-[148px] md:pb-16 lg:pb-20">
-      <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-x-0 top-0 h-[420px] opacity-40 md:h-[560px]" aria-hidden="true" />
+    <section id="top" className="relative flex min-h-dvh flex-col overflow-hidden">
+      <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
 
-      <div className="wrap relative mx-auto max-w-5xl text-center">
+      <div className="wrap relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">
         <div className="hero-in flex justify-center" style={{ animationDelay: "60ms" }}>
-          <span className="chip chip-mono max-w-full border-line2 text-ink2">
+          <span className="chip max-w-full border-line2 font-[family-name:Vazirmatn,ui-sans-serif,system-ui,sans-serif] text-ink2">
             <Sparkles className="h-3.5 w-3.5 shrink-0 text-hi" strokeWidth={2.2} />
             <span className="truncate">{t.hero.badge}</span>
             <span className="hidden text-ink3 sm:inline">·</span>
-            <span className="hidden text-ink3 sm:inline">{t.hero.badgeStudio}</span>
+            <span className="hidden font-mono text-ink3 sm:inline">{t.hero.badgeStudio}</span>
           </span>
         </div>
 

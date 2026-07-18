@@ -132,21 +132,26 @@ export function SnapCarousel({
   const goTo = (i: number) => {
     const root = scrollerRef.current;
     const slide = root?.children[i] as HTMLElement | undefined;
-    slide?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    if (!root || !slide) return;
+    // Prefer scrollLeft math so the page itself doesn't shift vertically.
+    const rootRect = root.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    const delta = slideRect.left + slideRect.width / 2 - (rootRect.left + rootRect.width / 2);
+    root.scrollBy({ left: delta, behavior: "smooth" });
   };
 
   return (
-    <div className={className}>
+    <div className={cn("overflow-x-clip", className)}>
       <div
         ref={scrollerRef}
         role="region"
         aria-roledescription="carousel"
         aria-label={label}
         className={cn(
-          "flex gap-4 overflow-x-auto overscroll-x-contain scroll-smooth snap-x snap-mandatory pb-1",
+          "flex gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth snap-x snap-mandatory",
           "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           "-mx-5 scroll-px-5 px-5",
-          "md:mx-0 md:grid md:gap-5 md:overflow-visible md:scroll-px-0 md:px-0 md:pb-0 md:snap-none",
+          "md:mx-0 md:grid md:gap-5 md:overflow-visible md:scroll-px-0 md:px-0 md:snap-none",
           gridClassName
         )}
       >
@@ -154,7 +159,7 @@ export function SnapCarousel({
           <div
             key={i}
             className={cn(
-              "w-[min(82vw,320px)] shrink-0 snap-center",
+              "w-[min(82vw,320px)] shrink-0 snap-center self-stretch",
               "md:w-auto md:min-w-0 md:shrink md:snap-align-none",
               itemClassName
             )}
@@ -167,7 +172,7 @@ export function SnapCarousel({
       </div>
 
       {items.length > 1 && (
-        <div className="mt-5 flex items-center justify-center gap-1.5 md:hidden" role="tablist" aria-label={label}>
+        <div className="mt-4 flex items-center justify-center gap-1.5 md:hidden" role="tablist" aria-label={label}>
           {items.map((_, i) => (
             <button
               key={i}

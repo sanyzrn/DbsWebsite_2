@@ -79,23 +79,23 @@ export function Process() {
         </div>
 
         <Reveal delay={100}>
-          <ol className="mt-9 grid gap-px overflow-hidden rounded-md border border-line bg-line sm:mt-10 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
+          <ol className="mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:mt-10 lg:mt-12 lg:grid-cols-3">
             {steps.map((step, i) => (
-              <li key={step.en} className="group relative bg-surface p-5 transition-colors duration-300 hover:bg-page md:p-6">
-                <div className="flex items-center gap-3">
+              <li key={step.en} className="group relative bg-surface p-3.5 transition-colors duration-300 hover:bg-page sm:p-5 md:p-6">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <span
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-page font-mono text-[11px] font-bold text-ink3 transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page"
+                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line bg-page font-mono text-[10px] font-bold text-ink3 transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page sm:h-8 sm:w-8 sm:text-[11px]"
                     dir="ltr"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="h-px flex-1 bg-line2 transition-colors duration-300 group-hover:bg-hi/40" aria-hidden="true" />
-                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink3" dir="ltr">
+                  <span className="h-px min-w-2 flex-1 bg-line2 transition-colors duration-300 group-hover:bg-hi/40" aria-hidden="true" />
+                  <span className="truncate font-mono text-[8px] uppercase tracking-[0.12em] text-ink3 sm:text-[9px] sm:tracking-[0.16em]" dir="ltr">
                     {step.en}
                   </span>
                 </div>
-                <h3 className="mt-4 text-[17px] font-extrabold tracking-tight md:text-[18px]">{step.title}</h3>
-                <p className="mt-2 text-[12.5px] leading-6 text-ink2 md:text-[13px] md:leading-6">{step.desc}</p>
+                <h3 className="mt-2.5 text-[14px] font-extrabold tracking-tight sm:mt-4 sm:text-[17px] md:text-[18px]">{step.title}</h3>
+                <p className="mt-1 text-[11.5px] leading-5 text-ink2 sm:mt-2 sm:text-[12.5px] sm:leading-6 md:text-[13px] md:leading-6">{step.desc}</p>
               </li>
             ))}
           </ol>

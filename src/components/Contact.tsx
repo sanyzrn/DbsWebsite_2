@@ -194,15 +194,15 @@ export default function Contact() {
 
         {/* Contact strip */}
         <Reveal delay={400}>
-          <div className="mt-10 grid gap-6 border-t border-line pt-8 sm:grid-cols-2 sm:pt-10 lg:grid-cols-4 lg:gap-8">
+          <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-line pt-6 sm:mt-10 sm:gap-x-6 sm:gap-y-5 sm:pt-8 lg:grid-cols-4 lg:gap-8 lg:pt-10">
             {info.map((item) => (
-              <div key={item.label} className="flex items-start gap-3.5">
-                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-hi">
-                  <item.icon className="h-4 w-4" strokeWidth={2} />
+              <div key={item.label} className="flex min-w-0 items-start gap-2.5 sm:gap-3.5">
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-line text-hi sm:h-9 sm:w-9">
+                  <item.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
                 </span>
                 <div className="min-w-0">
-                  <div className="text-[11px] font-semibold text-ink3">{item.label}</div>
-                  <div className="mt-1 truncate text-[13.5px] font-bold" dir={item.ltr ? "ltr" : undefined}>
+                  <div className="text-[10px] font-semibold text-ink3 sm:text-[11px]">{item.label}</div>
+                  <div className="mt-0.5 truncate text-[12.5px] font-bold sm:mt-1 sm:text-[13.5px]" dir={item.ltr ? "ltr" : undefined}>
                     {item.href ? (
                       <a href={item.href} className="transition-colors hover:text-hi">
                         {item.value}
