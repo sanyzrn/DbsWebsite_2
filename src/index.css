@@ -284,16 +284,49 @@ section[id] {
   transform: none;
 }
 
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
+/* Studio Atlas (ecosystem strip) */
+.atlas-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.atlas-hub-ring {
+  animation: atlas-breathe 5.5s ease-in-out infinite;
+}
+
+@keyframes atlas-breathe {
+  0%, 100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--hi) 0%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--hi) 12%, transparent);
   }
 }
-.marquee-track {
-  animation: marquee 36s linear infinite;
+
+.atlas-node {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: atlas-node-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-.marquee-pause:hover .marquee-track {
-  animation-play-state: paused;
+
+@keyframes atlas-node-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.atlas-spine {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--line) 8%,
+    var(--line) 92%,
+    transparent
+  );
 }
 
 @keyframes drift {
@@ -345,10 +378,15 @@ section[id] {
     transform: none;
     transition: none;
   }
-  .marquee-track,
+  .atlas-hub-ring,
+  .atlas-node,
   .drift,
   .pulse-dot,
   .hero-in {
     animation: none;
+  }
+  .atlas-node {
+    opacity: 1;
+    transform: none;
   }
 }
