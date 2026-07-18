@@ -17,10 +17,12 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
     };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
   const links = [
@@ -35,11 +37,10 @@ export default function Nav() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        scrolled ? "border-b border-line bg-page/85 backdrop-blur-xl" : "border-b border-transparent bg-transparent"
+        scrolled || open ? "border-b border-line bg-page/85 backdrop-blur-xl" : "border-b border-transparent bg-transparent"
       )}
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
-        {/* Brand — personal name first; studio mark secondary */}
         <a href="#top" className="group flex items-center gap-2.5" aria-label="Saeed Zarrini — home">
           <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain opacity-90 transition-opacity group-hover:opacity-100" alt="" />
           <span className="flex flex-col leading-none">
@@ -51,7 +52,6 @@ export default function Nav() {
           </span>
         </a>
 
-        {/* Desktop links */}
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           {links.map((l) => (
             <a
@@ -64,7 +64,6 @@ export default function Nav() {
           ))}
         </nav>
 
-        {/* Controls */}
         <div className="flex items-center gap-2.5">
           <button
             onClick={toggleLang}
@@ -95,46 +94,46 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Compact dropdown panel (not full-screen) */}
       <div
         className={cn(
-          "fixed inset-x-0 top-[72px] bottom-0 z-40 bg-page transition-all duration-500 lg:hidden",
-          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+          "absolute inset-x-0 top-full z-50 px-4 pt-2 transition-all duration-300 lg:hidden",
+          open ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
         )}
       >
-        <nav className="wrap flex h-full flex-col gap-1 overflow-y-auto pt-8 pb-16" aria-label="Mobile">
-          {links.map((l, i) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              style={{ transitionDelay: `${i * 55}ms` }}
-              className={cn(
-                "flex items-center justify-between border-b border-line py-5 text-[22px] font-extrabold tracking-tight transition-all duration-500 hover:text-hi",
-                open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-              )}
-            >
-              {l.label}
-              <span className="font-mono text-[11px] font-medium text-ink3">0{i + 1}</span>
+        <nav
+          className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]"
+          aria-label="Mobile"
+        >
+          <div className="flex flex-col p-2">
+            {links.map((l, i) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
+              >
+                {l.label}
+                <span className="font-mono text-[10px] font-medium text-ink3">0{i + 1}</span>
+              </a>
+            ))}
+          </div>
+          <div className="border-t border-line p-3">
+            <a href="#contact/start" onClick={() => setOpen(false)} className="btn btn-primary h-11 w-full text-[13px]">
+              {t.nav.cta}
             </a>
-          ))}
-          <a
-            href="#contact/start"
-            onClick={() => setOpen(false)}
-            className={cn(
-              "btn btn-primary mt-8 w-full transition-all duration-500",
-              open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-            )}
-            style={{ transitionDelay: "300ms" }}
-          >
-            {t.nav.cta}
-          </a>
-          <p className="mt-auto flex items-center justify-center gap-2 pt-10 text-center text-[11px] text-ink3" dir="ltr">
-            <BrandLogo variant="icon" imgClassName="h-4 w-4 object-contain opacity-80" alt="" />
-            SaeedZarrini — {t.footer.tagline}
-          </p>
+          </div>
         </nav>
       </div>
+
+      {open && (
+        <button
+          type="button"
+          aria-label={t.nav.close}
+          className="fixed inset-0 top-[72px] z-40 bg-ink/25 backdrop-blur-[1px] lg:hidden"
+          onClick={() => setOpen(false)}
+        />
+      )}
     </header>
   );
 }
