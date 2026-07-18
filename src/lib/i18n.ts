@@ -379,11 +379,7 @@ const en: Dict = {
     ],
     body: "I help teams turn ideas into real digital products — product design, software engineering, and AI integration in one continuous path, not just a mockup or a demo.",
     body2:
-<<<<<<< HEAD
-      "Over 16 years of building: brand and packaging, UX, organizational systems, and AI-powered products. The job is understanding the idea and turning it into something that actually works.",
-=======
       "Today I focus on shipping what teams use every day: clear interfaces, stable APIs, and AI layers that sit inside real workflows — not just slides or demos.",
->>>>>>> ea0b00d (Diversify recurring philosophy copy across i18n sections)
     ctaPrimary: "See the projects",
     ctaSecondary: "About me",
   },
