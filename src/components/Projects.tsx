@@ -391,7 +391,7 @@ export default function Projects() {
         <SectionHead kicker={t.projects.kicker} title={t.projects.title} lead={t.projects.lead} />
 
         {/* filter chips */}
-        <div className="mt-10 flex flex-wrap gap-2">
+        <div className="mt-7 flex flex-wrap gap-2 sm:mt-10">
           <button
             type="button"
             onClick={() => setFilter("all")}
@@ -412,7 +412,7 @@ export default function Projects() {
         </div>
 
         {/* ------------------------------ mobile carousel ------------------------------ */}
-        <SnapCarousel className="mt-10 md:hidden" label={t.projects.title} itemClassName="h-full" key={filter}>
+        <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={filter}>
           {source.map((p, i) => (
             <article
               key={p.id}
@@ -450,7 +450,7 @@ export default function Projects() {
         </SnapCarousel>
 
         {/* ------------------------------ desktop: featured + grid ------------------------------ */}
-        <div className="mt-10 hidden md:block">
+        <div className="mt-8 hidden md:block">
           <Reveal>
             <article className="group grid overflow-hidden rounded-lg border border-line bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5">
               <button type="button" onClick={() => open(featured)} className="relative overflow-hidden text-start lg:col-span-3">

@@ -154,24 +154,24 @@ export default function Intro() {
       <PracticeGraph />
 
       <section className="section-pad">
-        <div className="wrap grid gap-14 lg:grid-cols-12">
+        <div className="wrap grid gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <Reveal>
               <span className="kicker">{t.intro.kicker}</span>
             </Reveal>
             <Reveal delay={80}>
-              <h2 className="mt-5 text-[30px] font-extrabold leading-[1.2] tracking-tight md:text-[40px] md:leading-[1.2]">
+              <h2 className="mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[40px] md:leading-[1.2]">
                 {t.intro.title}
               </h2>
             </Reveal>
             <Reveal delay={160}>
-              <p className="mt-6 text-[15px] leading-[1.95] text-ink2">{t.intro.p1}</p>
+              <p className="mt-4 text-[14px] leading-7 text-ink2 sm:mt-6 sm:text-[15px] sm:leading-[1.95]">{t.intro.p1}</p>
             </Reveal>
             <Reveal delay={220}>
-              <p className="mt-4 text-[15px] leading-[1.95] text-ink2">{t.intro.p2}</p>
+              <p className="mt-3 text-[14px] leading-7 text-ink2 sm:mt-4 sm:text-[15px] sm:leading-[1.95]">{t.intro.p2}</p>
             </Reveal>
             <Reveal delay={300}>
-              <p className="mt-7 rounded-sm border-s-[3px] border-hi bg-surface px-5 py-4 text-[15px] font-bold leading-8">
+              <p className="mt-5 rounded-sm border-s-[3px] border-hi bg-surface px-4 py-3 text-[14px] font-bold leading-7 sm:mt-7 sm:px-5 sm:py-4 sm:text-[15px] sm:leading-8">
                 {t.intro.strong}
               </p>
             </Reveal>
@@ -182,16 +182,16 @@ export default function Intro() {
               {t.intro.manifesto.map((line, i) => {
                 const Icon = manifestoIcons[i];
                 return (
-                  <Reveal key={i} delay={i * 120}>
-                    <div className="group flex items-center gap-6 border-b border-line py-7 transition-colors duration-300 first:border-t hover:border-hi/50 md:gap-10 md:py-9">
-                      <span className="font-mono text-sm font-semibold text-ink3 transition-colors duration-300 group-hover:text-hi">
+                  <Reveal key={i} delay={i * 100}>
+                    <div className="group flex items-center gap-4 border-b border-line py-4 transition-colors duration-300 first:border-t hover:border-hi/50 sm:gap-6 sm:py-7 md:gap-10 md:py-9">
+                      <span className="font-mono text-[12px] font-semibold text-ink3 transition-colors duration-300 group-hover:text-hi sm:text-sm">
                         0{i + 1}
                       </span>
-                      <span className="flex-1 text-[24px] font-black leading-snug tracking-tight md:text-[36px] lg:text-[40px]">
+                      <span className="flex-1 text-[18px] font-black leading-snug tracking-tight sm:text-[24px] md:text-[36px] lg:text-[40px]">
                         {line}
                       </span>
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page md:h-14 md:w-14">
-                        <Icon className="h-5 w-5 md:h-6 md:w-6" strokeWidth={1.8} />
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page sm:h-12 sm:w-12 md:h-14 md:w-14">
+                        <Icon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" strokeWidth={1.8} />
                       </span>
                     </div>
                   </Reveal>

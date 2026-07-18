@@ -134,7 +134,12 @@ section[id] {
 }
 
 .section-pad {
-  padding-block: clamp(84px, 9vw, 136px);
+  padding-block: clamp(56px, 6.5vw, 112px);
+}
+@media (max-width: 767px) {
+  .section-pad {
+    padding-block: 52px;
+  }
 }
 
 @layer components {
