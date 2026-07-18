@@ -221,7 +221,7 @@ export default function Contact() {
       {/* Inquiry modal */}
       {open && (
         <div
-          className="fixed inset-0 z-[90] flex items-end justify-center bg-ink/45 p-0 backdrop-blur-sm sm:items-center sm:p-6"
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/45 p-4 backdrop-blur-sm sm:p-6"
           onClick={closeModal}
           role="presentation"
         >
@@ -229,7 +229,7 @@ export default function Contact() {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-lg border border-line bg-page shadow-2xl sm:rounded-lg"
+            className="max-h-[min(85vh,720px)] w-full max-w-2xl overflow-y-auto rounded-lg border border-line bg-page shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="sticky top-0 z-[1] flex items-start justify-between gap-4 border-b border-line bg-page/95 px-5 py-4 backdrop-blur md:px-7">
