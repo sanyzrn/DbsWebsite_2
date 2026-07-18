@@ -1,4 +1,4 @@
-import { useId, useMemo } from "react";
+import { useId } from "react";
 import { Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
 import { useTypewriter } from "../lib/useTypewriter";
@@ -6,19 +6,10 @@ import { DirArrow } from "./ui";
 
 function SloganCycle({ phrases }: { phrases: string[] }) {
   const typed = useTypewriter(phrases);
-  const longest = useMemo(
-    () => phrases.reduce((best, w) => (w.length > best.length ? w : best), phrases[0] ?? ""),
-    [phrases]
-  );
 
   return (
-    <span className="inline-flex items-baseline text-hi">
-      <span className="relative inline-grid max-w-full">
-        <span className="invisible col-start-1 row-start-1 whitespace-nowrap" aria-hidden="true">
-          {longest}
-        </span>
-        <span className="col-start-1 row-start-1 whitespace-nowrap">{typed}</span>
-      </span>
+    <span className="text-hi">
+      {typed}
       <span className="typewriter-cursor" aria-hidden="true" />
     </span>
   );
@@ -132,7 +123,10 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p className="hero-in mx-auto mt-4 max-w-3xl text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]" style={{ animationDelay: "240ms" }}>
+        <p
+          className="hero-slogan hero-in mx-auto mt-4 max-w-3xl min-h-[2.7em] text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]"
+          style={{ animationDelay: "240ms" }}
+        >
           {t.hero.sloganA}
           {connector}
           <SloganCycle phrases={t.hero.sloganCycle} />
