@@ -62,4 +62,24 @@ describe("App smoke", () => {
     const phrase = dictionaries.fa.hero.sloganCycle[0];
     expect(screen.getAllByText(phrase).length).toBeGreaterThan(0);
   });
+
+  it("applies shortened locale SEO title and description without keywords meta", () => {
+    render(<App />);
+    expect(document.title).toBe(dictionaries.fa.seo.title);
+    expect(document.title.length).toBeLessThanOrEqual(60);
+    expect(dictionaries.fa.seo.description.length).toBeLessThanOrEqual(155);
+    expect(dictionaries.en.seo.title.length).toBeLessThanOrEqual(60);
+    expect(dictionaries.en.seo.description.length).toBeLessThanOrEqual(155);
+    expect(document.querySelector('meta[name="keywords"]')).toBeNull();
+    const desc = document.querySelector('meta[name="description"]');
+    expect(desc?.getAttribute("content")).toBe(dictionaries.fa.seo.description);
+  });
+
+  it("switches SEO title and description when language is English", () => {
+    localStorage.setItem("sz-lang", "en");
+    render(<App />);
+    expect(document.title).toBe(dictionaries.en.seo.title);
+    const desc = document.querySelector('meta[name="description"]');
+    expect(desc?.getAttribute("content")).toBe(dictionaries.en.seo.description);
+  });
 });

@@ -6,6 +6,11 @@ const fa = {
     name: "SaeedZarrini",
     sub: "مهندس راهکارهای هوش مصنوعی",
   },
+  seo: {
+    title: "Saeed Zarrini | مهندس راهکارهای هوش مصنوعی",
+    description:
+      "برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم.",
+  },
   nav: {
     projects: "پروژه‌ها",
     expertise: "توانمندی‌ها",
@@ -30,9 +35,9 @@ const fa = {
       "یک برند به‌یادماندنی",
       "یک آینده‌ی قابل‌لمس",
     ],
-    body: "من سعید زرینی هستم؛ طراح، مهندس محصول و متخصص راهکارهای هوش مصنوعی. بیش از ۱۶ سال است که با طراحی و ساختن سروکار دارم؛ از طراحی گرافیک و بسته‌بندی‌های دارویی تا طراحی تجربه کاربری، توسعه نرم‌افزار و ساخت محصولات مبتنی بر هوش مصنوعی.",
+    body: "به تیم‌ها و کسب‌وکارها کمک می‌کنم ایده‌شان را با طراحی محصول، مهندسی نرم‌افزار و یکپارچه‌سازی هوش مصنوعی به یک محصول دیجیتال واقعی تبدیل کنند — نه فقط یک طرح یا یک دمو.",
     body2:
-      "امروز مسئله برای من فقط زیباتر کردن یک محصول یا نوشتن کد بیشتر نیست. مسئله این است که یک ایده را بفهمم، آن را درست طراحی کنم و به محصولی تبدیل کنم که واقعاً کار کند.",
+      "بیش از ۱۶ سال است که می‌سازم؛ از هویت بصری و بسته‌بندی دارویی تا UI/UX، سیستم‌های سازمانی و محصولات مبتنی بر AI. مسئله این است که ایده را بفهمم و به چیزی تبدیل کنم که واقعاً کار کند.",
     ctaPrimary: "پروژه‌ها را ببینید",
     ctaSecondary: "درباره من",
   },
@@ -343,6 +348,11 @@ const en: Dict = {
     name: "SaeedZarrini",
     sub: "AI Solutions Engineer",
   },
+  seo: {
+    title: "Saeed Zarrini | AI Solutions Engineer",
+    description:
+      "For founders and teams stuck between idea and shipping: I design, engineer, and integrate AI into digital products that actually work.",
+  },
   nav: {
     projects: "Projects",
     expertise: "Expertise",
@@ -367,9 +377,9 @@ const en: Dict = {
       "a brand people remember",
       "a tangible future",
     ],
-    body: "I'm Saeed Zarrini — designer, product engineer and AI solutions specialist. For over 16 years I've been designing and building: from graphic design and pharmaceutical packaging to UX design, software development and AI-powered products.",
+    body: "I help teams turn ideas into real digital products — product design, software engineering, and AI integration in one continuous path, not just a mockup or a demo.",
     body2:
-      "Today, the question isn't about making a product prettier or writing more code. It's about understanding an idea, designing it properly, and turning it into a product that actually works.",
+      "Over 16 years of building: brand and packaging, UX, organizational systems, and AI-powered products. The job is understanding the idea and turning it into something that actually works.",
     ctaPrimary: "See the projects",
     ctaSecondary: "About me",
   },
