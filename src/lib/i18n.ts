@@ -122,9 +122,13 @@ const fa = {
     lead: "محصولاتی که طراحی و توسعه داده‌ام؛ هر کدام پاسخی به یک مسئله واقعی.",
     roleLabel: "نقش",
     techLabel: "فناوری",
-    view: "مشاهده پروژه",
+    view: "جزئیات پروژه",
+    close: "بستن",
+    discuss: "درباره این پروژه صحبت کنیم",
     featured: "پروژه شاخص",
     capsLabel: "قابلیت‌های اصلی",
+    filterAll: "همه",
+    filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
     items: [
       {
         id: "dbspulse",
@@ -133,6 +137,7 @@ const fa = {
         desc: "یک پلتفرم سازمانی برای مدیریت فرآیند ارزیابی عملکرد، از ثبت اطلاعات اولیه تا بررسی، تأیید و تحلیل نهایی. این پروژه یک فرآیند چندمرحله‌ای و پیچیده را به یک سیستم دیجیتال ساختاریافته، قابل پیگیری و قابل تحلیل تبدیل می‌کند.",
         role: ["طراحی محصول", "معماری سیستم", "توسعه فول‌استک", "طراحی دیتابیس", "احراز هویت و دسترسی", "استقرار"],
         tech: ["React", "FastAPI", "PostgreSQL", "Docker", "JWT", "Argon2"],
+        tags: ["Full-Stack", "Design"],
         mock: "pulse" as const,
       },
       {
@@ -151,6 +156,7 @@ const fa = {
         ],
         role: ["معماری محصول AI", "یکپارچه‌سازی هوش مصنوعی", "توسعه فول‌استک", "طراحی محصول"],
         tech: ["AI APIs", "LLM", "Multi-provider", "Full-Stack"],
+        tags: ["AI", "Full-Stack"],
         mock: "ai" as const,
       },
       {
@@ -160,6 +166,7 @@ const fa = {
         desc: "یک سیستم مدیریت اطلاعات شخصی برای یادداشت‌ها، وظایف، ایده‌ها و اطلاعات مهم؛ با تمرکز بر سرعت، حریم خصوصی، دسترسی آفلاین و جست‌وجوی سریع.",
         role: ["طراحی محصول", "توسعه دسکتاپ"],
         tech: ["Tauri", "Rust", "JavaScript"],
+        tags: ["Desktop", "Design"],
         mock: "keep" as const,
       },
       {
@@ -169,6 +176,7 @@ const fa = {
         desc: "یک سیستم شخصی برای مدیریت اطلاعات، اهداف، عادت‌ها، پروژه‌ها و زندگی روزمره.",
         role: ["طراحی محصول", "توسعه اندروید"],
         tech: ["Kotlin", "Jetpack Compose", "Room", "SQLCipher"],
+        tags: ["Mobile", "Design"],
         mock: "brain" as const,
       },
       {
@@ -178,6 +186,7 @@ const fa = {
         desc: "یک Chatbot هوشمند برای WordPress با پایگاه دانش اختصاصی و قابلیت پاسخ‌گویی به سؤالات کاربران. این پروژه، هوش مصنوعی را از یک ابزار جداگانه به بخشی از تجربه واقعی کاربر تبدیل می‌کند.",
         role: ["معماری محصول", "توسعه افزونه", "یکپارچه‌سازی AI"],
         tech: ["WordPress", "PHP", "JavaScript", "AI APIs"],
+        tags: ["AI", "Automation"],
         mock: "chatbot" as const,
       },
       {
@@ -187,6 +196,7 @@ const fa = {
         desc: "مجموعه‌ای از ابزارهای تخصصی برای پردازش اسناد، ترجمه، تولید محتوا و اتوماسیون فرآیندها؛ با هدف تبدیل کارهای تکراری و زمان‌بر به فرآیندهای سریع‌تر و هوشمندتر.",
         role: ["طراحی و توسعه", "اتوماسیون فرآیند"],
         tech: ["Automation", "Document Processing", "AI APIs"],
+        tags: ["Automation", "AI"],
         mock: "tools" as const,
       },
       {
@@ -196,6 +206,7 @@ const fa = {
         desc: "یک سیستم مدیریت مالی شخصی برای مدیریت حساب‌ها، هزینه‌ها، اقساط، چک‌ها، وام‌ها، بودجه‌بندی و اهداف مالی؛ طراحی‌شده با در نظر گرفتن نیازهای واقعی کاربران ایرانی و تقویم شمسی.",
         role: ["طراحی محصول", "توسعه فول‌استک", "PWA"],
         tech: ["PHP", "MySQL", "PWA"],
+        tags: ["Full-Stack", "Design"],
         mock: "hesabyar" as const,
       },
     ],
@@ -279,9 +290,14 @@ const fa = {
       timeline: "زمان‌بندی مدنظر",
       timelinePh: "اختیاری",
       submit: "ارسال پیام",
-      sending: "در حال آماده‌سازی ایمیل…",
-      sentTitle: "پیام شما آماده شد.",
-      sentBody: "کلاینت ایمیل شما باز می‌شود تا پیام ارسال شود. اگر باز نشد، مستقیماً به hello@saeedzarrini.com ایمیل بزنید.",
+      sending: "در حال ارسال…",
+      deliveredTitle: "پیام ارسال شد.",
+      deliveredBody: "به‌زودی پاسخ می‌دهم — معمولاً کمتر از ۲۴ ساعت.",
+      mailedTitle: "کلاینت ایمیل شما باز می‌شود.",
+      mailedBody: "اگر پنجره ایمیل باز نشد، مستقیم به آدرس زیر پیام بفرستید. این فرم هنوز پیام را به‌صورت سروری تحویل نمی‌دهد مگر اینکه endpoint پیکربندی شده باشد.",
+      errorTitle: "ارسال ناموفق بود.",
+      errorBody: "لطفاً دوباره تلاش کنید یا مستقیم ایمیل بزنید.",
+      directEmail: "یا مستقیم ایمیل بزنید:",
       required: "پر کردن این فیلد ضروری است.",
       types: [
         "محصول هوش مصنوعی",
@@ -305,6 +321,16 @@ const fa = {
     rights: "تمامی حقوق محفوظ است.",
     built: "طراحی و توسعه: سعید زرینی",
     backTop: "بازگشت به بالا",
+  },
+  command: {
+    title: "فرمان‌ها",
+    placeholder: "برو به… تغییر تم، زبان، ایمیل",
+    empty: "موردی پیدا نشد.",
+    close: "بستن",
+    hint: "⌘K / Ctrl+K",
+  },
+  a11y: {
+    skip: "پرش به محتوای اصلی",
   },
   theme: { toDark: "حالت تیره", toLight: "حالت روشن", lang: "English" },
 };
@@ -433,9 +459,13 @@ const en: Dict = {
     lead: "Products I have designed and engineered — each one an answer to a real problem.",
     roleLabel: "Role",
     techLabel: "Technology",
-    view: "View project",
+    view: "Project details",
+    close: "Close",
+    discuss: "Discuss this project",
     featured: "Featured project",
     capsLabel: "Core capabilities",
+    filterAll: "All",
+    filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
     items: [
       {
         id: "dbspulse",
@@ -444,6 +474,7 @@ const en: Dict = {
         desc: "An organizational platform for managing the performance evaluation process — from initial data entry to review, approval and final analysis. It turns a complex, multi-stage workflow into a structured, traceable and analyzable digital system.",
         role: ["Product Design", "System Architecture", "Full-Stack Development", "Database Design", "Authentication & Authorization", "Deployment"],
         tech: ["React", "FastAPI", "PostgreSQL", "Docker", "JWT", "Argon2"],
+        tags: ["Full-Stack", "Design"],
         mock: "pulse" as const,
       },
       {
@@ -462,6 +493,7 @@ const en: Dict = {
         ],
         role: ["AI Product Architecture", "AI Integration", "Full-Stack Development", "Product Design"],
         tech: ["AI APIs", "LLM", "Multi-provider", "Full-Stack"],
+        tags: ["AI", "Full-Stack"],
         mock: "ai" as const,
       },
       {
@@ -471,6 +503,7 @@ const en: Dict = {
         desc: "A personal information manager for notes, tasks, ideas and important data — focused on speed, privacy, offline access and fast search.",
         role: ["Product Design", "Desktop Development"],
         tech: ["Tauri", "Rust", "JavaScript"],
+        tags: ["Desktop", "Design"],
         mock: "keep" as const,
       },
       {
@@ -480,6 +513,7 @@ const en: Dict = {
         desc: "A personal system for managing information, goals, habits, projects and everyday life.",
         role: ["Product Design", "Android Development"],
         tech: ["Kotlin", "Jetpack Compose", "Room", "SQLCipher"],
+        tags: ["Mobile", "Design"],
         mock: "brain" as const,
       },
       {
@@ -489,6 +523,7 @@ const en: Dict = {
         desc: "An intelligent chatbot for WordPress with a dedicated knowledge base, answering visitors' questions — turning AI from a separate tool into part of the real user experience.",
         role: ["Product Architecture", "Plugin Development", "AI Integration"],
         tech: ["WordPress", "PHP", "JavaScript", "AI APIs"],
+        tags: ["AI", "Automation"],
         mock: "chatbot" as const,
       },
       {
@@ -498,6 +533,7 @@ const en: Dict = {
         desc: "A collection of specialized tools for document processing, translation, content generation and process automation — turning repetitive, time-consuming work into faster, smarter flows.",
         role: ["Design & Development", "Process Automation"],
         tech: ["Automation", "Document Processing", "AI APIs"],
+        tags: ["Automation", "AI"],
         mock: "tools" as const,
       },
       {
@@ -507,6 +543,7 @@ const en: Dict = {
         desc: "A personal finance system for accounts, expenses, installments, cheques, loans, budgeting and financial goals — designed around the real needs of Iranian users and the Jalali calendar.",
         role: ["Product Design", "Full-Stack Development", "PWA"],
         tech: ["PHP", "MySQL", "PWA"],
+        tags: ["Full-Stack", "Design"],
         mock: "hesabyar" as const,
       },
     ],
@@ -590,9 +627,14 @@ const en: Dict = {
       timeline: "Timeline",
       timelinePh: "Optional",
       submit: "Send message",
-      sending: "Preparing email…",
-      sentTitle: "Your message is ready.",
-      sentBody: "Your email client should open to send it. If it didn't, just email hello@saeedzarrini.com directly.",
+      sending: "Sending…",
+      deliveredTitle: "Message sent.",
+      deliveredBody: "I'll get back to you soon — usually within 24 hours.",
+      mailedTitle: "Opening your email client…",
+      mailedBody: "If nothing opened, email me directly below. This form only delivers server-side when a Formspree endpoint is configured.",
+      errorTitle: "Couldn't send.",
+      errorBody: "Please try again, or email me directly.",
+      directEmail: "Or email me directly:",
       required: "This field is required.",
       types: [
         "AI Product",
@@ -616,6 +658,16 @@ const en: Dict = {
     rights: "All rights reserved.",
     built: "Designed & built by Saeed Zarrini",
     backTop: "Back to top",
+  },
+  command: {
+    title: "Command palette",
+    placeholder: "Jump to… theme, language, email",
+    empty: "No matches.",
+    close: "Close",
+    hint: "⌘K / Ctrl+K",
+  },
+  a11y: {
+    skip: "Skip to main content",
   },
   theme: { toDark: "Dark mode", toLight: "Light mode", lang: "فارسی" },
 };

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Globe } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
-import { DribbbleIcon, GithubIcon, InstagramIcon, LinkedinIcon } from "./icons";
+import { LinkedinIcon } from "./icons";
 
 export default function Footer() {
   const { t } = useApp();
@@ -24,17 +24,23 @@ export default function Footer() {
     { label: t.nav.contact, href: "#contact" },
   ];
 
+  // Only real, verified profiles — never #top placeholders.
   const socials = [
-    { icon: GithubIcon, label: "GitHub" },
-    { icon: LinkedinIcon, label: "LinkedIn" },
-    { icon: InstagramIcon, label: "Instagram" },
-    { icon: DribbbleIcon, label: "Dribbble" },
+    {
+      icon: LinkedinIcon,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/saeed-zarrini-20a56341",
+    },
+    {
+      icon: Globe,
+      label: "DBSGraphic",
+      href: "https://dbsgraphic.ir/",
+    },
   ];
 
   return (
     <footer className="border-t border-line">
       <div className="wrap grid gap-12 py-16 md:grid-cols-12">
-        {/* brand */}
         <div className="md:col-span-6">
           <a href="#top" className="inline-flex flex-col leading-none">
             <span dir="ltr" className="text-[22px] font-extrabold tracking-tight">
@@ -50,7 +56,6 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* quick links */}
         <div className="md:col-span-3">
           <h3 className="mb-5 text-[12.5px] font-bold uppercase tracking-wider text-ink3">{t.footer.navTitle}</h3>
           <ul className="space-y-3">
@@ -64,14 +69,15 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* socials */}
         <div className="md:col-span-3">
           <h3 className="mb-5 text-[12.5px] font-bold uppercase tracking-wider text-ink3">{t.footer.socialTitle}</h3>
           <div className="flex gap-2.5">
             {socials.map((s) => (
               <a
                 key={s.label}
-                href="#top"
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={s.label}
                 className="flex h-11 w-11 items-center justify-center rounded-sm border border-line text-ink2 transition-all duration-300 hover:-translate-y-1 hover:border-hi hover:text-hi"
               >
@@ -85,7 +91,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* bottom bar */}
       <div className="border-t border-line">
         <div className="wrap flex flex-wrap items-center justify-between gap-4 py-6">
           <p className="text-[12px] font-medium text-ink3">
@@ -95,12 +100,11 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* back to top */}
       <a
         href="#top"
         aria-label={t.footer.backTop}
         className={cn(
-          "fixed bottom-6 end-6 z-40 flex h-11 w-11 items-center justify-center rounded-sm bg-accent text-[#211a10] shadow-lg transition-all duration-500 hover:-translate-y-1",
+          "fixed bottom-6 end-6 z-40 flex h-11 w-11 items-center justify-center rounded-sm bg-accent text-[#211a10] shadow-lg transition-all duration-500 hover:-translate-y-1 print:hidden",
           showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
         )}
       >

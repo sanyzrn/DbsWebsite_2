@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
 import { Check, Database, FileSearch, FileText, Languages, Lock, Plus, Repeat2, Send, Sparkles, Wand2 } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
@@ -344,26 +344,86 @@ function Meta({ label, items, mono }: { label: string; items: string[]; mono?: b
 /*  Section                                                             */
 /* ------------------------------------------------------------------ */
 
+type ProjectItem = (typeof import("../lib/i18n").dictionaries.en.projects.items)[number];
+
 export default function Projects() {
   const { t } = useApp();
-  const [featured, ...rest] = t.projects.items;
+  const [filter, setFilter] = useState<string>("all");
+  const [active, setActive] = useState<ProjectItem | null>(null);
+
+  const filtered = t.projects.items.filter((p) => filter === "all" || p.tags.includes(filter));
+  const source = filtered.length ? filtered : t.projects.items;
+  const [featured, ...grid] = source;
+
+  const open = (p: ProjectItem) => {
+    setActive(p);
+    history.replaceState(null, "", `#project/${p.id}`);
+  };
+
+  const close = () => {
+    setActive(null);
+    if (location.hash.startsWith("#project/")) history.replaceState(null, "", "#projects");
+  };
+
+  useEffect(() => {
+    const match = location.hash.match(/^#project\/([\w-]+)/);
+    if (match) {
+      const found = t.projects.items.find((p) => p.id === match[1]);
+      if (found) setActive(found);
+    }
+  }, [t.projects.items]);
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActive(null);
+        if (location.hash.startsWith("#project/")) history.replaceState(null, "", "#projects");
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active]);
 
   return (
     <section id="projects" className="section-pad border-t border-line">
       <div className="wrap">
         <SectionHead kicker={t.projects.kicker} title={t.projects.title} lead={t.projects.lead} />
 
+        {/* filter chips */}
+        <div className="mt-10 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setFilter("all")}
+            className={cn("chip chip-hover", filter === "all" && "border-hi text-hi")}
+          >
+            {t.projects.filterAll}
+          </button>
+          {t.projects.filters.map((tag) => (
+            <button
+              key={tag}
+              type="button"
+              onClick={() => setFilter(tag)}
+              className={cn("chip chip-mono chip-hover", filter === tag && "border-hi text-hi")}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
         {/* ------------------------------ featured ------------------------------ */}
-        <Reveal className="mt-14">
+        <Reveal className="mt-10">
           <article className="group grid overflow-hidden rounded-lg border border-line bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5">
-            <div className="relative overflow-hidden lg:col-span-3">
+            <button type="button" onClick={() => open(featured)} className="relative overflow-hidden text-start lg:col-span-3">
               <Shot className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto">
-                <MockPulse />
+                {mocks[featured.mock as MockKind]()}
               </Shot>
-              <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
-                {t.projects.featured}
-              </span>
-            </div>
+              {filter === "all" && (
+                <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
+                  {t.projects.featured}
+                </span>
+              )}
+            </button>
             <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
               <div>
                 <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
@@ -374,24 +434,28 @@ export default function Projects() {
               </div>
               <Meta label={t.projects.roleLabel} items={featured.role} />
               <Meta label={t.projects.techLabel} items={featured.tech} mono />
-              <span className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors group-hover:text-hi">
+              <button
+                type="button"
+                onClick={() => open(featured)}
+                className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
+              >
                 {t.projects.view}
                 <DirArrow className="h-4 w-4" />
-              </span>
+              </button>
             </div>
           </article>
         </Reveal>
 
         {/* ------------------------------ grid ------------------------------ */}
         <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {rest.map((p, i) => (
+          {grid.map((p, i) => (
             <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
               <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60">
-                <div className="overflow-hidden">
+                <button type="button" onClick={() => open(p)} className="overflow-hidden text-start">
                   <Shot className="transition-transform duration-700 group-hover:scale-[1.03]">
                     {mocks[p.mock as MockKind]()}
                   </Shot>
-                </div>
+                </button>
                 <div className="flex flex-1 flex-col gap-5 p-6">
                   <div>
                     <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
@@ -420,10 +484,14 @@ export default function Projects() {
                   <div className="mt-auto space-y-5 border-t border-line pt-5">
                     <Meta label={t.projects.roleLabel} items={p.role} />
                     <Meta label={t.projects.techLabel} items={p.tech} mono />
-                    <span className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors group-hover:text-hi">
+                    <button
+                      type="button"
+                      onClick={() => open(p)}
+                      className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi"
+                    >
                       {t.projects.view}
                       <DirArrow className="h-4 w-4" />
-                    </span>
+                    </button>
                   </div>
                 </div>
               </article>
@@ -431,6 +499,61 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      {/* in-app case study panel */}
+      {active && (
+        <div className="fixed inset-0 z-[90] flex items-end justify-center bg-ink/45 p-0 backdrop-blur-sm sm:items-center sm:p-6" onClick={close} role="presentation">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-dialog-title"
+            className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-t-lg border border-line bg-page shadow-2xl sm:rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 z-[1] flex items-center justify-between border-b border-line bg-page/95 px-5 py-4 backdrop-blur">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink3">{active.tags.join(" · ")}</p>
+                <h3 id="project-dialog-title" className="mt-1 text-[22px] font-black tracking-tight" dir={active.id === "hesabyar" ? undefined : "ltr"}>
+                  {active.name}
+                </h3>
+              </div>
+              <button type="button" onClick={close} className="rounded-sm border border-line px-3 py-1.5 text-[12px] font-bold hover:border-hi hover:text-hi">
+                {t.projects.close}
+              </button>
+            </div>
+            <div className="p-5 md:p-8">
+              <Shot className="rounded-md border border-line">
+                {mocks[active.mock as MockKind]()}
+              </Shot>
+              <p className="mt-6 text-[16px] font-bold leading-8 text-hi">{active.subtitle}</p>
+              <p className="mt-3 text-[14.5px] leading-[1.95] text-ink2">{active.desc}</p>
+              {"caps" in active && active.caps && (
+                <div className="mt-6">
+                  <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">
+                    {t.projects.capsLabel}
+                  </span>
+                  <ul className="grid gap-2 sm:grid-cols-2">
+                    {active.caps.map((c) => (
+                      <li key={c} className="flex items-center gap-2 text-[13px] font-medium text-ink2">
+                        <Check className="h-4 w-4 shrink-0 text-sage" strokeWidth={2.5} />
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                <Meta label={t.projects.roleLabel} items={active.role} />
+                <Meta label={t.projects.techLabel} items={active.tech} mono />
+              </div>
+              <a href="#contact" onClick={close} className="btn btn-primary mt-8 w-full sm:w-auto">
+                {t.projects.discuss}
+                <DirArrow className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
