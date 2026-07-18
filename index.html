@@ -16,7 +16,12 @@
     <meta name="theme-color" content="#F5F0E8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#151617" media="(prefers-color-scheme: dark)" />
 
+    <link rel="canonical" href="https://saeedzarrini.com/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://saeedzarrini.com/" />
     <meta property="og:title" content="SaeedZarrini — AI Solutions Engineer & Digital Product Builder" />
     <meta
       property="og:description"
@@ -24,6 +29,40 @@
     />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:image" content="https://saeedzarrini.com/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SaeedZarrini — AI Solutions Engineer & Digital Product Builder" />
+    <meta
+      name="twitter:description"
+      content="Design, software engineering and AI — turning ideas into products that actually work."
+    />
+    <meta name="twitter:image" content="https://saeedzarrini.com/og.jpg" />
+
+    <!-- Prevent FOUC: apply persisted lang/dir/theme before first paint -->
+    <script>
+      (function () {
+        try {
+          var root = document.documentElement;
+          var lang = localStorage.getItem("sz-lang");
+          var theme = localStorage.getItem("sz-theme");
+          if (lang === "en") {
+            root.lang = "en";
+            root.dir = "ltr";
+          } else {
+            root.lang = "fa";
+            root.dir = "rtl";
+          }
+          var dark =
+            theme === "dark" ||
+            (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          root.classList.toggle("dark", dark);
+          root.style.colorScheme = dark ? "dark" : "light";
+        } catch (e) {}
+      })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,8 +77,14 @@
         "@type": "Person",
         "name": "Saeed Zarrini",
         "alternateName": "سعید زرینی",
+        "url": "https://saeedzarrini.com/",
+        "email": "hello@saeedzarrini.com",
         "jobTitle": "AI Solutions Engineer & Digital Product Builder",
         "brand": { "@type": "Brand", "name": "DBSGraphic" },
+        "sameAs": [
+          "https://www.linkedin.com/in/saeed-zarrini-20a56341",
+          "https://dbsgraphic.ir/"
+        ],
         "knowsAbout": [
           "AI Product Development",
           "LLM Integration",

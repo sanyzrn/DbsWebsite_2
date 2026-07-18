@@ -1,26 +1,51 @@
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Send } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 import { Reveal } from "./ui";
 
 type Fields = { name: string; email: string; company: string; type: string; message: string; budget: string; timeline: string };
+type Status = "idle" | "sending" | "delivered" | "mailed" | "error";
 
 const empty: Fields = { name: "", email: "", company: "", type: "", message: "", budget: "", timeline: "" };
+const MAILTO_SAFE = 1800;
+
+function buildMailto(fields: Fields): string {
+  const subject = encodeURIComponent(`Project inquiry — ${fields.type} — ${fields.name}`);
+  const header = [
+    `Name: ${fields.name}`,
+    `Email: ${fields.email}`,
+    fields.company.trim() ? `Company: ${fields.company}` : "",
+    `Project type: ${fields.type}`,
+    fields.budget.trim() ? `Budget: ${fields.budget}` : "",
+    fields.timeline.trim() ? `Timeline: ${fields.timeline}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  let message = fields.message.trim();
+  let body = `${header}\n\n${message}`;
+  // Keep under practical mailto length limits across clients/OS.
+  while (encodeURIComponent(body).length > MAILTO_SAFE && message.length > 40) {
+    message = `${message.slice(0, Math.floor(message.length * 0.85))}…`;
+    body = `${header}\n\n${message}`;
+  }
+  return `mailto:hello@saeedzarrini.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
 
 export default function Contact() {
   const { t } = useApp();
   const f = t.contact.form;
   const [fields, setFields] = useState<Fields>({ ...empty, type: f.types[0] });
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, boolean>>>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
   const set = (key: keyof Fields, value: string) => {
     setFields((s) => ({ ...s, [key]: value }));
     setErrors((e) => ({ ...e, [key]: false }));
   };
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     const next: Partial<Record<keyof Fields, boolean>> = {
       name: !fields.name.trim(),
@@ -30,20 +55,37 @@ export default function Contact() {
     setErrors(next);
     if (next.name || next.email || next.message) return;
 
-    const subject = encodeURIComponent(`Project inquiry — ${fields.type} — ${fields.name}`);
-    const header = [
-      `Name: ${fields.name}`,
-      `Email: ${fields.email}`,
-      fields.company.trim() ? `Company: ${fields.company}` : "",
-      `Project type: ${fields.type}`,
-      fields.budget.trim() ? `Budget: ${fields.budget}` : "",
-      fields.timeline.trim() ? `Timeline: ${fields.timeline}` : "",
-    ]
-      .filter((l) => l !== "")
-      .join("\n");
-    const body = encodeURIComponent(`${header}\n\n${fields.message}`);
-    window.location.href = `mailto:hello@saeedzarrini.com?subject=${subject}&body=${body}`;
-    setSent(true);
+    const formspreeId = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
+
+    if (formspreeId) {
+      setStatus("sending");
+      try {
+        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: fields.name,
+            email: fields.email,
+            company: fields.company,
+            type: fields.type,
+            message: fields.message,
+            budget: fields.budget,
+            timeline: fields.timeline,
+            _subject: `Project inquiry — ${fields.type} — ${fields.name}`,
+          }),
+        });
+        if (!res.ok) throw new Error("formspree failed");
+        setStatus("delivered");
+        setFields({ ...empty, type: f.types[0] });
+      } catch {
+        setStatus("error");
+      }
+      return;
+    }
+
+    // Honest mailto fallback — do not claim the message was delivered.
+    window.location.href = buildMailto(fields);
+    setStatus("mailed");
   };
 
   const info = [
@@ -56,7 +98,6 @@ export default function Contact() {
     <section id="contact" className="section-pad border-t border-line bg-surface">
       <div className="wrap">
         <div className="grid gap-14 lg:grid-cols-12">
-          {/* copy */}
           <div className="lg:col-span-5">
             <Reveal>
               <span className="kicker">{t.contact.kicker}</span>
@@ -95,7 +136,6 @@ export default function Contact() {
             </Reveal>
           </div>
 
-          {/* form */}
           <div className="lg:col-span-7">
             <Reveal delay={200}>
               <form onSubmit={submit} noValidate className="rounded-lg border border-line bg-page p-7 md:p-9">
@@ -202,17 +242,44 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <button type="submit" className="btn btn-primary mt-8 w-full">
-                  {f.submit}
+                <button type="submit" className="btn btn-primary mt-8 w-full" disabled={status === "sending"}>
+                  {status === "sending" ? f.sending : f.submit}
                   <Send className="h-4 w-4 rtl:-scale-x-100" strokeWidth={2.2} />
                 </button>
 
-                {sent && (
+                <p className="mt-4 text-center text-[12px] text-ink3">
+                  {f.directEmail}{" "}
+                  <a href={`mailto:${t.contact.email}`} dir="ltr" className="font-bold text-hi hover:underline">
+                    {t.contact.email}
+                  </a>
+                </p>
+
+                {status === "delivered" && (
                   <div className="mt-5 flex items-start gap-3 rounded-sm border border-sage/40 bg-sage/10 px-4 py-3.5">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sage" />
                     <div>
-                      <p className="text-[13.5px] font-bold text-ink">{f.sentTitle}</p>
-                      <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.sentBody}</p>
+                      <p className="text-[13.5px] font-bold text-ink">{f.deliveredTitle}</p>
+                      <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.deliveredBody}</p>
+                    </div>
+                  </div>
+                )}
+
+                {status === "mailed" && (
+                  <div className="mt-5 flex items-start gap-3 rounded-sm border border-line bg-surface px-4 py-3.5">
+                    <Mail className="mt-0.5 h-5 w-5 shrink-0 text-hi" />
+                    <div>
+                      <p className="text-[13.5px] font-bold text-ink">{f.mailedTitle}</p>
+                      <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.mailedBody}</p>
+                    </div>
+                  </div>
+                )}
+
+                {status === "error" && (
+                  <div className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5">
+                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#C2603E]" />
+                    <div>
+                      <p className="text-[13.5px] font-bold text-ink">{f.errorTitle}</p>
+                      <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.errorBody}</p>
                     </div>
                   </div>
                 )}
