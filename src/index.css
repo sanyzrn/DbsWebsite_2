@@ -407,6 +407,23 @@ section[id] {
   animation: fade-up-hero 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  margin-inline-start: 0.12em;
+  flex-shrink: 0;
+  background: var(--accent);
+  vertical-align: -0.08em;
+  animation: typewriter-blink 1s step-end infinite;
+}
+
+@keyframes typewriter-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -419,11 +436,15 @@ section[id] {
   .drift,
   .pulse-dot,
   .hero-in,
+  .typewriter-cursor,
   .practice-flow,
   .practice-glow,
   .practice-product-ring,
   .practice-product-core {
     animation: none;
+  }
+  .typewriter-cursor {
+    display: none;
   }
   .practice-flow {
     opacity: 0;

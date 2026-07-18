@@ -1,10 +1,33 @@
+import { useMemo } from "react";
 import { Award, Boxes, Sparkles, Waypoints } from "lucide-react";
 import { useApp } from "../lib/app";
+import { useTypewriter } from "../lib/useTypewriter";
 import { DirArrow } from "./ui";
 
+function SloganCycle({ phrases }: { phrases: string[] }) {
+  const typed = useTypewriter(phrases);
+  const longest = useMemo(
+    () => phrases.reduce((best, w) => (w.length > best.length ? w : best), phrases[0] ?? ""),
+    [phrases]
+  );
+
+  return (
+    <span className="inline-flex items-baseline text-hi">
+      <span className="relative inline-grid max-w-full">
+        <span className="invisible col-start-1 row-start-1 whitespace-nowrap" aria-hidden="true">
+          {longest}
+        </span>
+        <span className="col-start-1 row-start-1 whitespace-nowrap">{typed}</span>
+      </span>
+      <span className="typewriter-cursor" aria-hidden="true" />
+    </span>
+  );
+}
+
 export default function Hero() {
-  const { t } = useApp();
+  const { t, lang } = useApp();
   const statIcons = [Award, Boxes, Waypoints];
+  const connector = lang === "fa" ? " تا " : " to ";
 
   return (
     <section id="top" className="relative flex min-h-dvh flex-col overflow-hidden">
@@ -34,12 +57,9 @@ export default function Hero() {
         </h1>
 
         <p className="hero-in mx-auto mt-4 max-w-3xl text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]" style={{ animationDelay: "240ms" }}>
-          {t.hero.sloganA}{" "}
-          <span className="text-hi">
-            {t.hero.sloganB.split(t.hero.sloganAccent)[0]}
-            {t.hero.sloganAccent}
-            {t.hero.sloganB.split(t.hero.sloganAccent)[1] ?? ""}
-          </span>
+          {t.hero.sloganA}
+          {connector}
+          <SloganCycle phrases={t.hero.sloganCycle} />
         </p>
 
         <p className="hero-in mx-auto mt-5 max-w-4xl text-[14px] leading-7 text-ink2 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "340ms" }}>
