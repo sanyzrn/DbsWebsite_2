@@ -1,14 +1,11 @@
-import { useEffect } from "react";
+import { PageMeta } from "../components/PageMeta";
 import Projects from "../components/Projects";
-import { useApp } from "../lib/app";
-import { applyDocumentSeo } from "../lib/seo";
 
 export default function ProjectsPage() {
-  const { lang } = useApp();
-
-  useEffect(() => {
-    applyDocumentSeo(lang, "projects");
-  }, [lang]);
-
-  return <Projects mode="full" />;
+  return (
+    <>
+      <PageMeta page="projects" />
+      <Projects mode="full" />
+    </>
+  );
 }

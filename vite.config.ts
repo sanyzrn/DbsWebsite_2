@@ -4,7 +4,6 @@ import { fileURLToPath } from "url";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv, type Plugin } from "vite";
-import { viteSingleFile } from "vite-plugin-singlefile";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,7 +34,7 @@ export default defineConfig(({ mode }) => {
   const siteUrl = normalizeSiteUrl(env.SITE_URL || process.env.SITE_URL || DEFAULT_SITE_URL);
 
   return {
-    plugins: [react(), tailwindcss(), siteUrlHtmlPlugin(siteUrl), viteSingleFile()],
+    plugins: [react(), tailwindcss(), siteUrlHtmlPlugin(siteUrl)],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
@@ -43,6 +42,10 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       "import.meta.env.VITE_SITE_URL": JSON.stringify(siteUrl),
+    },
+    build: {
+      // Multi-page static emit (CSS/JS assets + prerendered HTML per route).
+      cssCodeSplit: true,
     },
     test: {
       environment: "jsdom",

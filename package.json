@@ -7,7 +7,7 @@
     "dev": "vite",
     "generate:seo": "node scripts/generate-seo-files.mjs",
     "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",
-    "build": "npm run check:urls && vite build",
+    "build": "npm run check:urls && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs",
     "preview": "vite preview",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
@@ -33,7 +33,6 @@
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3",
     "vite": "7.3.2",
-    "vite-plugin-singlefile": "2.3.0",
     "vitest": "^4.1.10"
   }
 }

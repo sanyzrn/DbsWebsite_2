@@ -37,36 +37,16 @@
     />
     <meta name="twitter:image" content="__SITE_URL__/og.jpg" />
 
-    <!-- Prevent FOUC: apply persisted lang/dir/theme before first paint -->
+    <!-- Prevent FOUC: lang/dir from URL path; theme from preference / system -->
     <script>
       (function () {
         try {
           var root = document.documentElement;
-          var lang = localStorage.getItem("sz-lang");
+          var path = location.pathname || "/";
+          var isEn = path === "/en" || path.indexOf("/en/") === 0;
+          root.lang = isEn ? "en" : "fa";
+          root.dir = isEn ? "ltr" : "rtl";
           var theme = localStorage.getItem("sz-theme");
-          var isEn = lang === "en";
-          if (isEn) {
-            root.lang = "en";
-            root.dir = "ltr";
-            document.title = "Saeed Zarrini | AI Solutions Engineer";
-            var desc =
-              "For founders and teams stuck between idea and shipping: I design, engineer, and integrate AI into digital products that actually work.";
-            var metaDesc = document.querySelector('meta[name="description"]');
-            if (metaDesc) metaDesc.setAttribute("content", desc);
-            var ogTitle = document.querySelector('meta[property="og:title"]');
-            if (ogTitle) ogTitle.setAttribute("content", document.title);
-            var ogDesc = document.querySelector('meta[property="og:description"]');
-            if (ogDesc) ogDesc.setAttribute("content", desc);
-            var ogLocale = document.querySelector('meta[property="og:locale"]');
-            if (ogLocale) ogLocale.setAttribute("content", "en_US");
-            var twTitle = document.querySelector('meta[name="twitter:title"]');
-            if (twTitle) twTitle.setAttribute("content", document.title);
-            var twDesc = document.querySelector('meta[name="twitter:description"]');
-            if (twDesc) twDesc.setAttribute("content", desc);
-          } else {
-            root.lang = "fa";
-            root.dir = "rtl";
-          }
           var dark =
             theme === "dark" ||
             (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);

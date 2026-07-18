@@ -16,12 +16,20 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
+  // Start visible so prerendered HTML is readable before hydration; below-fold
+  // elements briefly hide then reveal on scroll (client-only).
   const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+    if (alreadyVisible) return;
+
+    setInView(false);
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

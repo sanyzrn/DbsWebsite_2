@@ -1,21 +1,14 @@
-import { useEffect } from "react";
 import Hero from "../components/Hero";
 import Intro from "../components/Intro";
 import Expertise from "../components/Expertise";
 import { Process, Thinking } from "../components/Thinking";
 import Projects from "../components/Projects";
-import { useApp } from "../lib/app";
-import { applyDocumentSeo } from "../lib/seo";
+import { PageMeta } from "../components/PageMeta";
 
 export default function HomePage() {
-  const { lang } = useApp();
-
-  useEffect(() => {
-    applyDocumentSeo(lang, "home");
-  }, [lang]);
-
   return (
     <>
+      <PageMeta page="home" />
       <Hero />
       <Intro />
       <Expertise />
