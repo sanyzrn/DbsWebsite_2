@@ -1,6 +1,6 @@
 import { Code2, Compass, Palette, Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
-import { DirArrow, Reveal, SectionHead } from "./ui";
+import { DirArrow, Reveal, SectionHead, SnapCarousel } from "./ui";
 
 const cardIcons = [Palette, Code2, Sparkles, Compass];
 
@@ -19,13 +19,20 @@ export default function Expertise() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {t.expertise.cards.map((card, i) => {
-            const Icon = cardIcons[i];
-            return (
-              <Reveal key={card.en} delay={i * 90} className="h-full">
-                <article className="group relative flex h-full flex-col rounded-lg border border-line bg-page p-7 transition-all duration-400 hover:-translate-y-1.5 hover:border-hi/60">
-                  {/* index */}
+        <Reveal delay={120}>
+          <SnapCarousel
+            className="mt-14"
+            label={t.expertise.kicker}
+            gridClassName="md:grid-cols-2 xl:grid-cols-4"
+            itemClassName="h-full"
+          >
+            {t.expertise.cards.map((card, i) => {
+              const Icon = cardIcons[i];
+              return (
+                <article
+                  key={card.en}
+                  className="group relative flex h-full flex-col rounded-lg border border-line bg-page p-7 transition-all duration-400 hover:-translate-y-1.5 hover:border-hi/60"
+                >
                   <div className="mb-8 flex items-start justify-between">
                     <span className="flex h-12 w-12 items-center justify-center rounded-sm border border-line bg-surface text-hi transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page">
                       <Icon className="h-[22px] w-[22px]" strokeWidth={1.8} />
@@ -55,7 +62,6 @@ export default function Expertise() {
                     <DirArrow className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 rtl:group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
                   </a>
 
-                  {/* ghost number */}
                   <span
                     className="pointer-events-none absolute -bottom-5 end-3 select-none font-mono text-[110px] font-bold leading-none text-ink opacity-[0.04] transition-opacity duration-500 group-hover:opacity-[0.08]"
                     aria-hidden="true"
@@ -63,10 +69,10 @@ export default function Expertise() {
                     {i + 1}
                   </span>
                 </article>
-              </Reveal>
-            );
-          })}
-        </div>
+              );
+            })}
+          </SnapCarousel>
+        </Reveal>
       </div>
     </section>
   );
