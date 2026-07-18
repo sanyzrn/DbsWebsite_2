@@ -13,12 +13,14 @@ const fa = {
     description:
       "برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم.",
     projects: {
-      title: "پروژه‌ها | Saeed Zarrini",
-      description: "پروژه‌های تولیدشده و طرح‌های مفهومی — سیستم‌های سازمانی، ابزارهای شخصی و یکپارچه‌سازی هوش مصنوعی.",
+      title: "Saeed Zarrini | پروژه‌ها",
+      description:
+        "برای تیم‌هایی که می‌خواهند ببینند ایده چگونه به محصول می‌رسد: نمونه‌کارهای سازمانی، ابزارها و یکپارچه‌سازی هوش مصنوعی.",
     },
     about: {
-      title: "درباره من | Saeed Zarrini",
-      description: "مسیر طراحی تا مهندسی و هوش مصنوعی، مهارت‌ها، و راه‌های شروع همکاری با سعید زرینی.",
+      title: "Saeed Zarrini | درباره من",
+      description:
+        "اگر بین ایده و محصول گیر کرده‌اید: مسیر کاری، مهارت‌ها و راه‌های شروع همکاری برای ساخت محصول دیجیتال و هوش مصنوعی.",
     },
     privacy: {
       title: "حریم خصوصی | Saeed Zarrini",
@@ -332,12 +334,14 @@ const en: UiDict = {
     description:
       "For founders and teams stuck between idea and shipping: I design, engineer, and integrate AI into digital products that actually work.",
     projects: {
-      title: "Projects | Saeed Zarrini",
-      description: "Shipped products and concept explorations — organizational systems, personal tools, and AI integrations.",
+      title: "Saeed Zarrini | Projects",
+      description:
+        "For teams that need to see how an idea becomes a shippable product — org systems, tools, and AI integrations built for real use.",
     },
     about: {
-      title: "About | Saeed Zarrini",
-      description: "Background, skills, and how to start a project with Saeed Zarrini — design, engineering, and AI.",
+      title: "Saeed Zarrini | About",
+      description:
+        "If you are stuck between idea and a working product: path, skills, and how to start building digital products and AI with Saeed Zarrini.",
     },
     privacy: {
       title: "Privacy | Saeed Zarrini",

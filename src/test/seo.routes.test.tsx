@@ -39,6 +39,20 @@ async function expectDocMeta(opts: {
 }
 
 describe("route SEO meta (both locales)", () => {
+  it("keeps locale SEO titles/descriptions within budgets and has no keywords meta", () => {
+    for (const lang of ["fa", "en"] as const) {
+      const seo = dictionaries[lang].seo;
+      expect(seo.title.length).toBeLessThanOrEqual(60);
+      expect(seo.description.length).toBeLessThanOrEqual(155);
+      expect(seo.title.startsWith("Saeed Zarrini |")).toBe(true);
+      for (const page of [seo.projects, seo.about, seo.privacy, seo.terms, seo.notFound]) {
+        expect(page.title.length).toBeLessThanOrEqual(60);
+        expect(page.description.length).toBeLessThanOrEqual(155);
+      }
+    }
+    expect(document.querySelector('meta[name="keywords"]')).toBeNull();
+  });
+
   it("home fa/en expose title, description, canonical, hreflang", async () => {
     render(<App />);
     await expectDocMeta({
