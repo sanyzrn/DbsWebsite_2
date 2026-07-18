@@ -19,4 +19,5 @@ Canonical source for portfolio projects. Each file is `content/projects/<slug>.j
 | `caps` | Optional `{ fa, en }` capability lists |
 
 The static site loads these files at build time via `import.meta.glob` in `src/lib/projects.ts`.
-The PHP admin panel publishes this same shape into the repo via the GitHub API.
+The PHP admin panel under `admin/` publishes this same shape into the repo via the GitHub API
+(see `admin/README.md`). Do **not** use Decap CMS.
