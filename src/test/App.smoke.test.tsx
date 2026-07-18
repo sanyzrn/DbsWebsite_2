@@ -24,6 +24,7 @@ describe("App smoke", () => {
     const err = vi.spyOn(console, "error").mockImplementation(() => {});
     render(<App />);
     expect(document.getElementById("main")).toBeTruthy();
+    expect(screen.getAllByText(/Saeed/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/From an idea/i).length).toBeGreaterThan(0);
     expect(err).not.toHaveBeenCalled();
   });

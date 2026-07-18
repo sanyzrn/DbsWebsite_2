@@ -39,11 +39,15 @@ export default function Nav() {
       )}
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
-        {/* Brand */}
-        <a href="#top" className="group flex items-center gap-3" aria-label="DBSGraphic — home">
-          <BrandLogo variant="full" imgClassName="h-8 w-auto max-w-[160px] object-contain md:h-9 md:max-w-[180px]" />
-          <span className="hidden flex-col leading-none sm:flex">
-            <span className="text-[10px] font-medium text-ink2">{t.brand.sub}</span>
+        {/* Brand — personal name first; studio mark secondary */}
+        <a href="#top" className="group flex items-center gap-2.5" aria-label="Saeed Zarrini — home">
+          <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain opacity-90 transition-opacity group-hover:opacity-100" alt="" />
+          <span className="flex flex-col leading-none">
+            <span dir="ltr" className="text-[17px] font-extrabold tracking-tight">
+              Saeed<span className="text-hi">Zarrini</span>
+              <span className="ms-1 inline-block h-[7px] w-[7px] rounded-[2px] bg-accent align-baseline transition-transform duration-300 group-hover:rotate-45" />
+            </span>
+            <span className="mt-1.5 text-[10px] font-medium text-ink2">{t.brand.sub}</span>
           </span>
         </a>
 
@@ -127,7 +131,7 @@ export default function Nav() {
           </a>
           <p className="mt-auto flex items-center justify-center gap-2 pt-10 text-center text-[11px] text-ink3" dir="ltr">
             <BrandLogo variant="icon" imgClassName="h-4 w-4 object-contain opacity-80" alt="" />
-            DBSGraphic — {t.footer.tagline}
+            SaeedZarrini — {t.footer.tagline}
           </p>
         </nav>
       </div>
