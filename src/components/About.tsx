@@ -25,8 +25,11 @@ export default function About() {
                   className="aspect-[20/23] w-full object-cover transition-transform duration-[1200ms] hover:scale-[1.03]"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent p-5 pt-16" dir="ltr">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
-                    DBSGraphic — creative & product studio
+                  <span className="inline-flex items-center gap-2.5">
+                    <img src="/Dbs_logo_single.webp" alt="" className="h-5 w-5 object-contain" />
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
+                      DBSGraphic — creative & product studio
+                    </span>
                   </span>
                 </div>
                 <span className="absolute end-4 top-4 rounded-xs border border-white/25 bg-black/30 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-white/85 backdrop-blur" dir="ltr">
