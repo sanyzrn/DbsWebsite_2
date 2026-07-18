@@ -12,11 +12,11 @@ export default function Hero() {
 
       <div className="wrap relative mx-auto max-w-5xl text-center">
         <div className="hero-in flex justify-center" style={{ animationDelay: "60ms" }}>
-          <span className="chip chip-mono max-w-full border-line2 text-ink2">
+          <span className="chip max-w-full border-line2 font-[family-name:Vazirmatn,ui-sans-serif,system-ui,sans-serif] text-ink2">
             <Sparkles className="h-3.5 w-3.5 shrink-0 text-hi" strokeWidth={2.2} />
             <span className="truncate">{t.hero.badge}</span>
             <span className="hidden text-ink3 sm:inline">·</span>
-            <span className="hidden text-ink3 sm:inline">{t.hero.badgeStudio}</span>
+            <span className="hidden font-mono text-ink3 sm:inline">{t.hero.badgeStudio}</span>
           </span>
         </div>
 
