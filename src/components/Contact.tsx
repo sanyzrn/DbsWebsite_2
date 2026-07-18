@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { AlertCircle, CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 import { Reveal } from "./ui";
@@ -30,7 +30,7 @@ function buildMailto(fields: Fields): string {
     message = `${message.slice(0, Math.floor(message.length * 0.85))}…`;
     body = `${header}\n\n${message}`;
   }
-  return `mailto:hello@saeedzarrini.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+  return `mailto:zrn_sany@yahoo.com?subject=${subject}&body=${encodeURIComponent(body)}`;
 }
 
 export default function Contact() {
@@ -89,7 +89,8 @@ export default function Contact() {
   };
 
   const info = [
-    { icon: Mail, label: t.contact.emailLabel, value: t.contact.email, ltr: true },
+    { icon: Mail, label: t.contact.emailLabel, value: t.contact.email, href: `mailto:${t.contact.email}`, ltr: true },
+    { icon: Phone, label: t.contact.phoneLabel, value: t.contact.phone, href: `tel:${t.contact.phone}`, ltr: true },
     { icon: MapPin, label: t.contact.locationLabel, value: t.contact.location },
     { icon: Clock3, label: t.contact.responseLabel, value: t.contact.response },
   ];
@@ -120,7 +121,7 @@ export default function Contact() {
             </Reveal>
 
             <Reveal delay={540}>
-              <div className="mt-10 grid gap-8 border-t border-line pt-8 sm:grid-cols-3">
+              <div className="mt-10 grid gap-8 border-t border-line pt-8 sm:grid-cols-2">
                 {info.map((item) => (
                   <div key={item.label} className="mb-5 sm:mb-0">
                     <div className="mb-2.5 flex h-9 w-9 items-center justify-center rounded-sm border border-line text-hi">
@@ -128,7 +129,13 @@ export default function Contact() {
                     </div>
                     <div className="text-[11px] font-semibold text-ink3">{item.label}</div>
                     <div className="mt-1 text-[13px] font-bold" dir={item.ltr ? "ltr" : undefined}>
-                      {item.value}
+                      {item.href ? (
+                        <a href={item.href} className="transition-colors hover:text-hi">
+                          {item.value}
+                        </a>
+                      ) : (
+                        item.value
+                      )}
                     </div>
                   </div>
                 ))}
