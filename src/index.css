@@ -1,0 +1,354 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens — light = warm paper, dark = graphite architecture   */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --page: #f5f0e8;
+  --surface: #fbf9f5;
+  --surface2: #fffcf7;
+  --ink: #1c1c1a;
+  --ink2: #77736c;
+  --ink3: #a6a195;
+  --line: #ddd5c9;
+  --line2: #cdc4b4;
+  --accent: #bc9463;
+  --accentdark: #947044;
+  --soft: #e6d6c2;
+  --hi: #bc9463;
+  --fontstack: "Vazirmatn", ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
+}
+
+.dark {
+  --page: #151617;
+  --surface: #202223;
+  --surface2: #292b2d;
+  --ink: #f1f0ed;
+  --ink2: #a7a9a8;
+  --ink3: #777b7c;
+  --line: #343738;
+  --line2: #45494b;
+  --accent: #c19e6e;
+  --accentdark: #a8875a;
+  --soft: #2a2723;
+  --hi: #aeb8bc;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface2);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink2);
+  --color-ink3: var(--ink3);
+  --color-line: var(--line);
+  --color-line2: var(--line2);
+  --color-accent: var(--accent);
+  --color-accentdark: var(--accentdark);
+  --color-soft: var(--soft);
+  --color-hi: var(--hi);
+
+  /* product-screenshot palette — intentional constant dark graphite */
+  --color-shot: #131518;
+  --color-shotpanel: #1c2025;
+  --color-shotup: #242930;
+  --color-shotline: #2f353d;
+  --color-shotink: #edeae4;
+  --color-shotmut: #7d858d;
+  --color-steel: #8fb0c0;
+  --color-sage: #a3b18a;
+
+  --font-sans: var(--fontstack);
+  --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
+
+html[lang="en"] {
+  --fontstack: "Inter", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                                */
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--fontstack);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.45s ease, color 0.45s ease;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: #1f1b14;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* Persian display type needs air for deep descenders */
+html[lang="fa"] h1,
+html[lang="fa"] h2 {
+  line-height: 1.32;
+}
+
+section[id] {
+  scroll-margin-top: 92px;
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Shared primitives                                                   */
+/* ------------------------------------------------------------------ */
+
+.wrap {
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+@media (min-width: 768px) {
+  .wrap {
+    padding-inline: 40px;
+  }
+}
+
+.section-pad {
+  padding-block: clamp(84px, 9vw, 136px);
+}
+
+@layer components {
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink2);
+  }
+  html[lang="en"] .kicker {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .kicker::before {
+    content: "";
+    width: 26px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--hi);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 50px;
+    padding-inline: 26px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #211a10;
+  }
+  .btn-primary:hover {
+    background: var(--accentdark);
+    color: #fff8ee;
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    border: 1px solid var(--line2);
+    color: var(--ink);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: var(--hi);
+    color: var(--hi);
+    transform: translateY(-2px);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink2);
+    background: transparent;
+    transition: border-color 0.25s, color 0.25s, background-color 0.25s;
+  }
+  .chip-mono {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+  a.chip:hover, .chip-hover:hover {
+    border-color: var(--hi);
+    color: var(--hi);
+  }
+
+  .field {
+    width: 100%;
+    background: var(--page);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0 16px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    font-family: inherit;
+    transition: border-color 0.25s, background-color 0.25s;
+  }
+  textarea.field {
+    height: auto;
+    padding: 14px 16px;
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.9;
+  }
+  .field::placeholder {
+    color: var(--ink3);
+    font-weight: 400;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface2);
+  }
+  select.field {
+    appearance: none;
+    padding-inline-end: 42px;
+    cursor: pointer;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Decorative                                                          */
+/* ------------------------------------------------------------------ */
+
+.bg-grid {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.bg-grid-fade {
+  -webkit-mask-image: radial-gradient(130% 100% at 50% 0%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(130% 100% at 50% 0%, #000 25%, transparent 78%);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Motion                                                              */
+/* ------------------------------------------------------------------ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+.marquee-pause:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes drift {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+.drift {
+  animation: drift 7s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(163, 177, 138, 0.5);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 5px rgba(163, 177, 138, 0);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes fade-up-hero {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-in {
+  animation: fade-up-hero 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track,
+  .drift,
+  .pulse-dot,
+  .hero-in {
+    animation: none;
+  }
+}
