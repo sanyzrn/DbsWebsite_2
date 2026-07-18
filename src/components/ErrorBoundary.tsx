@@ -49,7 +49,7 @@ export class ErrorBoundary extends Component<Props, State> {
               {isFa ? "تازه‌سازی صفحه" : "Reload page"}
             </button>
             <a
-              href="mailto:hello@saeedzarrini.com?subject=Portfolio%20site%20error"
+              href="mailto:zrn_sany@yahoo.com?subject=Portfolio%20site%20error"
               className="rounded-sm border border-[#ddd5c9] px-5 py-2.5 text-[13px] font-bold dark:border-[#343738]"
             >
               {isFa ? "ایمیل بزنید" : "Email me"}

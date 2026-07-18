@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
-import { ArrowRight, Languages, Mail, Moon, Search, Sun, X } from "lucide-react";
+import { ArrowRight, Languages, Mail, Moon, Phone, Search, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 
@@ -69,6 +69,15 @@ export default function CommandPalette() {
           window.location.href = `mailto:${t.contact.email}`;
         },
       },
+      {
+        id: "phone",
+        label: t.contact.phone,
+        hint: "tel",
+        run: () => {
+          close();
+          window.location.href = `tel:${t.contact.phone}`;
+        },
+      },
     ];
   }, [t, theme, lang, toggleTheme, toggleLang, close]);
 
@@ -119,6 +128,7 @@ export default function CommandPalette() {
     theme: theme === "dark" ? Sun : Moon,
     lang: Languages,
     email: Mail,
+    phone: Phone,
   };
 
   return (
