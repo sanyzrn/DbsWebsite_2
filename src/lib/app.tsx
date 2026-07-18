@@ -25,6 +25,13 @@ function initialTheme(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
+/** Preference memory only — never overrides URL locale by itself. */
+export function readStoredLang(): Lang | null {
+  if (typeof window === "undefined") return null;
+  const stored = localStorage.getItem("sz-lang");
+  return stored === "en" || stored === "fa" ? stored : null;
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const navigate = useNavigate();

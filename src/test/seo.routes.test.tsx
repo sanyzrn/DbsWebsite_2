@@ -1,0 +1,138 @@
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import App from "../App";
+import { dictionaries } from "../lib/i18n";
+import { listPrerenderPaths, resolveSeoForPath } from "../lib/seo";
+import { loadProjectContent } from "../lib/projects";
+
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+  localStorage.clear();
+  document.documentElement.classList.remove("dark");
+  document.documentElement.lang = "fa";
+  document.documentElement.dir = "rtl";
+  window.history.replaceState(null, "", "/");
+  document.head.querySelectorAll('link[rel="alternate"], link[rel="canonical"]').forEach((el) => el.remove());
+});
+
+async function expectDocMeta(opts: {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  hreflangFa: string;
+  hreflangEn: string;
+}) {
+  await waitFor(() => {
+    expect(document.title).toBe(opts.title);
+  });
+  const desc = document.querySelector('meta[name="description"]');
+  expect(desc?.getAttribute("content")).toBe(opts.description);
+
+  const canonical = document.querySelector('link[rel="canonical"]');
+  expect(canonical?.getAttribute("href")).toMatch(new RegExp(`${opts.canonicalPath.replace(/\/$/, "")}/?$`));
+
+  const fa = document.querySelector('link[rel="alternate"][hreflang="fa"]');
+  const en = document.querySelector('link[rel="alternate"][hreflang="en"]');
+  expect(fa?.getAttribute("href")).toMatch(new RegExp(`${opts.hreflangFa.replace(/\/$/, "")}/?$`));
+  expect(en?.getAttribute("href")).toMatch(new RegExp(`${opts.hreflangEn.replace(/\/$/, "")}/?$`));
+}
+
+describe("route SEO meta (both locales)", () => {
+  it("home fa/en expose title, description, canonical, hreflang", async () => {
+    render(<App />);
+    await expectDocMeta({
+      title: dictionaries.fa.seo.title,
+      description: dictionaries.fa.seo.description,
+      canonicalPath: "/",
+      hreflangFa: "/",
+      hreflangEn: "/en",
+    });
+
+    cleanup();
+    window.history.pushState(null, "", "/en");
+    render(<App />);
+    await expectDocMeta({
+      title: dictionaries.en.seo.title,
+      description: dictionaries.en.seo.description,
+      canonicalPath: "/en",
+      hreflangFa: "/",
+      hreflangEn: "/en",
+    });
+  });
+
+  it("privacy and terms routes expose locale SEO in both languages", async () => {
+    window.history.pushState(null, "", "/privacy");
+    render(<App />);
+    await expectDocMeta({
+      title: dictionaries.fa.seo.privacy.title,
+      description: dictionaries.fa.seo.privacy.description,
+      canonicalPath: "/privacy",
+      hreflangFa: "/privacy",
+      hreflangEn: "/en/privacy",
+    });
+
+    cleanup();
+    window.history.pushState(null, "", "/en/terms");
+    render(<App />);
+    await expectDocMeta({
+      title: dictionaries.en.seo.terms.title,
+      description: dictionaries.en.seo.terms.description,
+      canonicalPath: "/en/terms",
+      hreflangFa: "/terms",
+      hreflangEn: "/en/terms",
+    });
+  });
+
+  it("project detail routes expose case-study title and reciprocal hreflang", async () => {
+    const slug = loadProjectContent()[0]?.slug ?? "dbspulse";
+    window.history.pushState(null, "", `/projects/${slug}`);
+    render(<App />);
+    const faSeo = resolveSeoForPath(`/projects/${slug}`);
+    await expectDocMeta({
+      title: faSeo.title,
+      description: faSeo.description,
+      canonicalPath: `/projects/${slug}`,
+      hreflangFa: `/projects/${slug}`,
+      hreflangEn: `/en/projects/${slug}`,
+    });
+
+    cleanup();
+    window.history.pushState(null, "", `/en/projects/${slug}`);
+    render(<App />);
+    const enSeo = resolveSeoForPath(`/en/projects/${slug}`);
+    await expectDocMeta({
+      title: enSeo.title,
+      description: enSeo.description,
+      canonicalPath: `/en/projects/${slug}`,
+      hreflangFa: `/projects/${slug}`,
+      hreflangEn: `/en/projects/${slug}`,
+    });
+  });
+
+  it("listPrerenderPaths covers both locales for static + project routes", () => {
+    const paths = listPrerenderPaths();
+    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms"]) {
+      expect(paths).toContain(p);
+    }
+    const slug = loadProjectContent()[0]?.slug;
+    if (slug) {
+      expect(paths).toContain(`/projects/${slug}`);
+      expect(paths).toContain(`/en/projects/${slug}`);
+    }
+  });
+
+  it("resolveSeoForPath emits JSON-LD WebSite/Organization on home and CreativeWork on projects", () => {
+    const home = resolveSeoForPath("/");
+    const blob = JSON.stringify(home.jsonLd);
+    expect(blob).toContain("Person");
+    expect(blob).toContain("Organization");
+    expect(blob).toContain("ProfessionalService");
+    expect(blob).toContain("WebSite");
+
+    const slug = loadProjectContent()[0]?.slug ?? "dbspulse";
+    const project = resolveSeoForPath(`/projects/${slug}`);
+    const pblob = JSON.stringify(project.jsonLd);
+    expect(pblob).toMatch(/CreativeWork|SoftwareApplication/);
+  });
+});

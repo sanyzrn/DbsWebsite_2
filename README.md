@@ -7,7 +7,7 @@ Frontend-only SPA. Project copy lives in `content/projects/*.json`; UI strings i
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Vite dev server |
-| `npm run build` | Generate SEO files → check URLs → production build |
+| `npm run build` | Generate SEO files → check URLs → Vite client build → SSR prerender → static HTML per route |
 | `npm run preview` | Preview production build |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm test` | Vitest |
@@ -35,9 +35,10 @@ Set `SITE_URL` in the host’s environment (Vercel → Project → Settings → 
 
 At build time:
 
-1. `generate:seo` writes `robots.txt` and `sitemap.xml` using `SITE_URL`
+1. `generate:seo` writes `robots.txt` and `sitemap.xml` using `SITE_URL` (all fa/en routes + project slugs)
 2. `check:urls` fails the build if those files or `index.html` still contain a different site domain
 3. Vite replaces `__SITE_URL__` placeholders in `index.html` and exposes `import.meta.env.VITE_SITE_URL` to the app
+4. A build-time prerender step emits one static HTML file per route under `dist/` (title, description, canonical, hreflang, Open Graph, JSON-LD)
 
 Do not hardcode the site domain elsewhere — change `SITE_URL` only.
 

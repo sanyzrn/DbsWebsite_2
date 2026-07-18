@@ -20,6 +20,18 @@ const fa = {
       title: "درباره من | Saeed Zarrini",
       description: "مسیر طراحی تا مهندسی و هوش مصنوعی، مهارت‌ها، و راه‌های شروع همکاری با سعید زرینی.",
     },
+    privacy: {
+      title: "حریم خصوصی | Saeed Zarrini",
+      description: "سیاست حریم خصوصی وب‌سایت شخصی سعید زرینی.",
+    },
+    terms: {
+      title: "شرایط استفاده | Saeed Zarrini",
+      description: "شرایط استفاده از وب‌سایت شخصی سعید زرینی.",
+    },
+    notFound: {
+      title: "صفحه پیدا نشد | Saeed Zarrini",
+      description: "صفحهٔ درخواستی وجود ندارد.",
+    },
   },
   nav: {
     home: "خانه",
@@ -266,6 +278,33 @@ const fa = {
     rights: "تمامی حقوق محفوظ است.",
     built: "طراحی و توسعه: سعید زرینی",
     backTop: "بازگشت به بالا",
+    privacy: "حریم خصوصی",
+    terms: "شرایط استفاده",
+  },
+  privacy: {
+    kicker: "حقوقی",
+    title: "حریم خصوصی",
+    updated: "آخرین به‌روزرسانی: ژوئیه ۲۰۲۶",
+    paragraphs: [
+      "این وب‌سایت یک نمونه‌کار شخصی است. به‌طور پیش‌فرض داده‌های تحلیلی شخص ثالث جمع‌آوری نمی‌شود؛ ترجیح زبان و تم فقط در مرورگر شما (localStorage) ذخیره می‌شود.",
+      "اگر از طریق فرم تماس پیامی بفرستید، محتوای پیام و اطلاعات تماس شما صرفاً برای پاسخ به درخواست شما استفاده می‌شود و به اشخاص ثالث فروخته نمی‌شود.",
+      "برای پرسش دربارهٔ داده‌ها با ایمیل درج‌شده در صفحه تماس بنویسید.",
+    ],
+  },
+  terms: {
+    kicker: "حقوقی",
+    title: "شرایط استفاده",
+    updated: "آخرین به‌روزرسانی: ژوئیه ۲۰۲۶",
+    paragraphs: [
+      "محتوای این وب‌سایت برای معرفی خدمات و نمونه‌کارهای سعید زرینی ارائه شده است. استفاده شخصی و غیرتجاری از مطالب با ذکر منبع مجاز است مگر خلاف آن ذکر شود.",
+      "نام‌ها، لوگوها و علائم تجاری متعلق به صاحبان مربوطه هستند و ذکر آن‌ها به معنای تأیید یا وابستگی نیست.",
+      "اطلاعات فنی و توضیحات پروژه‌ها ممکن است به‌مرور به‌روز شوند؛ برای همکاری رسمی از مسیر تماس استفاده کنید.",
+    ],
+  },
+  notFound: {
+    title: "صفحه پیدا نشد",
+    body: "آدرسی که دنبالش بودید وجود ندارد یا جابه‌جا شده است.",
+    home: "بازگشت به خانه",
   },
   command: {
     title: "فرمان‌ها",
@@ -299,6 +338,18 @@ const en: UiDict = {
     about: {
       title: "About | Saeed Zarrini",
       description: "Background, skills, and how to start a project with Saeed Zarrini — design, engineering, and AI.",
+    },
+    privacy: {
+      title: "Privacy | Saeed Zarrini",
+      description: "Privacy policy for Saeed Zarrini’s personal website.",
+    },
+    terms: {
+      title: "Terms | Saeed Zarrini",
+      description: "Terms of use for Saeed Zarrini’s personal website.",
+    },
+    notFound: {
+      title: "Page not found | Saeed Zarrini",
+      description: "The requested page does not exist.",
     },
   },
   nav: {
@@ -546,6 +597,33 @@ const en: UiDict = {
     rights: "All rights reserved.",
     built: "Designed & built by Saeed Zarrini",
     backTop: "Back to top",
+    privacy: "Privacy",
+    terms: "Terms",
+  },
+  privacy: {
+    kicker: "Legal",
+    title: "Privacy policy",
+    updated: "Last updated: July 2026",
+    paragraphs: [
+      "This site is a personal portfolio. By default it does not load third-party analytics; language and theme preferences are stored only in your browser (localStorage).",
+      "If you send a message through the contact form, that content and your contact details are used solely to respond to your inquiry and are not sold to third parties.",
+      "For data questions, email the address listed on the contact page.",
+    ],
+  },
+  terms: {
+    kicker: "Legal",
+    title: "Terms of use",
+    updated: "Last updated: July 2026",
+    paragraphs: [
+      "Content on this site presents Saeed Zarrini’s work and services. Personal, non-commercial use with attribution is welcome unless otherwise noted.",
+      "Names, logos, and trademarks belong to their respective owners; mention does not imply endorsement or affiliation.",
+      "Project descriptions may change over time; for formal engagement, use the contact flow.",
+    ],
+  },
+  notFound: {
+    title: "Page not found",
+    body: "The address you requested does not exist or has moved.",
+    home: "Back to home",
   },
   command: {
     title: "Command palette",

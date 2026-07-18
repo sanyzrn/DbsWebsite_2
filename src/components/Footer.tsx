@@ -19,6 +19,10 @@ export default function Footer() {
     { label: t.nav.about, to: localePath(lang, "/about") },
     { label: t.nav.contact, to: `${localePath(lang, "/about")}#contact` },
   ];
+  const legal = [
+    { label: t.footer.privacy, to: localePath(lang, "/privacy") },
+    { label: t.footer.terms, to: localePath(lang, "/terms") },
+  ];
 
   const socials = [
     {
@@ -81,6 +85,14 @@ export default function Footer() {
                 </span>
               )}
             </span>
+          ))}
+        </nav>
+
+        <nav aria-label={t.footer.privacy} className="mt-4 flex flex-wrap gap-x-3 gap-y-1">
+          {legal.map((l) => (
+            <Link key={l.to} to={l.to} className="text-[12px] font-semibold text-ink3 transition-colors hover:text-hi">
+              {l.label}
+            </Link>
           ))}
         </nav>
 
@@ -155,7 +167,14 @@ export default function Footer() {
           <p className="text-[12px] font-medium text-ink3">
             © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
           </p>
-          <p className="text-[12px] font-medium text-ink3">{t.footer.built}</p>
+          <nav className="flex flex-wrap items-center gap-4">
+            {legal.map((l) => (
+              <Link key={l.to} to={l.to} className="text-[12px] font-medium text-ink3 transition-colors hover:text-hi">
+                {l.label}
+              </Link>
+            ))}
+            <span className="text-[12px] font-medium text-ink3">{t.footer.built}</span>
+          </nav>
         </div>
       </div>
       {/* Scroll-to-top lives on FloatingQuickNav (gooey dock) to avoid a duplicate FAB. */}

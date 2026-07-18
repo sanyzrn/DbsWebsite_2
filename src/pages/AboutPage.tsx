@@ -1,11 +1,10 @@
 import { Check, Layers } from "lucide-react";
-import { useEffect } from "react";
 import { Skills } from "../components/About";
 import Contact from "../components/Contact";
 import { HeroAtmosphere } from "../components/Hero";
+import { PageMeta } from "../components/PageMeta";
 import { Reveal, SectionHead } from "../components/ui";
 import { useApp } from "../lib/app";
-import { applyDocumentSeo } from "../lib/seo";
 import { cn } from "../utils/cn";
 
 /**
@@ -13,14 +12,11 @@ import { cn } from "../utils/cn";
  * Opening + studio hero are page-specific; path timeline / skills reuse About + Skills.
  */
 export default function AboutPage() {
-  const { t, lang } = useApp();
-
-  useEffect(() => {
-    applyDocumentSeo(lang, "about");
-  }, [lang]);
+  const { t } = useApp();
 
   return (
     <>
+      <PageMeta page="about" />
       {/* 1–2. Strong opening + prominent studio image */}
       <section id="about" className="section-pad border-t border-line bg-surface">
         <div className="wrap">
