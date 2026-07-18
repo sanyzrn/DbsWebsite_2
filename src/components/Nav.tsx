@@ -81,7 +81,7 @@ export default function Nav() {
           >
             {theme === "light" ? <Moon className="h-[17px] w-[17px]" strokeWidth={2} /> : <Sun className="h-[18px] w-[18px]" strokeWidth={2} />}
           </button>
-          <a href="#contact" className="btn btn-primary hidden h-10 px-5 text-[13px] md:inline-flex">
+          <a href="#contact/start" className="btn btn-primary hidden h-10 px-5 text-[13px] md:inline-flex">
             {t.nav.cta}
           </a>
           <button
@@ -119,7 +119,7 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="#contact/start"
             onClick={() => setOpen(false)}
             className={cn(
               "btn btn-primary mt-8 w-full transition-all duration-500",

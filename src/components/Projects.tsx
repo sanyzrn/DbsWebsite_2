@@ -585,7 +585,7 @@ export default function Projects() {
                 <Meta label={t.projects.roleLabel} items={active.role} />
                 <Meta label={t.projects.techLabel} items={active.tech} mono />
               </div>
-              <a href="#contact" onClick={close} className="btn btn-primary mt-8 w-full sm:w-auto">
+              <a href="#contact/start" onClick={close} className="btn btn-primary mt-8 w-full sm:w-auto">
                 {t.projects.discuss}
                 <DirArrow className="h-4 w-4" />
               </a>
