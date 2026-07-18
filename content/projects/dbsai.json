@@ -1,0 +1,77 @@
+{
+  "id": "dbsai",
+  "slug": "dbsai",
+  "status": "production",
+  "featured": false,
+  "order": 2,
+  "name": {
+    "fa": "DbsAI",
+    "en": "DbsAI"
+  },
+  "subtitle": {
+    "fa": "یک محیط هوشمند برای کار سازمانی.",
+    "en": "An intelligent workspace for organizational work."
+  },
+  "desc": {
+    "fa": "یک پلتفرم داخلی برای استفاده سازمانی از مدل‌های مختلف هوش مصنوعی. هدف، ایجاد یک محیط متمرکز برای استفاده از مدل‌های مختلف، مدیریت کاربران، دسترسی‌ها، سهمیه مصرف و قابلیت‌های هوشمند سازمانی است.",
+    "en": "An internal platform for using multiple AI models across an organization — a centralized environment for models, user management, access control, usage quotas and intelligent capabilities."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "معماری محصول AI",
+      "یکپارچه‌سازی هوش مصنوعی",
+      "توسعه فول‌استک",
+      "طراحی محصول"
+    ],
+    "en": [
+      "AI Product Architecture",
+      "AI Integration",
+      "Full-Stack Development",
+      "Product Design"
+    ]
+  },
+  "tech": [
+    "AI APIs",
+    "LLM",
+    "Multi-provider",
+    "Full-Stack"
+  ],
+  "tags": [
+    "AI",
+    "Full-Stack"
+  ],
+  "image_url": null,
+  "mock": "ai",
+  "caps": {
+    "fa": [
+      "اتصال چند ارائه‌دهنده هوش مصنوعی",
+      "مدیریت کاربران",
+      "دسترسی نقش‌محور",
+      "سهمیه و محدودیت مصرف",
+      "تخصیص توکن",
+      "مدیریت قابلیت‌های هوشمند",
+      "فضای کاری متمرکز"
+    ],
+    "en": [
+      "Multi-provider AI integration",
+      "User management",
+      "Role-based access",
+      "Usage limits",
+      "Token allocation",
+      "AI capabilities management",
+      "Centralized workspace"
+    ]
+  }
+}

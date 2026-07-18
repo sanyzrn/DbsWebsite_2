@@ -1,0 +1,63 @@
+{
+  "id": "dbspulse",
+  "slug": "dbspulse",
+  "status": "production",
+  "featured": true,
+  "order": 1,
+  "name": {
+    "fa": "DbsPulse",
+    "en": "DbsPulse"
+  },
+  "subtitle": {
+    "fa": "وقتی ارزیابی عملکرد، از یک فرم ساده فراتر می‌رود.",
+    "en": "When performance review goes beyond a simple form."
+  },
+  "desc": {
+    "fa": "یک پلتفرم سازمانی برای مدیریت فرآیند ارزیابی عملکرد، از ثبت اطلاعات اولیه تا بررسی، تأیید و تحلیل نهایی. این پروژه یک فرآیند چندمرحله‌ای و پیچیده را به یک سیستم دیجیتال ساختاریافته، قابل‌پیگیری و قابل‌تحلیل تبدیل می‌کند.",
+    "en": "An organizational platform for managing the performance evaluation process — from initial data entry to review, approval and final analysis. It turns a complex, multi-stage workflow into a structured, traceable and analyzable digital system."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی محصول",
+      "معماری سیستم",
+      "توسعه فول‌استک",
+      "طراحی دیتابیس",
+      "احراز هویت و دسترسی",
+      "استقرار"
+    ],
+    "en": [
+      "Product Design",
+      "System Architecture",
+      "Full-Stack Development",
+      "Database Design",
+      "Authentication & Authorization",
+      "Deployment"
+    ]
+  },
+  "tech": [
+    "React",
+    "FastAPI",
+    "PostgreSQL",
+    "Docker",
+    "JWT",
+    "Argon2"
+  ],
+  "tags": [
+    "Full-Stack",
+    "Design"
+  ],
+  "image_url": null,
+  "mock": "pulse"
+}

@@ -353,7 +353,7 @@ function Meta({ label, items, mono }: { label: string; items: string[]; mono?: b
   );
 }
 
-export type ProjectItem = (typeof import("../lib/i18n").dictionaries.en.projects.items)[number];
+export type ProjectItem = import("../lib/projects").LocalizedProject;
 
 function StatusBadge({ status }: { status?: "production" | "concept" }) {
   const { t } = useApp();
@@ -428,7 +428,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
         )}
 
         <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={`${mode}-${filter}`}>
-          {source.map((p, i) => (
+          {source.map((p) => (
             <article
               key={p.id}
               className={cn(
@@ -436,7 +436,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                 p.status === "concept" ? "border-dashed border-line2" : "border-line"
               )}
             >
-              <Link to={detailTo(p.id)} className="overflow-hidden text-start">
+              <Link to={detailTo(p.slug)} className="overflow-hidden text-start">
                 <ProjectShot project={p} />
               </Link>
               <div className="flex flex-1 flex-col gap-3 p-5">
@@ -446,14 +446,14 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                   </h3>
                   <StatusBadge status={p.status} />
                 </div>
-                {filter === "all" && mode === "full" && i === 0 && p.status !== "concept" && (
+                {p.featured && (
                   <span className="w-fit rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
                     {t.projects.featured}
                   </span>
                 )}
                 <p className="text-[13px] font-bold leading-6 text-hi">{p.subtitle}</p>
                 <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{p.desc}</p>
-                <Link to={detailTo(p.id)} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2">
+                <Link to={detailTo(p.slug)} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2">
                   {t.projects.view}
                   <DirArrow className="h-4 w-4" />
                 </Link>
@@ -471,9 +471,9 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                   featured.status === "concept" ? "border-dashed border-line2" : "border-line"
                 )}
               >
-                <Link to={detailTo(featured.id)} className="relative overflow-hidden text-start lg:col-span-3">
+                <Link to={detailTo(featured.slug)} className="relative overflow-hidden text-start lg:col-span-3">
                   <ProjectShot project={featured} className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto" />
-                  {mode === "full" && filter === "all" && featured.status !== "concept" && (
+                  {featured.featured && featured.status !== "concept" && (
                     <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
                       {t.projects.featured}
                     </span>
@@ -493,7 +493,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                   <Meta label={t.projects.roleLabel} items={featured.role} />
                   <Meta label={t.projects.techLabel} items={featured.tech} mono />
                   <Link
-                    to={detailTo(featured.id)}
+                    to={detailTo(featured.slug)}
                     className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
                   >
                     {t.projects.view}
@@ -513,7 +513,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                     p.status === "concept" ? "border-dashed border-line2" : "border-line"
                   )}
                 >
-                  <Link to={detailTo(p.id)} className="overflow-hidden text-start">
+                  <Link to={detailTo(p.slug)} className="overflow-hidden text-start">
                     <ProjectShot project={p} className="transition-transform duration-700 group-hover:scale-[1.03]" />
                   </Link>
                   <div className="flex flex-1 flex-col gap-5 p-6">
@@ -528,7 +528,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                       <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
                     </div>
 
-                    {"caps" in p && p.caps && (
+                    {p.caps && p.caps.length > 0 && (
                       <div>
                         <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
                         <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
@@ -545,7 +545,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                     <div className="mt-auto space-y-5 border-t border-line pt-5">
                       <Meta label={t.projects.roleLabel} items={p.role} />
                       <Meta label={t.projects.techLabel} items={p.tech} mono />
-                      <Link to={detailTo(p.id)} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
+                      <Link to={detailTo(p.slug)} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
                         {t.projects.view}
                         <DirArrow className="h-4 w-4" />
                       </Link>
@@ -590,7 +590,29 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
       </div>
       <p className="mt-8 text-[18px] font-bold leading-8 text-hi md:text-[20px]">{project.subtitle}</p>
       <p className="mt-4 max-w-3xl text-[15px] leading-[1.95] text-ink2">{project.desc}</p>
-      {"caps" in project && project.caps && (
+      {(project.problem || project.approach || project.result) && (
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {project.problem ? (
+            <div>
+              <span className="mb-2 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.problemLabel}</span>
+              <p className="text-[14px] leading-7 text-ink2">{project.problem}</p>
+            </div>
+          ) : null}
+          {project.approach ? (
+            <div>
+              <span className="mb-2 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.approachLabel}</span>
+              <p className="text-[14px] leading-7 text-ink2">{project.approach}</p>
+            </div>
+          ) : null}
+          {project.result ? (
+            <div>
+              <span className="mb-2 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.resultLabel}</span>
+              <p className="text-[14px] leading-7 text-ink2">{project.result}</p>
+            </div>
+          ) : null}
+        </div>
+      )}
+      {project.caps && project.caps.length > 0 && (
         <div className="mt-8">
           <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
           <ul className="grid gap-2 sm:grid-cols-2">

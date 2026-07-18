@@ -1,0 +1,55 @@
+{
+  "id": "dbschatbot",
+  "slug": "dbschatbot",
+  "status": "production",
+  "featured": false,
+  "order": 5,
+  "name": {
+    "fa": "DbsChatBot",
+    "en": "DbsChatBot"
+  },
+  "subtitle": {
+    "fa": "وقتی یک وب‌سایت فقط نباید اطلاعات بدهد.",
+    "en": "When a website shouldn't just inform."
+  },
+  "desc": {
+    "fa": "یک ربات گفتگوی هوشمند برای WordPress با پایگاه دانش اختصاصی و قابلیت پاسخ‌گویی به سؤالات کاربران. این پروژه، هوش مصنوعی را از یک ابزار جداگانه به بخشی از تجربه‌ی واقعی کاربر تبدیل می‌کند.",
+    "en": "An intelligent chatbot for WordPress with a dedicated knowledge base, answering visitors' questions — turning AI from a separate tool into part of the real user experience."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "معماری محصول",
+      "توسعه افزونه",
+      "یکپارچه‌سازی AI"
+    ],
+    "en": [
+      "Product Architecture",
+      "Plugin Development",
+      "AI Integration"
+    ]
+  },
+  "tech": [
+    "WordPress",
+    "PHP",
+    "JavaScript",
+    "AI APIs"
+  ],
+  "tags": [
+    "AI",
+    "Automation"
+  ],
+  "image_url": null,
+  "mock": "chatbot"
+}

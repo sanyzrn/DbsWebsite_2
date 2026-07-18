@@ -1,0 +1,53 @@
+{
+  "id": "dbsbrain",
+  "slug": "dbsbrain",
+  "status": "production",
+  "featured": false,
+  "order": 4,
+  "name": {
+    "fa": "DbsBrain",
+    "en": "DbsBrain"
+  },
+  "subtitle": {
+    "fa": "برای ذهنی که قرار نیست همه‌چیز را به خاطر بسپارد.",
+    "en": "For minds that shouldn't have to remember everything."
+  },
+  "desc": {
+    "fa": "یک سیستم شخصی برای مدیریت اطلاعات، اهداف، عادت‌ها، پروژه‌ها و زندگی روزمره.",
+    "en": "A personal system for managing information, goals, habits, projects and everyday life."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی محصول",
+      "توسعه اندروید"
+    ],
+    "en": [
+      "Product Design",
+      "Android Development"
+    ]
+  },
+  "tech": [
+    "Kotlin",
+    "Jetpack Compose",
+    "Room",
+    "SQLCipher"
+  ],
+  "tags": [
+    "Mobile",
+    "Design"
+  ],
+  "image_url": null,
+  "mock": "brain"
+}

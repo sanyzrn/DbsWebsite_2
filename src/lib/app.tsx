@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { dictionaries, type Dict, type Lang } from "./i18n";
+import { getDictionary, type Dict, type Lang } from "./i18n";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
 
 export type Theme = "light" | "dark";
@@ -66,7 +66,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       lang,
       dir,
       isRTL: dir === "rtl",
-      t: dictionaries[lang],
+      t: getDictionary(lang),
       setLang,
       toggleLang: () => setLang(lang === "fa" ? "en" : "fa"),
       theme,

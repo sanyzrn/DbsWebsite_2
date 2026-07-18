@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+/vendor/
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/.htaccess
+*.log
