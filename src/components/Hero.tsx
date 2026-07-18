@@ -1,6 +1,8 @@
 import { useId } from "react";
+import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
+import { localePath } from "../lib/paths";
 import { useTypewriter } from "../lib/useTypewriter";
 import { DirArrow } from "./ui";
 
@@ -16,7 +18,7 @@ function SloganCycle({ phrases }: { phrases: string[] }) {
 }
 
 /** Soft accent glow + topographic contours + paper grain (static SVG/CSS). */
-function HeroAtmosphere() {
+export function HeroAtmosphere() {
   const uid = useId().replace(/:/g, "");
   const blurId = `ha-blur-${uid}`;
   const grainId = `ha-grain-${uid}`;
@@ -140,13 +142,13 @@ export default function Hero() {
         </p>
 
         <div className="hero-in mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-3.5" style={{ animationDelay: "500ms" }}>
-          <a href="#projects" className="btn btn-primary h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
+          <Link to={`${localePath(lang, "/")}#projects`} className="btn btn-primary h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
             {t.hero.ctaPrimary}
             <DirArrow className="h-[18px] w-[18px]" />
-          </a>
-          <a href="#about" className="btn btn-ghost h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
+          </Link>
+          <Link to={localePath(lang, "/about")} className="btn btn-ghost h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
             {t.hero.ctaSecondary}
-          </a>
+          </Link>
         </div>
       </div>
     </section>

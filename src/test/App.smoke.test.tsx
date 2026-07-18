@@ -10,6 +10,7 @@ afterEach(() => {
   document.documentElement.classList.remove("dark");
   document.documentElement.lang = "fa";
   document.documentElement.dir = "rtl";
+  window.history.replaceState(null, "", "/");
 });
 
 describe("App smoke", () => {
@@ -20,8 +21,8 @@ describe("App smoke", () => {
     expect(err).not.toHaveBeenCalled();
   });
 
-  it("renders English when sz-lang=en", () => {
-    localStorage.setItem("sz-lang", "en");
+  it("renders English at /en without console errors", () => {
+    window.history.pushState(null, "", "/en");
     const err = vi.spyOn(console, "error").mockImplementation(() => {});
     render(<App />);
     expect(document.getElementById("main")).toBeTruthy();
@@ -37,7 +38,7 @@ describe("App smoke", () => {
   });
 
   it("shows hero sloganCycle[0] on initial render (en)", () => {
-    localStorage.setItem("sz-lang", "en");
+    window.history.pushState(null, "", "/en");
     render(<App />);
     const phrase = dictionaries.en.hero.sloganCycle[0];
     expect(screen.getAllByText(phrase).length).toBeGreaterThan(0);
@@ -75,11 +76,16 @@ describe("App smoke", () => {
     expect(desc?.getAttribute("content")).toBe(dictionaries.fa.seo.description);
   });
 
-  it("switches SEO title and description when language is English", () => {
-    localStorage.setItem("sz-lang", "en");
+  it("switches SEO title and description on English route", () => {
+    window.history.pushState(null, "", "/en");
     render(<App />);
     expect(document.title).toBe(dictionaries.en.seo.title);
     const desc = document.querySelector('meta[name="description"]');
     expect(desc?.getAttribute("content")).toBe(dictionaries.en.seo.description);
+  });
+
+  it("renders projects page teaser CTA on home", () => {
+    render(<App />);
+    expect(screen.getByText(dictionaries.fa.projects.seeAll)).toBeTruthy();
   });
 });
