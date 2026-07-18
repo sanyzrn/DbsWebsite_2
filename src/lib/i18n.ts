@@ -50,7 +50,7 @@ const fa = {
   },
   intro: {
     kicker: "معرفی",
-    title: "یک عنوان برای من کافی نیست.",
+    title: "یک مهارت به‌تنهایی، هیچ‌وقت داستان کامل نبوده",
     p1: "من در نقطه اتصال چند حوزه فعالیت می‌کنم. طراحی، مهندسی نرم‌افزار و هوش مصنوعی برای من حوزه‌های جدا از هم نیستند؛ آن‌ها ابزارهایی هستند برای حل مسئله.",
     p2: "از طراحی هویت بصری و بسته‌بندی دارویی گرفته تا طراحی تجربه کاربری، توسعه نرم‌افزار، ساخت سیستم‌های سازمانی و یکپارچه‌سازی هوش مصنوعی.",
     strong: "ارزش اصلی من در یک مهارت منفرد نیست؛ در ترکیب آن‌هاست.",
@@ -387,7 +387,7 @@ const en: Dict = {
   },
   intro: {
     kicker: "Introduction",
-    title: "One title was never going to cover it.",
+    title: "My work doesn't sit in one lane",
     p1: "I work at the intersection of several disciplines. To me, design, software engineering and AI are not separate worlds — they are tools for solving problems.",
     p2: "From brand identity and pharmaceutical packaging to UX design, software development, organizational systems and AI integration.",
     strong: "My real value isn't in any single skill. It's in the combination.",
