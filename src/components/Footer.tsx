@@ -41,7 +41,68 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-line">
-      <div className="wrap grid gap-12 py-16 md:grid-cols-12">
+      {/* ---------- mobile: compact stacked layout ---------- */}
+      <div className="wrap py-8 md:hidden">
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <a href="#top" className="inline-flex leading-none">
+              <span dir="ltr" className="text-[18px] font-extrabold tracking-tight">
+                Saeed<span className="text-hi">Zarrini</span>
+                <span className="ms-1.5 inline-block h-1.5 w-1.5 rounded-[2px] bg-accent align-baseline" />
+              </span>
+            </a>
+            <p className="mt-2 text-[12px] font-bold leading-5 text-hi">{t.footer.tagline}</p>
+          </div>
+          <div className="flex shrink-0 gap-2">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="flex h-9 w-9 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
+              >
+                <s.icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <p className="mt-3 text-[12.5px] leading-6 text-ink2">{t.footer.desc}</p>
+
+        <nav aria-label={t.footer.navTitle} className="mt-5 flex flex-wrap gap-x-1 gap-y-1">
+          {links.map((l, i) => (
+            <span key={l.href} className="inline-flex items-center">
+              <a href={l.href} className="px-1.5 py-1 text-[13px] font-semibold text-ink2 transition-colors hover:text-hi">
+                {l.label}
+              </a>
+              {i < links.length - 1 && <span className="text-line2" aria-hidden="true">·</span>}
+            </span>
+          ))}
+        </nav>
+
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+          <a
+            href={`mailto:${t.contact.email}`}
+            dir="ltr"
+            className="text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi"
+          >
+            {t.contact.email}
+          </a>
+          <p className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.14em] text-ink3" dir="ltr">
+            <BrandLogo variant="icon" imgClassName="h-3.5 w-3.5 object-contain" alt="" />
+            DBSGraphic
+          </p>
+        </div>
+
+        <p className="mt-4 text-[11px] leading-5 text-ink3">
+          © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
+        </p>
+      </div>
+
+      {/* ---------- desktop: existing three-column layout ---------- */}
+      <div className="wrap hidden gap-12 py-16 md:grid md:grid-cols-12">
         <div className="md:col-span-6">
           <a href="#top" className="inline-flex flex-col leading-none">
             <span dir="ltr" className="text-[22px] font-extrabold tracking-tight">
@@ -92,7 +153,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-line">
+      <div className="hidden border-t border-line md:block">
         <div className="wrap flex flex-wrap items-center justify-between gap-4 py-6">
           <p className="text-[12px] font-medium text-ink3">
             © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
