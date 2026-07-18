@@ -63,13 +63,13 @@ export function SectionHead({
         <span className="kicker">{kicker}</span>
       </Reveal>
       <Reveal delay={80}>
-        <h2 className="mt-5 text-[30px] font-extrabold leading-[1.2] tracking-tight md:text-[42px] md:leading-[1.18]">
+        <h2 className="mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[42px] md:leading-[1.18]">
           {title}
         </h2>
       </Reveal>
       {lead && (
         <Reveal delay={160}>
-          <p className="mt-4 text-[15px] leading-8 text-ink2 md:text-base md:leading-8">{lead}</p>
+          <p className="mt-3 text-[14px] leading-7 text-ink2 sm:mt-4 sm:text-[15px] sm:leading-8 md:text-base">{lead}</p>
         </Reveal>
       )}
     </div>

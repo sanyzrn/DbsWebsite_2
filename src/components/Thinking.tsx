@@ -11,42 +11,41 @@ export function Thinking() {
 
   return (
     <section className="section-pad border-t border-line">
-      <div className="wrap grid items-center gap-14 lg:grid-cols-12">
+      <div className="wrap grid items-start gap-8 lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-6">
           <SectionHead kicker={t.thinking.kicker} title={t.thinking.title} />
           <Reveal delay={200}>
-            <p className="mt-7 max-w-lg text-[16px] font-semibold leading-[1.95]">{t.thinking.lead}</p>
+            <p className="mt-5 max-w-lg text-[15px] font-semibold leading-7 sm:mt-7 sm:text-[16px] sm:leading-[1.95]">{t.thinking.lead}</p>
           </Reveal>
           <Reveal delay={280}>
-            <p className="mt-4 max-w-lg text-[15px] leading-[1.95] text-ink2">{t.thinking.intro2}</p>
+            <p className="mt-3 max-w-lg text-[14px] leading-7 text-ink2 sm:mt-4 sm:text-[15px] sm:leading-[1.95]">{t.thinking.intro2}</p>
           </Reveal>
           <Reveal delay={360}>
-            <div className="mt-9 inline-flex items-center gap-4">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-hi text-hi">
-                <MoveDown className="h-5 w-5" />
+            <div className="mt-6 inline-flex items-center gap-3 sm:mt-9 sm:gap-4">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-hi text-hi sm:h-12 sm:w-12">
+                <MoveDown className="h-4 w-4 sm:h-5 sm:w-5" />
               </span>
-              <span className="text-[19px] font-black tracking-tight md:text-[22px]">{t.thinking.closing}</span>
+              <span className="text-[16px] font-black tracking-tight sm:text-[19px] md:text-[22px]">{t.thinking.closing}</span>
             </div>
           </Reveal>
         </div>
 
-        {/* question stack */}
         <div className="lg:col-span-6">
           <Reveal delay={150}>
-            <div className="relative rounded-lg border border-line bg-surface p-7 md:p-9">
-              <span className="absolute -top-3.5 start-7 rounded-xs bg-hi px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-page" dir="ltr">
+            <div className="relative rounded-lg border border-line bg-surface p-5 sm:p-7 md:p-9">
+              <span className="absolute -top-3 start-5 rounded-xs bg-hi px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-page sm:-top-3.5 sm:start-7 sm:px-3 sm:text-[10px]" dir="ltr">
                 {isRTL ? "پرسش‌های اول" : "first questions"}
               </span>
               {t.thinking.questions.map((q, i) => (
                 <div
                   key={i}
-                  className="group flex items-center gap-5 border-b border-line py-5 transition-colors duration-300 last:border-b-0 last:pb-0 first:pt-0 hover:border-hi/50"
+                  className="group flex items-start gap-3 border-b border-line py-3.5 transition-colors duration-300 last:border-b-0 last:pb-0 first:pt-0 hover:border-hi/50 sm:items-center sm:gap-5 sm:py-5"
                 >
-                  <span className="font-mono text-[11px] font-bold text-hi" dir="ltr">
+                  <span className="mt-0.5 font-mono text-[11px] font-bold text-hi sm:mt-0" dir="ltr">
                     Q{i + 1}
                   </span>
-                  <span className="h-px w-6 bg-line2 transition-all duration-300 group-hover:w-9 group-hover:bg-hi" />
-                  <span className="text-[16px] font-bold leading-8 md:text-[17px]">{q}</span>
+                  <span className="mt-2.5 hidden h-px w-6 bg-line2 transition-all duration-300 group-hover:w-9 group-hover:bg-hi sm:mt-0 sm:block" />
+                  <span className="text-[14px] font-bold leading-7 sm:text-[16px] sm:leading-8 md:text-[17px]">{q}</span>
                 </div>
               ))}
             </div>

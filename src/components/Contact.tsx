@@ -194,7 +194,7 @@ export default function Contact() {
 
         {/* Contact strip */}
         <Reveal delay={400}>
-          <div className="mt-14 grid gap-6 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <div className="mt-10 grid gap-6 border-t border-line pt-8 sm:grid-cols-2 sm:pt-10 lg:grid-cols-4 lg:gap-8">
             {info.map((item) => (
               <div key={item.label} className="flex items-start gap-3.5">
                 <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-hi">

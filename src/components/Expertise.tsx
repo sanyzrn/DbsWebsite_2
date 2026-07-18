@@ -21,7 +21,7 @@ export default function Expertise() {
 
         <Reveal delay={120}>
           <SnapCarousel
-            className="mt-14"
+            className="mt-8 sm:mt-10 md:mt-12"
             label={t.expertise.kicker}
             gridClassName="md:grid-cols-2 xl:grid-cols-4"
             itemClassName="h-full"
