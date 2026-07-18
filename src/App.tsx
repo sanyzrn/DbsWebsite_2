@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
 import ScrollToTop from "./components/ScrollToTop";
+import FloatingQuickNav from "./components/FloatingQuickNav";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
@@ -17,6 +18,7 @@ function Layout() {
         {t.a11y.skip}
       </a>
       <Nav />
+      <FloatingQuickNav />
       <main id="main">
         <Outlet />
       </main>

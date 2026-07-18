@@ -20,6 +20,8 @@ const fa = {
     },
   },
   nav: {
+    home: "خانه",
+    quick: "ناوبری سریع",
     projects: "پروژه‌ها",
     expertise: "توانمندی‌ها",
     process: "فرآیند",
@@ -420,6 +422,8 @@ const en: Dict = {
     },
   },
   nav: {
+    home: "Home",
+    quick: "Quick navigation",
     projects: "Projects",
     expertise: "Expertise",
     process: "Process",
