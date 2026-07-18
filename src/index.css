@@ -433,6 +433,30 @@ section[id] {
   animation: fade-up-hero 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Hero name underline — fully drawn at rest; redraws on hover (pointer devices) */
+.hero-name-underline path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0.55;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-name:hover .hero-name-underline path {
+    animation: hero-underline-draw 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes hero-underline-draw {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0.35;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.7;
+  }
+}
+
 .typewriter-cursor {
   display: inline-block;
   width: 2px;
@@ -463,6 +487,7 @@ section[id] {
   .pulse-dot,
   .hero-in,
   .typewriter-cursor,
+  .hero-name-underline path,
   .practice-flow,
   .practice-glow,
   .practice-product-ring,
