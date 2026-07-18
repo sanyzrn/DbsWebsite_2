@@ -1,6 +1,7 @@
-import { useRef, type CSSProperties, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 import { Award, Boxes, Sparkles, Waypoints } from "lucide-react";
 import { useApp } from "../lib/app";
+import { cn } from "../utils/cn";
 import { DirArrow } from "./ui";
 
 /* ------------------------------------------------------------------ */
@@ -24,7 +25,147 @@ function Layer({ depth, className, children }: { depth: number; className?: stri
 }
 
 /* ------------------------------------------------------------------ */
-/*  Dashboard window (product fragment)                                 */
+/*  Stage 1 — rough pencil sketch (SVG + turbulence)                    */
+/* ------------------------------------------------------------------ */
+
+function SketchStage() {
+  return (
+    <div className="overflow-hidden rounded-md border border-ink3/35 bg-page/80 dark:bg-shot/40">
+      <svg viewBox="0 0 480 320" className="h-auto w-full" aria-hidden="true">
+        <defs>
+          <filter id="heroSketchFilter" x="-4%" y="-4%" width="108%" height="108%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.8" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+        <g fill="none" stroke="currentColor" className="text-ink2 dark:text-shotmut" filter="url(#heroSketchFilter)" strokeLinecap="round">
+          {/* window chrome */}
+          <rect x="18" y="16" width="444" height="288" rx="10" strokeWidth="1.6" />
+          <line x1="18" y1="42" x2="462" y2="42" strokeWidth="1.2" />
+          <circle cx="36" cy="29" r="3.2" />
+          <circle cx="50" cy="29" r="3.2" />
+          <circle cx="64" cy="29" r="3.2" />
+          <rect x="88" y="23" width="92" height="12" rx="3" strokeWidth="1" />
+
+          {/* sidebar */}
+          <line x1="138" y1="42" x2="138" y2="304" strokeWidth="1.1" />
+          <rect x="34" y="58" width="18" height="18" rx="3" strokeWidth="1.3" />
+          <line x1="60" y1="67" x2="118" y2="67" strokeWidth="1.4" />
+          {[0, 1, 2, 3, 4].map((i) => (
+            <g key={i}>
+              <circle cx="42" cy={98 + i * 26} r="3" />
+              <line x1="52" y1={98 + i * 26} x2={i === 0 ? 112 : 100} y2={98 + i * 26} strokeWidth="1.3" />
+            </g>
+          ))}
+          <rect x="34" y="240" width="88" height="42" rx="5" strokeWidth="1.2" />
+          <line x1="44" y1="256" x2="98" y2="256" strokeWidth="1" />
+          <line x1="44" y1="268" x2="112" y2="268" strokeWidth="1.5" />
+
+          {/* main title + chips */}
+          <line x1="158" y1="68" x2="248" y2="66" strokeWidth="2" />
+          <line x1="158" y1="82" x2="210" y2="82" strokeWidth="1.1" />
+          <rect x="360" y="58" width="36" height="16" rx="3" strokeWidth="1" />
+          <rect x="404" y="58" width="36" height="16" rx="3" strokeWidth="1.4" />
+
+          {/* KPI boxes */}
+          {[0, 1, 2].map((i) => (
+            <g key={i}>
+              <rect x={158 + i * 98} y="104" width="88" height="48" rx="5" strokeWidth="1.3" />
+              <line x1={170 + i * 98} y1="122" x2={220 + i * 98} y2="120" strokeWidth="2" />
+              <line x1={170 + i * 98} y1="136" x2={200 + i * 98} y2="136" strokeWidth="1" />
+            </g>
+          ))}
+
+          {/* chart scribble */}
+          <rect x="158" y="168" width="282" height="72" rx="5" strokeWidth="1.2" />
+          <path
+            d="M170,220 C190,210 210,225 230,200 C250,178 270,205 290,188 C310,172 330,195 350,180 C370,168 390,190 420,175"
+            strokeWidth="1.8"
+          />
+
+          {/* bars */}
+          {[42, 58, 48, 70, 52, 78, 60].map((h, i) => (
+            <rect key={i} x={158 + i * 40} y={304 - h * 0.55} width="22" height={h * 0.55} rx="2" strokeWidth="1.2" />
+          ))}
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Stage 2 — clean grey wireframe                                      */
+/* ------------------------------------------------------------------ */
+
+function WireframeStage() {
+  return (
+    <div className="overflow-hidden rounded-md border border-line bg-surface2 dark:border-shotline dark:bg-shotpanel">
+      <div className="flex items-center gap-2 border-b border-line px-4 py-2.5 dark:border-shotline">
+        <span className="h-2.5 w-2.5 rounded-full bg-line2 dark:bg-shotline" />
+        <span className="h-2.5 w-2.5 rounded-full bg-line2 dark:bg-shotline" />
+        <span className="h-2.5 w-2.5 rounded-full bg-line2 dark:bg-shotup" />
+        <span className="ms-3 hidden h-4 w-24 rounded-xs bg-line/80 dark:bg-shotup sm:block" />
+      </div>
+      <div className="flex min-h-[220px] sm:min-h-[248px]">
+        <div className="hidden w-[30%] border-e border-line p-3.5 dark:border-shotline sm:block">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="h-6 w-6 rounded-xs bg-line2 dark:bg-shotup" />
+            <span className="h-2 w-14 rounded-full bg-line dark:bg-shotline" />
+          </div>
+          {[true, false, false, false, false].map((active, i) => (
+            <div key={i} className={cn("mb-1.5 flex items-center gap-2 rounded-xs px-2 py-1.5", active && "bg-line/50 dark:bg-shotup")}>
+              <span className="h-1.5 w-1.5 rounded-full bg-line2 dark:bg-shotline" />
+              <span className={cn("h-1.5 rounded-full bg-line dark:bg-shotline", active ? "w-16" : "w-12")} />
+            </div>
+          ))}
+          <div className="mt-6 rounded-xs border border-line p-2.5 dark:border-shotline">
+            <div className="mb-2 h-1.5 w-10 rounded-full bg-line dark:bg-shotline" />
+            <div className="h-1.5 w-full rounded-full bg-line/70 dark:bg-shotup">
+              <div className="h-full w-[72%] rounded-full bg-line2 dark:bg-shotmut/50" />
+            </div>
+          </div>
+        </div>
+        <div className="flex-1 p-3.5 sm:p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <div>
+              <div className="mb-1.5 h-2 w-20 rounded-full bg-line2 dark:bg-shotmut/50" />
+              <div className="h-1.5 w-12 rounded-full bg-line dark:bg-shotline" />
+            </div>
+            <div className="flex gap-1.5">
+              <span className="h-5 w-8 rounded-xs border border-line dark:border-shotline" />
+              <span className="h-5 w-8 rounded-xs bg-line dark:bg-shotup" />
+            </div>
+          </div>
+          <div className="mb-3 grid grid-cols-3 gap-2">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="rounded-xs border border-line bg-page/60 px-2.5 py-2 dark:border-shotline dark:bg-shot">
+                <div className="h-3 w-10 rounded-sm bg-line2 dark:bg-shotmut/40" />
+                <div className="mt-2 h-1 w-8 rounded-full bg-line dark:bg-shotup" />
+              </div>
+            ))}
+          </div>
+          <div className="rounded-xs border border-line bg-page/40 p-2.5 dark:border-shotline dark:bg-shot">
+            <div className="flex h-16 items-end gap-1 sm:h-[74px]">
+              {[38, 55, 42, 70, 48, 82, 60, 74, 50, 66].map((h, i) => (
+                <span key={i} className="flex-1 rounded-t-[2px] bg-line2/70 dark:bg-shotup" style={{ height: `${h}%` }} />
+              ))}
+            </div>
+          </div>
+          <div className="mt-3 flex items-end justify-between gap-1.5">
+            {[42, 66, 50, 80, 58, 92, 70].map((h, i) => (
+              <div key={i} className="flex-1 rounded-t-[3px] bg-line/40 dark:bg-shotup" style={{ height: 34 }}>
+                <div className="w-full rounded-t-[3px] bg-line2 dark:bg-[#3A4149]" style={{ height: `${h}%`, marginTop: `${100 - h}%` }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Stage 3 — finished product (existing dashboard)                     */
 /* ------------------------------------------------------------------ */
 
 const chartPath =
@@ -34,7 +175,6 @@ function Dashboard() {
   const bars = [42, 66, 50, 80, 58, 92, 70];
   return (
     <div className="overflow-hidden rounded-md border border-shotline bg-shotpanel shadow-[0_36px_90px_-24px_rgba(15,16,18,0.55)]">
-      {/* window bar */}
       <div className="flex items-center gap-2 border-b border-shotline px-4 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#3A4048]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#3A4048]" />
@@ -44,7 +184,6 @@ function Dashboard() {
         </span>
       </div>
       <div className="flex">
-        {/* sidebar */}
         <div className="hidden w-[30%] border-e border-shotline p-3.5 sm:block">
           <div className="mb-4 flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-xs bg-accent font-mono text-[10px] font-bold text-[#211a10]">P</span>
@@ -63,7 +202,6 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        {/* main */}
         <div className="flex-1 p-3.5 sm:p-4">
           <div className="mb-3 flex items-center justify-between">
             <div>
@@ -75,7 +213,6 @@ function Dashboard() {
               <span className="rounded-xs bg-accent px-2 py-1 font-mono text-[8px] font-bold text-[#211a10]">Q4</span>
             </div>
           </div>
-          {/* KPI chips */}
           <div className="mb-3 grid grid-cols-3 gap-2">
             {[
               { v: "1,284", c: "text-accent" },
@@ -88,7 +225,6 @@ function Dashboard() {
               </div>
             ))}
           </div>
-          {/* chart */}
           <div className="rounded-xs border border-shotline bg-shot p-2.5">
             <svg viewBox="0 0 300 92" className="h-16 w-full sm:h-[74px]" preserveAspectRatio="none" aria-hidden="true">
               <defs>
@@ -105,7 +241,6 @@ function Dashboard() {
               <circle cx="234" cy="20" r="3.5" fill="#BC9463" stroke="#131518" strokeWidth="2" />
             </svg>
           </div>
-          {/* bottom bars */}
           <div className="mt-3 flex items-end justify-between gap-1.5">
             {bars.map((h, i) => (
               <div key={i} className="flex-1 rounded-t-[3px] bg-shotup" style={{ height: 34 }}>
@@ -120,12 +255,133 @@ function Dashboard() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Floating cards (timed to design → engineering → intelligence)       */
+/* ------------------------------------------------------------------ */
+
+function DesignChip() {
+  return (
+    <div className="rounded-md border border-line bg-surface2 p-3 shadow-[0_18px_44px_-16px_rgba(28,28,26,0.22)] dark:border-shotline dark:bg-shotpanel dark:shadow-none">
+      <div className="flex items-end justify-between">
+        <span className="text-[26px] font-black leading-none tracking-tight">Aa</span>
+        <span className="font-mono text-[8px] uppercase tracking-wider text-ink3 dark:text-shotmut">Vazirmatn</span>
+      </div>
+      <div className="mt-2.5 flex gap-1.5">
+        {["#BC9463", "#8FB0C0", "#A3B18A", "currentColor"].map((c, i) => (
+          <span
+            key={i}
+            className="h-3.5 w-3.5 rounded-[4px] border border-black/10"
+            style={{ background: c === "currentColor" ? undefined : c, color: "var(--ink)" }}
+          />
+        ))}
+      </div>
+      <div className="mt-2 font-mono text-[8px] text-ink3 dark:text-shotmut">grid · 8pt · radius 16</div>
+    </div>
+  );
+}
+
+function CodeCard() {
+  return (
+    <div className="overflow-hidden rounded-md border border-shotline bg-shotpanel shadow-[0_24px_60px_-20px_rgba(15,16,18,0.5)]">
+      <div className="flex items-center gap-2 border-b border-shotline px-3 py-2">
+        <span className="h-2 w-2 rounded-full bg-[#3A4048]" />
+        <span className="h-2 w-2 rounded-full bg-[#3A4048]" />
+        <span className="ms-2 rounded-xs bg-shot px-2 py-0.5 font-mono text-[9px] text-steel">agent.ts</span>
+      </div>
+      <pre className="p-3.5 font-mono text-[10px] leading-[1.75]">
+        <code>
+          <span className="text-shotmut">{"// DbsAI · integration layer"}</span>
+          {"\n"}
+          <span className="text-[#C58FB0]">const</span> <span className="text-shotink">agent</span> <span className="text-shotmut">=</span>{" "}
+          <span className="text-steel">createAgent</span>
+          <span className="text-shotmut">({"{"}</span>
+          {"\n  "}
+          <span className="text-shotink">model</span>
+          <span className="text-shotmut">:</span> <span className="text-sage">"auto-router"</span>
+          <span className="text-shotmut">,</span>
+          {"\n  "}
+          <span className="text-shotink">tools</span>
+          <span className="text-shotmut">:</span> <span className="text-shotmut">[</span>
+          <span className="text-accent">search</span>
+          <span className="text-shotmut">,</span> <span className="text-accent">workspace</span>
+          <span className="text-shotmut">],</span>
+          {"\n"}
+          <span className="text-shotmut">{"}"});</span>
+          {"\n"}
+          <span className="text-[#C58FB0]">await</span> <span className="text-shotink">agent</span>
+          <span className="text-shotmut">.</span>
+          <span className="text-steel">run</span>
+          <span className="text-shotmut">(brief);</span>
+        </code>
+      </pre>
+    </div>
+  );
+}
+
+function AgentCard() {
+  return (
+    <div className="drift rounded-md border border-shotline bg-shotpanel p-3.5 shadow-[0_24px_60px_-18px_rgba(15,16,18,0.5)]">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="flex h-7 w-7 items-center justify-center rounded-xs bg-accent/15 text-accent">
+            <Sparkles className="h-3.5 w-3.5" strokeWidth={2.2} />
+          </span>
+          <span className="font-mono text-[10px] font-bold tracking-wide text-shotink">DbsAI · agent</span>
+        </div>
+        <span className="pulse-dot h-2 w-2 rounded-full bg-sage" />
+      </div>
+      <div className="mt-3 space-y-2">
+        {([["92%", "bg-sage"], ["68%", "bg-steel"]] as const).map(([w, c], i) => (
+          <div key={i}>
+            <div className="mb-1 flex justify-between font-mono text-[8px] text-shotmut">
+              <span>{i === 0 ? "task graph" : "context"}</span>
+              <span>{w}</span>
+            </div>
+            <div className="h-1.5 overflow-hidden rounded-full bg-shotup">
+              <div className={`h-full rounded-full ${c}`} style={{ width: w }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 border-t border-shotline pt-2.5 font-mono text-[8.5px] text-shotmut">
+        128k tokens · <span className="text-sage">3 models routed</span>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Hero                                                                */
 /* ------------------------------------------------------------------ */
+
+type MorphMode = "idle" | "playing" | "static";
 
 export default function Hero() {
   const { t } = useApp();
   const canvasRef = useRef<HTMLDivElement>(null);
+  const morphRef = useRef<HTMLDivElement>(null);
+  const [morph, setMorph] = useState<MorphMode>("idle");
+
+  useEffect(() => {
+    const root = morphRef.current;
+    if (!root) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMorph("static");
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMorph("playing");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(root);
+    return () => io.disconnect();
+  }, []);
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const el = canvasRef.current;
@@ -145,7 +401,6 @@ export default function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden pt-[130px] pb-16 md:pt-[168px] md:pb-20">
-      {/* backdrop grid */}
       <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-x-0 top-0 h-[560px] opacity-40" aria-hidden="true" />
 
       <div className="wrap relative grid items-center gap-14 lg:grid-cols-12 lg:gap-8">
@@ -191,7 +446,6 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* stats */}
           <div className="hero-in mt-12 grid grid-cols-3 gap-5 border-t border-line pt-8 sm:gap-8" style={{ animationDelay: "600ms" }}>
             {t.hero.stats.map((s, i) => {
               const Icon = statIcons[i];
@@ -208,7 +462,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Product canvas */}
+        {/* Product canvas — sketch → wireframe → product */}
         <div className="lg:col-span-6">
           <div
             ref={canvasRef}
@@ -219,112 +473,54 @@ export default function Hero() {
             style={{ animationDelay: "380ms" }}
             aria-hidden="true"
           >
-            {/* blueprint base */}
             <div className="bg-grid relative rounded-xl border border-line bg-surface p-5 sm:p-7">
-              {/* corner marks */}
               {["top-3 left-3", "top-3 right-3", "bottom-3 left-3", "bottom-3 right-3"].map((pos) => (
                 <span key={pos} className={`absolute ${pos} font-mono text-[13px] font-light text-ink3`}>
                   +
                 </span>
               ))}
 
-              <div className="relative aspect-[10/9] sm:aspect-[10/8]">
-                {/* dashboard */}
+              <div
+                ref={morphRef}
+                className={cn(
+                  "hero-morph relative aspect-[10/9] sm:aspect-[10/8]",
+                  morph === "playing" && "is-playing",
+                  morph === "static" && "is-static",
+                  morph === "idle" && "is-idle"
+                )}
+              >
+                {/* stacked stages */}
                 <Layer depth={10} className="absolute inset-x-0 top-[4%]">
-                  <Dashboard />
-                </Layer>
-
-                {/* code fragment */}
-                <Layer depth={22} className="absolute bottom-[2%] left-0 hidden w-[54%] sm:block">
-                  <div className="overflow-hidden rounded-md border border-shotline bg-shotpanel shadow-[0_24px_60px_-20px_rgba(15,16,18,0.5)]">
-                    <div className="flex items-center gap-2 border-b border-shotline px-3 py-2">
-                      <span className="h-2 w-2 rounded-full bg-[#3A4048]" />
-                      <span className="h-2 w-2 rounded-full bg-[#3A4048]" />
-                      <span className="ms-2 rounded-xs bg-shot px-2 py-0.5 font-mono text-[9px] text-steel">agent.ts</span>
+                  <div className="relative grid">
+                    <div className="hero-morph-stage hero-morph-sketch col-start-1 row-start-1">
+                      <SketchStage />
                     </div>
-                    <pre className="p-3.5 font-mono text-[10px] leading-[1.75]">
-                      <code>
-                        <span className="text-shotmut">{"// DbsAI · integration layer"}</span>
-                        {"\n"}
-                        <span className="text-[#C58FB0]">const</span> <span className="text-shotink">agent</span> <span className="text-shotmut">=</span>{" "}
-                        <span className="text-steel">createAgent</span>
-                        <span className="text-shotmut">({"{"}</span>
-                        {"\n  "}
-                        <span className="text-shotink">model</span>
-                        <span className="text-shotmut">:</span> <span className="text-sage">"auto-router"</span>
-                        <span className="text-shotmut">,</span>
-                        {"\n  "}
-                        <span className="text-shotink">tools</span>
-                        <span className="text-shotmut">:</span> <span className="text-shotmut">[</span>
-                        <span className="text-accent">search</span>
-                        <span className="text-shotmut">,</span> <span className="text-accent">workspace</span>
-                        <span className="text-shotmut">],</span>
-                        {"\n"}
-                        <span className="text-shotmut">{"}"});</span>
-                        {"\n"}
-                        <span className="text-[#C58FB0]">await</span> <span className="text-shotink">agent</span>
-                        <span className="text-shotmut">.</span>
-                        <span className="text-steel">run</span>
-                        <span className="text-shotmut">(brief);</span>
-                      </code>
-                    </pre>
-                  </div>
-                </Layer>
-
-                {/* AI agent card */}
-                <Layer depth={30} className="absolute -top-2 right-0 w-[46%] sm:top-[1%] sm:w-[42%]">
-                  <div className="drift rounded-md border border-shotline bg-shotpanel p-3.5 shadow-[0_24px_60px_-18px_rgba(15,16,18,0.5)]">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-xs bg-accent/15 text-accent">
-                          <Sparkles className="h-3.5 w-3.5" strokeWidth={2.2} />
-                        </span>
-                        <span className="font-mono text-[10px] font-bold tracking-wide text-shotink">DbsAI · agent</span>
-                      </div>
-                      <span className="pulse-dot h-2 w-2 rounded-full bg-sage" />
+                    <div className="hero-morph-stage hero-morph-wire col-start-1 row-start-1">
+                      <WireframeStage />
                     </div>
-                    <div className="mt-3 space-y-2">
-                      {[["92%", "bg-sage"], ["68%", "bg-steel"]].map(([w, c], i) => (
-                        <div key={i}>
-                          <div className="mb-1 flex justify-between font-mono text-[8px] text-shotmut">
-                            <span>{i === 0 ? "task graph" : "context"}</span>
-                            <span>{w}</span>
-                          </div>
-                          <div className="h-1.5 overflow-hidden rounded-full bg-shotup">
-                            <div className={`h-full rounded-full ${c}`} style={{ width: w }} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-3 border-t border-shotline pt-2.5 font-mono text-[8.5px] text-shotmut">
-                      128k tokens · <span className="text-sage">3 models routed</span>
+                    <div className="hero-morph-stage hero-morph-product col-start-1 row-start-1">
+                      <Dashboard />
                     </div>
                   </div>
                 </Layer>
 
-                {/* design chip */}
-                <Layer depth={18} className="absolute bottom-[16%] right-[2%] hidden w-[30%] sm:block">
-                  <div className="rounded-md border border-line bg-surface2 p-3 shadow-[0_18px_44px_-16px_rgba(28,28,26,0.22)] dark:border-shotline dark:bg-shotpanel dark:shadow-none">
-                    <div className="flex items-end justify-between">
-                      <span className="text-[26px] font-black leading-none tracking-tight">Aa</span>
-                      <span className="font-mono text-[8px] uppercase tracking-wider text-ink3 dark:text-shotmut">Vazirmatn</span>
-                    </div>
-                    <div className="mt-2.5 flex gap-1.5">
-                      {["#BC9463", "#8FB0C0", "#A3B18A", "currentColor"].map((c, i) => (
-                        <span
-                          key={i}
-                          className="h-3.5 w-3.5 rounded-[4px] border border-black/10"
-                          style={{ background: c === "currentColor" ? undefined : c, color: "var(--ink)" }}
-                        />
-                      ))}
-                    </div>
-                    <div className="mt-2 font-mono text-[8px] text-ink3 dark:text-shotmut">grid · 8pt · radius 16</div>
-                  </div>
+                {/* design chip — Stage 2 */}
+                <Layer depth={18} className="hero-morph-floater hero-morph-chip absolute bottom-[16%] right-[2%] hidden w-[30%] sm:block">
+                  <DesignChip />
+                </Layer>
+
+                {/* code — Stage 3 / engineering */}
+                <Layer depth={22} className="hero-morph-floater hero-morph-code absolute bottom-[2%] left-0 hidden w-[54%] sm:block">
+                  <CodeCard />
+                </Layer>
+
+                {/* agent — Stage 3 / intelligence */}
+                <Layer depth={30} className="hero-morph-floater hero-morph-agent absolute -top-2 right-0 w-[46%] sm:top-[1%] sm:w-[42%]">
+                  <AgentCard />
                 </Layer>
               </div>
             </div>
 
-            {/* caption */}
             <div className="mt-4 flex items-center justify-between font-mono text-[10px] tracking-wider text-ink3">
               <span>{t.hero.canvasFig}</span>
               <span className="text-hi">{t.hero.canvasCaption}</span>
