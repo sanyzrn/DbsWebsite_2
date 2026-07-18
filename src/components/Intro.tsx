@@ -35,7 +35,7 @@ function PracticeGraph() {
   const flowId = `pg-flow-${uid}`;
 
   return (
-    <div className="atlas-band relative overflow-hidden border-y border-line bg-surface" aria-label={eco.label}>
+    <div className="atlas-band relative hidden overflow-hidden border-y border-line bg-surface md:block" aria-label={eco.label}>
       <div className="atlas-grid pointer-events-none absolute inset-0 opacity-[0.35]" aria-hidden="true" />
 
       <div className="wrap relative py-9 md:py-12">
