@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { Globe } from "lucide-react";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
+import { getSiteUrl } from "../lib/siteUrl";
 import { LinkedinIcon, GithubIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   const { t, lang } = useApp();
   const year = new Date().getFullYear();
+  const siteUrl = getSiteUrl();
 
   const home = localePath(lang, "/");
   const links = [
@@ -32,7 +34,7 @@ export default function Footer() {
     {
       icon: Globe,
       label: "DBSGraphic",
-      href: "https://dbsgraphic.ir/",
+      href: `${siteUrl}/`,
     },
   ];
 

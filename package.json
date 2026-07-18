@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "generate:seo": "node scripts/generate-seo-files.mjs",
+    "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",
+    "build": "npm run check:urls && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
