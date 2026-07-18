@@ -462,7 +462,6 @@ section[id] {
   width: 2px;
   height: 0.85em;
   margin-inline-start: 0.12em;
-  flex-shrink: 0;
   background: var(--accent);
   vertical-align: -0.08em;
   animation: typewriter-blink 1s step-end infinite;
