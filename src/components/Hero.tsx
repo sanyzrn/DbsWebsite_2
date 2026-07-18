@@ -10,7 +10,7 @@ export default function Hero() {
     <section id="top" className="relative overflow-hidden pt-[108px] pb-10 md:pt-[148px] md:pb-16 lg:pb-20">
       <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-x-0 top-0 h-[420px] opacity-40 md:h-[560px]" aria-hidden="true" />
 
-      <div className="wrap relative mx-auto max-w-3xl text-center">
+      <div className="wrap relative mx-auto max-w-5xl text-center">
         <div className="hero-in flex justify-center" style={{ animationDelay: "60ms" }}>
           <span className="chip chip-mono max-w-full border-line2 text-ink2">
             <Sparkles className="h-3.5 w-3.5 shrink-0 text-hi" strokeWidth={2.2} />
@@ -33,7 +33,7 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p className="hero-in mx-auto mt-4 max-w-xl text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]" style={{ animationDelay: "240ms" }}>
+        <p className="hero-in mx-auto mt-4 max-w-3xl text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]" style={{ animationDelay: "240ms" }}>
           {t.hero.sloganA}{" "}
           <span className="text-hi">
             {t.hero.sloganB.split(t.hero.sloganAccent)[0]}
@@ -42,10 +42,10 @@ export default function Hero() {
           </span>
         </p>
 
-        <p className="hero-in mx-auto mt-5 max-w-xl text-[14px] leading-7 text-ink2 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "340ms" }}>
+        <p className="hero-in mx-auto mt-5 max-w-4xl text-[14px] leading-7 text-ink2 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "340ms" }}>
           {t.hero.body}
         </p>
-        <p className="hero-in mx-auto mt-3 max-w-xl text-[14px] font-semibold leading-7 text-ink sm:mt-4 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "420ms" }}>
+        <p className="hero-in mx-auto mt-3 max-w-4xl text-[14px] font-semibold leading-7 text-ink sm:mt-4 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "420ms" }}>
           {t.hero.body2}
         </p>
 
