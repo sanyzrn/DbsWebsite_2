@@ -34,9 +34,21 @@ const fa = {
     canvasCaption: "design → engineering → intelligence",
     canvasFig: "fig. 01 — product canvas",
   },
-  marquee: {
-    label: "اکوسیستم محصولات DBSGraphic",
-    items: ["DBSGraphic", "DbsPulse", "DbsAI", "DbsKeep", "DbsBrain", "DbsChatBot", "DbsTools", "Hesabyar"],
+  ecosystem: {
+    label: "نقشه استودیوی DBSGraphic",
+    fig: "fig. 02 — studio map",
+    lead: "هفت محصول. یک استودیو.",
+    hub: "DBSGraphic",
+    hubTag: "استودیو",
+    nodes: [
+      { name: "DbsPulse", tag: "عملکرد" },
+      { name: "DbsAI", tag: "هوش" },
+      { name: "DbsKeep", tag: "یادداشت" },
+      { name: "DbsBrain", tag: "زندگی" },
+      { name: "DbsChatBot", tag: "گفتگو" },
+      { name: "DbsTools", tag: "اتوماسیون" },
+      { name: "حسابیار", tag: "مالی" },
+    ],
   },
   intro: {
     kicker: "معرفی",
@@ -333,9 +345,21 @@ const en: Dict = {
     canvasCaption: "design → engineering → intelligence",
     canvasFig: "fig. 01 — product canvas",
   },
-  marquee: {
-    label: "The DBSGraphic product ecosystem",
-    items: ["DBSGraphic", "DbsPulse", "DbsAI", "DbsKeep", "DbsBrain", "DbsChatBot", "DbsTools", "Hesabyar"],
+  ecosystem: {
+    label: "The DBSGraphic studio map",
+    fig: "fig. 02 — studio map",
+    lead: "Seven products. One studio.",
+    hub: "DBSGraphic",
+    hubTag: "studio",
+    nodes: [
+      { name: "DbsPulse", tag: "performance" },
+      { name: "DbsAI", tag: "intelligence" },
+      { name: "DbsKeep", tag: "notes" },
+      { name: "DbsBrain", tag: "life OS" },
+      { name: "DbsChatBot", tag: "conversation" },
+      { name: "DbsTools", tag: "automation" },
+      { name: "Hesabyar", tag: "finance" },
+    ],
   },
   intro: {
     kicker: "Introduction",
