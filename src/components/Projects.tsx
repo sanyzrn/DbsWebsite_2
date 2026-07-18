@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState, type ReactNode } from "react";
 import { Check, Database, FileSearch, FileText, Languages, Lock, Plus, Repeat2, Send, Sparkles, Wand2 } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
-import { DirArrow, Reveal, SectionHead } from "./ui";
+import { DirArrow, Reveal, SectionHead, SnapCarousel } from "./ui";
 
 type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar";
 
@@ -411,92 +411,131 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* ------------------------------ featured ------------------------------ */}
-        <Reveal className="mt-10">
-          <article className="group grid overflow-hidden rounded-lg border border-line bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5">
-            <button type="button" onClick={() => open(featured)} className="relative overflow-hidden text-start lg:col-span-3">
-              <Shot className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto">
-                {mocks[featured.mock as MockKind]()}
-              </Shot>
-              {filter === "all" && (
-                <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
-                  {t.projects.featured}
-                </span>
-              )}
-            </button>
-            <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
-              <div>
-                <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
-                  {featured.name}
-                </h3>
-                <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
-                <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
-              </div>
-              <Meta label={t.projects.roleLabel} items={featured.role} />
-              <Meta label={t.projects.techLabel} items={featured.tech} mono />
-              <button
-                type="button"
-                onClick={() => open(featured)}
-                className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
-              >
-                {t.projects.view}
-                <DirArrow className="h-4 w-4" />
+        {/* ------------------------------ mobile carousel ------------------------------ */}
+        <SnapCarousel className="mt-10 md:hidden" label={t.projects.title} itemClassName="h-full" key={filter}>
+          {source.map((p, i) => (
+            <article
+              key={p.id}
+              className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface"
+            >
+              <button type="button" onClick={() => open(p)} className="overflow-hidden text-start">
+                <Shot>
+                  {mocks[p.mock as MockKind]()}
+                </Shot>
               </button>
-            </div>
-          </article>
-        </Reveal>
-
-        {/* ------------------------------ grid ------------------------------ */}
-        <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {grid.map((p, i) => (
-            <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
-              <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60">
-                <button type="button" onClick={() => open(p)} className="overflow-hidden text-start">
-                  <Shot className="transition-transform duration-700 group-hover:scale-[1.03]">
-                    {mocks[p.mock as MockKind]()}
-                  </Shot>
-                </button>
-                <div className="flex flex-1 flex-col gap-5 p-6">
-                  <div>
-                    <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
-                      {p.name}
-                    </h3>
-                    <p className="mt-1.5 text-[13.5px] font-bold leading-7 text-hi">{p.subtitle}</p>
-                    <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
-                  </div>
-
-                  {"caps" in p && p.caps && (
-                    <div>
-                      <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">
-                        {t.projects.capsLabel}
-                      </span>
-                      <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
-                        {p.caps.map((c) => (
-                          <li key={c} className="flex items-center gap-1.5 text-[11.5px] font-medium leading-5 text-ink2">
-                            <Check className="h-3.5 w-3.5 shrink-0 text-sage" strokeWidth={2.5} />
-                            {c}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+              <div className="flex flex-1 flex-col gap-3 p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-[20px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
+                    {p.name}
+                  </h3>
+                  {filter === "all" && i === 0 && (
+                    <span className="shrink-0 rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
+                      {t.projects.featured}
+                    </span>
                   )}
-
-                  <div className="mt-auto space-y-5 border-t border-line pt-5">
-                    <Meta label={t.projects.roleLabel} items={p.role} />
-                    <Meta label={t.projects.techLabel} items={p.tech} mono />
-                    <button
-                      type="button"
-                      onClick={() => open(p)}
-                      className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi"
-                    >
-                      {t.projects.view}
-                      <DirArrow className="h-4 w-4" />
-                    </button>
-                  </div>
                 </div>
-              </article>
-            </Reveal>
+                <p className="text-[13px] font-bold leading-6 text-hi">{p.subtitle}</p>
+                <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{p.desc}</p>
+                <button
+                  type="button"
+                  onClick={() => open(p)}
+                  className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2"
+                >
+                  {t.projects.view}
+                  <DirArrow className="h-4 w-4" />
+                </button>
+              </div>
+            </article>
           ))}
+        </SnapCarousel>
+
+        {/* ------------------------------ desktop: featured + grid ------------------------------ */}
+        <div className="mt-10 hidden md:block">
+          <Reveal>
+            <article className="group grid overflow-hidden rounded-lg border border-line bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5">
+              <button type="button" onClick={() => open(featured)} className="relative overflow-hidden text-start lg:col-span-3">
+                <Shot className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto">
+                  {mocks[featured.mock as MockKind]()}
+                </Shot>
+                {filter === "all" && (
+                  <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
+                    {t.projects.featured}
+                  </span>
+                )}
+              </button>
+              <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
+                <div>
+                  <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
+                    {featured.name}
+                  </h3>
+                  <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
+                  <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
+                </div>
+                <Meta label={t.projects.roleLabel} items={featured.role} />
+                <Meta label={t.projects.techLabel} items={featured.tech} mono />
+                <button
+                  type="button"
+                  onClick={() => open(featured)}
+                  className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
+                >
+                  {t.projects.view}
+                  <DirArrow className="h-4 w-4" />
+                </button>
+              </div>
+            </article>
+          </Reveal>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {grid.map((p, i) => (
+              <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
+                <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60">
+                  <button type="button" onClick={() => open(p)} className="overflow-hidden text-start">
+                    <Shot className="transition-transform duration-700 group-hover:scale-[1.03]">
+                      {mocks[p.mock as MockKind]()}
+                    </Shot>
+                  </button>
+                  <div className="flex flex-1 flex-col gap-5 p-6">
+                    <div>
+                      <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
+                        {p.name}
+                      </h3>
+                      <p className="mt-1.5 text-[13.5px] font-bold leading-7 text-hi">{p.subtitle}</p>
+                      <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
+                    </div>
+
+                    {"caps" in p && p.caps && (
+                      <div>
+                        <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">
+                          {t.projects.capsLabel}
+                        </span>
+                        <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
+                          {p.caps.map((c) => (
+                            <li key={c} className="flex items-center gap-1.5 text-[11.5px] font-medium leading-5 text-ink2">
+                              <Check className="h-3.5 w-3.5 shrink-0 text-sage" strokeWidth={2.5} />
+                              {c}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="mt-auto space-y-5 border-t border-line pt-5">
+                      <Meta label={t.projects.roleLabel} items={p.role} />
+                      <Meta label={t.projects.techLabel} items={p.tech} mono />
+                      <button
+                        type="button"
+                        onClick={() => open(p)}
+                        className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi"
+                      >
+                        {t.projects.view}
+                        <DirArrow className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
 

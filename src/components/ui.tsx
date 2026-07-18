@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Children, useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
@@ -84,4 +84,106 @@ export function DirArrow({ className }: { className?: string }) {
   const { isRTL } = useApp();
   const Icon = isRTL ? ArrowLeft : ArrowRight;
   return <Icon className={className} strokeWidth={2.2} />;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mobile snap carousel → md+ grid                                     */
+/* ------------------------------------------------------------------ */
+
+export function SnapCarousel({
+  children,
+  label,
+  className,
+  itemClassName,
+  gridClassName,
+}: {
+  children: ReactNode;
+  label: string;
+  className?: string;
+  itemClassName?: string;
+  /** Applied from the `md` breakpoint (grid replaces the carousel). */
+  gridClassName?: string;
+}) {
+  const items = Children.toArray(children);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const root = scrollerRef.current;
+    if (!root) return;
+
+    const slides = Array.from(root.children);
+    const io = new IntersectionObserver(
+      (entries) => {
+        const best = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!best) return;
+        const next = slides.indexOf(best.target);
+        if (next >= 0) setIndex(next);
+      },
+      { root, threshold: [0.55, 0.7, 0.85] }
+    );
+
+    slides.forEach((slide) => io.observe(slide));
+    return () => io.disconnect();
+  }, [items.length]);
+
+  const goTo = (i: number) => {
+    const root = scrollerRef.current;
+    const slide = root?.children[i] as HTMLElement | undefined;
+    slide?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  };
+
+  return (
+    <div className={className}>
+      <div
+        ref={scrollerRef}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={label}
+        className={cn(
+          "flex gap-4 overflow-x-auto overscroll-x-contain scroll-smooth snap-x snap-mandatory pb-1",
+          "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          "-mx-5 scroll-px-5 px-5",
+          "md:mx-0 md:grid md:gap-5 md:overflow-visible md:scroll-px-0 md:px-0 md:pb-0 md:snap-none",
+          gridClassName
+        )}
+      >
+        {items.map((child, i) => (
+          <div
+            key={i}
+            className={cn(
+              "w-[min(82vw,320px)] shrink-0 snap-center",
+              "md:w-auto md:min-w-0 md:shrink md:snap-align-none",
+              itemClassName
+            )}
+            aria-roledescription="slide"
+            aria-label={`${i + 1} / ${items.length}`}
+          >
+            {child}
+          </div>
+        ))}
+      </div>
+
+      {items.length > 1 && (
+        <div className="mt-5 flex items-center justify-center gap-1.5 md:hidden" role="tablist" aria-label={label}>
+          {items.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-label={`${i + 1} / ${items.length}`}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                i === index ? "w-5 bg-hi" : "w-1.5 bg-line2 hover:bg-ink3"
+              )}
+              onClick={() => goTo(i)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
