@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { ArrowUp, FolderKanban, Home, UserRound } from "lucide-react";
 import { useApp } from "../lib/app";
@@ -12,7 +12,6 @@ const FQN = {
   /** Mobile: centered above the home indicator / safe area. */
   mobileBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)",
   scrollThreshold: 400,
-  gooMs: 520,
 } as const;
 
 function usePrefersReducedMotion() {
@@ -61,59 +60,14 @@ function isNavActive(pathname: string, item: "home" | "projects" | "about") {
 /**
  * Always-visible quick-nav dock (glass pill). Complements — does not replace — Nav.tsx.
  *
- * Desktop corner uses physical `right` so the dock stays bottom-right in both LTR and RTL
- * (avoids colliding with start-side chrome / reading flow). Mobile is bottom-centered.
+ * Desktop corner uses physical `right` so the dock stays bottom-right in both LTR and RTL.
+ * Mobile is bottom-centered. Scroll-to-top is a plain separate button (no goo filter).
  */
 export default function FloatingQuickNav() {
   const { t, lang } = useApp();
   const { pathname } = useLocation();
   const reduceMotion = usePrefersReducedMotion();
-  const scrolled = useScrollPast(FQN.scrollThreshold);
-  const filterUid = useId().replace(/:/g, "");
-  const gooFilterId = `quicknav-goo-${filterUid}`;
-
-  const [topMounted, setTopMounted] = useState(false);
-  const [topExpanded, setTopExpanded] = useState(false);
-  const [gooing, setGooing] = useState(false);
-  const wasShown = useRef(false);
-
-  useEffect(() => {
-    if (scrolled) {
-      wasShown.current = true;
-      setTopMounted(true);
-      if (reduceMotion) {
-        setTopExpanded(true);
-        setGooing(false);
-        return;
-      }
-      setGooing(true);
-      const id = requestAnimationFrame(() => setTopExpanded(true));
-      return () => cancelAnimationFrame(id);
-    }
-
-    if (!wasShown.current) return;
-
-    setTopExpanded(false);
-    if (reduceMotion) {
-      setGooing(false);
-      const t = window.setTimeout(() => {
-        wasShown.current = false;
-        setTopMounted(false);
-      }, 160);
-      return () => window.clearTimeout(t);
-    }
-    setGooing(true);
-    const t = window.setTimeout(() => {
-      wasShown.current = false;
-      setTopMounted(false);
-      setGooing(false);
-    }, FQN.gooMs);
-    return () => window.clearTimeout(t);
-  }, [scrolled, reduceMotion]);
-
-  const onBlobAnimEnd = useCallback(() => {
-    if (topExpanded && scrolled) setGooing(false);
-  }, [topExpanded, scrolled]);
+  const showTop = useScrollPast(FQN.scrollThreshold);
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
@@ -125,8 +79,6 @@ export default function FloatingQuickNav() {
     { key: "about" as const, to: localePath(lang, "/about"), label: t.nav.about, Icon: UserRound },
   ];
 
-  const topFocusable = scrolled && topExpanded && topMounted;
-
   return (
     <div
       className="floating-quick-nav print:hidden"
@@ -134,78 +86,39 @@ export default function FloatingQuickNav() {
         {
           "--fqn-desktop-inset": `${FQN.desktopInsetPx}px`,
           "--fqn-mobile-bottom": FQN.mobileBottom,
-          "--fqn-goo-ms": `${FQN.gooMs}ms`,
         } as CSSProperties
       }
-      data-gooing={gooing && !reduceMotion ? "true" : "false"}
       data-reduce-motion={reduceMotion ? "true" : "false"}
     >
-      <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id={gooFilterId} x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-              result="goo"
-            />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-      </svg>
-
       <div className="fqn-shell">
-        {/* Background shapes only — goo filter targets this layer */}
-        <div
-          className={cn("fqn-goo-layer", gooing && !reduceMotion && "fqn-goo-active")}
-          style={gooing && !reduceMotion ? { filter: `url(#${gooFilterId})` } : undefined}
-          aria-hidden="true"
-        >
-          <div className="fqn-pill-bg" />
-          {topMounted && (
-            <div
-              className={cn(
-                "fqn-scroll-bg",
-                topExpanded ? "fqn-scroll-bg-in" : "fqn-scroll-bg-out",
-                reduceMotion && "fqn-scroll-bg-reduced"
-              )}
-              onAnimationEnd={onBlobAnimEnd}
-            />
-          )}
-        </div>
+        <nav className="fqn-nav" aria-label={t.nav.quick}>
+          {items.map(({ key, to, label, Icon }) => {
+            const active = isNavActive(pathname, key);
+            return (
+              <NavLink
+                key={key}
+                to={to}
+                end={key === "home"}
+                className={cn("fqn-item", active && "fqn-item-active")}
+                aria-current={active ? "page" : undefined}
+              >
+                <Icon className="fqn-icon" strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
+                <span className={cn("fqn-label", active && "fqn-label-active")}>{label}</span>
+              </NavLink>
+            );
+          })}
+        </nav>
 
-        {/* Crisp foreground — never filtered */}
-        <div className="fqn-fore">
-          <nav className="fqn-nav" aria-label={t.nav.quick}>
-            {items.map(({ key, to, label, Icon }) => {
-              const active = isNavActive(pathname, key);
-              return (
-                <NavLink key={key} to={to} end={key === "home"} className={cn("fqn-item", active && "fqn-item-active")} aria-current={active ? "page" : undefined}>
-                  <Icon className="fqn-icon" strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
-                  <span className={cn("fqn-label", active && "fqn-label-active")}>{label}</span>
-                </NavLink>
-              );
-            })}
-          </nav>
-
-          {topMounted && (
-            <button
-              type="button"
-              className={cn(
-                "fqn-scroll-btn",
-                topExpanded ? "fqn-scroll-btn-in" : "fqn-scroll-btn-out",
-                reduceMotion && "fqn-scroll-btn-reduced"
-              )}
-              onClick={scrollTop}
-              aria-label={t.footer.backTop}
-              tabIndex={topFocusable ? 0 : -1}
-              aria-hidden={topFocusable ? undefined : true}
-            >
-              <ArrowUp className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
-            </button>
-          )}
-        </div>
+        {showTop ? (
+          <button
+            type="button"
+            className="fqn-scroll-btn"
+            onClick={scrollTop}
+            aria-label={t.footer.backTop}
+          >
+            <ArrowUp className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
+          </button>
+        ) : null}
       </div>
     </div>
   );
