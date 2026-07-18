@@ -1,23 +1,13 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUp, Globe } from "lucide-react";
+import { Globe } from "lucide-react";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
-import { cn } from "../utils/cn";
 import { LinkedinIcon, GithubIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   const { t, lang } = useApp();
-  const [showTop, setShowTop] = useState(false);
   const year = new Date().getFullYear();
-
-  useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 700);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const home = localePath(lang, "/");
   const links = [
@@ -166,17 +156,7 @@ export default function Footer() {
           <p className="text-[12px] font-medium text-ink3">{t.footer.built}</p>
         </div>
       </div>
-
-      <Link
-        to={`${home}#top`}
-        aria-label={t.footer.backTop}
-        className={cn(
-          "fixed bottom-6 end-6 z-40 flex h-11 w-11 items-center justify-center rounded-sm bg-accent text-[#211a10] shadow-lg transition-all duration-500 hover:-translate-y-1 print:hidden",
-          showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
-        )}
-      >
-        <ArrowUp className="h-5 w-5" strokeWidth={2.4} />
-      </Link>
+      {/* Scroll-to-top lives on FloatingQuickNav (gooey dock) to avoid a duplicate FAB. */}
     </footer>
   );
 }
