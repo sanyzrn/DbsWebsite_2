@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Award, Boxes, Sparkles, Waypoints } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
 import { useTypewriter } from "../lib/useTypewriter";
 import { DirArrow } from "./ui";
@@ -26,7 +26,6 @@ function SloganCycle({ phrases }: { phrases: string[] }) {
 
 export default function Hero() {
   const { t, lang } = useApp();
-  const statIcons = [Award, Boxes, Waypoints];
   const connector = lang === "fa" ? " تا " : " to ";
 
   return (
@@ -77,21 +76,6 @@ export default function Hero() {
           <a href="#about" className="btn btn-ghost h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
             {t.hero.ctaSecondary}
           </a>
-        </div>
-
-        <div className="hero-in mx-auto mt-8 grid max-w-2xl grid-cols-3 gap-3 border-t border-line pt-6 sm:mt-12 sm:gap-8 sm:pt-8" style={{ animationDelay: "600ms" }}>
-          {t.hero.stats.map((s, i) => {
-            const Icon = statIcons[i];
-            return (
-              <div key={i} className="group flex flex-col items-center">
-                <div className="mb-2 hidden h-10 w-10 items-center justify-center rounded-sm border border-line text-hi transition-colors duration-300 group-hover:border-hi sm:mb-3 sm:flex">
-                  <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
-                </div>
-                <div className="text-[20px] font-black leading-none tracking-tight md:text-[26px]">{s.value}</div>
-                <div className="mt-1.5 text-[10.5px] font-medium leading-4 text-ink2 sm:mt-2 sm:text-[11.5px] sm:leading-5">{s.label}</div>
-              </div>
-            );
-          })}
         </div>
       </div>
     </section>

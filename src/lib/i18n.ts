@@ -35,11 +35,6 @@ const fa = {
       "امروز مسئله برای من فقط زیباتر کردن یک محصول یا نوشتن کد بیشتر نیست. مسئله این است که یک ایده را بفهمم، آن را درست طراحی کنم و به محصولی تبدیل کنم که واقعاً کار کند.",
     ctaPrimary: "پروژه‌ها را ببینید",
     ctaSecondary: "درباره من",
-    stats: [
-      { value: "+۱۶", label: "سال تجربه طراحی و ساخت" },
-      { value: "۷", label: "محصول واقعیِ طراحی و توسعه‌یافته" },
-      { value: "۳", label: "تخصص در یک مسیر: طراحی، مهندسی، هوش" },
-    ],
   },
   ecosystem: {
     label: "گراف عمل DBSGraphic",
@@ -377,11 +372,6 @@ const en: Dict = {
       "Today, the question isn't about making a product prettier or writing more code. It's about understanding an idea, designing it properly, and turning it into a product that actually works.",
     ctaPrimary: "See the projects",
     ctaSecondary: "About me",
-    stats: [
-      { value: "16+", label: "Years of designing & building" },
-      { value: "7", label: "Real products designed & engineered" },
-      { value: "3", label: "Disciplines, one path: design, engineering, AI" },
-    ],
   },
   ecosystem: {
     label: "DBSGraphic practice graph",
