@@ -3,6 +3,7 @@ import { Code2, PenTool, Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 import { Reveal } from "./ui";
+import BrandLogo from "./BrandLogo";
 
 const manifestoIcons = [PenTool, Code2, Sparkles];
 
@@ -42,9 +43,8 @@ function StudioAtlas() {
         {/* ---------- mobile / tablet: compact index (no fake constellation) ---------- */}
         <div className="lg:hidden">
           <a href="#projects" className="mb-6 inline-flex items-center gap-3.5">
-            <span className="atlas-hub-ring relative flex h-14 w-14 items-center justify-center rounded-sm border border-hi/40 bg-page">
-              <span className="absolute inset-1 rounded-[3px] border border-dashed border-hi/25" aria-hidden="true" />
-              <span className="font-mono text-[14px] font-bold tracking-[0.12em] text-hi">DBS</span>
+            <span className="atlas-hub-ring relative flex h-14 w-14 items-center justify-center rounded-sm border border-hi/40 bg-page p-2.5">
+              <BrandLogo variant="icon" imgClassName="h-full w-full object-contain" />
             </span>
             <span>
               <span className="block text-[17px] font-extrabold tracking-tight">{eco.hub}</span>
@@ -124,9 +124,8 @@ function StudioAtlas() {
             onMouseEnter={() => setActive(null)}
             onFocus={() => setActive(null)}
           >
-            <span className="atlas-hub-ring relative flex h-[76px] w-[76px] items-center justify-center rounded-sm border border-hi/45 bg-page shadow-[0_0_0_1px_color-mix(in_srgb,var(--hi)_12%,transparent)]">
-              <span className="absolute inset-1.5 rounded-[3px] border border-dashed border-hi/30" aria-hidden="true" />
-              <span className="font-mono text-[16px] font-bold tracking-[0.14em] text-hi">DBS</span>
+            <span className="atlas-hub-ring relative flex h-[76px] w-[76px] items-center justify-center rounded-sm border border-hi/45 bg-page p-3.5 shadow-[0_0_0_1px_color-mix(in_srgb,var(--hi)_12%,transparent)]">
+              <BrandLogo variant="icon" imgClassName="h-full w-full object-contain" />
             </span>
             <span className="flex flex-col gap-0.5">
               <span className="text-[18px] font-extrabold tracking-tight text-ink transition-colors group-hover:text-hi">

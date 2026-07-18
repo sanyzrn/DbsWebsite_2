@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
+import BrandLogo from "./BrandLogo";
 
 export default function Nav() {
   const { t, theme, toggleTheme, toggleLang } = useApp();
@@ -39,12 +40,11 @@ export default function Nav() {
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
         {/* Brand */}
-        <a href="#top" className="group flex flex-col leading-none" aria-label="SaeedZarrini — home">
-          <span dir="ltr" className="text-[17px] font-extrabold tracking-tight">
-            Saeed<span className="text-hi">Zarrini</span>
-            <span className="ms-1 inline-block h-[7px] w-[7px] rounded-[2px] bg-accent align-baseline transition-transform duration-300 group-hover:rotate-45" />
+        <a href="#top" className="group flex items-center gap-3" aria-label="DBSGraphic — home">
+          <BrandLogo variant="full" imgClassName="h-8 w-auto max-w-[160px] object-contain md:h-9 md:max-w-[180px]" />
+          <span className="hidden flex-col leading-none sm:flex">
+            <span className="text-[10px] font-medium text-ink2">{t.brand.sub}</span>
           </span>
-          <span className="mt-1.5 text-[10px] font-medium text-ink2">{t.brand.sub}</span>
         </a>
 
         {/* Desktop links */}
@@ -125,8 +125,9 @@ export default function Nav() {
           >
             {t.nav.cta}
           </a>
-          <p className="mt-auto pt-10 text-center text-[11px] text-ink3" dir="ltr">
-            SaeedZarrini — {t.footer.tagline}
+          <p className="mt-auto flex items-center justify-center gap-2 pt-10 text-center text-[11px] text-ink3" dir="ltr">
+            <BrandLogo variant="icon" imgClassName="h-4 w-4 object-contain opacity-80" alt="" />
+            DBSGraphic — {t.footer.tagline}
           </p>
         </nav>
       </div>
