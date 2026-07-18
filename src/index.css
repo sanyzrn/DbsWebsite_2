@@ -289,7 +289,7 @@ section[id] {
   transform: none;
 }
 
-/* Practice band grid */
+/* Practice graph (discipline → product strip) */
 .atlas-grid {
   background-image:
     linear-gradient(to right, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
@@ -298,140 +298,72 @@ section[id] {
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
-/* Practice morph — sketch → wireframe → product (scroll-triggered, play once) */
-.practice-morph-stage {
-  opacity: 0;
-  pointer-events: none;
-  will-change: opacity, filter;
+.practice-flow {
+  stroke-dasharray: 14 86;
+  stroke-dashoffset: 100;
+  animation: practice-flow 3.2s linear infinite;
 }
 
-.practice-morph-floater {
-  opacity: 0;
-  pointer-events: none;
-  will-change: opacity, transform;
+.practice-flow-1 {
+  animation-delay: 0s;
+}
+.practice-flow-2 {
+  animation-delay: -1.05s;
+}
+.practice-flow-3 {
+  animation-delay: -2.1s;
 }
 
-/* Idle: show sketch only, waiting for scroll trigger */
-.practice-morph.is-idle .practice-morph-sketch {
-  opacity: 1;
+@keyframes practice-flow {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-/* Reduced motion / finished static: product + all floaters */
-.practice-morph.is-static .practice-morph-product {
-  opacity: 1;
-}
-.practice-morph.is-static .practice-morph-floater {
-  opacity: 1;
-  pointer-events: auto;
+.practice-glow {
+  animation: practice-breathe 4.8s ease-in-out infinite;
+  transform-origin: 820px 160px;
+  transform-box: fill-box;
 }
 
-/* Playing: single shared 12s timeline, hold on final state */
-.practice-morph.is-playing .practice-morph-sketch {
-  animation: practice-morph-sketch 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.practice-morph.is-playing .practice-morph-wire {
-  animation: practice-morph-wire 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.practice-morph.is-playing .practice-morph-product {
-  animation: practice-morph-product 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.practice-morph.is-playing .practice-morph-chip {
-  animation: practice-morph-chip 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.practice-morph.is-playing .practice-morph-code {
-  animation: practice-morph-code 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.practice-morph.is-playing .practice-morph-agent {
-  animation: practice-morph-agent 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.practice-product-ring {
+  animation: practice-ring 4.8s ease-in-out infinite;
+  transform-origin: 820px 160px;
+  transform-box: fill-box;
 }
 
-@keyframes practice-morph-sketch {
-  0%,
-  14% {
+.practice-product-core {
+  animation: practice-core 2.4s ease-in-out infinite;
+}
+
+@keyframes practice-breathe {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
     opacity: 1;
-    filter: none;
-  }
-  22% {
-    opacity: 0;
-    filter: blur(2px);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(2px);
+    transform: scale(1.06);
   }
 }
 
-@keyframes practice-morph-wire {
-  0%,
-  12% {
-    opacity: 0;
-    filter: blur(3px);
+@keyframes practice-ring {
+  0%, 100% {
+    opacity: 0.28;
+    transform: scale(0.96);
   }
-  22%,
-  46% {
-    opacity: 1;
-    filter: none;
-  }
-  56% {
-    opacity: 0;
-    filter: blur(2px);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(2px);
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
   }
 }
 
-@keyframes practice-morph-product {
-  0%,
-  46% {
-    opacity: 0;
-    filter: blur(4px) saturate(0.6);
+@keyframes practice-core {
+  0%, 100% {
+    opacity: 0.85;
   }
-  56%,
-  100% {
+  50% {
     opacity: 1;
-    filter: none;
-  }
-}
-
-/* design → engineering → intelligence floater sequence */
-@keyframes practice-morph-chip {
-  0%,
-  26% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  36%,
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes practice-morph-code {
-  0%,
-  60% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  70%,
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes practice-morph-agent {
-  0%,
-  72% {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.96);
-  }
-  82%,
-  100% {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -487,23 +419,20 @@ section[id] {
   .drift,
   .pulse-dot,
   .hero-in,
-  .practice-morph.is-playing .practice-morph-sketch,
-  .practice-morph.is-playing .practice-morph-wire,
-  .practice-morph.is-playing .practice-morph-product,
-  .practice-morph.is-playing .practice-morph-chip,
-  .practice-morph.is-playing .practice-morph-code,
-  .practice-morph.is-playing .practice-morph-agent {
+  .practice-flow,
+  .practice-glow,
+  .practice-product-ring,
+  .practice-product-core {
     animation: none;
   }
-  .practice-morph .practice-morph-sketch,
-  .practice-morph .practice-morph-wire {
-    opacity: 0 !important;
+  .practice-flow {
+    opacity: 0;
   }
-  .practice-morph .practice-morph-product,
-  .practice-morph .practice-morph-floater {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
+  .practice-glow,
+  .practice-product-ring,
+  .practice-product-core {
+    opacity: 1;
+    transform: none;
   }
 }
 
