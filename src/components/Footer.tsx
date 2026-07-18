@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowUp, Globe } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
-import { LinkedinIcon } from "./icons";
+import { LinkedinIcon, GithubIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
@@ -27,6 +27,11 @@ export default function Footer() {
 
   // Only real, verified profiles — never #top placeholders.
   const socials = [
+    {
+      icon: GithubIcon,
+      label: "GitHub",
+      href: "https://github.com/sanyzrn/",
+    },
     {
       icon: LinkedinIcon,
       label: "LinkedIn",
