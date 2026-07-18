@@ -409,25 +409,33 @@ export default function Hero() {
           <div className="hero-in" style={{ animationDelay: "60ms" }}>
             <span className="chip chip-mono border-line2 text-ink2">
               <Sparkles className="h-3.5 w-3.5 text-hi" strokeWidth={2.2} />
-              {t.hero.badge}
+              <span>{t.hero.badge}</span>
+              <span className="text-ink3">·</span>
+              <span className="text-ink3">{t.hero.badgeStudio}</span>
             </span>
           </div>
 
           <h1 className="mt-7 text-[40px] font-black leading-[1.15] tracking-tight sm:text-[52px] lg:text-[56px] xl:text-[62px] xl:leading-[1.12]">
             <span className="hero-in block" style={{ animationDelay: "140ms" }}>
-              {t.hero.titleA}
-            </span>
-            <span className="hero-in block" style={{ animationDelay: "240ms" }}>
-              {t.hero.titleB.split(t.hero.titleAccent)[0]}
+              {t.hero.name.split(t.hero.nameAccent)[0]}
               <span className="relative inline-block text-hi">
-                {t.hero.titleAccent}
+                {t.hero.nameAccent}
                 <svg className="absolute -bottom-1.5 start-0 w-full" viewBox="0 0 200 9" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M2,7 C60,2 140,2 198,6" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" opacity="0.55" />
                 </svg>
               </span>
-              {t.hero.titleB.split(t.hero.titleAccent)[1] ?? ""}
+              {t.hero.name.split(t.hero.nameAccent)[1] ?? ""}
             </span>
           </h1>
+
+          <p className="hero-in mt-5 max-w-xl text-[22px] font-extrabold leading-[1.35] tracking-tight text-ink md:text-[26px] md:leading-[1.35]" style={{ animationDelay: "240ms" }}>
+            {t.hero.sloganA}{" "}
+            <span className="text-hi">
+              {t.hero.sloganB.split(t.hero.sloganAccent)[0]}
+              {t.hero.sloganAccent}
+              {t.hero.sloganB.split(t.hero.sloganAccent)[1] ?? ""}
+            </span>
+          </p>
 
           <p className="hero-in mt-7 max-w-xl text-[15px] leading-8 text-ink2 md:text-base md:leading-[1.95]" style={{ animationDelay: "340ms" }}>
             {t.hero.body}

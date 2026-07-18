@@ -43,14 +43,17 @@ export default function Footer() {
     <footer className="border-t border-line">
       <div className="wrap grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-6">
-          <a href="#top" className="inline-flex items-center">
-            <BrandLogo variant="full" imgClassName="h-10 w-auto max-w-[200px] object-contain" />
+          <a href="#top" className="inline-flex flex-col leading-none">
+            <span dir="ltr" className="text-[22px] font-extrabold tracking-tight">
+              Saeed<span className="text-hi">Zarrini</span>
+              <span className="ms-1.5 inline-block h-2 w-2 rounded-[2px] bg-accent align-baseline" />
+            </span>
           </a>
           <p className="mt-3.5 text-[13.5px] font-bold text-hi">{t.footer.tagline}</p>
           <p className="mt-4 max-w-sm text-[13.5px] leading-7 text-ink2">{t.footer.desc}</p>
           <p className="mt-6 inline-flex items-center gap-2.5 rounded-xs border border-line px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-ink3" dir="ltr">
             <BrandLogo variant="icon" imgClassName="h-4 w-4 object-contain" alt="" />
-            DBSGraphic — creative & product studio
+            {t.footer.studio}
           </p>
         </div>
 

@@ -4,7 +4,7 @@ const fa = {
   dir: "rtl" as "rtl" | "ltr",
   brand: {
     name: "SaeedZarrini",
-    sub: "استودیو محصول و خلاقیت DBSGraphic",
+    sub: "مهندس راهکارهای هوش مصنوعی",
   },
   nav: {
     projects: "پروژه‌ها",
@@ -17,10 +17,13 @@ const fa = {
     close: "بستن",
   },
   hero: {
-    badge: "استودیو محصول و خلاقیت DBSGraphic",
-    titleA: "از یک ایده،",
-    titleB: "تا یک محصول واقعی.",
-    titleAccent: "محصول واقعی",
+    badge: "سعید زرینی — مهندس راهکارهای هوش مصنوعی و سازنده محصولات دیجیتال",
+    badgeStudio: "DBSGraphic",
+    name: "سعید زرینی",
+    nameAccent: "زرینی",
+    sloganA: "از یک ایده،",
+    sloganB: "تا یک محصول واقعی.",
+    sloganAccent: "محصول واقعی",
     body: "من سعید زرینی هستم؛ طراح، مهندس محصول و متخصص راهکارهای هوش مصنوعی. بیش از ۱۶ سال است که با طراحی و ساختن سروکار دارم؛ از طراحی گرافیک و بسته‌بندی‌های دارویی تا طراحی تجربه کاربری، توسعه نرم‌افزار و ساخت محصولات مبتنی بر هوش مصنوعی.",
     body2:
       "امروز مسئله برای من فقط زیباتر کردن یک محصول یا نوشتن کد بیشتر نیست. مسئله این است که یک ایده را بفهمم، آن را درست طراحی کنم و به محصولی تبدیل کنم که واقعاً کار کند.",
@@ -341,7 +344,7 @@ const en: Dict = {
   dir: "ltr" as const,
   brand: {
     name: "SaeedZarrini",
-    sub: "A DBSGraphic creative & product studio",
+    sub: "AI Solutions Engineer",
   },
   nav: {
     projects: "Projects",
@@ -354,10 +357,13 @@ const en: Dict = {
     close: "Close",
   },
   hero: {
-    badge: "A DBSGraphic creative & product studio",
-    titleA: "From an idea,",
-    titleB: "to a real product.",
-    titleAccent: "real product",
+    badge: "Saeed Zarrini — AI Solutions Engineer & Digital Product Builder",
+    badgeStudio: "DBSGraphic",
+    name: "Saeed Zarrini",
+    nameAccent: "Zarrini",
+    sloganA: "From an idea,",
+    sloganB: "to a real product.",
+    sloganAccent: "real product",
     body: "I'm Saeed Zarrini — designer, product engineer and AI solutions specialist. For over 16 years I've been designing and building: from graphic design and pharmaceutical packaging to UX design, software development and AI-powered products.",
     body2:
       "Today, the question isn't about making a product prettier or writing more code. It's about understanding an idea, designing it properly, and turning it into a product that actually works.",
