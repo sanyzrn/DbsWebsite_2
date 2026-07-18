@@ -58,38 +58,51 @@ export function Thinking() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Process                                                             */
+/*  Process — compact connected pathway                                 */
 /* ------------------------------------------------------------------ */
 
 export function Process() {
   const { t } = useApp();
+  const steps = t.process.steps;
 
   return (
-    <section id="process" className="section-pad border-t border-line bg-surface">
-      <div className="wrap">
-        <SectionHead kicker={t.process.kicker} title={t.process.title} lead={t.process.lead} />
+    <section id="process" className="relative overflow-hidden border-t border-line bg-surface py-14 md:py-16 lg:py-20">
+      <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.22]" aria-hidden="true" />
 
-        <div className="mt-16">
-          {t.process.steps.map((step, i) => (
-            <Reveal key={step.en} delay={i * 60}>
-              <div className="group grid grid-cols-[auto_1fr] items-baseline gap-5 border-t border-line py-7 transition-colors duration-300 last:border-b hover:border-hi/40 md:grid-cols-[110px_1fr_1.2fr] md:gap-10 md:py-9">
-                <span className="font-mono text-[26px] font-bold leading-none text-ink3/60 transition-colors duration-300 group-hover:text-hi md:text-[34px]" dir="ltr">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-[20px] font-extrabold tracking-tight md:text-[24px]">{step.title}</h3>
-                  <span className="mt-1 block font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-ink3" dir="ltr">
+      <div className="wrap relative">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <SectionHead kicker={t.process.kicker} title={t.process.title} lead={t.process.lead} />
+          <Reveal delay={160}>
+            <p className="hidden font-mono text-[11px] tracking-[0.18em] text-ink3 lg:block" dir="ltr">
+              01 → 06 · continuous path
+            </p>
+          </Reveal>
+        </div>
+
+        <Reveal delay={100}>
+          <ol className="mt-9 grid gap-px overflow-hidden rounded-md border border-line bg-line sm:mt-10 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
+            {steps.map((step, i) => (
+              <li key={step.en} className="group relative bg-surface p-5 transition-colors duration-300 hover:bg-page md:p-6">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-page font-mono text-[11px] font-bold text-ink3 transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page"
+                    dir="ltr"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="h-px flex-1 bg-line2 transition-colors duration-300 group-hover:bg-hi/40" aria-hidden="true" />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink3" dir="ltr">
                     {step.en}
                   </span>
                 </div>
-                <p className="col-span-2 mt-1 text-[14px] leading-8 text-ink2 md:col-span-1 md:mt-0 md:max-w-md">
-                  {step.desc}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+                <h3 className="mt-4 text-[17px] font-extrabold tracking-tight md:text-[18px]">{step.title}</h3>
+                <p className="mt-2 text-[12.5px] leading-6 text-ink2 md:text-[13px] md:leading-6">{step.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
       </div>
     </section>
   );
 }
+
