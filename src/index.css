@@ -284,7 +284,7 @@ section[id] {
   transform: none;
 }
 
-/* Studio Atlas (ecosystem strip) */
+/* Practice graph (discipline → product strip) */
 .atlas-grid {
   background-image:
     linear-gradient(to right, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
@@ -293,29 +293,72 @@ section[id] {
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
-.atlas-hub-ring {
-  animation: atlas-breathe 5.5s ease-in-out infinite;
+.practice-flow {
+  stroke-dasharray: 14 86;
+  stroke-dashoffset: 100;
+  animation: practice-flow 3.2s linear infinite;
 }
 
-@keyframes atlas-breathe {
+.practice-flow-1 {
+  animation-delay: 0s;
+}
+.practice-flow-2 {
+  animation-delay: -1.05s;
+}
+.practice-flow-3 {
+  animation-delay: -2.1s;
+}
+
+@keyframes practice-flow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.practice-glow {
+  animation: practice-breathe 4.8s ease-in-out infinite;
+  transform-origin: 820px 160px;
+  transform-box: fill-box;
+}
+
+.practice-product-ring {
+  animation: practice-ring 4.8s ease-in-out infinite;
+  transform-origin: 820px 160px;
+  transform-box: fill-box;
+}
+
+.practice-product-core {
+  animation: practice-core 2.4s ease-in-out infinite;
+}
+
+@keyframes practice-breathe {
   0%, 100% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--hi) 0%, transparent);
+    opacity: 0.55;
+    transform: scale(0.92);
   }
   50% {
-    box-shadow: 0 0 0 8px color-mix(in srgb, var(--hi) 12%, transparent);
+    opacity: 1;
+    transform: scale(1.06);
   }
 }
 
-.atlas-node {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: atlas-node-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+@keyframes practice-ring {
+  0%, 100% {
+    opacity: 0.28;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
 }
 
-@keyframes atlas-node-in {
-  to {
+@keyframes practice-core {
+  0%, 100% {
+    opacity: 0.85;
+  }
+  50% {
     opacity: 1;
-    transform: none;
   }
 }
 
@@ -368,14 +411,21 @@ section[id] {
     transform: none;
     transition: none;
   }
-  .atlas-hub-ring,
-  .atlas-node,
   .drift,
   .pulse-dot,
-  .hero-in {
+  .hero-in,
+  .practice-flow,
+  .practice-glow,
+  .practice-product-ring,
+  .practice-product-core {
     animation: none;
   }
-  .atlas-node {
+  .practice-flow {
+    opacity: 0;
+  }
+  .practice-glow,
+  .practice-product-ring,
+  .practice-product-core {
     opacity: 1;
     transform: none;
   }

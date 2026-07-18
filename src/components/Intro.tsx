@@ -1,38 +1,45 @@
-import { useId, useState } from "react";
+import { useId } from "react";
 import { Code2, PenTool, Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 import { Reveal } from "./ui";
-import BrandLogo from "./BrandLogo";
 
 const manifestoIcons = [PenTool, Code2, Sparkles];
 
 /* ------------------------------------------------------------------ */
-/*  Studio Constellation — product ecosystem as a living map           */
-/*  Hub = DBSGraphic. Products = unique stars at staggered orbits.     */
-/*  No repeating ticker — each product appears once with a domain tag. */
+/*  Practice graph — Design · Engineering · Intelligence → Product     */
+/*  Ambient node network: three disciplines continually feeding one     */
+/*  connected practice. No fake product constellation.                  */
 /* ------------------------------------------------------------------ */
 
-/** Vertical orbit offsets (% of canvas) — creates a constellation, not a row */
-const ORBITS = [18, 62, 8, 72, 28, 55, 12];
+type SourceKey = "design" | "engineering" | "intelligence";
 
-function StudioAtlas() {
+const SOURCES: { key: SourceKey; x: number; y: number }[] = [
+  { key: "design", x: 200, y: 56 },
+  { key: "engineering", x: 200, y: 160 },
+  { key: "intelligence", x: 200, y: 264 },
+];
+
+const PRODUCT = { x: 820, y: 160 };
+
+function edgePath(sx: number, sy: number, ex: number, ey: number) {
+  const mx = (sx + ex) / 2;
+  return `M ${sx} ${sy} C ${mx} ${sy}, ${mx} ${ey}, ${ex} ${ey}`;
+}
+
+function PracticeGraph() {
   const { t } = useApp();
   const { ecosystem: eco } = t;
-  const [active, setActive] = useState<number | null>(null);
-  const gradId = useId();
+  const uid = useId().replace(/:/g, "");
+  const glowId = `pg-glow-${uid}`;
+  const flowId = `pg-flow-${uid}`;
 
   return (
-    <div
-      className="atlas-band relative overflow-hidden border-y border-line bg-surface"
-      aria-label={eco.label}
-      onMouseLeave={() => setActive(null)}
-    >
-      <div className="atlas-grid pointer-events-none absolute inset-0 opacity-[0.4]" aria-hidden="true" />
+    <div className="atlas-band relative overflow-hidden border-y border-line bg-surface" aria-label={eco.label}>
+      <div className="atlas-grid pointer-events-none absolute inset-0 opacity-[0.35]" aria-hidden="true" />
 
-      <div className="wrap relative py-9 md:py-11">
-        {/* header */}
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-3 md:mb-10">
+      <div className="wrap relative py-9 md:py-12">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3 md:mb-8">
           <div className="flex items-center gap-3">
             <span className="h-1.5 w-1.5 rounded-[2px] bg-hi" />
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink2">{eco.fig}</span>
@@ -40,164 +47,99 @@ function StudioAtlas() {
           <p className="text-[13px] font-medium tracking-tight text-ink2 md:text-[14px]">{eco.lead}</p>
         </div>
 
-        {/* ---------- mobile / tablet: compact index (no fake constellation) ---------- */}
-        <div className="lg:hidden">
-          <a href="#projects" className="mb-6 inline-flex items-center gap-3.5">
-            <span className="atlas-hub-ring relative flex h-14 w-14 items-center justify-center rounded-sm border border-hi/40 bg-page p-2.5">
-              <BrandLogo variant="icon" imgClassName="h-full w-full object-contain" />
-            </span>
-            <span>
-              <span className="block text-[17px] font-extrabold tracking-tight">{eco.hub}</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink3">{eco.hubTag}</span>
-            </span>
-          </a>
-
-          <ul className="divide-y divide-line border-y border-line">
-            {eco.nodes.map((node, i) => {
-              const isActive = active === i;
-              return (
-                <li key={node.name} className="atlas-node" style={{ animationDelay: `${80 + i * 45}ms` }}>
-                  <a
-                    href="#projects"
-                    className={cn(
-                      "flex items-baseline justify-between gap-3 py-3 transition-colors duration-300",
-                      isActive ? "text-hi" : "hover:text-hi"
-                    )}
-                    onMouseEnter={() => setActive(i)}
-                    onFocus={() => setActive(i)}
-                  >
-                    <span className="flex min-w-0 items-baseline gap-3">
-                      <span className="font-mono text-[9px] tracking-[0.16em] text-ink3">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="truncate text-[14px] font-bold tracking-tight text-ink">{node.name}</span>
-                    </span>
-                    <span className="shrink-0 font-mono text-[10px] tracking-[0.04em] text-ink3">{node.tag}</span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        {/* ---------- desktop: constellation canvas ---------- */}
-        <div className="relative hidden min-h-[220px] lg:block" dir="ltr">
-          {/* SVG star-links from hub → each product */}
+        <div className="practice-graph relative mx-auto w-full max-w-4xl" dir="ltr">
           <svg
-            className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1000 220"
-            preserveAspectRatio="none"
-            aria-hidden="true"
+            className="h-auto w-full"
+            viewBox="0 0 1000 320"
+            role="img"
+            aria-labelledby={`pg-title-${uid}`}
           >
+            <title id={`pg-title-${uid}`}>{eco.label}</title>
             <defs>
-              <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="var(--hi)" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="var(--line2)" stopOpacity="0.35" />
+              <radialGradient id={glowId} cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="var(--hi)" stopOpacity="0.35" />
+                <stop offset="55%" stopColor="var(--hi)" stopOpacity="0.1" />
+                <stop offset="100%" stopColor="var(--hi)" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient id={flowId} x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="var(--hi)" stopOpacity="0" />
+                <stop offset="45%" stopColor="var(--hi)" stopOpacity="0.85" />
+                <stop offset="100%" stopColor="var(--hi)" stopOpacity="0" />
               </linearGradient>
             </defs>
-            {eco.nodes.map((_, i) => {
-              const x = 210 + (i * 740) / Math.max(eco.nodes.length - 1, 1);
-              const y = (ORBITS[i]! / 100) * 220;
-              const isActive = active === i;
-              const isDimmed = active !== null && !isActive;
-              return (
-                <path
-                  key={i}
-                  d={`M 118 110 C 160 110, ${x - 40} ${y}, ${x} ${y}`}
-                  fill="none"
-                  stroke={isActive ? "var(--hi)" : `url(#${gradId})`}
-                  strokeWidth={isActive ? 1.6 : 1}
-                  strokeOpacity={isDimmed ? 0.15 : isActive ? 0.9 : 0.55}
-                  className="transition-all duration-300"
-                />
-              );
-            })}
-            {/* hub glow ring */}
-            <circle cx="70" cy="110" r="46" fill="none" stroke="var(--hi)" strokeOpacity="0.18" strokeWidth="1" />
-            <circle cx="70" cy="110" r="38" fill="none" stroke="var(--hi)" strokeOpacity="0.12" strokeDasharray="3 5" />
+
+            <circle className="practice-glow" cx={PRODUCT.x} cy={PRODUCT.y} r="78" fill={`url(#${glowId})`} />
+
+            {SOURCES.map((s) => (
+              <path
+                key={`base-${s.key}`}
+                d={edgePath(s.x + 14, s.y, PRODUCT.x - 28, PRODUCT.y)}
+                fill="none"
+                stroke="var(--line2)"
+                strokeWidth="1.25"
+                strokeOpacity="0.7"
+              />
+            ))}
+
+            {SOURCES.map((s, i) => (
+              <path
+                key={`flow-${s.key}`}
+                className={cn("practice-flow", `practice-flow-${i + 1}`)}
+                d={edgePath(s.x + 14, s.y, PRODUCT.x - 28, PRODUCT.y)}
+                fill="none"
+                stroke={`url(#${flowId})`}
+                strokeWidth="2.25"
+                strokeLinecap="round"
+                pathLength={100}
+              />
+            ))}
+
+            {SOURCES.map((s) => (
+              <g key={s.key} className="practice-node">
+                <circle cx={s.x} cy={s.y} r="7" fill="var(--surface)" stroke="var(--hi)" strokeWidth="1.5" />
+                <circle cx={s.x} cy={s.y} r="2.5" fill="var(--hi)" />
+                <text
+                  x={s.x - 22}
+                  y={s.y + 5}
+                  textAnchor="end"
+                  fill="var(--ink)"
+                  fontSize="15"
+                  fontWeight="700"
+                  style={{ fontFamily: "inherit" }}
+                >
+                  {eco.sources[s.key]}
+                </text>
+              </g>
+            ))}
+
+            <g className="practice-product">
+              <circle cx={PRODUCT.x} cy={PRODUCT.y} r="34" fill="var(--page)" stroke="var(--hi)" strokeWidth="1.5" />
+              <circle
+                className="practice-product-ring"
+                cx={PRODUCT.x}
+                cy={PRODUCT.y}
+                r="46"
+                fill="none"
+                stroke="var(--hi)"
+                strokeOpacity="0.35"
+                strokeWidth="1"
+              />
+              <circle className="practice-product-core" cx={PRODUCT.x} cy={PRODUCT.y} r="6" fill="var(--hi)" />
+              <text
+                x={PRODUCT.x}
+                y={PRODUCT.y + 68}
+                textAnchor="middle"
+                fill="var(--ink)"
+                fontSize="16"
+                fontWeight="800"
+                style={{ fontFamily: "inherit" }}
+              >
+                {eco.product}
+              </text>
+            </g>
           </svg>
 
-          {/* hub */}
-          <a
-            href="#projects"
-            className="atlas-hub group absolute left-0 top-1/2 z-[2] flex -translate-y-1/2 items-center gap-4"
-            onMouseEnter={() => setActive(null)}
-            onFocus={() => setActive(null)}
-          >
-            <span className="atlas-hub-ring relative flex h-[76px] w-[76px] items-center justify-center rounded-sm border border-hi/45 bg-page p-3.5 shadow-[0_0_0_1px_color-mix(in_srgb,var(--hi)_12%,transparent)]">
-              <BrandLogo variant="icon" imgClassName="h-full w-full object-contain" />
-            </span>
-            <span className="flex flex-col gap-0.5">
-              <span className="text-[18px] font-extrabold tracking-tight text-ink transition-colors group-hover:text-hi">
-                {eco.hub}
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink3">{eco.hubTag}</span>
-            </span>
-          </a>
-
-          {/* product stars — positioned in LTR canvas coords (dir=ltr on parent) */}
-          {eco.nodes.map((node, i) => {
-            const leftPct = 21 + (i * 74) / Math.max(eco.nodes.length - 1, 1);
-            const topPct = ORBITS[i]!;
-            const isActive = active === i;
-            const isDimmed = active !== null && !isActive;
-            const index = String(i + 1).padStart(2, "0");
-
-            return (
-              <a
-                key={node.name}
-                href="#projects"
-                className={cn(
-                  "atlas-node group absolute z-[2] -translate-x-1/2 -translate-y-1/2 outline-none transition-opacity duration-300",
-                  isDimmed && "opacity-30"
-                )}
-                style={{
-                  left: `${leftPct}%`,
-                  top: `${topPct}%`,
-                  animationDelay: `${140 + i * 70}ms`,
-                }}
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
-                aria-label={`${node.name} — ${node.tag}`}
-              >
-                <span className="flex flex-col items-center gap-1.5 text-center">
-                  <span
-                    className={cn(
-                      "relative flex h-3 w-3 items-center justify-center rounded-full border transition-all duration-300",
-                      isActive
-                        ? "scale-125 border-hi bg-hi"
-                        : "border-line2 bg-surface group-hover:border-hi group-hover:bg-hi"
-                    )}
-                    aria-hidden="true"
-                  >
-                    <span
-                      className={cn(
-                        "absolute h-7 w-7 rounded-full border transition-all duration-500",
-                        isActive ? "scale-100 border-hi/35" : "scale-50 border-transparent"
-                      )}
-                    />
-                  </span>
-                  <span className="font-mono text-[9px] tracking-[0.16em] text-ink3">{index}</span>
-                  <span
-                    className={cn(
-                      "whitespace-nowrap text-[13px] font-bold tracking-tight transition-colors duration-300",
-                      isActive ? "text-hi" : "text-ink group-hover:text-hi"
-                    )}
-                  >
-                    {node.name}
-                  </span>
-                  <span
-                    className={cn(
-                      "font-mono text-[10px] tracking-[0.04em] transition-colors duration-300",
-                      isActive ? "text-ink2" : "text-ink3"
-                    )}
-                  >
-                    {node.tag}
-                  </span>
-                </span>
-              </a>
-            );
-          })}
+          <p className="mt-2 text-center font-mono text-[10px] tracking-[0.16em] text-ink3 md:mt-3">{eco.caption}</p>
         </div>
       </div>
     </div>
@@ -209,7 +151,7 @@ export default function Intro() {
 
   return (
     <>
-      <StudioAtlas />
+      <PracticeGraph />
 
       <section className="section-pad">
         <div className="wrap grid gap-14 lg:grid-cols-12">
