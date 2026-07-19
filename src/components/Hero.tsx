@@ -98,6 +98,12 @@ export default function Hero() {
             particleColor="#bc9463"
             particleCount={6000}
             fontFamily="sans-serif"
+            sequence={[
+              { type: 'text', text: 'DBS' },
+              { type: 'shape', shape: 'torus' },
+              { type: 'text', text: 'GRAPHIC' },
+              { type: 'shape', shape: 'sphere' },
+            ]}
           />
         </Suspense>
       </div>
