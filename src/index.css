@@ -189,7 +189,10 @@ body {
 @keyframes page-enter {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(16px);
+  }
+  60% {
+    opacity: 1;
   }
   to {
     opacity: 1;
@@ -198,7 +201,7 @@ body {
 }
 
 .page-enter {
-  animation: page-enter 220ms ease-out both;
+  animation: page-enter 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* View Transitions API — theme toggle progressive enhancement */
