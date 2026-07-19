@@ -302,6 +302,59 @@ section[id] {
 }
 
 /* ------------------------------------------------------------------ */
+/*  404 — "Lost signal" (Hero atmosphere + soft SVG displacement)       */
+/* ------------------------------------------------------------------ */
+
+.nf-stage {
+  min-height: min(78vh, 720px);
+}
+
+.nf-atmosphere .hero-atmosphere {
+  /* Fuller field than the hero’s top-weighted fade — a continuous topo plane. */
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 42%, #000 18%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 95% 85% at 50% 42%, #000 18%, #000 70%, transparent 100%);
+  opacity: 0.95;
+}
+
+.nf-atmosphere-field {
+  will-change: filter;
+  transition: opacity 0.4s ease;
+}
+
+.nf-atmosphere-warping {
+  opacity: 0.92;
+}
+
+.nf-mark {
+  text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.nf-signal-ring {
+  opacity: 0.9;
+}
+
+.nf-signal-spin {
+  transform-origin: 100px 100px;
+  animation: nf-signal-spin 48s linear infinite;
+}
+
+@keyframes nf-signal-spin {
+  to {
+    stroke-dashoffset: -180;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-atmosphere-field {
+    filter: none !important;
+    will-change: auto;
+  }
+  .nf-signal-spin {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /*  Motion                                                              */
 /* ------------------------------------------------------------------ */
 
@@ -506,6 +559,12 @@ section[id] {
     opacity: 1;
     transform: none;
   }
+  .nf-atmosphere-field {
+    filter: none !important;
+  }
+  .nf-signal-spin {
+    animation: none;
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -529,6 +588,220 @@ section[id] {
   top: 1rem;
   outline: 2px solid var(--ink);
   outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Career timeline — survey-rail with scroll-drawn fill                */
+/* ------------------------------------------------------------------ */
+
+.career-timeline {
+  --career-draw: 0;
+  --career-rail-x: 11px;
+  position: relative;
+  padding-inline-start: 0;
+}
+
+.career-rail {
+  position: absolute;
+  inset-block: 0.35rem 1.1rem;
+  inset-inline-start: var(--career-rail-x);
+  width: 2px;
+  pointer-events: none;
+}
+
+.career-rail-track {
+  position: absolute;
+  inset: 0;
+  background: var(--line2);
+  border-radius: 2px;
+}
+
+.career-rail-draw {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--accent), var(--hi));
+  border-radius: 2px;
+  transform: scaleY(var(--career-draw));
+  transform-origin: top center;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.career-rail-hash {
+  position: absolute;
+  inset-inline-start: calc(var(--career-rail-x) - 4px);
+  width: 10px;
+  height: 1px;
+  background: var(--line2);
+  pointer-events: none;
+}
+
+.career-node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.75rem 1fr;
+  gap: 0.85rem 1.1rem;
+  padding-block: 0.55rem 1.35rem;
+  padding-inline-start: 2rem;
+}
+
+.career-node:last-child {
+  padding-bottom: 0.25rem;
+}
+
+.career-node-year {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  padding-top: 0.15rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  color: var(--ink3);
+  transition: color 0.45s ease;
+}
+
+.career-node.is-reached .career-node-year {
+  color: var(--accentdark);
+}
+
+.dark .career-node.is-reached .career-node-year {
+  color: var(--accent);
+}
+
+.career-node-marker {
+  position: absolute;
+  inset-inline-start: calc(var(--career-rail-x) - 5px);
+  top: 0.7rem;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--line2);
+  background: var(--page);
+  border-radius: 2px;
+  transition:
+    border-color 0.45s ease,
+    background-color 0.45s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.career-node.is-reached .career-node-marker {
+  border-color: var(--hi);
+  background: var(--hi);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hi) 18%, transparent);
+}
+
+.career-node.is-current .career-node-marker {
+  transform: scale(1.12);
+}
+
+/* Easter-egg: rotated diamond, dashed feel via softer ink */
+.career-node-egg .career-node-marker {
+  border-radius: 2px;
+  transform: rotate(45deg);
+  border-color: var(--accent);
+  background: var(--page);
+}
+
+.career-node-egg.is-reached .career-node-marker {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(45deg) scale(1.08);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.career-node-copy {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.career-node-title {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  color: var(--ink);
+  transition: color 0.45s ease;
+}
+
+.career-node.is-current .career-node-title {
+  color: var(--hi);
+}
+
+.career-node-egg .career-node-title {
+  font-weight: 700;
+  color: var(--accentdark);
+}
+
+.dark .career-node-egg .career-node-title {
+  color: var(--accent);
+}
+
+.career-node-body {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink2);
+}
+
+.career-node-egg .career-node-body {
+  font-style: italic;
+  color: var(--ink2);
+}
+
+.career-node-egg-label {
+  display: inline-block;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9px;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .career-timeline {
+    --career-rail-x: 13px;
+  }
+  .career-node {
+    grid-template-columns: 5.5rem 1fr;
+    gap: 0.9rem 1.35rem;
+    padding-block: 0.65rem 1.55rem;
+    padding-inline-start: 2.25rem;
+  }
+  .career-node-year {
+    font-size: 12px;
+  }
+  .career-node-title {
+    font-size: 15.5px;
+  }
+  .career-node-body {
+    font-size: 13.5px;
+    line-height: 1.8;
+  }
+  .career-node-marker {
+    width: 13px;
+    height: 13px;
+    inset-inline-start: calc(var(--career-rail-x) - 5.5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .career-rail-draw {
+    transition: none;
+  }
+  .career-node-marker,
+  .career-node-year,
+  .career-node-title {
+    transition: none;
+  }
 }
 
 /* ------------------------------------------------------------------ */

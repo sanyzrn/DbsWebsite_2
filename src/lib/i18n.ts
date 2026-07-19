@@ -184,8 +184,38 @@ const fa = {
     expBody:
       "بیش از ۱۶ سال تجربه در طراحی گرافیک و طراحی محصولات بصری. اما تجربه برای من به معنای متوقف شدن در چیزی نیست که قبلاً بلد بوده‌ام. از طراحی گرافیک و بسته‌بندی شروع کردم، بعد به طراحی وب و UI/UX رسیدم، بعد توسعه نرم‌افزار؛ و امروز، ساخت محصولات هوشمند و استفاده از هوش مصنوعی.",
     expClosing: "تجربه، زمانی ارزشمند است که بتواند خودش را با آینده تطبیق دهد.",
-    path: ["طراحی گرافیک و بسته‌بندی", "وب و UI/UX", "توسعه نرم‌افزار", "محصولات هوشمند و AI"],
-    pathYears: ["۲۰۰۸", "۲۰۱۴", "۲۰۱۹", "امروز"],
+    path: [
+      {
+        kind: "milestone" as const,
+        year: "۲۰۰۸",
+        title: "طراحی گرافیک و بسته‌بندی",
+        body: "تصویر، تایپوگرافی و ساخت تجربه‌های بصری.",
+      },
+      {
+        kind: "milestone" as const,
+        year: "۲۰۱۴",
+        title: "وب و UI/UX",
+        body: "طراحی رابط و تجربه برای محصول‌های دیجیتال.",
+      },
+      {
+        kind: "easter-egg" as const,
+        year: "میانهٔ راه",
+        title: "کنارِ مسیر",
+        body: "همون جایی که فهمیدم «وسط‌چین کردن یک div» سخت‌ترین معمای دنیای طراحیه.",
+      },
+      {
+        kind: "milestone" as const,
+        year: "۲۰۱۹",
+        title: "توسعه نرم‌افزار",
+        body: "از ایده تا سیستم‌های قابل‌اتکا و قابل‌تحویل.",
+      },
+      {
+        kind: "milestone" as const,
+        year: "امروز",
+        title: "محصولات هوشمند و AI",
+        body: "جایی که طراحی، مهندسی و هوش مصنوعی یکی می‌شوند.",
+      },
+    ],
     studioNote: "تمام این کارها زیر چتر استودیو خلاقیت و محصول DBSGraphic ادامه دارد.",
   },
   skills: {
@@ -515,8 +545,38 @@ const en: UiDict = {
     expBody:
       "Over sixteen years in graphic design and visual product design. But experience, to me, never meant standing still in what I already knew. I began with graphic design and packaging, moved into web design and UI/UX, then software development — and today, building intelligent products with applied AI.",
     expClosing: "Experience is valuable when it can adapt itself to the future.",
-    path: ["Graphic & Packaging", "Web & UI/UX", "Software Engineering", "AI Products"],
-    pathYears: ["2008", "2014", "2019", "Today"],
+    path: [
+      {
+        kind: "milestone" as const,
+        year: "2008",
+        title: "Graphic & Packaging",
+        body: "Image, typography, and building visual experiences.",
+      },
+      {
+        kind: "milestone" as const,
+        year: "2014",
+        title: "Web & UI/UX",
+        body: "Interfaces and experience design for digital products.",
+      },
+      {
+        kind: "easter-egg" as const,
+        year: "Along the way",
+        title: "A side note",
+        body: "Right about when centering a div became the hardest problem in design.",
+      },
+      {
+        kind: "milestone" as const,
+        year: "2019",
+        title: "Software Engineering",
+        body: "From ideas to reliable, shippable systems.",
+      },
+      {
+        kind: "milestone" as const,
+        year: "Today",
+        title: "AI Products",
+        body: "Where design, engineering, and AI become one practice.",
+      },
+    ],
     studioNote: "All of this work continues under the DBSGraphic creative & product studio.",
   },
   skills: {
