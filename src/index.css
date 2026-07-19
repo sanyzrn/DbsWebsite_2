@@ -533,6 +533,7 @@ section[id] {
 
 /* ------------------------------------------------------------------ */
 /*  Floating quick-nav (glass dock + plain scroll-to-top)               */
+/*  Two independent fixed elements — nav BR, scroll BL — all viewports */
 /* ------------------------------------------------------------------ */
 
 .floating-quick-nav {
@@ -541,11 +542,7 @@ section[id] {
   --fqn-shadow: 0 10px 30px -18px rgba(28, 28, 26, 0.35);
   --fqn-pill-h: 48px;
   --fqn-scroll-size: 44px;
-  --fqn-gap: 10px;
-  position: fixed;
-  /* Below Nav (z-50) and its mobile overlay (z-40) so the open menu covers this dock. */
-  z-index: 30;
-  pointer-events: none;
+  /* CSS-variable host only — children are independently position:fixed. */
 }
 
 .dark .floating-quick-nav {
@@ -554,33 +551,15 @@ section[id] {
   --fqn-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.55);
 }
 
-/* Mobile: horizontally centered at the bottom of the viewport */
-.floating-quick-nav {
-  top: auto;
-  bottom: var(--fqn-mobile-bottom);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Desktop: physical bottom-right (same corner in RTL — intentional). */
-@media (min-width: 768px) {
-  .floating-quick-nav {
-    top: auto;
-    left: auto;
-    right: var(--fqn-desktop-inset);
-    bottom: var(--fqn-desktop-inset);
-    transform: none;
-  }
-}
-
-.fqn-shell {
-  display: flex;
-  align-items: center;
-  gap: var(--fqn-gap);
-  pointer-events: auto;
-}
-
+/* Nav pill: fixed bottom-right on mobile and desktop (physical right). */
 .fqn-nav {
+  position: fixed;
+  /* Below Nav (z-50) and its mobile overlay (z-40) so the open menu covers this dock. */
+  z-index: 30;
+  top: auto;
+  left: auto;
+  right: var(--fqn-mobile-side, 16px);
+  bottom: var(--fqn-mobile-bottom);
   display: flex;
   align-items: center;
   gap: 2px;
@@ -592,6 +571,14 @@ section[id] {
   box-shadow: var(--fqn-shadow);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   backdrop-filter: blur(16px) saturate(160%);
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .fqn-nav {
+    right: var(--fqn-desktop-inset);
+    bottom: var(--fqn-desktop-inset);
+  }
 }
 
 .fqn-item {
@@ -649,12 +636,17 @@ section[id] {
   }
 }
 
-/* Plain independent scroll-to-top — no SVG goo / metaball filter */
+/* Plain independent scroll-to-top — fixed bottom-left; no SVG goo / metaball filter */
 .fqn-scroll-btn {
+  position: fixed;
+  z-index: 30;
+  top: auto;
+  right: auto;
+  left: var(--fqn-mobile-side, 16px);
+  bottom: var(--fqn-mobile-bottom);
   display: inline-flex;
   width: var(--fqn-scroll-size);
   height: var(--fqn-scroll-size);
-  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
@@ -663,7 +655,15 @@ section[id] {
   border: none;
   box-shadow: var(--fqn-shadow);
   cursor: pointer;
+  pointer-events: auto;
   animation: fqn-fade-in 150ms ease;
+}
+
+@media (min-width: 768px) {
+  .fqn-scroll-btn {
+    left: var(--fqn-desktop-inset);
+    bottom: var(--fqn-desktop-inset);
+  }
 }
 
 .fqn-scroll-btn:hover {
