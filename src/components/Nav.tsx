@@ -71,7 +71,7 @@ export default function Nav() {
       )}
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
-        <Link to={home} className="group flex items-center gap-2.5" aria-label="Saeed Zarrini — home">
+        <Link to={home} className="group flex items-center gap-2.5" aria-label={t.nav.homeLinkLabel}>
           <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain opacity-90 transition-opacity group-hover:opacity-100" alt="" />
           <span className="flex flex-col leading-none">
             <span dir="ltr" className="text-[17px] font-extrabold tracking-tight">
@@ -82,7 +82,7 @@ export default function Nav() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label={t.nav.primaryNavLabel}>
           {links.map((l) => (
             <Link
               key={l.to}
@@ -97,7 +97,7 @@ export default function Nav() {
         <div className="flex items-center gap-2.5">
           <button
             onClick={toggleLang}
-            aria-label="Switch language"
+            aria-label={t.nav.switchLangLabel}
             className="flex h-10 items-center gap-1.5 rounded-sm border border-line bg-transparent px-3 text-[12px] font-bold text-ink2 transition-colors duration-300 hover:border-hi hover:text-hi"
           >
             <Languages className="h-4 w-4" strokeWidth={2} />
@@ -135,7 +135,7 @@ export default function Nav() {
           open ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
         )}
       >
-        <nav id={PANEL_ID} className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]" aria-label="Mobile">
+        <nav id={PANEL_ID} className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]" aria-label={t.nav.mobileNavLabel}>
           <div className="flex flex-col p-2">
             {links.map((l, i) => (
               <Link
