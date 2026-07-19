@@ -1,0 +1,55 @@
+{
+  "id": "hesabyar",
+  "slug": "hesabyar",
+  "status": "production",
+  "featured": false,
+  "order": 7,
+  "name": {
+    "fa": "حسابیار",
+    "en": "Hesabyar"
+  },
+  "subtitle": {
+    "fa": "مدیریت مالی، به زبان زندگی واقعی.",
+    "en": "Personal finance, in the language of real life."
+  },
+  "desc": {
+    "fa": "یک سیستم مدیریت مالی شخصی برای مدیریت حساب‌ها، هزینه‌ها، اقساط، چک‌ها، وام‌ها، بودجه‌بندی و اهداف مالی؛ طراحی‌شده با در نظر گرفتن نیازهای واقعی کاربران ایرانی و تقویم شمسی.",
+    "en": "A personal finance system for accounts, expenses, installments, cheques, loans, budgeting and financial goals — designed around the real needs of Iranian users and the Jalali calendar."
+  },
+  "problem": {
+    "fa": "ابزارهای مدیریت مالی موجود معمولاً با نیازهای واقعی کاربر ایرانی (تقویم شمسی، اقساط، چک) هماهنگ نبودند.",
+    "en": "Existing financial management tools generally didn't fit real Iranian user needs (Solar Hijri calendar, installments, checks)."
+  },
+  "approach": {
+    "fa": "یک PWA با PHP و MySQL ساخته شد که به‌طور اختصاصی حساب‌ها، اقساط، چک‌ها، وام‌ها و بودجه‌بندی را با تقویم شمسی مدیریت می‌کند.",
+    "en": "Built as a PWA with PHP and MySQL, purpose-built to manage accounts, installments, checks, loans, and budgeting on the Solar Hijri calendar."
+  },
+  "result": {
+    "fa": "یک ابزار مدیریت مالی شخصی که با زبان زندگی واقعی کاربر ایرانی سازگار است.",
+    "en": "A personal finance tool aligned with the real everyday life of Iranian users."
+  },
+  "role": {
+    "fa": [
+      "طراحی محصول",
+      "توسعه فول‌استک",
+      "PWA"
+    ],
+    "en": [
+      "Product Design",
+      "Full-Stack Development",
+      "PWA"
+    ]
+  },
+  "tech": [
+    "PHP",
+    "MySQL",
+    "PWA"
+  ],
+  "tags": [
+    "Full-Stack",
+    "Design"
+  ],
+  "image_url": null,
+  "mock": "hesabyar",
+  "_todo": "Placeholder case-study copy — Saeed should confirm/replace with real project specifics."
+}

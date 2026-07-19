@@ -1,0 +1,47 @@
+{
+  "id": "concept-02",
+  "slug": "concept-02",
+  "status": "concept",
+  "featured": false,
+  "order": 9,
+  "name": {
+    "fa": "طرح مفهومی ۲",
+    "en": "Concept 02"
+  },
+  "subtitle": {
+    "fa": "اکتشاف محصول — جزئیات به‌زودی.",
+    "en": "Product exploration — details soon."
+  },
+  "desc": {
+    "fa": "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
+    "en": "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی محصول"
+    ],
+    "en": [
+      "Product Design"
+    ]
+  },
+  "tech": [
+    "TBD"
+  ],
+  "tags": [
+    "Full-Stack"
+  ],
+  "image_url": null,
+  "mock": "concept"
+}

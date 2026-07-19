@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Languages, Mail, Moon, Phone, Search, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 
 type Cmd = {
@@ -15,6 +17,7 @@ type Cmd = {
  */
 export default function CommandPalette() {
   const { t, toggleLang, toggleTheme, theme, lang } = useApp();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
@@ -26,22 +29,23 @@ export default function CommandPalette() {
   }, []);
 
   const commands = useMemo<Cmd[]>(() => {
-    const jump = (href: string, label: string): Cmd => ({
-      id: href,
+    const go = (to: string, label: string, hint?: string): Cmd => ({
+      id: to,
       label,
-      hint: href,
+      hint: hint ?? to,
       run: () => {
         close();
-        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+        navigate(to);
       },
     });
 
+    const home = localePath(lang, "/");
     return [
-      jump("#projects", t.nav.projects),
-      jump("#expertise", t.nav.expertise),
-      jump("#process", t.nav.process),
-      jump("#about", t.nav.about),
-      jump("#contact", t.nav.contact),
+      go(localePath(lang, "/projects"), t.nav.projects),
+      go(`${home}#expertise`, t.nav.expertise),
+      go(`${home}#process`, t.nav.process),
+      go(localePath(lang, "/about"), t.nav.about),
+      go(`${localePath(lang, "/about")}#contact`, t.nav.contact),
       {
         id: "theme",
         label: theme === "dark" ? t.theme.toLight : t.theme.toDark,
@@ -79,7 +83,7 @@ export default function CommandPalette() {
         },
       },
     ];
-  }, [t, theme, lang, toggleTheme, toggleLang, close]);
+  }, [t, theme, lang, toggleTheme, toggleLang, close, navigate]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -124,6 +128,11 @@ export default function CommandPalette() {
 
   if (!open) return null;
 
+  const listboxId = "command-palette-listbox";
+  const optionDomId = (id: string) => `cmd-option-${id.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
+  const activeOption = filtered[active];
+  const activeDescendant = activeOption ? optionDomId(activeOption.id) : undefined;
+
   const icons: Record<string, typeof Search> = {
     theme: theme === "dark" ? Sun : Moon,
     lang: Languages,
@@ -149,6 +158,10 @@ export default function CommandPalette() {
             onKeyDown={onInputKey}
             placeholder={t.command.placeholder}
             className="h-12 w-full bg-transparent text-[14px] font-medium outline-none placeholder:text-ink3"
+            role="combobox"
+            aria-expanded={open}
+            aria-controls={listboxId}
+            aria-activedescendant={activeDescendant}
             aria-autocomplete="list"
           />
           <button type="button" onClick={close} className="rounded-xs p-1.5 text-ink3 hover:text-ink" aria-label={t.command.close}>
@@ -156,14 +169,14 @@ export default function CommandPalette() {
           </button>
         </form>
 
-        <ul className="max-h-[50vh] overflow-y-auto p-2" role="listbox">
+        <ul id={listboxId} className="max-h-[50vh] overflow-y-auto p-2" role="listbox">
           {filtered.length === 0 && (
             <li className="px-3 py-6 text-center text-[13px] text-ink3">{t.command.empty}</li>
           )}
           {filtered.map((cmd, i) => {
             const Icon = icons[cmd.id] ?? ArrowRight;
             return (
-              <li key={cmd.id} role="option" aria-selected={i === active}>
+              <li key={cmd.id} id={optionDomId(cmd.id)} role="option" aria-selected={i === active}>
                 <button
                   type="button"
                   onMouseEnter={() => setActive(i)}

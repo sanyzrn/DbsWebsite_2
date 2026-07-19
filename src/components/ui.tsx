@@ -16,12 +16,20 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
+  // Start visible so prerendered HTML is readable before hydration; below-fold
+  // elements briefly hide then reveal on scroll (client-only).
   const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+    if (alreadyVisible) return;
+
+    setInView(false);
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -172,21 +180,28 @@ export function SnapCarousel({
       </div>
 
       {items.length > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-1.5 md:hidden" role="tablist" aria-label={label}>
-          {items.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`${i + 1} / ${items.length}`}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === index ? "w-5 bg-hi" : "w-1.5 bg-line2 hover:bg-ink3"
-              )}
-              onClick={() => goTo(i)}
-            />
-          ))}
+        <div className="mt-4 flex items-center justify-center gap-0.5 md:hidden" aria-label={label}>
+          {items.map((_, i) => {
+            const active = i === index;
+            return (
+              <button
+                key={i}
+                type="button"
+                aria-label={`${i + 1} / ${items.length}`}
+                aria-current={active ? "true" : undefined}
+                className="group flex h-6 min-w-6 items-center justify-center px-1"
+                onClick={() => goTo(i)}
+              >
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "block h-1.5 rounded-full transition-all duration-300",
+                    active ? "w-5 bg-hi" : "w-1.5 bg-line2 group-hover:bg-ink3"
+                  )}
+                />
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

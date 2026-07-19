@@ -16,5 +16,12 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx tsc --noEmit
+      - run: npm run lint
       - run: npm test -- --run
       - run: npm run build
+      # Post-build: internal links + canonical/OG vs SITE_URL (extends check-urls.mjs)
+      - run: npm run check:dist
+      # axe-core + jsdom against key prerendered routes (see scripts/check-a11y.mjs)
+      - run: npm run check:a11y
+      # Initial JS/CSS gzip ceilings (~150 KiB / ~60 KiB)
+      - run: npm run check:bundle

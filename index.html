@@ -3,58 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SaeedZarrini — سعید زرینی | مهندس راهکارهای هوش مصنوعی و سازنده محصولات دیجیتال</title>
+    <title>Saeed Zarrini | مهندس راهکارهای هوش مصنوعی</title>
     <meta
       name="description"
-      content="سعید زرینی — طراح، مهندس محصول و متخصص راهکارهای هوش مصنوعی. بیش از ۱۶ سال تجربه در طراحی گرافیک، بسته‌بندی دارویی، UI/UX، توسعه فول‌استک و ساخت محصولات مبتنی بر هوش مصنوعی. AI Solutions Engineer & Digital Product Builder."
-    />
-    <meta
-      name="keywords"
-      content="متخصص هوش مصنوعی, مهندس راهکارهای هوش مصنوعی, توسعه‌دهنده فول‌استک, طراحی محصول دیجیتال, طراحی UI UX, طراحی بسته‌بندی دارویی, اتوماسیون هوش مصنوعی, ساخت چت‌بات, AI Solutions Engineer, Digital Product Builder, AI Integration, Full-Stack Developer"
+      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
     />
     <meta name="author" content="Saeed Zarrini" />
-    <meta name="theme-color" content="#F5F0E8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#bc9463" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#151617" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#bc9463" />
 
-    <link rel="canonical" href="https://saeedzarrini.com/" />
-    <link rel="icon" href="/Dbs_logo_single.webp" type="image/webp" />
-    <link rel="apple-touch-icon" href="/Dbs_logo_single.webp" />
+    <link rel="canonical" href="__SITE_URL__/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/pwa-192x192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://saeedzarrini.com/" />
-    <meta property="og:title" content="SaeedZarrini — AI Solutions Engineer & Digital Product Builder" />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta property="og:title" content="Saeed Zarrini | مهندس راهکارهای هوش مصنوعی" />
     <meta
       property="og:description"
-      content="از یک ایده، تا یک محصول واقعی. طراحی، مهندسی نرم‌افزار و هوش مصنوعی — در یک مسیر. A DBSGraphic creative & product studio."
+      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
     />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:image" content="https://saeedzarrini.com/og.jpg" />
+    <meta property="og:image" content="__SITE_URL__/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="SaeedZarrini — AI Solutions Engineer & Digital Product Builder" />
+    <meta name="twitter:title" content="Saeed Zarrini | مهندس راهکارهای هوش مصنوعی" />
     <meta
       name="twitter:description"
-      content="Design, software engineering and AI — turning ideas into products that actually work."
+      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
     />
-    <meta name="twitter:image" content="https://saeedzarrini.com/og.jpg" />
+    <meta name="twitter:image" content="__SITE_URL__/og.jpg" />
 
-    <!-- Prevent FOUC: apply persisted lang/dir/theme before first paint -->
+    <!-- Prevent FOUC: lang/dir from URL path; theme from preference / system -->
     <script>
       (function () {
         try {
           var root = document.documentElement;
-          var lang = localStorage.getItem("sz-lang");
+          var path = location.pathname || "/";
+          var isEn = path === "/en" || path.indexOf("/en/") === 0;
+          root.lang = isEn ? "en" : "fa";
+          root.dir = isEn ? "ltr" : "rtl";
           var theme = localStorage.getItem("sz-theme");
-          if (lang === "en") {
-            root.lang = "en";
-            root.dir = "ltr";
-          } else {
-            root.lang = "fa";
-            root.dir = "rtl";
-          }
           var dark =
             theme === "dark" ||
             (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -64,20 +58,13 @@
       })();
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Saeed Zarrini",
         "alternateName": "سعید زرینی",
-        "url": "https://saeedzarrini.com/",
+        "url": "__SITE_URL__/",
         "email": "zrn_sany@yahoo.com",
         "telephone": "+989301221816",
         "jobTitle": "AI Solutions Engineer & Digital Product Builder",
@@ -85,7 +72,7 @@
         "sameAs": [
           "https://github.com/sanyzrn/",
           "https://www.linkedin.com/in/saeed-zarrini-20a56341",
-          "https://dbsgraphic.ir/"
+          "__SITE_URL__/"
         ],
         "knowsAbout": [
           "AI Product Development",

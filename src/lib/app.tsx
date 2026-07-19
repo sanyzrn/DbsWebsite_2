@@ -1,5 +1,7 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { dictionaries, type Dict, type Lang } from "./i18n";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getDictionary, type Dict, type Lang } from "./i18n";
+import { langFromPath, localePath, stripLangPrefix } from "./paths";
 
 export type Theme = "light" | "dark";
 
@@ -23,17 +25,26 @@ function initialTheme(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-function initialLang(): Lang {
-  if (typeof window === "undefined") return "fa";
+/** Preference memory only — never overrides URL locale by itself. */
+export function readStoredLang(): Lang | null {
+  if (typeof window === "undefined") return null;
   const stored = localStorage.getItem("sz-lang");
-  return stored === "en" ? "en" : "fa";
+  return stored === "en" || stored === "fa" ? stored : null;
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>(initialLang);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [lang, setLangState] = useState<Lang>(() => langFromPath(location.pathname));
   const [theme, setTheme] = useState<Theme>(initialTheme);
 
   const dir: "rtl" | "ltr" = lang === "fa" ? "rtl" : "ltr";
+
+  // URL is the source of truth for locale (/en… → en, otherwise fa).
+  useEffect(() => {
+    const fromUrl = langFromPath(location.pathname);
+    setLangState(fromUrl);
+  }, [location.pathname]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -49,18 +60,29 @@ export function AppProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("sz-theme", theme);
   }, [theme]);
 
+  const setLang = useCallback(
+    (next: Lang) => {
+      // Persist before navigate so a racey preference redirect cannot override
+      // an explicit language choice with a stale sz-lang value.
+      localStorage.setItem("sz-lang", next);
+      const path = stripLangPrefix(location.pathname);
+      navigate(localePath(next, path) + location.hash + location.search);
+    },
+    [location.pathname, location.hash, location.search, navigate]
+  );
+
   const value = useMemo<AppState>(
     () => ({
       lang,
       dir,
       isRTL: dir === "rtl",
-      t: dictionaries[lang],
+      t: getDictionary(lang),
       setLang,
-      toggleLang: () => setLang((l) => (l === "fa" ? "en" : "fa")),
+      toggleLang: () => setLang(lang === "fa" ? "en" : "fa"),
       theme,
       toggleTheme: () => setTheme((m) => (m === "light" ? "dark" : "light")),
     }),
-    [lang, dir, theme]
+    [lang, dir, theme, setLang]
   );
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;

@@ -1,15 +1,13 @@
 import { useId } from "react";
-import { Code2, PenTool, Sparkles } from "lucide-react";
+import { Code2, Compass, Palette, Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 import { Reveal } from "./ui";
 
-const manifestoIcons = [PenTool, Code2, Sparkles];
+const pillarIcons = [Palette, Code2, Sparkles, Compass];
 
 /* ------------------------------------------------------------------ */
 /*  Practice graph — Design · Engineering · Intelligence → Product     */
-/*  Ambient node network: three disciplines continually feeding one     */
-/*  connected practice. No fake product constellation.                  */
 /* ------------------------------------------------------------------ */
 
 type SourceKey = "design" | "engineering" | "intelligence";
@@ -48,12 +46,7 @@ function PracticeGraph() {
         </div>
 
         <div className="practice-graph relative mx-auto w-full max-w-4xl" dir="ltr">
-          <svg
-            className="h-auto w-full"
-            viewBox="0 0 1000 320"
-            role="img"
-            aria-labelledby={`pg-title-${uid}`}
-          >
+          <svg className="h-auto w-full" viewBox="0 0 1000 320" role="img" aria-labelledby={`pg-title-${uid}`}>
             <title id={`pg-title-${uid}`}>{eco.label}</title>
             <defs>
               <radialGradient id={glowId} cx="50%" cy="50%" r="50%">
@@ -146,6 +139,10 @@ function PracticeGraph() {
   );
 }
 
+/**
+ * Compact intro + expertise pillars (formerly separate Intro / Expertise / Thinking
+ * claim sections). Anchored as `#expertise` for nav.
+ */
 export default function Intro() {
   const { t } = useApp();
 
@@ -153,52 +150,56 @@ export default function Intro() {
     <>
       <PracticeGraph />
 
-      <section className="section-pad">
-        <div className="wrap grid gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <span className="kicker">{t.intro.kicker}</span>
-            </Reveal>
-            <Reveal delay={80}>
-              <h2 className="mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[40px] md:leading-[1.2]">
-                {t.intro.title}
-              </h2>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-4 text-[14px] leading-7 text-ink2 sm:mt-6 sm:text-[15px] sm:leading-[1.95]">{t.intro.p1}</p>
-            </Reveal>
-            <Reveal delay={220}>
-              <p className="mt-3 text-[14px] leading-7 text-ink2 sm:mt-4 sm:text-[15px] sm:leading-[1.95]">{t.intro.p2}</p>
-            </Reveal>
-            <Reveal delay={300}>
-              <p className="mt-5 rounded-sm border-s-[3px] border-hi bg-surface px-4 py-3 text-[14px] font-bold leading-7 sm:mt-7 sm:px-5 sm:py-4 sm:text-[15px] sm:leading-8">
-                {t.intro.strong}
-              </p>
-            </Reveal>
-          </div>
+      <section id="expertise" className="section-pad">
+        <div className="wrap max-w-4xl">
+          <Reveal>
+            <span className="kicker">{t.intro.kicker}</span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[40px] md:leading-[1.2]">
+              {t.intro.title}
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-4 text-[14px] leading-7 text-ink2 sm:mt-6 sm:text-[15px] sm:leading-[1.95]">{t.intro.p1}</p>
+          </Reveal>
+          <Reveal delay={180}>
+            <p className="mt-3 text-[14px] leading-7 text-ink2 sm:mt-4 sm:text-[15px] sm:leading-[1.95]">{t.intro.p2}</p>
+          </Reveal>
+          <Reveal delay={220}>
+            <p className="mt-5 rounded-sm border-s-[3px] border-hi bg-surface px-4 py-3 text-[14px] font-bold leading-7 sm:mt-7 sm:px-5 sm:py-4 sm:text-[15px] sm:leading-8">
+              {t.intro.strong}
+            </p>
+          </Reveal>
+          <Reveal delay={260}>
+            <p className="mt-4 text-[14px] leading-7 text-ink2 sm:text-[15px] sm:leading-[1.95]">{t.thinking.lead}</p>
+          </Reveal>
 
-          <div className="lg:col-span-7">
-            <div className="flex h-full flex-col justify-center">
-              {t.intro.manifesto.map((line, i) => {
-                const Icon = manifestoIcons[i];
+          {/* Compact pillars — support the intro, not a second pitch */}
+          <Reveal delay={300}>
+            <ul
+              className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-4 md:grid-cols-4"
+              aria-label={t.nav.expertise}
+            >
+              {t.expertise.cards.map((card, i) => {
+                const Icon = pillarIcons[i]!;
                 return (
-                  <Reveal key={i} delay={i * 100}>
-                    <div className="group flex items-center gap-4 border-b border-line py-4 transition-colors duration-300 first:border-t hover:border-hi/50 sm:gap-6 sm:py-7 md:gap-10 md:py-9">
-                      <span className="font-mono text-[12px] font-semibold text-ink3 transition-colors duration-300 group-hover:text-hi sm:text-sm">
-                        0{i + 1}
-                      </span>
-                      <span className="flex-1 text-[18px] font-black leading-snug tracking-tight sm:text-[24px] md:text-[36px] lg:text-[40px]">
-                        {line}
-                      </span>
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-all duration-300 group-hover:border-hi group-hover:bg-hi group-hover:text-page sm:h-12 sm:w-12 md:h-14 md:w-14">
-                        <Icon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" strokeWidth={1.8} />
-                      </span>
-                    </div>
-                  </Reveal>
+                  <li
+                    key={card.en}
+                    className="flex flex-col gap-2 rounded-md border border-line bg-surface px-3.5 py-3.5 sm:px-4 sm:py-4"
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-sm border border-line text-hi">
+                      <Icon className="h-4 w-4" strokeWidth={1.9} />
+                    </span>
+                    <span className="text-[13px] font-extrabold tracking-tight sm:text-[14px]">{card.title}</span>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink3" dir="ltr">
+                      {card.en}
+                    </span>
+                  </li>
                 );
               })}
-            </div>
-          </div>
+            </ul>
+          </Reveal>
         </div>
       </section>
     </>

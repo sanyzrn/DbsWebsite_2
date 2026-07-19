@@ -1,0 +1,47 @@
+{
+  "id": "concept-01",
+  "slug": "concept-01",
+  "status": "concept",
+  "featured": false,
+  "order": 8,
+  "name": {
+    "fa": "طرح مفهومی ۱",
+    "en": "Concept 01"
+  },
+  "subtitle": {
+    "fa": "اکتشاف طراحی — جزئیات به‌زودی.",
+    "en": "Design exploration — details soon."
+  },
+  "desc": {
+    "fa": "یک طرح مفهومی عمومی برای نمایش در نمونه‌کارها. محتوا، نقش‌ها و فناوری‌ها بعداً تکمیل می‌شوند.",
+    "en": "A generic concept placeholder for the portfolio. Content, roles, and tech will be filled in later."
+  },
+  "problem": {
+    "fa": "",
+    "en": ""
+  },
+  "approach": {
+    "fa": "",
+    "en": ""
+  },
+  "result": {
+    "fa": "",
+    "en": ""
+  },
+  "role": {
+    "fa": [
+      "طراحی"
+    ],
+    "en": [
+      "Design"
+    ]
+  },
+  "tech": [
+    "TBD"
+  ],
+  "tags": [
+    "Design"
+  ],
+  "image_url": null,
+  "mock": "concept"
+}

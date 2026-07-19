@@ -1,31 +1,29 @@
-import { useEffect, useState } from "react";
-import { ArrowUp, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Globe } from "lucide-react";
 import { useApp } from "../lib/app";
-import { cn } from "../utils/cn";
+import { localePath } from "../lib/paths";
+import { getSiteUrl } from "../lib/siteUrl";
 import { LinkedinIcon, GithubIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
-  const { t } = useApp();
-  const [showTop, setShowTop] = useState(false);
+  const { t, lang } = useApp();
   const year = new Date().getFullYear();
+  const siteUrl = getSiteUrl();
 
-  useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 700);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+  const home = localePath(lang, "/");
   const links = [
-    { label: t.nav.projects, href: "#projects" },
-    { label: t.nav.expertise, href: "#expertise" },
-    { label: t.nav.process, href: "#process" },
-    { label: t.nav.about, href: "#about" },
-    { label: t.nav.contact, href: "#contact" },
+    { label: t.nav.projects, to: localePath(lang, "/projects") },
+    { label: t.nav.expertise, to: `${home}#expertise` },
+    { label: t.nav.process, to: `${home}#process` },
+    { label: t.nav.about, to: localePath(lang, "/about") },
+    { label: t.nav.contact, to: `${localePath(lang, "/about")}#contact` },
+  ];
+  const legal = [
+    { label: t.footer.privacy, to: localePath(lang, "/privacy") },
+    { label: t.footer.terms, to: localePath(lang, "/terms") },
   ];
 
-  // Only real, verified profiles — never #top placeholders.
   const socials = [
     {
       icon: GithubIcon,
@@ -40,22 +38,21 @@ export default function Footer() {
     {
       icon: Globe,
       label: "DBSGraphic",
-      href: "https://dbsgraphic.ir/",
+      href: `${siteUrl}/`,
     },
   ];
 
   return (
     <footer className="border-t border-line">
-      {/* ---------- mobile: compact stacked layout ---------- */}
       <div className="wrap py-8 md:hidden">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <a href="#top" className="inline-flex leading-none">
+            <Link to={home} className="inline-flex leading-none">
               <span dir="ltr" className="text-[18px] font-extrabold tracking-tight">
                 Saeed<span className="text-hi">Zarrini</span>
                 <span className="ms-1.5 inline-block h-1.5 w-1.5 rounded-[2px] bg-accent align-baseline" />
               </span>
-            </a>
+            </Link>
             <p className="mt-2 text-[12px] font-bold leading-5 text-hi">{t.footer.tagline}</p>
           </div>
           <div className="flex shrink-0 gap-2">
@@ -78,21 +75,29 @@ export default function Footer() {
 
         <nav aria-label={t.footer.navTitle} className="mt-5 flex flex-wrap gap-x-1 gap-y-1">
           {links.map((l, i) => (
-            <span key={l.href} className="inline-flex items-center">
-              <a href={l.href} className="px-1.5 py-1 text-[13px] font-semibold text-ink2 transition-colors hover:text-hi">
+            <span key={l.to} className="inline-flex items-center">
+              <Link to={l.to} className="px-1.5 py-1 text-[13px] font-semibold text-ink2 transition-colors hover:text-hi">
                 {l.label}
-              </a>
-              {i < links.length - 1 && <span className="text-line2" aria-hidden="true">·</span>}
+              </Link>
+              {i < links.length - 1 && (
+                <span className="text-line2" aria-hidden="true">
+                  ·
+                </span>
+              )}
             </span>
           ))}
         </nav>
 
+        <nav aria-label={t.footer.privacy} className="mt-4 flex flex-wrap gap-x-3 gap-y-1">
+          {legal.map((l) => (
+            <Link key={l.to} to={l.to} className="text-[12px] font-semibold text-ink3 transition-colors hover:text-hi">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
-          <a
-            href={`mailto:${t.contact.email}`}
-            dir="ltr"
-            className="text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi"
-          >
+          <a href={`mailto:${t.contact.email}`} dir="ltr" className="text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
             {t.contact.email}
           </a>
           <p className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.14em] text-ink3" dir="ltr">
@@ -106,15 +111,14 @@ export default function Footer() {
         </p>
       </div>
 
-      {/* ---------- desktop: existing three-column layout ---------- */}
       <div className="wrap hidden gap-12 py-16 md:grid md:grid-cols-12">
         <div className="md:col-span-6">
-          <a href="#top" className="inline-flex flex-col leading-none">
+          <Link to={home} className="inline-flex flex-col leading-none">
             <span dir="ltr" className="text-[22px] font-extrabold tracking-tight">
               Saeed<span className="text-hi">Zarrini</span>
               <span className="ms-1.5 inline-block h-2 w-2 rounded-[2px] bg-accent align-baseline" />
             </span>
-          </a>
+          </Link>
           <p className="mt-3.5 text-[13.5px] font-bold text-hi">{t.footer.tagline}</p>
           <p className="mt-4 max-w-sm text-[13.5px] leading-7 text-ink2">{t.footer.desc}</p>
           <p className="mt-6 inline-flex items-center gap-2.5 rounded-xs border border-line px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-ink3" dir="ltr">
@@ -127,10 +131,10 @@ export default function Footer() {
           <h3 className="mb-5 text-[12.5px] font-bold uppercase tracking-wider text-ink3">{t.footer.navTitle}</h3>
           <ul className="space-y-3">
             {links.map((l) => (
-              <li key={l.href}>
-                <a href={l.href} className="text-[14px] font-semibold text-ink2 transition-colors hover:text-hi">
+              <li key={l.to}>
+                <Link to={l.to} className="text-[14px] font-semibold text-ink2 transition-colors hover:text-hi">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -163,20 +167,17 @@ export default function Footer() {
           <p className="text-[12px] font-medium text-ink3">
             © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
           </p>
-          <p className="text-[12px] font-medium text-ink3">{t.footer.built}</p>
+          <nav className="flex flex-wrap items-center gap-4">
+            {legal.map((l) => (
+              <Link key={l.to} to={l.to} className="text-[12px] font-medium text-ink3 transition-colors hover:text-hi">
+                {l.label}
+              </Link>
+            ))}
+            <span className="text-[12px] font-medium text-ink3">{t.footer.built}</span>
+          </nav>
         </div>
       </div>
-
-      <a
-        href="#top"
-        aria-label={t.footer.backTop}
-        className={cn(
-          "fixed bottom-6 end-6 z-40 flex h-11 w-11 items-center justify-center rounded-sm bg-accent text-[#211a10] shadow-lg transition-all duration-500 hover:-translate-y-1 print:hidden",
-          showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
-        )}
-      >
-        <ArrowUp className="h-5 w-5" strokeWidth={2.4} />
-      </a>
+      {/* Scroll-to-top lives on FloatingQuickNav (gooey dock) to avoid a duplicate FAB. */}
     </footer>
   );
 }
