@@ -167,7 +167,7 @@ export function SnapCarousel({
           <div
             key={i}
             className={cn(
-              "w-[min(82vw,320px)] shrink-0 snap-center self-stretch",
+              "flex w-[min(82vw,320px)] shrink-0 snap-center self-stretch",
               "md:w-auto md:min-w-0 md:shrink md:snap-align-none",
               itemClassName
             )}

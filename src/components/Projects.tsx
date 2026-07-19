@@ -376,7 +376,7 @@ function ProjectShot({ project, className }: { project: ProjectItem; className?:
   );
 }
 
-/** Compact card used by the home teaser carousel (and as a shared building block). */
+/** Compact card used by the home teaser carousel (mobile SnapCarousel only). */
 function ProjectCard({
   project,
   detailTo,
@@ -391,31 +391,45 @@ function ProjectCard({
   return (
     <article
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface",
+        // min-h safety net so short concept copy still matches taller cards in the carousel.
+        "group flex h-full min-h-[440px] w-full flex-col overflow-hidden rounded-lg border bg-surface",
         project.status === "concept" ? "border-dashed border-line2" : "border-line"
       )}
     >
-      <Link to={detailTo} className="overflow-hidden text-start">
+      <Link to={detailTo} className="relative overflow-hidden text-start">
         <ProjectShot project={project} />
-      </Link>
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-[20px] font-extrabold tracking-tight" dir={project.id === "hesabyar" ? undefined : "ltr"}>
-            {project.name}
-          </h3>
-          <StatusBadge status={project.status} />
-        </div>
-        {project.featured && (
-          <span className="w-fit rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
-            {featuredLabel}
+        {/* Badges overlay the shot so optional featured/concept chips don't change body height. */}
+        {(project.featured || project.status === "concept") && (
+          <span className="absolute start-3 top-3 flex flex-wrap gap-1.5">
+            {project.featured && project.status !== "concept" ? (
+              <span className="rounded-xs border border-hi/40 bg-shot/90 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-accent backdrop-blur">
+                {featuredLabel}
+              </span>
+            ) : null}
+            <StatusBadge status={project.status} />
           </span>
         )}
-        <p className="text-[13px] font-bold leading-6 text-hi">{project.subtitle}</p>
+      </Link>
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <h3
+          className="line-clamp-2 text-[20px] font-extrabold tracking-tight"
+          dir={project.id === "hesabyar" ? undefined : "ltr"}
+        >
+          {project.name}
+        </h3>
+        <p className="line-clamp-2 text-[13px] font-bold leading-6 text-hi">{project.subtitle}</p>
         <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{project.desc}</p>
-        <Link to={detailTo} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2">
-          {viewLabel}
-          <DirArrow className="h-4 w-4" />
-        </Link>
+        <div className="mt-auto border-t border-line pt-4" data-testid="project-card-footer">
+          {project.tags.length > 0 ? (
+            <p className="mb-3 line-clamp-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
+              {project.tags.join(" · ")}
+            </p>
+          ) : null}
+          <Link to={detailTo} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2">
+            {viewLabel}
+            <DirArrow className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </article>
   );
@@ -476,7 +490,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
         {/* Mobile carousel — home teaser only */}
         {isTeaser && (
           <div data-testid="projects-carousel">
-            <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={`teaser-${filter}`}>
+            <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="flex h-full" key={`teaser-${filter}`}>
               {source.map((p) => (
                 <ProjectCard
                   key={p.id}
