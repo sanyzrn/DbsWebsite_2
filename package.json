@@ -8,11 +8,12 @@
     "generate:seo": "node scripts/generate-seo-files.mjs",
     "generate:icons": "node scripts/generate-pwa-icons.mjs",
     "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",
+    "validate:content": "node scripts/validate-content.mjs",
     "check:dist": "node scripts/check-dist.mjs",
     "check:deploy": "node scripts/check-deploy.mjs",
     "check:bundle": "node scripts/check-bundle-size.mjs",
     "check:a11y": "node scripts/check-a11y.mjs",
-    "build": "npm run check:urls && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/generate-sw.mjs",
+    "build": "npm run validate:content && npm run check:urls && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/generate-sw.mjs",
     "preview": "vite preview",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
@@ -30,7 +31,8 @@
     "react-dom": "19.2.6",
     "react-router-dom": "^7.18.1",
     "tailwind-merge": "3.4.0",
-    "three": "^0.185.1"
+    "three": "^0.185.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

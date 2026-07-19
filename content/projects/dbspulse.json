@@ -2,6 +2,7 @@
   "id": "dbspulse",
   "slug": "dbspulse",
   "status": "production",
+  "maturity": "published",
   "featured": true,
   "order": 1,
   "name": {

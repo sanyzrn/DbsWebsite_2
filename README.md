@@ -13,6 +13,7 @@ Frontend-only SPA. Project copy lives in `content/projects/*.json`; UI strings i
 | `npm test` | Vitest |
 | `npm run generate:seo` | Write `public/robots.txt` + `public/sitemap.xml` from `SITE_URL` |
 | `npm run check:urls` | Fail if SEO files hardcode a domain other than `SITE_URL` |
+| `npm run validate:content` | Zod-validate `content/projects/*.json`; block published placeholder copy |
 | `npm run check:dist` | Post-build: internal links, canonical/OG hosts, 404 `noindex` |
 | `npm run check:deploy` | Live HTTPS gate: origin resolves, unknown paths → HTTP 404 + noindex |
 

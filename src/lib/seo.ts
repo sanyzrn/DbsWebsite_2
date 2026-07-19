@@ -90,7 +90,10 @@ export function resolvePageSeo(
     alternateFa: `${origin}${pathFa === "/" ? "/" : pathFa}`,
     alternateEn: `${origin}${pathEn}`,
     jsonLd,
-    ...(page === "notFound" ? { robots: "noindex, follow" } : {}),
+    ...(page === "notFound" ||
+    (page === "project" && opts?.project && opts.project.maturity !== "published")
+      ? { robots: "noindex, follow" }
+      : {}),
   };
 }
 

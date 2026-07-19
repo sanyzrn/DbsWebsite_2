@@ -4,14 +4,20 @@ import type { Lang } from "./i18n";
 export type LocaleText = { fa: string; en: string };
 export type LocaleList = { fa: string[]; en: string[] };
 
+export type ProjectStatus = "production" | "concept";
+/** Publication readiness — independent of `status` (what kind of thing it is). */
+export type ProjectMaturity = "draft" | "review" | "published" | "archived";
+
 /**
  * Canonical project content schema (authoritative name: `order`, not `display_order`).
  * Written by the PHP admin publish flow; loaded at build time via import.meta.glob.
+ * Runtime shape is enforced by `scripts/project-content.mjs` (Zod) at build time.
  */
 export type ProjectContent = {
   id: string;
   slug: string;
-  status: "production" | "concept";
+  status: ProjectStatus;
+  maturity: ProjectMaturity;
   featured: boolean;
   order: number;
   name: LocaleText;
@@ -45,7 +51,8 @@ export type LocalizedProject = {
   role: string[];
   tech: string[];
   tags: string[];
-  status: "production" | "concept";
+  status: ProjectStatus;
+  maturity: ProjectMaturity;
   featured: boolean;
   order: number;
   image_url: string | null;
@@ -60,6 +67,10 @@ const modules = import.meta.glob("../../content/projects/*.json", {
 
 export function loadProjectContent(): ProjectContent[] {
   return Object.values(modules).sort((a, b) => a.order - b.order || a.slug.localeCompare(b.slug));
+}
+
+export function isPublishedProject(project: Pick<ProjectContent, "maturity">): boolean {
+  return project.maturity === "published";
 }
 
 export function localizeProject(project: ProjectContent, lang: Lang): LocalizedProject {
@@ -79,6 +90,7 @@ export function localizeProject(project: ProjectContent, lang: Lang): LocalizedP
     tech: project.tech,
     tags: project.tags,
     status: project.status,
+    maturity: project.maturity,
     featured: project.featured,
     order: project.order,
     image_url: project.image_url,
@@ -87,10 +99,15 @@ export function localizeProject(project: ProjectContent, lang: Lang): LocalizedP
   };
 }
 
+/** Public listings (home teaser, /projects grid). Drafts stay off these lists. */
 export function getLocalizedProjects(lang: Lang): LocalizedProject[] {
-  return loadProjectContent().map((p) => localizeProject(p, lang));
+  return loadProjectContent()
+    .filter(isPublishedProject)
+    .map((p) => localizeProject(p, lang));
 }
 
+/** Direct URL / prerender lookup — includes unpublished projects for internal review. */
 export function findLocalizedProject(lang: Lang, slug: string): LocalizedProject | undefined {
-  return getLocalizedProjects(lang).find((p) => p.slug === slug || p.id === slug);
+  const raw = loadProjectContent().find((p) => p.slug === slug || p.id === slug);
+  return raw ? localizeProject(raw, lang) : undefined;
 }

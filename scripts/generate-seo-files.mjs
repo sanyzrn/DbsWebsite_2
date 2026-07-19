@@ -1,25 +1,18 @@
 /**
  * Generate public/robots.txt and public/sitemap.xml from SITE_URL.
- * Includes every locale route (home, projects index, about, privacy, terms, project slugs).
+ * Includes every locale route (home, projects index, about, privacy, terms,
+ * and **published** project slugs only).
  */
 import fs from "node:fs";
 import path from "node:path";
+import { getPublishedProjectSlugs } from "./project-content.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
 
 const site = getSiteUrl();
 
 function loadProjectSlugs() {
-  const dir = path.join(ROOT, "content", "projects");
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => {
-      const raw = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
-      return raw.slug || raw.id;
-    })
-    .filter(Boolean)
-    .sort();
+  // Draft / review / archived projects stay off the public sitemap.
+  return getPublishedProjectSlugs(ROOT);
 }
 
 const staticRoutes = ["/", "/projects", "/about", "/privacy", "/terms"];
@@ -60,4 +53,6 @@ fs.mkdirSync(publicDir, { recursive: true });
 fs.writeFileSync(path.join(publicDir, "robots.txt"), robots, "utf8");
 fs.writeFileSync(path.join(publicDir, "sitemap.xml"), sitemap, "utf8");
 
-console.log(`SEO files written with SITE_URL=${site} (${routes.length} URLs)`);
+console.log(
+  `SEO files written with SITE_URL=${site} (${routes.length} URLs, ${slugs.length} published projects)`
+);

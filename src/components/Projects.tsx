@@ -435,8 +435,8 @@ function ProjectCard({
   );
 }
 
-/** Home-page teaser: strongest production picks + concept placeholders. */
-const TEASER_IDS = ["dbspulse", "dbsai", "dbschatbot", "hesabyar", "concept-01", "concept-02"];
+/** Home-page teaser: strongest published production picks. */
+const TEASER_IDS = ["dbspulse", "dbsbrain", "dbschatbot", "dbskeep"];
 
 type ProjectsProps = {
   mode?: "teaser" | "full";

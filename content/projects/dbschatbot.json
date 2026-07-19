@@ -2,6 +2,7 @@
   "id": "dbschatbot",
   "slug": "dbschatbot",
   "status": "production",
+  "maturity": "published",
   "featured": false,
   "order": 5,
   "name": {

@@ -2,6 +2,7 @@
   "id": "dbskeep",
   "slug": "dbskeep",
   "status": "production",
+  "maturity": "published",
   "featured": false,
   "order": 3,
   "name": {

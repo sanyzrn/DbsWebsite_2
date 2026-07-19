@@ -2,6 +2,7 @@
   "id": "concept-01",
   "slug": "concept-01",
   "status": "concept",
+  "maturity": "draft",
   "featured": false,
   "order": 8,
   "name": {

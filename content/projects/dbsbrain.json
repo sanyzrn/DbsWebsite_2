@@ -2,6 +2,7 @@
   "id": "dbsbrain",
   "slug": "dbsbrain",
   "status": "production",
+  "maturity": "published",
   "featured": false,
   "order": 4,
   "name": {
