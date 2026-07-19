@@ -18,11 +18,18 @@ cp admin/config/.env.example admin/config/.env
 # edit admin/config/.env — never commit this file
 ```
 
-2. Create the database schema:
+2. Create / upgrade the database schema (numbered migrations):
 
 ```bash
-mysql -u root -p < admin/sql/schema.sql
+# First-time or ongoing upgrades — preferred:
+php admin/bin/migrate.php
+
+# One-shot bootstrap still works for a fresh empty MySQL:
+# mysql -u root -p < admin/sql/schema.sql
 ```
+
+Migrations live in `admin/sql/migrations/NNN_*.sql` and are recorded in the
+`schema_migrations` table so re-runs are safe.
 
 3. Create the single admin user (CLI only — no public registration):
 

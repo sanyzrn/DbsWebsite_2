@@ -64,6 +64,8 @@ export const projectContentSchema = z.object({
   clientType: localeText.optional(),
   /** Public repo/demo links only — never invent. */
   links: z.array(projectLink).optional(),
+  /** ISO date (YYYY-MM-DD) stamped by admin on save — drives sitemap lastmod. */
+  updatedAt: z.string().min(1).optional(),
   _todo: z.string().optional(),
 });
 

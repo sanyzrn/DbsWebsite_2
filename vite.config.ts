@@ -38,9 +38,34 @@ function siteUrlHtmlPlugin(siteUrl: string): Plugin {
 }
 
 // https://vite.dev/config/
-export default defineConfig(({ mode, isSsrBuild }) => {
+export default defineConfig(async ({ mode, isSsrBuild }) => {
+  // Shared SW caching — single source of truth with scripts/generate-sw.mjs
+  const {
+    workboxGlobPatterns,
+    workboxNavigateFallback,
+    workboxNavigateFallbackDenylist,
+    workboxRuntimeCaching,
+    workboxViteGlobIgnores,
+  } = await import("./scripts/workbox-shared-config.mjs");
+
   const env = loadEnv(mode, __dirname, "");
   const siteUrl = normalizeSiteUrl(env.SITE_URL || process.env.SITE_URL || DEFAULT_SITE_URL);
+
+  // Production builds require a real Formspree endpoint unless mailto fallback is
+  // deliberately opted into (CI / local preview without credentials).
+  if (mode === "production") {
+    const formspreeId = (env.VITE_FORMSPREE_ID || process.env.VITE_FORMSPREE_ID || "").trim();
+    const allowMailto =
+      (env.ALLOW_MAILTO_CONTACT_FALLBACK || process.env.ALLOW_MAILTO_CONTACT_FALLBACK || "") === "1";
+    if (!formspreeId) {
+      const msg =
+        "VITE_FORMSPREE_ID is unset. Set it for real Formspree delivery, or set ALLOW_MAILTO_CONTACT_FALLBACK=1 to deliberately keep the mailto fallback.";
+      if (!allowMailto) {
+        throw new Error(msg);
+      }
+      console.warn(`\n[contact] WARNING: ${msg}\n`);
+    }
+  }
 
   return {
     plugins: [
@@ -101,48 +126,15 @@ export default defineConfig(({ mode, isSsrBuild }) => {
           workbox: {
             // Precache build output (HTML/CSS/JS/fonts/icons). Revision hashes stay ON
             // (default) so locale HTML and assets invalidate correctly across builds.
-            globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2,jpg,jpeg,webmanifest}"],
-            globIgnores: ["**/server/**", "**/admin/**", "**/*.php"],
-            // Uncached navigations (offline + miss) → on-brand offline page.
-            // Never claim PHP/admin routes for the public static PWA.
-            navigateFallback: "/offline.html",
-            navigateFallbackDenylist: [/^\/admin(?:\/|$)/i, /\.php$/i],
+            // Shared with scripts/generate-sw.mjs via scripts/workbox-shared-config.mjs.
+            globPatterns: workboxGlobPatterns,
+            globIgnores: workboxViteGlobIgnores,
+            navigateFallback: workboxNavigateFallback,
+            navigateFallbackDenylist: workboxNavigateFallbackDenylist,
             cleanupOutdatedCaches: true,
             clientsClaim: true,
             skipWaiting: true,
-            runtimeCaching: [
-              {
-                // Project screenshots / OG / studio photos change infrequently.
-                urlPattern: ({ request, url }) =>
-                  request.destination === "image" ||
-                  /\.(?:png|jpe?g|gif|svg|webp|avif)$/i.test(url.pathname),
-                handler: "CacheFirst",
-                options: {
-                  cacheName: "images",
-                  expiration: {
-                    maxEntries: 80,
-                    maxAgeSeconds: 60 * 60 * 24 * 30,
-                  },
-                  cacheableResponse: { statuses: [0, 200] },
-                },
-              },
-              {
-                // Light NetworkFirst for misc same-origin docs that may update
-                // between deploys (sitemap/robots) without fighting HTML precache.
-                urlPattern: ({ url, sameOrigin }) =>
-                  sameOrigin && /\.(?:xml|txt)$/i.test(url.pathname) && !url.pathname.endsWith(".php"),
-                handler: "NetworkFirst",
-                options: {
-                  cacheName: "seo-files",
-                  networkTimeoutSeconds: 3,
-                  expiration: {
-                    maxEntries: 8,
-                    maxAgeSeconds: 60 * 60 * 24,
-                  },
-                  cacheableResponse: { statuses: [0, 200] },
-                },
-              },
-            ],
+            runtimeCaching: workboxRuntimeCaching,
           },
           devOptions: {
             enabled: false,

@@ -47,6 +47,8 @@ export type ProjectContent = {
   clientType?: LocaleText;
   /** Public repo/demo links only — never invent. */
   links?: ProjectLink[];
+  /** ISO date (YYYY-MM-DD) from admin — sitemap lastmod when present. */
+  updatedAt?: string;
   /** Editorial flag: generic case-study copy pending Saeed’s confirmation. */
   _todo?: string;
 };

@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "node_modules/**", "scripts/**", "*.config.*"],
+    ignores: ["dist/**", "node_modules/**", "*.config.*", "admin/**"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -51,6 +51,22 @@ export default tseslint.config(
     rules: {
       // Test helpers often export render wrappers alongside components.
       "react-refresh/only-export-components": "off",
+    },
+  },
+  {
+    files: ["scripts/**/*.{js,mjs,cjs}"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: {
+        ...globals.node,
+        ...globals.es2022,
+      },
+    },
+    rules: {
+      // Build scripts are plain ESM — don't apply TS unused-vars to them.
+      "@typescript-eslint/no-unused-vars": "off",
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
     },
   }
 );

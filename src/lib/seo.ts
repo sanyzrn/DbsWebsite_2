@@ -3,8 +3,18 @@ import { dictionaries } from "./i18n";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
 import { loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
 import { getSiteUrl } from "./siteUrl";
+import { truncateDescription } from "./truncate";
+import siteRoutes from "../../shared/site-routes.json";
 
-export type PageSeoKey = "home" | "projects" | "about" | "project" | "privacy" | "terms" | "notFound";
+export type PageSeoKey =
+  | "home"
+  | "projects"
+  | "about"
+  | "contact"
+  | "project"
+  | "privacy"
+  | "terms"
+  | "notFound";
 
 export type PageSeo = {
   lang: Lang;
@@ -51,6 +61,10 @@ export function resolvePageSeo(
     title = seo.about.title;
     description = seo.about.description;
     path = opts?.path ?? localePath(lang, "/about");
+  } else if (page === "contact" && seo.contact) {
+    title = seo.contact.title;
+    description = seo.contact.description;
+    path = opts?.path ?? localePath(lang, "/contact");
   } else if (page === "privacy" && seo.privacy) {
     title = seo.privacy.title;
     description = seo.privacy.description;
@@ -65,7 +79,8 @@ export function resolvePageSeo(
     path = opts?.path ?? localePath(lang, "/404");
   } else if (page === "project" && opts?.project) {
     title = `${opts.project.name} | Saeed Zarrini`;
-    description = opts.project.desc.slice(0, 155) || (seo.projects?.description ?? seo.description);
+    description =
+      truncateDescription(opts.project.desc, 155) || (seo.projects?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/projects/${opts.project.slug}`);
   } else if (page === "home") {
     path = opts?.path ?? localePath(lang, "/");
@@ -175,20 +190,8 @@ function buildJsonLd(
 /** All static paths to prerender (locale-aware). */
 export function listPrerenderPaths(): string[] {
   const projects = loadProjectContent();
-  const paths = [
-    "/",
-    "/projects",
-    "/about",
-    "/privacy",
-    "/terms",
-    "/en",
-    "/en/projects",
-    "/en/about",
-    "/en/privacy",
-    "/en/terms",
-    "/404",
-    "/en/404",
-  ];
+  const staticBare = [...siteRoutes.staticPaths, ...siteRoutes.specialPaths];
+  const paths = staticBare.flatMap((p) => [p, p === "/" ? "/en" : `/en${p}`]);
   for (const p of projects) {
     paths.push(`/projects/${p.slug}`, `/en/projects/${p.slug}`);
   }
@@ -215,6 +218,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   if (bare === "/about") {
     return resolvePageSeo(lang, "about", { path });
   }
+  if (bare === "/contact") {
+    return resolvePageSeo(lang, "contact", { path });
+  }
   if (bare === "/privacy") {
     return resolvePageSeo(lang, "privacy", { path });
   }
@@ -232,32 +238,4 @@ export function resolveSeoForPath(pathname: string): PageSeo {
     }
   }
   return resolvePageSeo(lang, "notFound", { path });
-}
-
-/** @deprecated Prefer PageMeta — kept for any residual callers */
-export function applyDocumentSeo(lang: Lang, page: PageSeoKey, projectName?: string) {
-  if (typeof document === "undefined") return;
-  const project = projectName
-    ? ({ name: projectName, desc: "", slug: "" } as LocalizedProject)
-    : undefined;
-  const meta = resolvePageSeo(lang, page, project ? { project } : undefined);
-  document.title = meta.title;
-  const ensureMeta = (attrs: { name?: string; property?: string }) => {
-    const selector = attrs.name ? `meta[name="${attrs.name}"]` : `meta[property="${attrs.property}"]`;
-    let el = document.querySelector(selector);
-    if (!el) {
-      el = document.createElement("meta");
-      if (attrs.name) el.setAttribute("name", attrs.name);
-      if (attrs.property) el.setAttribute("property", attrs.property!);
-      document.head.appendChild(el);
-    }
-    return el;
-  };
-  ensureMeta({ name: "description" }).setAttribute("content", meta.description);
-  ensureMeta({ property: "og:title" }).setAttribute("content", meta.title);
-  ensureMeta({ property: "og:description" }).setAttribute("content", meta.description);
-  ensureMeta({ property: "og:locale" }).setAttribute("content", meta.ogLocale);
-  ensureMeta({ name: "twitter:title" }).setAttribute("content", meta.title);
-  ensureMeta({ name: "twitter:description" }).setAttribute("content", meta.description);
-  document.querySelector('meta[name="keywords"]')?.remove();
 }

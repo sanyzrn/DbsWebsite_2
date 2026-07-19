@@ -20,7 +20,7 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-export function buildHeadTags(seo, lang) {
+export function buildHeadTags(seo) {
   const ogType = seo.path.includes("/projects/") && !seo.path.endsWith("/projects") ? "article" : "website";
   const jsonLd = seo.jsonLd.map((block) => serializeJsonLd(block)).join("\n");
   const robots =

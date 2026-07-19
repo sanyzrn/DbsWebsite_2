@@ -59,9 +59,9 @@ export default function Nav() {
     { label: t.nav.expertise, to: `${home}#expertise` },
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },
-    { label: t.nav.contact, to: `${localePath(lang, "/about")}#contact` },
+    { label: t.nav.contact, to: localePath(lang, "/contact") },
   ];
-  const ctaTo = `${localePath(lang, "/about")}#contact/start`;
+  const ctaTo = localePath(lang, "/contact");
 
   return (
     <header

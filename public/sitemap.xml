@@ -6,7 +6,17 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://dbsgraphic.ir/en</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://dbsgraphic.ir/projects</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsgraphic.ir/en/projects</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -16,47 +26,22 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dbsgraphic.ir/privacy</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dbsgraphic.ir/terms</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dbsgraphic.ir/projects/dbsbrain</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dbsgraphic.ir/projects/dbschatbot</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dbsgraphic.ir/projects/dbskeep</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dbsgraphic.ir/projects/dbspulse</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dbsgraphic.ir/en</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://dbsgraphic.ir/en/projects</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://dbsgraphic.ir/en/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsgraphic.ir/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsgraphic.ir/en/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsgraphic.ir/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -66,12 +51,27 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dbsgraphic.ir/terms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dbsgraphic.ir/en/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dbsgraphic.ir/projects/dbsbrain</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dbsgraphic.ir/en/projects/dbsbrain</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbsgraphic.ir/projects/dbschatbot</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -81,7 +81,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dbsgraphic.ir/projects/dbskeep</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dbsgraphic.ir/en/projects/dbskeep</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbsgraphic.ir/projects/dbspulse</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

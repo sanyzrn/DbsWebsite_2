@@ -22,6 +22,7 @@ Canonical source for portfolio projects. Each file is `content/projects/<slug>.j
 | `teamSize` | Optional string, e.g. `"Solo"` / `"Team of 3"` — omit when unknown |
 | `clientType` | Optional `{ fa, en }` anonymized client context — omit when unshareable |
 | `links` | Optional `[{ label: { fa, en }, href }]` public repo/demo links only |
+| `updatedAt` | Optional ISO date `YYYY-MM-DD` — stamped by admin on publish; drives sitemap `<lastmod>` |
 
 Omit optional case-study metadata rather than inventing values. The detail page renders only
 populated fields.
