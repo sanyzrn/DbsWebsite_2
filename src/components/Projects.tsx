@@ -376,6 +376,51 @@ function ProjectShot({ project, className }: { project: ProjectItem; className?:
   );
 }
 
+/** Compact card used by the home teaser carousel (and as a shared building block). */
+function ProjectCard({
+  project,
+  detailTo,
+  viewLabel,
+  featuredLabel,
+}: {
+  project: ProjectItem;
+  detailTo: string;
+  viewLabel: string;
+  featuredLabel: string;
+}) {
+  return (
+    <article
+      className={cn(
+        "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface",
+        project.status === "concept" ? "border-dashed border-line2" : "border-line"
+      )}
+    >
+      <Link to={detailTo} className="overflow-hidden text-start">
+        <ProjectShot project={project} />
+      </Link>
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-[20px] font-extrabold tracking-tight" dir={project.id === "hesabyar" ? undefined : "ltr"}>
+            {project.name}
+          </h3>
+          <StatusBadge status={project.status} />
+        </div>
+        {project.featured && (
+          <span className="w-fit rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
+            {featuredLabel}
+          </span>
+        )}
+        <p className="text-[13px] font-bold leading-6 text-hi">{project.subtitle}</p>
+        <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{project.desc}</p>
+        <Link to={detailTo} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2">
+          {viewLabel}
+          <DirArrow className="h-4 w-4" />
+        </Link>
+      </div>
+    </article>
+  );
+}
+
 /** Home-page teaser: strongest production picks + concept placeholders. */
 const TEASER_IDS = ["dbspulse", "dbsai", "dbschatbot", "hesabyar", "concept-01", "concept-02"];
 
@@ -399,6 +444,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
   const [featured, ...grid] = source;
 
   const detailTo = (id: string) => localePath(lang, `/projects/${id}`);
+  const isTeaser = mode === "teaser";
 
   return (
     <section id="projects" className="section-pad border-t border-line">
@@ -427,42 +473,28 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
           </div>
         )}
 
-        <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={`${mode}-${filter}`}>
-          {source.map((p) => (
-            <article
-              key={p.id}
-              className={cn(
-                "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface",
-                p.status === "concept" ? "border-dashed border-line2" : "border-line"
-              )}
-            >
-              <Link to={detailTo(p.slug)} className="overflow-hidden text-start">
-                <ProjectShot project={p} />
-              </Link>
-              <div className="flex flex-1 flex-col gap-3 p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-[20px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
-                    {p.name}
-                  </h3>
-                  <StatusBadge status={p.status} />
-                </div>
-                {p.featured && (
-                  <span className="w-fit rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
-                    {t.projects.featured}
-                  </span>
-                )}
-                <p className="text-[13px] font-bold leading-6 text-hi">{p.subtitle}</p>
-                <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{p.desc}</p>
-                <Link to={detailTo(p.slug)} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2">
-                  {t.projects.view}
-                  <DirArrow className="h-4 w-4" />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </SnapCarousel>
+        {/* Mobile carousel — home teaser only */}
+        {isTeaser && (
+          <div data-testid="projects-carousel">
+            <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={`teaser-${filter}`}>
+              {source.map((p) => (
+                <ProjectCard
+                  key={p.id}
+                  project={p}
+                  detailTo={detailTo(p.slug)}
+                  viewLabel={t.projects.view}
+                  featuredLabel={t.projects.featured}
+                />
+              ))}
+            </SnapCarousel>
+          </div>
+        )}
 
-        <div className="mt-8 hidden md:block">
+        {/* Desktop grid for teaser; all-viewport grid for full /projects page */}
+        <div
+          className={cn("mt-8", isTeaser && "hidden md:block")}
+          data-testid="projects-grid"
+        >
           {featured && (
             <Reveal>
               <article
@@ -504,7 +536,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
             </Reveal>
           )}
 
-          <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {grid.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
                 <article
@@ -557,7 +589,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
           </div>
         </div>
 
-        {mode === "teaser" && (
+        {isTeaser && (
           <div className="mt-10 flex justify-center">
             <Link to={localePath(lang, "/projects")} className="btn btn-primary h-12 px-7 text-[14px]">
               {t.projects.seeAll}
