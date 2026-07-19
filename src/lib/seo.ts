@@ -4,7 +4,15 @@ import { langFromPath, localePath, stripLangPrefix } from "./paths";
 import { loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
 import { getSiteUrl } from "./siteUrl";
 
-export type PageSeoKey = "home" | "projects" | "about" | "project" | "privacy" | "terms" | "notFound";
+export type PageSeoKey =
+  | "home"
+  | "projects"
+  | "about"
+  | "contact"
+  | "project"
+  | "privacy"
+  | "terms"
+  | "notFound";
 
 export type PageSeo = {
   lang: Lang;
@@ -51,6 +59,10 @@ export function resolvePageSeo(
     title = seo.about.title;
     description = seo.about.description;
     path = opts?.path ?? localePath(lang, "/about");
+  } else if (page === "contact" && seo.contact) {
+    title = seo.contact.title;
+    description = seo.contact.description;
+    path = opts?.path ?? localePath(lang, "/contact");
   } else if (page === "privacy" && seo.privacy) {
     title = seo.privacy.title;
     description = seo.privacy.description;
@@ -179,11 +191,13 @@ export function listPrerenderPaths(): string[] {
     "/",
     "/projects",
     "/about",
+    "/contact",
     "/privacy",
     "/terms",
     "/en",
     "/en/projects",
     "/en/about",
+    "/en/contact",
     "/en/privacy",
     "/en/terms",
     "/404",
@@ -214,6 +228,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   }
   if (bare === "/about") {
     return resolvePageSeo(lang, "about", { path });
+  }
+  if (bare === "/contact") {
+    return resolvePageSeo(lang, "contact", { path });
   }
   if (bare === "/privacy") {
     return resolvePageSeo(lang, "privacy", { path });
