@@ -9,6 +9,7 @@
     "generate:icons": "node scripts/generate-pwa-icons.mjs",
     "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",
     "check:dist": "node scripts/check-dist.mjs",
+    "check:deploy": "node scripts/check-deploy.mjs",
     "check:bundle": "node scripts/check-bundle-size.mjs",
     "check:a11y": "node scripts/check-a11y.mjs",
     "build": "npm run check:urls && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/generate-sw.mjs",

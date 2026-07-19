@@ -147,6 +147,18 @@ if (broken.length || badCanonical.length) {
   throw new Error(`check:dist failed (${lines.length} issue(s)):\n` + lines.slice(0, 40).join("\n"));
 }
 
+// Host-independent: prerendered 404 documents must carry robots noindex
+for (const rel of ["404.html", "en/404.html"]) {
+  const abs = path.join(DIST, rel);
+  if (!fs.existsSync(abs)) {
+    throw new Error(`check:dist missing ${rel}`);
+  }
+  const html = fs.readFileSync(abs, "utf8");
+  if (!/<meta\s+name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) {
+    throw new Error(`check:dist ${rel} is missing <meta name="robots" content="noindex…">`);
+  }
+}
+
 console.log(
-  `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}`
+  `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}, 404 pages noindex`
 );
