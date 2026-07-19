@@ -17,16 +17,16 @@
     "en": "A personal information manager for notes, tasks, ideas and important data — focused on speed, privacy, offline access and fast search."
   },
   "problem": {
-    "fa": "",
-    "en": ""
+    "fa": "نیاز به یک ابزار شخصی برای نگهداری یادداشت، وظیفه و اطلاعات مهم بود که کاملاً آفلاین و خصوصی کار کند — بدون وابستگی به سرویس ابری و بدون کند شدن با افزایش داده.",
+    "en": "Needed a personal tool for notes, tasks, and important information that works fully offline and privately — no cloud dependency, no slowdown as data grows."
   },
   "approach": {
-    "fa": "",
-    "en": ""
+    "fa": "به‌عنوان یک اپلیکیشن دسکتاپ با Tauri و Rust ساخته شد تا هم سبک باشد هم native، با تمرکز روی جست‌وجوی سریع و رابط کاربری بدون اصطکاک. نسخه v0.2.5 شامل رفع یک خطای CI در GitHub Actions و یک بازبینی کلی کد بود تا کیفیت پایه قبل از توسعه‌ی بیشتر تثبیت شود.",
+    "en": "Built as a desktop app with Tauri and Rust for a lightweight, native feel, focused on fast search and a frictionless UI. Version 0.2.5 included fixing a GitHub Actions CI failure and a general code review to lock in baseline quality before further development."
   },
   "result": {
-    "fa": "",
-    "en": ""
+    "fa": "یک اپلیکیشن دسکتاپ سبک، آفلاین و خصوصی که با یک pipeline CI پایدار و کد بازبینی‌شده در حال توسعه‌ی مداوم است.",
+    "en": "A lightweight, offline, private desktop app under active development with a stable CI pipeline and reviewed codebase."
   },
   "role": {
     "fa": [

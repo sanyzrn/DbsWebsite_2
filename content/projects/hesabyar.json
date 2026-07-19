@@ -17,16 +17,16 @@
     "en": "A personal finance system for accounts, expenses, installments, cheques, loans, budgeting and financial goals — designed around the real needs of Iranian users and the Jalali calendar."
   },
   "problem": {
-    "fa": "",
-    "en": ""
+    "fa": "ابزارهای مدیریت مالی موجود معمولاً با نیازهای واقعی کاربر ایرانی (تقویم شمسی، اقساط، چک) هماهنگ نبودند.",
+    "en": "Existing financial management tools generally didn't fit real Iranian user needs (Solar Hijri calendar, installments, checks)."
   },
   "approach": {
-    "fa": "",
-    "en": ""
+    "fa": "یک PWA با PHP و MySQL ساخته شد که به‌طور اختصاصی حساب‌ها، اقساط، چک‌ها، وام‌ها و بودجه‌بندی را با تقویم شمسی مدیریت می‌کند.",
+    "en": "Built as a PWA with PHP and MySQL, purpose-built to manage accounts, installments, checks, loans, and budgeting on the Solar Hijri calendar."
   },
   "result": {
-    "fa": "",
-    "en": ""
+    "fa": "یک ابزار مدیریت مالی شخصی که با زبان زندگی واقعی کاربر ایرانی سازگار است.",
+    "en": "A personal finance tool aligned with the real everyday life of Iranian users."
   },
   "role": {
     "fa": [
@@ -50,5 +50,6 @@
     "Design"
   ],
   "image_url": null,
-  "mock": "hesabyar"
+  "mock": "hesabyar",
+  "_todo": "Placeholder case-study copy — Saeed should confirm/replace with real project specifics."
 }

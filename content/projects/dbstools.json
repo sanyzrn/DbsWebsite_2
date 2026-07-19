@@ -17,16 +17,16 @@
     "en": "A collection of specialized tools for document processing, translation, content generation and process automation — turning repetitive, time-consuming work into faster, smarter flows."
   },
   "problem": {
-    "fa": "",
-    "en": ""
+    "fa": "فرآیندهای تکراری مثل پردازش اسناد، ترجمه و تولید محتوا زمان زیادی می‌گرفتند و نیاز به ابزارهای اختصاصی و سریع داشتند.",
+    "en": "Repetitive processes like document handling, translation, and content generation were time-consuming and needed dedicated, fast tooling."
   },
   "approach": {
-    "fa": "",
-    "en": ""
+    "fa": "مجموعه‌ای از ابزارهای تخصصی و مستقل ساخته شد، هرکدام برای یک وظیفه‌ی مشخص، با تمرکز بر اتوماسیون و یکپارچگی با AI APIs.",
+    "en": "Built a set of specialized, independent tools, each targeting one specific task, focused on automation and integration with AI APIs."
   },
   "result": {
-    "fa": "",
-    "en": ""
+    "fa": "کاهش زمان صرف‌شده روی کارهای تکراری با مجموعه‌ای از ابزارهای کوچک و کاربردی.",
+    "en": "Reduced time spent on repetitive work through a set of small, practical tools."
   },
   "role": {
     "fa": [
@@ -48,5 +48,6 @@
     "AI"
   ],
   "image_url": null,
-  "mock": "tools"
+  "mock": "tools",
+  "_todo": "Placeholder case-study copy — Saeed should confirm/replace with real project specifics."
 }

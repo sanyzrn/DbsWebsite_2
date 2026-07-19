@@ -17,16 +17,16 @@
     "en": "An intelligent chatbot for WordPress with a dedicated knowledge base, answering visitors' questions — turning AI from a separate tool into part of the real user experience."
   },
   "problem": {
-    "fa": "",
-    "en": ""
+    "fa": "نسخه‌ی قبلی چت‌بات (Nafas Chatbot Pro v2.1.0) یک مشکل معماری جدی داشت: بخش بزرگی از کد ماژولار در پوشه‌ی includes/ اصلاً توسط entry point اصلی بارگذاری نمی‌شد — یعنی dead code که هیچ‌وقت اجرا نمی‌شد.",
+    "en": "The previous chatbot (Nafas Chatbot Pro v2.1.0) had a serious architectural flaw: a large portion of its modular code in /includes/ was never loaded by the main entry point — dead code that never actually ran."
   },
   "approach": {
-    "fa": "",
-    "en": ""
+    "fa": "پس از یک ممیزی معماری کامل، یک برنامه‌ی تحول پنج‌فازه طراحی شد. افزونه از صفر بازسازی شد: تبدیل یک چت‌بات React/TypeScript به JavaScript خالص با پشتیبانی از ویجت المنتور، مسیریابی چندارائه‌دهنده‌ی هوش مصنوعی، و رابط کاربری RTL فارسی.",
+    "en": "After a full architectural audit, a five-phase transformation plan was designed. The plugin was rebuilt from scratch: converting a React/TypeScript chatbot to vanilla JavaScript with Elementor widget support, multi-provider AI routing, and a Persian RTL UI."
   },
   "result": {
-    "fa": "",
-    "en": ""
+    "fa": "یک افزونه‌ی وردپرس یکپارچه و قابل‌نگهداری که به‌جای کد مرده، معماری زنده و قابل‌اجرا دارد و در Elementor به‌صورت ویجت کار می‌کند.",
+    "en": "A cohesive, maintainable WordPress plugin with live, working architecture instead of dead code, functioning as a proper Elementor widget."
   },
   "role": {
     "fa": [

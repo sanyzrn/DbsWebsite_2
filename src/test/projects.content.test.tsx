@@ -22,6 +22,29 @@ describe("projects content pipeline", () => {
     expect(pulseEn?.subtitle).toContain("performance");
     expect(pulseFa?.role.length).toBeGreaterThan(0);
     expect(pulseEn?.tech).toContain("React");
+    expect(pulseFa?.problem).toContain("اکسل");
+    expect(pulseEn?.approach).toContain("FastAPI");
+    expect(pulseEn?.result).toContain("Claude Code");
+  });
+
+  it("fills case-study fields for production projects and flags provisional copy", () => {
+    const all = loadProjectContent();
+    const filled = ["dbspulse", "dbskeep", "dbsbrain", "dbschatbot", "dbsai", "dbstools", "hesabyar"];
+    for (const slug of filled) {
+      const p = all.find((x) => x.slug === slug);
+      expect(p, slug).toBeTruthy();
+      expect(p!.problem.fa.trim().length).toBeGreaterThan(0);
+      expect(p!.problem.en.trim().length).toBeGreaterThan(0);
+      expect(p!.approach.fa.trim().length).toBeGreaterThan(0);
+      expect(p!.approach.en.trim().length).toBeGreaterThan(0);
+      expect(p!.result.fa.trim().length).toBeGreaterThan(0);
+      expect(p!.result.en.trim().length).toBeGreaterThan(0);
+    }
+    for (const slug of ["dbsai", "dbstools", "hesabyar"]) {
+      const p = all.find((x) => x.slug === slug);
+      expect(p?._todo).toMatch(/confirm|replace/i);
+    }
+    expect(all.find((x) => x.slug === "dbspulse")?._todo).toBeUndefined();
   });
 
   it("injects localized items into the UI dictionary", () => {

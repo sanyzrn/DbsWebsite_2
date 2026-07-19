@@ -28,6 +28,8 @@ export type ProjectContent = {
   mock?: string;
   /** Optional capability list (e.g. DbsAI). */
   caps?: LocaleList;
+  /** Editorial flag: generic case-study copy pending Saeed’s confirmation. */
+  _todo?: string;
 };
 
 /** Locale-resolved project used by UI components. */
