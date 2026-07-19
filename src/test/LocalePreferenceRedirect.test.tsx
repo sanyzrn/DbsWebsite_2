@@ -1,9 +1,13 @@
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { StrictMode } from "react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 import { dictionaries } from "../lib/i18n";
+
+beforeEach(() => {
+  Element.prototype.scrollIntoView = vi.fn();
+});
 
 afterEach(() => {
   cleanup();
@@ -12,6 +16,7 @@ afterEach(() => {
   document.documentElement.lang = "fa";
   document.documentElement.dir = "rtl";
   window.history.replaceState(null, "", "/");
+  vi.restoreAllMocks();
 });
 
 async function toggleLang(user: ReturnType<typeof userEvent.setup>, lang: "fa" | "en") {
@@ -103,6 +108,40 @@ describe("locale preference + language switch", () => {
     await waitFor(() => {
       expect(window.location.pathname).toBe("/en");
       expect(document.documentElement.lang).toBe("en");
+    });
+  });
+
+  it("preserves query params and hash in correct URL order when switching language", async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, "", "/about?ref=nav&from=footer#contact");
+    render(<App />);
+
+    expect(document.documentElement.lang).toBe("fa");
+    expect(window.location.search).toBe("?ref=nav&from=footer");
+    expect(window.location.hash).toBe("#contact");
+
+    await toggleLang(user, "fa");
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/en/about");
+      expect(window.location.search).toBe("?ref=nav&from=footer");
+      expect(window.location.hash).toBe("#contact");
+      // pathname → search → hash (never pathname + hash + search)
+      expect(`${window.location.pathname}${window.location.search}${window.location.hash}`).toBe(
+        "/en/about?ref=nav&from=footer#contact",
+      );
+      expect(window.location.href).not.toMatch(/#contact\?/);
+    });
+
+    await toggleLang(user, "en");
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/about");
+      expect(window.location.search).toBe("?ref=nav&from=footer");
+      expect(window.location.hash).toBe("#contact");
+      expect(`${window.location.pathname}${window.location.search}${window.location.hash}`).toBe(
+        "/about?ref=nav&from=footer#contact",
+      );
     });
   });
 });

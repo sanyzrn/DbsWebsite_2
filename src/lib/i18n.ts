@@ -2,6 +2,22 @@ export type Lang = "fa" | "en";
 
 import { getLocalizedProjects, type LocalizedProject } from "./projects";
 
+/** Stable, language-independent contact project-type IDs (order = select order). */
+export const PROJECT_TYPE_IDS = [
+  "ai-product",
+  "web-app",
+  "mobile-app",
+  "desktop-app",
+  "ui-ux",
+  "graphic-design",
+  "pharmaceutical-packaging",
+  "automation",
+  "other",
+] as const;
+
+export type ProjectTypeId = (typeof PROJECT_TYPE_IDS)[number];
+export const DEFAULT_PROJECT_TYPE: ProjectTypeId = PROJECT_TYPE_IDS[0];
+
 const fa = {
   dir: "rtl" as "rtl" | "ltr",
   brand: {
@@ -292,17 +308,17 @@ const fa = {
       errorBody: "لطفاً دوباره تلاش کنید یا مستقیم ایمیل بزنید.",
       directEmail: "یا مستقیم ایمیل بزنید:",
       required: "پر کردن این فیلد ضروری است.",
-      types: [
-        "محصول هوش مصنوعی",
-        "وب‌اپلیکیشن",
-        "اپلیکیشن موبایل",
-        "نرم‌افزار دسکتاپ",
-        "طراحی UI/UX",
-        "طراحی گرافیک",
-        "بسته‌بندی دارویی",
-        "اتوماسیون",
-        "سایر",
-      ],
+      types: {
+        "ai-product": "محصول هوش مصنوعی",
+        "web-app": "وب‌اپلیکیشن",
+        "mobile-app": "اپلیکیشن موبایل",
+        "desktop-app": "نرم‌افزار دسکتاپ",
+        "ui-ux": "طراحی UI/UX",
+        "graphic-design": "طراحی گرافیک",
+        "pharmaceutical-packaging": "بسته‌بندی دارویی",
+        automation: "اتوماسیون",
+        other: "سایر",
+      } satisfies Record<ProjectTypeId, string>,
     },
   },
   footer: {
@@ -695,17 +711,17 @@ const en: UiDict = {
       errorBody: "Please try again, or email me directly.",
       directEmail: "Or email me directly:",
       required: "This field is required.",
-      types: [
-        "AI Product",
-        "Web Application",
-        "Mobile Application",
-        "Desktop Application",
-        "UI/UX Design",
-        "Graphic Design",
-        "Pharmaceutical Packaging",
-        "Automation",
-        "Other",
-      ],
+      types: {
+        "ai-product": "AI Product",
+        "web-app": "Web Application",
+        "mobile-app": "Mobile Application",
+        "desktop-app": "Desktop Application",
+        "ui-ux": "UI/UX Design",
+        "graphic-design": "Graphic Design",
+        "pharmaceutical-packaging": "Pharmaceutical Packaging",
+        automation: "Automation",
+        other: "Other",
+      },
     },
   },
   footer: {

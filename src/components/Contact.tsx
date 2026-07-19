@@ -3,25 +3,38 @@ import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertCircle, CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Phone, Send, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import {
+  DEFAULT_PROJECT_TYPE,
+  PROJECT_TYPE_IDS,
+  type ProjectTypeId,
+} from "../lib/i18n";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
 import { cn } from "../utils/cn";
 import { DirArrow, Reveal } from "./ui";
 
-type Fields = { name: string; email: string; company: string; type: string; message: string; budget: string; timeline: string };
+type Fields = { name: string; email: string; company: string; type: ProjectTypeId; message: string; budget: string; timeline: string };
 type Status = "idle" | "sending" | "delivered" | "mailed" | "error";
 
-const empty: Fields = { name: "", email: "", company: "", type: "", message: "", budget: "", timeline: "" };
+const empty: Fields = {
+  name: "",
+  email: "",
+  company: "",
+  type: DEFAULT_PROJECT_TYPE,
+  message: "",
+  budget: "",
+  timeline: "",
+};
 const MAILTO_SAFE = 1800;
 const START_HASH = "#contact/start";
 
-function buildMailto(fields: Fields): string {
-  const subject = encodeURIComponent(`Project inquiry — ${fields.type} — ${fields.name}`);
+function buildMailto(fields: Fields, typeLabel: string): string {
+  const subject = encodeURIComponent(`Project inquiry — ${typeLabel} — ${fields.name}`);
   const header = [
     `Name: ${fields.name}`,
     `Email: ${fields.email}`,
     fields.company.trim() ? `Company: ${fields.company}` : "",
-    `Project type: ${fields.type}`,
+    `Project type: ${typeLabel} (${fields.type})`,
     fields.budget.trim() ? `Budget: ${fields.budget}` : "",
     fields.timeline.trim() ? `Timeline: ${fields.timeline}` : "",
   ]
@@ -47,9 +60,11 @@ export default function Contact() {
   const firstFieldRef = useRef<HTMLInputElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
-  const [fields, setFields] = useState<Fields>({ ...empty, type: f.types[0] });
+  const [fields, setFields] = useState<Fields>({ ...empty });
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [status, setStatus] = useState<Status>("idle");
+
+  const typeLabel = f.types[fields.type];
 
   const set = (key: keyof Fields, value: string) => {
     setFields((s) => ({ ...s, [key]: value }));
@@ -138,19 +153,19 @@ export default function Contact() {
             message: fields.message,
             budget: fields.budget,
             timeline: fields.timeline,
-            _subject: `Project inquiry — ${fields.type} — ${fields.name}`,
+            _subject: `Project inquiry — ${typeLabel} — ${fields.name}`,
           }),
         });
         if (!res.ok) throw new Error("formspree failed");
         setStatus("delivered");
-        setFields({ ...empty, type: f.types[0] });
+        setFields({ ...empty });
       } catch {
         setStatus("error");
       }
       return;
     }
 
-    window.location.href = buildMailto(fields);
+    window.location.href = buildMailto(fields, typeLabel);
     setStatus("mailed");
   };
 
@@ -246,10 +261,15 @@ export default function Contact() {
                   {f.type}
                 </label>
                 <div className="relative">
-                  <select id="ct-type" className="field" value={fields.type} onChange={(e) => set("type", e.target.value)}>
-                    {f.types.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
+                  <select
+                    id="ct-type"
+                    className="field"
+                    value={fields.type}
+                    onChange={(e) => set("type", e.target.value as ProjectTypeId)}
+                  >
+                    {PROJECT_TYPE_IDS.map((id) => (
+                      <option key={id} value={id}>
+                        {f.types[id]}
                       </option>
                     ))}
                   </select>
