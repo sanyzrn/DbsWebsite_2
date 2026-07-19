@@ -400,13 +400,13 @@ section[id] {
 }
 
 .hero-atmosphere-grain {
-  opacity: 0.18;
+  opacity: 0.32;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
 
 .dark .hero-atmosphere-grain {
-  opacity: 0.22;
+  opacity: 0.4;
   mix-blend-mode: soft-light;
 }
 
