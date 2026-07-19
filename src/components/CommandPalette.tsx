@@ -45,7 +45,7 @@ export default function CommandPalette() {
       go(`${home}#expertise`, t.nav.expertise),
       go(`${home}#process`, t.nav.process),
       go(localePath(lang, "/about"), t.nav.about),
-      go(`${localePath(lang, "/about")}#contact`, t.nav.contact),
+      go(localePath(lang, "/contact"), t.nav.contact),
       {
         id: "theme",
         label: theme === "dark" ? t.theme.toLight : t.theme.toDark,

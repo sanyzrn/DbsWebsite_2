@@ -143,7 +143,7 @@ function ContactForm({
   const [fields, setFields] = useState<Fields>({ ...empty });
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [website, setWebsite] = useState("");
-  const mountedAt = useRef(Date.now());
+  const mountedAt = useRef(0);
 
   useEffect(() => {
     mountedAt.current = Date.now();
@@ -209,8 +209,9 @@ function ContactForm({
         setStatus("delivered");
         setTruncated(false);
         setFields({ ...empty });
-      } catch {
-        setStatus(timedOut ? "timeout" : "error");
+      } catch (err) {
+        const aborted = err instanceof DOMException && err.name === "AbortError";
+        setStatus(timedOut || aborted ? "timeout" : "error");
       } finally {
         window.clearTimeout(timer);
       }

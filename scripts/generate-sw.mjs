@@ -3,7 +3,7 @@
  * in dist/ is revisioned into the precache (vite-plugin-pwa runs during
  * `vite build`, which is before scripts/prerender.mjs emits route HTML).
  *
- * Keeps the same runtime strategies as vite.config.ts VitePWA({ workbox }).
+ * Caching strategy comes from scripts/workbox-shared-config.mjs (single source of truth).
  * Manifest is still emitted by vite-plugin-pwa during the client build.
  *
  * Usage: node scripts/generate-sw.mjs   (invoked at end of `npm run build`)
@@ -12,6 +12,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { generateSW } from "workbox-build";
 import { ROOT } from "./site-url.mjs";
+import {
+  workboxGlobPatterns,
+  workboxNavigateFallback,
+  workboxNavigateFallbackDenylist,
+  workboxPostPrerenderGlobIgnores,
+  workboxRuntimeCaching,
+} from "./workbox-shared-config.mjs";
 
 const DIST = path.join(ROOT, "dist");
 
@@ -28,46 +35,15 @@ for (const name of fs.readdirSync(DIST)) {
 
 const { count, size, warnings } = await generateSW({
   globDirectory: DIST,
-  globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2,jpg,jpeg,webmanifest}"],
-  globIgnores: ["**/server/**", "**/admin/**", "**/sw.js", "**/workbox-*.js"],
+  globPatterns: workboxGlobPatterns,
+  globIgnores: workboxPostPrerenderGlobIgnores,
   swDest: path.join(DIST, "sw.js"),
-  // Uncached navigations → on-brand offline page; never claim PHP/admin.
-  navigateFallback: "/offline.html",
-  navigateFallbackDenylist: [/^\/admin(?:\/|$)/i, /\.php$/i],
+  navigateFallback: workboxNavigateFallback,
+  navigateFallbackDenylist: workboxNavigateFallbackDenylist,
   cleanupOutdatedCaches: true,
   clientsClaim: true,
   skipWaiting: true,
-  // Default revisioning stays ON — bilingual HTML invalidates per build hash.
-  runtimeCaching: [
-    {
-      urlPattern: ({ request, url }) =>
-        request.destination === "image" ||
-        /\.(?:png|jpe?g|gif|svg|webp|avif)$/i.test(url.pathname),
-      handler: "CacheFirst",
-      options: {
-        cacheName: "images",
-        expiration: {
-          maxEntries: 80,
-          maxAgeSeconds: 60 * 60 * 24 * 30,
-        },
-        cacheableResponse: { statuses: [0, 200] },
-      },
-    },
-    {
-      urlPattern: ({ url, sameOrigin }) =>
-        sameOrigin && /\.(?:xml|txt)$/i.test(url.pathname) && !url.pathname.endsWith(".php"),
-      handler: "NetworkFirst",
-      options: {
-        cacheName: "seo-files",
-        networkTimeoutSeconds: 3,
-        expiration: {
-          maxEntries: 8,
-          maxAgeSeconds: 60 * 60 * 24,
-        },
-        cacheableResponse: { statuses: [0, 200] },
-      },
-    },
-  ],
+  runtimeCaching: workboxRuntimeCaching,
 });
 
 if (warnings?.length) {

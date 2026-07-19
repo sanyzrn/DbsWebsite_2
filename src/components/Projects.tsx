@@ -14,7 +14,7 @@ type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesab
 
 function Shot({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div dir="ltr" className={cn("relative aspect-[16/10] overflow-hidden bg-shot", className)}>
+    <div dir="ltr" className={cn("relative aspect-[16/10] overflow-hidden bg-shot", className)} aria-hidden="true">
       {children}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.05] to-transparent" aria-hidden="true" />
     </div>
@@ -382,11 +382,13 @@ function ProjectCard({
   detailTo,
   viewLabel,
   featuredLabel,
+  previewAria,
 }: {
   project: ProjectItem;
   detailTo: string;
   viewLabel: string;
   featuredLabel: string;
+  previewAria: string;
 }) {
   return (
     <article
@@ -396,11 +398,11 @@ function ProjectCard({
         project.status === "concept" ? "border-dashed border-line2" : "border-line"
       )}
     >
-      <Link to={detailTo} className="relative overflow-hidden text-start">
+      <Link to={detailTo} className="relative overflow-hidden text-start" aria-label={previewAria}>
         <ProjectShot project={project} />
         {/* Badges overlay the shot so optional featured/concept chips don't change body height. */}
         {(project.featured || project.status === "concept") && (
-          <span className="absolute start-3 top-3 flex flex-wrap gap-1.5">
+          <span className="absolute start-3 top-3 flex flex-wrap gap-1.5" aria-hidden="true">
             {project.featured && project.status !== "concept" ? (
               <span className="rounded-xs border border-hi/40 bg-shot/90 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-accent backdrop-blur">
                 {featuredLabel}
@@ -459,6 +461,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
 
   const detailTo = (id: string) => localePath(lang, `/projects/${id}`);
   const isTeaser = mode === "teaser";
+  const previewLabel = (name: string) => t.projects.previewAria.replace("{name}", name);
 
   return (
     <section id="projects" className="section-pad border-t border-line">
@@ -498,6 +501,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                   detailTo={detailTo(p.slug)}
                   viewLabel={t.projects.view}
                   featuredLabel={t.projects.featured}
+                  previewAria={previewLabel(p.name)}
                 />
               ))}
             </SnapCarousel>
@@ -517,10 +521,17 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                   featured.status === "concept" ? "border-dashed border-line2" : "border-line"
                 )}
               >
-                <Link to={detailTo(featured.slug)} className="relative overflow-hidden text-start lg:col-span-3">
+                <Link
+                  to={detailTo(featured.slug)}
+                  className="relative overflow-hidden text-start lg:col-span-3"
+                  aria-label={previewLabel(featured.name)}
+                >
                   <ProjectShot project={featured} className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto" />
                   {featured.featured && featured.status !== "concept" && (
-                    <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
+                    <span
+                      className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur"
+                      aria-hidden="true"
+                    >
                       {t.projects.featured}
                     </span>
                   )}
@@ -559,7 +570,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                     p.status === "concept" ? "border-dashed border-line2" : "border-line"
                   )}
                 >
-                  <Link to={detailTo(p.slug)} className="overflow-hidden text-start">
+                  <Link to={detailTo(p.slug)} className="overflow-hidden text-start" aria-label={previewLabel(p.name)}>
                     <ProjectShot project={p} className="transition-transform duration-700 group-hover:scale-[1.03]" />
                   </Link>
                   <div className="flex flex-1 flex-col gap-5 p-6">
@@ -732,7 +743,7 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
         <Meta label={t.projects.roleLabel} items={project.role} />
         <Meta label={t.projects.techLabel} items={project.tech} mono />
       </div>
-      <Link to={`${localePath(lang, "/about")}#contact/start`} className="btn btn-primary mt-10 w-full sm:w-auto">
+      <Link to={localePath(lang, "/contact")} className="btn btn-primary mt-10 w-full sm:w-auto">
         {t.projects.discuss}
         <DirArrow className="h-4 w-4" />
       </Link>

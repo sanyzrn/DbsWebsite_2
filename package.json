@@ -13,11 +13,12 @@
     "check:deploy": "node scripts/check-deploy.mjs",
     "check:bundle": "node scripts/check-bundle-size.mjs",
     "check:a11y": "node scripts/check-a11y.mjs",
-    "build": "npm run validate:content && npm run check:urls && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/generate-sw.mjs",
+    "check:i18n": "node --experimental-strip-types scripts/check-i18n-parity.mjs",
+    "build": "npm run validate:content && npm run check:i18n && npm run check:urls && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/generate-sw.mjs",
     "preview": "vite preview",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
+    "lint": "eslint src scripts",
     "check:pwa": "node scripts/check-pwa.mjs"
   },
   "dependencies": {

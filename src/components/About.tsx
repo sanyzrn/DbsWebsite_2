@@ -134,7 +134,7 @@ export default function About() {
               <figure className="relative overflow-hidden rounded-lg border border-line sm:rounded-xl">
                 <img
                   src="/images/studio.jpg"
-                  alt={t.about.title}
+                  alt={t.about.studioAlt}
                   loading="lazy"
                   className="aspect-[16/11] w-full object-cover transition-transform duration-[1200ms] hover:scale-[1.03] lg:aspect-[20/23]"
                 />

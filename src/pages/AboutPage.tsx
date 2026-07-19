@@ -25,7 +25,7 @@ export default function AboutPage() {
             <figure className="relative mt-8 overflow-hidden rounded-lg border border-line sm:mt-10 sm:rounded-xl">
               <img
                 src="/images/studio.jpg"
-                alt={t.about.title}
+                alt={t.about.studioAlt}
                 loading="eager"
                 className="aspect-[16/9] w-full object-cover transition-transform duration-[1200ms] hover:scale-[1.02] md:aspect-[21/9]"
               />
@@ -61,7 +61,6 @@ export default function AboutPage() {
             <Reveal delay={340}>
               <p className="mt-6 text-[15px] font-bold leading-8 sm:text-[16px]">{t.about.p3}</p>
             </Reveal>
-            {/* PLACEHOLDER — Saeed can add 1–2 more personal paragraphs here later. */}
             <Reveal delay={400}>
               <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                 {t.about.checklist.map((item, i) => (
