@@ -53,32 +53,6 @@ export function HeroAtmosphere() {
           <ellipse cx="640" cy="420" rx="340" ry="160" fill="var(--accent)" opacity="0.05" />
         </g>
 
-        {/* Topographic contour lines */}
-        <g fill="none" stroke="var(--line2)" strokeWidth="1.1" strokeLinecap="round" className="hero-atmosphere-topo">
-          <path d="M-40,160 C180,110 340,210 520,150 S880,70 1240,140" opacity="0.55" />
-          <path d="M-40,210 C200,155 360,250 540,190 S900,110 1240,185" opacity="0.45" />
-          <path d="M-40,260 C210,200 380,290 560,230 S920,150 1240,230" opacity="0.4" />
-          <path d="M-40,315 C220,250 400,335 580,275 S940,195 1240,280" opacity="0.35" />
-          <path d="M-40,375 C230,305 420,385 600,325 S960,245 1240,335" opacity="0.3" />
-          <path d="M-40,440 C240,365 440,440 620,380 S980,300 1240,395" opacity="0.26" />
-          <path d="M-40,510 C250,430 460,500 640,445 S1000,360 1240,460" opacity="0.22" />
-          <path d="M-40,585 C260,500 480,565 660,515 S1020,430 1240,530" opacity="0.18" />
-          <path d="M80,90 C260,40 420,120 600,70 S960,20 1120,80" stroke="var(--accent)" strokeWidth="1.2" opacity="0.22" />
-          <path d="M140,640 C360,580 560,650 760,600 S1040,540 1180,590" stroke="var(--accent)" strokeWidth="1" opacity="0.14" />
-        </g>
-
-        {/* Nested organic rings (contour islands) */}
-        <g fill="none" stroke="var(--line2)" strokeWidth="1" className="hero-atmosphere-topo">
-          <ellipse cx="200" cy="520" rx="90" ry="48" opacity="0.28" />
-          <ellipse cx="200" cy="520" rx="60" ry="30" opacity="0.22" />
-          <ellipse cx="200" cy="520" rx="32" ry="14" opacity="0.18" />
-          <ellipse cx="980" cy="480" rx="110" ry="56" opacity="0.24" />
-          <ellipse cx="980" cy="480" rx="72" ry="36" opacity="0.2" />
-          <ellipse cx="980" cy="480" rx="38" ry="18" opacity="0.16" />
-          <ellipse cx="620" cy="200" rx="70" ry="36" stroke="var(--accent)" opacity="0.16" />
-          <ellipse cx="620" cy="200" rx="42" ry="20" stroke="var(--accent)" opacity="0.12" />
-        </g>
-
         {/* Fine paper grain */}
         <rect width="1200" height="900" filter={`url(#${grainId})`} className="hero-atmosphere-grain" />
       </svg>
