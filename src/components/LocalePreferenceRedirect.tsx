@@ -1,20 +1,22 @@
-import { useLayoutEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { readStoredLang } from "../lib/app";
 
 /**
- * On a first visit to `/` (Persian default), honor a stored English preference by
- * navigating to `/en`. Language is never swapped without a URL change.
+ * First client entry only: if the visitor lands on `/` (Persian default) but
+ * previously chose English, replace to `/en`.
+ *
+ * Decision is captured once at mount via useState (survives StrictMode and does
+ * not re-run on later in-app navigations to `/`). That way switching
+ * English → Persian cannot be overridden by a stale `sz-lang=en`. Uses
+ * declarative `<Navigate>` so React Router state stays in sync.
  */
 export function LocalePreferenceRedirect() {
   const location = useLocation();
-  const navigate = useNavigate();
+  const [shouldRedirect] = useState(
+    () => location.pathname === "/" && readStoredLang() === "en"
+  );
 
-  useLayoutEffect(() => {
-    if (location.pathname !== "/") return;
-    if (readStoredLang() !== "en") return;
-    navigate("/en", { replace: true });
-  }, [location.pathname, navigate]);
-
-  return null;
+  if (!shouldRedirect || location.pathname !== "/") return null;
+  return <Navigate to="/en" replace />;
 }

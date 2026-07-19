@@ -62,6 +62,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const setLang = useCallback(
     (next: Lang) => {
+      // Persist before navigate so a racey preference redirect cannot override
+      // an explicit language choice with a stale sz-lang value.
+      localStorage.setItem("sz-lang", next);
       const path = stripLangPrefix(location.pathname);
       navigate(localePath(next, path) + location.hash + location.search);
     },
