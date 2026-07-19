@@ -20,8 +20,8 @@ export default function PrivacyPage() {
           </Reveal>
 
           <div className="mt-10 space-y-8">
-            {copy.sections.map((section) => (
-              <Reveal key={section.heading}>
+            {copy.sections.map((section, i) => (
+              <Reveal key={section.heading} delay={Math.min(i * 80, 480)}>
                 <h2 className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">
                   {section.heading}
                 </h2>
