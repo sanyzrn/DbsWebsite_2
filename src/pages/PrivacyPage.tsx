@@ -19,10 +19,13 @@ export default function PrivacyPage() {
             <p className="mt-4 text-[13px] text-ink3">{copy.updated}</p>
           </Reveal>
 
-          <div className="mt-10 space-y-6 text-[15px] leading-8 text-ink2">
-            {copy.paragraphs.map((body) => (
-              <Reveal key={body.slice(0, 24)}>
-                <p>{body}</p>
+          <div className="mt-10 space-y-8">
+            {copy.sections.map((section) => (
+              <Reveal key={section.heading}>
+                <h2 className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">
+                  {section.heading}
+                </h2>
+                <p className="text-[15px] leading-8 text-ink2">{section.body}</p>
               </Reveal>
             ))}
           </div>
