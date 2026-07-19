@@ -135,7 +135,7 @@ function getBoxPositions(count: number, size: number) {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
         const face = Math.floor(Math.random() * 6);
-        let x = 0, y = 0, z = 0;
+        let x: number, y: number, z: number;
         const u = (Math.random() - 0.5) * size;
         const v = (Math.random() - 0.5) * size;
         const s = size / 2;
