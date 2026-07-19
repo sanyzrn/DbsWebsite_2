@@ -1112,16 +1112,20 @@ section[id] {
   white-space: nowrap;
 }
 
-/* Mobile: icon-only, show label only for the active route */
+/* Mobile: keep all labels visible; tighten spacing so the pill still fits */
 @media (max-width: 767px) {
-  .fqn-label {
-    display: none;
-  }
-  .fqn-label-active {
-    display: inline;
+  .fqn-nav {
+    gap: 1px;
+    padding: 3px;
   }
   .fqn-item {
-    padding: 0 10px;
+    gap: 4px;
+    padding: 0 8px;
+    font-size: 11.5px;
+  }
+  .fqn-icon {
+    width: 15px;
+    height: 15px;
   }
 }
 

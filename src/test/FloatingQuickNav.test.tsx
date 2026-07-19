@@ -123,6 +123,16 @@ describe("FloatingQuickNav", () => {
     expect(fqnCss).not.toMatch(/translateX\(\s*-50%\s*\)/);
   });
 
+  it("keeps all floating-nav labels visible on mobile (not active-only)", () => {
+    // Labels must remain visible at every breakpoint — do not hide inactive ones.
+    expect(fqnCss).not.toMatch(
+      /@media\s*\(max-width:\s*767px\)\s*\{[^}]*\.fqn-label\s*\{[^}]*display:\s*none/s
+    );
+    expect(fqnCss).toMatch(/\.fqn-label\s*\{[^}]*white-space:\s*nowrap/s);
+    // Active styling remains for visual weight.
+    expect(fqnCss).toMatch(/\.fqn-item-active\s*\{/);
+  });
+
   it.each([
     { width: 375, label: "mobile" },
     { width: 1024, label: "desktop" },
