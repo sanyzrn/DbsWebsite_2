@@ -186,6 +186,13 @@ const fa = {
     problemLabel: "مسئله",
     approachLabel: "رویکرد",
     resultLabel: "نتیجه",
+    metaYear: "سال",
+    metaDuration: "مدت",
+    metaTeam: "تیم",
+    metaClient: "کارفرما",
+    metaLinks: "لینک‌ها",
+    /** `{n}` = month count */
+    metaDurationValue: "{n} ماه",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
   },
   about: {
@@ -589,6 +596,13 @@ const en: UiDict = {
     problemLabel: "Problem",
     approachLabel: "Approach",
     resultLabel: "Result",
+    metaYear: "Year",
+    metaDuration: "Duration",
+    metaTeam: "Team",
+    metaClient: "Client",
+    metaLinks: "Links",
+    /** `{n}` = month count */
+    metaDurationValue: "{n} mo",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
   },
   about: {

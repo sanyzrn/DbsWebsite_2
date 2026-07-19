@@ -2,6 +2,7 @@
   "id": "dbsai",
   "slug": "dbsai",
   "status": "production",
+  "maturity": "draft",
   "featured": false,
   "order": 2,
   "name": {

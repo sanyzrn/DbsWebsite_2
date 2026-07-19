@@ -2,7 +2,7 @@ import { cleanup, render, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 import { dictionaries } from "../lib/i18n";
-import { listPrerenderPaths, resolveSeoForPath } from "../lib/seo";
+import { listPrerenderPaths, resolvePageSeo, resolveSeoForPath } from "../lib/seo";
 import { loadProjectContent } from "../lib/projects";
 
 afterEach(() => {
@@ -148,5 +148,15 @@ describe("route SEO meta (both locales)", () => {
     const project = resolveSeoForPath(`/projects/${slug}`);
     const pblob = JSON.stringify(project.jsonLd);
     expect(pblob).toMatch(/CreativeWork|SoftwareApplication/);
+  });
+
+  it("marks notFound pages with robots noindex, follow", () => {
+    const fa = resolvePageSeo("fa", "notFound");
+    const en = resolvePageSeo("en", "notFound");
+    expect(fa.robots).toBe("noindex, follow");
+    expect(en.robots).toBe("noindex, follow");
+    expect(resolvePageSeo("fa", "home").robots).toBeUndefined();
+    expect(resolveSeoForPath("/missing-page").robots).toBe("noindex, follow");
+    expect(resolveSeoForPath("/en/missing-page").robots).toBe("noindex, follow");
   });
 });

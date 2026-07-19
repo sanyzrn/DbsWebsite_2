@@ -20,6 +20,8 @@ export type PageSeo = {
   alternateFa: string;
   alternateEn: string;
   jsonLd: Record<string, unknown>[];
+  /** When set, emitted as <meta name="robots" …> (e.g. 404 pages). */
+  robots?: string;
 };
 
 function site() {
@@ -88,6 +90,10 @@ export function resolvePageSeo(
     alternateFa: `${origin}${pathFa === "/" ? "/" : pathFa}`,
     alternateEn: `${origin}${pathEn}`,
     jsonLd,
+    ...(page === "notFound" ||
+    (page === "project" && opts?.project && opts.project.maturity !== "published")
+      ? { robots: "noindex, follow" }
+      : {}),
   };
 }
 

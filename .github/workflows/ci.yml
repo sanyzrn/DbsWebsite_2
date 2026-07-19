@@ -25,3 +25,10 @@ jobs:
       - run: npm run check:a11y
       # Initial JS/CSS gzip ceilings (~150 KiB / ~60 KiB)
       - run: npm run check:bundle
+      # Optional live promotion gate (set repo Variable DEPLOY_CHECK_BASE_URL to an https origin)
+      - name: check:deploy (live HTTP 404 + noindex + SITE_URL HTTPS)
+        if: ${{ vars.DEPLOY_CHECK_BASE_URL != '' }}
+        env:
+          DEPLOY_CHECK_BASE_URL: ${{ vars.DEPLOY_CHECK_BASE_URL }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: npm run check:deploy

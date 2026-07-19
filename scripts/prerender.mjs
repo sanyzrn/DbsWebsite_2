@@ -23,9 +23,13 @@ function escapeHtml(value) {
 export function buildHeadTags(seo, lang) {
   const ogType = seo.path.includes("/projects/") && !seo.path.endsWith("/projects") ? "article" : "website";
   const jsonLd = seo.jsonLd.map((block) => serializeJsonLd(block)).join("\n");
+  const robots =
+    typeof seo.robots === "string" && seo.robots.trim()
+      ? `\n    <meta name="robots" content="${escapeHtml(seo.robots)}" />`
+      : "";
   return `
     <title>${escapeHtml(seo.title)}</title>
-    <meta name="description" content="${escapeHtml(seo.description)}" />
+    <meta name="description" content="${escapeHtml(seo.description)}" />${robots}
     <link rel="canonical" href="${escapeHtml(seo.canonical)}" />
     <link rel="alternate" hreflang="fa" href="${escapeHtml(seo.alternateFa)}" />
     <link rel="alternate" hreflang="en" href="${escapeHtml(seo.alternateEn)}" />
@@ -52,6 +56,7 @@ function stripManagedHead(html) {
   return html
     .replace(/<title>[^]*?<\/title>/i, "")
     .replace(/<meta\s+name="description"[^>]*>/i, "")
+    .replace(/<meta\s+name="robots"[^>]*>/gi, "")
     .replace(/<link\s+rel="canonical"[^>]*>/i, "")
     .replace(/<link\s+rel="alternate"[^>]*>/gi, "")
     .replace(/<meta\s+property="og:[^"]+"[^>]*>/gi, "")

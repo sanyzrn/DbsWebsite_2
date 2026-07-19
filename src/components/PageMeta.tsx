@@ -27,6 +27,7 @@ export function PageMeta({ page, slug }: PageMetaProps) {
     <>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
+      {seo.robots ? <meta name="robots" content={seo.robots} /> : null}
       <link rel="canonical" href={seo.canonical} />
       <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />
       <link rel="alternate" hrefLang="en" href={seo.alternateEn} />

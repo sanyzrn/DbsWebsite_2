@@ -1,0 +1,35 @@
+# host-specific deployment config — replace with the equivalent for a new host if migrating
+# Netlify port of the active Vercel rules (publish = dist).
+
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# Canonical: temporary Netlify subdomain → apex (update hostname if it changes)
+[[redirects]]
+  from = "https://YOUR-SITE.netlify.app/*"
+  to = "https://dbsgraphic.ir/:splat"
+  status = 301
+  force = true
+
+# True 404s (filesystem first; these only apply when no file matches)
+[[redirects]]
+  from = "/en/*"
+  to = "/en/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # CSP: self + Formspree; inline for FOUC/JSON-LD; self-hosted fonts — see hosting/README.md
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://formspree.io; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"
+    X-Frame-Options = "DENY"
+    # No Strict-Transport-Security until the permanent host is locked in.

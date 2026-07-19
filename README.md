@@ -13,8 +13,14 @@ Frontend-only SPA. Project copy lives in `content/projects/*.json`; UI strings i
 | `npm test` | Vitest |
 | `npm run generate:seo` | Write `public/robots.txt` + `public/sitemap.xml` from `SITE_URL` |
 | `npm run check:urls` | Fail if SEO files hardcode a domain other than `SITE_URL` |
+| `npm run validate:content` | Zod-validate `content/projects/*.json`; block published placeholder copy |
+| `npm run check:dist` | Post-build: internal links, canonical/OG hosts, 404 `noindex` |
+| `npm run check:deploy` | Live HTTPS gate: origin resolves, unknown paths → HTTP 404 + noindex |
 
 ## Deployment
+
+Host-specific rules (404 status, security headers, temporary-subdomain → canonical redirect) live in **[`hosting/`](./hosting/README.md)**.  
+**Active host today: Vercel** — the live file is [`vercel.json`](./vercel.json) at the repo root (mirrored under `hosting/`). When migrating, swap that file for the Netlify / Cloudflare / Nginx example in `hosting/`.
 
 ### `SITE_URL`
 
@@ -41,6 +47,14 @@ At build time:
 4. A build-time prerender step emits one static HTML file per route under `dist/` (title, description, canonical, hreflang, Open Graph, JSON-LD)
 
 Do not hardcode the site domain elsewhere — change `SITE_URL` only.
+
+Before promoting a production build, run:
+
+```bash
+SITE_URL=https://dbsgraphic.ir npm run check:deploy
+```
+
+(or set `DEPLOY_CHECK_BASE_URL` to a preview origin). This hits the live URL over HTTPS and asserts real HTTP 404 + `noindex` on unknown paths.
 
 ### Contact form
 
