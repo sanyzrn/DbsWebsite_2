@@ -1,7 +1,9 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertCircle, CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Phone, Send, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import { useFocusTrap } from "../lib/useFocusTrap";
 import { cn } from "../utils/cn";
 import { DirArrow, Reveal } from "./ui";
 
@@ -40,7 +42,9 @@ export default function Contact() {
   const navigate = useNavigate();
   const f = t.contact.form;
   const titleId = useId();
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const firstFieldRef = useRef<HTMLInputElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [fields, setFields] = useState<Fields>({ ...empty, type: f.types[0] });
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, boolean>>>({});
@@ -51,7 +55,13 @@ export default function Contact() {
     setErrors((e) => ({ ...e, [key]: false }));
   };
 
+  const rememberOpener = () => {
+    const active = document.activeElement;
+    previouslyFocused.current = active instanceof HTMLElement ? active : null;
+  };
+
   const openModal = () => {
+    rememberOpener();
     setStatus("idle");
     navigate({ pathname: location.pathname, search: location.search, hash: "contact/start" }, { replace: true });
   };
@@ -61,23 +71,47 @@ export default function Contact() {
   };
 
   useEffect(() => {
-    setOpen(location.hash === START_HASH);
-  }, [location.hash]);
+    const shouldOpen = location.hash === START_HASH;
+    if (shouldOpen && !open) {
+      // Deep-link / hash open without the CTA button — capture current focus.
+      if (!previouslyFocused.current) rememberOpener();
+    }
+    setOpen(shouldOpen);
+  }, [location.hash]); // eslint-disable-line react-hooks/exhaustive-deps -- sync open from URL only
+
+  useFocusTrap(dialogRef, open);
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
+
+    const root = document.getElementById("root");
+    const prevOverflow = document.body.style.overflow;
+    if (root) root.setAttribute("inert", "");
     document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
+
+    const focusTimer = window.setTimeout(() => {
+      firstFieldRef.current?.focus();
+    }, 0);
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeModal();
+      }
     };
     window.addEventListener("keydown", onKey);
+
     return () => {
-      document.body.style.overflow = prev;
+      window.clearTimeout(focusTimer);
       window.removeEventListener("keydown", onKey);
+      if (root) root.removeAttribute("inert");
+      document.body.style.overflow = prevOverflow;
+      const restore = previouslyFocused.current;
+      previouslyFocused.current = null;
+      // Defer so React can unmount the portal before restoring focus.
+      window.setTimeout(() => restore?.focus(), 0);
     };
-  }, [open]);
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps -- closeModal is stable enough via navigate
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -127,6 +161,187 @@ export default function Contact() {
     { icon: MapPin, label: t.contact.locationLabel, value: t.contact.location },
     { icon: Clock3, label: t.contact.responseLabel, value: t.contact.response },
   ];
+
+  const modal =
+    open &&
+    createPortal(
+      <div
+        className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/45 p-4 backdrop-blur-sm sm:p-6"
+        onClick={closeModal}
+        role="presentation"
+      >
+        <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          className="max-h-[min(85vh,720px)] w-full max-w-2xl overflow-y-auto rounded-lg border border-line bg-page shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="sticky top-0 z-[1] flex items-start justify-between gap-4 border-b border-line bg-page/95 px-5 py-4 backdrop-blur md:px-7">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink3">{t.contact.kicker}</p>
+              <h3 id={titleId} className="mt-1 text-[22px] font-black tracking-tight">
+                {f.title}
+              </h3>
+              <p className="mt-1.5 max-w-md text-[13px] leading-6 text-ink2">{f.desc}</p>
+            </div>
+            <button
+              type="button"
+              onClick={closeModal}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
+              aria-label={t.nav.close}
+            >
+              <X className="h-4 w-4" strokeWidth={2.2} />
+            </button>
+          </div>
+
+          <form onSubmit={submit} noValidate className="p-5 md:p-7">
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="ct-name" className="mb-2 block text-[12.5px] font-bold text-ink2">
+                  {f.name} <span className="text-hi">*</span>
+                </label>
+                <input
+                  ref={firstFieldRef}
+                  id="ct-name"
+                  className={cn("field", errors.name && "border-[#C2603E]!")}
+                  placeholder={f.namePh}
+                  value={fields.name}
+                  onChange={(e) => set("name", e.target.value)}
+                  autoComplete="name"
+                />
+                {errors.name && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
+              </div>
+              <div>
+                <label htmlFor="ct-email" className="mb-2 block text-[12.5px] font-bold text-ink2">
+                  {f.email} <span className="text-hi">*</span>
+                </label>
+                <input
+                  id="ct-email"
+                  type="email"
+                  dir="ltr"
+                  className={cn("field text-start", errors.email && "border-[#C2603E]!")}
+                  placeholder={f.emailPh}
+                  value={fields.email}
+                  onChange={(e) => set("email", e.target.value)}
+                  autoComplete="email"
+                />
+                {errors.email && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
+              </div>
+              <div>
+                <label htmlFor="ct-company" className="mb-2 block text-[12.5px] font-bold text-ink2">
+                  {f.company}
+                </label>
+                <input
+                  id="ct-company"
+                  className="field"
+                  placeholder={f.companyPh}
+                  value={fields.company}
+                  onChange={(e) => set("company", e.target.value)}
+                  autoComplete="organization"
+                />
+              </div>
+              <div>
+                <label htmlFor="ct-type" className="mb-2 block text-[12.5px] font-bold text-ink2">
+                  {f.type}
+                </label>
+                <div className="relative">
+                  <select id="ct-type" className="field" value={fields.type} onChange={(e) => set("type", e.target.value)}>
+                    {f.types.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink3" />
+                </div>
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="ct-message" className="mb-2 block text-[12.5px] font-bold text-ink2">
+                  {f.message} <span className="text-hi">*</span>
+                </label>
+                <textarea
+                  id="ct-message"
+                  className={cn("field min-h-[120px]", errors.message && "border-[#C2603E]!")}
+                  placeholder={f.messagePh}
+                  value={fields.message}
+                  onChange={(e) => set("message", e.target.value)}
+                />
+                {errors.message && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
+              </div>
+              <div>
+                <label htmlFor="ct-budget" className="mb-2 block text-[12.5px] font-bold text-ink2">
+                  {f.budget}
+                </label>
+                <input
+                  id="ct-budget"
+                  className="field"
+                  placeholder={f.budgetPh}
+                  value={fields.budget}
+                  onChange={(e) => set("budget", e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="ct-timeline" className="mb-2 block text-[12.5px] font-bold text-ink2">
+                  {f.timeline}
+                </label>
+                <input
+                  id="ct-timeline"
+                  className="field"
+                  placeholder={f.timelinePh}
+                  value={fields.timeline}
+                  onChange={(e) => set("timeline", e.target.value)}
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="btn btn-primary mt-7 w-full" disabled={status === "sending"}>
+              {status === "sending" ? f.sending : f.submit}
+              <Send className="h-4 w-4 rtl:-scale-x-100" strokeWidth={2.2} />
+            </button>
+
+            <p className="mt-4 text-center text-[12px] text-ink3">
+              {f.directEmail}{" "}
+              <a href={`mailto:${t.contact.email}`} dir="ltr" className="font-bold text-hi hover:underline">
+                {t.contact.email}
+              </a>
+            </p>
+
+            {status === "delivered" && (
+              <div className="mt-5 flex items-start gap-3 rounded-sm border border-sage/40 bg-sage/10 px-4 py-3.5">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sage" />
+                <div>
+                  <p className="text-[13.5px] font-bold text-ink">{f.deliveredTitle}</p>
+                  <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.deliveredBody}</p>
+                </div>
+              </div>
+            )}
+
+            {status === "mailed" && (
+              <div className="mt-5 flex items-start gap-3 rounded-sm border border-line bg-surface px-4 py-3.5">
+                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-hi" />
+                <div>
+                  <p className="text-[13.5px] font-bold text-ink">{f.mailedTitle}</p>
+                  <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.mailedBody}</p>
+                </div>
+              </div>
+            )}
+
+            {status === "error" && (
+              <div className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5">
+                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#C2603E]" />
+                <div>
+                  <p className="text-[13.5px] font-bold text-ink">{f.errorTitle}</p>
+                  <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.errorBody}</p>
+                </div>
+              </div>
+            )}
+          </form>
+        </div>
+      </div>,
+      document.body
+    );
 
   return (
     <section id="contact" className="relative overflow-hidden border-t border-line bg-surface section-pad">
@@ -216,183 +431,7 @@ export default function Contact() {
         </Reveal>
       </div>
 
-      {/* Inquiry modal */}
-      {open && (
-        <div
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/45 p-4 backdrop-blur-sm sm:p-6"
-          onClick={closeModal}
-          role="presentation"
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={titleId}
-            className="max-h-[min(85vh,720px)] w-full max-w-2xl overflow-y-auto rounded-lg border border-line bg-page shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sticky top-0 z-[1] flex items-start justify-between gap-4 border-b border-line bg-page/95 px-5 py-4 backdrop-blur md:px-7">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink3">{t.contact.kicker}</p>
-                <h3 id={titleId} className="mt-1 text-[22px] font-black tracking-tight">
-                  {f.title}
-                </h3>
-                <p className="mt-1.5 max-w-md text-[13px] leading-6 text-ink2">{f.desc}</p>
-              </div>
-              <button
-                ref={closeRef}
-                type="button"
-                onClick={closeModal}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
-                aria-label={t.nav.close}
-              >
-                <X className="h-4 w-4" strokeWidth={2.2} />
-              </button>
-            </div>
-
-            <form onSubmit={submit} noValidate className="p-5 md:p-7">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="ct-name" className="mb-2 block text-[12.5px] font-bold text-ink2">
-                    {f.name} <span className="text-hi">*</span>
-                  </label>
-                  <input
-                    id="ct-name"
-                    className={cn("field", errors.name && "border-[#C2603E]!")}
-                    placeholder={f.namePh}
-                    value={fields.name}
-                    onChange={(e) => set("name", e.target.value)}
-                    autoComplete="name"
-                  />
-                  {errors.name && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
-                </div>
-                <div>
-                  <label htmlFor="ct-email" className="mb-2 block text-[12.5px] font-bold text-ink2">
-                    {f.email} <span className="text-hi">*</span>
-                  </label>
-                  <input
-                    id="ct-email"
-                    type="email"
-                    dir="ltr"
-                    className={cn("field text-start", errors.email && "border-[#C2603E]!")}
-                    placeholder={f.emailPh}
-                    value={fields.email}
-                    onChange={(e) => set("email", e.target.value)}
-                    autoComplete="email"
-                  />
-                  {errors.email && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
-                </div>
-                <div>
-                  <label htmlFor="ct-company" className="mb-2 block text-[12.5px] font-bold text-ink2">
-                    {f.company}
-                  </label>
-                  <input
-                    id="ct-company"
-                    className="field"
-                    placeholder={f.companyPh}
-                    value={fields.company}
-                    onChange={(e) => set("company", e.target.value)}
-                    autoComplete="organization"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="ct-type" className="mb-2 block text-[12.5px] font-bold text-ink2">
-                    {f.type}
-                  </label>
-                  <div className="relative">
-                    <select id="ct-type" className="field" value={fields.type} onChange={(e) => set("type", e.target.value)}>
-                      {f.types.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink3" />
-                  </div>
-                </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="ct-message" className="mb-2 block text-[12.5px] font-bold text-ink2">
-                    {f.message} <span className="text-hi">*</span>
-                  </label>
-                  <textarea
-                    id="ct-message"
-                    className={cn("field min-h-[120px]", errors.message && "border-[#C2603E]!")}
-                    placeholder={f.messagePh}
-                    value={fields.message}
-                    onChange={(e) => set("message", e.target.value)}
-                  />
-                  {errors.message && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
-                </div>
-                <div>
-                  <label htmlFor="ct-budget" className="mb-2 block text-[12.5px] font-bold text-ink2">
-                    {f.budget}
-                  </label>
-                  <input
-                    id="ct-budget"
-                    className="field"
-                    placeholder={f.budgetPh}
-                    value={fields.budget}
-                    onChange={(e) => set("budget", e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="ct-timeline" className="mb-2 block text-[12.5px] font-bold text-ink2">
-                    {f.timeline}
-                  </label>
-                  <input
-                    id="ct-timeline"
-                    className="field"
-                    placeholder={f.timelinePh}
-                    value={fields.timeline}
-                    onChange={(e) => set("timeline", e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <button type="submit" className="btn btn-primary mt-7 w-full" disabled={status === "sending"}>
-                {status === "sending" ? f.sending : f.submit}
-                <Send className="h-4 w-4 rtl:-scale-x-100" strokeWidth={2.2} />
-              </button>
-
-              <p className="mt-4 text-center text-[12px] text-ink3">
-                {f.directEmail}{" "}
-                <a href={`mailto:${t.contact.email}`} dir="ltr" className="font-bold text-hi hover:underline">
-                  {t.contact.email}
-                </a>
-              </p>
-
-              {status === "delivered" && (
-                <div className="mt-5 flex items-start gap-3 rounded-sm border border-sage/40 bg-sage/10 px-4 py-3.5">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sage" />
-                  <div>
-                    <p className="text-[13.5px] font-bold text-ink">{f.deliveredTitle}</p>
-                    <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.deliveredBody}</p>
-                  </div>
-                </div>
-              )}
-
-              {status === "mailed" && (
-                <div className="mt-5 flex items-start gap-3 rounded-sm border border-line bg-surface px-4 py-3.5">
-                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-hi" />
-                  <div>
-                    <p className="text-[13.5px] font-bold text-ink">{f.mailedTitle}</p>
-                    <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.mailedBody}</p>
-                  </div>
-                </div>
-              )}
-
-              {status === "error" && (
-                <div className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5">
-                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#C2603E]" />
-                  <div>
-                    <p className="text-[13.5px] font-bold text-ink">{f.errorTitle}</p>
-                    <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.errorBody}</p>
-                  </div>
-                </div>
-              )}
-            </form>
-          </div>
-        </div>
-      )}
+      {modal}
     </section>
   );
 }
