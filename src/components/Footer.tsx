@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
-import { Globe } from "lucide-react";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
-import { getSiteUrl } from "../lib/siteUrl";
-import { LinkedinIcon, GithubIcon } from "./icons";
+import { LinkedinIcon, GithubIcon, TelegramIcon, WhatsappIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   const { t, lang } = useApp();
   const year = new Date().getFullYear();
-  const siteUrl = getSiteUrl();
 
   const home = localePath(lang, "/");
   const links = [
@@ -36,9 +33,14 @@ export default function Footer() {
       href: "https://www.linkedin.com/in/saeed-zarrini-20a56341",
     },
     {
-      icon: Globe,
-      label: "DBSGraphic",
-      href: `${siteUrl}/`,
+      icon: TelegramIcon,
+      label: "Telegram",
+      href: "https://t.me/dbsgraphic",
+    },
+    {
+      icon: WhatsappIcon,
+      label: "WhatsApp",
+      href: "https://wa.me/+989301221816",
     },
   ];
 
