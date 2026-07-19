@@ -128,6 +128,11 @@ export default function CommandPalette() {
 
   if (!open) return null;
 
+  const listboxId = "command-palette-listbox";
+  const optionDomId = (id: string) => `cmd-option-${id.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
+  const activeOption = filtered[active];
+  const activeDescendant = activeOption ? optionDomId(activeOption.id) : undefined;
+
   const icons: Record<string, typeof Search> = {
     theme: theme === "dark" ? Sun : Moon,
     lang: Languages,
@@ -153,6 +158,10 @@ export default function CommandPalette() {
             onKeyDown={onInputKey}
             placeholder={t.command.placeholder}
             className="h-12 w-full bg-transparent text-[14px] font-medium outline-none placeholder:text-ink3"
+            role="combobox"
+            aria-expanded={open}
+            aria-controls={listboxId}
+            aria-activedescendant={activeDescendant}
             aria-autocomplete="list"
           />
           <button type="button" onClick={close} className="rounded-xs p-1.5 text-ink3 hover:text-ink" aria-label={t.command.close}>
@@ -160,14 +169,14 @@ export default function CommandPalette() {
           </button>
         </form>
 
-        <ul className="max-h-[50vh] overflow-y-auto p-2" role="listbox">
+        <ul id={listboxId} className="max-h-[50vh] overflow-y-auto p-2" role="listbox">
           {filtered.length === 0 && (
             <li className="px-3 py-6 text-center text-[13px] text-ink3">{t.command.empty}</li>
           )}
           {filtered.map((cmd, i) => {
             const Icon = icons[cmd.id] ?? ArrowRight;
             return (
-              <li key={cmd.id} role="option" aria-selected={i === active}>
+              <li key={cmd.id} id={optionDomId(cmd.id)} role="option" aria-selected={i === active}>
                 <button
                   type="button"
                   onMouseEnter={() => setActive(i)}
