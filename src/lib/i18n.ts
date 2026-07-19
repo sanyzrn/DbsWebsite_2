@@ -321,20 +321,62 @@ const fa = {
     kicker: "حقوقی",
     title: "حریم خصوصی",
     updated: "آخرین به‌روزرسانی: ژوئیه ۲۰۲۶",
-    paragraphs: [
-      "این وب‌سایت یک نمونه‌کار شخصی است. به‌طور پیش‌فرض داده‌های تحلیلی شخص ثالث جمع‌آوری نمی‌شود؛ ترجیح زبان و تم فقط در مرورگر شما (localStorage) ذخیره می‌شود.",
-      "اگر از طریق فرم تماس پیامی بفرستید، محتوای پیام و اطلاعات تماس شما صرفاً برای پاسخ به درخواست شما استفاده می‌شود و به اشخاص ثالث فروخته نمی‌شود.",
-      "برای پرسش دربارهٔ داده‌ها با ایمیل درج‌شده در صفحه تماس بنویسید.",
+    sections: [
+      {
+        heading: "چه اطلاعاتی جمع‌آوری می‌شود",
+        body: "این وب‌سایت یک نمونه‌کار شخصی است. به‌طور پیش‌فرض هیچ سرویس تحلیل شخص ثالثی بارگذاری نمی‌شود. ترجیح زبان و تم شما فقط در مرورگر خودتان (localStorage) ذخیره می‌شود و هرگز به سروری ارسال نمی‌شود. اگر در آینده سرویس تحلیل غیرمتمرکز و بدون ردیابی شخصی اضافه شود، این بخش به‌روزرسانی خواهد شد.",
+      },
+      {
+        heading: "فرم تماس",
+        body: "وقتی از طریق فرم تماس پیامی ارسال می‌کنید، نام، ایمیل و متن پیام شما از طریق سرویس Formspree پردازش و به ایمیل سعید زرینی تحویل داده می‌شود. این اطلاعات صرفاً برای پاسخ‌گویی به درخواست شما استفاده می‌شود، هرگز فروخته یا به اشخاص ثالث دیگر (به‌جز Formspree به‌عنوان پردازشگر فنی پیام) منتقل نمی‌شود. برای اطلاعات بیشتر درباره‌ی نحوه‌ی پردازش داده توسط Formspree، به سیاست حریم خصوصی خودشان مراجعه کنید.",
+      },
+      {
+        heading: "نگهداری اطلاعات",
+        body: "پیام‌های دریافتی تا زمانی که برای پاسخ‌گویی یا سوابق حرفه‌ای لازم باشند نگهداری می‌شوند. برای درخواست حذف اطلاعات خودتان، از طریق ایمیل مندرج در صفحه‌ی تماس درخواست بدهید.",
+      },
+      {
+        heading: "کوکی‌ها",
+        body: "این سایت از کوکی‌های ردیابی تبلیغاتی استفاده نمی‌کند. تنها داده‌ی محلی ذخیره‌شده، ترجیح زبان و تم شماست که در دستگاه خودتان می‌ماند.",
+      },
+      {
+        heading: "حقوق شما",
+        body: "می‌توانید هر زمان درباره‌ی اطلاعاتی که از طریق فرم تماس ارسال کرده‌اید سؤال بپرسید یا درخواست حذف آن را بدهید. برای این کار با ایمیل درج‌شده در صفحه‌ی تماس در ارتباط باشید.",
+      },
+      {
+        heading: "تغییرات این سیاست",
+        body: "این سیاست ممکن است به‌مرور به‌روزرسانی شود. تاریخ آخرین به‌روزرسانی در بالای این صفحه نمایش داده می‌شود.",
+      },
     ],
   },
   terms: {
     kicker: "حقوقی",
     title: "شرایط استفاده",
     updated: "آخرین به‌روزرسانی: ژوئیه ۲۰۲۶",
-    paragraphs: [
-      "محتوای این وب‌سایت برای معرفی خدمات و نمونه‌کارهای سعید زرینی ارائه شده است. استفاده شخصی و غیرتجاری از مطالب با ذکر منبع مجاز است مگر خلاف آن ذکر شود.",
-      "نام‌ها، لوگوها و علائم تجاری متعلق به صاحبان مربوطه هستند و ذکر آن‌ها به معنای تأیید یا وابستگی نیست.",
-      "اطلاعات فنی و توضیحات پروژه‌ها ممکن است به‌مرور به‌روز شوند؛ برای همکاری رسمی از مسیر تماس استفاده کنید.",
+    sections: [
+      {
+        heading: "درباره‌ی این محتوا",
+        body: "محتوای این وب‌سایت — از جمله توضیحات پروژه‌ها، تصاویر و متن‌ها — برای معرفی خدمات و نمونه‌کارهای سعید زرینی ارائه شده است و صرفاً جنبه‌ی اطلاع‌رسانی دارد.",
+      },
+      {
+        heading: "مالکیت و استفاده",
+        body: "استفاده‌ی شخصی و غیرتجاری از مطالب این سایت با ذکر منبع مجاز است، مگر خلاف آن به‌صراحت اعلام شده باشد. نام‌ها، لوگوها و علائم تجاری ذکرشده متعلق به صاحبان مربوطه‌اند و ذکر آن‌ها به معنای تأیید یا وابستگی رسمی نیست.",
+      },
+      {
+        heading: "دقت اطلاعات",
+        body: "توضیحات فنی، وضعیت پروژه‌ها و جزئیات نمونه‌کارها ممکن است به‌مرور زمان تغییر کند یا به‌روزرسانی شود. تلاش می‌شود اطلاعات دقیق و صادقانه باشد، اما این محتوا جایگزین توافق‌نامه‌ی رسمی همکاری نیست.",
+      },
+      {
+        heading: "همکاری رسمی",
+        body: "هرگونه پروژه یا همکاری واقعی، تحت یک توافق‌نامه‌ی جداگانه‌ی مکتوب بین طرفین انجام می‌شود که شرایط، محدوده‌ی کار، محرمانگی و مسئولیت‌ها را به‌صورت مشخص تعیین می‌کند. مطالب این وب‌سایت به‌تنهایی چنین توافقی محسوب نمی‌شود.",
+      },
+      {
+        heading: "محدودیت مسئولیت",
+        body: "این وب‌سایت و محتوای آن به همان شکل موجود («as is») ارائه می‌شود، بدون هیچ ضمانت صریح یا ضمنی. سعید زرینی مسئولیتی در قبال تصمیماتی که صرفاً بر اساس محتوای این سایت (بدون توافق رسمی) گرفته شود، نمی‌پذیرد.",
+      },
+      {
+        heading: "تغییرات این شرایط",
+        body: "این شرایط ممکن است به‌مرور به‌روزرسانی شود. تاریخ آخرین به‌روزرسانی در بالای این صفحه نمایش داده می‌شود.",
+      },
     ],
   },
   notFound: {
@@ -682,20 +724,62 @@ const en: UiDict = {
     kicker: "Legal",
     title: "Privacy policy",
     updated: "Last updated: July 2026",
-    paragraphs: [
-      "This site is a personal portfolio. By default it does not load third-party analytics; language and theme preferences are stored only in your browser (localStorage).",
-      "If you send a message through the contact form, that content and your contact details are used solely to respond to your inquiry and are not sold to third parties.",
-      "For data questions, email the address listed on the contact page.",
+    sections: [
+      {
+        heading: "What information is collected",
+        body: "This site is a personal portfolio. No third-party analytics service loads by default. Your language and theme preference are stored only in your own browser (localStorage) and are never sent to a server. If a privacy-respecting, non-tracking analytics service is added in the future, this section will be updated.",
+      },
+      {
+        heading: "The contact form",
+        body: "When you send a message through the contact form, your name, email, and message content are processed via Formspree and delivered to Saeed Zarrini's email. This information is used solely to respond to your inquiry — it is never sold or shared with any third party other than Formspree, which acts as the technical message-delivery processor. For details on how Formspree itself handles data, see Formspree's own privacy policy.",
+      },
+      {
+        heading: "Data retention",
+        body: "Messages received are kept for as long as reasonably needed to respond to your inquiry or for professional record-keeping. To request deletion of your information, email the address listed on the contact page.",
+      },
+      {
+        heading: "Cookies",
+        body: "This site does not use advertising or tracking cookies. The only locally stored data is your language and theme preference, which stays on your own device.",
+      },
+      {
+        heading: "Your rights",
+        body: "You may ask about information you've submitted via the contact form, or request its deletion, at any time by emailing the address listed on the contact page.",
+      },
+      {
+        heading: "Changes to this policy",
+        body: "This policy may be updated from time to time. The date of the last update is shown at the top of this page.",
+      },
     ],
   },
   terms: {
     kicker: "Legal",
     title: "Terms of use",
     updated: "Last updated: July 2026",
-    paragraphs: [
-      "Content on this site presents Saeed Zarrini’s work and services. Personal, non-commercial use with attribution is welcome unless otherwise noted.",
-      "Names, logos, and trademarks belong to their respective owners; mention does not imply endorsement or affiliation.",
-      "Project descriptions may change over time; for formal engagement, use the contact flow.",
+    sections: [
+      {
+        heading: "About this content",
+        body: "The content on this website — including project descriptions, images, and text — presents Saeed Zarrini's services and portfolio work, and is provided for informational purposes.",
+      },
+      {
+        heading: "Ownership and use",
+        body: "Personal, non-commercial use of this content with attribution is welcome unless explicitly stated otherwise. Names, logos, and trademarks mentioned belong to their respective owners; their mention does not imply endorsement or formal affiliation.",
+      },
+      {
+        heading: "Accuracy of information",
+        body: "Technical descriptions, project status, and portfolio details may change or be updated over time. Reasonable effort is made to keep this content accurate and honest, but it does not replace a formal engagement agreement.",
+      },
+      {
+        heading: "Formal engagements",
+        body: "Any real project or collaboration is governed by a separate, written agreement between the parties, specifying scope, confidentiality, and responsibilities. Content on this website alone does not constitute such an agreement.",
+      },
+      {
+        heading: "Limitation of liability",
+        body: 'This website and its content are provided "as is," without warranties of any kind, express or implied. Saeed Zarrini accepts no liability for decisions made solely on the basis of this site\'s content without a formal agreement in place.',
+      },
+      {
+        heading: "Changes to these terms",
+        body: "These terms may be updated from time to time. The date of the last update is shown at the top of this page.",
+      },
     ],
   },
   notFound: {
