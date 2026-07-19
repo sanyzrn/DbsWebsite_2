@@ -1,10 +1,14 @@
-import { useId } from "react";
+import { lazy, Suspense, useId } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { useTypewriter } from "../lib/useTypewriter";
 import { DirArrow } from "./ui";
+
+const MagicDust = lazy(() =>
+  import("./ui/magic-dust-shader").then((m) => ({ default: m.MagicDust }))
+);
 
 function SloganCycle({ phrases }: { phrases: string[] }) {
   const typed = useTypewriter(phrases);
@@ -88,9 +92,18 @@ export default function Hero() {
 
   return (
     <section id="top" className="relative flex min-h-dvh flex-col overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <Suspense fallback={null}>
+          <MagicDust
+            particleColor="#bc9463"
+            particleCount={6000}
+            fontFamily="sans-serif"
+          />
+        </Suspense>
+      </div>
       <HeroAtmosphere />
 
-      <div className="wrap relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">
+      <div className="wrap relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">
         <div className="hero-in flex justify-center" style={{ animationDelay: "60ms" }}>
           <span className="chip max-w-full border-line2 font-[family-name:Vazirmatn,ui-sans-serif,system-ui,sans-serif] text-ink2">
             <Sparkles className="h-3.5 w-3.5 shrink-0 text-hi" strokeWidth={2.2} />
