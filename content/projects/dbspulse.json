@@ -17,16 +17,16 @@
     "en": "An organizational platform for managing the performance evaluation process — from initial data entry to review, approval and final analysis. It turns a complex, multi-stage workflow into a structured, traceable and analyzable digital system."
   },
   "problem": {
-    "fa": "",
-    "en": ""
+    "fa": "ارزیابی عملکرد در این سازمان دارویی روی اکسل و فرم‌های کاغذی انجام می‌شد؛ فرآیندی چندمرحله‌ای، بدون ردیابی شفاف، و مستعد خطای انسانی در امتیازدهی و تأیید نهایی.",
+    "en": "Performance reviews at this pharmaceutical company ran on Excel and paper forms — a multi-stage process with no clear traceability and a real risk of human error in scoring and final approval."
   },
   "approach": {
-    "fa": "",
-    "en": ""
+    "fa": "کار ابتدا به‌صورت یک workbook پیچیده‌ی اکسل با ماژول‌های VBA طراحی شد، اما برای مقیاس‌پذیری واقعی، معماری کامل به یک اپلیکیشن وب (FastAPI + PostgreSQL + React) تغییر کرد. تصمیم‌های کلیدی: دسترسی صرفاً با تخصیص دستی توسط منابع انسانی، الزام ثبت حداقل ۱۵ کلمه توضیح برای هر امتیاز غیرخنثی، و قفل‌شدن خودکار سوئیچ «سرپرست واحد» وقتی عنوان شغلی دقیقاً «مدیر» باشد.",
+    "en": "Work started as a complex Excel workbook with VBA modules, then the architecture pivoted fully to a web application (FastAPI + PostgreSQL + React) for real scalability. Key decisions: HR-only manual access assignment, a mandatory 15-word minimum evidence text for any non-neutral score, and an automatically locked \"unit supervisor\" toggle when the job title is exactly \"Manager\"."
   },
   "result": {
-    "fa": "",
-    "en": ""
+    "fa": "یک سند معماری فنی، سند تأییدیه‌ی ذی‌نفعان، و یک اسپک کامل ساخت برای Claude Code تحویل داده شد؛ فرآیندی که قبلاً پراکنده و دستی بود، به یک سیستم ساختاریافته و قابل‌ردیابی تبدیل شد.",
+    "en": "Delivered a technical architecture document, a stakeholder sign-off document, and a complete build specification for Claude Code — turning a scattered manual process into a structured, traceable system."
   },
   "role": {
     "fa": [

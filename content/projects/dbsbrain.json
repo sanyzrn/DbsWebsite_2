@@ -17,16 +17,16 @@
     "en": "A personal system for managing information, goals, habits, projects and everyday life."
   },
   "problem": {
-    "fa": "",
-    "en": ""
+    "fa": "نیاز به یک اپلیکیشن مدیریت زندگی شخصی (یادداشت، هدف، عادت، پروژه) به زبان فارسی و RTL-native بود که داده‌ی کاربر را محلی نگه دارد، نه در ابر.",
+    "en": "Needed a Persian, RTL-native personal life-management app (notes, goals, habits, projects) that keeps user data local rather than in the cloud."
   },
   "approach": {
-    "fa": "",
-    "en": ""
+    "fa": "یک اسکلت اولیه در Google AI Studio بررسی شد و مشکل اساسی‌اش شناسایی شد: همگام‌سازی ابری با Firebase که مستقیماً با فلسفه‌ی local-first پروژه در تضاد بود. بر همین اساس، بریف‌های نسخه‌بندی‌شده و یک اسپک کامل ساخت از صفر برای Claude Code نوشته شد؛ با Kotlin و Jetpack Compose، و رمزنگاری محلی از طریق SQLCipher.",
+    "en": "An initial Google AI Studio skeleton was audited and its core flaw identified: Firebase cloud-sync, which directly violated the project's local-first thesis. Based on that, versioned briefs and a complete from-scratch build specification were written for Claude Code, using Kotlin and Jetpack Compose with local SQLCipher encryption."
   },
   "result": {
-    "fa": "",
-    "en": ""
+    "fa": "یک اسپک ساخت کامل و قابل‌اجرا که فلسفه‌ی local-first را در تمام تصمیم‌های معماری حفظ می‌کند، با سعید در نقش art director روی تصمیم‌های UI.",
+    "en": "A complete, buildable specification that preserves the local-first philosophy across every architectural decision, with Saeed positioned as art director over UI decisions."
   },
   "role": {
     "fa": [

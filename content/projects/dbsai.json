@@ -17,16 +17,16 @@
     "en": "An internal platform for using multiple AI models across an organization — a centralized environment for models, user management, access control, usage quotas and intelligent capabilities."
   },
   "problem": {
-    "fa": "",
-    "en": ""
+    "fa": "تیم‌های سازمانی از چند ارائه‌دهنده‌ی هوش مصنوعی مختلف استفاده می‌کردند بدون مدیریت متمرکز دسترسی، سهمیه‌ی مصرف یا کنترل هزینه.",
+    "en": "Organizational teams were using several different AI providers with no centralized access management, usage quotas, or cost control."
   },
   "approach": {
-    "fa": "",
-    "en": ""
+    "fa": "یک فضای کاری داخلی طراحی شد که چند مدل هوش مصنوعی را زیر یک لایه‌ی مدیریتی واحد قرار می‌دهد: مدیریت کاربران، دسترسی نقش‌محور، سهمیه‌بندی مصرف و تخصیص توکن.",
+    "en": "Designed an internal workspace that puts multiple AI models under one management layer: user management, role-based access, usage quotas, and token allocation."
   },
   "result": {
-    "fa": "",
-    "en": ""
+    "fa": "یک محیط متمرکز که استفاده‌ی سازمانی از چند مدل هوش مصنوعی را قابل‌کنترل و قابل‌پیگیری می‌کند.",
+    "en": "A centralized environment that makes organizational multi-model AI usage controllable and trackable."
   },
   "role": {
     "fa": [
@@ -73,5 +73,6 @@
       "AI capabilities management",
       "Centralized workspace"
     ]
-  }
+  },
+  "_todo": "Placeholder case-study copy — Saeed should confirm/replace with real project specifics."
 }
