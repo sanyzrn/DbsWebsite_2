@@ -38,40 +38,18 @@ async function fillRequired(user: ReturnType<typeof userEvent.setup>) {
 }
 
 describe("contact form reliability", () => {
-  it("exposes a dedicated /contact route with the inline form", () => {
+  it("without Formspree, shows a static setup message and direct email link (no form fields)", () => {
     window.history.pushState(null, "", "/en/contact");
     render(<App />);
     expect(screen.getByRole("heading", { level: 1, name: dictionaries.en.contact.title })).toBeTruthy();
-    expect(screen.getByLabelText(new RegExp(dictionaries.en.contact.form.name))).toBeTruthy();
-    expect(screen.getByRole("button", { name: dictionaries.en.contact.form.submit })).toBeTruthy();
+    expect(screen.getByText(dictionaries.en.contact.form.formUnavailable)).toBeTruthy();
+    const emailLinks = screen.getAllByRole("link", { name: dictionaries.en.contact.email });
+    expect(emailLinks.some((a) => a.getAttribute("href") === `mailto:${dictionaries.en.contact.email}`)).toBe(
+      true
+    );
+    expect(screen.queryByLabelText(new RegExp(dictionaries.en.contact.form.name))).toBeNull();
+    expect(screen.queryByRole("button", { name: dictionaries.en.contact.form.submit })).toBeNull();
   });
-
-  it("uses honest mailed copy and keeps fields after mailto fallback", async () => {
-    const user = userEvent.setup();
-    let href = "http://localhost/en/contact";
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: {
-        ...window.location,
-        get href() {
-          return href;
-        },
-        set href(next: string) {
-          href = next;
-        },
-      },
-    });
-
-    renderContactPage();
-    await fillRequired(user);
-    await new Promise((r) => setTimeout(r, 2100));
-    await user.click(screen.getByRole("button", { name: dictionaries.en.contact.form.submit }));
-
-    expect(await screen.findByText(dictionaries.en.contact.form.mailedTitle)).toBeTruthy();
-    expect(screen.getByText(dictionaries.en.contact.form.mailedBody)).toBeTruthy();
-    expect(screen.getByLabelText(new RegExp(dictionaries.en.contact.form.name))).toHaveValue("Saeed Test");
-    expect(href).toMatch(/^mailto:/);
-  }, 10_000);
 
   it("shows timeout state when Formspree fetch aborts", async () => {
     vi.stubEnv("VITE_FORMSPREE_ID", "test-form-id");

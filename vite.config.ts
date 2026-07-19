@@ -51,19 +51,13 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
   const env = loadEnv(mode, __dirname, "");
   const siteUrl = normalizeSiteUrl(env.SITE_URL || process.env.SITE_URL || DEFAULT_SITE_URL);
 
-  // Production builds require a real Formspree endpoint unless mailto fallback is
-  // deliberately opted into (CI / local preview without credentials).
+  // Informational only — contact UI falls back to a static email message when unset.
   if (mode === "production") {
     const formspreeId = (env.VITE_FORMSPREE_ID || process.env.VITE_FORMSPREE_ID || "").trim();
-    const allowMailto =
-      (env.ALLOW_MAILTO_CONTACT_FALLBACK || process.env.ALLOW_MAILTO_CONTACT_FALLBACK || "") === "1";
     if (!formspreeId) {
-      const msg =
-        "VITE_FORMSPREE_ID is unset. Set it for real Formspree delivery, or set ALLOW_MAILTO_CONTACT_FALLBACK=1 to deliberately keep the mailto fallback.";
-      if (!allowMailto) {
-        throw new Error(msg);
-      }
-      console.warn(`\n[contact] WARNING: ${msg}\n`);
+      console.warn(
+        "\n[contact] WARNING: VITE_FORMSPREE_ID is unset — interactive contact form is disabled; visitors see a direct-email message instead.\n"
+      );
     }
   }
 

@@ -75,10 +75,10 @@ SITE_URL=https://dbsgraphic.ir npm run check:deploy
 
 ### Contact form
 
-Set `VITE_FORMSPREE_ID` for Formspree delivery. Production builds fail if it is unset,
-unless you deliberately set `ALLOW_MAILTO_CONTACT_FALLBACK=1` (CI does this). The dedicated
-`/contact` page is the canonical destination; the About-page modal remains a shortcut.
-Without Formspree, submit uses an honest `mailto:` fallback (fields are not cleared).
+Set `VITE_FORMSPREE_ID` for Formspree delivery. Without it, the interactive form is hidden
+and visitors see a short direct-email message instead (production builds still succeed with
+a warning). The dedicated `/contact` page is the canonical destination; the About-page
+modal remains a shortcut.
 
 ## License
 

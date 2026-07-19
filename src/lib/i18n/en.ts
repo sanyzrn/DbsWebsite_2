@@ -309,6 +309,8 @@ const en: UiDict = {
       errorTitle: "Couldn't send.",
       errorBody: "Please try again, or email me directly.",
       directEmail: "Or email me directly:",
+      formUnavailable:
+        "The contact form is temporarily being set up. In the meantime, feel free to reach me directly at the email below:",
       required: "This field is required.",
       types: {
         "ai-product": "AI Product",

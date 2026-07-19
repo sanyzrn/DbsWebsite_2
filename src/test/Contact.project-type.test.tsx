@@ -2,7 +2,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useMemo, useState } from "react";
 import { MemoryRouter } from "react-router-dom";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Contact from "../components/Contact";
 import { getDictionary, type Lang } from "../lib/i18n";
 
@@ -18,10 +18,15 @@ vi.mock("../lib/app", async () => {
   };
 });
 
+beforeEach(() => {
+  vi.stubEnv("VITE_FORMSPREE_ID", "test-form-id");
+});
+
 afterEach(() => {
   cleanup();
   document.body.style.overflow = "";
   vi.clearAllMocks();
+  vi.unstubAllEnvs();
 });
 
 function ContactWithLangSwitch() {
