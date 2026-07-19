@@ -19,6 +19,9 @@ jobs:
       - run: npm run lint
       - run: npm test -- --run
       - run: npm run build
+        env:
+          # CI has no Formspree secret — deliberately keep mailto fallback for the gate.
+          ALLOW_MAILTO_CONTACT_FALLBACK: "1"
       # Post-build: internal links + canonical/OG vs SITE_URL (extends check-urls.mjs)
       - run: npm run check:dist
       # axe-core + jsdom against key prerendered routes (see scripts/check-a11y.mjs)

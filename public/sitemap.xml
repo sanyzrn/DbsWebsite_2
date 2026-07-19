@@ -16,6 +16,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dbsgraphic.ir/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dbsgraphic.ir/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -57,6 +62,11 @@
   </url>
   <url>
     <loc>https://dbsgraphic.ir/en/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsgraphic.ir/en/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

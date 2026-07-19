@@ -14,7 +14,7 @@ export default function Footer() {
     { label: t.nav.expertise, to: `${home}#expertise` },
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },
-    { label: t.nav.contact, to: `${localePath(lang, "/about")}#contact` },
+    { label: t.nav.contact, to: localePath(lang, "/contact") },
   ];
   const legal = [
     { label: t.footer.privacy, to: localePath(lang, "/privacy") },

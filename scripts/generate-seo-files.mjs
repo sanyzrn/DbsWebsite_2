@@ -15,7 +15,7 @@ function loadProjectSlugs() {
   return getPublishedProjectSlugs(ROOT);
 }
 
-const staticRoutes = ["/", "/projects", "/about", "/privacy", "/terms"];
+const staticRoutes = ["/", "/projects", "/about", "/contact", "/privacy", "/terms"];
 const slugs = loadProjectSlugs();
 const projectRoutes = slugs.map((slug) => `/projects/${slug}`);
 

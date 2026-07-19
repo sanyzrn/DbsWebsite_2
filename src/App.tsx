@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -45,6 +46,7 @@ function AppRoutes() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:slug" element={<ProjectDetailPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
 
@@ -52,6 +54,7 @@ function AppRoutes() {
         <Route path="/en/projects" element={<ProjectsPage />} />
         <Route path="/en/projects/:slug" element={<ProjectDetailPage />} />
         <Route path="/en/about" element={<AboutPage />} />
+        <Route path="/en/contact" element={<ContactPage />} />
         <Route path="/en/privacy" element={<PrivacyPage />} />
         <Route path="/en/terms" element={<TermsPage />} />
 

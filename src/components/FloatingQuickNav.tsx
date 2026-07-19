@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { ArrowUp, FolderKanban, Home, UserRound } from "lucide-react";
+import { ArrowUp, FolderKanban, Home, Mail, UserRound } from "lucide-react";
 import { useApp } from "../lib/app";
 import { localePath, stripLangPrefix } from "../lib/paths";
 import { cn } from "../utils/cn";
@@ -52,10 +52,11 @@ function useScrollPast(threshold: number) {
   return past;
 }
 
-function isNavActive(pathname: string, item: "home" | "projects" | "about") {
+function isNavActive(pathname: string, item: "home" | "projects" | "about" | "contact") {
   const bare = stripLangPrefix(pathname);
   if (item === "home") return bare === "/";
   if (item === "projects") return bare === "/projects" || bare.startsWith("/projects/");
+  if (item === "contact") return bare === "/contact" || bare.startsWith("/contact/");
   return bare === "/about" || bare.startsWith("/about/");
 }
 
@@ -80,6 +81,7 @@ export default function FloatingQuickNav() {
     { key: "home" as const, to: localePath(lang, "/"), label: t.nav.home, Icon: Home },
     { key: "projects" as const, to: localePath(lang, "/projects"), label: t.nav.projects, Icon: FolderKanban },
     { key: "about" as const, to: localePath(lang, "/about"), label: t.nav.about, Icon: UserRound },
+    { key: "contact" as const, to: localePath(lang, "/contact"), label: t.nav.contact, Icon: Mail },
   ];
 
   const cssVars = {

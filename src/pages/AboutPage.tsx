@@ -25,7 +25,7 @@ export default function AboutPage() {
             <figure className="relative mt-8 overflow-hidden rounded-lg border border-line sm:mt-10 sm:rounded-xl">
               <img
                 src="/images/studio.jpg"
-                alt={t.about.title}
+                alt={t.about.studioAlt}
                 loading="eager"
                 className="aspect-[16/9] w-full object-cover transition-transform duration-[1200ms] hover:scale-[1.02] md:aspect-[21/9]"
               />

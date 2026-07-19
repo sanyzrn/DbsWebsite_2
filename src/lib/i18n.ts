@@ -38,6 +38,11 @@ const fa = {
       description:
         "اگر بین ایده و محصول گیر کرده‌اید: مسیر کاری، مهارت‌ها و راه‌های شروع همکاری برای ساخت محصول دیجیتال و هوش مصنوعی.",
     },
+    contact: {
+      title: "Saeed Zarrini | تماس",
+      description:
+        "برای شروع یک پروژه یا گفت‌وگو درباره ایده، محصول دیجیتال یا یکپارچه‌سازی هوش مصنوعی با سعید زرینی در تماس باشید.",
+    },
     privacy: {
       title: "حریم خصوصی | Saeed Zarrini",
       description: "سیاست حریم خصوصی وب‌سایت شخصی سعید زرینی.",
@@ -193,6 +198,8 @@ const fa = {
     metaLinks: "لینک‌ها",
     /** `{n}` = month count */
     metaDurationValue: "{n} ماه",
+    /** `{name}` = project name */
+    previewAria: "مشاهده مطالعه موردی {name}",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
   },
   about: {
@@ -240,6 +247,7 @@ const fa = {
       },
     ],
     studioNote: "تمام این کارها زیر چتر استودیو خلاقیت و محصول DBSGraphic ادامه دارد.",
+    studioAlt: "پرتره سعید زرینی با روکش داشبورد عملیات سیستم",
   },
   skills: {
     kicker: "مهارت‌ها",
@@ -309,8 +317,11 @@ const fa = {
       sending: "در حال ارسال…",
       deliveredTitle: "پیام ارسال شد.",
       deliveredBody: "به‌زودی پاسخ می‌دهم — معمولاً کمتر از ۲۴ ساعت.",
-      mailedTitle: "کلاینت ایمیل شما باز می‌شود.",
-      mailedBody: "اگر پنجره ایمیل باز نشد، مستقیم به آدرس زیر پیام بفرستید. این فرم هنوز پیام را به‌صورت سروری تحویل نمی‌دهد مگر اینکه endpoint پیکربندی شده باشد.",
+      mailedTitle: "کلاینت ایمیل باز شد.",
+      mailedBody:
+        "پیام هنوز ارسال نشده است. لطفاً پیام ازپیش‌پرشده را در کلاینت ایمیل خود بفرستید تا درخواست‌تان کامل شود. اگر پنجره‌ای باز نشد، مستقیم به آدرس زیر ایمیل بزنید.",
+      timeoutTitle: "ارسال بیش از حد طول کشید.",
+      timeoutBody: "اتصال کندتر از حد انتظار بود — دوباره تلاش کنید یا مستقیم ایمیل بزنید.",
       errorTitle: "ارسال ناموفق بود.",
       errorBody: "لطفاً دوباره تلاش کنید یا مستقیم ایمیل بزنید.",
       directEmail: "یا مستقیم ایمیل بزنید:",
@@ -351,7 +362,7 @@ const fa = {
       },
       {
         heading: "فرم تماس",
-        body: "وقتی از طریق فرم تماس پیامی ارسال می‌کنید، نام، ایمیل و متن پیام شما از طریق سرویس Formspree پردازش و به ایمیل سعید زرینی تحویل داده می‌شود. این اطلاعات صرفاً برای پاسخ‌گویی به درخواست شما استفاده می‌شود، هرگز فروخته یا به اشخاص ثالث دیگر (به‌جز Formspree به‌عنوان پردازشگر فنی پیام) منتقل نمی‌شود. برای اطلاعات بیشتر درباره‌ی نحوه‌ی پردازش داده توسط Formspree، به سیاست حریم خصوصی خودشان مراجعه کنید.",
+        body: "وقتی از طریق فرم تماس پیامی ارسال می‌کنید، نام، ایمیل و متن پیام شما توسط Formspree (https://formspree.io) پردازش می‌شود — برای فیلتر هرزنامه و تحویل پیام به ایمیل سعید زرینی. این اطلاعات صرفاً برای پاسخ‌گویی به درخواست شما استفاده می‌شود و هرگز فروخته یا به اشخاص ثالث دیگر (به‌جز Formspree به‌عنوان پردازشگر فنی) منتقل نمی‌شود. برای سیاست حریم خصوصی و نگهداری دادهٔ خود Formspree، به https://formspree.io/legal/privacy-policy مراجعه کنید.",
       },
       {
         heading: "نگهداری اطلاعات",
@@ -447,6 +458,11 @@ const en: UiDict = {
       title: "Saeed Zarrini | About",
       description:
         "If you are stuck between idea and a working product: path, skills, and how to start building digital products and AI with Saeed Zarrini.",
+    },
+    contact: {
+      title: "Saeed Zarrini | Contact",
+      description:
+        "Start a project or conversation with Saeed Zarrini about digital products, design, engineering, or AI integration.",
     },
     privacy: {
       title: "Privacy | Saeed Zarrini",
@@ -603,6 +619,8 @@ const en: UiDict = {
     metaLinks: "Links",
     /** `{n}` = month count */
     metaDurationValue: "{n} mo",
+    /** `{name}` = project name */
+    previewAria: "View {name} case study",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
   },
   about: {
@@ -650,6 +668,7 @@ const en: UiDict = {
       },
     ],
     studioNote: "All of this work continues under the DBSGraphic creative & product studio.",
+    studioAlt: "Portrait of Saeed Zarrini with a systems-operations dashboard overlay",
   },
   skills: {
     kicker: "Skills",
@@ -719,8 +738,11 @@ const en: UiDict = {
       sending: "Sending…",
       deliveredTitle: "Message sent.",
       deliveredBody: "I'll get back to you soon — usually within 24 hours.",
-      mailedTitle: "Opening your email client…",
-      mailedBody: "If nothing opened, email me directly below. This form only delivers server-side when a Formspree endpoint is configured.",
+      mailedTitle: "Email client opened.",
+      mailedBody:
+        "Your inquiry has not been sent yet. Please send the pre-filled message in your email client to complete it. If nothing opened, email me directly below.",
+      timeoutTitle: "Taking longer than expected.",
+      timeoutBody: "The connection stalled — try again, or email me directly below.",
       errorTitle: "Couldn't send.",
       errorBody: "Please try again, or email me directly.",
       directEmail: "Or email me directly:",
@@ -761,7 +783,7 @@ const en: UiDict = {
       },
       {
         heading: "The contact form",
-        body: "When you send a message through the contact form, your name, email, and message content are processed via Formspree and delivered to Saeed Zarrini's email. This information is used solely to respond to your inquiry — it is never sold or shared with any third party other than Formspree, which acts as the technical message-delivery processor. For details on how Formspree itself handles data, see Formspree's own privacy policy.",
+        body: "When you send a message through the contact form, your name, email, and message content are processed by Formspree (https://formspree.io) for spam filtering and delivery to Saeed Zarrini's email. This information is used solely to respond to your inquiry — it is never sold or shared with any third party other than Formspree, which acts as the technical message-delivery processor. For Formspree's own privacy and retention policy, see https://formspree.io/legal/privacy-policy.",
       },
       {
         heading: "Data retention",

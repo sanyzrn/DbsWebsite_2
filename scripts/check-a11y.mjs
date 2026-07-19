@@ -21,6 +21,7 @@ const siteUrl = getSiteUrl();
 const ROUTES = [
   { urlPath: "/", file: "index.html" },
   { urlPath: "/about", file: "about/index.html" },
+  { urlPath: "/contact", file: "contact/index.html" },
   // Prefer a known shipped project slug; fall back to first dist/projects/*/index.html.
   { urlPath: "/projects/dbsai", file: "projects/dbsai/index.html", optionalFallback: true },
 ];

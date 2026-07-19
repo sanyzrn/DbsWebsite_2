@@ -51,14 +51,16 @@ beforeEach(() => {
 });
 
 describe("FloatingQuickNav", () => {
-  it("renders three primary links to locale home/projects/about", () => {
+  it("renders primary links to locale home/projects/about/contact", () => {
     renderNav("/");
     const home = screen.getByRole("link", { name: dictionaries.fa.nav.home });
     const projects = screen.getByRole("link", { name: dictionaries.fa.nav.projects });
     const about = screen.getByRole("link", { name: dictionaries.fa.nav.about });
+    const contact = screen.getByRole("link", { name: dictionaries.fa.nav.contact });
     expect(home).toHaveAttribute("href", "/");
     expect(projects).toHaveAttribute("href", "/projects");
     expect(about).toHaveAttribute("href", "/about");
+    expect(contact).toHaveAttribute("href", "/contact");
   });
 
   it("uses /en prefixes on English routes", () => {
@@ -66,6 +68,7 @@ describe("FloatingQuickNav", () => {
     expect(screen.getByRole("link", { name: dictionaries.en.nav.home })).toHaveAttribute("href", "/en");
     expect(screen.getByRole("link", { name: dictionaries.en.nav.projects })).toHaveAttribute("href", "/en/projects");
     expect(screen.getByRole("link", { name: dictionaries.en.nav.about })).toHaveAttribute("href", "/en/about");
+    expect(screen.getByRole("link", { name: dictionaries.en.nav.contact })).toHaveAttribute("href", "/en/contact");
   });
 
   it("keeps scroll-to-top absent below the threshold", () => {
