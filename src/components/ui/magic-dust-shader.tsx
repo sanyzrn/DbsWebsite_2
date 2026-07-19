@@ -323,7 +323,15 @@ export function MagicDustCore({
         if (pointsGroupRef.current) {
             // RESPONSIVE EXACTO: Garantiza que nunca se salga de la pantalla basado en las unidades 3D
             const maxComponentWidth = 15.0; // Ancho máximo aproximado de los textos más el offset
-            const scale = Math.min(1.0, state.viewport.width / maxComponentWidth);
+            // Narrow (phone) viewports get a floor so the formation doesn't shrink purely
+            // proportionally — tablet/desktop keep the uncapped proportional scale.
+            // Tuned at 360/390/430px against measured extents (DBS ~5.2wu, GRAPHIC ~10.4wu):
+            // 0.32 ≈ GRAPHIC fit at phone width; higher (0.42+) clips GRAPHIC letter edges.
+            // Torus (~14wu) may soft-overflow slightly; unavoidable if text is enlarged.
+            const isNarrowViewport = state.viewport.width < 5;
+            const minScale = isNarrowViewport ? 0.32 : 0.0;
+            const rawScale = state.viewport.width / maxComponentWidth;
+            const scale = Math.max(minScale, Math.min(1.0, rawScale));
             pointsGroupRef.current.scale.set(scale, scale, scale);
 
             const currentTarget = targets[currentTargetIndex.current];
