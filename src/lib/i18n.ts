@@ -46,6 +46,10 @@ const fa = {
     cta: "شروع یک پروژه",
     menu: "منو",
     close: "بستن",
+    primaryNavLabel: "ناوبری اصلی",
+    mobileNavLabel: "ناوبری موبایل",
+    switchLangLabel: "تغییر زبان",
+    homeLinkLabel: "سعید زرینی — خانه",
   },
   hero: {
     badge: "سعید زرینی — مهندس راهکارهای هوش مصنوعی و سازنده محصولات دیجیتال",
@@ -367,6 +371,10 @@ const en: UiDict = {
     cta: "Start a project",
     menu: "Menu",
     close: "Close",
+    primaryNavLabel: "Primary",
+    mobileNavLabel: "Mobile",
+    switchLangLabel: "Switch language",
+    homeLinkLabel: "Saeed Zarrini — home",
   },
   hero: {
     badge: "Saeed Zarrini — AI Solutions Engineer & Digital Product Builder",
