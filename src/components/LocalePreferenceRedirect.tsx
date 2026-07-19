@@ -1,21 +1,39 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { readStoredLang } from "../lib/app";
 
 /**
- * First client entry only: if the visitor lands on `/` (Persian default) but
- * previously chose English, replace to `/en`.
+ * First page-load only: if the visitor arrives at `/` with a stored English
+ * preference (`sz-lang=en`), replace once to `/en`.
  *
- * Decision is captured once at mount via useState (survives StrictMode and does
- * not re-run on later in-app navigations to `/`). That way switching
- * English → Persian cannot be overridden by a stale `sz-lang=en`. Uses
- * declarative `<Navigate>` so React Router state stays in sync.
+ * This component stays mounted for the whole SPA session (AppShell). A useRef
+ * marks the preference check as consumed on the first layout pass — whether or
+ * not a redirect fires — so later in-app navigations back to `/` (including an
+ * explicit English → Persian language switch) cannot re-trigger it.
+ *
+ * Short-lived state only arms `<Navigate>`; it is cleared once we leave `/`.
+ * The ref is the real one-shot gate (never read during render — eslint).
+ * AppProvider remains the source of truth for locale (URL → lang).
  */
 export function LocalePreferenceRedirect() {
   const location = useLocation();
-  const [shouldRedirect] = useState(
-    () => location.pathname === "/" && readStoredLang() === "en"
-  );
+  const consumedRef = useRef(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+
+  useLayoutEffect(() => {
+    if (consumedRef.current) return;
+    consumedRef.current = true;
+
+    if (location.pathname === "/" && readStoredLang() === "en") {
+      setShouldRedirect(true);
+    }
+  }, [location.pathname]);
+
+  useLayoutEffect(() => {
+    if (shouldRedirect && location.pathname !== "/") {
+      setShouldRedirect(false);
+    }
+  }, [shouldRedirect, location.pathname]);
 
   if (!shouldRedirect || location.pathname !== "/") return null;
   return <Navigate to="/en" replace />;
