@@ -1,11 +1,10 @@
 import { Check, Layers } from "lucide-react";
-import { Skills } from "../components/About";
+import { CareerTimeline, Skills } from "../components/About";
 import Contact from "../components/Contact";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
 import { Reveal, SectionHead } from "../components/ui";
 import { useApp } from "../lib/app";
-import { cn } from "../utils/cn";
 
 /**
  * Combined About + Contact route.
@@ -100,29 +99,9 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="relative">
-                <span className="absolute bottom-4 start-[6px] top-2 w-px bg-line2 sm:bottom-6 sm:start-[7px]" aria-hidden="true" />
-                {t.about.path.map((node, i) => {
-                  const last = i === t.about.path.length - 1;
-                  return (
-                    <Reveal key={node} delay={i * 80}>
-                      <div className="group relative flex items-start gap-4 pb-5 ps-7 last:pb-0 sm:gap-6 sm:pb-7 sm:ps-8">
-                        <span
-                          className={cn(
-                            "absolute start-0 top-1.5 h-3 w-3 rounded-full border-[2.5px] transition-colors duration-300 sm:h-[15px] sm:w-[15px] sm:border-[3px]",
-                            last ? "border-hi bg-hi" : "border-line2 bg-page group-hover:border-hi"
-                          )}
-                          aria-hidden="true"
-                        />
-                        <div className="flex flex-1 flex-wrap items-baseline justify-between gap-2 rounded-sm border border-line bg-page px-3.5 py-3 transition-colors duration-300 hover:border-hi/60 sm:px-5 sm:py-4">
-                          <span className={cn("text-[14px] font-bold sm:text-[15.5px]", last && "text-hi")}>{node}</span>
-                          <span className="font-mono text-[10px] font-semibold tracking-wider text-ink3 sm:text-[11px]">{t.about.pathYears[i]}</span>
-                        </div>
-                      </div>
-                    </Reveal>
-                  );
-                })}
-              </div>
+              <Reveal delay={160}>
+                <CareerTimeline nodes={t.about.path} />
+              </Reveal>
             </div>
           </div>
         </div>
