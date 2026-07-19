@@ -19,4 +19,4 @@ This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScr
 - All UI copy lives in `src/lib/i18n.ts` (Persian + English); project case studies live in `content/projects/*.json`. Theme (light/dark) is managed via React Context in `src/lib/app.tsx` and persisted to `localStorage`. An inline script in `index.html` applies theme + URL-derived lang/dir before first paint to avoid FOUC.
 - Contact form: set `VITE_FORMSPREE_ID` for real Formspree delivery; without it, submit uses an honest `mailto:` fallback (does not claim server delivery). Always keep the visible direct-email link.
 - ⌘K / Ctrl+K opens the command palette.
-- English UI uses Bricolage Grotesque + IBM Plex Mono; Persian uses Vazirmatn.
+- English UI uses self-hosted Bricolage Grotesque (variable) + IBM Plex Mono; Persian uses Vazirmatn (`@fontsource` packages imported in `src/main.tsx`).

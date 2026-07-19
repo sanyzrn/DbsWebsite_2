@@ -15,8 +15,6 @@ const siteHost = getSiteHost(siteUrl);
 const INDEX_ALLOWLIST = new Set([
   siteHost,
   "schema.org",
-  "fonts.googleapis.com",
-  "fonts.gstatic.com",
   "github.com",
   "www.linkedin.com",
   "linkedin.com",
