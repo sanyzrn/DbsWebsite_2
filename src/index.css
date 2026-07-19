@@ -6,6 +6,68 @@
 /*  Design tokens — light = warm paper, dark = graphite architecture   */
 /* ------------------------------------------------------------------ */
 
+/* Registered so theme toggles can interpolate instead of snapping. */
+@property --page {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f5f0e8;
+}
+@property --surface {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fbf9f5;
+}
+@property --surface2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fffcf7;
+}
+@property --ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1c1c1a;
+}
+@property --ink2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #77736c;
+}
+@property --ink3 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a6a195;
+}
+@property --line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ddd5c9;
+}
+@property --line2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #cdc4b4;
+}
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #bc9463;
+}
+@property --accentdark {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #947044;
+}
+@property --soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e6d6c2;
+}
+@property --hi {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #bc9463;
+}
+
 :root {
   --page: #f5f0e8;
   --surface: #fbf9f5;
@@ -90,9 +152,64 @@ body {
   font-family: var(--fontstack);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  transition: background-color 0.45s ease, color 0.45s ease;
   overflow-x: hidden;
 }
+
+/* Theme color crossfade (fallback when View Transitions API is unavailable) */
+html {
+  transition:
+    --page 250ms ease,
+    --surface 250ms ease,
+    --surface2 250ms ease,
+    --ink 250ms ease,
+    --ink2 250ms ease,
+    --ink3 250ms ease,
+    --line 250ms ease,
+    --line2 250ms ease,
+    --accent 250ms ease,
+    --accentdark 250ms ease,
+    --soft 250ms ease,
+    --hi 250ms ease,
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+body {
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Page enter — route / language navigation                          */
+/* ------------------------------------------------------------------ */
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter 220ms ease-out both;
+}
+
+/* View Transitions API — theme toggle progressive enhancement */
+@supports (view-transition-name: root) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 250ms;
+    animation-timing-function: ease;
+  }
+}
+
 
 ::selection {
   background: var(--accent);
@@ -530,6 +647,17 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  html,
+  body {
+    transition: none;
+  }
+  .page-enter {
+    animation: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
   .reveal {
     opacity: 1;
