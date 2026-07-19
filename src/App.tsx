@@ -7,6 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import FloatingQuickNav from "./components/FloatingQuickNav";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import { LocalePreferenceRedirect } from "./components/LocalePreferenceRedirect";
+import { PageTransition } from "./components/PageTransition";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
@@ -26,7 +27,9 @@ function Layout() {
       <FloatingQuickNav />
       <PwaInstallPrompt />
       <main id="main">
-        <Outlet />
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </main>
       <Footer />
       <CommandPalette />

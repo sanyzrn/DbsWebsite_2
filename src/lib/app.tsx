@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getDictionary, type Dict, type Lang } from "./i18n";
+import { runThemeTransition } from "./motion";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
 
 export type Theme = "light" | "dark";
@@ -71,6 +72,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [location.pathname, location.hash, location.search, navigate]
   );
 
+  const toggleTheme = useCallback(() => {
+    const next: Theme = theme === "light" ? "dark" : "light";
+    runThemeTransition(() => {
+      // Apply DOM tokens synchronously so View Transitions can capture old/new.
+      const root = document.documentElement;
+      root.classList.toggle("dark", next === "dark");
+      root.style.colorScheme = next;
+      localStorage.setItem("sz-theme", next);
+      setTheme(next);
+    });
+  }, [theme]);
+
   const value = useMemo<AppState>(
     () => ({
       lang,
@@ -80,9 +93,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setLang,
       toggleLang: () => setLang(lang === "fa" ? "en" : "fa"),
       theme,
-      toggleTheme: () => setTheme((m) => (m === "light" ? "dark" : "light")),
+      toggleTheme,
     }),
-    [lang, dir, theme, setLang]
+    [lang, dir, theme, setLang, toggleTheme]
   );
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;
