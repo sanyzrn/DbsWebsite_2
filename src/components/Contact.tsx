@@ -59,6 +59,11 @@ const START_HASH = "#contact/start";
 const SUBMIT_MIN_MS = 2000;
 const FETCH_TIMEOUT_MS = 15_000;
 
+// TEMPORARY: contact form disabled until Formspree + the final domain are configured — restore by setting VITE_FORMSPREE_ID
+function isContactFormEnabled() {
+  return Boolean((import.meta.env.VITE_FORMSPREE_ID as string | undefined)?.trim());
+}
+
 function buildMailto(fields: Fields, typeLabel: string): { href: string; truncated: boolean } {
   const subject = encodeURIComponent(`Project inquiry — ${typeLabel} — ${fields.name}`);
   const header = [
@@ -117,6 +122,29 @@ function ContactInfoStrip() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function ContactUnavailable({
+  emailLinkRef,
+}: {
+  emailLinkRef?: RefObject<HTMLAnchorElement | null>;
+}) {
+  const { t } = useApp();
+  return (
+    <div className="rounded-sm border border-line bg-page px-4 py-5 md:px-5 md:py-6">
+      <p className="text-[14.5px] font-medium leading-7 text-ink2 md:text-[15px] md:leading-8">
+        {t.contact.form.formUnavailable}
+      </p>
+      <a
+        ref={emailLinkRef}
+        href={`mailto:${t.contact.email}`}
+        dir="ltr"
+        className="mt-4 inline-flex text-[15px] font-bold tracking-tight text-hi transition-colors hover:text-ink"
+      >
+        {t.contact.email}
+      </a>
     </div>
   );
 }
@@ -421,10 +449,12 @@ export default function Contact({ variant = "section" }: ContactProps) {
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstFieldRef = useRef<HTMLInputElement>(null);
+  const emailLinkRef = useRef<HTMLAnchorElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [truncated, setTruncated] = useState(false);
+  const formEnabled = isContactFormEnabled();
 
   const rememberOpener = () => {
     const active = document.activeElement;
@@ -464,7 +494,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
     if (root) root.setAttribute("inert", "");
 
     const focusTimer = window.setTimeout(() => {
-      firstFieldRef.current?.focus();
+      (firstFieldRef.current ?? emailLinkRef.current)?.focus();
     }, 0);
 
     const onKey = (e: KeyboardEvent) => {
@@ -518,13 +548,17 @@ export default function Contact({ variant = "section" }: ContactProps) {
               <h2 className="text-[22px] font-black tracking-tight">{f.title}</h2>
               <p className="mt-1.5 max-w-md text-[13px] leading-6 text-ink2">{f.desc}</p>
               <div className="mt-6">
-                <ContactForm
-                  idPrefix="ct-page"
-                  status={status}
-                  setStatus={setStatus}
-                  truncated={truncated}
-                  setTruncated={setTruncated}
-                />
+                {formEnabled ? (
+                  <ContactForm
+                    idPrefix="ct-page"
+                    status={status}
+                    setStatus={setStatus}
+                    truncated={truncated}
+                    setTruncated={setTruncated}
+                  />
+                ) : (
+                  <ContactUnavailable />
+                )}
               </div>
             </div>
           </Reveal>
@@ -572,14 +606,18 @@ export default function Contact({ variant = "section" }: ContactProps) {
           </div>
 
           <div className="relative p-5 md:p-7">
-            <ContactForm
-              idPrefix="ct"
-              firstFieldRef={firstFieldRef}
-              status={status}
-              setStatus={setStatus}
-              truncated={truncated}
-              setTruncated={setTruncated}
-            />
+            {formEnabled ? (
+              <ContactForm
+                idPrefix="ct"
+                firstFieldRef={firstFieldRef}
+                status={status}
+                setStatus={setStatus}
+                truncated={truncated}
+                setTruncated={setTruncated}
+              />
+            ) : (
+              <ContactUnavailable emailLinkRef={emailLinkRef} />
+            )}
           </div>
         </div>
       </div>,
