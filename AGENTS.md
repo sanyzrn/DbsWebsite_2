@@ -4,6 +4,14 @@
 
 This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScript) portfolio SPA. There is no backend or database.
 
+### Git workflow (permanent)
+- `main` = stable/production branch
+- `cursor-dev` = **permanent** development branch for all agent work
+- Always check out `cursor-dev` and sync to the latest `origin/cursor-dev` before starting work
+- Do **not** create a new branch per task, fix, or commit — keep committing on `cursor-dev`
+- Only use a different branch when the user explicitly asks for one
+- Open/update PRs from `cursor-dev` → `main` when shipping (do not invent per-task PR branches)
+
 ### Services
 - Dev server: `npm run dev` (Vite, serves on http://localhost:5173). Use this for development (HMR).
 - Production-like preview: `npm run build` then `npm run preview`.
