@@ -180,21 +180,28 @@ export function SnapCarousel({
       </div>
 
       {items.length > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-1.5 md:hidden" role="tablist" aria-label={label}>
-          {items.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`${i + 1} / ${items.length}`}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === index ? "w-5 bg-hi" : "w-1.5 bg-line2 hover:bg-ink3"
-              )}
-              onClick={() => goTo(i)}
-            />
-          ))}
+        <div className="mt-4 flex items-center justify-center gap-0.5 md:hidden" aria-label={label}>
+          {items.map((_, i) => {
+            const active = i === index;
+            return (
+              <button
+                key={i}
+                type="button"
+                aria-label={`${i + 1} / ${items.length}`}
+                aria-current={active ? "true" : undefined}
+                className="group flex h-6 min-w-6 items-center justify-center px-1"
+                onClick={() => goTo(i)}
+              >
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "block h-1.5 rounded-full transition-all duration-300",
+                    active ? "w-5 bg-hi" : "w-1.5 bg-line2 group-hover:bg-ink3"
+                  )}
+                />
+              </button>
+            );
+          })}
         </div>
       )}
     </div>
