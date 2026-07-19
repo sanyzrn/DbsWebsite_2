@@ -616,6 +616,62 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
   );
 }
 
+function ProjectMetaRow({ project }: { project: ProjectItem }) {
+  const { t } = useApp();
+  const items: { key: string; label: string; value: ReactNode }[] = [];
+
+  if (project.year) {
+    items.push({ key: "year", label: t.projects.metaYear, value: project.year });
+  }
+  if (project.durationMonths != null) {
+    items.push({
+      key: "duration",
+      label: t.projects.metaDuration,
+      value: t.projects.metaDurationValue.replace("{n}", String(project.durationMonths)),
+    });
+  }
+  if (project.teamSize) {
+    items.push({ key: "team", label: t.projects.metaTeam, value: project.teamSize });
+  }
+  if (project.clientType) {
+    items.push({ key: "client", label: t.projects.metaClient, value: project.clientType });
+  }
+  if (project.links && project.links.length > 0) {
+    items.push({
+      key: "links",
+      label: t.projects.metaLinks,
+      value: (
+        <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-0.5">
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-hi underline-offset-2 transition-colors hover:underline"
+            >
+              {link.label}
+            </a>
+          ))}
+        </span>
+      ),
+    });
+  }
+
+  if (items.length === 0) return null;
+
+  return (
+    <dl className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1.5 text-[12px] leading-5 text-ink2">
+      {items.map((item) => (
+        <div key={item.key} className="inline-flex min-w-0 items-baseline gap-1.5">
+          <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">{item.label}</dt>
+          <dd className="min-w-0 font-medium text-ink">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 export function ProjectDetailView({ project }: { project: ProjectItem }) {
   const { t, lang } = useApp();
   return (
@@ -630,6 +686,7 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
         </h1>
         <StatusBadge status={project.status} />
       </div>
+      <ProjectMetaRow project={project} />
       <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink3">{project.tags.join(" · ")}</p>
       <div className="mt-8 overflow-hidden rounded-lg border border-line">
         <ProjectShot project={project} />

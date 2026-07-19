@@ -94,4 +94,49 @@ describe("project content maturity gates", () => {
     expect(getPublishedProjectSlugs(root)).toEqual(["live"]);
     expect(getPublishedProjectSlugs(root)).not.toContain("wip");
   });
+
+  it("accepts optional case-study metadata fields when present", () => {
+    const root = writeTempProjects({
+      "meta.json": {
+        ...baseProject,
+        maturity: "published",
+        year: "2025",
+        durationMonths: 4,
+        teamSize: "Solo",
+        clientType: {
+          fa: "شرکت دارویی، منابع انسانی داخلی",
+          en: "Pharmaceutical company, internal HR department",
+        },
+        links: [
+          {
+            label: { fa: "مخزن", en: "Repository" },
+            href: "https://github.com/example/demo",
+          },
+        ],
+      },
+    });
+
+    const projects = validateAllProjectContent(root);
+    expect(projects[0].year).toBe("2025");
+    expect(projects[0].durationMonths).toBe(4);
+    expect(projects[0].teamSize).toBe("Solo");
+    expect(projects[0].clientType.en).toMatch(/Pharmaceutical/);
+    expect(projects[0].links).toHaveLength(1);
+  });
+
+  it("rejects invalid optional metadata (non-positive duration or bad link href)", () => {
+    const badDuration = writeTempProjects({
+      "bad-duration.json": { ...baseProject, maturity: "draft", durationMonths: 0 },
+    });
+    expect(() => validateAllProjectContent(badDuration)).toThrow(/durationMonths/i);
+
+    const badLink = writeTempProjects({
+      "bad-link.json": {
+        ...baseProject,
+        maturity: "draft",
+        links: [{ label: { fa: "لینک", en: "Link" }, href: "not-a-url" }],
+      },
+    });
+    expect(() => validateAllProjectContent(badLink)).toThrow(/href/i);
+  });
 });

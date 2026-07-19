@@ -30,6 +30,11 @@ export const PLACEHOLDER_MARKERS = [
   "will be filled in later",
 ];
 
+const projectLink = z.object({
+  label: localeText,
+  href: z.string().url(),
+});
+
 export const projectContentSchema = z.object({
   id: z.string().min(1),
   slug: z.string().min(1),
@@ -49,6 +54,16 @@ export const projectContentSchema = z.object({
   image_url: z.string().nullable(),
   mock: z.string().optional(),
   caps: localeList.optional(),
+  /** Calendar year of the engagement, e.g. "2025". Omit when unknown. */
+  year: z.string().min(1).optional(),
+  /** Engagement length in months. Omit when unknown. */
+  durationMonths: z.number().positive().finite().optional(),
+  /** e.g. "Solo" or "Team of 3". Omit when unknown/unshareable. */
+  teamSize: z.string().min(1).optional(),
+  /** Anonymized client context. Omit when unknown/unshareable. */
+  clientType: localeText.optional(),
+  /** Public repo/demo links only — never invent. */
+  links: z.array(projectLink).optional(),
   _todo: z.string().optional(),
 });
 

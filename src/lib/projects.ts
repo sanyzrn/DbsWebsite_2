@@ -13,6 +13,9 @@ export type ProjectMaturity = "draft" | "review" | "published" | "archived";
  * Written by the PHP admin publish flow; loaded at build time via import.meta.glob.
  * Runtime shape is enforced by `scripts/project-content.mjs` (Zod) at build time.
  */
+/** Public repo/demo link in content JSON (bilingual label). */
+export type ProjectLink = { label: LocaleText; href: string };
+
 export type ProjectContent = {
   id: string;
   slug: string;
@@ -34,6 +37,16 @@ export type ProjectContent = {
   mock?: string;
   /** Optional capability list (e.g. DbsAI). */
   caps?: LocaleList;
+  /** Calendar year of the engagement, e.g. "2025". Omit when unknown. */
+  year?: string;
+  /** Engagement length in months. Omit when unknown. */
+  durationMonths?: number;
+  /** e.g. "Solo" or "Team of 3". Omit when unknown/unshareable. */
+  teamSize?: string;
+  /** Anonymized client context. Omit when unknown/unshareable. */
+  clientType?: LocaleText;
+  /** Public repo/demo links only — never invent. */
+  links?: ProjectLink[];
   /** Editorial flag: generic case-study copy pending Saeed’s confirmation. */
   _todo?: string;
 };
@@ -58,6 +71,11 @@ export type LocalizedProject = {
   image_url: string | null;
   mock?: string;
   caps?: string[];
+  year?: string;
+  durationMonths?: number;
+  teamSize?: string;
+  clientType?: string;
+  links?: { label: string; href: string }[];
 };
 
 const modules = import.meta.glob("../../content/projects/*.json", {
@@ -96,6 +114,11 @@ export function localizeProject(project: ProjectContent, lang: Lang): LocalizedP
     image_url: project.image_url,
     mock: project.mock,
     caps: project.caps ? pickList(project.caps) : undefined,
+    year: project.year,
+    durationMonths: project.durationMonths,
+    teamSize: project.teamSize,
+    clientType: project.clientType ? pick(project.clientType) : undefined,
+    links: project.links?.map((link) => ({ label: pick(link.label), href: link.href })),
   };
 }
 
