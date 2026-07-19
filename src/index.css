@@ -72,7 +72,8 @@
 }
 
 html[lang="en"] {
-  --fontstack: "Bricolage Grotesque", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  /* Fontsource variable package registers as "Bricolage Grotesque Variable" */
+  --fontstack: "Bricolage Grotesque Variable", "Bricolage Grotesque", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
 }
 
 /* ------------------------------------------------------------------ */
