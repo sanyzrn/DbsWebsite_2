@@ -67,7 +67,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // an explicit language choice with a stale sz-lang value.
       localStorage.setItem("sz-lang", next);
       const path = stripLangPrefix(location.pathname);
-      navigate(localePath(next, path) + location.hash + location.search);
+      navigate({
+        pathname: localePath(next, path),
+        search: location.search,
+        hash: location.hash,
+      });
     },
     [location.pathname, location.hash, location.search, navigate]
   );

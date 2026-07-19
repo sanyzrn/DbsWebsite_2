@@ -4,7 +4,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { serializeJsonLd } from "./jsonld-serialize.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
 
 const dist = path.join(ROOT, "dist");
@@ -19,9 +20,9 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-function buildHeadTags(seo, lang) {
+export function buildHeadTags(seo, lang) {
   const ogType = seo.path.includes("/projects/") && !seo.path.endsWith("/projects") ? "article" : "website";
-  const jsonLd = seo.jsonLd.map((block) => JSON.stringify(block)).join("\n");
+  const jsonLd = seo.jsonLd.map((block) => serializeJsonLd(block)).join("\n");
   return `
     <title>${escapeHtml(seo.title)}</title>
     <meta name="description" content="${escapeHtml(seo.description)}" />
@@ -107,7 +108,13 @@ async function main() {
   console.log(`Prerendered ${paths.length} routes (SITE_URL=${getSiteUrl()})`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+const isDirectRun =
+  Boolean(process.argv[1]) &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirectRun) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
