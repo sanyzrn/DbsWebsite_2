@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import { useBodyScrollLock } from "../lib/useBodyScrollLock";
+import { useFocusTrap } from "../lib/useFocusTrap";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
+
+const PANEL_ID = "mobile-nav-panel";
 
 export default function Nav() {
   const { t, theme, toggleTheme, toggleLang, lang } = useApp();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const panelWrapRef = useRef<HTMLDivElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -18,13 +26,31 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const closeMenu = () => setOpen(false);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") closeMenu();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  useBodyScrollLock(open);
+  useFocusTrap(panelWrapRef, open, { additionalRefs: [toggleRef] });
+
+  useEffect(() => {
+    if (open) {
+      wasOpen.current = true;
+      const id = window.setTimeout(() => firstLinkRef.current?.focus(), 0);
+      return () => window.clearTimeout(id);
+    }
+    if (wasOpen.current) {
+      wasOpen.current = false;
+      const id = window.setTimeout(() => toggleRef.current?.focus(), 0);
+      return () => window.clearTimeout(id);
+    }
   }, [open]);
 
   const home = localePath(lang, "/");
@@ -88,9 +114,12 @@ export default function Nav() {
             {t.nav.cta}
           </Link>
           <button
-            onClick={() => setOpen(!open)}
+            ref={toggleRef}
+            type="button"
+            onClick={() => setOpen((o) => !o)}
             aria-label={open ? t.nav.close : t.nav.menu}
             aria-expanded={open}
+            aria-controls={PANEL_ID}
             className="flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink transition-colors hover:border-hi lg:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -99,21 +128,21 @@ export default function Nav() {
       </div>
 
       <div
+        ref={panelWrapRef}
+        inert={!open}
         className={cn(
           "absolute inset-x-0 top-full z-50 px-4 pt-2 transition-all duration-300 lg:hidden",
           open ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
         )}
       >
-        <nav
-          className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]"
-          aria-label="Mobile"
-        >
+        <nav id={PANEL_ID} className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]" aria-label="Mobile">
           <div className="flex flex-col p-2">
             {links.map((l, i) => (
               <Link
                 key={l.to}
+                ref={i === 0 ? firstLinkRef : undefined}
                 to={l.to}
-                onClick={() => setOpen(false)}
+                onClick={closeMenu}
                 className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
               >
                 {l.label}
@@ -122,7 +151,7 @@ export default function Nav() {
             ))}
           </div>
           <div className="border-t border-line p-3">
-            <Link to={ctaTo} onClick={() => setOpen(false)} className="btn btn-primary h-11 w-full text-[13px]">
+            <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary h-11 w-full text-[13px]">
               {t.nav.cta}
             </Link>
           </div>
@@ -134,7 +163,7 @@ export default function Nav() {
           type="button"
           aria-label={t.nav.close}
           className="fixed inset-0 top-[72px] z-40 bg-ink/25 backdrop-blur-[1px] lg:hidden"
-          onClick={() => setOpen(false)}
+          onClick={closeMenu}
         />
       )}
     </header>

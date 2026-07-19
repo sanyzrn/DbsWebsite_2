@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertCircle, CheckCircle2, ChevronDown, Clock3, Mail, MapPin, Phone, Send, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
 import { cn } from "../utils/cn";
 import { DirArrow, Reveal } from "./ui";
@@ -80,14 +81,13 @@ export default function Contact() {
   }, [location.hash]); // eslint-disable-line react-hooks/exhaustive-deps -- sync open from URL only
 
   useFocusTrap(dialogRef, open);
+  useBodyScrollLock(open);
 
   useEffect(() => {
     if (!open) return;
 
     const root = document.getElementById("root");
-    const prevOverflow = document.body.style.overflow;
     if (root) root.setAttribute("inert", "");
-    document.body.style.overflow = "hidden";
 
     const focusTimer = window.setTimeout(() => {
       firstFieldRef.current?.focus();
@@ -105,7 +105,6 @@ export default function Contact() {
       window.clearTimeout(focusTimer);
       window.removeEventListener("keydown", onKey);
       if (root) root.removeAttribute("inert");
-      document.body.style.overflow = prevOverflow;
       const restore = previouslyFocused.current;
       previouslyFocused.current = null;
       // Defer so React can unmount the portal before restoring focus.
