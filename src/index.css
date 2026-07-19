@@ -532,6 +532,94 @@ section[id] {
 }
 
 /* ------------------------------------------------------------------ */
+/*  PWA install prompt — glass dock, mirrors floating quick-nav         */
+/* ------------------------------------------------------------------ */
+
+.pwa-install {
+  --pwa-bg: color-mix(in srgb, var(--surface) 72%, transparent);
+  --pwa-border: color-mix(in srgb, var(--line) 55%, transparent);
+  --pwa-shadow: 0 10px 30px -18px rgba(28, 28, 26, 0.35);
+  position: fixed;
+  z-index: 35;
+  left: 16px;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 72px);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .pwa-install {
+    left: auto;
+    right: 24px;
+    bottom: 88px;
+    width: min(360px, calc(100vw - 48px));
+  }
+}
+
+.dark .pwa-install {
+  --pwa-bg: color-mix(in srgb, var(--surface) 78%, transparent);
+  --pwa-border: color-mix(in srgb, var(--line) 65%, transparent);
+  --pwa-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.55);
+}
+
+.pwa-install-shell {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 12px 16px;
+  border-radius: 16px;
+  background: var(--pwa-bg);
+  border: 1px solid var(--pwa-border);
+  box-shadow: var(--pwa-shadow);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+}
+
+.pwa-install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #211a10;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pwa-install-btn:hover {
+  background: var(--accentdark);
+}
+
+.pwa-install-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink2);
+  cursor: pointer;
+}
+
+.pwa-install-dismiss:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--line) 45%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pwa-install {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /*  Floating quick-nav (glass dock + plain scroll-to-top)               */
 /*  Two independent fixed elements — nav BR, scroll BL — all viewports */
 /* ------------------------------------------------------------------ */
