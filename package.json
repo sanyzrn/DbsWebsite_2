@@ -7,10 +7,14 @@
     "dev": "vite",
     "generate:seo": "node scripts/generate-seo-files.mjs",
     "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",
+    "check:dist": "node scripts/check-dist.mjs",
+    "check:bundle": "node scripts/check-bundle-size.mjs",
+    "check:a11y": "node scripts/check-a11y.mjs",
     "build": "npm run check:urls && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs",
     "preview": "vite preview",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
@@ -24,6 +28,7 @@
     "tailwind-merge": "3.4.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/vite": "4.1.17",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -32,9 +37,15 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.1",
+    "axe-core": "^4.12.1",
+    "eslint": "^10.7.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
     "jsdom": "^29.1.1",
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3",
+    "typescript-eslint": "^8.64.0",
     "vite": "7.3.2",
     "vitest": "^4.1.10"
   }

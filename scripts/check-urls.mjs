@@ -2,7 +2,10 @@
  * Fail the build if index.html / public/robots.txt / public/sitemap.xml
  * contain a site-domain host different from SITE_URL.
  *
- * Third-party hosts (fonts, schema.org, social profiles) are allowlisted for index.html.
+ * Third-party hosts (schema.org, social profiles) are allowlisted for index.html.
+ *
+ * Post-build internal-link + canonical/OG checks against dist/ live in
+ * scripts/check-dist.mjs (`npm run check:dist` after `npm run build`).
  */
 import fs from "node:fs";
 import path from "node:path";
