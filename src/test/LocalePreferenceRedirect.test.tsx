@@ -14,6 +14,11 @@ afterEach(() => {
   window.history.replaceState(null, "", "/");
 });
 
+async function toggleLang(user: ReturnType<typeof userEvent.setup>, lang: "fa" | "en") {
+  const label = lang === "en" ? dictionaries.en.nav.switchLangLabel : dictionaries.fa.nav.switchLangLabel;
+  await user.click(screen.getByRole("button", { name: label }));
+}
+
 describe("locale preference + language switch", () => {
   it("redirects first visit to / toward /en when sz-lang is en", async () => {
     localStorage.setItem("sz-lang", "en");
@@ -33,7 +38,7 @@ describe("locale preference + language switch", () => {
 
     expect(document.documentElement.lang).toBe("en");
 
-    await user.click(screen.getByRole("button", { name: dictionaries.en.nav.switchLangLabel }));
+    await toggleLang(user, "en");
 
     await waitFor(() => {
       expect(window.location.pathname).toBe("/");
@@ -45,6 +50,45 @@ describe("locale preference + language switch", () => {
     await new Promise((r) => setTimeout(r, 50));
     expect(window.location.pathname).toBe("/");
     expect(document.documentElement.lang).toBe("fa");
+  });
+
+  it("does not re-fire after a first-load preference redirect when switching back to Persian", async () => {
+    const user = userEvent.setup();
+    localStorage.setItem("sz-lang", "en");
+    window.history.replaceState(null, "", "/");
+    render(<App />);
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/en");
+      expect(document.documentElement.lang).toBe("en");
+    });
+
+    // Explicit Persian choice after the one-shot preference redirect.
+    await toggleLang(user, "en");
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/");
+      expect(document.documentElement.lang).toBe("fa");
+    });
+
+    await new Promise((r) => setTimeout(r, 50));
+    expect(window.location.pathname).toBe("/");
+    expect(document.documentElement.lang).toBe("fa");
+
+    // Repeated toggles within the same session must stay stable.
+    await toggleLang(user, "fa");
+    await waitFor(() => expect(window.location.pathname).toBe("/en"));
+    await toggleLang(user, "en");
+    await waitFor(() => expect(window.location.pathname).toBe("/"));
+    await toggleLang(user, "fa");
+    await waitFor(() => expect(window.location.pathname).toBe("/en"));
+    await toggleLang(user, "en");
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/");
+      expect(document.documentElement.lang).toBe("fa");
+    });
+    await new Promise((r) => setTimeout(r, 50));
+    expect(window.location.pathname).toBe("/");
   });
 
   it("still redirects first visit under StrictMode", async () => {
