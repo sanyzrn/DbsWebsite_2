@@ -7,10 +7,12 @@ import { cn } from "../utils/cn";
 
 /** Tunable layout offsets — change here without hunting through CSS. */
 const FQN = {
-  /** Desktop dock inset from physical bottom-right (stays bottom-right in RTL too). */
+  /** Desktop inset from the physical corners (bottom-right nav, bottom-left scroll). */
   desktopInsetPx: 24,
-  /** Mobile: centered above the home indicator / safe area. */
+  /** Mobile inset from the physical corners, above the home indicator / safe area. */
   mobileBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)",
+  /** Mobile horizontal inset from the physical left/right edges. */
+  mobileSidePx: 16,
   scrollThreshold: 400,
 } as const;
 
@@ -60,8 +62,9 @@ function isNavActive(pathname: string, item: "home" | "projects" | "about") {
 /**
  * Always-visible quick-nav dock (glass pill). Complements — does not replace — Nav.tsx.
  *
- * Desktop corner uses physical `right` so the dock stays bottom-right in both LTR and RTL.
- * Mobile is bottom-centered. Scroll-to-top is a plain separate button (no goo filter).
+ * Nav pill and scroll-to-top are independent fixed elements:
+ * - Nav: physical bottom-right on mobile and desktop
+ * - Scroll-to-top: physical bottom-left on mobile and desktop (same bottom offset)
  */
 export default function FloatingQuickNav() {
   const { t, lang } = useApp();
@@ -79,47 +82,47 @@ export default function FloatingQuickNav() {
     { key: "about" as const, to: localePath(lang, "/about"), label: t.nav.about, Icon: UserRound },
   ];
 
+  const cssVars = {
+    "--fqn-desktop-inset": `${FQN.desktopInsetPx}px`,
+    "--fqn-mobile-bottom": FQN.mobileBottom,
+    "--fqn-mobile-side": `${FQN.mobileSidePx}px`,
+  } as CSSProperties;
+
   return (
     <div
       className="floating-quick-nav print:hidden"
-      style={
-        {
-          "--fqn-desktop-inset": `${FQN.desktopInsetPx}px`,
-          "--fqn-mobile-bottom": FQN.mobileBottom,
-        } as CSSProperties
-      }
+      style={cssVars}
       data-reduce-motion={reduceMotion ? "true" : "false"}
     >
-      <div className="fqn-shell">
-        <nav className="fqn-nav" aria-label={t.nav.quick}>
-          {items.map(({ key, to, label, Icon }) => {
-            const active = isNavActive(pathname, key);
-            return (
-              <NavLink
-                key={key}
-                to={to}
-                end={key === "home"}
-                className={cn("fqn-item", active && "fqn-item-active")}
-                aria-current={active ? "page" : undefined}
-              >
-                <Icon className="fqn-icon" strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
-                <span className={cn("fqn-label", active && "fqn-label-active")}>{label}</span>
-              </NavLink>
-            );
-          })}
-        </nav>
+      <nav className="fqn-nav" aria-label={t.nav.quick} data-fqn-corner="bottom-right">
+        {items.map(({ key, to, label, Icon }) => {
+          const active = isNavActive(pathname, key);
+          return (
+            <NavLink
+              key={key}
+              to={to}
+              end={key === "home"}
+              className={cn("fqn-item", active && "fqn-item-active")}
+              aria-current={active ? "page" : undefined}
+            >
+              <Icon className="fqn-icon" strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
+              <span className={cn("fqn-label", active && "fqn-label-active")}>{label}</span>
+            </NavLink>
+          );
+        })}
+      </nav>
 
-        {showTop ? (
-          <button
-            type="button"
-            className="fqn-scroll-btn"
-            onClick={scrollTop}
-            aria-label={t.footer.backTop}
-          >
-            <ArrowUp className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
-          </button>
-        ) : null}
-      </div>
+      {showTop ? (
+        <button
+          type="button"
+          className="fqn-scroll-btn"
+          data-fqn-corner="bottom-left"
+          onClick={scrollTop}
+          aria-label={t.footer.backTop}
+        >
+          <ArrowUp className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
+        </button>
+      ) : null}
     </div>
   );
 }
