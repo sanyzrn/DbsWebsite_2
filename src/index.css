@@ -302,6 +302,59 @@ section[id] {
 }
 
 /* ------------------------------------------------------------------ */
+/*  404 — "Lost signal" (Hero atmosphere + soft SVG displacement)       */
+/* ------------------------------------------------------------------ */
+
+.nf-stage {
+  min-height: min(78vh, 720px);
+}
+
+.nf-atmosphere .hero-atmosphere {
+  /* Fuller field than the hero’s top-weighted fade — a continuous topo plane. */
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 42%, #000 18%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 95% 85% at 50% 42%, #000 18%, #000 70%, transparent 100%);
+  opacity: 0.95;
+}
+
+.nf-atmosphere-field {
+  will-change: filter;
+  transition: opacity 0.4s ease;
+}
+
+.nf-atmosphere-warping {
+  opacity: 0.92;
+}
+
+.nf-mark {
+  text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.nf-signal-ring {
+  opacity: 0.9;
+}
+
+.nf-signal-spin {
+  transform-origin: 100px 100px;
+  animation: nf-signal-spin 48s linear infinite;
+}
+
+@keyframes nf-signal-spin {
+  to {
+    stroke-dashoffset: -180;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-atmosphere-field {
+    filter: none !important;
+    will-change: auto;
+  }
+  .nf-signal-spin {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /*  Motion                                                              */
 /* ------------------------------------------------------------------ */
 
@@ -505,6 +558,12 @@ section[id] {
   .practice-product-core {
     opacity: 1;
     transform: none;
+  }
+  .nf-atmosphere-field {
+    filter: none !important;
+  }
+  .nf-signal-spin {
+    animation: none;
   }
 }
 
