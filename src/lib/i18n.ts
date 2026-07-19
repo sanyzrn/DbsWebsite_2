@@ -352,6 +352,12 @@ const fa = {
   a11y: {
     skip: "پرش به محتوای اصلی",
   },
+  pwa: {
+    installTitle: "نصب وب‌اپ",
+    installBody: "با نصب روی دستگاه، سریع‌تر و حتی آفلاین در دسترس است.",
+    install: "نصب",
+    dismiss: "الان نه",
+  },
   theme: { toDark: "حالت تیره", toLight: "حالت روشن", lang: "English" },
 };
 
@@ -706,6 +712,12 @@ const en: UiDict = {
   },
   a11y: {
     skip: "Skip to main content",
+  },
+  pwa: {
+    installTitle: "Install this site",
+    installBody: "Add it to your device for faster access — even offline.",
+    install: "Install",
+    dismiss: "Not now",
   },
   theme: { toDark: "Dark mode", toLight: "Light mode", lang: "فارسی" },
 };

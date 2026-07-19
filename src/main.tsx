@@ -37,3 +37,10 @@ if (rootEl.hasChildNodes()) {
 } else {
   createRoot(rootEl).render(tree);
 }
+
+/* Register the service worker only in production builds (virtual module from vite-plugin-pwa). */
+if (import.meta.env.PROD) {
+  void import("virtual:pwa-register").then(({ registerSW }) => {
+    registerSW({ immediate: true });
+  });
+}
