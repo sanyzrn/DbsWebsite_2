@@ -11,6 +11,7 @@ export default function Footer() {
   const home = localePath(lang, "/");
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
+    { label: t.nav.articles, to: localePath(lang, "/articles") },
     { label: t.nav.expertise, to: `${home}#expertise` },
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },

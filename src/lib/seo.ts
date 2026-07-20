@@ -1,5 +1,6 @@
 import type { Lang } from "./i18n";
 import { dictionaries } from "./i18n";
+import { findArticle, loadArticles, type Article } from "./articles";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
 import { loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
 import { getSiteUrl } from "./siteUrl";
@@ -9,9 +10,11 @@ import siteRoutes from "../../shared/site-routes.json";
 export type PageSeoKey =
   | "home"
   | "projects"
+  | "articles"
   | "about"
   | "contact"
   | "project"
+  | "article"
   | "privacy"
   | "terms"
   | "notFound";
@@ -45,7 +48,7 @@ function site() {
 export function resolvePageSeo(
   lang: Lang,
   page: PageSeoKey,
-  opts?: { project?: LocalizedProject; path?: string }
+  opts?: { project?: LocalizedProject; article?: Article; path?: string }
 ): PageSeo {
   const seo = dictionaries[lang].seo;
   const origin = site();
@@ -57,6 +60,10 @@ export function resolvePageSeo(
     title = seo.projects.title;
     description = seo.projects.description;
     path = opts?.path ?? localePath(lang, "/projects");
+  } else if (page === "articles" && seo.articles) {
+    title = seo.articles.title;
+    description = seo.articles.description;
+    path = opts?.path ?? localePath(lang, "/articles");
   } else if (page === "about" && seo.about) {
     title = seo.about.title;
     description = seo.about.description;
@@ -82,6 +89,11 @@ export function resolvePageSeo(
     description =
       truncateDescription(opts.project.desc, 155) || (seo.projects?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/projects/${opts.project.slug}`);
+  } else if (page === "article" && opts?.article) {
+    const fm = opts.article.frontmatter;
+    title = `${fm.title} | Saeed Zarrini`;
+    description = truncateDescription(fm.description, 155) || (seo.articles?.description ?? seo.description);
+    path = opts.path ?? localePath(lang, `/articles/${opts.article.slug}`);
   } else if (page === "home") {
     path = opts?.path ?? localePath(lang, "/");
   }
@@ -90,7 +102,7 @@ export function resolvePageSeo(
   const pathFa = bare === "/" ? "/" : bare;
   const pathEn = bare === "/" ? "/en" : `/en${bare}`;
 
-  const jsonLd = buildJsonLd(lang, page, path, opts?.project);
+  const jsonLd = buildJsonLd(lang, page, path, opts?.project, opts?.article);
 
   return {
     lang,
@@ -106,7 +118,8 @@ export function resolvePageSeo(
     alternateEn: `${origin}${pathEn}`,
     jsonLd,
     ...(page === "notFound" ||
-    (page === "project" && opts?.project && opts.project.maturity !== "published")
+    (page === "project" && opts?.project && opts.project.maturity !== "published") ||
+    (page === "article" && opts?.article && opts.article.frontmatter.status !== "published")
       ? { robots: "noindex, follow" }
       : {}),
   };
@@ -116,7 +129,8 @@ function buildJsonLd(
   lang: Lang,
   page: PageSeoKey,
   path: string,
-  project?: LocalizedProject
+  project?: LocalizedProject,
+  article?: Article
 ): Record<string, unknown>[] {
   const origin = site();
   const person: Record<string, unknown> = {
@@ -184,16 +198,41 @@ function buildJsonLd(
     return [work, { "@context": "https://schema.org", "@graph": [person, organization] }];
   }
 
+  if (page === "article" && article) {
+    const fm = article.frontmatter;
+    const articleLd: Record<string, unknown> = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": `${origin}${path}`,
+      headline: fm.title,
+      description: fm.description,
+      datePublished: fm.date,
+      dateModified: fm.updated ?? fm.date,
+      url: `${origin}${path}`,
+      inLanguage: lang,
+      author: { "@id": `${origin}/#person` },
+      creator: { "@id": `${origin}/#person` },
+      publisher: { "@id": `${origin}/#organization` },
+      mainEntityOfPage: { "@type": "WebPage", "@id": `${origin}${path}` },
+      keywords: fm.tags.join(", "),
+    };
+    return [articleLd, { "@context": "https://schema.org", "@graph": [person, organization] }];
+  }
+
   return [{ "@context": "https://schema.org", "@graph": [person, organization, website] }];
 }
 
 /** All static paths to prerender (locale-aware). */
 export function listPrerenderPaths(): string[] {
   const projects = loadProjectContent();
+  const articleSlugs = [...new Set(loadArticles().map((a) => a.slug))];
   const staticBare = [...siteRoutes.staticPaths, ...siteRoutes.specialPaths];
   const paths = staticBare.flatMap((p) => [p, p === "/" ? "/en" : `/en${p}`]);
   for (const p of projects) {
     paths.push(`/projects/${p.slug}`, `/en/projects/${p.slug}`);
+  }
+  for (const slug of articleSlugs) {
+    paths.push(`/articles/${slug}`, `/en/articles/${slug}`);
   }
   return paths;
 }
@@ -215,6 +254,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   if (bare === "/projects") {
     return resolvePageSeo(lang, "projects", { path });
   }
+  if (bare === "/articles") {
+    return resolvePageSeo(lang, "articles", { path });
+  }
   if (bare === "/about") {
     return resolvePageSeo(lang, "about", { path });
   }
@@ -235,6 +277,13 @@ export function resolveSeoForPath(pathname: string): PageSeo {
     const project = localizedProjectForLang(lang, projectMatch[1]);
     if (project) {
       return resolvePageSeo(lang, "project", { project, path });
+    }
+  }
+  const articleMatch = bare.match(/^\/articles\/([^/]+)\/?$/);
+  if (articleMatch) {
+    const article = findArticle(lang, articleMatch[1]);
+    if (article) {
+      return resolvePageSeo(lang, "article", { article, path });
     }
   }
   return resolvePageSeo(lang, "notFound", { path });

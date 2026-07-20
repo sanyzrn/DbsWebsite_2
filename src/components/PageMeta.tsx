@@ -1,4 +1,5 @@
 import { useApp } from "../lib/app";
+import { findArticle } from "../lib/articles";
 import {
   localizedProjectForLang,
   resolvePageSeo,
@@ -7,7 +8,7 @@ import {
 
 type PageMetaProps = {
   page: PageSeoKey;
-  /** Project slug when `page` is `"project"`. */
+  /** Project or article slug when `page` is `"project"` / `"article"`. */
   slug?: string;
 };
 
@@ -17,11 +18,17 @@ type PageMetaProps = {
 export function PageMeta({ page, slug }: PageMetaProps) {
   const { lang } = useApp();
   const project = page === "project" && slug ? localizedProjectForLang(lang, slug) : undefined;
-  const seo = resolvePageSeo(lang, page, project ? { project } : undefined);
+  const article = page === "article" && slug ? findArticle(lang, slug) : undefined;
+  const seo = resolvePageSeo(lang, page, {
+    ...(project ? { project } : {}),
+    ...(article ? { article } : {}),
+  });
 
   if (import.meta.env.SSR) {
     return null;
   }
+
+  const ogType = page === "project" || page === "article" ? "article" : "website";
 
   return (
     <>
@@ -32,7 +39,7 @@ export function PageMeta({ page, slug }: PageMetaProps) {
       <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />
       <link rel="alternate" hrefLang="en" href={seo.alternateEn} />
       <link rel="alternate" hrefLang="x-default" href={seo.alternateFa} />
-      <meta property="og:type" content={page === "project" ? "article" : "website"} />
+      <meta property="og:type" content={ogType} />
       <meta property="og:locale" content={seo.ogLocale} />
       <meta property="og:locale:alternate" content={seo.ogLocaleAlternate} />
       <meta property="og:site_name" content="Saeed Zarrini" />

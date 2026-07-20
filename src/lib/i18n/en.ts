@@ -15,6 +15,11 @@ const en: UiDict = {
       description:
         "For teams that need to see how an idea becomes a shippable product — org systems, tools, and AI integrations built for real use.",
     },
+    articles: {
+      title: "Saeed Zarrini | Field Notes",
+      description:
+        "Notes on product engineering, AI integration, and shipping digital work — written from practice, not slides.",
+    },
     about: {
       title: "Saeed Zarrini | About",
       description:
@@ -42,6 +47,7 @@ const en: UiDict = {
     home: "Home",
     quick: "Quick navigation",
     projects: "Projects",
+    articles: "Field Notes",
     expertise: "Expertise",
     process: "Process",
     about: "About",
@@ -183,6 +189,20 @@ const en: UiDict = {
     /** `{name}` = project name */
     previewAria: "View {name} case study",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
+  },
+  articles: {
+    kicker: "Writing",
+    title: "Field notes",
+    lead: "Practical notes on product engineering, AI integration, and shipping digital work.",
+    pageKicker: "Field Notes",
+    pageTitle: "Field notes",
+    pageLead: "Notes from building — design, engineering, and AI in real product work.",
+    view: "Read note",
+    back: "Back to field notes",
+    /** `{n}` = minutes */
+    readingTime: "{n} min read",
+    empty: "New notes are on the way. Check back soon.",
+    relatedProjects: "Related projects",
   },
   about: {
     kicker: "About me",
