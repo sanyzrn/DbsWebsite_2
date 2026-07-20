@@ -259,7 +259,7 @@ export function Skills() {
         {/* Desktop grid */}
         <div className="mt-10 hidden gap-5 md:grid md:grid-cols-2">
           {t.skills.cats.map((cat, i) => (
-            <Reveal key={cat.en} delay={i * 80} className="h-full">
+            <Reveal key={cat.en} delay={Math.min(i * 80, 480)} className="h-full">
               <div className="h-full rounded-lg border border-line bg-surface p-6 transition-colors duration-400 hover:border-hi/50 lg:p-7">
                 <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-line pb-4">
                   <h3 className="text-[18px] font-extrabold tracking-tight lg:text-[19px]">{cat.title}</h3>
