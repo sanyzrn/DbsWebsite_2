@@ -23,7 +23,7 @@ const en: UiDict = {
     news: {
       title: "Saeed Zarrini | Daily Digest",
       description:
-        "A short daily digest from the field — shipping notes, tools, and AI practice. Coming soon.",
+        "A short daily digest of sourced shipping notes, tools, and AI practice — launching soon.",
     },
     about: {
       title: "Saeed Zarrini | About",
@@ -53,6 +53,8 @@ const en: UiDict = {
     quick: "Quick navigation",
     projects: "Projects",
     articles: "Field Notes",
+    /** Secondary Field Notes link — visually quieter than Articles */
+    news: "Daily Digest",
     expertise: "Expertise",
     process: "Process",
     about: "About",
@@ -216,8 +218,11 @@ const en: UiDict = {
   news: {
     kicker: "Daily Digest",
     title: "Daily Digest",
-    lead: "A lightweight stream of shipping notes, tools, and AI practice — not essays.",
-    body: "This corner is still being set up. When it launches, you’ll find brief, frequent updates here — separate from the longer Field Notes essays.",
+    lead: "Short curated pointers to shipping notes, tools, and AI practice — not essays.",
+    empty: "Daily digest launching soon.",
+    /** Visible attribution prefix before the sourceName link */
+    sourceLabel: "Source:",
+    curatedByAI: "Curated by AI",
     back: "Back to Field Notes",
   },
   about: {

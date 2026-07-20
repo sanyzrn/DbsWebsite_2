@@ -5,6 +5,9 @@ Canonical source for portfolio projects. Each file is `content/projects/<slug>.j
 Articles live separately under [`content/articles/`](./articles/README.md) as per-locale MDX
 (`<slug>.fa.mdx` / `<slug>.en.mdx`).
 
+Daily Digest items live under [`content/news/`](./news/README.md) as bilingual JSON
+(`<id>.json`) — citation-only pointers with required `sourceUrl` + `sourceName`.
+
 ## Field names (authoritative)
 
 | Field | Notes |

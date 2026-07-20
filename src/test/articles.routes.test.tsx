@@ -37,12 +37,15 @@ describe("articles routes", () => {
     );
   });
 
-  it("exposes Field Notes in primary nav and footer (single section entry, not /news)", () => {
+  it("exposes Field Notes as primary and Daily Digest as secondary in nav/footer", () => {
     render(<App />);
-    const links = screen.getAllByRole("link", { name: dictionaries.fa.nav.articles });
-    expect(links.length).toBeGreaterThanOrEqual(2);
-    expect(links.every((a) => a.getAttribute("href") === "/articles")).toBe(true);
-    expect(screen.queryAllByRole("link", { name: dictionaries.fa.news.title }).length).toBe(0);
+    const articleLinks = screen.getAllByRole("link", { name: dictionaries.fa.nav.articles });
+    expect(articleLinks.length).toBeGreaterThanOrEqual(2);
+    expect(articleLinks.every((a) => a.getAttribute("href") === "/articles")).toBe(true);
+
+    const newsLinks = screen.getAllByRole("link", { name: dictionaries.fa.nav.news });
+    expect(newsLinks.length).toBeGreaterThanOrEqual(2);
+    expect(newsLinks.every((a) => a.getAttribute("href") === "/news")).toBe(true);
   });
 
   it("surfaces Daily Digest from the Field Notes landing", () => {
@@ -55,10 +58,18 @@ describe("articles routes", () => {
     );
   });
 
-  it("renders the Daily Digest placeholder with a back link to Field Notes", async () => {
+  it("renders the Daily Digest empty state with a back link to Field Notes", async () => {
     window.history.pushState(null, "", "/en/news");
     render(<App />);
-    expect(await screen.findByRole("heading", { level: 1, name: dictionaries.en.news.title })).toBeTruthy();
+    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.en.news.title })).toBeTruthy();
+    expect(screen.getByText(dictionaries.en.news.empty)).toBeTruthy();
     expect(screen.getByRole("link", { name: dictionaries.en.news.back })).toHaveAttribute("href", "/en/articles");
+  });
+
+  it("renders the Persian Daily Digest empty state", async () => {
+    window.history.pushState(null, "", "/news");
+    render(<App />);
+    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.fa.news.title })).toBeTruthy();
+    expect(screen.getByText(dictionaries.fa.news.empty)).toBeTruthy();
   });
 });
