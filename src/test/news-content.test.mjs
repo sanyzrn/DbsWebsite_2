@@ -51,13 +51,15 @@ describe("news content citation gates", () => {
   });
 
   it("fails when sourceUrl is missing", () => {
-    const { sourceUrl: _omit, ...rest } = goodItem;
+    const rest = { ...goodItem };
+    delete rest.sourceUrl;
     const root = writeTempNews({ "2026-07-19-example.json": rest });
     expect(() => validateAllNewsContent(root)).toThrow(/sourceUrl/i);
   });
 
   it("fails when sourceName is missing", () => {
-    const { sourceName: _omit, ...rest } = goodItem;
+    const rest = { ...goodItem };
+    delete rest.sourceName;
     const root = writeTempNews({ "2026-07-19-example.json": rest });
     expect(() => validateAllNewsContent(root)).toThrow(/sourceName/i);
   });

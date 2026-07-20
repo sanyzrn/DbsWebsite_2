@@ -1,5 +1,20 @@
 # Projects Admin Panel (PHP + MySQL)
 
+> **STATUS: Deactivated (standby).** This PHP/MySQL admin panel is no longer the primary
+> way project content is managed — projects are now edited directly as
+> `content/projects/*.json` files (the same workflow used for articles), typically via
+> Claude Code. This admin panel's code, database schema, and GitHub-publishing logic are
+> kept in the repository in case a form-based editing UI is needed again in the future.
+> It is not currently deployed/updated on the live host.
+>
+> **Deploy note:** `admin/` has never been part of the Vite `dist/` build output or any
+> GitHub Actions FTP / static-frontend deploy workflow. It is a separate PHP application
+> that requires its own hosting (document root → `admin/public/`). The automated pipeline
+> for the static site (e.g. `.github/workflows/ci.yml` build + host git deploy) only
+> builds and ships the React frontend — it does not upload or restart this panel. CI may
+> still run `php -l` syntax checks on `admin/**/*.php`; that is a quality gate only, not
+> a deploy. No workflow changes are required for this deactivation.
+
 Self-hosted authoring tool for portfolio projects. Publishes JSON into the static site repo via the GitHub Contents API. The public site never talks to this database at runtime.
 
 ## Requirements
@@ -9,7 +24,7 @@ Self-hosted authoring tool for portfolio projects. Publishes JSON into the stati
 - HTTPS for the `/admin` vhost
 - Webserver must **not** execute PHP inside `admin/uploads/` (see below)
 
-## Setup
+## Setup (standby — only if reactivating)
 
 1. Copy env example and fill in secrets:
 
@@ -58,7 +73,7 @@ location /admin/uploads/ {
 
 6. Set `IMAGE_PUBLIC_BASE_URL` to the HTTPS URL that serves those files.
 
-## Publish flow
+## Publish flow (when active)
 
 1. Edit projects in the dashboard (saved to MySQL only).
 2. **Preview diff** compares DB state to `content/projects/*.json` on GitHub.
@@ -77,6 +92,16 @@ location /admin/uploads/ {
 Use **`order`** (not `display_order`) in published JSON — matches `content/README.md` and `src/lib/projects.ts`.
 
 MySQL column is `display_order`; `GitHubPublisher` maps it to `order` on write.
+
+## Image processing without the admin
+
+While this panel is deactivated, use the Node helper that replaces `ImageHandler.php`:
+
+```bash
+node scripts/optimize-image.mjs <path-to-raw-image> <project-slug>
+```
+
+See the root [`README.md`](../README.md) content-editing section.
 
 ## Daily backup (document for hosting cron)
 
