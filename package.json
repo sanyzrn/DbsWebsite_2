@@ -9,6 +9,7 @@
     "generate:icons": "node scripts/generate-pwa-icons.mjs",
     "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",
     "validate:content": "node scripts/validate-content.mjs",
+    "optimize:image": "node scripts/optimize-image.mjs",
     "check:dist": "node scripts/check-dist.mjs",
     "check:deploy": "node scripts/check-deploy.mjs",
     "check:bundle": "node scripts/check-bundle-size.mjs",

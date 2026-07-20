@@ -10,7 +10,7 @@ export type ProjectMaturity = "draft" | "review" | "published" | "archived";
 
 /**
  * Canonical project content schema (authoritative name: `order`, not `display_order`).
- * Written by the PHP admin publish flow; loaded at build time via import.meta.glob.
+ * Written as content/projects/*.json; loaded at build time via import.meta.glob.
  * Runtime shape is enforced by `scripts/project-content.mjs` (Zod) at build time.
  */
 /** Public repo/demo link in content JSON (bilingual label). */
@@ -47,7 +47,7 @@ export type ProjectContent = {
   clientType?: LocaleText;
   /** Public repo/demo links only — never invent. */
   links?: ProjectLink[];
-  /** ISO date (YYYY-MM-DD) from admin — sitemap lastmod when present. */
+  /** ISO date (YYYY-MM-DD) — sitemap lastmod when present. */
   updatedAt?: string;
   /** Editorial flag: generic case-study copy pending Saeed’s confirmation. */
   _todo?: string;
