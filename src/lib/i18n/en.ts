@@ -81,9 +81,9 @@ const en: UiDict = {
       "a brand people remember",
       "a tangible future",
     ],
-    body: "I help teams turn ideas into real digital products — product design, software engineering, and AI integration in one continuous path, not just a mockup or a demo.",
+    body: "I help teams turn ideas into real digital products — bringing product design, software engineering, and AI integration together in one continuous path from concept to production, not just a mockup or a demo.",
     body2:
-      "Today I focus on shipping what teams use every day: clear interfaces, stable APIs, and AI layers that sit inside real workflows — not just slides or demos.",
+      "I focus on building the things teams actually use every day: clear interfaces, reliable software, stable APIs, and AI capabilities integrated into real workflows — turning ideas into products that work in the real world, not just on slides.",
     ctaPrimary: "See the projects",
     ctaSecondary: "About me",
   },
