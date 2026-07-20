@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Languages, Mail, Moon, Phone, Search, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
+import { useBodyScrollLock } from "../lib/useBodyScrollLock";
+import { useFocusTrap } from "../lib/useFocusTrap";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 
@@ -14,6 +16,7 @@ type Cmd = {
 
 /**
  * ⌘K / Ctrl+K command palette — on-brand power-user navigation.
+ * Modal containment mirrors Contact.tsx (focus trap, inert background, scroll lock, restore).
  */
 export default function CommandPalette() {
   const { t, toggleLang, toggleTheme, theme, lang } = useApp();
@@ -21,6 +24,9 @@ export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -93,6 +99,29 @@ export default function CommandPalette() {
     return commands.filter((c) => c.label.toLowerCase().includes(needle) || (c.hint ?? "").includes(needle));
   }, [commands, q]);
 
+  useFocusTrap(dialogRef, open);
+  useBodyScrollLock(open);
+
+  useEffect(() => {
+    if (!open) return;
+
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    const root = document.getElementById("root");
+    if (root) root.setAttribute("inert", "");
+
+    const focusTimer = window.setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+
+    return () => {
+      window.clearTimeout(focusTimer);
+      if (root) root.removeAttribute("inert");
+      const restore = previouslyFocused.current;
+      previouslyFocused.current = null;
+      window.setTimeout(() => restore?.focus(), 0);
+    };
+  }, [open]);
+
   useEffect(() => {
     const onKey = (e: globalThis.KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -145,6 +174,7 @@ export default function CommandPalette() {
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center bg-ink/40 px-4 pt-[12vh] backdrop-blur-sm" onClick={close} role="presentation">
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label={t.command.title}
@@ -154,7 +184,7 @@ export default function CommandPalette() {
         <form onSubmit={onSubmit} className="flex items-center gap-3 border-b border-line px-4">
           <Search className="h-4 w-4 shrink-0 text-ink3" strokeWidth={2} />
           <input
-            autoFocus
+            ref={inputRef}
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={onInputKey}
@@ -166,7 +196,12 @@ export default function CommandPalette() {
             aria-activedescendant={activeDescendant}
             aria-autocomplete="list"
           />
-          <button type="button" onClick={close} className="rounded-xs p-1.5 text-ink3 hover:text-ink" aria-label={t.command.close}>
+          <button
+            type="button"
+            onClick={close}
+            className="hit-min relative flex h-6 w-6 shrink-0 items-center justify-center rounded-xs text-ink3 hover:text-ink"
+            aria-label={t.command.close}
+          >
             <X className="h-4 w-4" />
           </button>
         </form>

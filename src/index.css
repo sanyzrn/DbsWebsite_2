@@ -73,14 +73,16 @@
   --surface: #fbf9f5;
   --surface2: #fffcf7;
   --ink: #1c1c1a;
-  --ink2: #77736c;
-  --ink3: #a6a195;
+  /* Darkened for WCAG AA (≥4.5:1) on page/surface */
+  --ink2: #6a6660;
+  --ink3: #6e6960;
   --line: #ddd5c9;
   --line2: #cdc4b4;
-  --accent: #bc9463;
-  --accentdark: #947044;
+  /* Accent/hi darkened so text + primary-button labels meet AA on cream */
+  --accent: #7d5e37;
+  --accentdark: #6a4f2e;
   --soft: #e6d6c2;
-  --hi: #bc9463;
+  --hi: #7d5e37;
   --fontstack: "Vazirmatn", ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
 }
 
@@ -89,14 +91,15 @@
   --surface: #202223;
   --surface2: #292b2d;
   --ink: #f1f0ed;
-  --ink2: #a7a9a8;
-  --ink3: #777b7c;
+  --ink2: #b4b6b5;
+  /* Lightened for AA on dark page/surface */
+  --ink3: #8a8e8f;
   --line: #343738;
   --line2: #45494b;
-  --accent: #c19e6e;
-  --accentdark: #a8875a;
+  --accent: #d4b483;
+  --accentdark: #c19e6e;
   --soft: #2a2723;
-  --hi: #aeb8bc;
+  --hi: #c2ccd0;
 }
 
 @theme inline {
@@ -304,12 +307,16 @@ section[id] {
   }
   .btn-primary {
     background: var(--accent);
-    color: #211a10;
+    color: #fff8ee;
   }
   .btn-primary:hover {
     background: var(--accentdark);
     color: #fff8ee;
     transform: translateY(-2px);
+  }
+  .dark .btn-primary,
+  .dark .btn-primary:hover {
+    color: #151617;
   }
   .btn-ghost {
     border: 1px solid var(--line2);
@@ -343,6 +350,43 @@ section[id] {
   a.chip:hover, .chip-hover:hover {
     border-color: var(--hi);
     color: var(--hi);
+  }
+  /**
+   * Expand interactive hit area to ≥24×24 without changing the painted box.
+   * Used on filter chips, icon-only buttons, and other small controls.
+   */
+  .hit-min {
+    position: relative;
+  }
+  .hit-min::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+  .chip-hover.hit-min,
+  button.chip-hover {
+    position: relative;
+  }
+  button.chip-hover::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
   .field {
