@@ -3,6 +3,8 @@
   "slug": "hesabyar",
   "status": "production",
   "maturity": "draft",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
   "featured": false,
   "order": 7,
   "name": {

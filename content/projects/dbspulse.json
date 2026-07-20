@@ -3,6 +3,8 @@
   "slug": "dbspulse",
   "status": "production",
   "maturity": "published",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
   "featured": true,
   "order": 1,
   "name": {

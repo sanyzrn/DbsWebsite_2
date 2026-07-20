@@ -3,6 +3,8 @@
   "slug": "dbskeep",
   "status": "production",
   "maturity": "published",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
   "featured": false,
   "order": 3,
   "name": {

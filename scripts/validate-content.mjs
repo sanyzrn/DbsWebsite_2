@@ -1,11 +1,12 @@
 /**
  * Build-time gate: validate content/projects/*.json, content/articles/*.mdx,
- * and content/news/*.json.
+ * content/news/*.json, and content/testimonials/*.json.
  * Usage: node scripts/validate-content.mjs
  */
 import { validateAllArticleContent } from "./article-content.mjs";
 import { validateAllNewsContent } from "./news-content.mjs";
 import { validateAllProjectContent } from "./project-content.mjs";
+import { validateAllTestimonialContent } from "./testimonial-content.mjs";
 
 const projects = validateAllProjectContent();
 const publishedProjects = projects.filter((p) => p.maturity === "published").length;
@@ -17,8 +18,11 @@ const draftArticles = articles.filter((a) => a.status === "draft").length;
 
 const news = validateAllNewsContent();
 
+const testimonials = validateAllTestimonialContent();
+const publishedTestimonials = testimonials.filter((t) => t.status === "published").length;
+
 console.log(
   `validate:content OK — ${projects.length} projects (${publishedProjects} published, ${draftProjects} draft); ` +
     `${articles.length} articles (${publishedArticles} published, ${draftArticles} draft); ` +
-    `${news.length} news`
+    `${news.length} news; ${testimonials.length} testimonials (${publishedTestimonials} published)`
 );

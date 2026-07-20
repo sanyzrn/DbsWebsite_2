@@ -3,6 +3,8 @@
   "slug": "dbsbrain",
   "status": "production",
   "maturity": "published",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
   "featured": false,
   "order": 4,
   "name": {

@@ -300,6 +300,14 @@ const en: UiDict = {
       },
     ],
   },
+  testimonials: {
+    kicker: "Proof",
+    title: "What shipped, in their words",
+    lead: "Real quotes and outcomes from engagements — added only when they can be attributed honestly.",
+    directLabel: "Quote",
+    outcomeLabel: "Outcome",
+    relatedProject: "Related project",
+  },
   contact: {
     kicker: "Contact",
     title: "Have an idea?",

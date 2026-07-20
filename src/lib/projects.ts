@@ -7,6 +7,8 @@ export type LocaleList = { fa: string[]; en: string[] };
 export type ProjectStatus = "production" | "concept";
 /** Publication readiness — independent of `status` (what kind of thing it is). */
 export type ProjectMaturity = "draft" | "review" | "published" | "archived";
+/** Explicit Schema.org type for project JSON-LD — set deliberately per project. */
+export type ProjectSchemaType = "SoftwareApplication" | "CreativeWork" | "Article";
 
 /**
  * Canonical project content schema (authoritative name: `order`, not `display_order`).
@@ -21,6 +23,13 @@ export type ProjectContent = {
   slug: string;
   status: ProjectStatus;
   maturity: ProjectMaturity;
+  /** Explicit Schema.org type — never inferred from tags. */
+  schemaType: ProjectSchemaType;
+  /**
+   * When true, project JSON-LD may include a free Offer.
+   * Keep false unless the project is a free public application.
+   */
+  isPubliclyAvailable: boolean;
   featured: boolean;
   order: number;
   name: LocaleText;
@@ -68,6 +77,8 @@ export type LocalizedProject = {
   tags: string[];
   status: ProjectStatus;
   maturity: ProjectMaturity;
+  schemaType: ProjectSchemaType;
+  isPubliclyAvailable: boolean;
   featured: boolean;
   order: number;
   image_url: string | null;
@@ -111,6 +122,8 @@ export function localizeProject(project: ProjectContent, lang: Lang): LocalizedP
     tags: project.tags,
     status: project.status,
     maturity: project.maturity,
+    schemaType: project.schemaType,
+    isPubliclyAvailable: project.isPubliclyAvailable,
     featured: project.featured,
     order: project.order,
     image_url: project.image_url,

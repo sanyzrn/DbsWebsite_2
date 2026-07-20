@@ -63,6 +63,8 @@ describe("project case-study detail rendering", () => {
       slug: base!.slug,
       status: base!.status,
       maturity: "published",
+      schemaType: base!.schemaType,
+      isPubliclyAvailable: base!.isPubliclyAvailable,
       featured: base!.featured,
       order: base!.order,
       name: { fa: base!.name, en: base!.name },

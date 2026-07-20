@@ -316,6 +316,14 @@ const fa = {
       },
     ],
   },
+  testimonials: {
+    kicker: "گواهی",
+    title: "آنچه ساخته شد، به زبان خودشان",
+    lead: "نقل‌قول‌ها و نتایج واقعی از همکاری‌ها — فقط وقتی که بتوان با صداقت نسبت داد.",
+    directLabel: "نقل‌قول",
+    outcomeLabel: "نتیجه",
+    relatedProject: "پروژهٔ مرتبط",
+  },
   contact: {
     kicker: "تماس",
     title: "یک ایده دارید؟",

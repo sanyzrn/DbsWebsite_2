@@ -8,6 +8,9 @@ Articles live separately under [`content/articles/`](./articles/README.md) as pe
 Daily Digest items live under [`content/news/`](./news/README.md) as bilingual JSON
 (`<id>.json`) — citation-only pointers with required `sourceUrl` + `sourceName`.
 
+Testimonials live under [`content/testimonials/`](./testimonials/README.md) as bilingual
+JSON (`<id>.json`) — real quotes / outcome statements only; leave empty until content exists.
+
 ## Field names (authoritative)
 
 | Field | Notes |
@@ -18,6 +21,9 @@ Daily Digest items live under [`content/news/`](./news/README.md) as bilingual J
 | `role` | `{ fa: string[], en: string[] }` |
 | `tech`, `tags` | Shared string arrays |
 | `status` | `"production"` \| `"concept"` |
+| `maturity` | `"draft"` \| `"review"` \| `"published"` \| `"archived"` |
+| `schemaType` | `"SoftwareApplication"` \| `"CreativeWork"` \| `"Article"` — explicit Schema.org type for JSON-LD (set deliberately; never inferred from tags) |
+| `isPubliclyAvailable` | boolean — when `true`, project JSON-LD may include a free `Offer`; keep `false` unless the project is a free public app |
 | `featured` | boolean |
 | `order` | Sort key — **use `order`, not `display_order`** |
 | `image_url` | Site path (e.g. `/images/projects/<slug>.webp`), HTTPS URL, or `null`. Prefer optimized files from `scripts/optimize-image.mjs` under `public/images/projects/` |

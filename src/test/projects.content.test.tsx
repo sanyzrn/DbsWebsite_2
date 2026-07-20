@@ -81,6 +81,8 @@ describe("projects content pipeline", () => {
         tags: draft!.tags,
         status: draft!.status,
         maturity: draft!.maturity,
+        schemaType: draft!.schemaType,
+        isPubliclyAvailable: draft!.isPubliclyAvailable,
         featured: draft!.featured,
         order: draft!.order,
         image_url: draft!.image_url,
