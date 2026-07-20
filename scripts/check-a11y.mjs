@@ -142,7 +142,6 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         const page = await context.newPage();
         const url = `${origin}${route.urlPath === "/" ? "/" : route.urlPath}`;
         await page.goto(url, { waitUntil: "networkidle" });
-        await page.addInitScript?.(() => {}); // no-op keep structure stable
         await page.evaluate(`
           document.documentElement.classList.toggle("dark", ${theme.dark});
           document.documentElement.style.colorScheme = ${theme.dark ? '"dark"' : '"light"'};
