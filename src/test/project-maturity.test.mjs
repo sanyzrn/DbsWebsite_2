@@ -43,6 +43,8 @@ const baseProject = {
   tech: ["React"],
   tags: ["Design"],
   image_url: null,
+  schemaType: "CreativeWork",
+  isPubliclyAvailable: false,
 };
 
 describe("project content maturity gates", () => {

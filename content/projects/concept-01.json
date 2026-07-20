@@ -3,6 +3,8 @@
   "slug": "concept-01",
   "status": "concept",
   "maturity": "draft",
+  "schemaType": "CreativeWork",
+  "isPubliclyAvailable": false,
   "featured": false,
   "order": 8,
   "name": {

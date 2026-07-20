@@ -3,6 +3,8 @@
   "slug": "dbstools",
   "status": "production",
   "maturity": "draft",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
   "featured": false,
   "order": 6,
   "name": {

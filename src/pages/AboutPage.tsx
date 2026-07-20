@@ -3,6 +3,7 @@ import { CareerTimeline, Skills } from "../components/About";
 import Contact from "../components/Contact";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
+import Testimonials from "../components/Testimonials";
 import { Reveal, SectionHead } from "../components/ui";
 import { useApp } from "../lib/app";
 
@@ -116,7 +117,10 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* 5. Contact — keep id="contact" for /about#contact */}
+      {/* 5. Testimonials — trust nudge before Contact; hidden when empty */}
+      <Testimonials />
+
+      {/* 6. Contact — keep id="contact" for /about#contact */}
       <Contact />
     </>
   );

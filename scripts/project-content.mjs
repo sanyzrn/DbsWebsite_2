@@ -40,6 +40,13 @@ export const projectContentSchema = z.object({
   slug: z.string().min(1),
   status: z.enum(["production", "concept"]),
   maturity: z.enum(["draft", "review", "published", "archived"]),
+  /** Explicit Schema.org type — set deliberately, never inferred from tags. */
+  schemaType: z.enum(["SoftwareApplication", "CreativeWork", "Article"]),
+  /**
+   * When true, JSON-LD may include a free Offer. Default false — only flip
+   * when the project is factually a free, publicly usable application.
+   */
+  isPubliclyAvailable: z.boolean(),
   featured: z.boolean(),
   order: z.number().finite(),
   name: localeText,

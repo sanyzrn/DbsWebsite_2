@@ -180,12 +180,9 @@ function buildJsonLd(
   }
 
   if (page === "project" && project) {
-    const isSoftware = project.tags.some((t) =>
-      ["Full-Stack", "AI", "Mobile", "Desktop", "Automation"].includes(t)
-    );
     const work: Record<string, unknown> = {
       "@context": "https://schema.org",
-      "@type": isSoftware ? "SoftwareApplication" : "CreativeWork",
+      "@type": project.schemaType,
       "@id": `${origin}${path}`,
       name: project.name,
       description: project.desc,
@@ -195,8 +192,13 @@ function buildJsonLd(
       creator: { "@id": `${origin}/#person` },
       keywords: project.tags.join(", "),
     };
-    if (isSoftware) {
-      work.applicationCategory = project.tags.includes("AI") ? "BusinessApplication" : "DeveloperApplication";
+    if (project.schemaType === "SoftwareApplication") {
+      work.applicationCategory = project.tags.includes("AI")
+        ? "BusinessApplication"
+        : "DeveloperApplication";
+    }
+    // Offer only when the project is explicitly a free public app — never invent price:0.
+    if (project.isPubliclyAvailable) {
       work.offers = { "@type": "Offer", price: "0", priceCurrency: "USD" };
     }
     if (project.image_url) work.image = project.image_url;

@@ -138,7 +138,7 @@ describe("route SEO meta (both locales)", () => {
     expect(paths).toContain("/en/articles/ai-layer-without-boiling-the-ocean");
   });
 
-  it("resolveSeoForPath emits JSON-LD WebSite/Organization on home and CreativeWork on projects", () => {
+  it("resolveSeoForPath emits JSON-LD WebSite/Organization on home and explicit schemaType on projects", () => {
     const home = resolveSeoForPath("/");
     const blob = JSON.stringify(home.jsonLd);
     expect(blob).toContain("Person");
@@ -146,10 +146,51 @@ describe("route SEO meta (both locales)", () => {
     expect(blob).toContain("ProfessionalService");
     expect(blob).toContain("WebSite");
 
-    const slug = loadProjectContent()[0]?.slug ?? "dbspulse";
-    const project = resolveSeoForPath(`/projects/${slug}`);
+    const projects = loadProjectContent();
+    const pulse = projects.find((p) => p.slug === "dbspulse") ?? projects[0];
+    const project = resolveSeoForPath(`/projects/${pulse.slug}`);
     const pblob = JSON.stringify(project.jsonLd);
-    expect(pblob).toMatch(/CreativeWork|SoftwareApplication/);
+    expect(pblob).toContain(`"@type":"${pulse.schemaType}"`);
+    // No automatic zero-price Offer unless isPubliclyAvailable is true
+    expect(pulse.isPubliclyAvailable).toBe(false);
+    expect(pblob).not.toContain('"@type":"Offer"');
+    expect(pblob).not.toMatch(/"price"\s*:\s*"0"/);
+
+    const concept = projects.find((p) => p.schemaType === "CreativeWork");
+    if (concept) {
+      const cblob = JSON.stringify(resolveSeoForPath(`/projects/${concept.slug}`).jsonLd);
+      expect(cblob).toContain('"@type":"CreativeWork"');
+      expect(cblob).not.toContain('"@type":"Offer"');
+    }
+  });
+
+  it("project JSON-LD includes Offer only when isPubliclyAvailable is true", () => {
+    const pulse = loadProjectContent().find((p) => p.slug === "dbspulse");
+    expect(pulse).toBeTruthy();
+    const localized = {
+      id: pulse!.id,
+      slug: pulse!.slug,
+      name: pulse!.name.en,
+      subtitle: pulse!.subtitle.en,
+      desc: pulse!.desc.en,
+      problem: pulse!.problem.en,
+      approach: pulse!.approach.en,
+      result: pulse!.result.en,
+      role: pulse!.role.en,
+      tech: pulse!.tech,
+      tags: pulse!.tags,
+      status: pulse!.status,
+      maturity: pulse!.maturity,
+      schemaType: pulse!.schemaType,
+      isPubliclyAvailable: true,
+      featured: pulse!.featured,
+      order: pulse!.order,
+      image_url: pulse!.image_url,
+    };
+    const seo = resolvePageSeo("en", "project", { project: localized, path: "/en/projects/dbspulse" });
+    const blob = JSON.stringify(seo.jsonLd);
+    expect(blob).toContain('"@type":"Offer"');
+    expect(blob).toContain('"price":"0"');
   });
 
   it("article detail SEO emits Article JSON-LD and noindexes drafts", () => {
