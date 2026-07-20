@@ -1,0 +1,35 @@
+---
+title: "From idea to AI layer — without boiling the ocean"
+description: "A practical take on where AI belongs in a product roadmap — and where it should wait until the core workflow is real."
+date: "2026-07-19"
+tags: ["AI", "Full-Stack", "Product Engineering"]
+status: "draft"
+---
+
+Building an AI feature is easy to romanticize and hard to ship. The useful question is rarely
+"can we call a model?" — it's "what decision or workflow becomes meaningfully better when a
+model is in the loop?"
+
+## Start from the workflow
+
+Most early AI demos look impressive in isolation and collapse when they meet auth, billing,
+edge cases, and the boring parts of a real product. Anchor the work in a concrete user path
+first; then decide whether a model is the right lever.
+
+<Callout variant="tip" title="Rule of thumb">
+  If you cannot describe the before/after of the workflow in one sentence, you are not ready
+  to choose a model — you are still clarifying the product.
+</Callout>
+
+## Where integration earns its keep
+
+Useful AI layers tend to sit next to:
+
+- repetitive judgment calls with clear inputs/outputs
+- retrieval over *your* documents, not the open web
+- drafts that a human still reviews before anything ships
+
+## What this draft is for
+
+This file is a **draft** sample for the articles content pipeline. It will not appear in
+public listings or the sitemap until `status` is set to `published`.

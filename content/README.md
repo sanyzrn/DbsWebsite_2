@@ -2,6 +2,9 @@
 
 Canonical source for portfolio projects. Each file is `content/projects/<slug>.json`.
 
+Articles live separately under [`content/articles/`](./articles/README.md) as per-locale MDX
+(`<slug>.fa.mdx` / `<slug>.en.mdx`).
+
 ## Field names (authoritative)
 
 | Field | Notes |
