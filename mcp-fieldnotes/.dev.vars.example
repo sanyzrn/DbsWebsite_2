@@ -1,0 +1,5 @@
+# Local Wrangler secrets — copy to `.dev.vars` (gitignored)
+# Fine-grained PAT: Contents Read and write on THIS repo only
+GITHUB_TOKEN=
+# Long random secret (openssl rand -hex 32)
+MCP_BEARER_TOKEN=

@@ -1,0 +1,23 @@
+/**
+ * Field Notes remote MCP server — Cloudflare Workers.
+ * @see README.md
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mcp-fieldnotes",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-03-10",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  /**
+   * Non-secret repo targeting. Override per environment if needed.
+   * Secrets (GITHUB_TOKEN, MCP_BEARER_TOKEN) are set via `wrangler secret put` — never commit them.
+   */
+  "vars": {
+    "GITHUB_OWNER": "sanyzrn",
+    "GITHUB_REPO": "DbsWebsite_2",
+    "GITHUB_BRANCH": "main"
+  }
+}

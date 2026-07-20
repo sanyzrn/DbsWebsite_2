@@ -11,8 +11,9 @@ is edited as files in git.
 | **Public frontend** (`src/`, `content/`) | React 19 + Vite + Tailwind. Build prerenders one HTML file per locale route (`scripts/prerender.mjs`) for SEO. UI copy lives in `src/lib/i18n/` (fa/en). |
 | **Content** (`content/projects/*.json`, `content/articles/*.mdx`, `content/news/*.json`) | Canonical case studies, Field Notes, and Daily Digest. Validated at build time (`npm run validate:content`). |
 | **Admin** (`admin/`) | **Deactivated (standby).** Former PHP + MySQL authoring UI. Kept in the repo for possible reactivation; not the primary editing path and not deployed with the static site. See [`admin/README.md`](./admin/README.md). |
+| **Field Notes MCP** (`mcp-fieldnotes/`) | Optional Cloudflare Worker remote MCP server for Claude to read/write `content/articles` + `content/news` via the GitHub Contents API. See [`mcp-fieldnotes/README.md`](./mcp-fieldnotes/README.md). |
 | **Hosting** | Active host today: **Vercel** ([`vercel.json`](./vercel.json); examples under [`hosting/`](./hosting/README.md)). Deploy is git-based (push → host build). Expect the host to change; update `hosting/` + this note when it does. |
-| **Publishing flow** | Edit content files in git → push → host auto-deploy builds the static site. |
+| **Publishing flow** | Edit content files in git (or via the Field Notes MCP) → push to `main` → host auto-deploy builds the static site. |
 
 Route lists for the app, sitemap, and prerender share [`shared/site-routes.json`](./shared/site-routes.json).
 
@@ -25,6 +26,10 @@ commit it. The previous PHP/MySQL admin panel (`admin/`) is deactivated/standby;
 
 Daily Digest items (when any exist) live in `content/news/*.json` — citation-only, with
 required `sourceUrl` + `sourceName`.
+
+Field Notes (articles + news) can also be edited through the optional remote MCP Worker in
+[`mcp-fieldnotes/`](./mcp-fieldnotes/) when connected to Claude — same GitHub Contents API
+write path, commits land on `main`.
 
 ### Project images
 

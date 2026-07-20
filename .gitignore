@@ -5,3 +5,8 @@ dist/
 .env
 .env.*
 !.env.example
+# Cloudflare Workers local secrets / state
+.dev.vars
+.wrangler/
+mcp-fieldnotes/.dev.vars
+mcp-fieldnotes/.wrangler/
