@@ -1,13 +1,31 @@
 /// <reference types="vitest/config" />
 import path from "path";
 import { fileURLToPath } from "url";
+import mdx from "@mdx-js/rollup";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import { toString as mdastToString } from "mdast-util-to-string";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+/** Inject frontmatter.readingTimeMinutes from MDX body word count (~200 wpm). */
+function remarkArticleReadingTime() {
+  return (tree: unknown, file: { data?: Record<string, unknown> }) => {
+    const words = mdastToString(tree as never)
+      .split(/\s+/)
+      .filter(Boolean).length;
+    const minutes = Math.max(1, Math.round(words / 200));
+    const data = (file.data ??= {});
+    const matter = (data.matter as Record<string, unknown> | undefined) ?? {};
+    matter.readingTimeMinutes = minutes;
+    data.matter = matter;
+  };
+}
 
 const DEFAULT_SITE_URL = "https://dbsgraphic.ir";
 
@@ -63,7 +81,14 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
 
   return {
     plugins: [
-      react(),
+      // MDX must run before the React plugin (pre) so .mdx compiles to JSX first.
+      {
+        enforce: "pre" as const,
+        ...mdx({
+          remarkPlugins: [remarkFrontmatter, remarkArticleReadingTime, remarkMdxFrontmatter],
+        }),
+      },
+      react({ include: /\.(jsx|js|tsx|ts|mdx)$/ }),
       tailwindcss(),
       siteUrlHtmlPlugin(siteUrl),
       // Client build only — SSR pass must not emit a second service worker.

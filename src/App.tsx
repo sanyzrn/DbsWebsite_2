@@ -11,6 +11,9 @@ import { PageTransition } from "./components/PageTransition";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
+import ArticlesPage from "./pages/ArticlesPage";
+import ArticleDetailPage from "./pages/ArticleDetailPage";
+import NewsPage from "./pages/NewsPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -45,6 +48,9 @@ function AppRoutes() {
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+        <Route path="/articles" element={<ArticlesPage />} />
+        <Route path="/articles/:slug" element={<ArticleDetailPage />} />
+        <Route path="/news" element={<NewsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
@@ -53,6 +59,9 @@ function AppRoutes() {
         <Route path="/en" element={<HomePage />} />
         <Route path="/en/projects" element={<ProjectsPage />} />
         <Route path="/en/projects/:slug" element={<ProjectDetailPage />} />
+        <Route path="/en/articles" element={<ArticlesPage />} />
+        <Route path="/en/articles/:slug" element={<ArticleDetailPage />} />
+        <Route path="/en/news" element={<NewsPage />} />
         <Route path="/en/about" element={<AboutPage />} />
         <Route path="/en/contact" element={<ContactPage />} />
         <Route path="/en/privacy" element={<PrivacyPage />} />

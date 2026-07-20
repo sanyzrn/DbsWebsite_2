@@ -54,6 +54,9 @@ export default function Nav() {
   }, [open]);
 
   const home = localePath(lang, "/");
+  const articlesTo = localePath(lang, "/articles");
+  const newsTo = localePath(lang, "/news");
+  /** Flat primary destinations — Field Notes is rendered as a primary+secondary pair. */
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
     { label: t.nav.expertise, to: `${home}#expertise` },
@@ -62,6 +65,23 @@ export default function Nav() {
     { label: t.nav.contact, to: localePath(lang, "/contact") },
   ];
   const ctaTo = localePath(lang, "/contact");
+
+  const fieldNotesDesktop = (
+    <div className="flex flex-col items-start px-3.5 py-1">
+      <Link
+        to={articlesTo}
+        className="text-[13.5px] font-semibold text-ink2 transition-colors duration-300 hover:text-hi"
+      >
+        {t.nav.articles}
+      </Link>
+      <Link
+        to={newsTo}
+        className="mt-0.5 text-[11px] font-medium tracking-wide text-ink3 transition-colors duration-300 hover:text-hi"
+      >
+        {t.nav.news}
+      </Link>
+    </div>
+  );
 
   return (
     <header
@@ -83,7 +103,14 @@ export default function Nav() {
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label={t.nav.primaryNavLabel}>
-          {links.map((l) => (
+          <Link
+            to={links[0].to}
+            className="rounded-sm px-3.5 py-2 text-[13.5px] font-semibold text-ink2 transition-colors duration-300 hover:text-hi"
+          >
+            {links[0].label}
+          </Link>
+          {fieldNotesDesktop}
+          {links.slice(1).map((l) => (
             <Link
               key={l.to}
               to={l.to}
@@ -137,16 +164,39 @@ export default function Nav() {
       >
         <nav id={PANEL_ID} className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]" aria-label={t.nav.mobileNavLabel}>
           <div className="flex flex-col p-2">
-            {links.map((l, i) => (
+            <Link
+              ref={firstLinkRef}
+              to={links[0].to}
+              onClick={closeMenu}
+              className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
+            >
+              {links[0].label}
+              <span className="font-mono text-[10px] font-medium text-ink3">01</span>
+            </Link>
+            <Link
+              to={articlesTo}
+              onClick={closeMenu}
+              className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
+            >
+              {t.nav.articles}
+              <span className="font-mono text-[10px] font-medium text-ink3">02</span>
+            </Link>
+            <Link
+              to={newsTo}
+              onClick={closeMenu}
+              className="ms-3 flex items-center justify-between rounded-sm border-s border-line px-3 py-2 text-[13px] font-semibold tracking-tight text-ink3 transition-colors hover:bg-surface hover:text-hi"
+            >
+              {t.nav.news}
+            </Link>
+            {links.slice(1).map((l, i) => (
               <Link
                 key={l.to}
-                ref={i === 0 ? firstLinkRef : undefined}
                 to={l.to}
                 onClick={closeMenu}
                 className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
               >
                 {l.label}
-                <span className="font-mono text-[10px] font-medium text-ink3">0{i + 1}</span>
+                <span className="font-mono text-[10px] font-medium text-ink3">0{i + 3}</span>
               </Link>
             ))}
           </div>

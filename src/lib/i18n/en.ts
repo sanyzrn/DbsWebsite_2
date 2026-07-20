@@ -15,6 +15,16 @@ const en: UiDict = {
       description:
         "For teams that need to see how an idea becomes a shippable product — org systems, tools, and AI integrations built for real use.",
     },
+    articles: {
+      title: "Saeed Zarrini | Field Notes",
+      description:
+        "Notes on product engineering, AI integration, and shipping digital work — written from practice, not slides.",
+    },
+    news: {
+      title: "Saeed Zarrini | Daily Digest",
+      description:
+        "A short daily digest of sourced shipping notes, tools, and AI practice — launching soon.",
+    },
     about: {
       title: "Saeed Zarrini | About",
       description:
@@ -42,6 +52,9 @@ const en: UiDict = {
     home: "Home",
     quick: "Quick navigation",
     projects: "Projects",
+    articles: "Field Notes",
+    /** Secondary Field Notes link — visually quieter than Articles */
+    news: "Daily Digest",
     expertise: "Expertise",
     process: "Process",
     about: "About",
@@ -183,6 +196,34 @@ const en: UiDict = {
     /** `{name}` = project name */
     previewAria: "View {name} case study",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
+  },
+  articles: {
+    kicker: "Writing",
+    title: "Field notes",
+    lead: "Practical notes on product engineering, AI integration, and shipping digital work.",
+    pageKicker: "Field Notes",
+    pageTitle: "Field notes",
+    pageLead: "Notes from building — design, engineering, and AI in real product work.",
+    view: "Read note",
+    back: "Back to field notes",
+    /** `{n}` = minutes */
+    readingTime: "{n} min read",
+    empty: "New notes are on the way. Check back soon.",
+    relatedProjects: "Related projects",
+    digestKicker: "Also in Field Notes",
+    digestTitle: "Daily Digest",
+    digestLead: "Short shipping notes and field updates — still taking shape.",
+    digestCta: "Open Daily Digest",
+  },
+  news: {
+    kicker: "Daily Digest",
+    title: "Daily Digest",
+    lead: "Short curated pointers to shipping notes, tools, and AI practice — not essays.",
+    empty: "Daily digest launching soon.",
+    /** Visible attribution prefix before the sourceName link */
+    sourceLabel: "Source:",
+    curatedByAI: "Curated by AI",
+    back: "Back to Field Notes",
   },
   about: {
     kicker: "About me",

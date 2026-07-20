@@ -31,6 +31,16 @@ const fa = {
       description:
         "برای تیم‌هایی که می‌خواهند ببینند ایده چگونه به محصول می‌رسد: نمونه‌کارهای سازمانی، ابزارها و یکپارچه‌سازی هوش مصنوعی.",
     },
+    articles: {
+      title: "Saeed Zarrini | یادداشت‌ها",
+      description:
+        "یادداشت‌هایی درباره مهندسی محصول، یکپارچه‌سازی هوش مصنوعی و تحویل کار دیجیتال — از تجربهٔ واقعی، نه اسلاید.",
+    },
+    news: {
+      title: "Saeed Zarrini | خلاصهٔ روزانه",
+      description:
+        "خلاصه‌ای کوتاه و منبع‌دار از یادداشت‌های تحویل، ابزارها و تمرین هوش مصنوعی — به‌زودی.",
+    },
     about: {
       title: "Saeed Zarrini | درباره من",
       description:
@@ -58,6 +68,9 @@ const fa = {
     home: "خانه",
     quick: "ناوبری سریع",
     projects: "پروژه‌ها",
+    articles: "یادداشت‌ها",
+    /** Secondary Field Notes link — visually quieter than Articles */
+    news: "خلاصهٔ روزانه",
     expertise: "توانمندی‌ها",
     process: "فرآیند",
     about: "درباره من",
@@ -199,6 +212,34 @@ const fa = {
     /** `{name}` = project name */
     previewAria: "مشاهده مطالعه موردی {name}",
     filters: ["AI", "Full-Stack", "Mobile", "Desktop", "Automation", "Design"],
+  },
+  articles: {
+    kicker: "نوشته‌ها",
+    title: "یادداشت‌های میدانی",
+    lead: "یادداشت‌های عملی درباره مهندسی محصول، یکپارچه‌سازی هوش مصنوعی و تحویل کار دیجیتال.",
+    pageKicker: "یادداشت‌ها",
+    pageTitle: "یادداشت‌های میدانی",
+    pageLead: "یادداشت‌هایی از ساختن — طراحی، مهندسی و هوش مصنوعی در کار واقعی محصول.",
+    view: "خواندن یادداشت",
+    back: "بازگشت به یادداشت‌ها",
+    /** `{n}` = minutes */
+    readingTime: "{n} دقیقه مطالعه",
+    empty: "یادداشت‌های تازه به‌زودی. دوباره سر بزنید.",
+    relatedProjects: "پروژه‌های مرتبط",
+    digestKicker: "همچنین در یادداشت‌ها",
+    digestTitle: "خلاصهٔ روزانه",
+    digestLead: "یادداشت‌های کوتاه تحویل و به‌روزرسانی‌های میدانی — هنوز در حال شکل‌گیری.",
+    digestCta: "رفتن به خلاصهٔ روزانه",
+  },
+  news: {
+    kicker: "خلاصهٔ روزانه",
+    title: "خلاصهٔ روزانه",
+    lead: "اشاره‌های کوتاه و منبع‌دار به یادداشت‌های تحویل، ابزارها و تمرین هوش مصنوعی — نه مقاله‌های بلند.",
+    empty: "خلاصه‌ی روزانه به‌زودی راه‌اندازی می‌شود",
+    /** Visible attribution prefix before the sourceName link */
+    sourceLabel: "منبع:",
+    curatedByAI: "انتخاب‌شده با هوش مصنوعی",
+    back: "بازگشت به یادداشت‌ها",
   },
   about: {
     kicker: "درباره من",

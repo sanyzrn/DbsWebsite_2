@@ -1,9 +1,11 @@
 {
-  "staticPaths": ["/", "/projects", "/about", "/contact", "/privacy", "/terms"],
+  "staticPaths": ["/", "/projects", "/articles", "/news", "/about", "/contact", "/privacy", "/terms"],
   "specialPaths": ["/404"],
   "seoKeys": {
     "/": "home",
     "/projects": "projects",
+    "/articles": "articles",
+    "/news": "news",
     "/about": "about",
     "/contact": "contact",
     "/privacy": "privacy",

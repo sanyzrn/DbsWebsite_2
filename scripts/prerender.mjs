@@ -21,7 +21,11 @@ function escapeHtml(value) {
 }
 
 export function buildHeadTags(seo) {
-  const ogType = seo.path.includes("/projects/") && !seo.path.endsWith("/projects") ? "article" : "website";
+  const ogType =
+    (seo.path.includes("/projects/") && !seo.path.endsWith("/projects")) ||
+    (seo.path.includes("/articles/") && !seo.path.endsWith("/articles"))
+      ? "article"
+      : "website";
   const jsonLd = seo.jsonLd.map((block) => serializeJsonLd(block)).join("\n");
   const robots =
     typeof seo.robots === "string" && seo.robots.trim()

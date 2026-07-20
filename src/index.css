@@ -481,6 +481,64 @@ section[id] {
   transform: none;
 }
 
+/* Article MDX body — readable measure, site typography */
+.article-prose {
+  color: var(--ink2);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+.article-prose > :first-child {
+  margin-top: 0;
+}
+.article-prose h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.article-prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.article-prose p {
+  margin-top: 1.15rem;
+}
+.article-prose ul,
+.article-prose ol {
+  margin-top: 1rem;
+  padding-inline-start: 1.25rem;
+}
+.article-prose li {
+  margin-top: 0.4rem;
+}
+.article-prose ul {
+  list-style: disc;
+}
+.article-prose ol {
+  list-style: decimal;
+}
+.article-prose a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-prose strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.article-prose code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.9em;
+}
+
 /* Practice graph (discipline → product strip) */
 .atlas-grid {
   background-image:

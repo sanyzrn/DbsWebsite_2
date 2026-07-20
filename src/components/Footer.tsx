@@ -9,8 +9,11 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   const home = localePath(lang, "/");
+  const articlesTo = localePath(lang, "/articles");
+  const newsTo = localePath(lang, "/news");
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
+    { label: t.nav.articles, to: articlesTo },
     { label: t.nav.expertise, to: `${home}#expertise` },
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },
@@ -81,6 +84,19 @@ export default function Footer() {
               <Link to={l.to} className="px-1.5 py-1 text-[13px] font-semibold text-ink2 transition-colors hover:text-hi">
                 {l.label}
               </Link>
+              {l.to === articlesTo ? (
+                <>
+                  <span className="text-line2" aria-hidden="true">
+                    /
+                  </span>
+                  <Link
+                    to={newsTo}
+                    className="px-1.5 py-1 text-[12px] font-medium text-ink3 transition-colors hover:text-hi"
+                  >
+                    {t.nav.news}
+                  </Link>
+                </>
+              ) : null}
               {i < links.length - 1 && (
                 <span className="text-line2" aria-hidden="true">
                   ·
@@ -137,6 +153,14 @@ export default function Footer() {
                 <Link to={l.to} className="text-[14px] font-semibold text-ink2 transition-colors hover:text-hi">
                   {l.label}
                 </Link>
+                {l.to === articlesTo ? (
+                  <Link
+                    to={newsTo}
+                    className="mt-1.5 block text-[12.5px] font-medium text-ink3 transition-colors hover:text-hi"
+                  >
+                    {t.nav.news}
+                  </Link>
+                ) : null}
               </li>
             ))}
           </ul>

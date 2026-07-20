@@ -45,7 +45,7 @@ describe("route SEO meta (both locales)", () => {
       expect(seo.title.length).toBeLessThanOrEqual(60);
       expect(seo.description.length).toBeLessThanOrEqual(155);
       expect(seo.title.startsWith("Saeed Zarrini |")).toBe(true);
-      for (const page of [seo.projects, seo.about, seo.contact, seo.privacy, seo.terms, seo.notFound]) {
+      for (const page of [seo.projects, seo.articles, seo.news, seo.about, seo.contact, seo.privacy, seo.terms, seo.notFound]) {
         expect(page.title.length).toBeLessThanOrEqual(60);
         expect(page.description.length).toBeLessThanOrEqual(155);
       }
@@ -124,9 +124,9 @@ describe("route SEO meta (both locales)", () => {
     });
   });
 
-  it("listPrerenderPaths covers both locales for static + project routes", () => {
+  it("listPrerenderPaths covers both locales for static + project + article routes", () => {
     const paths = listPrerenderPaths();
-    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms"]) {
+    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles", "/news", "/en/news"]) {
       expect(paths).toContain(p);
     }
     const slug = loadProjectContent()[0]?.slug;
@@ -134,6 +134,8 @@ describe("route SEO meta (both locales)", () => {
       expect(paths).toContain(`/projects/${slug}`);
       expect(paths).toContain(`/en/projects/${slug}`);
     }
+    expect(paths).toContain("/articles/ai-layer-without-boiling-the-ocean");
+    expect(paths).toContain("/en/articles/ai-layer-without-boiling-the-ocean");
   });
 
   it("resolveSeoForPath emits JSON-LD WebSite/Organization on home and CreativeWork on projects", () => {
@@ -148,6 +150,16 @@ describe("route SEO meta (both locales)", () => {
     const project = resolveSeoForPath(`/projects/${slug}`);
     const pblob = JSON.stringify(project.jsonLd);
     expect(pblob).toMatch(/CreativeWork|SoftwareApplication/);
+  });
+
+  it("article detail SEO emits Article JSON-LD and noindexes drafts", () => {
+    const path = "/en/articles/ai-layer-without-boiling-the-ocean";
+    const seo = resolveSeoForPath(path);
+    expect(seo.robots).toBe("noindex, follow");
+    const blob = JSON.stringify(seo.jsonLd);
+    expect(blob).toContain('"@type":"Article"');
+    expect(blob).toContain("datePublished");
+    expect(blob).toContain("#person");
   });
 
   it("marks notFound pages with robots noindex, follow", () => {

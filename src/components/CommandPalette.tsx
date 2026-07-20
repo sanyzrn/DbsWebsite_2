@@ -42,6 +42,8 @@ export default function CommandPalette() {
     const home = localePath(lang, "/");
     return [
       go(localePath(lang, "/projects"), t.nav.projects),
+      go(localePath(lang, "/articles"), t.nav.articles),
+      go(localePath(lang, "/news"), t.nav.news, t.nav.articles),
       go(`${home}#expertise`, t.nav.expertise),
       go(`${home}#process`, t.nav.process),
       go(localePath(lang, "/about"), t.nav.about),
