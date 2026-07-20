@@ -15,6 +15,7 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - run: npx tsc --noEmit
       - run: npm run lint
       - run: npm run check:i18n
@@ -22,7 +23,7 @@ jobs:
       - run: npm run build
       # Post-build: internal links + canonical/OG vs SITE_URL (extends check-urls.mjs)
       - run: npm run check:dist
-      # axe-core + jsdom against key prerendered routes (see scripts/check-a11y.mjs)
+      # Playwright + axe-core (color-contrast enabled) against key prerendered routes
       - run: npm run check:a11y
       # Initial JS/CSS/HTML/font/first-paint gzip ceilings
       - run: npm run check:bundle

@@ -172,16 +172,37 @@ function ContactForm({
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [website, setWebsite] = useState("");
   const mountedAt = useRef(0);
+  const emailFieldRef = useRef<HTMLInputElement>(null);
+  const messageFieldRef = useRef<HTMLTextAreaElement>(null);
+  const statusAlertRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     mountedAt.current = Date.now();
   }, []);
+
+  useEffect(() => {
+    if (status !== "error" && status !== "timeout") return;
+    const id = window.setTimeout(() => statusAlertRef.current?.focus(), 0);
+    return () => window.clearTimeout(id);
+  }, [status]);
 
   const typeLabel = f.types[fields.type];
 
   const set = (key: keyof Fields, value: string) => {
     setFields((s) => ({ ...s, [key]: value }));
     setErrors((e) => ({ ...e, [key]: false }));
+  };
+
+  const focusFirstInvalid = (next: Partial<Record<keyof Fields, boolean>>) => {
+    window.setTimeout(() => {
+      if (next.name) {
+        (firstFieldRef?.current ?? document.getElementById(`${idPrefix}-name`))?.focus();
+      } else if (next.email) {
+        emailFieldRef.current?.focus();
+      } else if (next.message) {
+        messageFieldRef.current?.focus();
+      }
+    }, 0);
   };
 
   const submit = async (e: FormEvent) => {
@@ -192,7 +213,10 @@ function ContactForm({
       message: !fields.message.trim(),
     };
     setErrors(next);
-    if (next.name || next.email || next.message) return;
+    if (next.name || next.email || next.message) {
+      focusFirstInvalid(next);
+      return;
+    }
 
     // Honeypot: bots that fill hidden fields get a fake success — no network call.
     if (website.trim()) {
@@ -254,6 +278,10 @@ function ContactForm({
   };
 
   const hpId = `${idPrefix}-website`;
+  const nameErrId = `${idPrefix}-name-err`;
+  const emailErrId = `${idPrefix}-email-err`;
+  const messageErrId = `${idPrefix}-message-err`;
+  const statusRegionId = `${idPrefix}-status`;
 
   return (
     <form onSubmit={submit} noValidate>
@@ -288,14 +316,21 @@ function ContactForm({
             value={fields.name}
             onChange={(e) => set("name", e.target.value)}
             autoComplete="name"
+            aria-invalid={errors.name ? true : undefined}
+            aria-describedby={errors.name ? nameErrId : undefined}
           />
-          {errors.name && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
+          {errors.name && (
+            <p id={nameErrId} className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">
+              {f.required}
+            </p>
+          )}
         </div>
         <div>
           <label htmlFor={`${idPrefix}-email`} className="mb-2 block text-[12.5px] font-bold text-ink2">
             {f.email} <span className="text-hi">*</span>
           </label>
           <input
+            ref={emailFieldRef}
             id={`${idPrefix}-email`}
             type="email"
             dir="ltr"
@@ -304,8 +339,14 @@ function ContactForm({
             value={fields.email}
             onChange={(e) => set("email", e.target.value)}
             autoComplete="email"
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? emailErrId : undefined}
           />
-          {errors.email && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
+          {errors.email && (
+            <p id={emailErrId} className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">
+              {f.required}
+            </p>
+          )}
         </div>
         <div>
           <label htmlFor={`${idPrefix}-company`} className="mb-2 block text-[12.5px] font-bold text-ink2">
@@ -345,13 +386,20 @@ function ContactForm({
             {f.message} <span className="text-hi">*</span>
           </label>
           <textarea
+            ref={messageFieldRef}
             id={`${idPrefix}-message`}
             className={cn("field min-h-[120px]", errors.message && "border-[#C2603E]!")}
             placeholder={f.messagePh}
             value={fields.message}
             onChange={(e) => set("message", e.target.value)}
+            aria-invalid={errors.message ? true : undefined}
+            aria-describedby={errors.message ? messageErrId : undefined}
           />
-          {errors.message && <p className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">{f.required}</p>}
+          {errors.message && (
+            <p id={messageErrId} className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">
+              {f.required}
+            </p>
+          )}
         </div>
         <div>
           <label htmlFor={`${idPrefix}-budget`} className="mb-2 block text-[12.5px] font-bold text-ink2">
@@ -391,8 +439,19 @@ function ContactForm({
         </a>
       </p>
 
+      {status === "sending" && (
+        <div id={statusRegionId} role="status" aria-live="polite" className="sr-only">
+          {f.sending}
+        </div>
+      )}
+
       {status === "delivered" && (
-        <div className="mt-5 flex items-start gap-3 rounded-sm border border-sage/40 bg-sage/10 px-4 py-3.5">
+        <div
+          id={statusRegionId}
+          role="status"
+          aria-live="polite"
+          className="mt-5 flex items-start gap-3 rounded-sm border border-sage/40 bg-sage/10 px-4 py-3.5"
+        >
           <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sage" />
           <div>
             <p className="text-[13.5px] font-bold text-ink">{f.deliveredTitle}</p>
@@ -402,7 +461,12 @@ function ContactForm({
       )}
 
       {status === "mailed" && (
-        <div className="mt-5 flex items-start gap-3 rounded-sm border border-line bg-surface px-4 py-3.5">
+        <div
+          id={statusRegionId}
+          role="status"
+          aria-live="polite"
+          className="mt-5 flex items-start gap-3 rounded-sm border border-line bg-surface px-4 py-3.5"
+        >
           <Mail className="mt-0.5 h-5 w-5 shrink-0 text-hi" />
           <div>
             <p className="text-[13.5px] font-bold text-ink">{f.mailedTitle}</p>
@@ -415,7 +479,13 @@ function ContactForm({
       )}
 
       {status === "timeout" && (
-        <div className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5">
+        <div
+          ref={statusAlertRef}
+          id={statusRegionId}
+          role="alert"
+          tabIndex={-1}
+          className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5 outline-none"
+        >
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#C2603E]" />
           <div>
             <p className="text-[13.5px] font-bold text-ink">{f.timeoutTitle}</p>
@@ -425,7 +495,13 @@ function ContactForm({
       )}
 
       {status === "error" && (
-        <div className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5">
+        <div
+          ref={statusAlertRef}
+          id={statusRegionId}
+          role="alert"
+          tabIndex={-1}
+          className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5 outline-none"
+        >
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#C2603E]" />
           <div>
             <p className="text-[13.5px] font-bold text-ink">{f.errorTitle}</p>
@@ -598,7 +674,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
             <button
               type="button"
               onClick={closeModal}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
+              className="hit-min relative flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
               aria-label={t.nav.close}
             >
               <X className="h-4 w-4" strokeWidth={2.2} />
