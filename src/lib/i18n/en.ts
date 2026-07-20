@@ -20,6 +20,11 @@ const en: UiDict = {
       description:
         "Notes on product engineering, AI integration, and shipping digital work — written from practice, not slides.",
     },
+    news: {
+      title: "Saeed Zarrini | Daily Digest",
+      description:
+        "A short daily digest from the field — shipping notes, tools, and AI practice. Coming soon.",
+    },
     about: {
       title: "Saeed Zarrini | About",
       description:
@@ -203,6 +208,17 @@ const en: UiDict = {
     readingTime: "{n} min read",
     empty: "New notes are on the way. Check back soon.",
     relatedProjects: "Related projects",
+    digestKicker: "Also in Field Notes",
+    digestTitle: "Daily Digest",
+    digestLead: "Short shipping notes and field updates — still taking shape.",
+    digestCta: "Open Daily Digest",
+  },
+  news: {
+    kicker: "Daily Digest",
+    title: "Daily Digest",
+    lead: "A lightweight stream of shipping notes, tools, and AI practice — not essays.",
+    body: "This corner is still being set up. When it launches, you’ll find brief, frequent updates here — separate from the longer Field Notes essays.",
+    back: "Back to Field Notes",
   },
   about: {
     kicker: "About me",

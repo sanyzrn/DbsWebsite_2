@@ -37,10 +37,28 @@ describe("articles routes", () => {
     );
   });
 
-  it("exposes Field Notes in primary nav and footer", () => {
+  it("exposes Field Notes in primary nav and footer (single section entry, not /news)", () => {
     render(<App />);
     const links = screen.getAllByRole("link", { name: dictionaries.fa.nav.articles });
     expect(links.length).toBeGreaterThanOrEqual(2);
-    expect(links.some((a) => a.getAttribute("href") === "/articles")).toBe(true);
+    expect(links.every((a) => a.getAttribute("href") === "/articles")).toBe(true);
+    expect(screen.queryAllByRole("link", { name: dictionaries.fa.news.title }).length).toBe(0);
+  });
+
+  it("surfaces Daily Digest from the Field Notes landing", () => {
+    window.history.pushState(null, "", "/en/articles");
+    render(<App />);
+    expect(screen.getByRole("heading", { level: 2, name: dictionaries.en.articles.digestTitle })).toBeTruthy();
+    expect(screen.getByRole("link", { name: dictionaries.en.articles.digestCta })).toHaveAttribute(
+      "href",
+      "/en/news"
+    );
+  });
+
+  it("renders the Daily Digest placeholder with a back link to Field Notes", async () => {
+    window.history.pushState(null, "", "/en/news");
+    render(<App />);
+    expect(await screen.findByRole("heading", { level: 1, name: dictionaries.en.news.title })).toBeTruthy();
+    expect(screen.getByRole("link", { name: dictionaries.en.news.back })).toHaveAttribute("href", "/en/articles");
   });
 });

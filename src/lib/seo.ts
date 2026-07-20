@@ -11,6 +11,7 @@ export type PageSeoKey =
   | "home"
   | "projects"
   | "articles"
+  | "news"
   | "about"
   | "contact"
   | "project"
@@ -64,6 +65,10 @@ export function resolvePageSeo(
     title = seo.articles.title;
     description = seo.articles.description;
     path = opts?.path ?? localePath(lang, "/articles");
+  } else if (page === "news" && seo.news) {
+    title = seo.news.title;
+    description = seo.news.description;
+    path = opts?.path ?? localePath(lang, "/news");
   } else if (page === "about" && seo.about) {
     title = seo.about.title;
     description = seo.about.description;
@@ -256,6 +261,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   }
   if (bare === "/articles") {
     return resolvePageSeo(lang, "articles", { path });
+  }
+  if (bare === "/news") {
+    return resolvePageSeo(lang, "news", { path });
   }
   if (bare === "/about") {
     return resolvePageSeo(lang, "about", { path });

@@ -45,7 +45,7 @@ describe("route SEO meta (both locales)", () => {
       expect(seo.title.length).toBeLessThanOrEqual(60);
       expect(seo.description.length).toBeLessThanOrEqual(155);
       expect(seo.title.startsWith("Saeed Zarrini |")).toBe(true);
-      for (const page of [seo.projects, seo.articles, seo.about, seo.contact, seo.privacy, seo.terms, seo.notFound]) {
+      for (const page of [seo.projects, seo.articles, seo.news, seo.about, seo.contact, seo.privacy, seo.terms, seo.notFound]) {
         expect(page.title.length).toBeLessThanOrEqual(60);
         expect(page.description.length).toBeLessThanOrEqual(155);
       }
@@ -126,7 +126,7 @@ describe("route SEO meta (both locales)", () => {
 
   it("listPrerenderPaths covers both locales for static + project + article routes", () => {
     const paths = listPrerenderPaths();
-    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles"]) {
+    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles", "/news", "/en/news"]) {
       expect(paths).toContain(p);
     }
     const slug = loadProjectContent()[0]?.slug;
