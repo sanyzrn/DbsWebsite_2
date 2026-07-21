@@ -377,14 +377,30 @@ export function MagicDustCore({
 
 export function MagicDust(props: MagicDustProps) {
     const [mounted, setMounted] = useState(false);
+    // Pause the R3F render loop while the tab is hidden (saves GPU/CPU; not just CSS hide).
+    const [tabVisible, setTabVisible] = useState(
+        () => typeof document === "undefined" || !document.hidden
+    );
+
     useEffect(() => {
         requestAnimationFrame(() => setMounted(true));
+    }, []);
+
+    useEffect(() => {
+        const onVisibility = () => setTabVisible(!document.hidden);
+        onVisibility();
+        document.addEventListener("visibilitychange", onVisibility);
+        return () => document.removeEventListener("visibilitychange", onVisibility);
     }, []);
 
     if (!mounted) return null;
 
     return (
-        <Canvas camera={{ position: [0, 0, 9], fov: 45 }} dpr={[1, 2]}>
+        <Canvas
+            camera={{ position: [0, 0, 9], fov: 45 }}
+            dpr={[1, 2]}
+            frameloop={tabVisible ? "always" : "never"}
+        >
             <MagicDustCore {...props} />
         </Canvas>
     );
