@@ -2,6 +2,7 @@ import { lazy, Suspense, useId } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
+import { useMagicDustEnabled, useMagicDustParticleCount } from "../lib/magicDustGate";
 import { localePath } from "../lib/paths";
 import { useTypewriter } from "../lib/useTypewriter";
 import { DirArrow } from "./ui";
@@ -63,24 +64,31 @@ export function HeroAtmosphere() {
 export default function Hero() {
   const { t, lang } = useApp();
   const connector = lang === "fa" ? " تا " : " to ";
+  // Gates run here — before lazy() mounts — so the WebGL chunk is never fetched when skipped.
+  const magicDustEnabled = useMagicDustEnabled();
+  const particleCount = useMagicDustParticleCount();
 
   return (
     <section id="top" className="relative flex min-h-dvh flex-col overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <Suspense fallback={null}>
-          <MagicDust
-            particleColor="#bc9463"
-            particleCount={6000}
-            fontFamily="sans-serif"
-            sequence={[
-              { type: 'text', text: 'DBS' },
-              { type: 'shape', shape: 'torus' },
-              { type: 'text', text: 'GRAPHIC' },
-              { type: 'shape', shape: 'sphere' },
-            ]}
-          />
-        </Suspense>
-      </div>
+      {magicDustEnabled && (
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true" data-testid="magic-dust-layer">
+          <Suspense fallback={null}>
+            <MagicDust
+              key={particleCount}
+              particleColor="#bc9463"
+              particleCount={particleCount}
+              fontFamily="sans-serif"
+              sequence={[
+                { type: "text", text: "DBS" },
+                { type: "shape", shape: "torus" },
+                { type: "text", text: "GRAPHIC" },
+                { type: "shape", shape: "sphere" },
+              ]}
+            />
+          </Suspense>
+        </div>
+      )}
+      {/* Static paper-texture / glow fallback — always present when WebGL is gated off */}
       <HeroAtmosphere />
 
       <div className="wrap relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">
