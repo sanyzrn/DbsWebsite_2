@@ -12,8 +12,8 @@ is edited as files in git.
 | **Content** (`content/projects/*.json`, `content/articles/*.mdx`, `content/news/*.json`) | Canonical case studies, Field Notes, and Daily Digest. Validated at build time (`npm run validate:content`). |
 | **Admin** (`admin/`) | **Deactivated (standby).** Former PHP + MySQL authoring UI. Kept in the repo for possible reactivation; not the primary editing path and not deployed with the static site. See [`admin/README.md`](./admin/README.md). |
 | **Field Notes MCP** (`mcp-fieldnotes/`) | Optional Cloudflare Worker remote MCP server for Claude to read/write `content/articles` + `content/news` via the GitHub Contents API. See [`mcp-fieldnotes/README.md`](./mcp-fieldnotes/README.md). |
-| **Hosting** | Active host today: **Vercel** ([`vercel.json`](./vercel.json); examples under [`hosting/`](./hosting/README.md)). Deploy is git-based (push → host build). Expect the host to change; update `hosting/` + this note when it does. |
-| **Publishing flow** | Edit content files in git (or via the Field Notes MCP) → push to `main` → host auto-deploy builds the static site. |
+| **Hosting** | **Production:** Apache FTP at `https://saeedzarrini.ir` via [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) (runs after CI succeeds on `main`). **Safety net:** Vercel remains connected ([`vercel.json`](./vercel.json); examples under [`hosting/`](./hosting/README.md)) until FTP is confirmed end-to-end. |
+| **Publishing flow** | Edit content files in git (or via the Field Notes MCP) → push to `main` → CI → FTP deploy uploads `dist/`. |
 
 Route lists for the app, sitemap, and prerender share [`shared/site-routes.json`](./shared/site-routes.json).
 
@@ -68,29 +68,52 @@ EXIF, caps the longest edge at 2000px, and re-encodes to WebP by default (JPEG/P
 
 ## Deployment
 
-Host-specific rules (404 status, security headers, temporary-subdomain → canonical redirect) live in **[`hosting/`](./hosting/README.md)**.  
-**Active host today: Vercel** — the live file is [`vercel.json`](./vercel.json) at the repo root (mirrored under `hosting/`). When migrating, swap that file for the Netlify / Cloudflare / Nginx example in `hosting/`.
+Host-specific rules (404 status, security headers, temporary-subdomain → canonical redirect) live in **[`hosting/`](./hosting/README.md)**.
+
+**Production deploy (FTP):** push to `main` → **CI** workflow → on success, **Deploy to hosting** builds with secrets and uploads `./dist/` to the FTP account root (already `public_html`). Vercel is **not** removed — it stays as a preview/safety net until FTP on the real domain is confirmed.
 
 `admin/` is **not** included in `dist/` and is **not** uploaded by the static-frontend deploy
 pipeline — it is a separate PHP app that would need its own host. Deactivating it as the
 primary editing workflow required no changes to CI/deploy workflows.
+
+### Required GitHub Actions secrets
+
+Set these under **Settings → Secrets and variables → Actions**. They are **never** committed to any file in this repo.
+
+| Secret | Value / notes |
+|--------|----------------|
+| `FTP_SERVER` | `server78i.irwebspace.com` |
+| `FTP_USERNAME` | `sany@saeedzarrini.ir` |
+| `FTP_PASSWORD` | Current FTP account password |
+| `SITE_URL` | `https://saeedzarrini.ir` |
+| `VITE_FORMSPREE_ID` | Formspree form id (placeholder secret for when the interactive form is re-enabled; contact UI is currently disabled pending Telegram integration — workflow still passes the env through) |
+
+### `.htaccess` checklist
+
+`npm run build` already writes `dist/.htaccess` (from `hosting/apache.htaccess.example`, with the build CSP nonce). The deploy workflow verifies that file exists before FTP upload so Apache 404 + headers stay present on every deploy.
+
+**After the first successful FTP run**, confirm on the live host:
+
+1. `https://saeedzarrini.ir` loads correctly
+2. An unknown path returns a **real HTTP 404** (requires `.htaccess` in the web root)
+3. Deployed files match a local `SITE_URL=https://saeedzarrini.ir npm run build` `dist/`
 
 ### `SITE_URL`
 
 All canonical / social / sitemap URLs are derived from a single environment variable:
 
 ```bash
-SITE_URL=https://dbsgraphic.ir
+SITE_URL=https://saeedzarrini.ir
 ```
 
 Copy `.env.example` to `.env` for local overrides (`.env` is gitignored).
 
 | Environment | Typical `SITE_URL` |
 |-------------|--------------------|
-| **Production** | `https://dbsgraphic.ir` (or your custom domain once live) |
+| **Production (FTP)** | `https://saeedzarrini.ir` (GitHub Actions secret) |
 | **Preview / staging** | Your preview host, e.g. `https://your-app.vercel.app` |
 
-Set `SITE_URL` in the host’s environment (Vercel → Project → Settings → Environment Variables). Use different values for Preview vs Production so Open Graph and sitemap URLs match the deployment.
+Set `SITE_URL` in the host’s environment (GitHub Actions secrets for FTP; Vercel → Project → Settings → Environment Variables for previews). Use different values for Preview vs Production so Open Graph and sitemap URLs match the deployment.
 
 At build time:
 
@@ -104,7 +127,7 @@ Do not hardcode the site domain elsewhere — change `SITE_URL` only.
 Before promoting a production build, run:
 
 ```bash
-SITE_URL=https://dbsgraphic.ir npm run check:deploy
+SITE_URL=https://saeedzarrini.ir npm run check:deploy
 ```
 
 (or set `DEPLOY_CHECK_BASE_URL` to a preview origin). This hits the live URL over HTTPS and asserts real HTTP 404 + `noindex` on unknown paths.

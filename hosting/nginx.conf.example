@@ -5,13 +5,13 @@
 # server {
 #   listen 443 ssl http2;
 #   server_name dbs-website-2.vercel.app;
-#   return 301 https://dbsgraphic.ir$request_uri;
+#   return 301 https://saeedzarrini.ir$request_uri;
 # }
 
 server {
   listen 443 ssl http2;
-  server_name dbsgraphic.ir;
-  root /var/www/dbsgraphic/dist;   # ← point at the built `dist/` folder
+  server_name saeedzarrini.ir;
+  root /var/www/saeedzarrini/dist;   # ← point at the built `dist/` folder
   index index.html;
 
   # --- Security headers (no HSTS until the permanent host is locked in) ---

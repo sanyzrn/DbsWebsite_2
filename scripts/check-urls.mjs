@@ -71,7 +71,12 @@ const forbiddenSiteHosts = [...indexHosts].filter(
   (h) => !INDEX_ALLOWLIST.has(h) && h !== siteHost
 );
 // Also flag known stale portfolio hosts even if somehow allowlisted incorrectly
-const stale = ["saeedzarrini.com", "www.saeedzarrini.com"];
+const stale = [
+  "saeedzarrini.com",
+  "www.saeedzarrini.com",
+  "dbsgraphic.ir",
+  "www.dbsgraphic.ir",
+];
 for (const h of stale) {
   if (indexHtml.toLowerCase().includes(h)) {
     throw new Error(`index.html still hardcodes stale domain: ${h}`);

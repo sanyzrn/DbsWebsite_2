@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /*.php$
 
-Sitemap: https://dbsgraphic.ir/sitemap.xml
+Sitemap: https://saeedzarrini.ir/sitemap.xml

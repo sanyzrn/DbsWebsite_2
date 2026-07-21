@@ -42,7 +42,7 @@ function site() {
   try {
     return getSiteUrl();
   } catch {
-    return (typeof process !== "undefined" && process.env?.SITE_URL?.replace(/\/+$/, "")) || "https://dbsgraphic.ir";
+    return (typeof process !== "undefined" && process.env?.SITE_URL?.replace(/\/+$/, "")) || "https://saeedzarrini.ir";
   }
 }
 

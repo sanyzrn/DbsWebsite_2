@@ -27,7 +27,7 @@ function remarkArticleReadingTime() {
   };
 }
 
-const DEFAULT_SITE_URL = "https://dbsgraphic.ir";
+const DEFAULT_SITE_URL = "https://saeedzarrini.ir";
 
 /** Light-theme tokens from src/index.css — keep in sync with <meta name="theme-color">. */
 const PWA_BG = "#f5f0e8"; // --page

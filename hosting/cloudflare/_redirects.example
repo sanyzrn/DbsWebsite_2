@@ -2,7 +2,7 @@
 # Cloudflare Pages: place as `public/_redirects` (copied into dist) or project `_redirects`.
 #
 # Canonical hostname (update the left-hand host if the preview URL changes):
-# https://YOUR-SITE.pages.dev/*  https://dbsgraphic.ir/:splat  301
+# https://YOUR-SITE.pages.dev/*  https://saeedzarrini.ir/:splat  301
 #
 # True 404 status for unmatched paths (order matters — more specific first):
 /en/*    /en/404.html   404
