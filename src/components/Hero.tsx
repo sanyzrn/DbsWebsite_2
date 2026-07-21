@@ -79,10 +79,10 @@ export default function Hero() {
               particleCount={particleCount}
               fontFamily="sans-serif"
               sequence={[
-                { type: "text", text: "DBS" },
-                { type: "shape", shape: "torus" },
+                { type: "text", text: "DBS Studio" },
+                { type: "text", text: "Design" },
                 { type: "text", text: "GRAPHIC" },
-                { type: "shape", shape: "sphere" },
+                { type: "text", text: "AI Solutions" },
               ]}
             />
           </Suspense>
