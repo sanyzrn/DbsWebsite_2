@@ -149,6 +149,13 @@ describe("route SEO meta (both locales)", () => {
     expect(blob).toContain("Organization");
     expect(blob).toContain("ProfessionalService");
     expect(blob).toContain("WebSite");
+    // Person contact is a ContactPoint URL — not scrapable email/telephone fields
+    expect(blob).toContain('"@type":"ContactPoint"');
+    expect(blob).toContain("/contact");
+    expect(blob).not.toContain("zrn_sany@yahoo.com");
+    expect(blob).not.toContain("+989301221816");
+    expect(blob).not.toMatch(/"email"\s*:/);
+    expect(blob).not.toMatch(/"telephone"\s*:/);
     // sameAs is external profiles only — not the site's own root URL
     expect(blob).toContain("github.com");
     expect(blob).toContain("linkedin.com");
