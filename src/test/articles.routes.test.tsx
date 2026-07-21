@@ -22,7 +22,7 @@ describe("articles routes", () => {
     expect(screen.getByRole("heading", { level: 2, name: dictionaries.fa.articles.pageTitle })).toBeTruthy();
   });
 
-  it("renders a draft article detail with back link (reviewable URL)", async () => {
+  it("renders a draft article detail with breadcrumbs (reviewable URL)", async () => {
     window.history.pushState(null, "", "/en/articles/ai-layer-without-boiling-the-ocean");
     render(<App />);
     expect(
@@ -31,10 +31,9 @@ describe("articles routes", () => {
         name: /From idea to AI layer/i,
       })
     ).toBeTruthy();
-    expect(screen.getByRole("link", { name: dictionaries.en.articles.back })).toHaveAttribute(
-      "href",
-      "/en/articles"
-    );
+    const crumbs = screen.getByRole("navigation", { name: dictionaries.en.nav.breadcrumbLabel });
+    expect(crumbs.querySelector(`a[href="/en/articles"]`)).toBeTruthy();
+    expect(crumbs.querySelector(`a[href="/en"]`)).toBeTruthy();
   });
 
   it("exposes Field Notes as primary and Daily Digest as secondary in nav/footer", () => {

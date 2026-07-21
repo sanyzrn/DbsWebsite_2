@@ -24,7 +24,7 @@ const INDEX_ALLOWLIST = new Set([
 ]);
 
 /** Hosts allowed in robots.txt / sitemap.xml besides SITE_URL. */
-const SEO_FILE_ALLOWLIST = new Set([siteHost, "www.sitemaps.org"]);
+const SEO_FILE_ALLOWLIST = new Set([siteHost, "www.sitemaps.org", "www.w3.org"]);
 
 const URL_HOST_RE = /https?:\/\/([^/\s"'<>]+)/gi;
 

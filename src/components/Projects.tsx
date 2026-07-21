@@ -4,6 +4,7 @@ import { Check, Database, FileSearch, FileText, Languages, Lock, Plus, Repeat2, 
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
+import { Breadcrumbs } from "./Breadcrumbs";
 import { DirArrow, Reveal, SectionHead, SnapCarousel } from "./ui";
 
 type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar" | "concept";
@@ -687,10 +688,13 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
   const { t, lang } = useApp();
   return (
     <div className="wrap section-pad">
-      <Link to={localePath(lang, "/projects")} className="inline-flex items-center gap-2 text-[13px] font-bold text-ink2 transition-colors hover:text-hi">
-        <DirArrow className="h-4 w-4 rotate-180" />
-        {t.projects.pageTitle}
-      </Link>
+      <Breadcrumbs
+        items={[
+          { label: t.nav.home, to: localePath(lang, "/") },
+          { label: t.nav.projects, to: localePath(lang, "/projects") },
+          { label: project.name },
+        ]}
+      />
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <h1 className="text-[32px] font-black tracking-tight md:text-[40px]" dir={project.id === "hesabyar" ? undefined : "ltr"}>
           {project.name}
