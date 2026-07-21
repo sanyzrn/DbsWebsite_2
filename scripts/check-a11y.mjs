@@ -10,7 +10,6 @@ import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import axe from "axe-core";
 import { chromium } from "playwright";
 import { ROOT } from "./site-url.mjs";
 
@@ -74,11 +73,28 @@ function contentType(filePath) {
 
 /** Minimal static file server for dist/ (directory → index.html). */
 function startStaticServer(rootDir) {
+  const axePath = path.join(ROOT, "node_modules", "axe-core", "axe.min.js");
   return new Promise((resolve, reject) => {
     const server = http.createServer((req, res) => {
       try {
         const url = new URL(req.url ?? "/", "http://127.0.0.1");
         let urlPath = decodeURIComponent(url.pathname);
+
+        // Same-origin axe bundle for Playwright — CSP script-src 'self' allows this;
+        // inline addScriptTag({ content }) would need a nonce Playwright doesn't support.
+        if (urlPath === "/__a11y/axe.js") {
+          if (!fs.existsSync(axePath)) {
+            res.writeHead(500).end("axe-core missing");
+            return;
+          }
+          res.writeHead(200, {
+            "Content-Type": "text/javascript; charset=utf-8",
+            "Cache-Control": "no-store",
+          });
+          fs.createReadStream(axePath).pipe(res);
+          return;
+        }
+
         if (urlPath.endsWith("/")) urlPath += "index.html";
         let filePath = path.normalize(path.join(rootDir, urlPath));
         if (!filePath.startsWith(rootDir)) {
@@ -142,44 +158,37 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         const page = await context.newPage();
         const url = `${origin}${route.urlPath === "/" ? "/" : route.urlPath}`;
         await page.goto(url, { waitUntil: "networkidle" });
-        await page.evaluate(`
-          document.documentElement.classList.toggle("dark", ${theme.dark});
-          document.documentElement.style.colorScheme = ${theme.dark ? '"dark"' : '"light"'};
-        `);
+        await page.evaluate((dark) => {
+          document.documentElement.classList.toggle("dark", dark);
+        }, theme.dark);
+
         // Force scroll-reveal / enter animations to their settled visible state so
         // axe color-contrast isn't measuring opacity:0 placeholders.
-        await page.addScriptTag({
-          content: `
-            document.querySelectorAll(".reveal").forEach((el) => {
-              el.classList.add("in");
-              el.style.setProperty("transition", "none", "important");
-              el.style.setProperty("opacity", "1", "important");
-              el.style.setProperty("transform", "none", "important");
-            });
-            document.querySelectorAll(".hero-in").forEach((el) => {
-              el.style.setProperty("animation", "none", "important");
-              el.style.setProperty("opacity", "1", "important");
-              el.style.setProperty("transform", "none", "important");
-            });
-          `,
-        });
-        await page.addStyleTag({
-          content: `
-            .reveal {
-              opacity: 1 !important;
-              transform: none !important;
-              transition: none !important;
-            }
-            .hero-in {
-              animation: none !important;
-              opacity: 1 !important;
-              transform: none !important;
-            }
-            .page-enter { animation: none !important; opacity: 1 !important; transform: none !important; }
-          `,
+        // Use evaluate (CDP) instead of addScriptTag/addStyleTag — those insert
+        // nonce-less inline script/style nodes that CSP rejects.
+        await page.evaluate(() => {
+          document.querySelectorAll(".reveal").forEach((el) => {
+            el.classList.add("in");
+            el.style.setProperty("transition", "none", "important");
+            el.style.setProperty("opacity", "1", "important");
+            el.style.setProperty("transform", "none", "important");
+          });
+          document.querySelectorAll(".hero-in").forEach((el) => {
+            el.style.setProperty("animation", "none", "important");
+            el.style.setProperty("opacity", "1", "important");
+            el.style.setProperty("transform", "none", "important");
+          });
+          document.querySelectorAll(".page-enter").forEach((el) => {
+            el.style.setProperty("animation", "none", "important");
+            el.style.setProperty("opacity", "1", "important");
+            el.style.setProperty("transform", "none", "important");
+          });
         });
         await page.waitForTimeout(40);
-        await page.addScriptTag({ content: axe.source });
+
+        // Load axe as a same-origin external script (CSP script-src 'self').
+        // Playwright's addScriptTag has no nonce option, so inline content is blocked.
+        await page.addScriptTag({ url: `${origin}/__a11y/axe.js` });
         const axeResults = await page.evaluate(`axe.run(document, ${JSON.stringify(AXE_RUN_OPTIONS)})`);
 
         const serious = axeResults.violations.filter(
