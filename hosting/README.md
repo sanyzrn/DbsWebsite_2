@@ -1,10 +1,10 @@
 # Host-specific deployment config
 
-> **ACTIVE HOST: Apache (manual FTP upload)**  
-> Live config: rename [`apache.htaccess.example`](./apache.htaccess.example) → `.htaccess` and upload it to the web root next to `index.html` (dist/ contents).  
-> Deploy automation (GitHub Actions FTP) is intentionally deferred — until then, upload `dist/` + `.htaccess` by hand.
+> **ACTIVE HOST: Apache FTP (`https://saeedzarrini.ir`)**  
+> Automated deploy: [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) builds after CI on `main` and uploads `dist/` (including `dist/.htaccess`) via FTP.  
+> This FTP account’s root **is already** `public_html` — `server-dir` must stay `./` (do not nest under `/public_html/`).
 >
-> Preview / alternate hosts: [`/vercel.json`](../vercel.json) remains available for Vercel (must stay at the repo root — Vercel only reads that path). Keep `hosting/vercel.json` in sync when editing it.
+> **Safety net:** [`/vercel.json`](../vercel.json) remains available for Vercel previews (must stay at the repo root — Vercel only reads that path). Keep `hosting/vercel.json` in sync when editing it. Do not disconnect Vercel until FTP on the real domain is confirmed end-to-end.
 
 This folder isolates everything that is **host-specific**. App logic (prerendered `404.html` / `en/404.html`, `noindex` meta, `SITE_URL`) is host-independent and lives in the build.
 
@@ -19,7 +19,7 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
    - On Vercel this is expressed with the legacy `routes` array (filesystem handle, then status 404 destinations) so the status code is real — plain `rewrites` to `404.html` would soft-404 with HTTP 200.  
    - On Apache use `RewriteCond %{REQUEST_FILENAME} !-f` / `!-d` before any 404 fallback, plus locale-aware `ErrorDocument 404` (see `apache.htaccess.example`).
 
-2. **Security headers on every response** (no HSTS yet — wait until the permanent host + TLS for `dbsgraphic.ir` are locked in)  
+2. **Security headers on every response** (no HSTS yet — wait until the permanent host + TLS for `saeedzarrini.ir` are locked in)  
    - Applied in the same `routes` entry with `"continue": true` on Vercel (top-level `headers` would be ignored when `routes` is present).  
    - On Apache use `Header set` via `mod_headers` (verify the module is enabled on shared hosts).  
    - `Content-Security-Policy` (see annotated breakdown below)  
@@ -29,14 +29,15 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
    - `X-Frame-Options: DENY` (also mirrored by CSP `frame-ancestors 'none'`)
 
 3. **Canonical hostname redirect**  
-   - Temporary provider subdomain → `https://dbsgraphic.ir` (308)  
+   - Temporary provider subdomain → `https://saeedzarrini.ir` (308)  
    - Current temporary host (Vercel preview): `dbs-website-2.vercel.app`  
    - Only keep this while that subdomain is live; update the hostname string when the preview URL changes.  
-   - Verified reachable: `https://dbsgraphic.ir` serves TLS successfully (do not point `SITE_URL` at a host that does not resolve).
+   - Verified reachable: `https://saeedzarrini.ir` should serve TLS successfully (do not point `SITE_URL` at a host that does not resolve).
 
 4. **`SITE_URL` env var** (not in these files)  
    - Must be an origin that actually resolves over HTTPS before promoting a build.  
    - Change only the env value when migrating — no code change required.  
+   - Production FTP builds set `SITE_URL` from the GitHub Actions secret.  
    - Promotion gate: `npm run check:deploy`.
 
 ## CSP directive notes (auto-generated — do not hand-edit host CSP strings)
@@ -54,14 +55,14 @@ snapshots config before the build finishes).
 | `style-src 'self'` (+ optional `'unsafe-hashes' sha256-…`) | Bundled CSS; app avoids inline `style=` attrs. Any remaining prerendered style attrs are hashed |
 | `font-src 'self' data:` | Self-hosted `@fontsource` fonts (no Google Fonts CDN) |
 | `img-src 'self' data: blob:` | Site images + inline/data URLs |
-| `connect-src 'self' https://formspree.io` | Contact form POST when `VITE_FORMSPREE_ID` is set |
-| `form-action 'self' https://formspree.io` | Form posts (Formspree endpoint) |
+| `connect-src 'self' https://formspree.io` | Contact form POST when `VITE_FORMSPREE_ID` is set (Formspree domain — not the site apex) |
+| `form-action 'self' https://formspree.io` | Form posts (Formspree endpoint — not the site apex) |
 | `worker-src 'self' blob:` | PWA service worker + any blob workers (e.g. three.js) |
 | `frame-ancestors 'none'` | Clickjacking protection (pairs with `X-Frame-Options`) |
 | `object-src 'none'` | No plugins |
 | `upgrade-insecure-requests` | Prefer HTTPS subresources |
 
-**Apache FTP:** upload `dist/.htaccess` from the **same** build as the HTML (nonce must match). Prefer that over copying a stale `apache.htaccess.example` from an older commit.
+**Apache FTP:** prefer `dist/.htaccess` from the **same** build as the HTML (nonce must match). The GitHub Actions deploy workflow uploads that file with `dist/`. Prefer that over copying a stale `apache.htaccess.example` from an older commit by hand.
 
 **Do not add `Strict-Transport-Security` here until the final host is permanent.**
 
@@ -70,13 +71,13 @@ snapshots config before the build finishes).
 | File | Purpose |
 |------|---------|
 | `csp-header.txt` | Latest CSP string written by the build (readable single source) |
-| `apache.htaccess.example` | **Active host** — rename to `.htaccess` at the web root (manual FTP); CSP line regenerated on build |
+| `apache.htaccess.example` | Source for `dist/.htaccess` (CSP line regenerated on build); also usable for a one-time manual upload if needed |
 | `vercel.json` | Copy of the root Vercel config (CSP regenerated on build; keep in sync with `/vercel.json`) |
 | `nginx.conf.example` | Drop-in Nginx snippet for plain static hosting |
 | `netlify.toml.example` | Netlify headers + redirects + 404 |
 | `cloudflare/_redirects.example` | Cloudflare Pages `_redirects` |
 | `cloudflare/_headers.example` | Cloudflare Pages `_headers` |
 
-**Note on the current apex (`dbsgraphic.ir`):** Production is served via **Apache + manual FTP**. Prefer uploading `dist/.htaccess` produced by your build. Until a `.htaccess` is next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body. Vercel preview deployments use `/vercel.json` (re-read on deploy; also rely on per-page meta CSP for the build nonce).
+**Note on the current apex (`saeedzarrini.ir`):** Production is served via **Apache + GitHub Actions FTP**. Each deploy uploads `dist/.htaccess` produced by the build. Until a `.htaccess` is next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body. Vercel preview deployments use `/vercel.json` (re-read on deploy; also rely on per-page meta CSP for the build nonce).
 
 After editing non-CSP parts of `/vercel.json`, copy the same JSON into `hosting/vercel.json` so this folder stays the migration reference — then re-run build so CSP stays generated.

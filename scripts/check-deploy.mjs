@@ -7,7 +7,7 @@
  *  3) That 404 body includes robots noindex
  *
  * Usage:
- *   SITE_URL=https://dbsgraphic.ir npm run check:deploy
+ *   SITE_URL=https://saeedzarrini.ir npm run check:deploy
  *   DEPLOY_CHECK_BASE_URL=https://dbs-website-2.vercel.app npm run check:deploy
  *
  * Prefer DEPLOY_CHECK_BASE_URL when checking a preview host while SITE_URL is the

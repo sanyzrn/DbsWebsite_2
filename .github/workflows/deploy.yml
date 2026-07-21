@@ -1,0 +1,56 @@
+# Deploys dist/ to Saeed's Apache FTP host after CI succeeds on main.
+# Vercel remains connected as a safety-net preview until FTP is confirmed end-to-end.
+name: Deploy to hosting
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Deploy the exact commit CI validated, not whatever tip main has now.
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+          VITE_FORMSPREE_ID: ${{ secrets.VITE_FORMSPREE_ID }}
+
+      # `npm run build` → prerender already writes dist/.htaccess from
+      # hosting/apache.htaccess.example with the matching CSP nonce.
+      # Fail loudly if it is missing so FTP never ships without Apache 404 rules.
+      - name: Ensure dist/.htaccess is present
+        run: |
+          if [ ! -f dist/.htaccess ]; then
+            echo "dist/.htaccess missing after build — copying hosting/apache.htaccess.example as fallback"
+            cp hosting/apache.htaccess.example dist/.htaccess
+          fi
+          test -f dist/.htaccess
+          ls -la dist/.htaccess
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          # This FTP account's root IS already public_html — do not nest under /public_html/.
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
