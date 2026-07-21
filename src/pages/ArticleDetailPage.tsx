@@ -1,4 +1,5 @@
 import { Link, Navigate, useParams } from "react-router-dom";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { PageMeta } from "../components/PageMeta";
 import { articleMdxComponents } from "../components/mdx/components";
 import { DirArrow, Reveal } from "../components/ui";
@@ -31,13 +32,13 @@ export default function ArticleDetailPage() {
     <>
       <PageMeta page="article" slug={slug} />
       <div className="wrap section-pad">
-        <Link
-          to={localePath(lang, "/articles")}
-          className="inline-flex items-center gap-2 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
-        >
-          <DirArrow className="h-4 w-4 rotate-180" />
-          {t.articles.back}
-        </Link>
+        <Breadcrumbs
+          items={[
+            { label: t.nav.home, to: localePath(lang, "/") },
+            { label: t.nav.articles, to: localePath(lang, "/articles") },
+            { label: fm.title },
+          ]}
+        />
 
         <Reveal delay={60}>
           <header className="mx-auto mt-8 max-w-[70ch]">

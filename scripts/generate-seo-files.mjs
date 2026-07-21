@@ -2,6 +2,7 @@
  * Generate public/robots.txt and public/sitemap.xml from SITE_URL.
  * Static paths come from shared/site-routes.json (single route manifest).
  * Includes **published** project + article slugs only; emits <lastmod> when available.
+ * Each <url> includes xhtml:link hreflang alternates (fa + en) — Google's preferred method.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -9,6 +10,7 @@ import { getPublishedArticleSlugs, validateAllArticleContent } from "./article-c
 import { loadProjectsFromDisk, getPublishedProjectSlugs } from "./project-content.mjs";
 import { sitemapStaticPaths } from "./site-routes.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
+import { absoluteLoc, hreflangPair } from "./sitemap-hreflang.mjs";
 
 const site = getSiteUrl();
 
@@ -52,10 +54,13 @@ Sitemap: ${site}/sitemap.xml
 `;
 
 function urlEntry(route, lastmod, priority) {
-  const loc = route === "/" ? `${site}/` : `${site}${route}`;
+  const loc = absoluteLoc(route);
+  const { fa, en } = hreflangPair(route);
   const lastmodLine = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : "";
   return `  <url>
     <loc>${loc}</loc>${lastmodLine}
+    <xhtml:link rel="alternate" hreflang="fa" href="${fa}" />
+    <xhtml:link rel="alternate" hreflang="en" href="${en}" />
     <changefreq>monthly</changefreq>
     <priority>${priority}</priority>
   </url>`;
@@ -79,7 +84,8 @@ const urlEntries = [
 ].join("\n");
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urlEntries}
 </urlset>
 `;

@@ -38,7 +38,7 @@ export function PageMeta({ page, slug }: PageMetaProps) {
       <link rel="canonical" href={seo.canonical} />
       <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />
       <link rel="alternate" hrefLang="en" href={seo.alternateEn} />
-      <link rel="alternate" hrefLang="x-default" href={seo.alternateFa} />
+      <link rel="alternate" hrefLang="x-default" href={seo.alternateEn} />
       <meta property="og:type" content={ogType} />
       <meta property="og:locale" content={seo.ogLocale} />
       <meta property="og:locale:alternate" content={seo.ogLocaleAlternate} />

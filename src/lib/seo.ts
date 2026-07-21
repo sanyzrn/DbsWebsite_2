@@ -148,7 +148,7 @@ function buildJsonLd(
     telephone: "+989301221816",
     jobTitle: "AI Solutions Engineer & Digital Product Builder",
     worksFor: { "@id": `${origin}/#organization` },
-    sameAs: ["https://github.com/sanyzrn/", "https://www.linkedin.com/in/saeed-zarrini-20a56341", `${origin}/`],
+    sameAs: ["https://github.com/sanyzrn/", "https://www.linkedin.com/in/saeed-zarrini-20a56341"],
   };
 
   const organization: Record<string, unknown> = {
@@ -202,7 +202,12 @@ function buildJsonLd(
       work.offers = { "@type": "Offer", price: "0", priceCurrency: "USD" };
     }
     if (project.image_url) work.image = project.image_url;
-    return [work, { "@context": "https://schema.org", "@graph": [person, organization] }];
+    const crumbs = buildBreadcrumbList(origin, [
+      { name: dictionaries[lang].nav.home, path: localePath(lang, "/") },
+      { name: dictionaries[lang].nav.projects, path: localePath(lang, "/projects") },
+      { name: project.name, path },
+    ]);
+    return [work, crumbs, { "@context": "https://schema.org", "@graph": [person, organization] }];
   }
 
   if (page === "article" && article) {
@@ -223,10 +228,31 @@ function buildJsonLd(
       mainEntityOfPage: { "@type": "WebPage", "@id": `${origin}${path}` },
       keywords: fm.tags.join(", "),
     };
-    return [articleLd, { "@context": "https://schema.org", "@graph": [person, organization] }];
+    const crumbs = buildBreadcrumbList(origin, [
+      { name: dictionaries[lang].nav.home, path: localePath(lang, "/") },
+      { name: dictionaries[lang].nav.articles, path: localePath(lang, "/articles") },
+      { name: fm.title, path },
+    ]);
+    return [articleLd, crumbs, { "@context": "https://schema.org", "@graph": [person, organization] }];
   }
 
   return [{ "@context": "https://schema.org", "@graph": [person, organization, website] }];
+}
+
+function buildBreadcrumbList(
+  origin: string,
+  items: { name: string; path: string }[]
+): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${origin}${item.path === "/" ? "/" : item.path}`,
+    })),
+  };
 }
 
 /** All static paths to prerender (locale-aware). */

@@ -82,6 +82,7 @@ const fa = {
     mobileNavLabel: "ناوبری موبایل",
     switchLangLabel: "تغییر زبان",
     homeLinkLabel: "سعید زرینی — خانه",
+    breadcrumbLabel: "مسیر صفحه",
   },
   hero: {
     badge: "سعید زرینی — مهندس راهکارهای هوش مصنوعی و سازنده محصولات دیجیتال",

@@ -62,6 +62,8 @@ describe("route SEO meta (both locales)", () => {
       hreflangFa: "/",
       hreflangEn: "/en",
     });
+    const xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+    expect(xDefault?.getAttribute("href")).toMatch(/\/en\/?$/);
 
     cleanup();
     window.history.pushState(null, "", "/en");
@@ -73,6 +75,8 @@ describe("route SEO meta (both locales)", () => {
       hreflangFa: "/",
       hreflangEn: "/en",
     });
+    const xDefaultEn = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+    expect(xDefaultEn?.getAttribute("href")).toMatch(/\/en\/?$/);
   });
 
   it("privacy and terms routes expose locale SEO in both languages", async () => {
@@ -145,12 +149,19 @@ describe("route SEO meta (both locales)", () => {
     expect(blob).toContain("Organization");
     expect(blob).toContain("ProfessionalService");
     expect(blob).toContain("WebSite");
+    // sameAs is external profiles only — not the site's own root URL
+    expect(blob).toContain("github.com");
+    expect(blob).toContain("linkedin.com");
+    expect(blob).not.toMatch(/"sameAs":\[[^\]]*"https:\/\/dbsgraphic\.ir\/"/);
 
     const projects = loadProjectContent();
     const pulse = projects.find((p) => p.slug === "dbspulse") ?? projects[0];
     const project = resolveSeoForPath(`/projects/${pulse.slug}`);
     const pblob = JSON.stringify(project.jsonLd);
     expect(pblob).toContain(`"@type":"${pulse.schemaType}"`);
+    expect(pblob).toContain('"@type":"BreadcrumbList"');
+    expect(pblob).toContain(dictionaries.fa.nav.projects);
+    expect(pblob).toContain(pulse.name.fa);
     // No automatic zero-price Offer unless isPubliclyAvailable is true
     expect(pulse.isPubliclyAvailable).toBe(false);
     expect(pblob).not.toContain('"@type":"Offer"');
@@ -162,6 +173,25 @@ describe("route SEO meta (both locales)", () => {
       expect(cblob).toContain('"@type":"CreativeWork"');
       expect(cblob).not.toContain('"@type":"Offer"');
     }
+  });
+
+  it("x-default hreflang resolves to the English alternate", () => {
+    const faHome = resolveSeoForPath("/");
+    const enHome = resolveSeoForPath("/en");
+    expect(faHome.alternateEn).toMatch(/\/en\/?$/);
+    expect(enHome.alternateEn).toMatch(/\/en\/?$/);
+    // PageMeta / prerender must use alternateEn for x-default (asserted via SEO fields)
+    expect(faHome.alternateFa).not.toBe(faHome.alternateEn);
+  });
+
+  it("article detail JSON-LD includes BreadcrumbList Home > Field Notes > title", () => {
+    const path = "/en/articles/ai-layer-without-boiling-the-ocean";
+    const seo = resolveSeoForPath(path);
+    const blob = JSON.stringify(seo.jsonLd);
+    expect(blob).toContain('"@type":"BreadcrumbList"');
+    expect(blob).toContain(dictionaries.en.nav.home);
+    expect(blob).toContain(dictionaries.en.nav.articles);
+    expect(blob).toContain('"@type":"Article"');
   });
 
   it("project JSON-LD includes Offer only when isPubliclyAvailable is true", () => {

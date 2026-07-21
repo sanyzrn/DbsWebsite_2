@@ -66,6 +66,7 @@ const en: UiDict = {
     mobileNavLabel: "Mobile",
     switchLangLabel: "Switch language",
     homeLinkLabel: "Saeed Zarrini — home",
+    breadcrumbLabel: "Breadcrumb",
   },
   hero: {
     badge: "Saeed Zarrini — AI Solutions Engineer & Digital Product Builder",

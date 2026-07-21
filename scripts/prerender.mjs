@@ -37,7 +37,7 @@ export function buildHeadTags(seo) {
     <link rel="canonical" href="${escapeHtml(seo.canonical)}" />
     <link rel="alternate" hreflang="fa" href="${escapeHtml(seo.alternateFa)}" />
     <link rel="alternate" hreflang="en" href="${escapeHtml(seo.alternateEn)}" />
-    <link rel="alternate" hreflang="x-default" href="${escapeHtml(seo.alternateFa)}" />
+    <link rel="alternate" hreflang="x-default" href="${escapeHtml(seo.alternateEn)}" />
     <meta property="og:type" content="${ogType}" />
     <meta property="og:locale" content="${escapeHtml(seo.ogLocale)}" />
     <meta property="og:locale:alternate" content="${escapeHtml(seo.ogLocaleAlternate)}" />
