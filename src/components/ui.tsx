@@ -44,7 +44,11 @@ export function Reveal({
   }, []);
 
   return (
-    <div ref={ref} style={{ transitionDelay: `${delay}ms` }} className={cn("reveal", inView && "in", className)}>
+    <div
+      ref={ref}
+      className={cn("reveal", inView && "in", className)}
+      data-reveal-delay={delay > 0 ? delay : undefined}
+    >
       {children}
     </div>
   );

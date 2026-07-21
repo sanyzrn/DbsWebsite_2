@@ -4,14 +4,21 @@
   "routes": [
     {
       "src": "/(.*)",
-      "has": [{ "type": "host", "value": "dbs-website-2.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "dbs-website-2.vercel.app"
+        }
+      ],
       "status": 308,
-      "headers": { "Location": "https://dbsgraphic.ir/$1" }
+      "headers": {
+        "Location": "https://dbsgraphic.ir/$1"
+      }
     },
     {
       "src": "/(.*)",
       "headers": {
-        "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://formspree.io; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests",
+        "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://formspree.io; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://formspree.io; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'nonce-ZmdL9Ri87Z5PsUSMlZ0n0g'; style-src 'self'",
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()",
@@ -19,7 +26,9 @@
       },
       "continue": true
     },
-    { "handle": "filesystem" },
+    {
+      "handle": "filesystem"
+    },
     {
       "src": "^/en(?:/.*)?$",
       "dest": "/en/404.html",

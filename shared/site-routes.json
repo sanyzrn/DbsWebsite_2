@@ -1,6 +1,10 @@
 {
   "staticPaths": ["/", "/projects", "/articles", "/news", "/about", "/contact", "/privacy", "/terms"],
   "specialPaths": ["/404"],
+  "dynamicPaths": [
+    { "path": "/projects/:slug", "page": "projectDetail" },
+    { "path": "/articles/:slug", "page": "articleDetail" }
+  ],
   "seoKeys": {
     "/": "home",
     "/projects": "projects",
@@ -11,5 +15,15 @@
     "/privacy": "privacy",
     "/terms": "terms",
     "/404": "notFound"
+  },
+  "pageKeys": {
+    "/": "home",
+    "/projects": "projects",
+    "/articles": "articles",
+    "/news": "news",
+    "/about": "about",
+    "/contact": "contact",
+    "/privacy": "privacy",
+    "/terms": "terms"
   }
 }

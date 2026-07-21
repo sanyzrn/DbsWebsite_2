@@ -9,7 +9,15 @@ import { fileURLToPath } from "node:url";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const manifestPath = path.join(here, "..", "shared", "site-routes.json");
 
-/** @type {{ staticPaths: string[], specialPaths: string[], seoKeys: Record<string, string> }} */
+/**
+ * @type {{
+ *   staticPaths: string[],
+ *   specialPaths: string[],
+ *   dynamicPaths?: { path: string, page: string }[],
+ *   seoKeys: Record<string, string>,
+ *   pageKeys?: Record<string, string>
+ * }}
+ */
 export const siteRoutes = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 
 export function localePath(lang, barePath) {

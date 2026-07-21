@@ -57,7 +57,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
-    root.style.colorScheme = theme;
     localStorage.setItem("sz-theme", theme);
   }, [theme]);
 
@@ -82,7 +81,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // Apply DOM tokens synchronously so View Transitions can capture old/new.
       const root = document.documentElement;
       root.classList.toggle("dark", next === "dark");
-      root.style.colorScheme = next;
       localStorage.setItem("sz-theme", next);
       setTheme(next);
     });

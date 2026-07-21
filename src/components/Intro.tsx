@@ -92,13 +92,13 @@ function PracticeGraph() {
                 <circle cx={s.x} cy={s.y} r="7" fill="var(--surface)" stroke="var(--hi)" strokeWidth="1.5" />
                 <circle cx={s.x} cy={s.y} r="2.5" fill="var(--hi)" />
                 <text
+                  className="practice-graph-label"
                   x={s.x - 22}
                   y={s.y + 5}
                   textAnchor="end"
                   fill="var(--ink)"
                   fontSize="15"
                   fontWeight="700"
-                  style={{ fontFamily: "inherit" }}
                 >
                   {eco.sources[s.key]}
                 </text>
@@ -119,13 +119,13 @@ function PracticeGraph() {
               />
               <circle className="practice-product-core" cx={PRODUCT.x} cy={PRODUCT.y} r="6" fill="var(--hi)" />
               <text
+                className="practice-graph-label"
                 x={PRODUCT.x}
                 y={PRODUCT.y + 68}
                 textAnchor="middle"
                 fill="var(--ink)"
                 fontSize="16"
                 fontWeight="800"
-                style={{ fontFamily: "inherit" }}
               >
                 {eco.product}
               </text>

@@ -53,7 +53,6 @@
             theme === "dark" ||
             (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
           root.classList.toggle("dark", dark);
-          root.style.colorScheme = dark ? "dark" : "light";
         } catch (e) {}
       })();
     </script>

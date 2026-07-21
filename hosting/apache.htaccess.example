@@ -50,16 +50,16 @@ DirectoryIndex index.html
 # --- Security headers (requires mod_headers) ---
 # Do NOT add Strict-Transport-Security until the permanent domain + TLS are stable.
 <IfModule mod_headers.c>
-  # Content-Security-Policy — reasonably strict; comment each allowed source:
+  # Content-Security-Policy — generated at build by scripts/prerender.mjs (scripts/csp.mjs).
+  # Do not hand-edit the Header line below; re-run `npm run build` to refresh nonce + hashes.
   #   default-src 'self'              — deny by default; only same-origin unless overridden
   #   base-uri 'self'                 — restrict <base> targets
   #   object-src 'none'               — no plugins
   #   frame-ancestors 'none'          — clickjacking protection (pairs with X-Frame-Options)
   #   form-action 'self' https://formspree.io
   #                                   — form posts (Formspree when VITE_FORMSPREE_ID is set)
-  #   script-src 'self' 'unsafe-inline'
-  #                                   — app bundles + FOUC/theme bootstrap + JSON-LD inline scripts
-  #   style-src 'self' 'unsafe-inline'— bundled CSS + small inline style attributes
+  #   script-src 'self' 'nonce-…'     — app bundles + FOUC/theme + JSON-LD (per-build nonce)
+  #   style-src 'self' [+ hashes]     — bundled CSS only; inline style attrs removed from app
   #   img-src 'self' data: blob:      — site images + inline/data URLs
   #   font-src 'self' data:           — self-hosted @fontsource fonts (no Google Fonts CDN)
   #   connect-src 'self' https://formspree.io
@@ -67,7 +67,7 @@ DirectoryIndex index.html
   #   worker-src 'self' blob:         — PWA service worker + any blob workers
   #   manifest-src 'self'             — web app manifest
   #   upgrade-insecure-requests       — prefer HTTPS subresources
-  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://formspree.io; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests"
+  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://formspree.io; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://formspree.io; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'nonce-ZmdL9Ri87Z5PsUSMlZ0n0g'; style-src 'self'"
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"

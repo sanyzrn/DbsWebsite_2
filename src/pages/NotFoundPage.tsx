@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
@@ -6,6 +6,8 @@ import { Reveal } from "../components/ui";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
+
+const WARP_FILTER_ID = "nf-warp-filter";
 
 /**
  * Creative concept — Option A, "Lost signal":
@@ -19,8 +21,6 @@ import { cn } from "../utils/cn";
 export default function NotFoundPage() {
   const { t, lang } = useApp();
   const copy = t.notFound;
-  const uid = useId().replace(/:/g, "");
-  const filterId = `nf-warp-${uid}`;
   const stageRef = useRef<HTMLElement>(null);
   const rafRef = useRef(0);
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -71,12 +71,6 @@ export default function NotFoundPage() {
     setWarp(0);
   };
 
-  const fieldStyle: CSSProperties | undefined = reduceMotion
-    ? undefined
-    : {
-        filter: `url(#${filterId})`,
-      };
-
   return (
     <>
       <PageMeta page="notFound" />
@@ -89,8 +83,10 @@ export default function NotFoundPage() {
         {/* Decorative atmosphere + soft center warp */}
         <div className="nf-atmosphere pointer-events-none absolute inset-0" aria-hidden="true">
           <div
-            className={cn("nf-atmosphere-field absolute inset-0", !reduceMotion && warp > 0.2 && "nf-atmosphere-warping")}
-            style={fieldStyle}
+            className={cn(
+              "nf-atmosphere-field absolute inset-0",
+              !reduceMotion && warp > 0.2 && "nf-atmosphere-warping"
+            )}
           >
             <HeroAtmosphere />
           </div>
@@ -100,7 +96,7 @@ export default function NotFoundPage() {
             <svg className="pointer-events-none absolute h-0 w-0 overflow-hidden" aria-hidden="true">
               <defs>
                 <filter
-                  id={filterId}
+                  id={WARP_FILTER_ID}
                   x="-8%"
                   y="-8%"
                   width="116%"

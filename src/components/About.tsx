@@ -76,15 +76,27 @@ export function CareerTimeline({ nodes, label }: { nodes: readonly PathNode[]; l
   const drawClamped = Math.min(1, Math.max(0, draw));
 
   return (
-    <ol
-      className="career-timeline"
-      style={{ ["--career-draw" as string]: String(drawClamped) }}
-      aria-label={label ?? "Career path"}
-    >
-      <span className="career-rail" aria-hidden="true">
-        <span className="career-rail-track" />
-        <span className="career-rail-draw" />
-      </span>
+    <ol className="career-timeline" aria-label={label ?? "Career path"}>
+      <svg className="career-rail" aria-hidden="true" width="2" height="100%" viewBox="0 0 2 100" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="career-rail-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--accent)" />
+            <stop offset="100%" stopColor="var(--hi)" />
+          </linearGradient>
+        </defs>
+        <rect className="career-rail-track" x="0" y="0" width="2" height="100" rx="1" />
+        {/* SVG transform attribute — not a CSS style=, so CSP style-src stays strict */}
+        <rect
+          className="career-rail-draw"
+          x="0"
+          y="0"
+          width="2"
+          height="100"
+          rx="1"
+          fill="url(#career-rail-grad)"
+          transform={`scale(1 ${drawClamped})`}
+        />
+      </svg>
 
       {nodes.map((node, i) => {
         const isEgg = node.kind === "easter-egg";

@@ -92,7 +92,7 @@ export default function Hero() {
       <HeroAtmosphere />
 
       <div className="wrap relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">
-        <div className="hero-in flex justify-center" style={{ animationDelay: "60ms" }}>
+        <div className="hero-in hero-in-d60 flex justify-center">
           <span className="chip max-w-full border-line2 font-[family-name:Vazirmatn,ui-sans-serif,system-ui,sans-serif] text-ink2">
             <Sparkles className="h-3.5 w-3.5 shrink-0 text-hi" strokeWidth={2.2} />
             <span className="truncate">{t.hero.badge}</span>
@@ -102,7 +102,7 @@ export default function Hero() {
         </div>
 
         <h1 className="hero-name mt-5 text-[48px] font-black leading-[1.12] tracking-tight sm:mt-7 sm:text-[64px] sm:leading-[1.1] lg:text-[72px] xl:text-[80px] xl:leading-[1.08]">
-          <span className="hero-in block" style={{ animationDelay: "140ms" }}>
+          <span className="hero-in hero-in-d140 block">
             {t.hero.name.split(t.hero.nameAccent)[0]}
             <span className="relative inline-block text-hi">
               {t.hero.nameAccent}
@@ -126,23 +126,20 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p
-          className="hero-slogan hero-in mx-auto mt-4 max-w-3xl min-h-[2.7em] text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]"
-          style={{ animationDelay: "240ms" }}
-        >
+        <p className="hero-slogan hero-in hero-in-d240 mx-auto mt-4 max-w-3xl min-h-[2.7em] text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]">
           {t.hero.sloganA}
           {connector}
           <SloganCycle phrases={t.hero.sloganCycle} />
         </p>
 
-        <p className="hero-in mx-auto mt-5 max-w-4xl text-[14px] leading-7 text-ink2 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "340ms" }}>
+        <p className="hero-in hero-in-d340 mx-auto mt-5 max-w-4xl text-[14px] leading-7 text-ink2 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]">
           {t.hero.body}
         </p>
-        <p className="hero-in mx-auto mt-3 max-w-4xl text-[14px] font-semibold leading-7 text-ink sm:mt-4 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "420ms" }}>
+        <p className="hero-in hero-in-d420 mx-auto mt-3 max-w-4xl text-[14px] font-semibold leading-7 text-ink sm:mt-4 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]">
           {t.hero.body2}
         </p>
 
-        <div className="hero-in mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-3.5" style={{ animationDelay: "500ms" }}>
+        <div className="hero-in hero-in-d500 mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-3.5">
           <Link to={`${localePath(lang, "/")}#projects`} className="btn btn-primary h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
             {t.hero.ctaPrimary}
             <DirArrow className="h-[18px] w-[18px]" />
