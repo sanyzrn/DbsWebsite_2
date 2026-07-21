@@ -39,13 +39,19 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
    - Change only the env value when migrating — no code change required.  
    - Promotion gate: `npm run check:deploy`.
 
-## CSP directive notes (keep comments when porting)
+## CSP directive notes (auto-generated — do not hand-edit host CSP strings)
+
+`npm run build` → `scripts/prerender.mjs` → `scripts/csp.mjs` writes the same
+`Content-Security-Policy` value into every host config below, plus `dist/.htaccess`,
+`hosting/csp-header.txt`, and a `<meta http-equiv="Content-Security-Policy">` on each
+prerendered HTML page (so the policy matches the per-build script nonce even if a host
+snapshots config before the build finishes).
 
 | Directive | Why |
 |-----------|-----|
 | `default-src 'self'` | Deny by default; only same-origin unless overridden |
-| `script-src 'self' 'unsafe-inline'` | App bundles + FOUC/theme bootstrap + JSON-LD inline scripts in HTML |
-| `style-src 'self' 'unsafe-inline'` | Bundled CSS + small inline style attributes |
+| `script-src 'self' 'nonce-…'` | App bundles + FOUC/theme bootstrap + JSON-LD (nonce injected at prerender; `PageMeta` reuses `meta[name=csp-nonce]`) |
+| `style-src 'self'` (+ optional `'unsafe-hashes' sha256-…`) | Bundled CSS; app avoids inline `style=` attrs. Any remaining prerendered style attrs are hashed |
 | `font-src 'self' data:` | Self-hosted `@fontsource` fonts (no Google Fonts CDN) |
 | `img-src 'self' data: blob:` | Site images + inline/data URLs |
 | `connect-src 'self' https://formspree.io` | Contact form POST when `VITE_FORMSPREE_ID` is set |
@@ -55,19 +61,22 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
 | `object-src 'none'` | No plugins |
 | `upgrade-insecure-requests` | Prefer HTTPS subresources |
 
+**Apache FTP:** upload `dist/.htaccess` from the **same** build as the HTML (nonce must match). Prefer that over copying a stale `apache.htaccess.example` from an older commit.
+
 **Do not add `Strict-Transport-Security` here until the final host is permanent.**
 
 ## Files in this folder
 
 | File | Purpose |
 |------|---------|
-| `apache.htaccess.example` | **Active host** — rename to `.htaccess` at the web root (manual FTP) |
-| `vercel.json` | Copy of the root Vercel config (keep in sync with `/vercel.json` for previews) |
+| `csp-header.txt` | Latest CSP string written by the build (readable single source) |
+| `apache.htaccess.example` | **Active host** — rename to `.htaccess` at the web root (manual FTP); CSP line regenerated on build |
+| `vercel.json` | Copy of the root Vercel config (CSP regenerated on build; keep in sync with `/vercel.json`) |
 | `nginx.conf.example` | Drop-in Nginx snippet for plain static hosting |
 | `netlify.toml.example` | Netlify headers + redirects + 404 |
 | `cloudflare/_redirects.example` | Cloudflare Pages `_redirects` |
 | `cloudflare/_headers.example` | Cloudflare Pages `_headers` |
 
-**Note on the current apex (`dbsgraphic.ir`):** Production is served via **Apache + manual FTP** using `apache.htaccess.example` → `.htaccess`. Until that file is uploaded next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body. Vercel preview deployments use `/vercel.json` as soon as they are published.
+**Note on the current apex (`dbsgraphic.ir`):** Production is served via **Apache + manual FTP**. Prefer uploading `dist/.htaccess` produced by your build. Until a `.htaccess` is next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body. Vercel preview deployments use `/vercel.json` (re-read on deploy; also rely on per-page meta CSP for the build nonce).
 
-After editing `/vercel.json`, copy the same JSON into `hosting/vercel.json` so this folder stays the single migration reference.
+After editing non-CSP parts of `/vercel.json`, copy the same JSON into `hosting/vercel.json` so this folder stays the migration reference — then re-run build so CSP stays generated.

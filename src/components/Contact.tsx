@@ -2,11 +2,11 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Mail } from "lucide-react";
 import { useApp } from "../lib/app";
-import type { ContactStatus } from "../lib/mailto";
+import { isContactFormEnabled, type ContactStatus } from "../lib/mailto";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
 import { DirArrow, Reveal } from "./ui";
-import { ContactForm, ContactUnavailable, isContactFormEnabled } from "./contact/ContactForm";
+import { ContactForm, ContactUnavailable } from "./contact/ContactForm";
 import { ContactInfo } from "./contact/ContactInfo";
 import { ContactModal } from "./contact/ContactModal";
 

@@ -1,0 +1,119 @@
+:root {
+  --page: #f5f0e8;
+  --surface: #fbf9f5;
+  --ink: #1c1c1a;
+  --ink2: #77736c;
+  --line: #ddd5c9;
+  --accent: #bc9463;
+  --accentdark: #947044;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #151617;
+    --surface: #202223;
+    --ink: #f1f0ed;
+    --ink2: #a7a9a8;
+    --line: #343738;
+    --accent: #c19e6e;
+    --accentdark: #a8875a;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  background: var(--page);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  width: min(36rem, 100%);
+  text-align: center;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 2.25rem 1.5rem 2rem;
+}
+.kicker {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+h1 {
+  margin: 1rem 0 0;
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+h1.en {
+  margin-top: 1.75rem;
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+}
+p {
+  margin: 1rem auto 0;
+  max-width: 28rem;
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink2);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.75rem;
+}
+a,
+button {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 48px;
+  padding: 0 1.4rem;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.primary {
+  background: var(--accent);
+  color: #211a10;
+}
+.primary:hover {
+  background: var(--accentdark);
+  color: #fff8ee;
+}
+.ghost {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+.lang {
+  margin-top: 1.25rem;
+  font-size: 12.5px;
+  color: var(--ink2);
+}
+.lang a {
+  height: auto;
+  padding: 0;
+  color: var(--accentdark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

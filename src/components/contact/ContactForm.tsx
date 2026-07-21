@@ -27,11 +27,6 @@ import { cn } from "../../utils/cn";
 const SUBMIT_MIN_MS = 2000;
 const FETCH_TIMEOUT_MS = 15_000;
 
-// TEMPORARY: contact form disabled until Formspree + the final domain are configured — restore by setting VITE_FORMSPREE_ID
-export function isContactFormEnabled() {
-  return Boolean((import.meta.env.VITE_FORMSPREE_ID as string | undefined)?.trim());
-}
-
 export function ContactUnavailable({
   emailLinkRef,
 }: {

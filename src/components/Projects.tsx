@@ -22,7 +22,32 @@ function Shot({ children, className }: { children: ReactNode; className?: string
   );
 }
 
-const row = (w: string, tone = "bg-shotup") => <span className={cn("block h-1.5 rounded-full", tone)} style={{ width: w }} />;
+/** Map mock bar widths to Tailwind classes — no inline style= (CSP). */
+const W: Record<string, string> = {
+  "38%": "w-[38%]",
+  "42%": "w-[42%]",
+  "44px": "w-[44px]",
+  "45%": "w-[45%]",
+  "46%": "w-[46%]",
+  "48%": "w-[48%]",
+  "50%": "w-1/2",
+  "52%": "w-[52%]",
+  "55%": "w-[55%]",
+  "58%": "w-[58%]",
+  "60%": "w-[60%]",
+  "65%": "w-[65%]",
+  "70%": "w-[70%]",
+  "70px": "w-[70px]",
+  "72%": "w-[72%]",
+  "80%": "w-4/5",
+  "88%": "w-[88%]",
+  "90%": "w-[90%]",
+  "95%": "w-[95%]",
+  "100%": "w-full",
+};
+const row = (w: string, tone = "bg-shotup") => (
+  <span className={cn("block h-1.5 rounded-full", tone, W[w] ?? "w-1/2")} />
+);
 
 /* ------------------------------------------------------------------ */
 /*  Mocks                                                               */
@@ -66,8 +91,8 @@ function MockPulse() {
           ))}
         </div>
         <div className="flex flex-1 items-end gap-1 rounded-[4px] border border-shotline bg-shot p-2">
-          {[38, 62, 48, 78, 55, 90, 66, 82, 58, 74].map((h, i) => (
-            <span key={i} className={cn("flex-1 rounded-t-[2px]", i === 5 ? "bg-accent" : "bg-[#394047]")} style={{ height: `${h}%` }} />
+          {["h-[38%]", "h-[62%]", "h-[48%]", "h-[78%]", "h-[55%]", "h-[90%]", "h-[66%]", "h-[82%]", "h-[58%]", "h-[74%]"].map((h, i) => (
+            <span key={i} className={cn("flex-1 rounded-t-[2px]", h, i === 5 ? "bg-accent" : "bg-[#394047]")} />
           ))}
         </div>
       </div>
@@ -80,9 +105,9 @@ function MockAI() {
     <div className="absolute inset-4 flex overflow-hidden rounded-[10px] border border-shotline bg-shotpanel sm:inset-6">
       <div className="hidden w-[32%] flex-col gap-1.5 border-e border-shotline p-2.5 sm:flex">
         <span className="mb-1 font-mono text-[8px] uppercase tracking-widest text-shotmut">providers</span>
-        {["#BC9463", "#8FB0C0", "#A3B18A"].map((c, i) => (
+        {["bg-[#BC9463]", "bg-[#8FB0C0]", "bg-[#A3B18A]"].map((c, i) => (
           <div key={i} className="flex items-center gap-1.5 rounded-[4px] border border-shotline bg-shot px-1.5 py-1.5">
-            <span className="h-2 w-2 rounded-full" style={{ background: c }} />
+            <span className={cn("h-2 w-2 rounded-full", c)} />
             {row("46%", "bg-shotup")}
             <span className="ms-auto h-2 w-3.5 rounded-full bg-sage/70" />
           </div>
@@ -106,8 +131,8 @@ function MockAI() {
           {row("100%", "bg-accent/50")}{row("60%", "bg-accent/35")}
         </div>
         <div className="flex gap-1 self-start px-1 py-0.5">
-          {[0, 1, 2].map((i) => (
-            <span key={i} className="h-1 w-1 animate-pulse rounded-full bg-shotmut" style={{ animationDelay: `${i * 200}ms` }} />
+          {["delay-0", "delay-200", "delay-[400ms]"].map((d) => (
+            <span key={d} className={cn("h-1 w-1 animate-pulse rounded-full bg-shotmut", d)} />
           ))}
         </div>
         <div className="mt-auto flex items-center gap-1.5 rounded-[5px] border border-shotline bg-shot p-1.5">
@@ -190,11 +215,15 @@ function MockBrain() {
           <div className="flex-1 space-y-1">{row("80%", "bg-shotmut/50")}{row("55%")}</div>
         </div>
         <div className="mt-2.5 space-y-1.5">
-          {[80, 55, 35].map((p, i) => (
+          {[
+            { p: 80, w: "w-4/5" },
+            { p: 55, w: "w-[55%]" },
+            { p: 35, w: "w-[35%]" },
+          ].map((item, i) => (
             <div key={i} className="rounded-[4px] border border-shotline p-1.5">
-              <div className="mb-1 flex justify-between">{row("52%", "bg-shotup")}<span className="font-mono text-[7px] text-shotmut">{p}%</span></div>
+              <div className="mb-1 flex justify-between">{row("52%", "bg-shotup")}<span className="font-mono text-[7px] text-shotmut">{item.p}%</span></div>
               <div className="h-1 overflow-hidden rounded-full bg-shotup">
-                <div className={cn("h-full rounded-full", ["bg-sage", "bg-accent", "bg-steel"][i])} style={{ width: `${p}%` }} />
+                <div className={cn("h-full rounded-full", item.w, ["bg-sage", "bg-accent", "bg-steel"][i])} />
               </div>
             </div>
           ))}
@@ -278,7 +307,7 @@ function MockTools() {
 
 function MockHesabyar() {
   return (
-    <div className="absolute inset-4 flex flex-col gap-2 overflow-hidden rounded-[10px] border border-shotline bg-shotpanel p-2.5 sm:inset-6" dir="rtl" style={{ fontFamily: "Vazirmatn, sans-serif" }}>
+    <div className="absolute inset-4 flex flex-col gap-2 overflow-hidden rounded-[10px] border border-shotline bg-shotpanel p-2.5 font-[family-name:Vazirmatn,sans-serif] sm:inset-6" dir="rtl">
       <div className="flex items-center gap-1.5">
         {["مهر", "آبان", "آذر"].map((m, i) => (
           <span key={m} className={cn("rounded-[4px] px-2 py-0.5 text-[9px] font-bold", i === 1 ? "bg-accent text-[#211a10]" : "border border-shotline text-shotmut")}>
@@ -293,15 +322,15 @@ function MockHesabyar() {
       </div>
       <div className="flex-1 space-y-1.5">
         {[
-          { p: 80, c: "bg-sage" },
-          { p: 45, c: "bg-accent" },
-          { p: 20, c: "bg-steel" },
+          { p: 80, c: "bg-sage", w: "w-4/5" },
+          { p: 45, c: "bg-accent", w: "w-[45%]" },
+          { p: 20, c: "bg-steel", w: "w-1/5" },
         ].map((item, i) => (
           <div key={i} className="flex items-center gap-2 rounded-[5px] border border-shotline p-1.5">
             <span className="h-2 w-2 rounded-full bg-shotline" />
             <span className="h-1.5 w-14 rounded-full bg-shotup" />
             <div className="ms-auto flex w-[38%] items-center gap-1.5">
-              <div className="h-1 flex-1 overflow-hidden rounded-full bg-shotup"><div className={cn("h-full rounded-full", item.c)} style={{ width: `${item.p}%` }} /></div>
+              <div className="h-1 flex-1 overflow-hidden rounded-full bg-shotup"><div className={cn("h-full rounded-full", item.c, item.w)} /></div>
               <span className="font-mono text-[7px] text-shotmut" dir="ltr">{item.p}%</span>
             </div>
           </div>

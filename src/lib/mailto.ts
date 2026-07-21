@@ -27,6 +27,11 @@ export const emptyContactFields: ContactFields = {
 /** Soft ceiling for encoded mailto: bodies (browser URL length limits). */
 export const MAILTO_SAFE = 1800;
 
+/** True when Formspree is configured (contact form submit path). */
+export function isContactFormEnabled() {
+  return Boolean((import.meta.env.VITE_FORMSPREE_ID as string | undefined)?.trim());
+}
+
 /**
  * Build a mailto: href for the contact fallback path.
  * Truncates the message body when the encoded length exceeds MAILTO_SAFE.

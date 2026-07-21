@@ -29,6 +29,10 @@ export function PageMeta({ page, slug }: PageMetaProps) {
   }
 
   const ogType = page === "project" || page === "article" ? "article" : "website";
+  const cspNonce =
+    typeof document !== "undefined"
+      ? document.querySelector('meta[name="csp-nonce"]')?.getAttribute("content") ?? undefined
+      : undefined;
 
   return (
     <>
@@ -52,7 +56,7 @@ export function PageMeta({ page, slug }: PageMetaProps) {
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
       {seo.jsonLd.map((block, i) => (
-        <script key={i} type="application/ld+json">
+        <script key={i} type="application/ld+json" nonce={cspNonce}>
           {JSON.stringify(block)}
         </script>
       ))}

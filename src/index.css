@@ -479,6 +479,7 @@ section[id] {
 
 .nf-atmosphere-warping {
   opacity: 0.92;
+  filter: url(#nf-warp-filter);
 }
 
 .nf-mark {
@@ -524,6 +525,30 @@ section[id] {
   opacity: 1;
   transform: none;
 }
+/* Reveal stagger via data attribute — avoids inline style= for CSP style-src */
+.reveal[data-reveal-delay="60"] { transition-delay: 60ms; }
+.reveal[data-reveal-delay="80"] { transition-delay: 80ms; }
+.reveal[data-reveal-delay="90"] { transition-delay: 90ms; }
+.reveal[data-reveal-delay="100"] { transition-delay: 100ms; }
+.reveal[data-reveal-delay="120"] { transition-delay: 120ms; }
+.reveal[data-reveal-delay="140"] { transition-delay: 140ms; }
+.reveal[data-reveal-delay="160"] { transition-delay: 160ms; }
+.reveal[data-reveal-delay="180"] { transition-delay: 180ms; }
+.reveal[data-reveal-delay="200"] { transition-delay: 200ms; }
+.reveal[data-reveal-delay="220"] { transition-delay: 220ms; }
+.reveal[data-reveal-delay="240"] { transition-delay: 240ms; }
+.reveal[data-reveal-delay="260"] { transition-delay: 260ms; }
+.reveal[data-reveal-delay="280"] { transition-delay: 280ms; }
+.reveal[data-reveal-delay="300"] { transition-delay: 300ms; }
+.reveal[data-reveal-delay="320"] { transition-delay: 320ms; }
+.reveal[data-reveal-delay="340"] { transition-delay: 340ms; }
+.reveal[data-reveal-delay="360"] { transition-delay: 360ms; }
+.reveal[data-reveal-delay="380"] { transition-delay: 380ms; }
+.reveal[data-reveal-delay="400"] { transition-delay: 400ms; }
+.reveal[data-reveal-delay="440"] { transition-delay: 440ms; }
+.reveal[data-reveal-delay="460"] { transition-delay: 460ms; }
+.reveal[data-reveal-delay="480"] { transition-delay: 480ms; }
+.reveal[data-reveal-delay="500"] { transition-delay: 500ms; }
 
 /* Article MDX body — readable measure, site typography */
 .article-prose {
@@ -630,6 +655,10 @@ section[id] {
   animation: practice-core 2.4s ease-in-out infinite;
 }
 
+.practice-graph-label {
+  font-family: inherit;
+}
+
 @keyframes practice-breathe {
   0%, 100% {
     opacity: 0.55;
@@ -700,6 +729,12 @@ section[id] {
 .hero-in {
   animation: fade-up-hero 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+.hero-in-d60 { animation-delay: 60ms; }
+.hero-in-d140 { animation-delay: 140ms; }
+.hero-in-d240 { animation-delay: 240ms; }
+.hero-in-d340 { animation-delay: 340ms; }
+.hero-in-d420 { animation-delay: 420ms; }
+.hero-in-d500 { animation-delay: 500ms; }
 
 /* Hero name underline — fully drawn at rest; redraws on hover (pointer devices) */
 .hero-name-underline path {
@@ -820,7 +855,6 @@ section[id] {
 /* ------------------------------------------------------------------ */
 
 .career-timeline {
-  --career-draw: 0;
   --career-rail-x: 11px;
   position: relative;
   padding-inline-start: 0;
@@ -831,26 +865,18 @@ section[id] {
   inset-block: 0.35rem 1.1rem;
   inset-inline-start: var(--career-rail-x);
   width: 2px;
+  height: auto;
+  overflow: visible;
   pointer-events: none;
+  display: block;
 }
 
 .career-rail-track {
-  position: absolute;
-  inset: 0;
-  background: var(--line2);
-  border-radius: 2px;
+  fill: var(--line2);
 }
 
 .career-rail-draw {
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: 100%;
-  background: linear-gradient(to bottom, var(--accent), var(--hi));
-  border-radius: 2px;
-  transform: scaleY(var(--career-draw));
-  transform-origin: top center;
-  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  fill: var(--accent);
 }
 
 .career-rail-hash {
@@ -1123,6 +1149,9 @@ section[id] {
 /* ------------------------------------------------------------------ */
 
 .floating-quick-nav {
+  --fqn-desktop-inset: 24px;
+  --fqn-mobile-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  --fqn-mobile-side: 16px;
   --fqn-bg: color-mix(in srgb, var(--surface) 72%, transparent);
   --fqn-border: color-mix(in srgb, var(--line) 55%, transparent);
   --fqn-shadow: 0 10px 30px -18px rgba(28, 28, 26, 0.35);
