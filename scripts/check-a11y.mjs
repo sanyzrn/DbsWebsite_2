@@ -158,15 +158,13 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         const page = await context.newPage();
         const url = `${origin}${route.urlPath === "/" ? "/" : route.urlPath}`;
         await page.goto(url, { waitUntil: "networkidle" });
-        await page.evaluate((dark) => {
-          document.documentElement.classList.toggle("dark", dark);
-        }, theme.dark);
+        await page.evaluate(`document.documentElement.classList.toggle("dark", ${theme.dark});`);
 
         // Force scroll-reveal / enter animations to their settled visible state so
         // axe color-contrast isn't measuring opacity:0 placeholders.
         // Use evaluate (CDP) instead of addScriptTag/addStyleTag — those insert
         // nonce-less inline script/style nodes that CSP rejects.
-        await page.evaluate(() => {
+        await page.evaluate(`
           document.querySelectorAll(".reveal").forEach((el) => {
             el.classList.add("in");
             el.style.setProperty("transition", "none", "important");
@@ -183,7 +181,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
             el.style.setProperty("opacity", "1", "important");
             el.style.setProperty("transform", "none", "important");
           });
-        });
+        `);
         await page.waitForTimeout(40);
 
         // Load axe as a same-origin external script (CSP script-src 'self').
