@@ -61,7 +61,7 @@ EXIF, caps the longest edge at 2000px, and re-encodes to WebP by default (JPEG/P
 | `npm run check:urls` | Fail if SEO files hardcode a domain other than `SITE_URL` |
 | `npm run check:i18n` | Fail if fa/en UI dictionaries diverge in nested keys |
 | `npm run validate:content` | Zod-validate project/article/news content; block published placeholder copy |
-| `npm run check:dist` | Post-build: internal links, canonical/OG hosts, 404 `noindex` |
+| `npm run check:dist` | Post-build: internal links, canonical/OG hosts, 404 `noindex`, `og.jpg` is exactly 1200×630 |
 | `npm run check:bundle` | Post-build gzip budgets (JS/CSS/HTML/fonts/first-paint) |
 | `npm run check:deploy` | Live HTTPS gate: unknown paths → HTTP 404 + noindex |
 | `node scripts/optimize-image.mjs <image> <slug>` | Optimize a project image into `public/images/projects/` |
