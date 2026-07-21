@@ -2,6 +2,7 @@
  * Post-build checks for prerendered dist/:
  *  1) Every internal href resolves to an existing file under dist/
  *  2) Every canonical / og:url matches the SITE_URL used for the build
+ *  3) Open Graph image (public/og.jpg + dist/og.jpg) is exactly 1200×630
  *
  * Extends the pre-build host checks in check-urls.mjs (source files).
  * Usage: node scripts/check-dist.mjs
@@ -9,6 +10,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { ROOT, getSiteUrl, getSiteHost } from "./site-url.mjs";
+import {
+  assertOgImageDimensions,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+} from "./og-image.mjs";
 
 const siteUrl = getSiteUrl();
 const siteHost = getSiteHost(siteUrl);
@@ -159,6 +165,11 @@ for (const rel of ["404.html", "en/404.html"]) {
   }
 }
 
+// Open Graph / Twitter Card image — must stay exactly 1200×630 (LinkedIn / X / Telegram)
+await assertOgImageDimensions(path.join(ROOT, "public", "og.jpg"), "public/og.jpg");
+await assertOgImageDimensions(path.join(DIST, "og.jpg"), "dist/og.jpg");
+
 console.log(
-  `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}, 404 pages noindex`
+  `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}, ` +
+    `404 pages noindex, og.jpg ${OG_IMAGE_WIDTH}×${OG_IMAGE_HEIGHT}`
 );
