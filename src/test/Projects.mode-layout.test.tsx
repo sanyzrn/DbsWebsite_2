@@ -40,12 +40,20 @@ describe("Projects mobile layout by mode", () => {
   it('mode="teaser" ProjectCards clamp title/description and keep a footer with mt-auto', () => {
     renderProjects("teaser");
     const carousel = screen.getByTestId("projects-carousel");
+    const track = carousel.querySelector('[aria-roledescription="carousel"]');
+    expect(track?.className).toMatch(/\bitems-stretch\b/);
+    const slides = carousel.querySelectorAll('[aria-roledescription="slide"]');
+    expect(slides.length).toBeGreaterThan(1);
+    slides.forEach((slide) => {
+      expect(slide.className).toMatch(/\bself-stretch\b/);
+      // Percentage height on the flex item disables stretch — must stay off.
+      expect(slide.className).not.toMatch(/\bh-full\b/);
+    });
     const cards = carousel.querySelectorAll("article");
     expect(cards.length).toBeGreaterThan(1);
 
     cards.forEach((card) => {
-      expect(card.className).toMatch(/min-h-\[440px\]/);
-      expect(card.className).toMatch(/\bh-full\b/);
+      expect(card.className).toMatch(/\bflex-1\b/);
       const title = card.querySelector("h3");
       const desc = Array.from(card.querySelectorAll("p")).find((p) => p.className.includes("text-ink2"));
       expect(title?.className).toMatch(/line-clamp-2/);
@@ -54,6 +62,10 @@ describe("Projects mobile layout by mode", () => {
       expect(footer).toBeTruthy();
       expect(footer?.querySelector("a")).toBeTruthy();
       expect(footer?.className).toMatch(/mt-auto/);
+      // Tag row is always present (nbsp when empty) so footers share one line of height.
+      const tagLine = footer?.querySelector("p");
+      expect(tagLine).toBeTruthy();
+      expect(tagLine?.className).toMatch(/min-h-\[1\.25rem\]/);
     });
 
     // Full-page grid markup (separate from ProjectCard) must stay unclamped.

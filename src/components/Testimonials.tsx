@@ -17,7 +17,7 @@ function TestimonialCard({ item }: { item: LocalizedTestimonial }) {
   return (
     <article
       data-testid={`testimonial-${item.quoteType}`}
-      className="flex h-full flex-col border border-line bg-surface p-5 sm:p-6"
+      className="flex min-h-0 w-full flex-1 flex-col border border-line bg-surface p-5 sm:p-6"
     >
       <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink3">
         {isDirect ? t.testimonials.directLabel : t.testimonials.outcomeLabel}
@@ -81,7 +81,7 @@ export default function Testimonials() {
 
         <Reveal delay={80}>
           <div data-testid="testimonials-carousel" className="mt-8 md:hidden">
-            <SnapCarousel label={t.testimonials.title} itemClassName="flex h-full">
+            <SnapCarousel label={t.testimonials.title}>
               {items.map((item) => (
                 <TestimonialCard key={item.id} item={item} />
               ))}

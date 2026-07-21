@@ -160,7 +160,9 @@ export function SnapCarousel({
         aria-roledescription="carousel"
         aria-label={label}
         className={cn(
-          "flex gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth snap-x snap-mandatory",
+          // Horizontal flex with default align-items:stretch so every slide
+          // shares the tallest card's cross size (equal heights on mobile).
+          "flex items-stretch gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth snap-x snap-mandatory",
           "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           "-mx-5 scroll-px-5 px-5",
           "md:mx-0 md:grid md:gap-5 md:overflow-visible md:scroll-px-0 md:px-0 md:snap-none",
@@ -171,6 +173,8 @@ export function SnapCarousel({
           <div
             key={i}
             className={cn(
+              // Do NOT set height/h-full on the flex item — that disables stretch
+              // and each slide sizes to its own content instead of the row.
               "flex w-[min(82vw,320px)] shrink-0 snap-center self-stretch",
               "md:w-auto md:min-w-0 md:shrink md:snap-align-none",
               itemClassName

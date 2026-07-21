@@ -423,12 +423,12 @@ function ProjectCard({
   return (
     <article
       className={cn(
-        // min-h safety net so short concept copy still matches taller cards in the carousel.
-        "group flex h-full min-h-[440px] w-full flex-col overflow-hidden rounded-lg border bg-surface",
+        // flex-1 fills the stretched SnapCarousel slide (equal heights across cards).
+        "group flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-lg border bg-surface",
         project.status === "concept" ? "border-dashed border-line2" : "border-line"
       )}
     >
-      <Link to={detailTo} className="relative overflow-hidden text-start" aria-label={previewAria}>
+      <Link to={detailTo} className="relative shrink-0 overflow-hidden text-start" aria-label={previewAria}>
         <ProjectShot project={project} />
         {/* Badges overlay the shot so optional featured/concept chips don't change body height. */}
         {(project.featured || project.status === "concept") && (
@@ -442,7 +442,7 @@ function ProjectCard({
           </span>
         )}
       </Link>
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="flex min-h-0 flex-1 flex-col gap-3 p-5">
         <h3
           className="line-clamp-2 text-[20px] font-extrabold tracking-tight"
           dir={project.id === "hesabyar" ? undefined : "ltr"}
@@ -452,11 +452,10 @@ function ProjectCard({
         <p className="line-clamp-2 text-[13px] font-bold leading-6 text-hi">{project.subtitle}</p>
         <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{project.desc}</p>
         <div className="mt-auto border-t border-line pt-4" data-testid="project-card-footer">
-          {project.tags.length > 0 ? (
-            <p className="mb-3 line-clamp-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
-              {project.tags.join(" · ")}
-            </p>
-          ) : null}
+          {/* Always reserve one tag line so footers align across equal-height cards. */}
+          <p className="mb-3 line-clamp-1 min-h-[1.25rem] font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
+            {project.tags.length > 0 ? project.tags.join(" · ") : "\u00a0"}
+          </p>
           <Link to={detailTo} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2">
             {viewLabel}
             <DirArrow className="h-4 w-4" />
@@ -523,7 +522,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
         {/* Mobile carousel — home teaser only */}
         {isTeaser && (
           <div data-testid="projects-carousel">
-            <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="flex h-full" key={`teaser-${filter}`}>
+            <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} key={`teaser-${filter}`}>
               {source.map((p) => (
                 <ProjectCard
                   key={p.id}
