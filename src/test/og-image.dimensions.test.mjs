@@ -8,6 +8,7 @@ import {
   OG_IMAGE_HEIGHT,
   OG_IMAGE_WIDTH,
 } from "../../scripts/og-image.mjs";
+import { ROOT } from "../../scripts/site-url.mjs";
 
 const tmpDirs = [];
 
@@ -64,7 +65,7 @@ describe("assertOgImageDimensions", () => {
   });
 
   it("repo public/og.jpg is exactly 1200×630 (source of truth)", async () => {
-    const file = path.join(process.cwd(), "public", "og.jpg");
+    const file = path.join(ROOT, "public", "og.jpg");
     const meta = await assertOgImageDimensions(file, "public/og.jpg");
     expect(meta.width).toBe(1200);
     expect(meta.height).toBe(630);
