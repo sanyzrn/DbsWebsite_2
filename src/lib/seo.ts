@@ -144,8 +144,11 @@ function buildJsonLd(
     name: "Saeed Zarrini",
     alternateName: "سعید زرینی",
     url: `${origin}/`,
-    email: "zrn_sany@yahoo.com",
-    telephone: "+989301221816",
+    contactPoint: {
+      "@type": "ContactPoint",
+      url: `${origin}/contact`,
+      contactType: "customer service",
+    },
     jobTitle: "AI Solutions Engineer & Digital Product Builder",
     worksFor: { "@id": `${origin}/#organization` },
     sameAs: ["https://github.com/sanyzrn/", "https://www.linkedin.com/in/saeed-zarrini-20a56341"],
