@@ -20,7 +20,14 @@ describe("csp helpers", () => {
     const csp = buildCspHeader({ nonce: "testNonceValue", styleHashes: [] });
     expect(csp).toContain("script-src 'self' 'nonce-testNonceValue'");
     expect(csp).toContain("style-src 'self'");
+    expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).not.toContain("unsafe-inline");
+  });
+
+  it("buildCspHeader forMeta omits frame-ancestors", () => {
+    const csp = buildCspHeader({ nonce: "n", styleHashes: [], forMeta: true });
+    expect(csp).not.toContain("frame-ancestors");
+    expect(csp).toContain("script-src 'self' 'nonce-n'");
   });
 
   it("buildCspHeader includes unique style hashes with unsafe-hashes", () => {

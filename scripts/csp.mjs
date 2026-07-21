@@ -16,12 +16,11 @@ import { ROOT } from "./site-url.mjs";
 
 export const CSP_NONCE_META = "csp-nonce";
 
-/** Stable CSP directives that never include script/style source lists. */
+/** Shared directives for headers and <meta http-equiv>. */
 const CSP_BASE = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
-  "frame-ancestors 'none'",
   "form-action 'self' https://formspree.io",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
@@ -41,17 +40,30 @@ export function sha256Integrity(content) {
 }
 
 /**
- * Build the full Content-Security-Policy header value.
- * @param {{ nonce: string, styleHashes?: string[] }} opts
+ * Build the Content-Security-Policy value.
+ * @param {{ nonce: string, styleHashes?: string[], forMeta?: boolean }} opts
+ * `forMeta: true` omits header-only directives (e.g. frame-ancestors) so the
+ * browser does not warn when the policy is delivered via <meta http-equiv>.
  */
-export function buildCspHeader({ nonce, styleHashes = [] }) {
+export function buildCspHeader({ nonce, styleHashes = [], forMeta = false }) {
   const scriptSrc = `script-src 'self' 'nonce-${nonce}'`;
   const uniqueStyles = [...new Set(styleHashes)].sort();
   const styleSrc =
     uniqueStyles.length > 0
       ? `style-src 'self' 'unsafe-hashes' ${uniqueStyles.join(" ")}`
       : `style-src 'self'`;
-  return [...CSP_BASE, scriptSrc, styleSrc].join("; ");
+  const parts = forMeta
+    ? [...CSP_BASE, scriptSrc, styleSrc]
+    : [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "frame-ancestors 'none'",
+        ...CSP_BASE.slice(3),
+        scriptSrc,
+        styleSrc,
+      ];
+  return parts.join("; ");
 }
 
 /** Collect unique style="…" attribute values from HTML and return CSP hash tokens. */

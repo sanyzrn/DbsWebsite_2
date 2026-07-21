@@ -164,13 +164,16 @@ async function main() {
   // Prefer nonce for scripts (JSON-LD varies per page; SPA PageMeta reinjects with same nonce).
   // Still record hashes for diagnostics.
   const scriptHashes = [...scriptBodies].map((b) => sha256Integrity(b));
-  const cspHeader = buildCspHeader({ nonce, styleHashes: [...styleHashes] });
+  const styleHashList = [...styleHashes];
+  const cspHeader = buildCspHeader({ nonce, styleHashes: styleHashList });
+  const cspMeta = buildCspHeader({ nonce, styleHashes: styleHashList, forMeta: true });
 
   // Meta CSP on every page so hosts that ignore mid-build vercel.json still enforce policy.
+  // Omit frame-ancestors here — that directive is header-only and warns in <meta>.
   for (const file of walkHtmlFiles(dist)) {
     let html = fs.readFileSync(file, "utf8");
     if (/http-equiv="Content-Security-Policy"/i.test(html)) continue;
-    const meta = `    <meta http-equiv="Content-Security-Policy" content="${escapeHtml(cspHeader)}" />\n`;
+    const meta = `    <meta http-equiv="Content-Security-Policy" content="${escapeHtml(cspMeta)}" />\n`;
     html = html.replace(/<\/head>/i, `${meta}  </head>`);
     fs.writeFileSync(file, html, "utf8");
   }
