@@ -107,10 +107,26 @@ curl_setopt_array($ch, [
   ]),
 ]);
 $response = curl_exec($ch);
+$curlErrno = curl_errno($ch);
+$curlError = curl_error($ch);
 $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
 if ($response === false || $httpCode !== 200) {
+  // Server-side diagnostics only — never expose details to the client.
+  $logFile = __DIR__ . '/contact-debug.log';
+  if ($response === false) {
+    error_log(
+      date('c') . " | curl_exec returned false — likely network/DNS/TLS-level failure, not an API-level rejection\n",
+      3,
+      $logFile
+    );
+  }
+  $logLine = date('c') . " | httpCode={$httpCode} | curlErrno={$curlErrno} | " .
+    "curlError={$curlError} | telegramResponse=" . substr((string) $response, 0, 500) .
+    "\n";
+  error_log($logLine, 3, $logFile);
+
   http_response_code(502);
   echo json_encode(['ok' => false, 'error' => 'telegram_delivery_failed']);
   exit;
