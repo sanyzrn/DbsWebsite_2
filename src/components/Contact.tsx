@@ -2,11 +2,11 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Mail } from "lucide-react";
 import { useApp } from "../lib/app";
-import { isContactFormEnabled, type ContactStatus } from "../lib/mailto";
+import { type ContactStatus } from "../lib/mailto";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
 import { DirArrow, Reveal, DecorativeGrid } from "./ui";
-import { ContactForm, ContactUnavailable } from "./contact/ContactForm";
+import { ContactForm } from "./contact/ContactForm";
 import { ContactInfo } from "./contact/ContactInfo";
 import { ContactModal } from "./contact/ContactModal";
 
@@ -24,12 +24,10 @@ export default function Contact({ variant = "section" }: ContactProps) {
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstFieldRef = useRef<HTMLInputElement>(null);
-  const emailLinkRef = useRef<HTMLAnchorElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<ContactStatus>("idle");
   const [truncated, setTruncated] = useState(false);
-  const formEnabled = isContactFormEnabled();
 
   const rememberOpener = () => {
     const active = document.activeElement;
@@ -69,7 +67,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
     if (root) root.setAttribute("inert", "");
 
     const focusTimer = window.setTimeout(() => {
-      (firstFieldRef.current ?? emailLinkRef.current)?.focus();
+      firstFieldRef.current?.focus();
     }, 0);
 
     const onKey = (e: KeyboardEvent) => {
@@ -123,17 +121,13 @@ export default function Contact({ variant = "section" }: ContactProps) {
               <h2 className="text-[22px] font-black tracking-tight">{f.title}</h2>
               <p className="mt-1.5 max-w-md text-[13px] leading-6 text-ink2">{f.desc}</p>
               <div className="mt-6">
-                {formEnabled ? (
-                  <ContactForm
-                    idPrefix="ct-page"
-                    status={status}
-                    setStatus={setStatus}
-                    truncated={truncated}
-                    setTruncated={setTruncated}
-                  />
-                ) : (
-                  <ContactUnavailable />
-                )}
+                <ContactForm
+                  idPrefix="ct-page"
+                  status={status}
+                  setStatus={setStatus}
+                  truncated={truncated}
+                  setTruncated={setTruncated}
+                />
               </div>
             </div>
           </Reveal>
@@ -217,8 +211,6 @@ export default function Contact({ variant = "section" }: ContactProps) {
         titleId={titleId}
         dialogRef={dialogRef}
         firstFieldRef={firstFieldRef}
-        emailLinkRef={emailLinkRef}
-        formEnabled={formEnabled}
         status={status}
         setStatus={setStatus}
         truncated={truncated}

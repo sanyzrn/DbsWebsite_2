@@ -1,19 +1,14 @@
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Contact from "../components/Contact";
 import { AppProvider } from "../lib/app";
 import { dictionaries } from "../lib/i18n";
 
-beforeEach(() => {
-  vi.stubEnv("VITE_FORMSPREE_ID", "test-form-id");
-});
-
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
-  vi.unstubAllEnvs();
   localStorage.clear();
 });
 

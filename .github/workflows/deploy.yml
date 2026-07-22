@@ -28,7 +28,19 @@ jobs:
       - run: npm run build
         env:
           SITE_URL: ${{ secrets.SITE_URL }}
-          VITE_FORMSPREE_ID: ${{ secrets.VITE_FORMSPREE_ID }}
+
+      - name: Generate Telegram config
+        run: |
+          mkdir -p dist/api
+          printf '%s\n' \
+            '<?php' \
+            "define('TELEGRAM_BOT_TOKEN', '${{ secrets.TELEGRAM_BOT_TOKEN }}');" \
+            "define('TELEGRAM_CHAT_ID', '${{ secrets.TELEGRAM_CHAT_ID }}');" \
+            > dist/api/telegram-config.php
+          test -f dist/api/contact.php
+          test -f dist/api/telegram-config.php
+          php -l dist/api/contact.php
+          php -l dist/api/telegram-config.php
 
       # `npm run build` → prerender already writes dist/.htaccess from
       # hosting/apache.htaccess.example with the matching CSP nonce.

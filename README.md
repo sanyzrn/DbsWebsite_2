@@ -86,7 +86,8 @@ Set these under **Settings → Secrets and variables → Actions**. They are **n
 | `FTP_USERNAME` | `sany@saeedzarrini.ir` |
 | `FTP_PASSWORD` | Current FTP account password |
 | `SITE_URL` | `https://saeedzarrini.ir` |
-| `VITE_FORMSPREE_ID` | Formspree form id (placeholder secret for when the interactive form is re-enabled; contact UI is currently disabled pending Telegram integration — workflow still passes the env through) |
+| `TELEGRAM_BOT_TOKEN` | Bot token from [@BotFather](https://t.me/BotFather) — written only into `dist/api/telegram-config.php` at deploy time (never committed) |
+| `TELEGRAM_CHAT_ID` | Numeric chat id that should receive form notifications |
 
 ### `.htaccess` checklist
 
@@ -134,10 +135,14 @@ SITE_URL=https://saeedzarrini.ir npm run check:deploy
 
 ### Contact form
 
-Set `VITE_FORMSPREE_ID` for Formspree delivery. Without it, the interactive form is hidden
-and visitors see a short direct-email message instead (production builds still succeed with
-a warning). The dedicated `/contact` page is the canonical destination; the About-page
-modal remains a shortcut.
+The interactive contact form POSTs JSON to same-origin `/api/contact.php`. That PHP
+proxy validates the payload (honeypot, timing, rate limit) and forwards a plain-text
+message via the Telegram Bot API. Bot credentials are GitHub Actions secrets
+(`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`) written into `dist/api/telegram-config.php`
+only during deploy — they never appear in the client bundle or git history
+(`public/api/.gitignore` ignores `telegram-config.php`).
+
+The visible direct-email link remains on the contact UI as a backup.
 
 ## License
 

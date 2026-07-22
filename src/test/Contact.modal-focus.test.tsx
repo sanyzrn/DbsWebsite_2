@@ -6,7 +6,6 @@ import { dictionaries } from "../lib/i18n";
 
 beforeEach(() => {
   Element.prototype.scrollIntoView = vi.fn();
-  vi.stubEnv("VITE_FORMSPREE_ID", "");
 });
 
 afterEach(() => {
@@ -17,7 +16,6 @@ afterEach(() => {
   document.getElementById("root")?.remove();
   window.history.replaceState(null, "", "/");
   vi.restoreAllMocks();
-  vi.unstubAllEnvs();
 });
 
 describe("Contact inquiry modal focus management", () => {
@@ -37,21 +35,20 @@ describe("Contact inquiry modal focus management", () => {
     await user.click(openBtn);
 
     const dialog = await screen.findByRole("dialog");
-    expect(within(dialog).getByText(dictionaries.fa.contact.form.formUnavailable)).toBeTruthy();
-    const emailLink = within(dialog).getByRole("link", { name: dictionaries.fa.contact.email });
+    const nameField = within(dialog).getByLabelText(new RegExp(dictionaries.fa.contact.form.name));
     await waitFor(() => {
-      expect(emailLink).toHaveFocus();
+      expect(nameField).toHaveFocus();
     });
 
     expect(root.hasAttribute("inert")).toBe(true);
     expect(document.body.style.overflow).toBe("hidden");
 
-    // Tab through every focusable until we wrap back to the first (email link).
+    // Tab through every focusable until we wrap back to the first (name field).
     let wrapped = false;
     for (let i = 0; i < 40; i++) {
       await user.tab();
       expect(dialog.contains(document.activeElement)).toBe(true);
-      if (document.activeElement === emailLink) {
+      if (document.activeElement === nameField) {
         wrapped = true;
         break;
       }
