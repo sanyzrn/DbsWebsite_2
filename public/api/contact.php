@@ -10,13 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   exit;
 }
 
-$config = __DIR__ . '/telegram-config.php';
+$config = __DIR__ . '/bale-config.php';
 if (!file_exists($config)) {
   http_response_code(500);
   echo json_encode(['ok' => false, 'error' => 'not_configured']);
   exit;
 }
-require $config; // defines TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID
+require $config; // defines BALE_BOT_TOKEN and BALE_CHAT_ID
 
 $raw = file_get_contents('php://input');
 $data = json_decode($raw ?: '', true);
@@ -73,7 +73,7 @@ if (count($attempts) >= 5) {
 $attempts[] = $now;
 file_put_contents($rateFile, json_encode($attempts));
 
-// Plain text only — no Telegram parse_mode / Markdown escaping.
+// Plain text only — no Bale parse_mode / Markdown escaping.
 $lines = [
   'New contact form submission',
   "Name: {$name}",
@@ -95,14 +95,14 @@ $lines[] = 'Message:';
 $lines[] = $message;
 $text = implode("\n", $lines);
 
-$telegramUrl = 'https://api.telegram.org/bot' . TELEGRAM_BOT_TOKEN . '/sendMessage';
-$ch = curl_init($telegramUrl);
+$baleUrl = 'https://tapi.bale.ai/bot' . BALE_BOT_TOKEN . '/sendMessage';
+$ch = curl_init($baleUrl);
 curl_setopt_array($ch, [
   CURLOPT_POST => true,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_TIMEOUT => 10,
   CURLOPT_POSTFIELDS => http_build_query([
-    'chat_id' => TELEGRAM_CHAT_ID,
+    'chat_id' => BALE_CHAT_ID,
     'text' => $text,
   ]),
 ]);
@@ -123,12 +123,12 @@ if ($response === false || $httpCode !== 200) {
     );
   }
   $logLine = date('c') . " | httpCode={$httpCode} | curlErrno={$curlErrno} | " .
-    "curlError={$curlError} | telegramResponse=" . substr((string) $response, 0, 500) .
+    "curlError={$curlError} | baleResponse=" . substr((string) $response, 0, 500) .
     "\n";
   error_log($logLine, 3, $logFile);
 
   http_response_code(502);
-  echo json_encode(['ok' => false, 'error' => 'telegram_delivery_failed']);
+  echo json_encode(['ok' => false, 'error' => 'bale_delivery_failed']);
   exit;
 }
 

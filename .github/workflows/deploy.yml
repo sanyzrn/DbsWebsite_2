@@ -29,18 +29,18 @@ jobs:
         env:
           SITE_URL: ${{ secrets.SITE_URL }}
 
-      - name: Generate Telegram config
+      - name: Generate Bale config
         run: |
           mkdir -p dist/api
           printf '%s\n' \
             '<?php' \
-            "define('TELEGRAM_BOT_TOKEN', '${{ secrets.TELEGRAM_BOT_TOKEN }}');" \
-            "define('TELEGRAM_CHAT_ID', '${{ secrets.TELEGRAM_CHAT_ID }}');" \
-            > dist/api/telegram-config.php
+            "define('BALE_BOT_TOKEN', '${{ secrets.BALE_BOT_TOKEN }}');" \
+            "define('BALE_CHAT_ID', '${{ secrets.BALE_CHAT_ID }}');" \
+            > dist/api/bale-config.php
           test -f dist/api/contact.php
-          test -f dist/api/telegram-config.php
+          test -f dist/api/bale-config.php
           php -l dist/api/contact.php
-          php -l dist/api/telegram-config.php
+          php -l dist/api/bale-config.php
 
       # `npm run build` → prerender already writes dist/.htaccess from
       # hosting/apache.htaccess.example with the matching CSP nonce.

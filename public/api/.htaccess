@@ -3,7 +3,7 @@
 <FilesMatch "\.(log|ini)$">
   Require all denied
 </FilesMatch>
-<Files "telegram-config.php">
+<Files "bale-config.php">
   Require all denied
 </Files>
 # Apache 2.2 fallback (some shared hosts still use Allow/Deny)
@@ -12,7 +12,7 @@
     Order allow,deny
     Deny from all
   </FilesMatch>
-  <Files "telegram-config.php">
+  <Files "bale-config.php">
     Order allow,deny
     Deny from all
   </Files>
