@@ -1,0 +1,19 @@
+# Deny direct HTTP access to secrets and diagnostic logs under /api/.
+# PHP scripts (contact.php) remain executable; these files must not be browsable.
+<FilesMatch "\.(log|ini)$">
+  Require all denied
+</FilesMatch>
+<Files "telegram-config.php">
+  Require all denied
+</Files>
+# Apache 2.2 fallback (some shared hosts still use Allow/Deny)
+<IfModule !mod_authz_core.c>
+  <FilesMatch "\.(log|ini)$">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+  <Files "telegram-config.php">
+    Order allow,deny
+    Deny from all
+  </Files>
+</IfModule>
