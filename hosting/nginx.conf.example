@@ -1,10 +1,10 @@
 # host-specific deployment config — replace with the equivalent for a new host if migrating
-# ACTIVE HOST today is Vercel (/vercel.json). Use this snippet when serving `dist/` via Nginx.
+# ACTIVE HOST today is Apache FTP. Use this snippet when serving `dist/` via Nginx.
 
 # Canonical host (temporary provider subdomain → apex). Adjust server_name as needed.
 # server {
 #   listen 443 ssl http2;
-#   server_name dbs-website-2.vercel.app;
+#   server_name preview.example.com;
 #   return 301 https://saeedzarrini.ir$request_uri;
 # }
 
@@ -22,7 +22,7 @@ server {
   add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()" always;
   add_header X-Frame-Options "DENY" always;
 
-  # Prefer exact files / clean URLs (matches vercel cleanUrls)
+  # Prefer exact files / clean URLs (no trailing slash)
   try_files $uri $uri/ $uri.html =404;
 
   # True 404 status with locale-aware bodies

@@ -1,5 +1,5 @@
 # host-specific deployment config — replace with the equivalent for a new host if migrating
-# Netlify port of the active Vercel rules (publish = dist).
+# Netlify port of the Apache host rules (publish = dist).
 
 [build]
   publish = "dist"

@@ -3,8 +3,6 @@
 > **ACTIVE HOST: Apache FTP (`https://saeedzarrini.ir`)**  
 > Automated deploy: [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) builds after CI on `main` and uploads `dist/` (including `dist/.htaccess`) via FTP.  
 > This FTP account’s root **is already** `public_html` — `server-dir` must stay `./` (do not nest under `/public_html/`).
->
-> **Safety net:** [`/vercel.json`](../vercel.json) remains available for Vercel previews (must stay at the repo root — Vercel only reads that path). Keep `hosting/vercel.json` in sync when editing it. Do not disconnect Vercel until FTP on the real domain is confirmed end-to-end.
 
 This folder isolates everything that is **host-specific**. App logic (prerendered `404.html` / `en/404.html`, `noindex` meta, `SITE_URL`) is host-independent and lives in the build.
 
@@ -16,11 +14,9 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
    - Non-English → `404.html` with status **404**  
    - Paths under `/en…` → `en/404.html` with status **404**  
    - Existing prerendered files/assets must still be served normally (filesystem-first).  
-   - On Vercel this is expressed with the legacy `routes` array (filesystem handle, then status 404 destinations) so the status code is real — plain `rewrites` to `404.html` would soft-404 with HTTP 200.  
    - On Apache use `RewriteCond %{REQUEST_FILENAME} !-f` / `!-d` before any 404 fallback, plus locale-aware `ErrorDocument 404` (see `apache.htaccess.example`).
 
 2. **Security headers on every response** (no HSTS yet — wait until the permanent host + TLS for `saeedzarrini.ir` are locked in)  
-   - Applied in the same `routes` entry with `"continue": true` on Vercel (top-level `headers` would be ignored when `routes` is present).  
    - On Apache use `Header set` via `mod_headers` (verify the module is enabled on shared hosts).  
    - `Content-Security-Policy` (see annotated breakdown below)  
    - `X-Content-Type-Options: nosniff`  
@@ -28,11 +24,9 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
    - `Permissions-Policy` (deny unused browser features)  
    - `X-Frame-Options: DENY` (also mirrored by CSP `frame-ancestors 'none'`)
 
-3. **Canonical hostname redirect**  
-   - Temporary provider subdomain → `https://saeedzarrini.ir` (308)  
-   - Current temporary host (Vercel preview): `dbs-website-2.vercel.app`  
-   - Only keep this while that subdomain is live; update the hostname string when the preview URL changes.  
-   - Verified reachable: `https://saeedzarrini.ir` should serve TLS successfully (do not point `SITE_URL` at a host that does not resolve).
+3. **Canonical hostname**  
+   - Apex: `https://saeedzarrini.ir`  
+   - Do not point `SITE_URL` at a host that does not resolve over HTTPS.
 
 4. **`SITE_URL` env var** (not in these files)  
    - Must be an origin that actually resolves over HTTPS before promoting a build.  
@@ -72,12 +66,9 @@ snapshots config before the build finishes).
 |------|---------|
 | `csp-header.txt` | Latest CSP string written by the build (readable single source) |
 | `apache.htaccess.example` | Source for `dist/.htaccess` (CSP line regenerated on build); also usable for a one-time manual upload if needed |
-| `vercel.json` | Copy of the root Vercel config (CSP regenerated on build; keep in sync with `/vercel.json`) |
 | `nginx.conf.example` | Drop-in Nginx snippet for plain static hosting |
-| `netlify.toml.example` | Netlify headers + redirects + 404 |
-| `cloudflare/_redirects.example` | Cloudflare Pages `_redirects` |
-| `cloudflare/_headers.example` | Cloudflare Pages `_headers` |
+| `netlify.toml.example` | Netlify headers + redirects + 404 (optional alternate host) |
+| `cloudflare/_redirects.example` | Cloudflare Pages `_redirects` (optional alternate host) |
+| `cloudflare/_headers.example` | Cloudflare Pages `_headers` (optional alternate host) |
 
-**Note on the current apex (`saeedzarrini.ir`):** Production is served via **Apache + GitHub Actions FTP**. Each deploy uploads `dist/.htaccess` produced by the build. Until a `.htaccess` is next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body. Vercel preview deployments use `/vercel.json` (re-read on deploy; also rely on per-page meta CSP for the build nonce).
-
-After editing non-CSP parts of `/vercel.json`, copy the same JSON into `hosting/vercel.json` so this folder stays the migration reference — then re-run build so CSP stays generated.
+**Note on the current apex (`saeedzarrini.ir`):** Production is served via **Apache + GitHub Actions FTP**. Each deploy uploads `dist/.htaccess` produced by the build. Until a `.htaccess` is next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body.
