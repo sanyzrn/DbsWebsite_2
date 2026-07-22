@@ -33,7 +33,7 @@ async function fillRequired(user: ReturnType<typeof userEvent.setup>) {
 }
 
 describe("contact form reliability", () => {
-  it("always shows the interactive form (Telegram PHP proxy path)", () => {
+  it("always shows the interactive form (Bale PHP proxy path)", () => {
     window.history.pushState(null, "", "/en/contact");
     render(<App />);
     expect(screen.getByRole("heading", { level: 1, name: dictionaries.en.contact.title })).toBeTruthy();

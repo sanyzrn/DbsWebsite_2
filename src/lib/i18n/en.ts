@@ -399,7 +399,7 @@ const en: UiDict = {
       },
       {
         heading: "The contact form",
-        body: "When you send a message through the contact form, your name, email, message, and any optional project details are posted to a same-origin PHP endpoint on this site, which forwards a plain-text notification to Saeed Zarrini via the Telegram Bot API. The bot token never ships in the browser bundle. This information is used solely to respond to your inquiry — it is never sold. Telegram's own processing of bot messages is covered by Telegram's privacy policy (https://telegram.org/privacy).",
+        body: "When you send a message through the contact form, your name, email, message, and any optional project details are posted to a same-origin PHP endpoint on this site, which forwards a plain-text notification to Saeed Zarrini via the Bale Bot API. The bot token never ships in the browser bundle. This information is used solely to respond to your inquiry — it is never sold. Bale's own processing of bot messages is covered by Bale's privacy policy (https://bale.ai).",
       },
       {
         heading: "Data retention",

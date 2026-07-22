@@ -86,8 +86,8 @@ Set these under **Settings → Secrets and variables → Actions**. They are **n
 | `FTP_USERNAME` | `sany@saeedzarrini.ir` |
 | `FTP_PASSWORD` | Current FTP account password |
 | `SITE_URL` | `https://saeedzarrini.ir` |
-| `TELEGRAM_BOT_TOKEN` | Bot token from [@BotFather](https://t.me/BotFather) — written only into `dist/api/telegram-config.php` at deploy time (never committed) |
-| `TELEGRAM_CHAT_ID` | Numeric chat id that should receive form notifications |
+| `BALE_BOT_TOKEN` | Bot token from Bale's BotFather — written only into `dist/api/bale-config.php` at deploy time (never committed) |
+| `BALE_CHAT_ID` | Numeric chat id that should receive form notifications |
 
 ### `.htaccess` checklist
 
@@ -137,10 +137,10 @@ SITE_URL=https://saeedzarrini.ir npm run check:deploy
 
 The interactive contact form POSTs JSON to same-origin `/api/contact.php`. That PHP
 proxy validates the payload (honeypot, timing, rate limit) and forwards a plain-text
-message via the Telegram Bot API. Bot credentials are GitHub Actions secrets
-(`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`) written into `dist/api/telegram-config.php`
+message via the Bale Bot API (`https://tapi.bale.ai`). Bot credentials are GitHub
+Actions secrets (`BALE_BOT_TOKEN`, `BALE_CHAT_ID`) written into `dist/api/bale-config.php`
 only during deploy — they never appear in the client bundle or git history
-(`public/api/.gitignore` ignores `telegram-config.php`).
+(`public/api/.gitignore` ignores `bale-config.php`).
 
 The visible direct-email link remains on the contact UI as a backup.
 
