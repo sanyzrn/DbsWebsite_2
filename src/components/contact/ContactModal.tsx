@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { useApp } from "../../lib/app";
 import type { ContactStatus } from "../../lib/mailto";
-import { ContactForm, ContactUnavailable } from "./ContactForm";
+import { ContactForm } from "./ContactForm";
 
 type ContactModalProps = {
   open: boolean;
@@ -15,8 +15,6 @@ type ContactModalProps = {
   titleId: string;
   dialogRef: RefObject<HTMLDivElement | null>;
   firstFieldRef: RefObject<HTMLInputElement | null>;
-  emailLinkRef: RefObject<HTMLAnchorElement | null>;
-  formEnabled: boolean;
   status: ContactStatus;
   setStatus: Dispatch<SetStateAction<ContactStatus>>;
   truncated: boolean;
@@ -29,8 +27,6 @@ export function ContactModal({
   titleId,
   dialogRef,
   firstFieldRef,
-  emailLinkRef,
-  formEnabled,
   status,
   setStatus,
   truncated,
@@ -74,18 +70,14 @@ export function ContactModal({
         </div>
 
         <div className="relative p-5 md:p-7">
-          {formEnabled ? (
-            <ContactForm
-              idPrefix="ct"
-              firstFieldRef={firstFieldRef}
-              status={status}
-              setStatus={setStatus}
-              truncated={truncated}
-              setTruncated={setTruncated}
-            />
-          ) : (
-            <ContactUnavailable emailLinkRef={emailLinkRef} />
-          )}
+          <ContactForm
+            idPrefix="ct"
+            firstFieldRef={firstFieldRef}
+            status={status}
+            setStatus={setStatus}
+            truncated={truncated}
+            setTruncated={setTruncated}
+          />
         </div>
       </div>
     </div>,

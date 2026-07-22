@@ -56,18 +56,16 @@ DirectoryIndex index.html
   #   base-uri 'self'                 — restrict <base> targets
   #   object-src 'none'               — no plugins
   #   frame-ancestors 'none'          — clickjacking protection (pairs with X-Frame-Options)
-  #   form-action 'self' https://formspree.io
-  #                                   — form posts (Formspree when VITE_FORMSPREE_ID is set)
+  #   form-action 'self'              — same-origin form posts
   #   script-src 'self' 'nonce-…'     — app bundles + FOUC/theme + JSON-LD (per-build nonce)
   #   style-src 'self' [+ hashes]     — bundled CSS only; inline style attrs removed from app
   #   img-src 'self' data: blob:      — site images + inline/data URLs
   #   font-src 'self' data:           — self-hosted @fontsource fonts (no Google Fonts CDN)
-  #   connect-src 'self' https://formspree.io
-  #                                   — contact form POST when Formspree is configured
+  #   connect-src 'self'              — contact form POST to /api/contact.php
   #   worker-src 'self' blob:         — PWA service worker + any blob workers
   #   manifest-src 'self'             — web app manifest
   #   upgrade-insecure-requests       — prefer HTTPS subresources
-  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://formspree.io; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://formspree.io; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'nonce-ZmdL9Ri87Z5PsUSMlZ0n0g'; style-src 'self'"
+  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'nonce--FH-iYfSU5hDBQsv1I5KVg'; style-src 'self'"
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"

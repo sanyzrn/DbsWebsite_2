@@ -2,7 +2,7 @@
 /// <reference types="vite-plugin-pwa/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_FORMSPREE_ID?: string;
+  readonly VITE_SITE_URL?: string;
 }
 
 interface ImportMeta {

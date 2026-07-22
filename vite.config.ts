@@ -69,16 +69,6 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
   const env = loadEnv(mode, __dirname, "");
   const siteUrl = normalizeSiteUrl(env.SITE_URL || process.env.SITE_URL || DEFAULT_SITE_URL);
 
-  // Informational only — contact UI falls back to a static email message when unset.
-  if (mode === "production") {
-    const formspreeId = (env.VITE_FORMSPREE_ID || process.env.VITE_FORMSPREE_ID || "").trim();
-    if (!formspreeId) {
-      console.warn(
-        "\n[contact] WARNING: VITE_FORMSPREE_ID is unset — interactive contact form is disabled; visitors see a direct-email message instead.\n"
-      );
-    }
-  }
-
   return {
     plugins: [
       // MDX must run before the React plugin (pre) so .mdx compiles to JSX first.

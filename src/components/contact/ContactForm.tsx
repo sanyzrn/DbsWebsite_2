@@ -18,7 +18,6 @@ import {
 import { useApp } from "../../lib/app";
 import { PROJECT_TYPE_IDS, type ProjectTypeId } from "../../lib/i18n";
 import {
-  buildMailto,
   emptyContactFields,
   type ContactFields,
   type ContactStatus,
@@ -28,6 +27,7 @@ import { cn } from "../../utils/cn";
 
 const SUBMIT_MIN_MS = 2000;
 const FETCH_TIMEOUT_MS = 15_000;
+const CONTACT_API = "/api/contact.php";
 
 /** Best-effort project-type from content tags; undefined → leave form default. */
 function projectTypeFromTags(tags: string[]): ProjectTypeId | undefined {
@@ -44,29 +44,6 @@ function projectTypeFromTags(tags: string[]): ProjectTypeId | undefined {
     if (hit) return hit;
   }
   return undefined;
-}
-
-export function ContactUnavailable({
-  emailLinkRef,
-}: {
-  emailLinkRef?: RefObject<HTMLAnchorElement | null>;
-}) {
-  const { t } = useApp();
-  return (
-    <div className="rounded-sm border border-line bg-page px-4 py-5 md:px-5 md:py-6">
-      <p className="text-[14.5px] font-medium leading-7 text-ink2 md:text-[15px] md:leading-8">
-        {t.contact.form.formUnavailable}
-      </p>
-      <a
-        ref={emailLinkRef}
-        href={`mailto:${t.contact.email}`}
-        dir="ltr"
-        className="mt-4 inline-flex text-[15px] font-bold tracking-tight text-hi transition-colors hover:text-ink"
-      >
-        {t.contact.email}
-      </a>
-    </div>
-  );
 }
 
 type ContactFormProps = {
@@ -124,8 +101,6 @@ export function ContactForm({
     return () => window.clearTimeout(id);
   }, [status]);
 
-  const typeLabel = f.types[fields.type];
-
   const set = (key: keyof ContactFields, value: string) => {
     setFields((s) => ({ ...s, [key]: value }));
     setErrors((e) => ({ ...e, [key]: false }));
@@ -156,6 +131,8 @@ export function ContactForm({
       return;
     }
 
+    const elapsedMs = Date.now() - mountedAt.current;
+
     // Honeypot: bots that fill hidden fields get a fake success — no network call.
     if (website.trim()) {
       setStatus("delivered");
@@ -163,56 +140,49 @@ export function ContactForm({
     }
 
     // Timing check: reject submissions faster than a human can reasonably fill the form.
-    if (Date.now() - mountedAt.current < SUBMIT_MIN_MS) {
+    if (elapsedMs < SUBMIT_MIN_MS) {
       setStatus("error");
       return;
     }
 
-    const formspreeId = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
+    setStatus("sending");
+    const controller = new AbortController();
+    let timedOut = false;
+    const timer = window.setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, FETCH_TIMEOUT_MS);
 
-    if (formspreeId) {
-      setStatus("sending");
-      const controller = new AbortController();
-      let timedOut = false;
-      const timer = window.setTimeout(() => {
-        timedOut = true;
-        controller.abort();
-      }, FETCH_TIMEOUT_MS);
-
-      try {
-        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-          method: "POST",
-          headers: { Accept: "application/json", "Content-Type": "application/json" },
-          signal: controller.signal,
-          body: JSON.stringify({
-            name: fields.name,
-            email: fields.email,
-            company: fields.company,
-            type: fields.type,
-            message: fields.message,
-            budget: fields.budget,
-            timeline: fields.timeline,
-            _subject: `Project inquiry — ${typeLabel} — ${fields.name}`,
-          }),
-        });
-        if (!res.ok) throw new Error("formspree failed");
-        setStatus("delivered");
-        setTruncated(false);
-        setFields({ ...emptyContactFields });
-      } catch (err) {
-        const aborted = err instanceof DOMException && err.name === "AbortError";
-        setStatus(timedOut || aborted ? "timeout" : "error");
-      } finally {
-        window.clearTimeout(timer);
-      }
-      return;
+    try {
+      const res = await fetch(CONTACT_API, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          name: fields.name,
+          email: fields.email,
+          company: fields.company,
+          type: fields.type,
+          message: fields.message,
+          budget: fields.budget,
+          timeline: fields.timeline,
+          website,
+          elapsedMs,
+        }),
+      });
+      if (!res.ok) throw new Error(`contact api failed (${res.status})`);
+      const payload = (await res.json()) as { ok?: boolean };
+      if (!payload?.ok) throw new Error("contact api rejected");
+      setStatus("delivered");
+      setTruncated(false);
+      setFields({ ...emptyContactFields });
+      setWebsite("");
+    } catch (err) {
+      const aborted = err instanceof DOMException && err.name === "AbortError";
+      setStatus(timedOut || aborted ? "timeout" : "error");
+    } finally {
+      window.clearTimeout(timer);
     }
-
-    const mailto = buildMailto(fields, typeLabel);
-    setTruncated(mailto.truncated);
-    window.location.href = mailto.href;
-    // Honest fallback: do not clear fields — the message has not been delivered yet.
-    setStatus("mailed");
   };
 
   const hpId = `${idPrefix}-website`;

@@ -49,8 +49,8 @@ snapshots config before the build finishes).
 | `style-src 'self'` (+ optional `'unsafe-hashes' sha256-…`) | Bundled CSS; app avoids inline `style=` attrs. Any remaining prerendered style attrs are hashed |
 | `font-src 'self' data:` | Self-hosted `@fontsource` fonts (no Google Fonts CDN) |
 | `img-src 'self' data: blob:` | Site images + inline/data URLs |
-| `connect-src 'self' https://formspree.io` | Contact form POST when `VITE_FORMSPREE_ID` is set (Formspree domain — not the site apex) |
-| `form-action 'self' https://formspree.io` | Form posts (Formspree endpoint — not the site apex) |
+| `connect-src 'self'` | Contact form POST to `/api/contact.php` (same-origin) |
+| `form-action 'self'` | Native form posts stay same-origin |
 | `worker-src 'self' blob:` | PWA service worker + any blob workers (e.g. three.js) |
 | `frame-ancestors 'none'` | Clickjacking protection (pairs with `X-Frame-Options`) |
 | `object-src 'none'` | No plugins |
