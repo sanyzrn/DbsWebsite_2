@@ -362,6 +362,7 @@ const en: UiDict = {
       formUnavailable:
         "The contact form is temporarily being set up. In the meantime, feel free to reach me directly at the email below:",
       required: "This field is required.",
+      regardingProject: "Regarding: {name} — ",
       types: {
         "ai-product": "AI Product",
         "web-app": "Web Application",

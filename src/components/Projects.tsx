@@ -5,7 +5,7 @@ import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import { Breadcrumbs } from "./Breadcrumbs";
-import { DirArrow, Reveal, SectionHead, SnapCarousel } from "./ui";
+import { DirArrow, Reveal, SectionHead, SnapCarousel, DecorativeGrid } from "./ui";
 
 type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar" | "concept";
 
@@ -493,8 +493,9 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
   const previewLabel = (name: string) => t.projects.previewAria.replace("{name}", name);
 
   return (
-    <section id="projects" className="section-pad border-t border-line">
-      <div className="wrap">
+    <section id="projects" className="relative overflow-hidden section-pad border-t border-line">
+      {mode === "full" ? <DecorativeGrid /> : null}
+      <div className={cn("wrap", mode === "full" && "relative")}>
         <SectionHead
           kicker={mode === "full" ? t.projects.pageKicker : t.projects.kicker}
           title={mode === "full" ? t.projects.pageTitle : t.projects.title}
@@ -715,7 +716,9 @@ function ProjectMetaRow({ project }: { project: ProjectItem }) {
 export function ProjectDetailView({ project }: { project: ProjectItem }) {
   const { t, lang } = useApp();
   return (
-    <div className="wrap section-pad">
+    <section className="relative overflow-hidden section-pad border-t border-line">
+      <DecorativeGrid />
+      <div className="wrap relative">
       <Breadcrumbs
         items={[
           { label: t.nav.home, to: localePath(lang, "/") },
@@ -775,10 +778,14 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
         <Meta label={t.projects.roleLabel} items={project.role} />
         <Meta label={t.projects.techLabel} items={project.tech} mono />
       </div>
-      <Link to={localePath(lang, "/contact")} className="btn btn-primary mt-10 w-full sm:w-auto">
+      <Link
+        to={`${localePath(lang, "/contact")}?project=${encodeURIComponent(project.slug)}`}
+        className="btn btn-primary mt-10 w-full sm:w-auto"
+      >
         {t.projects.discuss}
         <DirArrow className="h-4 w-4" />
       </Link>
-    </div>
+      </div>
+    </section>
   );
 }

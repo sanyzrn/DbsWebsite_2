@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/PageMeta";
-import { DirArrow, Reveal, SectionHead } from "../components/ui";
+import { DirArrow, Reveal, SectionHead, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 import { formatArticleDate } from "../lib/formatDate";
 import { getLocalizedNewsItems, type LocalizedNewsItem } from "../lib/news";
@@ -63,8 +63,9 @@ export default function NewsPage() {
   return (
     <>
       <PageMeta page="news" />
-      <section className="section-pad border-t border-line bg-surface">
-        <div className="wrap max-w-3xl">
+      <section className="relative overflow-hidden section-pad border-t border-line bg-surface">
+        <DecorativeGrid />
+        <div className="wrap relative max-w-3xl">
           <Reveal>
             <Link
               to={localePath(lang, "/articles")}

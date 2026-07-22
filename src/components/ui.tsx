@@ -4,6 +4,17 @@ import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 
 /* ------------------------------------------------------------------ */
+/*  Decorative page grid (Contact-style atmosphere)                     */
+/* ------------------------------------------------------------------ */
+
+/** Soft grid texture over a page section — Contact's exact treatment. */
+export function DecorativeGrid() {
+  return (
+    <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Scroll reveal wrapper                                               */
 /* ------------------------------------------------------------------ */
 

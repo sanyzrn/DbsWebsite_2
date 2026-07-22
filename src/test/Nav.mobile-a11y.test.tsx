@@ -49,4 +49,22 @@ describe("Mobile nav focus management", () => {
     expect(firstLink.closest("[inert]")).toBe(panelWrap);
     expect(document.body.style.overflow).toBe("");
   });
+
+  it("closes the open menu when clicking main content outside the panel", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const toggle = screen.getByRole("button", { name: dictionaries.fa.nav.menu });
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+    const main = document.getElementById("main");
+    expect(main).toBeTruthy();
+    await user.click(main!);
+
+    await waitFor(() => {
+      expect(toggle).toHaveAttribute("aria-expanded", "false");
+    });
+    expect(document.body.style.overflow).toBe("");
+  });
 });

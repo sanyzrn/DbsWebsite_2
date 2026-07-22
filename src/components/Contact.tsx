@@ -5,7 +5,7 @@ import { useApp } from "../lib/app";
 import { isContactFormEnabled, type ContactStatus } from "../lib/mailto";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
-import { DirArrow, Reveal } from "./ui";
+import { DirArrow, Reveal, DecorativeGrid } from "./ui";
 import { ContactForm, ContactUnavailable } from "./contact/ContactForm";
 import { ContactInfo } from "./contact/ContactInfo";
 import { ContactModal } from "./contact/ContactModal";
@@ -94,7 +94,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
   if (variant === "page") {
     return (
       <section id="contact" className="relative overflow-hidden border-t border-line bg-surface section-pad">
-        <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
+        <DecorativeGrid />
         <div
           className="pointer-events-none absolute -top-24 end-[-10%] h-[420px] w-[420px] rounded-full bg-hi/10 blur-3xl dark:bg-hi/5"
           aria-hidden="true"
@@ -148,7 +148,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
 
   return (
     <section id="contact" className="relative overflow-hidden border-t border-line bg-surface section-pad">
-      <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
+      <DecorativeGrid />
       <div
         className="pointer-events-none absolute -top-24 end-[-10%] h-[420px] w-[420px] rounded-full bg-hi/10 blur-3xl dark:bg-hi/5"
         aria-hidden="true"

@@ -4,7 +4,7 @@ import Contact from "../components/Contact";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
 import Testimonials from "../components/Testimonials";
-import { Reveal, SectionHead } from "../components/ui";
+import { Reveal, SectionHead, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 
 /**
@@ -18,8 +18,9 @@ export default function AboutPage() {
     <>
       <PageMeta page="about" />
       {/* 1–2. Strong opening + prominent studio image */}
-      <section id="about" className="section-pad border-t border-line bg-surface">
-        <div className="wrap">
+      <section id="about" className="relative overflow-hidden section-pad border-t border-line bg-surface">
+        <DecorativeGrid />
+        <div className="wrap relative">
           <SectionHead kicker={t.about.kicker} title={t.about.title} />
 
           <Reveal delay={80}>

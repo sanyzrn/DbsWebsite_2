@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/PageMeta";
-import { DirArrow, Reveal, SectionHead } from "../components/ui";
+import { DirArrow, Reveal, SectionHead, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 import { getPublishedArticles, type Article } from "../lib/articles";
 import { formatArticleDate } from "../lib/formatDate";
@@ -78,8 +78,9 @@ export default function ArticlesPage() {
   return (
     <>
       <PageMeta page="articles" />
-      <section id="articles" className="section-pad border-t border-line">
-        <div className="wrap">
+      <section id="articles" className="relative overflow-hidden section-pad border-t border-line">
+        <DecorativeGrid />
+        <div className="wrap relative">
           <SectionHead kicker={t.articles.pageKicker} title={t.articles.pageTitle} lead={t.articles.pageLead} />
 
           {articles.length === 0 ? (
