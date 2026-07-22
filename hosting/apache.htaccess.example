@@ -8,11 +8,11 @@
 #     default; verify it is enabled before relying on Header set directives)
 #
 # Host-agnostic requirements mirrored from hosting/README.md (same as
-# Vercel / Netlify / Cloudflare / Nginx examples):
+# Netlify / Cloudflare / Nginx examples):
 #   1. True HTTP 404 for unmatched paths (en → en/404.html, else 404.html)
 #   2. Security headers on every response (no HSTS until TLS/domain are locked in)
 #
-# ACTIVE HOST: Apache via manual FTP upload (until deploy automation is set up).
+# ACTIVE HOST: Apache via GitHub Actions FTP (see .github/workflows/deploy.yml).
 # Place this next to the built files from `npm run build` (dist/ contents).
 
 DirectoryIndex index.html
