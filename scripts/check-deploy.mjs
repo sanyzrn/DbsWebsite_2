@@ -1,14 +1,14 @@
 /**
  * Deployment promotion gate — hits the live origin over the network.
  *
- * Verifies (host-agnostic; works for Vercel, Nginx, Netlify, Cloudflare Pages, …):
+ * Verifies (host-agnostic; works for Apache, Nginx, Netlify, Cloudflare Pages, …):
  *  1) SITE_URL / DEPLOY_CHECK_BASE_URL resolves over HTTPS
  *  2) An unknown path returns HTTP 404
  *  3) That 404 body includes robots noindex
  *
  * Usage:
  *   SITE_URL=https://saeedzarrini.ir npm run check:deploy
- *   DEPLOY_CHECK_BASE_URL=https://dbs-website-2.vercel.app npm run check:deploy
+ *   DEPLOY_CHECK_BASE_URL=https://preview.example.com npm run check:deploy
  *
  * Prefer DEPLOY_CHECK_BASE_URL when checking a preview host while SITE_URL is the
  * canonical production origin. Does not require any host-specific CLI.

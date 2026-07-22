@@ -128,23 +128,6 @@ export function writeCspToHostingConfigs(cspHeader) {
   fs.mkdirSync(hostingDir, { recursive: true });
   fs.writeFileSync(path.join(hostingDir, "csp-header.txt"), `${cspHeader}\n`, "utf8");
 
-  // Root + hosting vercel.json
-  for (const rel of ["vercel.json", "hosting/vercel.json"]) {
-    const abs = path.join(ROOT, rel);
-    if (!fs.existsSync(abs)) continue;
-    const json = JSON.parse(fs.readFileSync(abs, "utf8"));
-    let updated = false;
-    for (const route of json.routes ?? []) {
-      if (route.headers && "Content-Security-Policy" in route.headers) {
-        route.headers["Content-Security-Policy"] = cspHeader;
-        updated = true;
-      }
-    }
-    if (updated) {
-      fs.writeFileSync(abs, `${JSON.stringify(json, null, 2)}\n`, "utf8");
-    }
-  }
-
   // Apache
   const apache = path.join(hostingDir, "apache.htaccess.example");
   if (fs.existsSync(apache)) {

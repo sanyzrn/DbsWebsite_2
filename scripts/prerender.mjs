@@ -168,7 +168,8 @@ async function main() {
   const cspHeader = buildCspHeader({ nonce, styleHashes: styleHashList });
   const cspMeta = buildCspHeader({ nonce, styleHashes: styleHashList, forMeta: true });
 
-  // Meta CSP on every page so hosts that ignore mid-build vercel.json still enforce policy.
+  // Meta CSP on every page so the policy matches the build nonce even if a host
+  // serves HTML without re-reading mid-build Apache/host config.
   // Omit frame-ancestors here — that directive is header-only and warns in <meta>.
   for (const file of walkHtmlFiles(dist)) {
     let html = fs.readFileSync(file, "utf8");
