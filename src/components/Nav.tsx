@@ -40,6 +40,24 @@ export default function Nav() {
   useBodyScrollLock(open);
   useFocusTrap(panelWrapRef, open, { additionalRefs: [toggleRef] });
 
+  // Document-level outside click/touch — more reliable than backdrop onClick alone.
+  useEffect(() => {
+    if (!open) return;
+    const onPointerOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target;
+      if (!(target instanceof Node)) return;
+      if (panelWrapRef.current?.contains(target)) return;
+      if (toggleRef.current?.contains(target)) return;
+      closeMenu();
+    };
+    document.addEventListener("mousedown", onPointerOutside);
+    document.addEventListener("touchstart", onPointerOutside, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", onPointerOutside);
+      document.removeEventListener("touchstart", onPointerOutside);
+    };
+  }, [open]);
+
   useEffect(() => {
     if (open) {
       wasOpen.current = true;

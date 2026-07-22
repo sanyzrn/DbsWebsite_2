@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } f
 import { Link } from "react-router-dom";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
-import { Reveal } from "../components/ui";
+import { Reveal, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
@@ -80,6 +80,7 @@ export default function NotFoundPage() {
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
       >
+        <DecorativeGrid />
         {/* Decorative atmosphere + soft center warp */}
         <div className="nf-atmosphere pointer-events-none absolute inset-0" aria-hidden="true">
           <div

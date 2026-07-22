@@ -7,6 +7,7 @@ import {
   type RefObject,
   type SetStateAction,
 } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   AlertCircle,
   CheckCircle2,
@@ -22,10 +23,28 @@ import {
   type ContactFields,
   type ContactStatus,
 } from "../../lib/mailto";
+import { findLocalizedProject } from "../../lib/projects";
 import { cn } from "../../utils/cn";
 
 const SUBMIT_MIN_MS = 2000;
 const FETCH_TIMEOUT_MS = 15_000;
+
+/** Best-effort project-type from content tags; undefined → leave form default. */
+function projectTypeFromTags(tags: string[]): ProjectTypeId | undefined {
+  const map: Record<string, ProjectTypeId> = {
+    AI: "ai-product",
+    "Full-Stack": "web-app",
+    Mobile: "mobile-app",
+    Desktop: "desktop-app",
+    Automation: "automation",
+    Design: "ui-ux",
+  };
+  for (const tag of tags) {
+    const hit = map[tag];
+    if (hit) return hit;
+  }
+  return undefined;
+}
 
 export function ContactUnavailable({
   emailLinkRef,
@@ -67,12 +86,14 @@ export function ContactForm({
   truncated,
   setTruncated,
 }: ContactFormProps) {
-  const { t } = useApp();
+  const { t, lang } = useApp();
   const f = t.contact.form;
+  const [searchParams] = useSearchParams();
   const [fields, setFields] = useState<ContactFields>({ ...emptyContactFields });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFields, boolean>>>({});
   const [website, setWebsite] = useState("");
   const mountedAt = useRef(0);
+  const prefilledFromQuery = useRef(false);
   const emailFieldRef = useRef<HTMLInputElement>(null);
   const messageFieldRef = useRef<HTMLTextAreaElement>(null);
   const statusAlertRef = useRef<HTMLDivElement>(null);
@@ -80,6 +101,22 @@ export function ContactForm({
   useEffect(() => {
     mountedAt.current = Date.now();
   }, []);
+
+  useEffect(() => {
+    if (prefilledFromQuery.current) return;
+    const slug = searchParams.get("project")?.trim();
+    if (!slug) return;
+    const project = findLocalizedProject(lang, slug);
+    if (!project) return;
+    prefilledFromQuery.current = true;
+    const opener = f.regardingProject.replace("{name}", project.name);
+    const mappedType = projectTypeFromTags(project.tags);
+    setFields((s) => ({
+      ...s,
+      message: s.message.trim() ? s.message : opener,
+      ...(mappedType ? { type: mappedType } : {}),
+    }));
+  }, [searchParams, lang, f.regardingProject]);
 
   useEffect(() => {
     if (status !== "error" && status !== "timeout") return;

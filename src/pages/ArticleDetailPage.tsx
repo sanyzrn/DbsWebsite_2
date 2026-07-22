@@ -2,7 +2,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { PageMeta } from "../components/PageMeta";
 import { articleMdxComponents } from "../components/mdx/components";
-import { DirArrow, Reveal } from "../components/ui";
+import { DirArrow, Reveal, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 import { findArticle, getPublishedArticles } from "../lib/articles";
 import { formatArticleDate } from "../lib/formatDate";
@@ -31,7 +31,9 @@ export default function ArticleDetailPage() {
   return (
     <>
       <PageMeta page="article" slug={slug} />
-      <div className="wrap section-pad">
+      <section className="relative overflow-hidden section-pad border-t border-line">
+        <DecorativeGrid />
+        <div className="wrap relative">
         <Breadcrumbs
           items={[
             { label: t.nav.home, to: localePath(lang, "/") },
@@ -103,7 +105,8 @@ export default function ArticleDetailPage() {
             </aside>
           </Reveal>
         ) : null}
-      </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/PageMeta";
-import { Reveal } from "../components/ui";
+import { Reveal, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 
@@ -11,8 +11,9 @@ export default function TermsPage() {
   return (
     <>
       <PageMeta page="terms" />
-      <section className="section-pad border-t border-line bg-surface">
-        <div className="wrap max-w-3xl">
+      <section className="relative overflow-hidden section-pad border-t border-line bg-surface">
+        <DecorativeGrid />
+        <div className="wrap relative max-w-3xl">
           <Reveal>
             <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-ink3">{copy.kicker}</p>
             <h1 className="mt-3 text-[32px] font-extrabold tracking-tight text-ink md:text-[40px]">{copy.title}</h1>
