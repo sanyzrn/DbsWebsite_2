@@ -4,8 +4,8 @@
   --ink: #1c1c1a;
   --ink2: #77736c;
   --line: #ddd5c9;
-  --accent: #bc9463;
-  --accentdark: #947044;
+  --accent: #d4b483;
+  --accentdark: #c19e6e;
 }
 @media (prefers-color-scheme: dark) {
   :root {

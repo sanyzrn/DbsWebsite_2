@@ -105,7 +105,7 @@ function MockAI() {
     <div className="absolute inset-4 flex overflow-hidden rounded-[10px] border border-shotline bg-shotpanel sm:inset-6">
       <div className="hidden w-[32%] flex-col gap-1.5 border-e border-shotline p-2.5 sm:flex">
         <span className="mb-1 font-mono text-[8px] uppercase tracking-widest text-shotmut">providers</span>
-        {["bg-[#BC9463]", "bg-[#8FB0C0]", "bg-[#A3B18A]"].map((c, i) => (
+        {["bg-accent", "bg-[#8FB0C0]", "bg-[#A3B18A]"].map((c, i) => (
           <div key={i} className="flex items-center gap-1.5 rounded-[4px] border border-shotline bg-shot px-1.5 py-1.5">
             <span className={cn("h-2 w-2 rounded-full", c)} />
             {row("46%", "bg-shotup")}
@@ -210,7 +210,7 @@ function MockBrain() {
             <circle cx="22" cy="22" r="17" fill="none" stroke="#242930" strokeWidth="5" />
             <circle cx="22" cy="22" r="17" fill="none" stroke="#A3B18A" strokeWidth="5" strokeLinecap="round" strokeDasharray="107" strokeDashoffset="27" transform="rotate(-90 22 22)" />
             <circle cx="22" cy="22" r="10" fill="none" stroke="#242930" strokeWidth="4" />
-            <circle cx="22" cy="22" r="10" fill="none" stroke="#BC9463" strokeWidth="4" strokeLinecap="round" strokeDasharray="63" strokeDashoffset="16" transform="rotate(-90 22 22)" />
+            <circle cx="22" cy="22" r="10" fill="none" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" strokeDasharray="63" strokeDashoffset="16" transform="rotate(-90 22 22)" />
           </svg>
           <div className="flex-1 space-y-1">{row("80%", "bg-shotmut/50")}{row("55%")}</div>
         </div>

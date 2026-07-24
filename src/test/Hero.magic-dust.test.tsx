@@ -101,7 +101,7 @@ describe("Hero MagicDust gates", () => {
     expect(screen.queryByTestId("magic-dust-layer")).toBeNull();
     expect(screen.queryByTestId("magic-dust-canvas")).toBeNull();
     expect(magicDustMock).not.toHaveBeenCalled();
-    // Static paper-texture / glow fallback stays mounted
+    // Static glow fallback stays mounted
     expect(document.querySelector(".hero-atmosphere")).toBeTruthy();
   });
 

@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens — light = warm paper, dark = graphite architecture   */
+/*  Design tokens — light = warm neutral, dark = graphite architecture   */
 /* ------------------------------------------------------------------ */
 
 /* Registered so theme toggles can interpolate instead of snapping. */
@@ -50,12 +50,12 @@
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #bc9463;
+  initial-value: #d4b483;
 }
 @property --accentdark {
   syntax: "<color>";
   inherits: true;
-  initial-value: #947044;
+  initial-value: #c19e6e;
 }
 @property --soft {
   syntax: "<color>";
@@ -65,7 +65,7 @@
 @property --hi {
   syntax: "<color>";
   inherits: true;
-  initial-value: #bc9463;
+  initial-value: #d4b483;
 }
 
 :root {
@@ -79,11 +79,10 @@
   --ink3: #6e6960;
   --line: #ddd5c9;
   --line2: #cdc4b4;
-  /* Accent/hi darkened so text + primary-button labels meet AA on cream */
-  --accent: #7d5e37;
-  --accentdark: #6a4f2e;
+  --accent: #d4b483;
+  --accentdark: #c19e6e;
   --soft: #e6d6c2;
-  --hi: #7d5e37;
+  --hi: #d4b483;
   --fontstack: "Vazirmatn", ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
 }
 
@@ -441,26 +440,15 @@ section[id] {
   mask-image: radial-gradient(130% 100% at 50% 0%, #000 25%, transparent 78%);
 }
 
-/* Hero atmosphere — topo contours + soft glow + grain (replaces grid) */
+/* Hero atmosphere — soft accent glow (static SVG/CSS) */
 .hero-atmosphere {
   opacity: 1;
   -webkit-mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
   mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
 }
 
-.hero-atmosphere-grain {
-  opacity: 0.32;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-
-.dark .hero-atmosphere-grain {
-  opacity: 0.4;
-  mix-blend-mode: soft-light;
-}
-
 /* ------------------------------------------------------------------ */
-/*  404 — "Lost signal" (Hero atmosphere + soft SVG displacement)       */
+/*  404 — "Lost signal" (Hero atmosphere + signal ring)                       */
 /* ------------------------------------------------------------------ */
 
 .nf-stage {
@@ -475,13 +463,7 @@ section[id] {
 }
 
 .nf-atmosphere-field {
-  will-change: filter;
-  transition: opacity 0.4s ease;
-}
-
-.nf-atmosphere-warping {
-  opacity: 0.92;
-  filter: url(#nf-warp-filter);
+  will-change: auto;
 }
 
 .nf-mark {

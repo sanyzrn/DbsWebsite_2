@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
@@ -7,25 +7,16 @@ import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 
-const WARP_FILTER_ID = "nf-warp-filter";
-
 /**
  * Creative concept — Option A, "Lost signal":
- * Reuses the Hero topographic atmosphere as a full-bleed field, then soft-warps
- * the center with an SVG displacement filter (feTurbulence + feDisplacementMap)
- * so the pattern briefly unravels where the 404 sits — like a signal hunting for
- * lock. The warp settles after a moment and eases when the pointer leaves the
- * center; prefers-reduced-motion gets the same composition with zero distortion.
- * Decorative only (aria-hidden); real heading / body / home link stay accessible.
+ * Reuses the Hero atmosphere as a full-bleed field with a restrained signal ring
+ * around the 404 — like a beacon hunting for lock. Decorative only (aria-hidden);
+ * real heading / body / home link stay accessible.
  */
 export default function NotFoundPage() {
   const { t, lang } = useApp();
   const copy = t.notFound;
-  const stageRef = useRef<HTMLElement>(null);
-  const rafRef = useRef(0);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [warp, setWarp] = useState(0);
-  const [settled, setSettled] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -35,95 +26,16 @@ export default function NotFoundPage() {
     return () => mq.removeEventListener("change", sync);
   }, []);
 
-  useEffect(() => {
-    if (reduceMotion) {
-      setWarp(0);
-      setSettled(true);
-      return;
-    }
-    // Soft entry warp that locks back onto a clean signal.
-    setWarp(16);
-    const settle = window.setTimeout(() => {
-      setWarp(0);
-      setSettled(true);
-    }, 2400);
-    return () => window.clearTimeout(settle);
-  }, [reduceMotion]);
-
-  const onPointerMove = (e: ReactPointerEvent<HTMLElement>) => {
-    if (reduceMotion || !settled) return;
-    const el = stageRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height * 0.36;
-    const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
-    const radius = Math.min(rect.width, rect.height) * 0.32;
-    const proximity = Math.max(0, 1 - dist / radius);
-    const next = Math.round(proximity * 12 * 10) / 10;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => setWarp(next));
-  };
-
-  const onPointerLeave = () => {
-    if (reduceMotion) return;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    setWarp(0);
-  };
-
   return (
     <>
       <PageMeta page="notFound" />
-      <section
-        ref={stageRef}
-        className="nf-stage relative overflow-hidden border-t border-line bg-page"
-        onPointerMove={onPointerMove}
-        onPointerLeave={onPointerLeave}
-      >
+      <section className="nf-stage relative overflow-hidden border-t border-line bg-page">
         <DecorativeGrid />
-        {/* Decorative atmosphere + soft center warp */}
         <div className="nf-atmosphere pointer-events-none absolute inset-0" aria-hidden="true">
-          <div
-            className={cn(
-              "nf-atmosphere-field absolute inset-0",
-              !reduceMotion && warp > 0.2 && "nf-atmosphere-warping"
-            )}
-          >
+          <div className="nf-atmosphere-field absolute inset-0">
             <HeroAtmosphere />
           </div>
 
-          {/* SVG filter defs live off-layout; scale driven by React state (no canvas). */}
-          {!reduceMotion ? (
-            <svg className="pointer-events-none absolute h-0 w-0 overflow-hidden" aria-hidden="true">
-              <defs>
-                <filter
-                  id={WARP_FILTER_ID}
-                  x="-8%"
-                  y="-8%"
-                  width="116%"
-                  height="116%"
-                  colorInterpolationFilters="sRGB"
-                >
-                  <feTurbulence
-                    type="fractalNoise"
-                    baseFrequency="0.018 0.028"
-                    numOctaves="2"
-                    seed="7"
-                    result="noise"
-                  />
-                  <feDisplacementMap
-                    in="SourceGraphic"
-                    in2="noise"
-                    scale={warp}
-                    xChannelSelector="R"
-                    yChannelSelector="G"
-                  />
-                </filter>
-              </defs>
-            </svg>
-          ) : null}
-
-          {/* Signal ring — geometric, brand-restrained */}
           <svg
             className="nf-signal-ring absolute left-1/2 top-[min(38%,14rem)] h-[min(72vw,22rem)] w-[min(72vw,22rem)] -translate-x-1/2 -translate-y-1/2"
             viewBox="0 0 200 200"

@@ -31,7 +31,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#f5f0e8] px-6 text-[#1c1c1a] dark:bg-[#151617] dark:text-[#f1f0ed]">
         <div className="max-w-md text-center" dir={isFa ? "rtl" : "ltr"}>
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#bc9463]">error</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">error</p>
           <h1 className="mt-4 text-[28px] font-extrabold tracking-tight">
             {isFa ? "مشکلی پیش آمد." : "Something went wrong."}
           </h1>
@@ -44,7 +44,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="rounded-sm bg-[#bc9463] px-5 py-2.5 text-[13px] font-bold text-[#211a10]"
+              className="rounded-sm bg-accent px-5 py-2.5 text-[13px] font-bold text-[#211a10]"
             >
               {isFa ? "تازه‌سازی صفحه" : "Reload page"}
             </button>
