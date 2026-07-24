@@ -440,15 +440,33 @@ section[id] {
   mask-image: radial-gradient(130% 100% at 50% 0%, #000 25%, transparent 78%);
 }
 
-/* Hero atmosphere — soft accent glow (static SVG/CSS) */
+/* Hero atmosphere — soft glow + grain (grain hidden unless html.decorative-particle-effects) */
 .hero-atmosphere {
   opacity: 1;
   -webkit-mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
   mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
 }
 
+.hero-atmosphere-grain {
+  opacity: 0;
+  visibility: hidden;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+html.decorative-particle-effects .hero-atmosphere-grain {
+  visibility: visible;
+  opacity: 0.32;
+}
+
+html.decorative-particle-effects.dark .hero-atmosphere-grain,
+.dark html.decorative-particle-effects .hero-atmosphere-grain {
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+}
+
 /* ------------------------------------------------------------------ */
-/*  404 — "Lost signal" (Hero atmosphere + signal ring)                       */
+/*  404 — "Lost signal" (Hero atmosphere + soft SVG displacement)       */
 /* ------------------------------------------------------------------ */
 
 .nf-stage {
@@ -463,7 +481,13 @@ section[id] {
 }
 
 .nf-atmosphere-field {
-  will-change: auto;
+  will-change: filter;
+  transition: opacity 0.4s ease;
+}
+
+.nf-atmosphere-warping {
+  opacity: 0.92;
+  filter: url(#nf-warp-filter);
 }
 
 .nf-mark {

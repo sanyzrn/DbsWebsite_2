@@ -22,10 +22,11 @@ function SloganCycle({ phrases }: { phrases: string[] }) {
   );
 }
 
-/** Soft accent glow (static SVG/CSS). */
+/** Soft accent glow + paper grain (static SVG/CSS). Grain hidden unless `decorative-particle-effects` is on `<html>`. */
 export function HeroAtmosphere() {
   const uid = useId().replace(/:/g, "");
   const blurId = `ha-blur-${uid}`;
+  const grainId = `ha-grain-${uid}`;
 
   return (
     <div className="hero-atmosphere pointer-events-none absolute inset-0" aria-hidden="true">
@@ -34,6 +35,10 @@ export function HeroAtmosphere() {
           <filter id={blurId} x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="48" />
           </filter>
+          <filter id={grainId} x="0%" y="0%" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch" result="noise" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.48  0 0 0 0 0.38  0 0 0 0.55 0" />
+          </filter>
           <radialGradient id={`ha-glow-${uid}`} cx="50%" cy="18%" r="55%">
             <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.28" />
             <stop offset="45%" stopColor="var(--soft)" stopOpacity="0.12" />
@@ -41,12 +46,16 @@ export function HeroAtmosphere() {
           </radialGradient>
         </defs>
 
+        {/* Soft layered mesh blobs */}
         <g filter={`url(#${blurId})`} opacity="0.85">
           <ellipse cx="600" cy="120" rx="420" ry="220" fill={`url(#ha-glow-${uid})`} />
           <ellipse cx="220" cy="280" rx="260" ry="180" fill="var(--accent)" opacity="0.08" />
           <ellipse cx="980" cy="240" rx="280" ry="200" fill="var(--soft)" opacity="0.35" />
           <ellipse cx="640" cy="420" rx="340" ry="160" fill="var(--accent)" opacity="0.05" />
         </g>
+
+        {/* Fine paper grain — hidden by default via .hero-atmosphere-grain + html class */}
+        <rect width="1200" height="900" filter={`url(#${grainId})`} className="hero-atmosphere-grain" />
       </svg>
     </div>
   );
@@ -79,7 +88,7 @@ export default function Hero() {
           </Suspense>
         </div>
       )}
-      {/* Static glow fallback — always present when WebGL is gated off */}
+      {/* Static paper-texture / glow fallback — always present when WebGL is gated off */}
       <HeroAtmosphere />
 
       <div className="wrap relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">

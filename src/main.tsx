@@ -18,6 +18,11 @@ import "@fontsource/vazirmatn/900.css";
 import "./index.css";
 import App from "./App";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { DECORATIVE_PARTICLE_EFFECTS_ENABLED } from "./lib/decorativeEffects";
+
+if (DECORATIVE_PARTICLE_EFFECTS_ENABLED) {
+  document.documentElement.classList.add("decorative-particle-effects");
+}
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {
