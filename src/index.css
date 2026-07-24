@@ -82,7 +82,8 @@
   --accent: #d4b483;
   --accentdark: #c19e6e;
   --soft: #e6d6c2;
-  --hi: #d4b483;
+  /* Gold-tinted text on cream — derived from accent, dark enough for WCAG AA */
+  --hi: color-mix(in srgb, var(--accent) 48%, var(--ink));
   --fontstack: "Vazirmatn", ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
 }
 
@@ -308,11 +309,11 @@ section[id] {
   }
   .btn-primary {
     background: var(--accent);
-    color: #fff8ee;
+    color: #211a10;
   }
   .btn-primary:hover {
     background: var(--accentdark);
-    color: #fff8ee;
+    color: #211a10;
     transform: translateY(-2px);
   }
   .dark .btn-primary,
