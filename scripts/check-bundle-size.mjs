@@ -13,7 +13,11 @@ const DIST = path.join(ROOT, "dist");
 const INDEX = path.join(DIST, "index.html");
 
 /** Soft ceilings — adjust if legitimately close, but keep an explicit gate. */
-const MAX_JS_GZIP = 150 * 1024;
+/**
+ * Initial JS entry (gzip). Raised slightly after publishing bilingual Field Notes MDX
+ * (eager `import.meta.glob` in articles.ts) plus contact/phone form fields.
+ */
+const MAX_JS_GZIP = 155 * 1024;
 const MAX_CSS_GZIP = 60 * 1024;
 /**
  * All self-hosted font files under dist/assets (fontsource unicode-range subsets).
