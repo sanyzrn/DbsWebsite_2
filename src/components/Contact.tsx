@@ -155,7 +155,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
               <span className="kicker">{t.contact.kicker}</span>
             </Reveal>
             <Reveal delay={80}>
-              <h2 className="mt-5 max-w-xl text-[42px] font-black leading-[1.12] tracking-tight md:text-[56px] lg:text-[64px]">
+              <h2 className="display-heading mt-5 max-w-xl text-[42px] font-black leading-[1.12] tracking-tight md:text-[56px] lg:text-[64px]">
                 {t.contact.title}
               </h2>
             </Reveal>

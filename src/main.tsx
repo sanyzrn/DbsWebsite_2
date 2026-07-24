@@ -2,7 +2,8 @@ import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 
 /* Self-hosted fonts (replaces Google Fonts <link>s). font-display: swap.
- * Weights trimmed to those actually used in CSS/components (no Vazirmatn 300). */
+ * Weights trimmed to those actually used in CSS/components (no Vazirmatn 300).
+ * Display serifs: subset-trimmed Fraunces + Noto Naskh Arabic (see display-fonts.css). */
 import "@fontsource-variable/bricolage-grotesque/opsz.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
@@ -14,6 +15,7 @@ import "@fontsource/vazirmatn/600.css";
 import "@fontsource/vazirmatn/700.css";
 import "@fontsource/vazirmatn/800.css";
 import "@fontsource/vazirmatn/900.css";
+import "./styles/display-fonts.css";
 
 import "./index.css";
 import App from "./App";

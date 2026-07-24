@@ -254,10 +254,44 @@ h1, h2, h3 {
   text-wrap: balance;
 }
 
-/* Persian display type needs air for deep descenders */
+/* Persian body/UI headings (Vazirmatn) — air for deep descenders */
 html[lang="fa"] h1,
 html[lang="fa"] h2 {
   line-height: 1.32;
+}
+
+/* Editorial display serif — large h1 + opted-in major section titles only.
+ * Body/UI keep Bricolage Grotesque (en) / Vazirmatn (fa); IBM Plex Mono unchanged.
+ * Note: Fontsource has no `noto-serif-arabic` package; Noto Naskh Arabic is the
+ * Noto Arabic serif/naskh companion with the same weight set (500–700). */
+:root {
+  --font-display-en: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-display-fa: "Noto Naskh Arabic", "Vazirmatn", serif;
+}
+
+html[lang="en"] h1,
+html[lang="en"] .display-heading {
+  font-family: var(--font-display-en);
+  font-weight: 600;
+  /* Optical size for mid/large display; hero bumps this further below */
+  font-variation-settings: "opsz" 48;
+}
+
+html[lang="en"] .hero-name {
+  /* Hero renders ~48–80px — higher opsz suits Fraunces at display sizes */
+  font-variation-settings: "opsz" 72;
+}
+
+html[lang="fa"] h1,
+html[lang="fa"] .display-heading {
+  font-family: var(--font-display-fa);
+  font-weight: 600;
+  /* Noto Naskh Arabic needs slightly more leading than Vazirmatn at display sizes */
+  line-height: 1.38;
+}
+
+html[lang="fa"] .hero-name {
+  line-height: 1.2;
 }
 
 section[id] {
@@ -771,7 +805,11 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
 .hero-in-d420 { animation-delay: 420ms; }
 .hero-in-d500 { animation-delay: 500ms; }
 
-/* Hero name underline — fully drawn at rest; redraws on hover (pointer devices) */
+/* Hero name underline — fully drawn at rest; redraws on hover (pointer devices).
+ * SVG is width:100% of the accent span so it tracks Fraunces/Naskh letter widths. */
+.hero-name-underline {
+  bottom: -0.14em;
+}
 .hero-name-underline path {
   stroke-dasharray: 1;
   stroke-dashoffset: 0;

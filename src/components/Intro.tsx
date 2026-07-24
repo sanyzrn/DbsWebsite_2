@@ -156,7 +156,7 @@ export default function Intro() {
             <span className="kicker">{t.intro.kicker}</span>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[40px] md:leading-[1.2]">
+            <h2 className="display-heading mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[40px] md:leading-[1.2]">
               {t.intro.title}
             </h2>
           </Reveal>
