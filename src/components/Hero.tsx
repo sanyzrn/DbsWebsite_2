@@ -79,9 +79,9 @@ export default function Hero() {
               particleCount={particleCount}
               fontFamily="sans-serif"
               sequence={[
-                { type: "text", text: "DBS Studio" },
+                { type: "text", text: "DbsStudio" },
                 { type: "text", text: "Design" },
-                { type: "text", text: "GRAPHIC" },
+                { type: "text", text: "Build" },
                 { type: "text", text: "AI Solutions" },
               ]}
             />
@@ -101,7 +101,10 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="hero-name display-heading mt-5 text-[48px] font-black leading-[1.12] tracking-tight sm:mt-7 sm:text-[64px] sm:leading-[1.1] lg:text-[72px] xl:text-[80px] xl:leading-[1.08]">
+        <h1
+          dir="ltr"
+          className="hero-name hero-brand-name display-heading mt-5 text-[48px] font-black leading-[1.12] tracking-tight sm:mt-7 sm:text-[64px] sm:leading-[1.1] lg:text-[72px] xl:text-[80px] xl:leading-[1.08]"
+        >
           <span className="hero-in hero-in-d140 block">
             {t.hero.name.split(t.hero.nameAccent)[0]}
             <span className="relative inline-block text-hi">

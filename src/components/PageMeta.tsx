@@ -46,7 +46,7 @@ export function PageMeta({ page, slug }: PageMetaProps) {
       <meta property="og:type" content={ogType} />
       <meta property="og:locale" content={seo.ogLocale} />
       <meta property="og:locale:alternate" content={seo.ogLocaleAlternate} />
-      <meta property="og:site_name" content="Saeed Zarrini" />
+      <meta property="og:site_name" content="Saeed" />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:url" content={seo.canonical} />

@@ -5,6 +5,7 @@ import { DEFAULT_PROJECT_TYPE, type ProjectTypeId } from "./i18n";
 export type ContactFields = {
   name: string;
   email: string;
+  phone: string;
   company: string;
   type: ProjectTypeId;
   message: string;
@@ -17,6 +18,7 @@ export type ContactStatus = "idle" | "sending" | "delivered" | "mailed" | "error
 export const emptyContactFields: ContactFields = {
   name: "",
   email: "",
+  phone: "",
   company: "",
   type: DEFAULT_PROJECT_TYPE,
   message: "",
@@ -40,6 +42,7 @@ export function buildMailto(
   const header = [
     `Name: ${fields.name}`,
     `Email: ${fields.email}`,
+    fields.phone.trim() ? `Phone: ${fields.phone}` : "",
     fields.company.trim() ? `Company: ${fields.company}` : "",
     `Project type: ${typeLabel} (${fields.type})`,
     fields.budget.trim() ? `Budget: ${fields.budget}` : "",

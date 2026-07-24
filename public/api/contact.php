@@ -43,6 +43,7 @@ if ($elapsedMs > 0 && $elapsedMs < 2000) {
 
 $name = trim((string) ($data['name'] ?? ''));
 $email = trim((string) ($data['email'] ?? ''));
+$phone = trim((string) ($data['phone'] ?? ''));
 $message = trim((string) ($data['message'] ?? ''));
 $type = trim((string) ($data['type'] ?? ''));
 $company = trim((string) ($data['company'] ?? ''));
@@ -79,6 +80,9 @@ $lines = [
   "Name: {$name}",
   "Email: {$email}",
 ];
+if ($phone !== '') {
+  $lines[] = "Phone: {$phone}";
+}
 if ($company !== '') {
   $lines[] = "Company: {$company}";
 }

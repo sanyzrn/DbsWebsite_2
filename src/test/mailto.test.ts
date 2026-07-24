@@ -6,6 +6,7 @@ function fields(overrides: Partial<ContactFields> = {}): ContactFields {
   return {
     name: "Saeed Test",
     email: "test@example.com",
+    phone: "",
     company: "",
     type: DEFAULT_PROJECT_TYPE,
     message: "Short hello.",

@@ -3,48 +3,48 @@ import type { UiDict } from "./fa";
 const en: UiDict = {
   dir: "ltr" as const,
   brand: {
-    name: "SaeedZarrini",
+    name: "DbsStudio",
     sub: "AI Solutions Engineer",
   },
   seo: {
-    title: "Saeed Zarrini | AI Solutions Engineer",
+    title: "Saeed | AI Solutions Engineer",
     description:
       "For founders and teams stuck between idea and shipping: I design, engineer, and integrate AI into digital products that actually work.",
     projects: {
-      title: "Saeed Zarrini | Projects",
+      title: "Saeed | Projects",
       description:
         "For teams that need to see how an idea becomes a shippable product — org systems, tools, and AI integrations built for real use.",
     },
     articles: {
-      title: "Saeed Zarrini | Field Notes",
+      title: "Saeed | Field Notes",
       description:
         "Notes on product engineering, AI integration, and shipping digital work — written from practice, not slides.",
     },
     news: {
-      title: "Saeed Zarrini | Daily Digest",
+      title: "Saeed | Daily Digest",
       description:
         "A short daily digest of sourced shipping notes, tools, and AI practice — launching soon.",
     },
     about: {
-      title: "Saeed Zarrini | About",
+      title: "Saeed | About",
       description:
-        "If you are stuck between idea and a working product: path, skills, and how to start building digital products and AI with Saeed Zarrini.",
+        "If you are stuck between idea and a working product: path, skills, and how to start building digital products and AI with Saeed.",
     },
     contact: {
-      title: "Saeed Zarrini | Contact",
+      title: "Saeed | Contact",
       description:
-        "Start a project or conversation with Saeed Zarrini about digital products, design, engineering, or AI integration.",
+        "Start a project or conversation with Saeed about digital products, design, engineering, or AI integration.",
     },
     privacy: {
-      title: "Privacy | Saeed Zarrini",
-      description: "Privacy policy for Saeed Zarrini’s personal website.",
+      title: "Privacy | Saeed",
+      description: "Privacy policy for Saeed’s personal website.",
     },
     terms: {
-      title: "Terms | Saeed Zarrini",
-      description: "Terms of use for Saeed Zarrini’s personal website.",
+      title: "Terms | Saeed",
+      description: "Terms of use for Saeed’s personal website.",
     },
     notFound: {
-      title: "Page not found | Saeed Zarrini",
+      title: "Page not found | Saeed",
       description: "The requested page does not exist.",
     },
   },
@@ -65,14 +65,14 @@ const en: UiDict = {
     primaryNavLabel: "Primary",
     mobileNavLabel: "Mobile",
     switchLangLabel: "Switch language",
-    homeLinkLabel: "Saeed Zarrini — home",
+    homeLinkLabel: "Saeed — home",
     breadcrumbLabel: "Breadcrumb",
   },
   hero: {
-    badge: "Saeed Zarrini — AI Solutions Engineer & Digital Product Builder",
-    badgeStudio: "DBSGraphic",
-    name: "Saeed Zarrini",
-    nameAccent: "Zarrini",
+    badge: "AI Solutions Engineer & Digital Product Builder",
+    badgeStudio: "DbsStudio",
+    name: "DbsStudio",
+    nameAccent: "Studio",
     sloganA: "From an idea,",
     sloganCycle: [
       "a durable service",
@@ -89,7 +89,7 @@ const en: UiDict = {
     ctaSecondary: "About me",
   },
   ecosystem: {
-    label: "DBSGraphic practice graph",
+    label: "DbsStudio practice graph",
     fig: "fig. 02 — practice graph",
     lead: "Three disciplines. One shared output.",
     sources: {
@@ -270,8 +270,8 @@ const en: UiDict = {
         body: "Where design, engineering, and AI become one practice.",
       },
     ],
-    studioNote: "All of this work continues under the DBSGraphic creative & product studio.",
-    studioAlt: "Portrait of Saeed Zarrini with a systems-operations dashboard overlay",
+    studioNote: "All of this work continues under the DbsStudio creative & product studio.",
+    studioAlt: "Portrait of Saeed with a systems-operations dashboard overlay",
   },
   skills: {
     kicker: "Skills",
@@ -336,6 +336,9 @@ const en: UiDict = {
       namePh: "Full name",
       email: "Email",
       emailPh: "you@example.com",
+      phone: "Phone",
+      phonePh: "Optional",
+      phoneHint: "Optional — leaving a number helps us coordinate a bit faster.",
       company: "Company / Organization",
       companyPh: "Optional",
       type: "Project type",
@@ -378,12 +381,12 @@ const en: UiDict = {
   },
   footer: {
     tagline: "AI Solutions Engineer & Digital Product Builder",
-    studio: "A DBSGraphic creative & product studio",
+    studio: "A DbsStudio creative & product studio",
     desc: "From visual identity and UI to full-stack and LLM integration — for products that reach end users.",
     navTitle: "Quick links",
     socialTitle: "Social",
     rights: "All rights reserved.",
-    built: "Designed & built by Saeed Zarrini",
+    built: "Designed & built by Saeed",
     backTop: "Back to top",
     privacy: "Privacy",
     terms: "Terms",
@@ -399,7 +402,7 @@ const en: UiDict = {
       },
       {
         heading: "The contact form",
-        body: "When you send a message through the contact form, your name, email, message, and any optional project details are posted to a same-origin PHP endpoint on this site, which forwards a plain-text notification to Saeed Zarrini via the Bale Bot API. The bot token never ships in the browser bundle. This information is used solely to respond to your inquiry — it is never sold. Bale's own processing of bot messages is covered by Bale's privacy policy (https://bale.ai).",
+        body: "When you send a message through the contact form, your name, email, optional phone number, message, and any optional project details are posted to a same-origin PHP endpoint on this site, which forwards a plain-text notification to Saeed via the Bale Bot API. The bot token never ships in the browser bundle. This information is used solely to respond to your inquiry — it is never sold. Bale's own processing of bot messages is covered by Bale's privacy policy (https://bale.ai).",
       },
       {
         heading: "Data retention",
@@ -426,7 +429,7 @@ const en: UiDict = {
     sections: [
       {
         heading: "About this content",
-        body: "The content on this website — including project descriptions, images, and text — presents Saeed Zarrini's services and portfolio work, and is provided for informational purposes.",
+        body: "The content on this website — including project descriptions, images, and text — presents Saeed's services and portfolio work, and is provided for informational purposes.",
       },
       {
         heading: "Ownership and use",
@@ -442,7 +445,7 @@ const en: UiDict = {
       },
       {
         heading: "Limitation of liability",
-        body: 'This website and its content are provided "as is," without warranties of any kind, express or implied. Saeed Zarrini accepts no liability for decisions made solely on the basis of this site\'s content without a formal agreement in place.',
+        body: 'This website and its content are provided "as is," without warranties of any kind, express or implied. Saeed accepts no liability for decisions made solely on the basis of this site\'s content without a formal agreement in place.',
       },
       {
         heading: "Changes to these terms",

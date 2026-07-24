@@ -90,13 +90,13 @@ export function resolvePageSeo(
     description = seo.notFound.description;
     path = opts?.path ?? localePath(lang, "/404");
   } else if (page === "project" && opts?.project) {
-    title = `${opts.project.name} | Saeed Zarrini`;
+    title = `${opts.project.name} | Saeed`;
     description =
       truncateDescription(opts.project.desc, 155) || (seo.projects?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/projects/${opts.project.slug}`);
   } else if (page === "article" && opts?.article) {
     const fm = opts.article.frontmatter;
-    title = `${fm.title} | Saeed Zarrini`;
+    title = `${fm.title} | Saeed`;
     description = truncateDescription(fm.description, 155) || (seo.articles?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/articles/${opts.article.slug}`);
   } else if (page === "home") {
@@ -141,8 +141,8 @@ function buildJsonLd(
   const person: Record<string, unknown> = {
     "@type": "Person",
     "@id": `${origin}/#person`,
-    name: "Saeed Zarrini",
-    alternateName: "سعید زرینی",
+    name: "Saeed",
+    alternateName: "سعید",
     url: `${origin}/`,
     contactPoint: {
       "@type": "ContactPoint",
@@ -157,7 +157,7 @@ function buildJsonLd(
   const organization: Record<string, unknown> = {
     "@type": ["Organization", "ProfessionalService"],
     "@id": `${origin}/#organization`,
-    name: "DBSGraphic",
+    name: "DbsStudio",
     url: `${origin}/`,
     founder: { "@id": `${origin}/#person` },
     description:
@@ -170,7 +170,7 @@ function buildJsonLd(
     "@type": "WebSite",
     "@id": `${origin}/#website`,
     url: `${origin}/`,
-    name: "Saeed Zarrini",
+    name: "Saeed",
     inLanguage: ["fa", "en"],
     publisher: { "@id": `${origin}/#organization` },
     author: { "@id": `${origin}/#person` },
