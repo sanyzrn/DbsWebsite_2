@@ -54,7 +54,7 @@ export function buildHeadTags(seo, { nonce } = {}) {
     <meta property="og:type" content="${ogType}" />
     <meta property="og:locale" content="${escapeHtml(seo.ogLocale)}" />
     <meta property="og:locale:alternate" content="${escapeHtml(seo.ogLocaleAlternate)}" />
-    <meta property="og:site_name" content="Saeed Zarrini" />
+    <meta property="og:site_name" content="Saeed" />
     <meta property="og:title" content="${escapeHtml(seo.title)}" />
     <meta property="og:description" content="${escapeHtml(seo.description)}" />
     <meta property="og:url" content="${escapeHtml(seo.canonical)}" />

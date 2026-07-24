@@ -99,8 +99,8 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
             "og.jpg",
           ],
           manifest: {
-            name: "Saeed Zarrini — AI Solutions Engineer & Digital Product Builder",
-            short_name: "Saeed Zarrini",
+            name: "Saeed — AI Solutions Engineer & Digital Product Builder",
+            short_name: "Saeed",
             description: PWA_DESCRIPTION,
             // Locale redirect after launch is handled by LocalePreferenceRedirect.
             start_url: "/",

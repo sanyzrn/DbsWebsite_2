@@ -35,7 +35,7 @@ export default function AboutPage() {
                 <span className="inline-flex items-center gap-2.5">
                   <img src="/Dbs_logo_single.webp" alt="" className="h-5 w-5 object-contain" />
                   <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/80 sm:text-[10px] sm:tracking-[0.2em]">
-                    DBSGraphic — creative & product studio
+                    DbsStudio — creative & product studio
                   </span>
                 </span>
               </div>

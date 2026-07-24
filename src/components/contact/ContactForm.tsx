@@ -161,6 +161,7 @@ export function ContactForm({
         body: JSON.stringify({
           name: fields.name,
           email: fields.email,
+          ...(fields.phone.trim() ? { phone: fields.phone.trim() } : {}),
           company: fields.company,
           type: fields.type,
           message: fields.message,
@@ -254,6 +255,25 @@ export function ContactForm({
               {f.required}
             </p>
           )}
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor={`${idPrefix}-phone`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+            {f.phone}
+          </label>
+          <input
+            id={`${idPrefix}-phone`}
+            type="tel"
+            dir="ltr"
+            className="field text-start"
+            placeholder={f.phonePh}
+            value={fields.phone}
+            onChange={(e) => set("phone", e.target.value)}
+            autoComplete="tel"
+            aria-describedby={`${idPrefix}-phone-hint`}
+          />
+          <p id={`${idPrefix}-phone-hint`} className="mt-1.5 text-[11.5px] leading-5 text-ink3">
+            {f.phoneHint}
+          </p>
         </div>
         <div>
           <label htmlFor={`${idPrefix}-company`} className="mb-2 block text-[12.5px] font-bold text-ink2">

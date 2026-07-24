@@ -54,7 +54,7 @@ export default function Footer() {
           <div className="min-w-0">
             <Link to={home} className="inline-flex leading-none">
               <span dir="ltr" className="text-[18px] font-extrabold tracking-tight">
-                Saeed<span className="text-hi">Zarrini</span>
+                Dbs<span className="text-hi">Studio</span>
                 <span className="ms-1.5 inline-block h-1.5 w-1.5 rounded-[2px] bg-accent align-baseline" />
               </span>
             </Link>
@@ -120,12 +120,12 @@ export default function Footer() {
           </a>
           <p className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.14em] text-ink3" dir="ltr">
             <BrandLogo variant="icon" imgClassName="h-3.5 w-3.5 object-contain" alt="" />
-            DBSGraphic
+            DbsStudio
           </p>
         </div>
 
         <p className="mt-4 text-[11px] leading-5 text-ink3">
-          © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
+          © {year} <span dir="ltr">DbsStudio</span> — {t.footer.rights}
         </p>
       </div>
 
@@ -133,7 +133,7 @@ export default function Footer() {
         <div className="md:col-span-6">
           <Link to={home} className="inline-flex flex-col leading-none">
             <span dir="ltr" className="text-[22px] font-extrabold tracking-tight">
-              Saeed<span className="text-hi">Zarrini</span>
+              Dbs<span className="text-hi">Studio</span>
               <span className="ms-1.5 inline-block h-2 w-2 rounded-[2px] bg-accent align-baseline" />
             </span>
           </Link>
@@ -191,7 +191,7 @@ export default function Footer() {
       <div className="hidden border-t border-line md:block">
         <div className="wrap flex flex-wrap items-center justify-between gap-4 py-6">
           <p className="text-[12px] font-medium text-ink3">
-            © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
+            © {year} <span dir="ltr">DbsStudio</span> — {t.footer.rights}
           </p>
           <nav className="flex flex-wrap items-center gap-4">
             {legal.map((l) => (

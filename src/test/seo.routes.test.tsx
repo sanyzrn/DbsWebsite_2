@@ -44,7 +44,7 @@ describe("route SEO meta (both locales)", () => {
       const seo = dictionaries[lang].seo;
       expect(seo.title.length).toBeLessThanOrEqual(60);
       expect(seo.description.length).toBeLessThanOrEqual(155);
-      expect(seo.title.startsWith("Saeed Zarrini |")).toBe(true);
+      expect(seo.title.startsWith("Saeed |")).toBe(true);
       for (const page of [seo.projects, seo.articles, seo.news, seo.about, seo.contact, seo.privacy, seo.terms, seo.notFound]) {
         expect(page.title.length).toBeLessThanOrEqual(60);
         expect(page.description.length).toBeLessThanOrEqual(155);

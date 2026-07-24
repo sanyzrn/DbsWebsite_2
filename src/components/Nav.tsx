@@ -109,15 +109,8 @@ export default function Nav() {
       )}
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
-        <Link to={home} className="group flex items-center gap-2.5" aria-label={t.nav.homeLinkLabel}>
+        <Link to={home} className="group flex items-center" aria-label={t.nav.homeLinkLabel}>
           <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain opacity-90 transition-opacity group-hover:opacity-100" alt="" />
-          <span className="flex flex-col leading-none">
-            <span dir="ltr" className="text-[17px] font-extrabold tracking-tight">
-              Saeed<span className="text-hi">Zarrini</span>
-              <span className="ms-1 inline-block h-[7px] w-[7px] rounded-[2px] bg-accent align-baseline transition-transform duration-300 group-hover:rotate-45" />
-            </span>
-            <span className="mt-1.5 text-[10px] font-medium text-ink2">{t.brand.sub}</span>
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label={t.nav.primaryNavLabel}>

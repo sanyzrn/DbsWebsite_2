@@ -282,6 +282,16 @@ html[lang="en"] .hero-name {
   font-variation-settings: "opsz" 72;
 }
 
+/* Hero brand lockup — always Latin Fraunces, even on Persian pages */
+.hero-brand-name,
+html[lang="fa"] .hero-brand-name,
+html[lang="en"] .hero-brand-name {
+  font-family: var(--font-display-en);
+  font-weight: 600;
+  font-variation-settings: "opsz" 72;
+  line-height: 1.12;
+}
+
 html[lang="fa"] h1,
 html[lang="fa"] .display-heading {
   font-family: var(--font-display-fa);
@@ -290,8 +300,14 @@ html[lang="fa"] .display-heading {
   line-height: 1.38;
 }
 
-html[lang="fa"] .hero-name {
+html[lang="fa"] .hero-name:not(.hero-brand-name) {
   line-height: 1.2;
+}
+
+html[lang="fa"] .hero-brand-name {
+  /* Override FA display face — brand wordmark stays Latin Fraunces */
+  font-family: var(--font-display-en);
+  line-height: 1.12;
 }
 
 section[id] {
