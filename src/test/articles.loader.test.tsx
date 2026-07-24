@@ -25,12 +25,18 @@ describe("articles loader", () => {
   });
 
   it("keeps draft articles off public lists and published slug index", () => {
-    const sample = findArticle("en", "ai-layer-without-boiling-the-ocean");
-    expect(sample).toBeTruthy();
-    expect(isPublishedArticle(sample!)).toBe(false);
-    expect(getPublishedArticles("en").map((a) => a.slug)).not.toContain(
+    const draft = findArticle("en", "test-short-note");
+    expect(draft).toBeTruthy();
+    expect(isPublishedArticle(draft!)).toBe(false);
+    expect(getPublishedArticles("en").map((a) => a.slug)).not.toContain("test-short-note");
+    expect(getPublishedArticleSlugs()).not.toContain("test-short-note");
+
+    const published = findArticle("en", "ai-layer-without-boiling-the-ocean");
+    expect(published).toBeTruthy();
+    expect(isPublishedArticle(published!)).toBe(true);
+    expect(getPublishedArticles("en").map((a) => a.slug)).toContain(
       "ai-layer-without-boiling-the-ocean"
     );
-    expect(getPublishedArticleSlugs()).not.toContain("ai-layer-without-boiling-the-ocean");
+    expect(getPublishedArticleSlugs()).toContain("ai-layer-without-boiling-the-ocean");
   });
 });

@@ -231,10 +231,15 @@ describe("route SEO meta (both locales)", () => {
   });
 
   it("article detail SEO emits Article JSON-LD and noindexes drafts", () => {
-    const path = "/en/articles/ai-layer-without-boiling-the-ocean";
-    const seo = resolveSeoForPath(path);
-    expect(seo.robots).toBe("noindex, follow");
-    const blob = JSON.stringify(seo.jsonLd);
+    const draftPath = "/en/articles/test-short-note";
+    const draftSeo = resolveSeoForPath(draftPath);
+    expect(draftSeo.robots).toBe("noindex, follow");
+    expect(JSON.stringify(draftSeo.jsonLd)).toContain('"@type":"Article"');
+
+    const publishedPath = "/en/articles/ai-layer-without-boiling-the-ocean";
+    const publishedSeo = resolveSeoForPath(publishedPath);
+    expect(publishedSeo.robots).toBeUndefined();
+    const blob = JSON.stringify(publishedSeo.jsonLd);
     expect(blob).toContain('"@type":"Article"');
     expect(blob).toContain("datePublished");
     expect(blob).toContain("#person");

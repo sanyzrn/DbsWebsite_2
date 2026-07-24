@@ -1,0 +1,80 @@
+---
+title: "From spreadsheet to system: how DbsPulse structured a manual review process"
+description: "Why a complex Excel workbook was not enough — and which architectural decisions turned DbsPulse from an internal tool into a trustworthy evaluation system."
+date: "2026-07-24"
+tags: ["Product Engineering", "AI Integration"]
+status: "published"
+---
+
+Performance review often gets described as “filling out a form.” Inside an organization it
+is usually a multi-stage chain: initial data entry, intermediate review, final approval, and
+analysis that is supposed to inform HR decisions. On the project that became DbsPulse, that
+chain lived inside a pharmaceutical company on Excel and paper forms — with no clear
+traceability, and a real risk of human error in scoring and final approval.
+
+The problem was never “make the form digital.” When a process has multiple stages and
+different owners, missing traceability means you cannot answer basic questions: where did
+this score come from, who changed it, and was there enough written evidence for a non-neutral
+rating? Those gaps turn performance management into a pile of scattered files.
+
+## Why the first attempt was Excel anyway
+
+The first natural response was the tool the organization already knew: a complex Excel
+workbook, this time with VBA modules so parts of the business logic could live inside the
+file. That choice was rational. Excel was available, felt trainable, and could show an early
+shape of the process faster than a full application.
+
+The ceiling showed up quickly. Real scale needs concurrent users, distinct roles, change
+history, access control, and durable analysis. A workbook — even a clever VBA workbook — is
+still a file. Business logic stays hidden inside macros, versions multiply, and the source of
+truth becomes fuzzy again. That is the moment an “internal tool” stops solving the problem
+and becomes an operational problem of its own.
+
+## The pivot to a web application
+
+For real scalability, the architecture pivoted fully to a web application: FastAPI on the
+server, PostgreSQL for data, and React for the interface. The stack was not a fashion choice.
+It answered needs Excel could not meet: reliable authentication and authorization, structured
+storage, and a UI that can make a multi-stage workflow explicit — from initial entry through
+review, approval, and final analysis.
+
+In that form, DbsPulse became an organizational platform for managing performance evaluation:
+turning a complex manual workflow into a structured, traceable, analyzable system. A digital
+form is not enough. The system has to encode business rules in the architecture, not only in
+a training document.
+
+## Three architectural decisions ahead of the UI
+
+Three decisions marked the difference between a polished interface and a system you can trust.
+
+**First: HR-only manual access assignment.** In sensitive HR workflows, self-signup or
+automatic role inference can look faster and still create ambiguity. In DbsPulse, access is
+assigned manually by HR — so the boundary of “who enters the evaluation cycle” has an
+organizational owner instead of leaking through a fuzzy technical rule.
+
+**Second: a mandatory 15-word evidence text for any non-neutral score.** A score without
+evidence is just a number. When a rating leaves the neutral state, the system requires at
+least fifteen words of explanation. The rule is simple and operationally sharp: it slows
+down careless scoring and leaves a readable trail for later review stages.
+
+**Third: an automatically locked “unit supervisor” toggle when the job title is exactly
+“Manager.”** Some roles should not be a momentary UI choice. When the job title matches the
+expected value exactly — “Manager” — the unit-supervisor switch locks automatically. Exact
+title matching, not fuzzy guessing, is deliberate: the rule must be explainable and
+auditable.
+
+<Callout variant="note" title="Product versus demo">
+  None of these rules are decorative. They are the gap between a nice form and an
+  organizational process you can actually defend.
+</Callout>
+
+## What was delivered
+
+The outcome was not a prototype alone. The work produced a technical architecture document, a
+stakeholder sign-off document, and a complete build specification — turning a scattered
+manual process into a structured, traceable system. For a team that will continue
+implementation later, that delivery package matters: decisions are written down, boundaries
+are explicit, and the path from spreadsheet to system is no longer a slogan.
+
+If DbsPulse has one durable lesson, it is this: tools earn trust when they carry the
+organization’s real rules — not when they only put a modern skin on the same old mess.

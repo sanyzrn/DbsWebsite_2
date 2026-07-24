@@ -10,19 +10,21 @@ afterEach(() => {
 });
 
 describe("articles routes", () => {
-  it("renders the articles list for both locales", () => {
+  it("renders the articles list for both locales with published notes", () => {
     window.history.pushState(null, "", "/en/articles");
     render(<App />);
     expect(screen.getByRole("heading", { level: 2, name: dictionaries.en.articles.pageTitle })).toBeTruthy();
-    expect(screen.getByText(dictionaries.en.articles.empty)).toBeTruthy();
+    expect(screen.queryByText(dictionaries.en.articles.empty)).toBeNull();
+    expect(screen.getByRole("heading", { level: 2, name: /From idea to AI layer/i })).toBeTruthy();
 
     cleanup();
     window.history.pushState(null, "", "/articles");
     render(<App />);
     expect(screen.getByRole("heading", { level: 2, name: dictionaries.fa.articles.pageTitle })).toBeTruthy();
+    expect(screen.queryByText(dictionaries.fa.articles.empty)).toBeNull();
   });
 
-  it("renders a draft article detail with breadcrumbs (reviewable URL)", async () => {
+  it("renders a published article detail with breadcrumbs", async () => {
     window.history.pushState(null, "", "/en/articles/ai-layer-without-boiling-the-ocean");
     render(<App />);
     expect(
