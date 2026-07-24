@@ -139,11 +139,13 @@ export function ContactForm({
       return;
     }
 
-    // Timing check: reject submissions faster than a human can reasonably fill the form.
+    // Fast humans (autofill / power users): wait out the remainder of SUBMIT_MIN_MS
+    // instead of showing a confusing error. Server-side timing in contact.php stays as-is.
     if (elapsedMs < SUBMIT_MIN_MS) {
-      setStatus("error");
-      return;
+      await new Promise((resolve) => setTimeout(resolve, SUBMIT_MIN_MS - elapsedMs));
     }
+    // Wall-clock after any client wait; clamp so timer jitter cannot re-trip the PHP gate.
+    const submitElapsedMs = Math.max(SUBMIT_MIN_MS, Date.now() - mountedAt.current);
 
     setStatus("sending");
     const controller = new AbortController();
@@ -167,7 +169,7 @@ export function ContactForm({
           budget: fields.budget,
           timeline: fields.timeline,
           website,
-          elapsedMs,
+          elapsedMs: submitElapsedMs,
         }),
       });
       if (!res.ok) throw new Error(`contact api failed (${res.status})`);
