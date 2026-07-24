@@ -6,7 +6,7 @@ export type CalloutVariant = "note" | "tip" | "warn";
 const variantClass: Record<CalloutVariant, string> = {
   note: "border-line bg-surface text-ink2",
   tip: "border-hi/40 bg-hi/8 text-ink2",
-  warn: "border-[#C2603E]/40 bg-[#C2603E]/10 text-ink2",
+  warn: "border-error/40 bg-error/10 text-ink2",
 };
 
 /**

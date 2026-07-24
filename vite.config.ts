@@ -30,8 +30,8 @@ function remarkArticleReadingTime() {
 const DEFAULT_SITE_URL = "https://saeedzarrini.ir";
 
 /** Light-theme tokens from src/index.css — keep in sync with <meta name="theme-color">. */
-const PWA_BG = "#f5f0e8"; // --page
-const PWA_THEME = "#d4b483"; // --accent
+const PWA_BG = "#f2efe9"; // --page (Paper)
+const PWA_THEME = "#a8471e"; // --accent (Oxide)
 
 /** English SEO description (manifest is single-locale; fa lives in the HTML head). */
 const PWA_DESCRIPTION =

@@ -3,105 +3,124 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens — light = warm neutral, dark = graphite architecture   */
+/*  Design tokens — Paper / Surface / Ink / Oxide (light + dark)        */
 /* ------------------------------------------------------------------ */
 
 /* Registered so theme toggles can interpolate instead of snapping. */
 @property --page {
   syntax: "<color>";
   inherits: true;
-  initial-value: #f5f0e8;
+  initial-value: #f2efe9;
 }
 @property --surface {
   syntax: "<color>";
   inherits: true;
-  initial-value: #fbf9f5;
+  initial-value: #e9e5db;
 }
 @property --surface2 {
   syntax: "<color>";
   inherits: true;
-  initial-value: #fffcf7;
+  initial-value: #fbf9f4;
 }
 @property --ink {
   syntax: "<color>";
   inherits: true;
-  initial-value: #1c1c1a;
+  initial-value: #171310;
 }
 @property --ink2 {
   syntax: "<color>";
   inherits: true;
-  initial-value: #77736c;
+  initial-value: #5d5955;
 }
 @property --ink3 {
   syntax: "<color>";
   inherits: true;
-  initial-value: #a6a195;
+  initial-value: #686460;
 }
 @property --line {
   syntax: "<color>";
   inherits: true;
-  initial-value: #ddd5c9;
+  initial-value: #ddd9d2;
 }
 @property --line2 {
   syntax: "<color>";
   inherits: true;
-  initial-value: #cdc4b4;
+  initial-value: #cdc8bf;
 }
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #d4b483;
+  initial-value: #a8471e;
 }
 @property --accentdark {
   syntax: "<color>";
   inherits: true;
-  initial-value: #c19e6e;
+  initial-value: #923f1c;
 }
 @property --soft {
   syntax: "<color>";
   inherits: true;
-  initial-value: #e6d6c2;
+  initial-value: #eee6df;
 }
 @property --hi {
   syntax: "<color>";
   inherits: true;
-  initial-value: #d4b483;
+  initial-value: #7d371a;
+}
+@property --error {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a6493b;
+}
+@property --success {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a3b18a;
 }
 
 :root {
   color-scheme: light;
-  --page: #f5f0e8;
-  --surface: #fbf9f5;
-  --surface2: #fffcf7;
-  --ink: #1c1c1a;
-  /* Darkened for WCAG AA (≥4.5:1) on page/surface */
-  --ink2: #6a6660;
-  --ink3: #6e6960;
-  --line: #ddd5c9;
-  --line2: #cdc4b4;
-  --accent: #d4b483;
-  --accentdark: #c19e6e;
-  --soft: #e6d6c2;
-  /* Gold-tinted text on cream — derived from accent, dark enough for WCAG AA */
-  --hi: color-mix(in srgb, var(--accent) 48%, var(--ink));
+  /* Core — Paper / Surface / Ink / Oxide */
+  --page: #f2efe9;
+  --surface: #e9e5db;
+  --surface2: #fbf9f4;
+  --ink: #171310;
+  --accent: #a8471e;
+  /* Derived — keep palette minimal via color-mix, not extra hex */
+  --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
+  /* Muted text tiers — AA (≥4.5:1) on page + surface */
+  --ink2: color-mix(in srgb, var(--ink) 68%, var(--page));
+  --ink3: color-mix(in srgb, var(--ink) 63%, var(--page));
+  --line: color-mix(in srgb, var(--ink) 12%, var(--page));
+  --line2: color-mix(in srgb, var(--ink) 18%, var(--page));
+  --soft: color-mix(in srgb, var(--accent) 14%, var(--page));
+  /* Oxide-tinted highlight text — AA on page + surface */
+  --hi: color-mix(in srgb, var(--accent) 70%, var(--ink));
+  /* Form validation only — muted brick / moss (outside core 4) */
+  --error: #a6493b;
+  --success: #a3b18a;
   --fontstack: "Vazirmatn", ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
 }
 
 .dark {
   color-scheme: dark;
-  --page: #151617;
-  --surface: #202223;
-  --surface2: #292b2d;
-  --ink: #f1f0ed;
-  --ink2: #b4b6b5;
-  /* Lightened for AA on dark page/surface */
-  --ink3: #8a8e8f;
-  --line: #343738;
-  --line2: #45494b;
-  --accent: #d4b483;
-  --accentdark: #c19e6e;
-  --soft: #2a2723;
-  --hi: #c2ccd0;
+  /* Core — Paper / Surface / Ink / Oxide */
+  --page: #141110;
+  --surface: #1b1714;
+  --surface2: #221e1a;
+  --ink: #ede8de;
+  --accent: #d9713d;
+  /* Derived — ratios tuned for dark visual weight / AA */
+  --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
+  --ink2: color-mix(in srgb, var(--ink) 70%, var(--page));
+  --ink3: color-mix(in srgb, var(--ink) 55%, var(--page));
+  --line: color-mix(in srgb, var(--ink) 14%, var(--page));
+  --line2: color-mix(in srgb, var(--ink) 22%, var(--page));
+  --soft: color-mix(in srgb, var(--accent) 16%, var(--surface));
+  /* Warm oxide highlight on dark paper — AA on page + surface */
+  --hi: color-mix(in srgb, var(--accent) 65%, var(--ink));
+  --error: #c97264;
+  --success: #a3b18a;
 }
 
 @theme inline {
@@ -117,8 +136,10 @@
   --color-accentdark: var(--accentdark);
   --color-soft: var(--soft);
   --color-hi: var(--hi);
+  --color-error: var(--error);
+  --color-success: var(--success);
 
-  /* product-screenshot palette — intentional constant dark graphite */
+  /* product-screenshot palette — intentional constant dark graphite (content, not chrome) */
   --color-shot: #131518;
   --color-shotpanel: #1c2025;
   --color-shotup: #242930;
@@ -126,7 +147,7 @@
   --color-shotink: #edeae4;
   --color-shotmut: #7d858d;
   --color-steel: #8fb0c0;
-  --color-sage: #a3b18a;
+  --color-sage: var(--success);
 
   --font-sans: var(--fontstack);
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -175,6 +196,8 @@ html {
     --accentdark 250ms ease,
     --soft 250ms ease,
     --hi 250ms ease,
+    --error 250ms ease,
+    --success 250ms ease,
     background-color 250ms ease,
     color 250ms ease,
     border-color 250ms ease;
@@ -221,7 +244,10 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #1f1b14;
+  color: var(--surface2);
+}
+.dark ::selection {
+  color: var(--page);
 }
 
 h1, h2, h3 {
@@ -309,16 +335,16 @@ section[id] {
   }
   .btn-primary {
     background: var(--accent);
-    color: #211a10;
+    color: var(--surface2);
   }
   .btn-primary:hover {
     background: var(--accentdark);
-    color: #211a10;
+    color: var(--surface2);
     transform: translateY(-2px);
   }
   .dark .btn-primary,
   .dark .btn-primary:hover {
-    color: #151617;
+    color: var(--page);
   }
   .btn-ghost {
     border: 1px solid var(--line2);
@@ -714,11 +740,11 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
 @keyframes pulse-dot {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(163, 177, 138, 0.5);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 50%, transparent);
   }
   50% {
     opacity: 0.75;
-    box-shadow: 0 0 0 5px rgba(163, 177, 138, 0);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--success) 0%, transparent);
   }
 }
 .pulse-dot {
@@ -847,11 +873,14 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
   z-index: 200;
   border-radius: 6px;
   background: var(--accent);
-  color: #211a10;
+  color: var(--surface2);
   padding: 0.65rem 1rem;
   font-size: 13px;
   font-weight: 700;
   transition: top 0.2s ease;
+}
+.dark .skip-link {
+  color: var(--page);
 }
 .skip-link:focus {
   top: 1rem;
@@ -1071,7 +1100,7 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
 .pwa-install {
   --pwa-bg: color-mix(in srgb, var(--surface) 72%, transparent);
   --pwa-border: color-mix(in srgb, var(--line) 55%, transparent);
-  --pwa-shadow: 0 10px 30px -18px rgba(28, 28, 26, 0.35);
+  --pwa-shadow: 0 10px 30px -18px color-mix(in srgb, var(--ink) 35%, transparent);
   position: fixed;
   z-index: 35;
   left: 16px;
@@ -1118,10 +1147,14 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
   border: none;
   border-radius: 999px;
   background: var(--accent);
-  color: #211a10;
+  color: var(--surface2);
   font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.dark .pwa-install-btn {
+  color: var(--page);
 }
 
 .pwa-install-btn:hover {
@@ -1163,7 +1196,7 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
   --fqn-mobile-side: 16px;
   --fqn-bg: color-mix(in srgb, var(--surface) 72%, transparent);
   --fqn-border: color-mix(in srgb, var(--line) 55%, transparent);
-  --fqn-shadow: 0 10px 30px -18px rgba(28, 28, 26, 0.35);
+  --fqn-shadow: 0 10px 30px -18px color-mix(in srgb, var(--ink) 35%, transparent);
   --fqn-pill-h: 48px;
   --fqn-scroll-size: 44px;
   /* CSS-variable host only — children are independently position:fixed. */
@@ -1278,13 +1311,17 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  color: #211a10;
+  color: var(--surface2);
   background: var(--accent);
   border: none;
   box-shadow: var(--fqn-shadow);
   cursor: pointer;
   pointer-events: auto;
   animation: fqn-fade-in 150ms ease;
+}
+
+.dark .fqn-scroll-btn {
+  color: var(--page);
 }
 
 @media (min-width: 768px) {
@@ -1301,10 +1338,6 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
 .fqn-scroll-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-}
-
-.dark .fqn-scroll-btn {
-  color: #211a10;
 }
 
 @keyframes fqn-fade-in {
