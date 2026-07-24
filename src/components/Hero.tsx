@@ -75,7 +75,7 @@ export default function Hero() {
           <Suspense fallback={null}>
             <MagicDust
               key={particleCount}
-              particleColor="#d4b483"
+              particleColor="#a8471e"
               particleCount={particleCount}
               fontFamily="sans-serif"
               sequence={[

@@ -218,7 +218,7 @@ export function ContactForm({
           <input
             ref={firstFieldRef}
             id={`${idPrefix}-name`}
-            className={cn("field", errors.name && "border-[#C2603E]!")}
+            className={cn("field", errors.name && "border-error!")}
             placeholder={f.namePh}
             value={fields.name}
             onChange={(e) => set("name", e.target.value)}
@@ -227,7 +227,7 @@ export function ContactForm({
             aria-describedby={errors.name ? nameErrId : undefined}
           />
           {errors.name && (
-            <p id={nameErrId} className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">
+            <p id={nameErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
               {f.required}
             </p>
           )}
@@ -241,7 +241,7 @@ export function ContactForm({
             id={`${idPrefix}-email`}
             type="email"
             dir="ltr"
-            className={cn("field text-start", errors.email && "border-[#C2603E]!")}
+            className={cn("field text-start", errors.email && "border-error!")}
             placeholder={f.emailPh}
             value={fields.email}
             onChange={(e) => set("email", e.target.value)}
@@ -250,7 +250,7 @@ export function ContactForm({
             aria-describedby={errors.email ? emailErrId : undefined}
           />
           {errors.email && (
-            <p id={emailErrId} className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">
+            <p id={emailErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
               {f.required}
             </p>
           )}
@@ -295,7 +295,7 @@ export function ContactForm({
           <textarea
             ref={messageFieldRef}
             id={`${idPrefix}-message`}
-            className={cn("field min-h-[120px]", errors.message && "border-[#C2603E]!")}
+            className={cn("field min-h-[120px]", errors.message && "border-error!")}
             placeholder={f.messagePh}
             value={fields.message}
             onChange={(e) => set("message", e.target.value)}
@@ -303,7 +303,7 @@ export function ContactForm({
             aria-describedby={errors.message ? messageErrId : undefined}
           />
           {errors.message && (
-            <p id={messageErrId} className="mt-1.5 text-[11.5px] font-semibold text-[#C2603E]">
+            <p id={messageErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
               {f.required}
             </p>
           )}
@@ -391,9 +391,9 @@ export function ContactForm({
           id={statusRegionId}
           role="alert"
           tabIndex={-1}
-          className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5 outline-none"
+          className="mt-5 flex items-start gap-3 rounded-sm border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
         >
-          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#C2603E]" />
+          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
           <div>
             <p className="text-[13.5px] font-bold text-ink">{f.timeoutTitle}</p>
             <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.timeoutBody}</p>
@@ -407,9 +407,9 @@ export function ContactForm({
           id={statusRegionId}
           role="alert"
           tabIndex={-1}
-          className="mt-5 flex items-start gap-3 rounded-sm border border-[#C2603E]/40 bg-[#C2603E]/10 px-4 py-3.5 outline-none"
+          className="mt-5 flex items-start gap-3 rounded-sm border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
         >
-          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#C2603E]" />
+          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
           <div>
             <p className="text-[13.5px] font-bold text-ink">{f.errorTitle}</p>
             <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.errorBody}</p>

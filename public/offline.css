@@ -1,21 +1,21 @@
 :root {
-  --page: #f5f0e8;
-  --surface: #fbf9f5;
-  --ink: #1c1c1a;
-  --ink2: #77736c;
-  --line: #ddd5c9;
-  --accent: #d4b483;
-  --accentdark: #c19e6e;
+  --page: #f2efe9;
+  --surface: #e9e5db;
+  --ink: #171310;
+  --ink2: color-mix(in srgb, var(--ink) 68%, var(--page));
+  --line: color-mix(in srgb, var(--ink) 12%, var(--page));
+  --accent: #a8471e;
+  --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --page: #151617;
-    --surface: #202223;
-    --ink: #f1f0ed;
-    --ink2: #a7a9a8;
-    --line: #343738;
-    --accent: #c19e6e;
-    --accentdark: #a8875a;
+    --page: #141110;
+    --surface: #1b1714;
+    --ink: #ede8de;
+    --ink2: color-mix(in srgb, var(--ink) 70%, var(--page));
+    --line: color-mix(in srgb, var(--ink) 14%, var(--page));
+    --accent: #d9713d;
+    --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
   }
 }
 * {
@@ -93,11 +93,17 @@ button {
 }
 .primary {
   background: var(--accent);
-  color: #211a10;
+  color: #fbf9f4;
 }
 .primary:hover {
   background: var(--accentdark);
-  color: #fff8ee;
+  color: #fbf9f4;
+}
+@media (prefers-color-scheme: dark) {
+  .primary,
+  .primary:hover {
+    color: #141110;
+  }
 }
 .ghost {
   border: 1px solid var(--line);
