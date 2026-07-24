@@ -207,7 +207,9 @@ export default function Nav() {
                 className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
               >
                 {l.label}
-                <span className="font-mono text-[10px] font-medium text-ink3">0{i + 3}</span>
+                <span className="font-mono text-[10px] font-medium text-ink3">
+                  {String(i + 3).padStart(2, "0")}
+                </span>
               </Link>
             ))}
           </div>

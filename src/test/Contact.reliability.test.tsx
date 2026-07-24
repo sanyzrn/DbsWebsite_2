@@ -89,4 +89,34 @@ describe("contact form reliability", () => {
       expect(screen.getByText(dictionaries.en.contact.form.deliveredTitle)).toBeTruthy();
     });
   }, 10_000);
+
+  it("delays a fast legitimate submit instead of showing the generic error alert", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: async () => ({ ok: true }),
+      })
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    renderContactPage();
+    await fillRequired(user);
+    // Submit immediately — under SUBMIT_MIN_MS — should wait, then POST successfully.
+    await user.click(screen.getByRole("button", { name: dictionaries.en.contact.form.submit }));
+
+    expect(screen.queryByRole("alert")).toBeNull();
+
+    await waitFor(
+      () => {
+        expect(screen.getByText(dictionaries.en.contact.form.deliveredTitle)).toBeTruthy();
+      },
+      { timeout: 5000 }
+    );
+
+    expect(fetchMock).toHaveBeenCalled();
+    const call = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    const body = JSON.parse(String(call[1].body)) as { elapsedMs: number };
+    expect(body.elapsedMs).toBeGreaterThanOrEqual(2000);
+  }, 10_000);
 });
