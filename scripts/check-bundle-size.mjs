@@ -18,16 +18,16 @@ const MAX_CSS_GZIP = 60 * 1024;
 /**
  * All self-hosted font files under dist/assets (fontsource unicode-range subsets).
  * Browsers only fetch matching subsets at runtime; this gates shipped payload regressions.
- * Baseline after Vazirmatn 300 trim ≈ 1135 KiB gzip — keep modest headroom.
+ * Baseline ≈ 1135 KiB (body stack) + ~180 KiB display serifs (Fraunces opsz + Naskh 600).
  */
-const MAX_FONTS_GZIP = 1200 * 1024;
+const MAX_FONTS_GZIP = 1350 * 1024;
 /** Home HTML document. */
 const MAX_HTML_GZIP = 80 * 1024;
 /**
  * Combined first-paint resources on disk (HTML + critical CSS + critical JS + all font files).
  * Runtime transfer is lower (unicode-range); this is a regression gate, not Lighthouse FMP.
  */
-const MAX_FIRST_PAINT_GZIP = 1400 * 1024;
+const MAX_FIRST_PAINT_GZIP = 1550 * 1024;
 
 if (!fs.existsSync(INDEX)) {
   throw new Error("dist/index.html missing — run `npm run build` before check:bundle");

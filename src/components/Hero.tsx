@@ -101,13 +101,13 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="hero-name mt-5 text-[48px] font-black leading-[1.12] tracking-tight sm:mt-7 sm:text-[64px] sm:leading-[1.1] lg:text-[72px] xl:text-[80px] xl:leading-[1.08]">
+        <h1 className="hero-name display-heading mt-5 text-[48px] font-black leading-[1.12] tracking-tight sm:mt-7 sm:text-[64px] sm:leading-[1.1] lg:text-[72px] xl:text-[80px] xl:leading-[1.08]">
           <span className="hero-in hero-in-d140 block">
             {t.hero.name.split(t.hero.nameAccent)[0]}
             <span className="relative inline-block text-hi">
               {t.hero.nameAccent}
               <svg
-                className="hero-name-underline absolute -bottom-2 start-0 h-[0.18em] w-full min-h-[9px]"
+                className="hero-name-underline absolute start-0 h-[0.18em] w-full min-h-[9px]"
                 viewBox="0 0 200 9"
                 preserveAspectRatio="none"
                 aria-hidden="true"

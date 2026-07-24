@@ -86,7 +86,7 @@ export function SectionHead({
         <span className="kicker">{kicker}</span>
       </Reveal>
       <Reveal delay={80}>
-        <h2 className="mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[42px] md:leading-[1.18]">
+        <h2 className="display-heading mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[42px] md:leading-[1.18]">
           {title}
         </h2>
       </Reveal>
