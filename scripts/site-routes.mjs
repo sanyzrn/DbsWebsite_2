@@ -36,7 +36,13 @@ export function allLocalePrerenderStaticPaths() {
   return paths.flatMap((p) => [p, localePath("en", p)]);
 }
 
-/** Sitemap-only static paths (exclude 404). */
-export function sitemapStaticPaths() {
-  return allLocaleStaticPaths();
+/**
+ * Sitemap-only static paths (exclude 404).
+ * Pass `{ hasNews: false }` to omit /news and /en/news when the digest is empty.
+ */
+export function sitemapStaticPaths({ hasNews = true } = {}) {
+  const base = hasNews
+    ? siteRoutes.staticPaths
+    : siteRoutes.staticPaths.filter((p) => p !== "/news");
+  return base.flatMap((p) => [p, localePath("en", p)]);
 }

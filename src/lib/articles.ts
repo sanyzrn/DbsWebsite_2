@@ -35,9 +35,38 @@ type MdxModule = {
 
 const ARTICLE_PATH_RE = /\/([^/]+)\.(fa|en)\.mdx$/;
 
-const compiledModules = import.meta.glob("../../content/articles/*.mdx", {
-  eager: true,
-}) as Record<string, MdxModule>;
+// Non-eager: each MDX file becomes a separate chunk, reducing the initial JS bundle.
+// The load promise resolves once every article module has been imported and cached.
+const _globbed = import.meta.glob<MdxModule>("../../content/articles/*.mdx");
+
+let _cache: Record<string, MdxModule> | null = null;
+
+/**
+ * Module-level promise that loads and caches all article MDX modules.
+ * Resolves once (idempotent). Awaited by:
+ *  - SSR prerender: entry-server.tsx → ensureLoaded()
+ *  - Client: ContentGate Suspense boundary in App.tsx
+ *  - Tests: setup.ts beforeAll
+ */
+export const articlesLoadPromise: Promise<void> = (async () => {
+  const entries = await Promise.all(
+    Object.entries(_globbed).map(async ([fp, load]) => {
+      const mod = await load();
+      return [fp, mod] as [string, MdxModule];
+    })
+  );
+  _cache = Object.fromEntries(entries);
+})();
+
+function getCache(): Record<string, MdxModule> {
+  if (_cache === null) {
+    // Throw the load promise to trigger the nearest Suspense boundary.
+    // After SSR ensureLoaded() or test setup.ts preload, this is never null.
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw articlesLoadPromise;
+  }
+  return _cache;
+}
 
 function parseArticlePath(filePath: string): { slug: string; lang: Lang } | null {
   const match = ARTICLE_PATH_RE.exec(filePath);
@@ -71,9 +100,9 @@ export function isPublishedArticle(article: Pick<Article, "frontmatter">): boole
   return article.frontmatter.status === "published";
 }
 
-/** All locale-specific article modules on disk (draft + published). */
+/** All locale-specific article modules on disk (draft + published). Requires modules loaded. */
 export function loadArticles(): Article[] {
-  return Object.entries(compiledModules)
+  return Object.entries(getCache())
     .map(([filePath, mod]) => {
       const parsed = parseArticlePath(filePath);
       if (!parsed || !mod?.default) return null;

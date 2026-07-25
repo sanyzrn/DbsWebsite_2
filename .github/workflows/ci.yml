@@ -44,12 +44,12 @@ jobs:
         with:
           php-version: "8.2"
           coverage: none
-      - name: PHP syntax check (admin/ + public/api/)
+      - name: PHP syntax check (public/api/)
         run: |
           set -euo pipefail
-          mapfile -t files < <(find admin public/api -type f -name '*.php' 2>/dev/null || true)
+          mapfile -t files < <(find public/api -type f -name '*.php' 2>/dev/null || true)
           if [ ${#files[@]} -eq 0 ]; then
-            echo "No PHP files under admin/ or public/api/"
+            echo "No PHP files under public/api/"
             exit 1
           fi
           for f in "${files[@]}"; do

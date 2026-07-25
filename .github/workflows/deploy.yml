@@ -54,23 +54,14 @@ jobs:
           test -f dist/.htaccess
           ls -la dist/.htaccess
 
-      # TEMPORARY — delete once the FTP failure cause is identified from this log.
-      - name: FTP connectivity diagnostic
-        run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-          set +e
-          lftp -d -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" \
-            -e "set ftp:ssl-allow no; set net:timeout 15; set net:max-retries 2; \
-                pwd; ls; bye" \
-            "${{ secrets.FTP_SERVER }}" 2>&1
-          echo "Exit code: $?"
-
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          # FTPS (explicit TLS) is required — plain FTP is not acceptable.
+          protocol: ftps
           local-dir: ./dist/
           # This FTP account's root IS already public_html — do not nest under /public_html/.
           server-dir: ./

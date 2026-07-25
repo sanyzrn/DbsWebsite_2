@@ -19,6 +19,7 @@ import { useApp } from "../../lib/app";
 import { PROJECT_TYPE_IDS, type ProjectTypeId } from "../../lib/i18n";
 import {
   emptyContactFields,
+  CONTACT_FIELD_MAX,
   type ContactFields,
   type ContactStatus,
 } from "../../lib/mailto";
@@ -96,7 +97,7 @@ export function ContactForm({
   }, [searchParams, lang, f.regardingProject]);
 
   useEffect(() => {
-    if (status !== "error" && status !== "timeout") return;
+    if (status !== "error" && status !== "timeout" && status !== "rateLimited") return;
     const id = window.setTimeout(() => statusAlertRef.current?.focus(), 0);
     return () => window.clearTimeout(id);
   }, [status]);
@@ -121,13 +122,25 @@ export function ContactForm({
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     const next: Partial<Record<keyof ContactFields, boolean>> = {
-      name: !fields.name.trim(),
-      email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email),
-      message: !fields.message.trim(),
+      name: !fields.name.trim() || fields.name.trim().length > CONTACT_FIELD_MAX.name,
+      email:
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email) ||
+        fields.email.length > CONTACT_FIELD_MAX.email,
+      message: !fields.message.trim() || fields.message.trim().length > CONTACT_FIELD_MAX.message,
     };
     setErrors(next);
     if (next.name || next.email || next.message) {
       focusFirstInvalid(next);
+      return;
+    }
+
+    if (
+      fields.phone.trim().length > CONTACT_FIELD_MAX.phone ||
+      fields.company.trim().length > CONTACT_FIELD_MAX.company ||
+      fields.budget.trim().length > CONTACT_FIELD_MAX.budget ||
+      fields.timeline.trim().length > CONTACT_FIELD_MAX.timeline
+    ) {
+      setStatus("error");
       return;
     }
 
@@ -173,9 +186,17 @@ export function ContactForm({
           elapsedMs: submitElapsedMs,
         }),
       });
-      if (!res.ok) throw new Error(`contact api failed (${res.status})`);
-      const payload = (await res.json()) as { ok?: boolean };
-      if (!payload?.ok) throw new Error("contact api rejected");
+      let payload: { ok?: boolean; error?: string } = {};
+      try {
+        payload = (await res.json()) as { ok?: boolean; error?: string };
+      } catch {
+        payload = {};
+      }
+      if (res.status === 429 || payload.error === "rate_limited") {
+        setStatus("rateLimited");
+        return;
+      }
+      if (!res.ok || !payload?.ok) throw new Error(`contact api failed (${res.status})`);
       setStatus("delivered");
       setTruncated(false);
       setFields({ ...emptyContactFields });
@@ -226,12 +247,15 @@ export function ContactForm({
             value={fields.name}
             onChange={(e) => set("name", e.target.value)}
             autoComplete="name"
+            maxLength={CONTACT_FIELD_MAX.name}
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={errors.name ? nameErrId : undefined}
           />
           {errors.name && (
             <p id={nameErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
-              {f.required}
+              {fields.name.trim().length > CONTACT_FIELD_MAX.name
+                ? f.fieldTooLong.replace("{n}", String(CONTACT_FIELD_MAX.name))
+                : f.required}
             </p>
           )}
         </div>
@@ -249,12 +273,15 @@ export function ContactForm({
             value={fields.email}
             onChange={(e) => set("email", e.target.value)}
             autoComplete="email"
+            maxLength={CONTACT_FIELD_MAX.email}
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? emailErrId : undefined}
           />
           {errors.email && (
             <p id={emailErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
-              {f.required}
+              {fields.email.length > CONTACT_FIELD_MAX.email
+                ? f.fieldTooLong.replace("{n}", String(CONTACT_FIELD_MAX.email))
+                : f.required}
             </p>
           )}
         </div>
@@ -321,12 +348,15 @@ export function ContactForm({
             placeholder={f.messagePh}
             value={fields.message}
             onChange={(e) => set("message", e.target.value)}
+            maxLength={CONTACT_FIELD_MAX.message}
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={errors.message ? messageErrId : undefined}
           />
           {errors.message && (
             <p id={messageErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
-              {f.required}
+              {fields.message.trim().length > CONTACT_FIELD_MAX.message
+                ? f.fieldTooLong.replace("{n}", String(CONTACT_FIELD_MAX.message))
+                : f.required}
             </p>
           )}
         </div>
@@ -419,6 +449,24 @@ export function ContactForm({
           <div>
             <p className="text-[13.5px] font-bold text-ink">{f.timeoutTitle}</p>
             <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.timeoutBody}</p>
+          </div>
+        </div>
+      )}
+
+      {status === "rateLimited" && (
+        <div
+          ref={statusAlertRef}
+          id={statusRegionId}
+          role="alert"
+          tabIndex={-1}
+          className="mt-5 flex items-start gap-3 rounded-sm border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
+        >
+          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
+          <div>
+            <p className="text-[13.5px] font-bold text-ink">{f.rateLimitedTitle}</p>
+            <p className="mt-1 text-[12.5px] leading-6 text-ink2">
+              {f.rateLimitedBody.replace("{email}", t.contact.email)}
+            </p>
           </div>
         </div>
       )}

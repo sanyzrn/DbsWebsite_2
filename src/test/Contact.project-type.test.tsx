@@ -2,52 +2,45 @@ import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useMemo, useState } from "react";
 import { MemoryRouter } from "react-router-dom";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import Contact from "../components/Contact";
+import { AppCtx, type AppState } from "../lib/app";
 import { getDictionary, type Lang } from "../lib/i18n";
-
-const { useAppMock } = vi.hoisted(() => ({
-  useAppMock: vi.fn(),
-}));
-
-vi.mock("../lib/app", async () => {
-  const actual = await vi.importActual<typeof import("../lib/app")>("../lib/app");
-  return {
-    ...actual,
-    useApp: () => useAppMock(),
-  };
-});
 
 afterEach(() => {
   cleanup();
   document.body.style.overflow = "";
-  vi.clearAllMocks();
 });
 
+/**
+ * Provides the AppCtx value directly (no module mocking) so pre-loaded modules
+ * like Contact.tsx pick up the controlled context without mock/cache conflicts.
+ */
 function ContactWithLangSwitch() {
   const [lang, setLang] = useState<Lang>("fa");
-  const value = useMemo(
+  const value = useMemo<AppState>(
     () => ({
       lang,
       dir: (lang === "fa" ? "rtl" : "ltr") as "rtl" | "ltr",
       isRTL: lang === "fa",
       t: getDictionary(lang),
-      setLang,
+      setLang: (l: Lang) => setLang(l),
       toggleLang: () => setLang((l) => (l === "fa" ? "en" : "fa")),
       theme: "light" as const,
       toggleTheme: () => {},
     }),
     [lang],
   );
-  useAppMock.mockImplementation(() => value);
 
   return (
-    <div>
-      <button type="button" onClick={() => value.toggleLang()}>
-        switch-lang
-      </button>
-      <Contact />
-    </div>
+    <AppCtx.Provider value={value}>
+      <div>
+        <button type="button" onClick={value.toggleLang}>
+          switch-lang
+        </button>
+        <Contact />
+      </div>
+    </AppCtx.Provider>
   );
 }
 

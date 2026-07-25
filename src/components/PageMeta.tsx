@@ -14,6 +14,9 @@ type PageMetaProps = {
 
 /** Emits document head tags (React 19 hoists these) + JSON-LD for the current page.
  *  Skipped during SSR — `scripts/prerender.mjs` injects the authoritative head per route.
+ *
+ *  JSON-LD scripts are injected without a nonce; the CSP script-src contains
+ *  sha256 hashes of all prerendered inline script bodies, covering these variants.
  */
 export function PageMeta({ page, slug }: PageMetaProps) {
   const { lang } = useApp();
@@ -29,24 +32,22 @@ export function PageMeta({ page, slug }: PageMetaProps) {
   }
 
   const ogType = page === "project" || page === "article" ? "article" : "website";
-  const cspNonce =
-    typeof document !== "undefined"
-      ? document.querySelector('meta[name="csp-nonce"]')?.getAttribute("content") ?? undefined
-      : undefined;
+
+  const isNoindex = typeof seo.robots === "string" && seo.robots.includes("noindex");
 
   return (
     <>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       {seo.robots ? <meta name="robots" content={seo.robots} /> : null}
-      <link rel="canonical" href={seo.canonical} />
-      <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />
-      <link rel="alternate" hrefLang="en" href={seo.alternateEn} />
-      <link rel="alternate" hrefLang="x-default" href={seo.alternateEn} />
+      {!isNoindex && <link rel="canonical" href={seo.canonical} />}
+      {!isNoindex && <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />}
+      {!isNoindex && <link rel="alternate" hrefLang="en" href={seo.alternateEn} />}
+      {!isNoindex && <link rel="alternate" hrefLang="x-default" href={seo.alternateEn} />}
       <meta property="og:type" content={ogType} />
       <meta property="og:locale" content={seo.ogLocale} />
       <meta property="og:locale:alternate" content={seo.ogLocaleAlternate} />
-      <meta property="og:site_name" content="Saeed" />
+      <meta property="og:site_name" content="Saeed Zarrini" />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:url" content={seo.canonical} />
@@ -56,7 +57,7 @@ export function PageMeta({ page, slug }: PageMetaProps) {
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
       {seo.jsonLd.map((block, i) => (
-        <script key={i} type="application/ld+json" nonce={cspNonce}>
+        <script key={i} type="application/ld+json">
           {JSON.stringify(block)}
         </script>
       ))}

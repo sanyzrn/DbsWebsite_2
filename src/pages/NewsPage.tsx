@@ -85,6 +85,21 @@ export default function NewsPage() {
           {items.length === 0 ? (
             <Reveal delay={120}>
               <p className="mt-10 max-w-xl text-[15px] leading-8 text-ink2">{copy.empty}</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  to={localePath(lang, "/articles")}
+                  className="btn btn-ghost h-10 px-5 text-[13.5px]"
+                >
+                  {copy.emptyCtaArticles}
+                  <DirArrow className="h-4 w-4" />
+                </Link>
+                <Link
+                  to={localePath(lang, "/contact")}
+                  className="btn btn-primary h-10 px-5 text-[13.5px]"
+                >
+                  {copy.emptyCtaContact}
+                </Link>
+              </div>
             </Reveal>
           ) : (
             <div className="mt-10">

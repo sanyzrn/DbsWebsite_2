@@ -39,13 +39,13 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
 `npm run build` → `scripts/prerender.mjs` → `scripts/csp.mjs` writes the same
 `Content-Security-Policy` value into every host config below, plus `dist/.htaccess`,
 `hosting/csp-header.txt`, and a `<meta http-equiv="Content-Security-Policy">` on each
-prerendered HTML page (so the policy matches the per-build script nonce even if a host
-snapshots config before the build finishes).
+prerendered HTML page. The policy uses SHA-256 hashes of every inline script (FOUC, JSON-LD)
+rather than a per-build nonce, so hosting configs and HTML stay in sync automatically.
 
 | Directive | Why |
 |-----------|-----|
 | `default-src 'self'` | Deny by default; only same-origin unless overridden |
-| `script-src 'self' 'nonce-…'` | App bundles + FOUC/theme bootstrap + JSON-LD (nonce injected at prerender; `PageMeta` reuses `meta[name=csp-nonce]`) |
+| `script-src 'self' 'sha256-…' … | App bundles + FOUC/theme bootstrap + JSON-LD inline scripts (SHA-256 hashes collected at prerender; no nonce required) |
 | `style-src 'self'` (+ optional `'unsafe-hashes' sha256-…`) | Bundled CSS; app avoids inline `style=` attrs. Any remaining prerendered style attrs are hashed |
 | `font-src 'self' data:` | Self-hosted `@fontsource` fonts (no Google Fonts CDN) |
 | `img-src 'self' data: blob:` | Site images + inline/data URLs |
@@ -56,7 +56,7 @@ snapshots config before the build finishes).
 | `object-src 'none'` | No plugins |
 | `upgrade-insecure-requests` | Prefer HTTPS subresources |
 
-**Apache FTP:** prefer `dist/.htaccess` from the **same** build as the HTML (nonce must match). The GitHub Actions deploy workflow uploads that file with `dist/`. Prefer that over copying a stale `apache.htaccess.example` from an older commit by hand.
+**Apache FTP:** prefer `dist/.htaccess` from the **same** build as the HTML (hashes change each build). The GitHub Actions deploy workflow uploads that file with `dist/`. Prefer that over copying a stale `apache.htaccess.example` from an older commit by hand.
 
 **Do not add `Strict-Transport-Security` here until the final host is permanent.**
 

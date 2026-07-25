@@ -82,8 +82,8 @@ Set these under **Settings → Secrets and variables → Actions**. They are **n
 
 | Secret | Value / notes |
 |--------|----------------|
-| `FTP_SERVER` | `server78i.irwebspace.com` |
-| `FTP_USERNAME` | `sany@saeedzarrini.ir` |
+| `FTP_SERVER` | `<your-ftp-hostname>` |
+| `FTP_USERNAME` | `<your-ftp-username>` |
 | `FTP_PASSWORD` | Current FTP account password |
 | `SITE_URL` | `https://saeedzarrini.ir` |
 | `BALE_BOT_TOKEN` | Bot token from Bale's BotFather — written only into `dist/api/bale-config.php` at deploy time (never committed) |

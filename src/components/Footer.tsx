@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useApp } from "../lib/app";
+import { hasNewsContent } from "../lib/news";
 import { localePath } from "../lib/paths";
 import { LinkedinIcon, GithubIcon, TelegramIcon, WhatsappIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
@@ -11,6 +12,7 @@ export default function Footer() {
   const home = localePath(lang, "/");
   const articlesTo = localePath(lang, "/articles");
   const newsTo = localePath(lang, "/news");
+  const showNews = hasNewsContent();
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
     { label: t.nav.articles, to: articlesTo },
@@ -43,7 +45,7 @@ export default function Footer() {
     {
       icon: WhatsappIcon,
       label: "WhatsApp",
-      href: "https://wa.me/+989301221816",
+      href: "https://wa.me/989301221816",
     },
   ];
 
@@ -84,14 +86,12 @@ export default function Footer() {
               <Link to={l.to} className="px-1.5 py-1 text-[13px] font-semibold text-ink2 transition-colors hover:text-hi">
                 {l.label}
               </Link>
-              {l.to === articlesTo ? (
+              {l.to === articlesTo && showNews ? (
                 <>
-                  <span className="text-line2" aria-hidden="true">
-                    /
-                  </span>
+                  <span className="mx-0.5 select-none text-[10px] text-line2" aria-hidden="true">›</span>
                   <Link
                     to={newsTo}
-                    className="px-1.5 py-1 text-[12px] font-medium text-ink3 transition-colors hover:text-hi"
+                    className="px-1 py-1 text-[11px] font-medium text-ink3 transition-colors hover:text-hi"
                   >
                     {t.nav.news}
                   </Link>
@@ -153,7 +153,7 @@ export default function Footer() {
                 <Link to={l.to} className="text-[14px] font-semibold text-ink2 transition-colors hover:text-hi">
                   {l.label}
                 </Link>
-                {l.to === articlesTo ? (
+                {l.to === articlesTo && showNews ? (
                   <Link
                     to={newsTo}
                     className="mt-1.5 block text-[12.5px] font-medium text-ink3 transition-colors hover:text-hi"

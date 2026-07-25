@@ -143,7 +143,7 @@ export default function Hero() {
         </p>
 
         <div className="hero-in hero-in-d500 mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-3.5">
-          <Link to={`${localePath(lang, "/")}#projects`} className="btn btn-primary h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
+          <Link to={localePath(lang, "/projects")} className="btn btn-primary h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
             {t.hero.ctaPrimary}
             <DirArrow className="h-[18px] w-[18px]" />
           </Link>

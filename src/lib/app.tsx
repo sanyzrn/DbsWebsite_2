@@ -6,7 +6,7 @@ import { langFromPath, localePath, stripLangPrefix } from "./paths";
 
 export type Theme = "light" | "dark";
 
-interface AppState {
+export interface AppState {
   lang: Lang;
   dir: "rtl" | "ltr";
   isRTL: boolean;
@@ -17,7 +17,8 @@ interface AppState {
   toggleTheme: () => void;
 }
 
-const AppCtx = createContext<AppState | null>(null);
+/** Exported so tests can provide the context directly without module mocking. */
+export const AppCtx = createContext<AppState | null>(null);
 
 function initialTheme(): Theme {
   if (typeof window === "undefined") return "light";
@@ -51,7 +52,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.lang = lang;
     root.dir = dir;
-    localStorage.setItem("sz-lang", lang);
   }, [lang, dir]);
 
   useEffect(() => {

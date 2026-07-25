@@ -4,6 +4,7 @@ import { ArrowRight, Languages, Mail, Moon, Phone, Search, Sun, X } from "lucide
 import { useApp } from "../lib/app";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
+import { hasNewsContent } from "../lib/news";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 
@@ -49,7 +50,7 @@ export default function CommandPalette() {
     return [
       go(localePath(lang, "/projects"), t.nav.projects),
       go(localePath(lang, "/articles"), t.nav.articles),
-      go(localePath(lang, "/news"), t.nav.news, t.nav.articles),
+      ...(hasNewsContent() ? [go(localePath(lang, "/news"), t.nav.news, t.nav.articles)] : []),
       go(`${home}#expertise`, t.nav.expertise),
       go(`${home}#process`, t.nav.process),
       go(localePath(lang, "/about"), t.nav.about),

@@ -1,8 +1,9 @@
 import type { Lang } from "./i18n";
 import { dictionaries } from "./i18n";
-import { findArticle, loadArticles, type Article } from "./articles";
+import { findArticle, getPublishedArticleSlugs, type Article } from "./articles";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
-import { loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
+import { isPublishedProject, loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
+import { loadNewsItems } from "./news";
 import { getSiteUrl } from "./siteUrl";
 import { truncateDescription } from "./truncate";
 import siteRoutes from "../../shared/site-routes.json";
@@ -90,13 +91,13 @@ export function resolvePageSeo(
     description = seo.notFound.description;
     path = opts?.path ?? localePath(lang, "/404");
   } else if (page === "project" && opts?.project) {
-    title = `${opts.project.name} | Saeed`;
+    title = `${opts.project.name} — ${opts.project.subtitle} | Saeed Zarrini`;
     description =
       truncateDescription(opts.project.desc, 155) || (seo.projects?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/projects/${opts.project.slug}`);
   } else if (page === "article" && opts?.article) {
     const fm = opts.article.frontmatter;
-    title = `${fm.title} | Saeed`;
+    title = `${fm.title} | Saeed Zarrini`;
     description = truncateDescription(fm.description, 155) || (seo.articles?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/articles/${opts.article.slug}`);
   } else if (page === "home") {
@@ -109,6 +110,20 @@ export function resolvePageSeo(
 
   const jsonLd = buildJsonLd(lang, page, path, opts?.project, opts?.article);
 
+  // Per-page OG image: use project's own image when available (§5), else og.jpg fallback.
+  const projectImage = opts?.project?.image_url;
+  const image = projectImage
+    ? projectImage.startsWith("http")
+      ? projectImage
+      : `${origin}${projectImage}`
+    : `${origin}/og.jpg`;
+
+  const isNoindex =
+    page === "notFound" ||
+    (page === "news" && loadNewsItems().length === 0) ||
+    (page === "project" && opts?.project && opts.project.maturity !== "published") ||
+    (page === "article" && opts?.article && opts.article.frontmatter.status !== "published");
+
   return {
     lang,
     title,
@@ -117,16 +132,12 @@ export function resolvePageSeo(
     alternatePath: lang === "fa" ? pathEn : pathFa,
     ogLocale: lang === "fa" ? "fa_IR" : "en_US",
     ogLocaleAlternate: lang === "fa" ? "en_US" : "fa_IR",
-    image: `${origin}/og.jpg`,
+    image,
     canonical: `${origin}${path === "/" ? "/" : path}`,
     alternateFa: `${origin}${pathFa === "/" ? "/" : pathFa}`,
     alternateEn: `${origin}${pathEn}`,
     jsonLd,
-    ...(page === "notFound" ||
-    (page === "project" && opts?.project && opts.project.maturity !== "published") ||
-    (page === "article" && opts?.article && opts.article.frontmatter.status !== "published")
-      ? { robots: "noindex, follow" }
-      : {}),
+    ...(isNoindex ? { robots: "noindex, follow" } : {}),
   };
 }
 
@@ -141,8 +152,10 @@ function buildJsonLd(
   const person: Record<string, unknown> = {
     "@type": "Person",
     "@id": `${origin}/#person`,
-    name: "Saeed",
-    alternateName: "سعید",
+    name: "Saeed Zarrini",
+    givenName: "Saeed",
+    familyName: "Zarrini",
+    alternateName: "سعید زرینی",
     url: `${origin}/`,
     contactPoint: {
       "@type": "ContactPoint",
@@ -170,7 +183,7 @@ function buildJsonLd(
     "@type": "WebSite",
     "@id": `${origin}/#website`,
     url: `${origin}/`,
-    name: "Saeed",
+    name: "Saeed Zarrini",
     inLanguage: ["fa", "en"],
     publisher: { "@id": `${origin}/#organization` },
     author: { "@id": `${origin}/#person` },
@@ -204,7 +217,11 @@ function buildJsonLd(
     if (project.isPubliclyAvailable) {
       work.offers = { "@type": "Offer", price: "0", priceCurrency: "USD" };
     }
-    if (project.image_url) work.image = project.image_url;
+    if (project.image_url) {
+      work.image = project.image_url.startsWith("http")
+        ? project.image_url
+        : `${origin}${project.image_url}`;
+    }
     const crumbs = buildBreadcrumbList(origin, [
       { name: dictionaries[lang].nav.home, path: localePath(lang, "/") },
       { name: dictionaries[lang].nav.projects, path: localePath(lang, "/projects") },
@@ -258,16 +275,16 @@ function buildBreadcrumbList(
   };
 }
 
-/** All static paths to prerender (locale-aware). */
+/** All static paths to prerender (locale-aware). Only published projects and articles are included. */
 export function listPrerenderPaths(): string[] {
-  const projects = loadProjectContent();
-  const articleSlugs = [...new Set(loadArticles().map((a) => a.slug))];
+  const publishedProjects = loadProjectContent().filter(isPublishedProject);
+  const publishedArticleSlugs = getPublishedArticleSlugs();
   const staticBare = [...siteRoutes.staticPaths, ...siteRoutes.specialPaths];
   const paths = staticBare.flatMap((p) => [p, p === "/" ? "/en" : `/en${p}`]);
-  for (const p of projects) {
+  for (const p of publishedProjects) {
     paths.push(`/projects/${p.slug}`, `/en/projects/${p.slug}`);
   }
-  for (const slug of articleSlugs) {
+  for (const slug of publishedArticleSlugs) {
     paths.push(`/articles/${slug}`, `/en/articles/${slug}`);
   }
   return paths;

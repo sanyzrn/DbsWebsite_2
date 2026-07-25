@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { BrowserRouter, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { AppProvider, useApp } from "./lib/app";
 import Nav from "./components/Nav";
@@ -16,6 +17,43 @@ function isHomePath(pathname: string) {
   return pathname === "/" || pathname === "/en" || pathname === "/en/";
 }
 
+/**
+ * Minimal on-brand spinner shown while the top-level Suspense is active
+ * (project/article chunk loading during first paint, before hydrateRoot kicks in).
+ * Respects prefers-reduced-motion — the spinner simply fades in without spinning
+ * when the user has opted out of animations.
+ */
+function AppLoadingFallback() {
+  return (
+    <div
+      className="flex min-h-screen items-center justify-center bg-page"
+      role="status"
+      aria-label="Loading…"
+    >
+      <span
+        className="h-8 w-8 rounded-full border-2 border-accent border-t-transparent motion-safe:animate-spin"
+        aria-hidden="true"
+      />
+    </div>
+  );
+}
+
+/** Lightweight per-page loading indicator shown inside the layout shell. */
+function PageLoadingFallback() {
+  return (
+    <div
+      className="flex min-h-[30vh] items-center justify-center"
+      role="status"
+      aria-label="Loading…"
+    >
+      <span
+        className="h-6 w-6 rounded-full border-2 border-accent border-t-transparent motion-safe:animate-spin"
+        aria-hidden="true"
+      />
+    </div>
+  );
+}
+
 function Layout() {
   const { t } = useApp();
   const { pathname } = useLocation();
@@ -30,7 +68,7 @@ function Layout() {
       <Nav />
       <FloatingQuickNav />
       <PwaInstallPrompt />
-      <main id="main" className={cn(clearFixedNav && "pt-[88px] lg:pt-0")}>
+      <main id="main" className={cn(clearFixedNav && "pt-[88px]")}>
         <PageTransition>
           <Outlet />
         </PageTransition>
@@ -45,9 +83,22 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        {routesFromManifest()}
-        {/* Client catch-all — prerender emits /404 + /en/404 separately via specialPaths */}
-        <Route path="*" element={<NotFoundPage />} />
+        {/*
+         * Inner Suspense: catches lazy page-chunk loading and per-page article
+         * data suspension (articles.ts getCache() throws articlesLoadPromise).
+         * Projects data is already available (resolved by the outer Suspense).
+         */}
+        <Route
+          element={
+            <Suspense fallback={<PageLoadingFallback />}>
+              <Outlet />
+            </Suspense>
+          }
+        >
+          {routesFromManifest()}
+          {/* Client catch-all — prerender emits /404 + /en/404 separately via specialPaths */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Route>
     </Routes>
   );
@@ -67,7 +118,17 @@ export function AppShell() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AppShell />
+      {/*
+       * Outer Suspense: catches AppProvider suspension when project data isn't
+       * loaded yet (projects.ts getCache() throws projectsLoadPromise, called
+       * synchronously by getDictionary inside AppProvider's useMemo).
+       *
+       * With hydrateRoot (prerendered pages), React keeps the server HTML visible
+       * while this resolves — no visible flash of fallback content.
+       */}
+      <Suspense fallback={<AppLoadingFallback />}>
+        <AppShell />
+      </Suspense>
     </BrowserRouter>
   );
 }

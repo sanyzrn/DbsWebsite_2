@@ -7,44 +7,44 @@ const en: UiDict = {
     sub: "AI Solutions Engineer",
   },
   seo: {
-    title: "Saeed | AI Solutions Engineer",
+    title: "Saeed Zarrini | AI Solutions Engineer",
     description:
       "For founders and teams stuck between idea and shipping: I design, engineer, and integrate AI into digital products that actually work.",
     projects: {
-      title: "Saeed | Projects",
+      title: "Saeed Zarrini | Projects",
       description:
         "For teams that need to see how an idea becomes a shippable product — org systems, tools, and AI integrations built for real use.",
     },
     articles: {
-      title: "Saeed | Field Notes",
+      title: "Saeed Zarrini | Field Notes",
       description:
         "Notes on product engineering, AI integration, and shipping digital work — written from practice, not slides.",
     },
     news: {
-      title: "Saeed | Daily Digest",
+      title: "Saeed Zarrini | Daily Digest",
       description:
         "A short daily digest of sourced shipping notes, tools, and AI practice — launching soon.",
     },
     about: {
-      title: "Saeed | About",
+      title: "Saeed Zarrini | About",
       description:
         "If you are stuck between idea and a working product: path, skills, and how to start building digital products and AI with Saeed.",
     },
     contact: {
-      title: "Saeed | Contact",
+      title: "Saeed Zarrini | Contact",
       description:
         "Start a project or conversation with Saeed about digital products, design, engineering, or AI integration.",
     },
     privacy: {
-      title: "Privacy | Saeed",
+      title: "Privacy | Saeed Zarrini",
       description: "Privacy policy for Saeed’s personal website.",
     },
     terms: {
-      title: "Terms | Saeed",
+      title: "Terms | Saeed Zarrini",
       description: "Terms of use for Saeed’s personal website.",
     },
     notFound: {
-      title: "Page not found | Saeed",
+      title: "Page not found | Saeed Zarrini",
       description: "The requested page does not exist.",
     },
   },
@@ -221,6 +221,8 @@ const en: UiDict = {
     title: "Daily Digest",
     lead: "Short curated pointers to shipping notes, tools, and AI practice — not essays.",
     empty: "Daily digest launching soon.",
+    emptyCtaArticles: "Read Field Notes",
+    emptyCtaContact: "Start a project",
     /** Visible attribution prefix before the sourceName link */
     sourceLabel: "Source:",
     curatedByAI: "Curated by AI",
@@ -361,6 +363,10 @@ const en: UiDict = {
       timeoutBody: "The connection stalled — try again, or email me directly below.",
       errorTitle: "Couldn't send.",
       errorBody: "Please try again, or email me directly.",
+      rateLimitedTitle: "Hourly limit reached.",
+      rateLimitedBody:
+        "You've reached the hourly message limit — please try again later, or email directly at {email}.",
+      fieldTooLong: "This field is too long (max {n} characters).",
       directEmail: "Or email me directly:",
       formUnavailable:
         "The contact form is temporarily being set up. In the meantime, feel free to reach me directly at the email below:",

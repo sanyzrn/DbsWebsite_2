@@ -4,6 +4,7 @@ import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
+import { hasNewsContent } from "../lib/news";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
@@ -74,6 +75,7 @@ export default function Nav() {
   const home = localePath(lang, "/");
   const articlesTo = localePath(lang, "/articles");
   const newsTo = localePath(lang, "/news");
+  const showNews = hasNewsContent();
   /** Flat primary destinations — Field Notes is rendered as a primary+secondary pair. */
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
@@ -84,6 +86,17 @@ export default function Nav() {
   ];
   const ctaTo = localePath(lang, "/contact");
 
+  /**
+   * Ordered list of numbered primary links for the mobile menu.
+   * Ordinals are computed from this array index so adding/removing items
+   * (e.g. hiding news) keeps the sequence gap-free without manual updates.
+   */
+  const mobilePrimaryLinks = [
+    { label: t.nav.projects, to: localePath(lang, "/projects") },
+    { label: t.nav.articles, to: articlesTo },
+    ...links.slice(1),
+  ];
+
   const fieldNotesDesktop = (
     <div className="flex flex-col items-start px-3.5 py-1">
       <Link
@@ -92,12 +105,14 @@ export default function Nav() {
       >
         {t.nav.articles}
       </Link>
-      <Link
-        to={newsTo}
-        className="mt-0.5 text-[11px] font-medium tracking-wide text-ink3 transition-colors duration-300 hover:text-hi"
-      >
-        {t.nav.news}
-      </Link>
+      {showNews && (
+        <Link
+          to={newsTo}
+          className="mt-0.5 text-[11px] font-medium tracking-wide text-ink3 transition-colors duration-300 hover:text-hi"
+        >
+          {t.nav.news}
+        </Link>
+      )}
     </div>
   );
 
@@ -175,42 +190,29 @@ export default function Nav() {
       >
         <nav id={PANEL_ID} className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]" aria-label={t.nav.mobileNavLabel}>
           <div className="flex flex-col p-2">
-            <Link
-              ref={firstLinkRef}
-              to={links[0].to}
-              onClick={closeMenu}
-              className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
-            >
-              {links[0].label}
-              <span className="font-mono text-[10px] font-medium text-ink3">01</span>
-            </Link>
-            <Link
-              to={articlesTo}
-              onClick={closeMenu}
-              className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
-            >
-              {t.nav.articles}
-              <span className="font-mono text-[10px] font-medium text-ink3">02</span>
-            </Link>
-            <Link
-              to={newsTo}
-              onClick={closeMenu}
-              className="ms-3 flex items-center justify-between rounded-sm border-s border-line px-3 py-2 text-[13px] font-semibold tracking-tight text-ink3 transition-colors hover:bg-surface hover:text-hi"
-            >
-              {t.nav.news}
-            </Link>
-            {links.slice(1).map((l, i) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={closeMenu}
-                className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
-              >
-                {l.label}
-                <span className="font-mono text-[10px] font-medium text-ink3">
-                  {String(i + 3).padStart(2, "0")}
-                </span>
-              </Link>
+            {mobilePrimaryLinks.map((l, i) => (
+              <span key={l.to}>
+                <Link
+                  ref={i === 0 ? firstLinkRef : undefined}
+                  to={l.to}
+                  onClick={closeMenu}
+                  className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
+                >
+                  {l.label}
+                  <span className="font-mono text-[10px] font-medium text-ink3">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </Link>
+                {l.to === articlesTo && showNews && (
+                  <Link
+                    to={newsTo}
+                    onClick={closeMenu}
+                    className="ms-3 flex items-center justify-between rounded-sm border-s border-line px-3 py-2 text-[13px] font-semibold tracking-tight text-ink3 transition-colors hover:bg-surface hover:text-hi"
+                  >
+                    {t.nav.news}
+                  </Link>
+                )}
+              </span>
             ))}
           </div>
           <div className="border-t border-line p-3">

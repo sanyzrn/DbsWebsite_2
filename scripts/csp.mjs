@@ -1,38 +1,18 @@
 /**
  * Content-Security-Policy helpers for the static prerendered site.
  *
- * Inline scripts (FOUC bootstrap + JSON-LD) get a per-build nonce — hashing every
- * page's JSON-LD would produce dozens of sha256 entries and still break SPA
- * client reinjection of JSON-LD via PageMeta. A single build nonce is injected
- * into every prerendered page + hosting CSP headers.
+ * Inline scripts (FOUC bootstrap + JSON-LD) are whitelisted via sha256 hashes
+ * computed at prerender time from their exact body text. This avoids the
+ * per-build nonce approach (which requires stamping every page + every hosting
+ * config with the same secret token, and breaks SPA JSON-LD reinjection).
  *
- * style-src drops 'unsafe-inline' in favor of 'unsafe-hashes' + SHA-256 hashes of
- * every distinct style="…" attribute found in dist/ after prerender (React SSR).
+ * style-src drops 'unsafe-inline' in favour of 'unsafe-hashes' + SHA-256 hashes
+ * of every distinct style="…" attribute found in dist/ after prerender (React SSR).
  */
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { ROOT } from "./site-url.mjs";
-
-export const CSP_NONCE_META = "csp-nonce";
-
-/** Shared directives for headers and <meta http-equiv>. */
-const CSP_BASE = [
-  "default-src 'self'",
-  "base-uri 'self'",
-  "object-src 'none'",
-  "form-action 'self'",
-  "img-src 'self' data: blob:",
-  "font-src 'self' data:",
-  "connect-src 'self'",
-  "worker-src 'self' blob:",
-  "manifest-src 'self'",
-  "upgrade-insecure-requests",
-];
-
-export function createBuildNonce() {
-  return crypto.randomBytes(16).toString("base64url");
-}
 
 export function sha256Integrity(content) {
   const hash = crypto.createHash("sha256").update(content, "utf8").digest("base64");
@@ -41,17 +21,36 @@ export function sha256Integrity(content) {
 
 /**
  * Build the Content-Security-Policy value.
- * @param {{ nonce: string, styleHashes?: string[], forMeta?: boolean }} opts
+ * @param {{ scriptHashes?: string[], styleHashes?: string[], forMeta?: boolean }} opts
  * `forMeta: true` omits header-only directives (e.g. frame-ancestors) so the
  * browser does not warn when the policy is delivered via <meta http-equiv>.
  */
-export function buildCspHeader({ nonce, styleHashes = [], forMeta = false }) {
-  const scriptSrc = `script-src 'self' 'nonce-${nonce}'`;
+export function buildCspHeader({ scriptHashes = [], styleHashes = [], forMeta = false } = {}) {
+  const uniqueScripts = [...new Set(scriptHashes)].sort();
+  const scriptSrc =
+    uniqueScripts.length > 0
+      ? `script-src 'self' ${uniqueScripts.join(" ")}`
+      : `script-src 'self'`;
   const uniqueStyles = [...new Set(styleHashes)].sort();
   const styleSrc =
     uniqueStyles.length > 0
       ? `style-src 'self' 'unsafe-hashes' ${uniqueStyles.join(" ")}`
       : `style-src 'self'`;
+
+  /** Shared directives for headers and <meta http-equiv>. */
+  const CSP_BASE = [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "form-action 'self'",
+    "img-src 'self' data: blob:",
+    "font-src 'self' data:",
+    "connect-src 'self'",
+    "worker-src 'self' blob:",
+    "manifest-src 'self'",
+    "upgrade-insecure-requests",
+  ];
+
   const parts = forMeta
     ? [...CSP_BASE, scriptSrc, styleSrc]
     : [
@@ -89,32 +88,6 @@ export function walkHtmlFiles(dir, out = []) {
     const abs = path.join(dir, entry.name);
     if (entry.isDirectory()) walkHtmlFiles(abs, out);
     else if (entry.name.endsWith(".html")) out.push(abs);
-  }
-  return out;
-}
-
-/**
- * Inject nonce into FOUC + JSON-LD scripts and add csp-nonce meta.
- * Call after head/body injection for each prerendered page.
- */
-export function applyNonceToHtml(html, nonce) {
-  let out = html;
-  // FOUC bootstrap (first bare <script> without type/src)
-  out = out.replace(
-    /<script(?![^>]*\bnonce=)(?![^>]*\btype=)(?![^>]*\bsrc=)>/i,
-    `<script nonce="${nonce}">`
-  );
-  // JSON-LD blocks
-  out = out.replace(
-    /<script(\s+type="application\/ld\+json")(?![^>]*\bnonce=)>/gi,
-    `<script nonce="${nonce}"$1>`
-  );
-  // Meta for client PageMeta reinjection
-  if (!out.includes(`name="${CSP_NONCE_META}"`)) {
-    out = out.replace(
-      /<\/head>/i,
-      `    <meta name="${CSP_NONCE_META}" content="${nonce}" />\n  </head>`
-    );
   }
   return out;
 }

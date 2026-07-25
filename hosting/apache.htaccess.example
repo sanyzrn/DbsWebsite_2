@@ -3,14 +3,15 @@
 # of the deployed site, not inside a subfolder.
 #
 # Requires:
-#   - mod_rewrite (for filesystem-first checks before 404 fallback)
-#   - mod_headers (for security headers below — some shared hosts disable this by
-#     default; verify it is enabled before relying on Header set directives)
+#   - mod_rewrite  (for filesystem-first checks before 404 fallback)
+#   - mod_headers  (security + cache headers — some shared hosts disable this by default)
+#   - mod_deflate  (gzip/deflate compression — optional but recommended)
+#   - mod_expires  (Expires header for cache-control — optional but recommended)
 #
 # Host-agnostic requirements mirrored from hosting/README.md (same as
 # Netlify / Cloudflare / Nginx examples):
 #   1. True HTTP 404 for unmatched paths (en → en/404.html, else 404.html)
-#   2. Security headers on every response (no HSTS until TLS/domain are locked in)
+#   2. Security headers on every response (HSTS max-age=86400; includeSubDomains)
 #
 # ACTIVE HOST: Apache via GitHub Actions FTP (see .github/workflows/deploy.yml).
 # Place this next to the built files from `npm run build` (dist/ contents).
@@ -47,17 +48,44 @@ DirectoryIndex index.html
   RewriteRule ^ - [R=404,L]
 </IfModule>
 
-# --- Security headers (requires mod_headers) ---
-# Do NOT add Strict-Transport-Security until the permanent domain + TLS are stable.
+# --- Compression (requires mod_deflate) ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json \
+    application/xml text/xml text/plain image/svg+xml font/woff2
+</IfModule>
+
+# --- Cache-control (requires mod_expires + mod_headers) ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Vite-hashed assets: immutable for 1 year
+  <FilesMatch "\.(js|css|woff2)$">
+    ExpiresDefault "access plus 1 year"
+  </FilesMatch>
+  # HTML: always revalidate
+  <FilesMatch "\.html$">
+    ExpiresDefault "access plus 0 seconds"
+  </FilesMatch>
+</IfModule>
 <IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# --- Security headers (requires mod_headers) ---
+<IfModule mod_headers.c>
+  Header set Strict-Transport-Security "max-age=86400; includeSubDomains"
   # Content-Security-Policy — generated at build by scripts/prerender.mjs (scripts/csp.mjs).
-  # Do not hand-edit the Header line below; re-run `npm run build` to refresh nonce + hashes.
+  # Do not hand-edit the Header line below; re-run `npm run build` to refresh script hashes.
   #   default-src 'self'              — deny by default; only same-origin unless overridden
   #   base-uri 'self'                 — restrict <base> targets
   #   object-src 'none'               — no plugins
   #   frame-ancestors 'none'          — clickjacking protection (pairs with X-Frame-Options)
   #   form-action 'self'              — same-origin form posts
-  #   script-src 'self' 'nonce-…'     — app bundles + FOUC/theme + JSON-LD (per-build nonce)
+  #   script-src 'self' 'sha256-…' …  — app bundles + FOUC/theme + JSON-LD (per-build SHA-256 hashes)
   #   style-src 'self' [+ hashes]     — bundled CSS only; inline style attrs removed from app
   #   img-src 'self' data: blob:      — site images + inline/data URLs
   #   font-src 'self' data:           — self-hosted @fontsource fonts (no Google Fonts CDN)
@@ -65,7 +93,7 @@ DirectoryIndex index.html
   #   worker-src 'self' blob:         — PWA service worker + any blob workers
   #   manifest-src 'self'             — web app manifest
   #   upgrade-insecure-requests       — prefer HTTPS subresources
-  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'nonce--FH-iYfSU5hDBQsv1I5KVg'; style-src 'self'"
+  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'sha256-/XFP/RLRQsGErhmWCQIn/KluMY1MRYJ9xJRRdp2LE3U=' 'sha256-1lINILxYIkopEvJPMTWc+nBQ4ZYIJ23wc5VeNPt9iZ0=' 'sha256-2cuU0NiCfkvLS1qAydHzcnQ/v71vPwtAd+z9GA0oWUk=' 'sha256-8St1i8fCnLqTaHba1ndVXDmVUBwyya5nQIPknB/MMSE=' 'sha256-CsFQtK8V0Eq7YHkGpWA93ukDeJwJ/Udowa62mg90oxY=' 'sha256-EGq0ZSC4E2cu/x99pr2/takRchSqrWN14cpCayj6H9Y=' 'sha256-Ignrtpt9GaGM+CNm83+q3XxQTzqAXdH6Hy/LK4n+yiY=' 'sha256-IsQesmXAeQuvMNgYpcZufMXJCKW/2z3VFXboJcyUw5k=' 'sha256-JewHFuquCVjafZ5zWEnL+wflQJ5uz/HGUZBrhoc/jIA=' 'sha256-PLzdZ2WFLddoU0j3TOLd0Hfp9NPlu21TqfI1PqgIuuk=' 'sha256-USfhNF7a7EByQByzYe7lUT8EJUWHNHHDtqhIu5mWjss=' 'sha256-f9vzIejuQX3/s5EgN+v3O08iTOO8c1O6rrOEYWQP8bw=' 'sha256-gS3d3kejdoNczAEwa9BTVgr8l9m6Okm9K/ycM2DRdv0=' 'sha256-q9YFn6yYftK/RoANqCO+Y5w/PqKZhHMKqArYk8l6uyg=' 'sha256-rCSoR+DdlJwqkb4UWfnTw3gusreMv0TAoNVsoJRkTUA=' 'sha256-rDdC2j0nZPdLwRokDgPLpJe8uXTfesOjr/bAHiNHI0I=' 'sha256-vjV0kzOxE4ScbGrYI/QHDvoSHYloeL8W5Yezoan+Wck='; style-src 'self'"
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"
