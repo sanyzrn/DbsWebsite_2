@@ -30,7 +30,7 @@ function Layout() {
       <Nav />
       <FloatingQuickNav />
       <PwaInstallPrompt />
-      <main id="main" className={cn(clearFixedNav && "pt-[88px] lg:pt-0")}>
+      <main id="main" className={cn(clearFixedNav && "pt-[88px]")}>
         <PageTransition>
           <Outlet />
         </PageTransition>
