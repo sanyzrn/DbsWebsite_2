@@ -57,12 +57,9 @@ function siteUrlHtmlPlugin(siteUrl: string): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig(async ({ mode, isSsrBuild }) => {
-  // Shared SW caching — single source of truth with scripts/generate-sw.mjs
+  // Glob patterns shared with scripts/generate-sw.mjs (injectManifest post-prerender).
   const {
     workboxGlobPatterns,
-    workboxNavigateFallback,
-    workboxNavigateFallbackDenylist,
-    workboxRuntimeCaching,
     workboxViteGlobIgnores,
   } = await import("./scripts/workbox-shared-config.mjs");
 
@@ -133,17 +130,15 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
             ],
           },
           workbox: {
-            // Precache build output (HTML/CSS/JS/fonts/icons). Revision hashes stay ON
-            // (default) so locale HTML and assets invalidate correctly across builds.
-            // Shared with scripts/generate-sw.mjs via scripts/workbox-shared-config.mjs.
+            // Mid-build SW: precaches client assets only (locale HTML is added
+            // post-prerender by scripts/generate-sw.mjs via injectManifest).
+            // Navigation strategy and runtime caching live in scripts/sw-template.js
+            // which powers the final dist/sw.js that replaces this intermediate SW.
             globPatterns: workboxGlobPatterns,
             globIgnores: workboxViteGlobIgnores,
-            navigateFallback: workboxNavigateFallback,
-            navigateFallbackDenylist: workboxNavigateFallbackDenylist,
             cleanupOutdatedCaches: true,
             clientsClaim: true,
             skipWaiting: true,
-            runtimeCaching: workboxRuntimeCaching,
           },
           devOptions: {
             enabled: false,

@@ -7,12 +7,11 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import os from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
-  applyNonceToHtml,
   buildCspHeader,
   collectStyleAttributeHashes,
-  createBuildNonce,
   sha256Integrity,
   walkHtmlFiles,
   writeCspToHostingConfigs,
@@ -32,7 +31,7 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-export function buildHeadTags(seo, { nonce } = {}) {
+export function buildHeadTags(seo) {
   const ogType =
     (seo.path.includes("/projects/") && !seo.path.endsWith("/projects")) ||
     (seo.path.includes("/articles/") && !seo.path.endsWith("/articles"))
@@ -43,7 +42,6 @@ export function buildHeadTags(seo, { nonce } = {}) {
     typeof seo.robots === "string" && seo.robots.trim()
       ? `\n    <meta name="robots" content="${escapeHtml(seo.robots)}" />`
       : "";
-  const nonceAttr = nonce ? ` nonce="${escapeHtml(nonce)}"` : "";
   const isNoindex = typeof seo.robots === "string" && seo.robots.includes("noindex");
   const canonicalAndHreflang = isNoindex
     ? ""
@@ -69,7 +67,7 @@ export function buildHeadTags(seo, { nonce } = {}) {
     <meta name="twitter:title" content="${escapeHtml(seo.title)}" />
     <meta name="twitter:description" content="${escapeHtml(seo.description)}" />
     <meta name="twitter:image" content="${escapeHtml(seo.image)}" />
-    <script type="application/ld+json"${nonceAttr}>${jsonLd}</script>
+    <script type="application/ld+json">${jsonLd}</script>
   `.trim();
 }
 
@@ -87,16 +85,15 @@ function stripManagedHead(html) {
     .replace(/<script\s+type="application\/ld\+json"[^>]*>[^]*?<\/script>/gi, "");
 }
 
-function injectHtml(template, { html, seo, lang }, nonce) {
+function injectHtml(template, { html, seo, lang }) {
   const dir = lang === "en" ? "ltr" : "rtl";
   let out = stripManagedHead(template);
   out = out.replace(/<html[^>]*>/i, `<html lang="${lang}" dir="${dir}">`);
-  out = out.replace(/<\/head>/i, `${buildHeadTags(seo, { nonce })}\n  </head>`);
+  out = out.replace(/<\/head>/i, `${buildHeadTags(seo)}\n  </head>`);
   out = out.replace(
     /<div id="root"><\/div>|<div id="root">[\s\S]*?<\/div>/i,
     `<div id="root">${html}</div>`
   );
-  out = applyNonceToHtml(out, nonce);
   return out;
 }
 
@@ -140,9 +137,14 @@ async function main() {
 
   process.env.SITE_URL = process.env.SITE_URL || getSiteUrl();
 
-  const nonce = createBuildNonce();
   const mod = await import(pathToFileURL(serverEntry).href);
-  const { render, listPrerenderPaths } = mod;
+  const { render, listPrerenderPaths, ensureLoaded } = mod;
+
+  // Pre-load all lazy content (articles, projects, page chunks) before rendering.
+  if (typeof ensureLoaded === "function") {
+    await ensureLoaded();
+  }
+
   const template = fs.readFileSync(templatePath, "utf8");
   const paths = listPrerenderPaths();
 
@@ -153,7 +155,7 @@ async function main() {
     const result = render(urlPath);
     const file = outFileForPath(urlPath);
     fs.mkdirSync(path.dirname(file), { recursive: true });
-    const page = injectHtml(template, result, nonce);
+    const page = injectHtml(template, result);
     fs.writeFileSync(file, page, "utf8");
 
     for (const body of collectInlineScriptBodies(page)) {
@@ -165,16 +167,13 @@ async function main() {
     console.log(`prerender ${urlPath} → ${path.relative(ROOT, file)}`);
   }
 
-  // Prefer nonce for scripts (JSON-LD varies per page; SPA PageMeta reinjects with same nonce).
-  // Still record hashes for diagnostics.
   const scriptHashes = [...scriptBodies].map((b) => sha256Integrity(b));
   const styleHashList = [...styleHashes];
-  const cspHeader = buildCspHeader({ nonce, styleHashes: styleHashList });
-  const cspMeta = buildCspHeader({ nonce, styleHashes: styleHashList, forMeta: true });
+  const cspHeader = buildCspHeader({ scriptHashes, styleHashes: styleHashList });
+  const cspMeta = buildCspHeader({ scriptHashes, styleHashes: styleHashList, forMeta: true });
 
-  // Meta CSP on every page so the policy matches the build nonce even if a host
-  // serves HTML without re-reading mid-build Apache/host config.
-  // Omit frame-ancestors here — that directive is header-only and warns in <meta>.
+  // Stamp every page with a <meta http-equiv="Content-Security-Policy"> so the
+  // hash-based policy is enforced even when a host doesn't set the response header.
   for (const file of walkHtmlFiles(dist)) {
     let html = fs.readFileSync(file, "utf8");
     if (/http-equiv="Content-Security-Policy"/i.test(html)) continue;
@@ -186,11 +185,13 @@ async function main() {
   writeCspToHostingConfigs(cspHeader);
   writeDistHtaccess(cspHeader);
 
+  // Write build artifact outside dist/ so it is never deployed accidentally.
+  const artifactDir = path.join(os.tmpdir(), "dbswebsite-build");
+  fs.mkdirSync(artifactDir, { recursive: true });
   fs.writeFileSync(
-    path.join(dist, "csp-build.json"),
+    path.join(artifactDir, "csp-build.json"),
     JSON.stringify(
       {
-        nonce,
         scriptHashCount: scriptHashes.length,
         styleHashCount: styleHashes.size,
         cspHeader,
@@ -204,7 +205,7 @@ async function main() {
   // Drop the SSR bundle — deploy stays static-only.
   fs.rmSync(path.join(dist, "server"), { recursive: true, force: true });
   console.log(
-    `Prerendered ${paths.length} routes (SITE_URL=${getSiteUrl()}); CSP nonce + ${styleHashes.size} style hash(es), ${scriptHashes.length} inline script body(ies)`
+    `Prerendered ${paths.length} routes (SITE_URL=${getSiteUrl()}); hash-based CSP: ${scriptHashes.length} script hash(es), ${styleHashes.size} style hash(es)`
   );
 }
 

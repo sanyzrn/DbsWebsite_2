@@ -43,7 +43,7 @@ describe("JSON-LD script embedding", () => {
       ],
     };
 
-    const head = buildHeadTags(seo, "en");
+    const head = buildHeadTags(seo);
     const match = head.match(
       /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
     );

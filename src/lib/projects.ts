@@ -58,7 +58,7 @@ export type ProjectContent = {
   links?: ProjectLink[];
   /** ISO date (YYYY-MM-DD) — sitemap lastmod when present. */
   updatedAt?: string;
-  /** Editorial flag: generic case-study copy pending Saeed’s confirmation. */
+  /** Editorial flag: generic case-study copy pending Saeed's confirmation. */
   _todo?: string;
 };
 
@@ -91,13 +91,44 @@ export type LocalizedProject = {
   links?: { label: string; href: string }[];
 };
 
-const modules = import.meta.glob("../../content/projects/*.json", {
-  eager: true,
-  import: "default",
-}) as Record<string, ProjectContent>;
+// Non-eager: each JSON becomes a separate chunk, reducing the initial JS bundle.
+// import: "default" means each loader returns the default export value directly.
+const _globbed = import.meta.glob<ProjectContent>(
+  "../../content/projects/*.json",
+  { import: "default" }
+);
+
+let _cache: Record<string, ProjectContent> | null = null;
+
+/**
+ * Module-level promise that loads and caches all project JSON modules.
+ * Resolves once (idempotent). Awaited by:
+ *  - SSR prerender: entry-server.tsx → ensureLoaded()
+ *  - Client: Suspense (projects.ts getCache() throws this promise when null)
+ *  - Tests: setup.ts preload
+ */
+export const projectsLoadPromise: Promise<void> = (async () => {
+  const entries = await Promise.all(
+    Object.entries(_globbed).map(async ([fp, load]) => {
+      const val = await load();
+      return [fp, val] as [string, ProjectContent];
+    })
+  );
+  _cache = Object.fromEntries(entries);
+})();
+
+function getCache(): Record<string, ProjectContent> {
+  if (_cache === null) {
+    // Throw the load promise to trigger the nearest Suspense boundary.
+    // After SSR ensureLoaded() or test setup.ts preload, this is never null.
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw projectsLoadPromise;
+  }
+  return _cache;
+}
 
 export function loadProjectContent(): ProjectContent[] {
-  return Object.values(modules).sort((a, b) => a.order - b.order || a.slug.localeCompare(b.slug));
+  return Object.values(getCache()).sort((a, b) => a.order - b.order || a.slug.localeCompare(b.slug));
 }
 
 export function isPublishedProject(project: Pick<ProjectContent, "maturity">): boolean {
