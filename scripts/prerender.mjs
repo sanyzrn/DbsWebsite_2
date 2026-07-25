@@ -125,6 +125,15 @@ function writeDistHtaccess(cspHeader) {
     `Header set Content-Security-Policy "${cspHeader}"`
   );
   fs.writeFileSync(path.join(dist, ".htaccess"), text, "utf8");
+
+  // Nested en/.htaccess — overrides ErrorDocument for /en/* without mod_version <If>.
+  const enDir = path.join(dist, "en");
+  fs.mkdirSync(enDir, { recursive: true });
+  const enExample = path.join(ROOT, "hosting", "en.htaccess.example");
+  const enBody = fs.existsSync(enExample)
+    ? fs.readFileSync(enExample, "utf8")
+    : "ErrorDocument 404 /en/404.html\n";
+  fs.writeFileSync(path.join(enDir, ".htaccess"), enBody, "utf8");
 }
 
 async function main() {
