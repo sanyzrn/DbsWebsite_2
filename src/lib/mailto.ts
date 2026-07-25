@@ -13,7 +13,26 @@ export type ContactFields = {
   timeline: string;
 };
 
-export type ContactStatus = "idle" | "sending" | "delivered" | "mailed" | "error" | "timeout";
+export type ContactStatus =
+  | "idle"
+  | "sending"
+  | "delivered"
+  | "mailed"
+  | "error"
+  | "timeout"
+  | "rateLimited";
+
+/** Client/server field length caps — keep in sync with public/api/contact.php. */
+export const CONTACT_FIELD_MAX = {
+  name: 100,
+  email: 254,
+  message: 3000,
+  type: 60,
+  phone: 40,
+  company: 120,
+  budget: 80,
+  timeline: 80,
+} as const;
 
 export const emptyContactFields: ContactFields = {
   name: "",

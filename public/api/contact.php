@@ -34,8 +34,9 @@ if (!empty($data['website'] ?? '')) {
 }
 
 // Timing check: matches client SUBMIT_MIN_MS (2000).
+// Missing/zero elapsedMs is treated as a failed check (do not skip the gate).
 $elapsedMs = (int) ($data['elapsedMs'] ?? 0);
-if ($elapsedMs > 0 && $elapsedMs < 2000) {
+if ($elapsedMs < 2000) {
   http_response_code(200);
   echo json_encode(['ok' => true]);
   exit;
@@ -54,6 +55,25 @@ if ($name === '' || $email === '' || $message === '' || !filter_var($email, FILT
   http_response_code(400);
   echo json_encode(['ok' => false, 'error' => 'validation_failed']);
   exit;
+}
+
+// Reject oversized fields before building the Bale payload (~4096 char limit).
+$maxLen = [
+  'name' => 100,
+  'email' => 254,
+  'message' => 3000,
+  'type' => 60,
+  'phone' => 40,
+  'company' => 120,
+  'budget' => 80,
+  'timeline' => 80,
+];
+foreach ($maxLen as $field => $limit) {
+  if (isset($$field) && mb_strlen((string) $$field) > $limit) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'error' => 'field_too_long', 'field' => $field]);
+    exit;
+  }
 }
 
 // Per-IP rate limit: max 5 submissions / hour (flat file, no DB).
@@ -118,7 +138,8 @@ curl_close($ch);
 
 if ($response === false || $httpCode !== 200) {
   // Server-side diagnostics only — never expose details to the client.
-  $logFile = __DIR__ . '/contact-debug.log';
+  // Keep out of the public web root (same pattern as the rate-limit file).
+  $logFile = sys_get_temp_dir() . '/dbswebsite-contact-debug.log';
   if ($response === false) {
     error_log(
       date('c') . " | curl_exec returned false — likely network/DNS/TLS-level failure, not an API-level rejection\n",
