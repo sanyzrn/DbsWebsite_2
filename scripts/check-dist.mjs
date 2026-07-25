@@ -165,11 +165,32 @@ for (const rel of ["404.html", "en/404.html"]) {
   }
 }
 
+// Apache locale 404: root + nested en/.htaccess (no <If> expressions)
+const rootHtaccess = path.join(DIST, ".htaccess");
+const enHtaccess = path.join(DIST, "en", ".htaccess");
+if (!fs.existsSync(rootHtaccess)) {
+  throw new Error("check:dist missing dist/.htaccess");
+}
+if (!fs.existsSync(enHtaccess)) {
+  throw new Error("check:dist missing dist/en/.htaccess");
+}
+const rootHt = fs.readFileSync(rootHtaccess, "utf8");
+const enHt = fs.readFileSync(enHtaccess, "utf8");
+if (!/ErrorDocument\s+404\s+\/404\.html/.test(rootHt)) {
+  throw new Error("check:dist dist/.htaccess missing ErrorDocument 404 /404.html");
+}
+if (!/ErrorDocument\s+404\s+\/en\/404\.html/.test(enHt)) {
+  throw new Error("check:dist dist/en/.htaccess missing ErrorDocument 404 /en/404.html");
+}
+if (/<If\s|<Else>/.test(rootHt) || /<If\s|<Else>/.test(enHt)) {
+  throw new Error("check:dist .htaccess must not use Apache <If>/<Else> for ErrorDocument");
+}
+
 // Open Graph / Twitter Card image — must stay exactly 1200×630 (LinkedIn / X / Telegram)
 await assertOgImageDimensions(path.join(ROOT, "public", "og.jpg"), "public/og.jpg");
 await assertOgImageDimensions(path.join(DIST, "og.jpg"), "dist/og.jpg");
 
 console.log(
   `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}, ` +
-    `404 pages noindex, og.jpg ${OG_IMAGE_WIDTH}×${OG_IMAGE_HEIGHT}`
+    `404 pages noindex, locale .htaccess ErrorDocuments, og.jpg ${OG_IMAGE_WIDTH}×${OG_IMAGE_HEIGHT}`
 );

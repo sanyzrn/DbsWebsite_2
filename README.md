@@ -91,12 +91,12 @@ Set these under **Settings → Secrets and variables → Actions**. They are **n
 
 ### `.htaccess` checklist
 
-`npm run build` already writes `dist/.htaccess` (from `hosting/apache.htaccess.example`, with the build CSP nonce). The deploy workflow verifies that file exists before FTP upload so Apache 404 + headers stay present on every deploy.
+`npm run build` already writes `dist/.htaccess` (from `hosting/apache.htaccess.example`, with live CSP hashes) and `dist/en/.htaccess` (English `ErrorDocument` override). The deploy workflow verifies both files exist before FTP upload so Apache 404 + headers stay present on every deploy.
 
 **After a successful FTP run**, confirm on the live host:
 
 1. `https://saeedzarrini.ir` loads correctly
-2. An unknown path returns a **real HTTP 404** (requires `.htaccess` in the web root)
+2. An unknown path returns a **real HTTP 404** with the custom body (requires root `.htaccess`; `/en/…` unknowns use `en/.htaccess`)
 3. Deployed files match a local `SITE_URL=https://saeedzarrini.ir npm run build` `dist/`
 
 ### `SITE_URL`

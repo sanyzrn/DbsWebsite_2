@@ -1,0 +1,3 @@
+# Locale override for /en/* — directory inheritance over root dist/.htaccess.
+# Written into dist/en/.htaccess by scripts/prerender.mjs (and ensured by deploy.yml).
+ErrorDocument 404 /en/404.html

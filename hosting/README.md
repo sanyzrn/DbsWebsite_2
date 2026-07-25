@@ -66,6 +66,7 @@ rather than a per-build nonce, so hosting configs and HTML stay in sync automati
 |------|---------|
 | `csp-header.txt` | Latest CSP string written by the build (readable single source) |
 | `apache.htaccess.example` | Source for `dist/.htaccess` (CSP line regenerated on build); also usable for a one-time manual upload if needed |
+| `en.htaccess.example` | Source for `dist/en/.htaccess` — English `ErrorDocument 404` override (no `<If>` expressions) |
 | `nginx.conf.example` | Drop-in Nginx snippet for plain static hosting |
 | `netlify.toml.example` | Netlify headers + redirects + 404 (optional alternate host) |
 | `cloudflare/_redirects.example` | Cloudflare Pages `_redirects` (optional alternate host) |
