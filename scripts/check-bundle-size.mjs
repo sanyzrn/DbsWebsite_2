@@ -14,10 +14,10 @@ const INDEX = path.join(DIST, "index.html");
 
 /** Soft ceilings — adjust if legitimately close, but keep an explicit gate. */
 /**
- * Initial JS entry (gzip). Raised slightly after publishing bilingual Field Notes MDX
- * (eager `import.meta.glob` in articles.ts) plus contact/phone form fields.
+ * Initial JS entry (gzip). Code-splitting dropped this from ~151 → ~65 KiB;
+ * keep headroom for small regressions without letting the entry balloon again.
  */
-const MAX_JS_GZIP = 155 * 1024;
+const MAX_JS_GZIP = 90 * 1024;
 const MAX_CSS_GZIP = 60 * 1024;
 /**
  * All self-hosted font files under dist/assets (fontsource unicode-range subsets).
@@ -31,7 +31,7 @@ const MAX_HTML_GZIP = 80 * 1024;
  * Combined first-paint resources on disk (HTML + critical CSS + critical JS + all font files).
  * Runtime transfer is lower (unicode-range); this is a regression gate, not Lighthouse FMP.
  */
-const MAX_FIRST_PAINT_GZIP = 1550 * 1024;
+const MAX_FIRST_PAINT_GZIP = 1480 * 1024;
 
 if (!fs.existsSync(INDEX)) {
   throw new Error("dist/index.html missing — run `npm run build` before check:bundle");
