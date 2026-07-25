@@ -43,7 +43,7 @@ export default function Footer() {
     {
       icon: WhatsappIcon,
       label: "WhatsApp",
-      href: "https://wa.me/+989301221816",
+      href: "https://wa.me/989301221816",
     },
   ];
 
