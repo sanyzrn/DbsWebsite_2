@@ -51,7 +51,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.lang = lang;
     root.dir = dir;
-    localStorage.setItem("sz-lang", lang);
   }, [lang, dir]);
 
   useEffect(() => {

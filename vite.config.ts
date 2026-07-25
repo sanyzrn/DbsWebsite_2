@@ -109,8 +109,8 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
             orientation: "portrait-primary",
             background_color: PWA_BG,
             theme_color: PWA_THEME,
-            lang: "en",
-            dir: "ltr",
+            lang: "fa",
+            dir: "rtl",
             icons: [
               {
                 src: "icons/pwa-192x192.png",
