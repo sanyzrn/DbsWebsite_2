@@ -7,6 +7,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { getPublishedArticleSlugs, validateAllArticleContent } from "./article-content.mjs";
+import { loadNewsFromDisk } from "./news-content.mjs";
 import { loadProjectsFromDisk, getPublishedProjectSlugs } from "./project-content.mjs";
 import { sitemapStaticPaths } from "./site-routes.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
@@ -43,7 +44,8 @@ const projectRoutes = projects.map((p) => ({
 
 const articleRoutes = loadPublishedArticleRoutes();
 
-const staticPaths = sitemapStaticPaths();
+const hasNews = loadNewsFromDisk(ROOT).length > 0;
+const staticPaths = sitemapStaticPaths({ hasNews });
 
 const robots = `User-agent: *
 Allow: /

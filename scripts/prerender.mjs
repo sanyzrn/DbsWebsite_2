@@ -44,17 +44,21 @@ export function buildHeadTags(seo, { nonce } = {}) {
       ? `\n    <meta name="robots" content="${escapeHtml(seo.robots)}" />`
       : "";
   const nonceAttr = nonce ? ` nonce="${escapeHtml(nonce)}"` : "";
-  return `
-    <title>${escapeHtml(seo.title)}</title>
-    <meta name="description" content="${escapeHtml(seo.description)}" />${robots}
+  const isNoindex = typeof seo.robots === "string" && seo.robots.includes("noindex");
+  const canonicalAndHreflang = isNoindex
+    ? ""
+    : `
     <link rel="canonical" href="${escapeHtml(seo.canonical)}" />
     <link rel="alternate" hreflang="fa" href="${escapeHtml(seo.alternateFa)}" />
     <link rel="alternate" hreflang="en" href="${escapeHtml(seo.alternateEn)}" />
-    <link rel="alternate" hreflang="x-default" href="${escapeHtml(seo.alternateEn)}" />
+    <link rel="alternate" hreflang="x-default" href="${escapeHtml(seo.alternateEn)}" />`;
+  return `
+    <title>${escapeHtml(seo.title)}</title>
+    <meta name="description" content="${escapeHtml(seo.description)}" />${robots}${canonicalAndHreflang}
     <meta property="og:type" content="${ogType}" />
     <meta property="og:locale" content="${escapeHtml(seo.ogLocale)}" />
     <meta property="og:locale:alternate" content="${escapeHtml(seo.ogLocaleAlternate)}" />
-    <meta property="og:site_name" content="Saeed" />
+    <meta property="og:site_name" content="Saeed Zarrini" />
     <meta property="og:title" content="${escapeHtml(seo.title)}" />
     <meta property="og:description" content="${escapeHtml(seo.description)}" />
     <meta property="og:url" content="${escapeHtml(seo.canonical)}" />

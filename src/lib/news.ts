@@ -88,3 +88,8 @@ export function localizeNewsItem(item: NewsItemContent, lang: Lang): LocalizedNe
 export function getLocalizedNewsItems(lang: Lang): LocalizedNewsItem[] {
   return loadNewsItems().map((item) => localizeNewsItem(item, lang));
 }
+
+/** True when there is at least one news item available. Controls nav visibility and sitemap inclusion. */
+export function hasNewsContent(): boolean {
+  return loadNewsItems().length > 0;
+}

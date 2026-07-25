@@ -38,15 +38,15 @@ describe("articles routes", () => {
     expect(crumbs.querySelector(`a[href="/en"]`)).toBeTruthy();
   });
 
-  it("exposes Field Notes as primary and Daily Digest as secondary in nav/footer", () => {
+  it("exposes Field Notes as primary in nav/footer; hides Daily Digest when news is empty", () => {
     render(<App />);
     const articleLinks = screen.getAllByRole("link", { name: dictionaries.fa.nav.articles });
     expect(articleLinks.length).toBeGreaterThanOrEqual(2);
     expect(articleLinks.every((a) => a.getAttribute("href") === "/articles")).toBe(true);
 
-    const newsLinks = screen.getAllByRole("link", { name: dictionaries.fa.nav.news });
-    expect(newsLinks.length).toBeGreaterThanOrEqual(2);
-    expect(newsLinks.every((a) => a.getAttribute("href") === "/news")).toBe(true);
+    // content/news/ is empty in test fixtures — news links must be hidden
+    const newsLinks = screen.queryAllByRole("link", { name: dictionaries.fa.nav.news });
+    expect(newsLinks.length).toBe(0);
   });
 
   it("surfaces Daily Digest from the Field Notes landing", () => {

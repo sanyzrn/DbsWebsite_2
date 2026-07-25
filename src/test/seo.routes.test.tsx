@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 import { dictionaries } from "../lib/i18n";
 import { listPrerenderPaths, resolvePageSeo, resolveSeoForPath } from "../lib/seo";
-import { loadProjectContent } from "../lib/projects";
+import { isPublishedProject, loadProjectContent } from "../lib/projects";
 
 afterEach(() => {
   cleanup();
@@ -44,7 +44,7 @@ describe("route SEO meta (both locales)", () => {
       const seo = dictionaries[lang].seo;
       expect(seo.title.length).toBeLessThanOrEqual(60);
       expect(seo.description.length).toBeLessThanOrEqual(155);
-      expect(seo.title.startsWith("Saeed |")).toBe(true);
+      expect(seo.title.startsWith("Saeed Zarrini |")).toBe(true);
       for (const page of [seo.projects, seo.articles, seo.news, seo.about, seo.contact, seo.privacy, seo.terms, seo.notFound]) {
         expect(page.title.length).toBeLessThanOrEqual(60);
         expect(page.description.length).toBeLessThanOrEqual(155);
@@ -128,18 +128,29 @@ describe("route SEO meta (both locales)", () => {
     });
   });
 
-  it("listPrerenderPaths covers both locales for static + project + article routes", () => {
+  it("listPrerenderPaths covers both locales for static + project + article routes, excludes drafts", () => {
     const paths = listPrerenderPaths();
     for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles", "/news", "/en/news"]) {
       expect(paths).toContain(p);
     }
-    const slug = loadProjectContent()[0]?.slug;
-    if (slug) {
-      expect(paths).toContain(`/projects/${slug}`);
-      expect(paths).toContain(`/en/projects/${slug}`);
+    // Only published projects should be in prerender paths
+    const publishedSlug = loadProjectContent().find(isPublishedProject)?.slug;
+    if (publishedSlug) {
+      expect(paths).toContain(`/projects/${publishedSlug}`);
+      expect(paths).toContain(`/en/projects/${publishedSlug}`);
     }
+    // Draft projects must NOT be prerendered
+    const draftSlug = loadProjectContent().find((p) => p.maturity !== "published")?.slug;
+    if (draftSlug) {
+      expect(paths).not.toContain(`/projects/${draftSlug}`);
+      expect(paths).not.toContain(`/en/projects/${draftSlug}`);
+    }
+    // Published articles must be included
     expect(paths).toContain("/articles/ai-layer-without-boiling-the-ocean");
     expect(paths).toContain("/en/articles/ai-layer-without-boiling-the-ocean");
+    // Draft articles must NOT be prerendered
+    expect(paths).not.toContain("/articles/test-short-note");
+    expect(paths).not.toContain("/en/articles/test-short-note");
   });
 
   it("resolveSeoForPath emits JSON-LD WebSite/Organization on home and explicit schemaType on projects", () => {

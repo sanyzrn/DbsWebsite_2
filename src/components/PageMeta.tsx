@@ -34,19 +34,21 @@ export function PageMeta({ page, slug }: PageMetaProps) {
       ? document.querySelector('meta[name="csp-nonce"]')?.getAttribute("content") ?? undefined
       : undefined;
 
+  const isNoindex = typeof seo.robots === "string" && seo.robots.includes("noindex");
+
   return (
     <>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       {seo.robots ? <meta name="robots" content={seo.robots} /> : null}
-      <link rel="canonical" href={seo.canonical} />
-      <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />
-      <link rel="alternate" hrefLang="en" href={seo.alternateEn} />
-      <link rel="alternate" hrefLang="x-default" href={seo.alternateEn} />
+      {!isNoindex && <link rel="canonical" href={seo.canonical} />}
+      {!isNoindex && <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />}
+      {!isNoindex && <link rel="alternate" hrefLang="en" href={seo.alternateEn} />}
+      {!isNoindex && <link rel="alternate" hrefLang="x-default" href={seo.alternateEn} />}
       <meta property="og:type" content={ogType} />
       <meta property="og:locale" content={seo.ogLocale} />
       <meta property="og:locale:alternate" content={seo.ogLocaleAlternate} />
-      <meta property="og:site_name" content="Saeed" />
+      <meta property="og:site_name" content="Saeed Zarrini" />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:url" content={seo.canonical} />
