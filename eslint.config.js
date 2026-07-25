@@ -32,7 +32,7 @@ export default tseslint.config(
       "react-hooks/set-state-in-effect": "off",
       "react-refresh/only-export-components": [
         "warn",
-        { allowConstantExport: true, allowExportNames: ["useApp", "readStoredLang"] },
+        { allowConstantExport: true, allowExportNames: ["useApp", "readStoredLang", "AppCtx"] },
       ],
       "@typescript-eslint/no-unused-vars": [
         "error",
@@ -67,6 +67,15 @@ export default tseslint.config(
       // Build scripts are plain ESM — don't apply TS unused-vars to them.
       "@typescript-eslint/no-unused-vars": "off",
       "no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+    },
+  },
+  {
+    files: ["scripts/sw-template.js"],
+    languageOptions: {
+      globals: {
+        ...globals.serviceworker,
+        ...globals.es2022,
+      },
     },
   }
 );

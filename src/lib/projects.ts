@@ -121,7 +121,6 @@ function getCache(): Record<string, ProjectContent> {
   if (_cache === null) {
     // Throw the load promise to trigger the nearest Suspense boundary.
     // After SSR ensureLoaded() or test setup.ts preload, this is never null.
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw projectsLoadPromise;
   }
   return _cache;
