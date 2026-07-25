@@ -406,30 +406,56 @@ function ProjectShot({ project, className }: { project: ProjectItem; className?:
   );
 }
 
-/** Compact card used by the home teaser carousel (mobile SnapCarousel only). */
+/**
+ * Adaptive project card used in teaser carousels and grids.
+ *
+ * On mobile it renders as a compact vertical card (no Role/Tech).
+ * When `showMeta` is true the Role/Technology blocks appear at md+ via
+ * responsive classes so the same element adapts without a second instance.
+ * When `featured` is true the card switches to a horizontal image-left /
+ * content-right layout at lg+ (matching the full-page featured slot).
+ */
 function ProjectCard({
   project,
   detailTo,
   viewLabel,
   featuredLabel,
   previewAria,
+  featured = false,
+  showMeta = false,
 }: {
   project: ProjectItem;
   detailTo: string;
   viewLabel: string;
   featuredLabel: string;
   previewAria: string;
+  /** Expands to a horizontal image/content split at lg+. */
+  featured?: boolean;
+  /** Reveals Role/Technology blocks at md+; hidden on mobile. */
+  showMeta?: boolean;
 }) {
+  const { t } = useApp();
   return (
     <article
       className={cn(
         // flex-1 fills the stretched SnapCarousel slide (equal heights across cards).
-        "group flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-lg border bg-surface",
+        "group flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-lg border bg-surface transition-colors duration-500 hover:border-hi/60",
+        featured && "lg:grid lg:flex-none lg:grid-cols-5",
         project.status === "concept" ? "border-dashed border-line2" : "border-line"
       )}
     >
-      <Link to={detailTo} className="relative shrink-0 overflow-hidden text-start" aria-label={previewAria}>
-        <ProjectShot project={project} />
+      <Link
+        to={detailTo}
+        className={cn("relative shrink-0 overflow-hidden text-start", featured && "lg:col-span-3")}
+        aria-label={previewAria}
+      >
+        <ProjectShot
+          project={project}
+          className={cn(
+            "transition-transform duration-700 group-hover:scale-[1.03]",
+            featured && "lg:h-full lg:min-h-[240px] lg:aspect-auto"
+          )}
+        />
         {/* Badges overlay the shot so optional featured/concept chips don't change body height. */}
         {(project.featured || project.status === "concept") && (
           <span className="absolute start-3 top-3 flex flex-wrap gap-1.5" aria-hidden="true">
@@ -442,21 +468,42 @@ function ProjectCard({
           </span>
         )}
       </Link>
-      <div className="flex min-h-0 flex-1 flex-col gap-3 p-5">
-        <h3
-          className="line-clamp-2 text-[20px] font-extrabold tracking-tight"
-          dir={project.id === "hesabyar" ? undefined : "ltr"}
-        >
-          {project.name}
-        </h3>
-        <p className="line-clamp-2 text-[13px] font-bold leading-6 text-hi">{project.subtitle}</p>
-        <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{project.desc}</p>
+      <div
+        className={cn(
+          "flex min-h-0 flex-1 flex-col gap-3 p-5",
+          featured && "lg:col-span-2 lg:gap-6 lg:p-10"
+        )}
+      >
+        <div>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3
+              className={cn(
+                "line-clamp-2 text-[20px] font-extrabold tracking-tight",
+                featured && "lg:line-clamp-none lg:text-[32px] lg:font-black"
+              )}
+              dir={project.id === "hesabyar" ? undefined : "ltr"}
+            >
+              {project.name}
+            </h3>
+            {featured && <StatusBadge status={project.status} />}
+          </div>
+          <p className="mt-1.5 line-clamp-2 text-[13px] font-bold leading-6 text-hi">
+            {project.subtitle}
+          </p>
+          <p className="mt-2 line-clamp-3 text-[13px] leading-7 text-ink2">{project.desc}</p>
+        </div>
+        {showMeta && (
+          <div className="hidden flex-col gap-5 md:flex">
+            <Meta label={t.projects.roleLabel} items={project.role} />
+            <Meta label={t.projects.techLabel} items={project.tech} mono />
+          </div>
+        )}
         <div className="mt-auto border-t border-line pt-4" data-testid="project-card-footer">
           {/* Always reserve one tag line so footers align across equal-height cards. */}
           <p className="mb-3 line-clamp-1 min-h-[1.25rem] font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
             {project.tags.length > 0 ? project.tags.join(" · ") : "\u00a0"}
           </p>
-          <Link to={detailTo} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2">
+          <Link to={detailTo} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
             {viewLabel}
             <DirArrow className="h-4 w-4" />
           </Link>
@@ -520,11 +567,19 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
           </div>
         )}
 
-        {/* Mobile carousel — home teaser only */}
+        {/* Teaser: single SnapCarousel — carousel on mobile, CSS grid on md+.
+            Each project renders exactly once; Role/Tech and featured layout
+            are revealed via responsive classes inside ProjectCard. */}
         {isTeaser && (
           <div data-testid="projects-carousel">
-            <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} key={`teaser-${filter}`}>
-              {source.map((p) => (
+            <SnapCarousel
+              className="mt-7"
+              label={t.projects.title}
+              key={`teaser-${filter}`}
+              gridClassName="md:grid-cols-3"
+              featuredFirst
+            >
+              {source.map((p, i) => (
                 <ProjectCard
                   key={p.id}
                   project={p}
@@ -532,117 +587,118 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                   viewLabel={t.projects.view}
                   featuredLabel={t.projects.featured}
                   previewAria={previewLabel(p.name)}
+                  featured={i === 0}
+                  showMeta
                 />
               ))}
             </SnapCarousel>
           </div>
         )}
 
-        {/* Desktop grid for teaser; all-viewport grid for full /projects page */}
-        <div
-          className={cn("mt-8", isTeaser && "hidden md:block")}
-          data-testid="projects-grid"
-        >
-          {featured && (
-            <Reveal>
-              <article
-                className={cn(
-                  "group grid overflow-hidden rounded-lg border bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5",
-                  featured.status === "concept" ? "border-dashed border-line2" : "border-line"
-                )}
-              >
-                <Link
-                  to={detailTo(featured.slug)}
-                  className="relative overflow-hidden text-start lg:col-span-3"
-                  aria-label={previewLabel(featured.name)}
-                >
-                  <ProjectShot project={featured} className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto" />
-                  {featured.featured && featured.status !== "concept" && (
-                    <span
-                      className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur"
-                      aria-hidden="true"
-                    >
-                      {t.projects.featured}
-                    </span>
-                  )}
-                </Link>
-                <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
-                        {featured.name}
-                      </h3>
-                      <StatusBadge status={featured.status} />
-                    </div>
-                    <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
-                    <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
-                  </div>
-                  <Meta label={t.projects.roleLabel} items={featured.role} />
-                  <Meta label={t.projects.techLabel} items={featured.tech} mono />
-                  <Link
-                    to={detailTo(featured.slug)}
-                    className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
-                  >
-                    {t.projects.view}
-                    <DirArrow className="h-4 w-4" />
-                  </Link>
-                </div>
-              </article>
-            </Reveal>
-          )}
-
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {grid.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
+        {/* Full /projects page grid — featured hero + sub-grid. */}
+        {!isTeaser && (
+          <div className="mt-8" data-testid="projects-grid">
+            {featured && (
+              <Reveal>
                 <article
                   className={cn(
-                    "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60",
-                    p.status === "concept" ? "border-dashed border-line2" : "border-line"
+                    "group grid overflow-hidden rounded-lg border bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5",
+                    featured.status === "concept" ? "border-dashed border-line2" : "border-line"
                   )}
                 >
-                  <Link to={detailTo(p.slug)} className="overflow-hidden text-start" aria-label={previewLabel(p.name)}>
-                    <ProjectShot project={p} className="transition-transform duration-700 group-hover:scale-[1.03]" />
-                  </Link>
-                  <div className="flex flex-1 flex-col gap-5 p-6">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
-                          {p.name}
-                        </h3>
-                        <StatusBadge status={p.status} />
-                      </div>
-                      <p className="mt-1.5 text-[13.5px] font-bold leading-7 text-hi">{p.subtitle}</p>
-                      <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
-                    </div>
-
-                    {p.caps && p.caps.length > 0 && (
-                      <div>
-                        <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
-                        <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
-                          {p.caps.map((c) => (
-                            <li key={c} className="flex items-center gap-1.5 text-[11.5px] font-medium leading-5 text-ink2">
-                              <Check className="h-3.5 w-3.5 shrink-0 text-sage" strokeWidth={2.5} />
-                              {c}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  <Link
+                    to={detailTo(featured.slug)}
+                    className="relative overflow-hidden text-start lg:col-span-3"
+                    aria-label={previewLabel(featured.name)}
+                  >
+                    <ProjectShot project={featured} className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto" />
+                    {featured.featured && featured.status !== "concept" && (
+                      <span
+                        className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur"
+                        aria-hidden="true"
+                      >
+                        {t.projects.featured}
+                      </span>
                     )}
-
-                    <div className="mt-auto space-y-5 border-t border-line pt-5">
-                      <Meta label={t.projects.roleLabel} items={p.role} />
-                      <Meta label={t.projects.techLabel} items={p.tech} mono />
-                      <Link to={detailTo(p.slug)} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
-                        {t.projects.view}
-                        <DirArrow className="h-4 w-4" />
-                      </Link>
+                  </Link>
+                  <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
+                          {featured.name}
+                        </h3>
+                        <StatusBadge status={featured.status} />
+                      </div>
+                      <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
+                      <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
                     </div>
+                    <Meta label={t.projects.roleLabel} items={featured.role} />
+                    <Meta label={t.projects.techLabel} items={featured.tech} mono />
+                    <Link
+                      to={detailTo(featured.slug)}
+                      className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
+                    >
+                      {t.projects.view}
+                      <DirArrow className="h-4 w-4" />
+                    </Link>
                   </div>
                 </article>
               </Reveal>
-            ))}
+            )}
+
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {grid.map((p, i) => (
+                <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
+                  <article
+                    className={cn(
+                      "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60",
+                      p.status === "concept" ? "border-dashed border-line2" : "border-line"
+                    )}
+                  >
+                    <Link to={detailTo(p.slug)} className="overflow-hidden text-start" aria-label={previewLabel(p.name)}>
+                      <ProjectShot project={p} className="transition-transform duration-700 group-hover:scale-[1.03]" />
+                    </Link>
+                    <div className="flex flex-1 flex-col gap-5 p-6">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
+                            {p.name}
+                          </h3>
+                          <StatusBadge status={p.status} />
+                        </div>
+                        <p className="mt-1.5 text-[13.5px] font-bold leading-7 text-hi">{p.subtitle}</p>
+                        <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
+                      </div>
+
+                      {p.caps && p.caps.length > 0 && (
+                        <div>
+                          <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
+                          <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
+                            {p.caps.map((c) => (
+                              <li key={c} className="flex items-center gap-1.5 text-[11.5px] font-medium leading-5 text-ink2">
+                                <Check className="h-3.5 w-3.5 shrink-0 text-sage" strokeWidth={2.5} />
+                                {c}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <div className="mt-auto space-y-5 border-t border-line pt-5">
+                        <Meta label={t.projects.roleLabel} items={p.role} />
+                        <Meta label={t.projects.techLabel} items={p.tech} mono />
+                        <Link to={detailTo(p.slug)} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
+                          {t.projects.view}
+                          <DirArrow className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {isTeaser && (
           <div className="mt-10 flex justify-center">

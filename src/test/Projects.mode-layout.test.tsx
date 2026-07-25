@@ -20,12 +20,13 @@ afterEach(() => {
 });
 
 describe("Projects mobile layout by mode", () => {
-  it('mode="teaser" renders the SnapCarousel container', () => {
+  it('mode="teaser" renders a single SnapCarousel container (no duplicate hidden grid)', () => {
     renderProjects("teaser");
+    // One unified carousel that handles both mobile snap-scroll and desktop grid.
     expect(screen.getByTestId("projects-carousel")).toBeTruthy();
     expect(screen.getByTestId("projects-carousel").querySelector('[aria-roledescription="carousel"]')).toBeTruthy();
-    expect(screen.getByTestId("projects-grid")).toBeTruthy();
-    expect(screen.getByTestId("projects-grid").className).toMatch(/hidden/);
+    // No separate hidden desktop grid — the carousel IS the grid (§7.2 fix).
+    expect(screen.queryByTestId("projects-grid")).toBeNull();
   });
 
   it('mode="full" renders the plain stacked grid and no carousel', () => {

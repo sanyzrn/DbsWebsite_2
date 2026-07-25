@@ -119,6 +119,7 @@ export function SnapCarousel({
   className,
   itemClassName,
   gridClassName,
+  featuredFirst = false,
 }: {
   children: ReactNode;
   label: string;
@@ -126,6 +127,11 @@ export function SnapCarousel({
   itemClassName?: string;
   /** Applied from the `md` breakpoint (grid replaces the carousel). */
   gridClassName?: string;
+  /**
+   * When true, the first slide spans all grid columns at `md+` so it appears
+   * as a full-width "featured" item. Ignored on mobile (carousel mode).
+   */
+  featuredFirst?: boolean;
 }) {
   const items = Children.toArray(children);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -188,6 +194,7 @@ export function SnapCarousel({
               // and each slide sizes to its own content instead of the row.
               "flex w-[min(82vw,320px)] shrink-0 snap-center self-stretch",
               "md:w-auto md:min-w-0 md:shrink md:snap-align-none",
+              featuredFirst && i === 0 && "md:col-span-full",
               itemClassName
             )}
             aria-roledescription="slide"

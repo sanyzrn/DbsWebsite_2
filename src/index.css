@@ -1351,6 +1351,22 @@ html.decorative-particle-effects.dark .hero-atmosphere-grain,
   }
 }
 
+/* Narrow phones (≤400px): reduce side insets and pill footprint so the
+   bottom-left scroll-to-top button and bottom-right nav pill don't collide.
+   At 360px the default 16px side + 44px button leaves ~1px gap; 8px side +
+   smaller items gives ~33px clearance. */
+@media (max-width: 400px) {
+  .floating-quick-nav {
+    --fqn-mobile-side: 8px;
+    --fqn-scroll-size: 40px;
+  }
+  .fqn-item {
+    gap: 3px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+}
+
 /* Plain independent scroll-to-top — fixed bottom-left; no SVG goo / metaball filter */
 .fqn-scroll-btn {
   position: fixed;
