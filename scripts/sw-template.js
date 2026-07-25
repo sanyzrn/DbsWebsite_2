@@ -12,6 +12,7 @@
  * This avoids the previous bug where navigateFallback='/offline.html' caused online
  * users landing on a non-existent URL to see the offline page instead of a real 404.
  */
+/* eslint-env serviceworker */
 import { clientsClaim } from "workbox-core";
 import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
 import { NavigationRoute, registerRoute } from "workbox-routing";
