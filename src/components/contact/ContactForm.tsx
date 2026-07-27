@@ -70,6 +70,8 @@ export function ContactForm({
   const [fields, setFields] = useState<ContactFields>({ ...emptyContactFields });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFields, boolean>>>({});
   const [website, setWebsite] = useState("");
+  /** Optional-details disclosure; opened automatically by a project prefill. */
+  const [optionalOpen, setOptionalOpen] = useState(false);
   const mountedAt = useRef(0);
   const prefilledFromQuery = useRef(false);
   const emailFieldRef = useRef<HTMLInputElement>(null);
@@ -94,6 +96,8 @@ export function ContactForm({
       message: s.message.trim() ? s.message : opener,
       ...(mappedType ? { type: mappedType } : {}),
     }));
+    // Reveal the prefilled project type rather than hiding it in a closed disclosure.
+    if (mappedType) setOptionalOpen(true);
   }, [searchParams, lang, f.regardingProject]);
 
   useEffect(() => {
@@ -286,58 +290,6 @@ export function ContactForm({
           )}
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor={`${idPrefix}-phone`} className="mb-2 block text-[12.5px] font-bold text-ink2">
-            {f.phone}
-          </label>
-          <input
-            id={`${idPrefix}-phone`}
-            type="tel"
-            dir="ltr"
-            className="field text-start"
-            placeholder={f.phonePh}
-            value={fields.phone}
-            onChange={(e) => set("phone", e.target.value)}
-            autoComplete="tel"
-            aria-describedby={`${idPrefix}-phone-hint`}
-          />
-          <p id={`${idPrefix}-phone-hint`} className="mt-1.5 text-[11.5px] leading-5 text-ink3">
-            {f.phoneHint}
-          </p>
-        </div>
-        <div>
-          <label htmlFor={`${idPrefix}-company`} className="mb-2 block text-[12.5px] font-bold text-ink2">
-            {f.company}
-          </label>
-          <input
-            id={`${idPrefix}-company`}
-            className="field"
-            placeholder={f.companyPh}
-            value={fields.company}
-            onChange={(e) => set("company", e.target.value)}
-            autoComplete="organization"
-          />
-        </div>
-        <div>
-          <label htmlFor={`${idPrefix}-type`} className="mb-2 block text-[12.5px] font-bold text-ink2">
-            {f.type}
-          </label>
-          <div className="relative">
-            <select
-              id={`${idPrefix}-type`}
-              className="field"
-              value={fields.type}
-              onChange={(e) => set("type", e.target.value as ProjectTypeId)}
-            >
-              {PROJECT_TYPE_IDS.map((id) => (
-                <option key={id} value={id}>
-                  {f.types[id]}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink3" />
-          </div>
-        </div>
-        <div className="sm:col-span-2">
           <label htmlFor={`${idPrefix}-message`} className="mb-2 block text-[12.5px] font-bold text-ink2">
             {f.message} <span className="text-hi">*</span>
           </label>
@@ -360,31 +312,105 @@ export function ContactForm({
             </p>
           )}
         </div>
-        <div>
-          <label htmlFor={`${idPrefix}-budget`} className="mb-2 block text-[12.5px] font-bold text-ink2">
-            {f.budget}
-          </label>
-          <input
-            id={`${idPrefix}-budget`}
-            className="field"
-            placeholder={f.budgetPh}
-            value={fields.budget}
-            onChange={(e) => set("budget", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor={`${idPrefix}-timeline`} className="mb-2 block text-[12.5px] font-bold text-ink2">
-            {f.timeline}
-          </label>
-          <input
-            id={`${idPrefix}-timeline`}
-            className="field"
-            placeholder={f.timelinePh}
-            value={fields.timeline}
-            onChange={(e) => set("timeline", e.target.value)}
-          />
-        </div>
       </div>
+
+      {/*
+       * Everything below is optional. Name / email / description are enough to start a
+       * conversation; asking for budget and timeline before the first reply is friction
+       * that costs more enquiries than the answers are worth. Opens automatically when a
+       * project link prefilled the type, so the prefill stays visible.
+       */}
+      <details
+        className="group mt-5 border-t border-line pt-5"
+        open={optionalOpen}
+        onToggle={(e) => setOptionalOpen((e.currentTarget as HTMLDetailsElement).open)}
+      >
+        <summary className="flex cursor-pointer list-none items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
+          <ChevronDown className="h-4 w-4 shrink-0 text-ink3 transition-transform group-open:rotate-180" />
+          {f.optionalDetails}
+        </summary>
+
+        <p className="mt-2 text-[11.5px] leading-5 text-ink3">{f.optionalDetailsHint}</p>
+
+        <div className="mt-5 grid gap-5 sm:grid-cols-2">
+          <div>
+            <label htmlFor={`${idPrefix}-type`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+              {f.type}
+            </label>
+            <div className="relative">
+              <select
+                id={`${idPrefix}-type`}
+                className="field"
+                value={fields.type}
+                onChange={(e) => set("type", e.target.value as ProjectTypeId)}
+              >
+                {PROJECT_TYPE_IDS.map((id) => (
+                  <option key={id} value={id}>
+                    {f.types[id]}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink3" />
+            </div>
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-company`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+              {f.company}
+            </label>
+            <input
+              id={`${idPrefix}-company`}
+              className="field"
+              placeholder={f.companyPh}
+              value={fields.company}
+              onChange={(e) => set("company", e.target.value)}
+              autoComplete="organization"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor={`${idPrefix}-phone`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+              {f.phone}
+            </label>
+            <input
+              id={`${idPrefix}-phone`}
+              type="tel"
+              dir="ltr"
+              className="field text-start"
+              placeholder={f.phonePh}
+              value={fields.phone}
+              onChange={(e) => set("phone", e.target.value)}
+              autoComplete="tel"
+              aria-describedby={`${idPrefix}-phone-hint`}
+            />
+            <p id={`${idPrefix}-phone-hint`} className="mt-1.5 text-[11.5px] leading-5 text-ink3">
+              {f.phoneHint}
+            </p>
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-budget`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+              {f.budget}
+            </label>
+            <input
+              id={`${idPrefix}-budget`}
+              className="field"
+              placeholder={f.budgetPh}
+              value={fields.budget}
+              onChange={(e) => set("budget", e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-timeline`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+              {f.timeline}
+            </label>
+            <input
+              id={`${idPrefix}-timeline`}
+              className="field"
+              placeholder={f.timelinePh}
+              value={fields.timeline}
+              onChange={(e) => set("timeline", e.target.value)}
+            />
+          </div>
+        </div>
+      </details>
 
       <button type="submit" className="btn btn-primary mt-7 w-full" disabled={status === "sending"}>
         {status === "sending" ? f.sending : f.submit}

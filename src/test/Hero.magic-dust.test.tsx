@@ -107,7 +107,12 @@ describe("Hero MagicDust gates", () => {
 
   it("mounts MagicDust when motion is allowed on desktop", async () => {
     renderHero();
-    expect(screen.getByTestId("magic-dust-layer")).toBeTruthy();
+    // Deferred to an idle slot after first paint — never on the initial render,
+    // which must match the prerendered HTML (no WebGL layer).
+    expect(screen.queryByTestId("magic-dust-layer")).toBeNull();
+    await waitFor(() => {
+      expect(screen.getByTestId("magic-dust-layer")).toBeTruthy();
+    });
     await waitFor(() => {
       expect(screen.getByTestId("magic-dust-canvas")).toBeTruthy();
     });

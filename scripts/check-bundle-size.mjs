@@ -18,6 +18,12 @@ const INDEX = path.join(DIST, "index.html");
  * keep headroom for small regressions without letting the entry balloon again.
  */
 const MAX_JS_GZIP = 90 * 1024;
+/**
+ * The MagicDust WebGL chunk (three.js + r3f) is not in the entry graph, so it never
+ * counted towards MAX_JS_GZIP — yet a capable desktop fetches it on the home page
+ * shortly after paint. Gate it explicitly so a green "JS 64 KiB" cannot hide it.
+ */
+const MAX_DEFERRED_HERO_JS_GZIP = 260 * 1024;
 const MAX_CSS_GZIP = 60 * 1024;
 /**
  * All self-hosted font files under dist/assets (fontsource unicode-range subsets).
@@ -82,11 +88,27 @@ const fontFiles = collectFontFiles(path.join(DIST, "assets"));
 const fontsGzip = fontFiles.reduce((sum, f) => sum + gzipSize(f), 0);
 const firstPaintGzip = htmlGzip + cssGzip + jsGzip + fontsGzip;
 
+/** Home-page chunks fetched after paint rather than through the entry graph. */
+const assetsDir = path.join(DIST, "assets");
+const deferredHeroFiles = fs.existsSync(assetsDir)
+  ? fs
+      .readdirSync(assetsDir)
+      .filter((name) => /^magic-dust-shader-.*\.js$/.test(name))
+      .map((name) => path.join(assetsDir, name))
+  : [];
+const deferredHeroGzip = deferredHeroFiles.reduce((sum, f) => sum + gzipSize(f), 0);
+
 const fmt = (n) => `${(n / 1024).toFixed(1)} KiB`;
 const errors = [];
 
 if (jsGzip > MAX_JS_GZIP) {
   errors.push(`JS gzip ${fmt(jsGzip)} exceeds ceiling ${fmt(MAX_JS_GZIP)} (${path.basename(jsPath)})`);
+}
+if (deferredHeroGzip > MAX_DEFERRED_HERO_JS_GZIP) {
+  errors.push(
+    `Deferred hero JS gzip ${fmt(deferredHeroGzip)} exceeds ceiling ${fmt(MAX_DEFERRED_HERO_JS_GZIP)} ` +
+      `(${deferredHeroFiles.map((f) => path.basename(f)).join(", ")})`
+  );
 }
 if (cssGzip > MAX_CSS_GZIP) {
   errors.push(`CSS gzip ${fmt(cssGzip)} exceeds ceiling ${fmt(MAX_CSS_GZIP)} (${path.basename(cssPath)})`);
@@ -106,7 +128,9 @@ if (firstPaintGzip > MAX_FIRST_PAINT_GZIP) {
 }
 
 console.log(
-  `check:bundle — JS ${fmt(jsGzip)}/${fmt(MAX_JS_GZIP)} · CSS ${fmt(cssGzip)}/${fmt(MAX_CSS_GZIP)} · ` +
+  `check:bundle — JS ${fmt(jsGzip)}/${fmt(MAX_JS_GZIP)} · ` +
+    `deferred hero JS ${fmt(deferredHeroGzip)}/${fmt(MAX_DEFERRED_HERO_JS_GZIP)} · ` +
+    `CSS ${fmt(cssGzip)}/${fmt(MAX_CSS_GZIP)} · ` +
     `HTML ${fmt(htmlGzip)}/${fmt(MAX_HTML_GZIP)} · fonts ${fmt(fontsGzip)}/${fmt(MAX_FONTS_GZIP)} · ` +
     `first-paint ${fmt(firstPaintGzip)}/${fmt(MAX_FIRST_PAINT_GZIP)}`
 );

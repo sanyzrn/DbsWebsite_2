@@ -186,11 +186,50 @@ if (/<If\s|<Else>/.test(rootHt) || /<If\s|<Else>/.test(enHt)) {
   throw new Error("check:dist .htaccess must not use Apache <If>/<Else> for ErrorDocument");
 }
 
+// JSON-LD must be one parseable object per <script> — several blocks concatenated
+// into a single tag is invalid JSON and silently drops the page's structured data.
+const JSON_LD_RE = /<script\s+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+let jsonLdBlocks = 0;
+for (const abs of htmlFiles) {
+  const rel = path.relative(DIST, abs);
+  const html = fs.readFileSync(abs, "utf8");
+  for (const match of html.matchAll(JSON_LD_RE)) {
+    jsonLdBlocks += 1;
+    try {
+      JSON.parse(match[1]);
+    } catch (err) {
+      throw new Error(
+        `check:dist ${rel} has an unparseable <script type="application/ld+json"> block ` +
+          `— emit one <script> per JSON-LD object`,
+        { cause: err }
+      );
+    }
+  }
+}
+
+// React 19 emits hoistable <link rel="preload"> at the start of the SSR output.
+// prerender.mjs moves them into <head>; any left inside #root means the client
+// (which does hoist them) will hydrate against extra nodes and re-render everything.
+for (const abs of htmlFiles) {
+  const rel = path.relative(DIST, abs);
+  const html = fs.readFileSync(abs, "utf8");
+  const rootStart = html.indexOf('<div id="root">');
+  if (rootStart === -1) continue;
+  const body = html.slice(rootStart);
+  if (/<link\b[^>]*rel=["']preload["']/i.test(body)) {
+    throw new Error(
+      `check:dist ${rel} has <link rel="preload"> inside #root — it must be hoisted into <head> ` +
+        `(see extractHoistableLinks in scripts/prerender.mjs), otherwise hydration mismatches`
+    );
+  }
+}
+
 // Open Graph / Twitter Card image — must stay exactly 1200×630 (LinkedIn / X / Telegram)
 await assertOgImageDimensions(path.join(ROOT, "public", "og.jpg"), "public/og.jpg");
 await assertOgImageDimensions(path.join(DIST, "og.jpg"), "dist/og.jpg");
 
 console.log(
   `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}, ` +
-    `404 pages noindex, locale .htaccess ErrorDocuments, og.jpg ${OG_IMAGE_WIDTH}×${OG_IMAGE_HEIGHT}`
+    `404 pages noindex, locale .htaccess ErrorDocuments, ${jsonLdBlocks} valid JSON-LD blocks, ` +
+    `no preload links in #root, og.jpg ${OG_IMAGE_WIDTH}×${OG_IMAGE_HEIGHT}`
 );

@@ -37,7 +37,10 @@ export function buildHeadTags(seo) {
     (seo.path.includes("/articles/") && !seo.path.endsWith("/articles"))
       ? "article"
       : "website";
-  const jsonLd = seo.jsonLd.map((block) => serializeJsonLd(block)).join("\n");
+  // One <script> per block — several JSON objects in a single tag is unparseable JSON.
+  const jsonLd = seo.jsonLd
+    .map((block) => `<script type="application/ld+json">${serializeJsonLd(block)}</script>`)
+    .join("\n    ");
   const robots =
     typeof seo.robots === "string" && seo.robots.trim()
       ? `\n    <meta name="robots" content="${escapeHtml(seo.robots)}" />`
@@ -67,7 +70,7 @@ export function buildHeadTags(seo) {
     <meta name="twitter:title" content="${escapeHtml(seo.title)}" />
     <meta name="twitter:description" content="${escapeHtml(seo.description)}" />
     <meta name="twitter:image" content="${escapeHtml(seo.image)}" />
-    <script type="application/ld+json">${jsonLd}</script>
+    ${jsonLd}
   `.trim();
 }
 
@@ -85,14 +88,29 @@ function stripManagedHead(html) {
     .replace(/<script\s+type="application\/ld\+json"[^>]*>[^]*?<\/script>/gi, "");
 }
 
+/**
+ * React 19 emits hoistable `<link rel="preload">` for rendered images at the very start
+ * of the render output. `renderToString` has no document to hoist them into, but the
+ * client does hoist them to <head> — leaving the prerendered body with extra nodes the
+ * client never produces, which React reports as a hydration mismatch and recovers from
+ * by re-rendering the whole tree. Move them to <head>, where the preload scanner also
+ * finds them earlier.
+ */
+export function extractHoistableLinks(html) {
+  const match = html.match(/^(?:<link\b[^>]*>)+/i);
+  if (!match) return { links: "", body: html };
+  return { links: match[0], body: html.slice(match[0].length) };
+}
+
 function injectHtml(template, { html, seo, lang }) {
   const dir = lang === "en" ? "ltr" : "rtl";
+  const { links, body } = extractHoistableLinks(html);
   let out = stripManagedHead(template);
   out = out.replace(/<html[^>]*>/i, `<html lang="${lang}" dir="${dir}">`);
-  out = out.replace(/<\/head>/i, `${buildHeadTags(seo)}\n  </head>`);
+  out = out.replace(/<\/head>/i, `${buildHeadTags(seo)}\n    ${links}\n  </head>`);
   out = out.replace(
     /<div id="root"><\/div>|<div id="root">[\s\S]*?<\/div>/i,
-    `<div id="root">${html}</div>`
+    `<div id="root">${body}</div>`
   );
   return out;
 }

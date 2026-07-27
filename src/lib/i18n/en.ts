@@ -350,6 +350,10 @@ const en: UiDict = {
       budgetPh: "Optional",
       timeline: "Timeline",
       timelinePh: "Optional",
+      /** Label of the disclosure holding every non-required field. */
+      optionalDetails: "More details (optional)",
+      optionalDetailsHint:
+        "Project type, organization, phone, budget and timeline — leave them blank if you don't know yet; we can work them out in conversation.",
       submit: "Send message",
       sending: "Sending…",
       deliveredTitle: "Message sent.",

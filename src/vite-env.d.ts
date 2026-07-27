@@ -9,6 +9,9 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
+/** Copyright year, replaced at build time (see `define` in vite.config.ts). */
+declare const __BUILD_YEAR__: string;
+
 declare module "*.mdx" {
   import type { ComponentType, ReactNode } from "react";
 

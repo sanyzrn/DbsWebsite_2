@@ -61,7 +61,8 @@ ok("sw navigateFallback offline.html", sw.body.toString().includes("/offline.htm
 ok("sw denylist admin/php", /admin/.test(sw.body.toString()) && /\.php/.test(sw.body.toString()));
 ok("sw CacheFirst images", sw.body.toString().includes("CacheFirst"));
 ok("sw NetworkFirst seo", sw.body.toString().includes("NetworkFirst"));
-ok("sw revisioning active", /revision:"[a-f0-9]+"/.test(sw.body.toString()));
+// Workbox emits the manifest as JSON ("revision":"…"); minifiers may drop the key quotes.
+ok("sw revisioning active", /"?revision"?:\s*"[a-f0-9]+"/.test(sw.body.toString()));
 ok("precache includes en locale HTML", sw.body.toString().includes("en/about/index.html"));
 
 const off = await get(base + "/offline.html");

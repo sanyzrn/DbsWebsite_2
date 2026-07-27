@@ -104,31 +104,39 @@ function AppRoutes() {
   );
 }
 
-/** Shared shell for BrowserRouter (client) and StaticRouter (prerender). */
+/**
+ * Shared shell for BrowserRouter (client) and StaticRouter (prerender).
+ *
+ * The outer Suspense lives here, not in `App`, so the server and client render the
+ * exact same tree. A Suspense boundary is a real node — one that exists only on the
+ * client is a structural hydration mismatch, and React recovers from those by
+ * discarding the prerendered DOM and re-rendering everything.
+ */
 export function AppShell() {
   return (
-    <AppProvider>
-      <ScrollToTop />
-      <LocalePreferenceRedirect />
-      <AppRoutes />
-    </AppProvider>
+    /*
+     * Outer Suspense: catches AppProvider suspension when project data isn't
+     * loaded yet (projects.ts getCache() throws projectsLoadPromise, called
+     * synchronously by getDictionary inside AppProvider's useMemo).
+     *
+     * With hydrateRoot (prerendered pages), React keeps the server HTML visible
+     * while this resolves — no visible flash of fallback content. During prerender
+     * `ensureLoaded()` has already resolved the data, so it never suspends there.
+     */
+    <Suspense fallback={<AppLoadingFallback />}>
+      <AppProvider>
+        <ScrollToTop />
+        <LocalePreferenceRedirect />
+        <AppRoutes />
+      </AppProvider>
+    </Suspense>
   );
 }
 
 export default function App() {
   return (
     <BrowserRouter>
-      {/*
-       * Outer Suspense: catches AppProvider suspension when project data isn't
-       * loaded yet (projects.ts getCache() throws projectsLoadPromise, called
-       * synchronously by getDictionary inside AppProvider's useMemo).
-       *
-       * With hydrateRoot (prerendered pages), React keeps the server HTML visible
-       * while this resolves — no visible flash of fallback content.
-       */}
-      <Suspense fallback={<AppLoadingFallback />}>
-        <AppShell />
-      </Suspense>
+      <AppShell />
     </BrowserRouter>
   );
 }
