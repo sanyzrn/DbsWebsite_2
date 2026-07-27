@@ -22,12 +22,25 @@ export const AXE_RUN_OPTIONS = {
   },
 };
 
-/** Key prerendered routes to axe-scan. */
+/**
+ * Prerendered routes to axe-scan — one per distinct layout, plus an LTR page so the
+ * English direction is covered too. Detail routes name a preferred slug and fall back
+ * to whatever is published, since content maturity decides what actually ships.
+ */
 export const A11Y_ROUTES = [
   { urlPath: "/", file: "index.html" },
+  { urlPath: "/en", file: "en/index.html" },
+  { urlPath: "/projects", file: "projects/index.html" },
+  { urlPath: "/articles", file: "articles/index.html" },
   { urlPath: "/about", file: "about/index.html" },
   { urlPath: "/contact", file: "contact/index.html" },
-  { urlPath: "/projects/dbsai", file: "projects/dbsai/index.html", optionalFallback: true },
+  { urlPath: "/404", file: "404.html" },
+  { urlPath: "/projects/dbsai", file: "projects/dbsai/index.html", fallbackDir: "projects" },
+  {
+    urlPath: "/articles/dbspulse-from-spreadsheet-to-system",
+    file: "articles/dbspulse-from-spreadsheet-to-system/index.html",
+    fallbackDir: "articles",
+  },
 ];
 
 const THEMES = [
@@ -38,13 +51,19 @@ const THEMES = [
 function resolveRoute(route, dist = DIST) {
   const preferred = path.join(dist, route.file);
   if (fs.existsSync(preferred)) return { ...route, abs: preferred };
-  if (!route.optionalFallback) return null;
-  const projectsDir = path.join(dist, "projects");
-  if (!fs.existsSync(projectsDir)) return null;
-  for (const name of fs.readdirSync(projectsDir)) {
-    const candidate = path.join(projectsDir, name, "index.html");
+  if (!route.fallbackDir) return null;
+
+  // The preferred slug is unpublished — scan for any published sibling instead.
+  const dir = path.join(dist, route.fallbackDir);
+  if (!fs.existsSync(dir)) return null;
+  for (const name of fs.readdirSync(dir)) {
+    const candidate = path.join(dir, name, "index.html");
     if (fs.existsSync(candidate)) {
-      return { urlPath: `/projects/${name}`, file: `projects/${name}/index.html`, abs: candidate };
+      return {
+        urlPath: `/${route.fallbackDir}/${name}`,
+        file: `${route.fallbackDir}/${name}/index.html`,
+        abs: candidate,
+      };
     }
   }
   return null;
@@ -103,7 +122,10 @@ function startStaticServer(rootDir) {
         }
         if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
           const asIndex = path.join(filePath, "index.html");
+          // `/404` and `/en/404` are emitted as flat .html files, not directories.
+          const asHtml = `${filePath}.html`;
           if (fs.existsSync(asIndex)) filePath = asIndex;
+          else if (fs.existsSync(asHtml)) filePath = asHtml;
           else {
             res.writeHead(404).end("Not found");
             return;

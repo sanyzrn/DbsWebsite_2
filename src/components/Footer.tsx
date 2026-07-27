@@ -7,7 +7,8 @@ import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   const { t, lang } = useApp();
-  const year = new Date().getFullYear();
+  // Build-time constant, not `new Date()` — see the __BUILD_YEAR__ define in vite.config.ts.
+  const year = __BUILD_YEAR__;
 
   const home = localePath(lang, "/");
   const articlesTo = localePath(lang, "/articles");

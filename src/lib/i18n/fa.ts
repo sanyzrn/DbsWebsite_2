@@ -366,6 +366,10 @@ const fa = {
       budgetPh: "اختیاری",
       timeline: "زمان‌بندی مدنظر",
       timelinePh: "اختیاری",
+      /** Label of the disclosure holding every non-required field. */
+      optionalDetails: "جزئیات بیشتر (اختیاری)",
+      optionalDetailsHint:
+        "نوع پروژه، سازمان، تلفن، بودجه و زمان‌بندی — اگر الان نمی‌دانید، رهایشان کنید؛ در گفت‌وگو مشخص می‌شود.",
       submit: "ارسال پیام",
       sending: "در حال ارسال…",
       deliveredTitle: "پیام ارسال شد.",

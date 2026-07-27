@@ -152,6 +152,14 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
     },
     define: {
       "import.meta.env.VITE_SITE_URL": JSON.stringify(siteUrl),
+      /*
+       * Copyright year, frozen at build time. Reading `new Date()` during render
+       * would make the prerendered footer and the client disagree across a new
+       * year — a hydration mismatch, plus a stale year until the next deploy.
+       * A redeploy is what refreshes it, which is also when the rest of the
+       * prerendered HTML is refreshed.
+       */
+      __BUILD_YEAR__: JSON.stringify(String(new Date().getFullYear())),
     },
     build: {
       // Multi-page static emit (CSS/JS assets + prerendered HTML per route).
