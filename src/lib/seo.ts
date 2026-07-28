@@ -1,10 +1,25 @@
 import type { Lang } from "./i18n";
 import { dictionaries } from "./i18n";
+import { findArticle, getPublishedArticleSlugs, type Article } from "./articles";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
-import { loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
+import { isPublishedProject, loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
+import { loadNewsItems } from "./news";
 import { getSiteUrl } from "./siteUrl";
+import { truncateDescription } from "./truncate";
+import siteRoutes from "../../shared/site-routes.json";
 
-export type PageSeoKey = "home" | "projects" | "about" | "project" | "privacy" | "terms" | "notFound";
+export type PageSeoKey =
+  | "home"
+  | "projects"
+  | "articles"
+  | "news"
+  | "about"
+  | "contact"
+  | "project"
+  | "article"
+  | "privacy"
+  | "terms"
+  | "notFound";
 
 export type PageSeo = {
   lang: Lang;
@@ -20,20 +35,22 @@ export type PageSeo = {
   alternateFa: string;
   alternateEn: string;
   jsonLd: Record<string, unknown>[];
+  /** When set, emitted as <meta name="robots" …> (e.g. 404 pages). */
+  robots?: string;
 };
 
 function site() {
   try {
     return getSiteUrl();
   } catch {
-    return (typeof process !== "undefined" && process.env?.SITE_URL?.replace(/\/+$/, "")) || "https://dbsgraphic.ir";
+    return (typeof process !== "undefined" && process.env?.SITE_URL?.replace(/\/+$/, "")) || "https://saeedzarrini.ir";
   }
 }
 
 export function resolvePageSeo(
   lang: Lang,
   page: PageSeoKey,
-  opts?: { project?: LocalizedProject; path?: string }
+  opts?: { project?: LocalizedProject; article?: Article; path?: string }
 ): PageSeo {
   const seo = dictionaries[lang].seo;
   const origin = site();
@@ -45,10 +62,22 @@ export function resolvePageSeo(
     title = seo.projects.title;
     description = seo.projects.description;
     path = opts?.path ?? localePath(lang, "/projects");
+  } else if (page === "articles" && seo.articles) {
+    title = seo.articles.title;
+    description = seo.articles.description;
+    path = opts?.path ?? localePath(lang, "/articles");
+  } else if (page === "news" && seo.news) {
+    title = seo.news.title;
+    description = seo.news.description;
+    path = opts?.path ?? localePath(lang, "/news");
   } else if (page === "about" && seo.about) {
     title = seo.about.title;
     description = seo.about.description;
     path = opts?.path ?? localePath(lang, "/about");
+  } else if (page === "contact" && seo.contact) {
+    title = seo.contact.title;
+    description = seo.contact.description;
+    path = opts?.path ?? localePath(lang, "/contact");
   } else if (page === "privacy" && seo.privacy) {
     title = seo.privacy.title;
     description = seo.privacy.description;
@@ -62,9 +91,15 @@ export function resolvePageSeo(
     description = seo.notFound.description;
     path = opts?.path ?? localePath(lang, "/404");
   } else if (page === "project" && opts?.project) {
-    title = `${opts.project.name} | Saeed Zarrini`;
-    description = opts.project.desc.slice(0, 155) || (seo.projects?.description ?? seo.description);
+    title = `${opts.project.name} — ${opts.project.subtitle} | Saeed Zarrini`;
+    description =
+      truncateDescription(opts.project.desc, 155) || (seo.projects?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/projects/${opts.project.slug}`);
+  } else if (page === "article" && opts?.article) {
+    const fm = opts.article.frontmatter;
+    title = `${fm.title} | Saeed Zarrini`;
+    description = truncateDescription(fm.description, 155) || (seo.articles?.description ?? seo.description);
+    path = opts.path ?? localePath(lang, `/articles/${opts.article.slug}`);
   } else if (page === "home") {
     path = opts?.path ?? localePath(lang, "/");
   }
@@ -73,7 +108,21 @@ export function resolvePageSeo(
   const pathFa = bare === "/" ? "/" : bare;
   const pathEn = bare === "/" ? "/en" : `/en${bare}`;
 
-  const jsonLd = buildJsonLd(lang, page, path, opts?.project);
+  const jsonLd = buildJsonLd(lang, page, path, opts?.project, opts?.article);
+
+  // Per-page OG image: use project's own image when available (§5), else og.jpg fallback.
+  const projectImage = opts?.project?.image_url;
+  const image = projectImage
+    ? projectImage.startsWith("http")
+      ? projectImage
+      : `${origin}${projectImage}`
+    : `${origin}/og.jpg`;
+
+  const isNoindex =
+    page === "notFound" ||
+    (page === "news" && loadNewsItems().length === 0) ||
+    (page === "project" && opts?.project && opts.project.maturity !== "published") ||
+    (page === "article" && opts?.article && opts.article.frontmatter.status !== "published");
 
   return {
     lang,
@@ -83,11 +132,12 @@ export function resolvePageSeo(
     alternatePath: lang === "fa" ? pathEn : pathFa,
     ogLocale: lang === "fa" ? "fa_IR" : "en_US",
     ogLocaleAlternate: lang === "fa" ? "en_US" : "fa_IR",
-    image: `${origin}/og.jpg`,
+    image,
     canonical: `${origin}${path === "/" ? "/" : path}`,
     alternateFa: `${origin}${pathFa === "/" ? "/" : pathFa}`,
     alternateEn: `${origin}${pathEn}`,
     jsonLd,
+    ...(isNoindex ? { robots: "noindex, follow" } : {}),
   };
 }
 
@@ -95,26 +145,32 @@ function buildJsonLd(
   lang: Lang,
   page: PageSeoKey,
   path: string,
-  project?: LocalizedProject
+  project?: LocalizedProject,
+  article?: Article
 ): Record<string, unknown>[] {
   const origin = site();
   const person: Record<string, unknown> = {
     "@type": "Person",
     "@id": `${origin}/#person`,
     name: "Saeed Zarrini",
+    givenName: "Saeed",
+    familyName: "Zarrini",
     alternateName: "سعید زرینی",
     url: `${origin}/`,
-    email: "zrn_sany@yahoo.com",
-    telephone: "+989301221816",
+    contactPoint: {
+      "@type": "ContactPoint",
+      url: `${origin}/contact`,
+      contactType: "customer service",
+    },
     jobTitle: "AI Solutions Engineer & Digital Product Builder",
     worksFor: { "@id": `${origin}/#organization` },
-    sameAs: ["https://github.com/sanyzrn/", "https://www.linkedin.com/in/saeed-zarrini-20a56341", `${origin}/`],
+    sameAs: ["https://github.com/sanyzrn/", "https://www.linkedin.com/in/saeed-zarrini-20a56341"],
   };
 
   const organization: Record<string, unknown> = {
     "@type": ["Organization", "ProfessionalService"],
     "@id": `${origin}/#organization`,
-    name: "DBSGraphic",
+    name: "DbsStudio",
     url: `${origin}/`,
     founder: { "@id": `${origin}/#person` },
     description:
@@ -140,12 +196,9 @@ function buildJsonLd(
   }
 
   if (page === "project" && project) {
-    const isSoftware = project.tags.some((t) =>
-      ["Full-Stack", "AI", "Mobile", "Desktop", "Automation"].includes(t)
-    );
     const work: Record<string, unknown> = {
       "@context": "https://schema.org",
-      "@type": isSoftware ? "SoftwareApplication" : "CreativeWork",
+      "@type": project.schemaType,
       "@id": `${origin}${path}`,
       name: project.name,
       description: project.desc,
@@ -155,36 +208,84 @@ function buildJsonLd(
       creator: { "@id": `${origin}/#person` },
       keywords: project.tags.join(", "),
     };
-    if (isSoftware) {
-      work.applicationCategory = project.tags.includes("AI") ? "BusinessApplication" : "DeveloperApplication";
+    if (project.schemaType === "SoftwareApplication") {
+      work.applicationCategory = project.tags.includes("AI")
+        ? "BusinessApplication"
+        : "DeveloperApplication";
+    }
+    // Offer only when the project is explicitly a free public app — never invent price:0.
+    if (project.isPubliclyAvailable) {
       work.offers = { "@type": "Offer", price: "0", priceCurrency: "USD" };
     }
-    if (project.image_url) work.image = project.image_url;
-    return [work, { "@context": "https://schema.org", "@graph": [person, organization] }];
+    if (project.image_url) {
+      work.image = project.image_url.startsWith("http")
+        ? project.image_url
+        : `${origin}${project.image_url}`;
+    }
+    const crumbs = buildBreadcrumbList(origin, [
+      { name: dictionaries[lang].nav.home, path: localePath(lang, "/") },
+      { name: dictionaries[lang].nav.projects, path: localePath(lang, "/projects") },
+      { name: project.name, path },
+    ]);
+    return [work, crumbs, { "@context": "https://schema.org", "@graph": [person, organization] }];
+  }
+
+  if (page === "article" && article) {
+    const fm = article.frontmatter;
+    const articleLd: Record<string, unknown> = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": `${origin}${path}`,
+      headline: fm.title,
+      description: fm.description,
+      datePublished: fm.date,
+      dateModified: fm.updated ?? fm.date,
+      url: `${origin}${path}`,
+      inLanguage: lang,
+      author: { "@id": `${origin}/#person` },
+      creator: { "@id": `${origin}/#person` },
+      publisher: { "@id": `${origin}/#organization` },
+      mainEntityOfPage: { "@type": "WebPage", "@id": `${origin}${path}` },
+      keywords: fm.tags.join(", "),
+    };
+    const crumbs = buildBreadcrumbList(origin, [
+      { name: dictionaries[lang].nav.home, path: localePath(lang, "/") },
+      { name: dictionaries[lang].nav.articles, path: localePath(lang, "/articles") },
+      { name: fm.title, path },
+    ]);
+    return [articleLd, crumbs, { "@context": "https://schema.org", "@graph": [person, organization] }];
   }
 
   return [{ "@context": "https://schema.org", "@graph": [person, organization, website] }];
 }
 
-/** All static paths to prerender (locale-aware). */
+function buildBreadcrumbList(
+  origin: string,
+  items: { name: string; path: string }[]
+): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${origin}${item.path === "/" ? "/" : item.path}`,
+    })),
+  };
+}
+
+/** All static paths to prerender (locale-aware). Only published projects and articles are included. */
 export function listPrerenderPaths(): string[] {
-  const projects = loadProjectContent();
-  const paths = [
-    "/",
-    "/projects",
-    "/about",
-    "/privacy",
-    "/terms",
-    "/en",
-    "/en/projects",
-    "/en/about",
-    "/en/privacy",
-    "/en/terms",
-    "/404",
-    "/en/404",
-  ];
-  for (const p of projects) {
+  const publishedProjects = loadProjectContent().filter(isPublishedProject);
+  const publishedArticleSlugs = getPublishedArticleSlugs();
+  const staticBare = [...siteRoutes.staticPaths, ...siteRoutes.specialPaths];
+  const paths = staticBare.flatMap((p) => [p, p === "/" ? "/en" : `/en${p}`]);
+  for (const p of publishedProjects) {
     paths.push(`/projects/${p.slug}`, `/en/projects/${p.slug}`);
+  }
+  for (const slug of publishedArticleSlugs) {
+    paths.push(`/articles/${slug}`, `/en/articles/${slug}`);
   }
   return paths;
 }
@@ -206,8 +307,17 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   if (bare === "/projects") {
     return resolvePageSeo(lang, "projects", { path });
   }
+  if (bare === "/articles") {
+    return resolvePageSeo(lang, "articles", { path });
+  }
+  if (bare === "/news") {
+    return resolvePageSeo(lang, "news", { path });
+  }
   if (bare === "/about") {
     return resolvePageSeo(lang, "about", { path });
+  }
+  if (bare === "/contact") {
+    return resolvePageSeo(lang, "contact", { path });
   }
   if (bare === "/privacy") {
     return resolvePageSeo(lang, "privacy", { path });
@@ -225,33 +335,12 @@ export function resolveSeoForPath(pathname: string): PageSeo {
       return resolvePageSeo(lang, "project", { project, path });
     }
   }
-  return resolvePageSeo(lang, "notFound", { path });
-}
-
-/** @deprecated Prefer PageMeta — kept for any residual callers */
-export function applyDocumentSeo(lang: Lang, page: PageSeoKey, projectName?: string) {
-  if (typeof document === "undefined") return;
-  const project = projectName
-    ? ({ name: projectName, desc: "", slug: "" } as LocalizedProject)
-    : undefined;
-  const meta = resolvePageSeo(lang, page, project ? { project } : undefined);
-  document.title = meta.title;
-  const ensureMeta = (attrs: { name?: string; property?: string }) => {
-    const selector = attrs.name ? `meta[name="${attrs.name}"]` : `meta[property="${attrs.property}"]`;
-    let el = document.querySelector(selector);
-    if (!el) {
-      el = document.createElement("meta");
-      if (attrs.name) el.setAttribute("name", attrs.name);
-      if (attrs.property) el.setAttribute("property", attrs.property!);
-      document.head.appendChild(el);
+  const articleMatch = bare.match(/^\/articles\/([^/]+)\/?$/);
+  if (articleMatch) {
+    const article = findArticle(lang, articleMatch[1]);
+    if (article) {
+      return resolvePageSeo(lang, "article", { article, path });
     }
-    return el;
-  };
-  ensureMeta({ name: "description" }).setAttribute("content", meta.description);
-  ensureMeta({ property: "og:title" }).setAttribute("content", meta.title);
-  ensureMeta({ property: "og:description" }).setAttribute("content", meta.description);
-  ensureMeta({ property: "og:locale" }).setAttribute("content", meta.ogLocale);
-  ensureMeta({ name: "twitter:title" }).setAttribute("content", meta.title);
-  ensureMeta({ name: "twitter:description" }).setAttribute("content", meta.description);
-  document.querySelector('meta[name="keywords"]')?.remove();
+  }
+  return resolvePageSeo(lang, "notFound", { path });
 }

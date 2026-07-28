@@ -8,7 +8,7 @@ const SRC: Record<Variant, string> = {
 };
 
 /**
- * Personal DBSGraphic logos from /public.
+ * Personal DbsStudio logos from /public.
  * - full → Dbs_logo.webp (wordmark / lockup)
  * - icon → Dbs_logo_single.webp (mark only)
  */
@@ -16,7 +16,7 @@ export default function BrandLogo({
   variant = "full",
   className,
   imgClassName,
-  alt = "DBSGraphic",
+  alt = "DbsStudio",
 }: {
   variant?: Variant;
   className?: string;

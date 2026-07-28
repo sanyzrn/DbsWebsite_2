@@ -1,0 +1,68 @@
+---
+title: "Moving off a hosting platform without losing the domain"
+description: "A few real decisions and real mistakes migrating this site off Vercel onto owned hosting — from a Node.js CI mismatch to the host’s IP firewall."
+date: "2026-07-24"
+tags: ["Product Engineering"]
+status: "published"
+---
+
+Infrastructure migrations look tidy on slides: keep the domain, unify the build, copy files
+to the new host. In practice, leaving a third-party platform like Vercel for owned hosting is
+closer to a decision log than a clean checklist. This note is that log — for this site.
+
+## Why we moved at all
+
+The reason was ownership, not nostalgia for servers. Third-party hosting is fast at the
+start. It also brings vendor dependency, platform constraints, and distance from the real
+deploy path. For a personal portfolio meant to stay on its own domain and ship over FTP to
+Apache, it made sense to put release ownership somewhere we control — without giving up the
+domain.
+
+This was not “cloud bad.” It was “keep the static build, Apache rules, and publish path
+explainable.”
+
+## Snag one: Node version in CI
+
+The first real blocker was not frontend code. It was the Node.js version in GitHub Actions.
+A build script needed `--experimental-strip-types`, which the older Node version on the
+workflow did not support. The failure looked mysterious until the cause was precise: CI and
+the script’s runtime assumptions did not match.
+
+The fix was simpler than the diagnosis. We aligned the workflow’s Node version with what the
+build actually required — Node 22 in this project. Small lesson, easy to repeat: before you
+blame application complexity, make the CI runtime match the scripts.
+
+## Snag two: FTP error 531
+
+After the build went green, FTP deploy failed with authorization error 531. First guesses
+usually aim at passwords or remote directories. The real diagnosis was that the host was
+blocking foreign IP ranges — so from the server’s point of view, the CI client was not
+allowed in, even with correct credentials.
+
+The fix was not in the repository. We contacted hosting support to adjust the access
+restriction. That is the moment an infrastructure migration stops being “a code problem”
+and becomes “an operations and network-policy problem.” If the team only stares at build
+logs, it can spend hours in the wrong place.
+
+## Same class of issue, reverse direction
+
+A related pattern showed up on the way out. A contact-form integration that needed to reach
+an external messaging API could not get there from the host. This time it was not inbound FTP
+auth; it was egress / outbound network policy on the host. The practical response was to
+change messaging provider and delivery path — not to rewrite the frontend forever. Product
+details shift; the problem class stays the same: host-edge network control.
+
+<Callout variant="warn" title="Misleading signals">
+  An FTP auth error or an outbound API timeout can look like an application bug first. Sometimes
+  it is only the host firewall and IP policy.
+</Callout>
+
+## Short takeaway
+
+You can keep the domain. You can make the build repeatable. You can even automate FTP. What
+slides underplay is that infrastructure migrations are rarely purely a code problem. Node
+versions, inbound IP policy, and outbound call restrictions can each stop the move — while
+every line of React is fine.
+
+If one thing sticks from this migration, it is that: for a hosting move, you need hosting
+support and a network map as much as you need a green pipeline.

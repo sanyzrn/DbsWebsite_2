@@ -3,38 +3,124 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens — light = warm paper, dark = graphite architecture   */
+/*  Design tokens — Paper / Surface / Ink / Oxide (light + dark)        */
 /* ------------------------------------------------------------------ */
 
+/* Registered so theme toggles can interpolate instead of snapping. */
+@property --page {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f2efe9;
+}
+@property --surface {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e9e5db;
+}
+@property --surface2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fbf9f4;
+}
+@property --ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #171310;
+}
+@property --ink2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #5d5955;
+}
+@property --ink3 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #686460;
+}
+@property --line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ddd9d2;
+}
+@property --line2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #cdc8bf;
+}
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a8471e;
+}
+@property --accentdark {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #923f1c;
+}
+@property --soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #eee6df;
+}
+@property --hi {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #7d371a;
+}
+@property --error {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a6493b;
+}
+@property --success {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a3b18a;
+}
+
 :root {
-  --page: #f5f0e8;
-  --surface: #fbf9f5;
-  --surface2: #fffcf7;
-  --ink: #1c1c1a;
-  --ink2: #77736c;
-  --ink3: #a6a195;
-  --line: #ddd5c9;
-  --line2: #cdc4b4;
-  --accent: #bc9463;
-  --accentdark: #947044;
-  --soft: #e6d6c2;
-  --hi: #bc9463;
+  color-scheme: light;
+  /* Core — Paper / Surface / Ink / Oxide */
+  --page: #f2efe9;
+  --surface: #e9e5db;
+  --surface2: #fbf9f4;
+  --ink: #171310;
+  --accent: #a8471e;
+  /* Derived — keep palette minimal via color-mix, not extra hex */
+  --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
+  /* Muted text tiers — AA (≥4.5:1) on page + surface */
+  --ink2: color-mix(in srgb, var(--ink) 68%, var(--page));
+  --ink3: color-mix(in srgb, var(--ink) 63%, var(--page));
+  --line: color-mix(in srgb, var(--ink) 12%, var(--page));
+  --line2: color-mix(in srgb, var(--ink) 18%, var(--page));
+  --soft: color-mix(in srgb, var(--accent) 14%, var(--page));
+  /* Oxide-tinted highlight text — AA on page + surface */
+  --hi: color-mix(in srgb, var(--accent) 70%, var(--ink));
+  /* Form validation only — muted brick / moss (outside core 4) */
+  --error: #a6493b;
+  --success: #a3b18a;
   --fontstack: "Vazirmatn", ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
 }
 
 .dark {
-  --page: #151617;
-  --surface: #202223;
-  --surface2: #292b2d;
-  --ink: #f1f0ed;
-  --ink2: #a7a9a8;
-  --ink3: #777b7c;
-  --line: #343738;
-  --line2: #45494b;
-  --accent: #c19e6e;
-  --accentdark: #a8875a;
-  --soft: #2a2723;
-  --hi: #aeb8bc;
+  color-scheme: dark;
+  /* Core — Paper / Surface / Ink / Oxide */
+  --page: #141110;
+  --surface: #1b1714;
+  --surface2: #221e1a;
+  --ink: #ede8de;
+  --accent: #d9713d;
+  /* Derived — ratios tuned for dark visual weight / AA */
+  --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
+  --ink2: color-mix(in srgb, var(--ink) 70%, var(--page));
+  --ink3: color-mix(in srgb, var(--ink) 55%, var(--page));
+  --line: color-mix(in srgb, var(--ink) 14%, var(--page));
+  --line2: color-mix(in srgb, var(--ink) 22%, var(--page));
+  --soft: color-mix(in srgb, var(--accent) 16%, var(--surface));
+  /* Warm oxide highlight on dark paper — AA on page + surface */
+  --hi: color-mix(in srgb, var(--accent) 65%, var(--ink));
+  --error: #c97264;
+  --success: #a3b18a;
 }
 
 @theme inline {
@@ -50,8 +136,10 @@
   --color-accentdark: var(--accentdark);
   --color-soft: var(--soft);
   --color-hi: var(--hi);
+  --color-error: var(--error);
+  --color-success: var(--success);
 
-  /* product-screenshot palette — intentional constant dark graphite */
+  /* product-screenshot palette — intentional constant dark graphite (content, not chrome) */
   --color-shot: #131518;
   --color-shotpanel: #1c2025;
   --color-shotup: #242930;
@@ -59,7 +147,7 @@
   --color-shotink: #edeae4;
   --color-shotmut: #7d858d;
   --color-steel: #8fb0c0;
-  --color-sage: #a3b18a;
+  --color-sage: var(--success);
 
   --font-sans: var(--fontstack);
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -90,23 +178,136 @@ body {
   font-family: var(--fontstack);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  transition: background-color 0.45s ease, color 0.45s ease;
   overflow-x: hidden;
 }
 
+/* Theme color crossfade (fallback when View Transitions API is unavailable) */
+html {
+  transition:
+    --page 250ms ease,
+    --surface 250ms ease,
+    --surface2 250ms ease,
+    --ink 250ms ease,
+    --ink2 250ms ease,
+    --ink3 250ms ease,
+    --line 250ms ease,
+    --line2 250ms ease,
+    --accent 250ms ease,
+    --accentdark 250ms ease,
+    --soft 250ms ease,
+    --hi 250ms ease,
+    --error 250ms ease,
+    --success 250ms ease,
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+body {
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Page enter — route / language navigation                          */
+/* ------------------------------------------------------------------ */
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* View Transitions API — theme toggle progressive enhancement */
+@supports (view-transition-name: root) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 250ms;
+    animation-timing-function: ease;
+  }
+}
+
+
 ::selection {
   background: var(--accent);
-  color: #1f1b14;
+  color: var(--surface2);
+}
+.dark ::selection {
+  color: var(--page);
 }
 
 h1, h2, h3 {
   text-wrap: balance;
 }
 
-/* Persian display type needs air for deep descenders */
+/* Persian body/UI headings (Vazirmatn) — air for deep descenders */
 html[lang="fa"] h1,
 html[lang="fa"] h2 {
   line-height: 1.32;
+}
+
+/* Editorial display serif — large h1 + opted-in major section titles only.
+ * Body/UI keep Bricolage Grotesque (en) / Vazirmatn (fa); IBM Plex Mono unchanged.
+ * Note: Fontsource has no `noto-serif-arabic` package; Noto Naskh Arabic is the
+ * Noto Arabic serif/naskh companion with the same weight set (500–700). */
+:root {
+  --font-display-en: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-display-fa: "Noto Naskh Arabic", "Vazirmatn", serif;
+}
+
+html[lang="en"] h1,
+html[lang="en"] .display-heading {
+  font-family: var(--font-display-en);
+  font-weight: 600;
+  /* Optical size for mid/large display; hero bumps this further below */
+  font-variation-settings: "opsz" 48;
+}
+
+html[lang="en"] .hero-name {
+  /* Hero renders ~48–80px — higher opsz suits Fraunces at display sizes */
+  font-variation-settings: "opsz" 72;
+}
+
+/* Hero brand lockup — always Latin Fraunces, even on Persian pages */
+.hero-brand-name,
+html[lang="fa"] .hero-brand-name,
+html[lang="en"] .hero-brand-name {
+  font-family: var(--font-display-en);
+  font-weight: 600;
+  font-variation-settings: "opsz" 72;
+  line-height: 1.12;
+}
+
+html[lang="fa"] h1,
+html[lang="fa"] .display-heading {
+  font-family: var(--font-display-fa);
+  font-weight: 600;
+  /* Noto Naskh Arabic needs slightly more leading than Vazirmatn at display sizes */
+  line-height: 1.38;
+}
+
+html[lang="fa"] .hero-name:not(.hero-brand-name) {
+  line-height: 1.2;
+}
+
+html[lang="fa"] .hero-brand-name {
+  /* Override FA display face — brand wordmark stays Latin Fraunces */
+  font-family: var(--font-display-en);
+  line-height: 1.12;
 }
 
 section[id] {
@@ -184,12 +385,16 @@ section[id] {
   }
   .btn-primary {
     background: var(--accent);
-    color: #211a10;
+    color: var(--surface2);
   }
   .btn-primary:hover {
     background: var(--accentdark);
-    color: #fff8ee;
+    color: var(--surface2);
     transform: translateY(-2px);
+  }
+  .dark .btn-primary,
+  .dark .btn-primary:hover {
+    color: var(--page);
   }
   .btn-ghost {
     border: 1px solid var(--line2);
@@ -223,6 +428,43 @@ section[id] {
   a.chip:hover, .chip-hover:hover {
     border-color: var(--hi);
     color: var(--hi);
+  }
+  /**
+   * Expand interactive hit area to ≥24×24 without changing the painted box.
+   * Used on filter chips, icon-only buttons, and other small controls.
+   */
+  .hit-min {
+    position: relative;
+  }
+  .hit-min::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+  .chip-hover.hit-min,
+  button.chip-hover {
+    position: relative;
+  }
+  button.chip-hover::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
   .field {
@@ -275,29 +517,28 @@ section[id] {
   mask-image: radial-gradient(130% 100% at 50% 0%, #000 25%, transparent 78%);
 }
 
-/* Hero atmosphere — topo contours + soft glow + grain (replaces grid) */
+/* Hero atmosphere — soft glow + grain (grain hidden unless html.decorative-particle-effects) */
 .hero-atmosphere {
   opacity: 1;
   -webkit-mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
   mask-image: radial-gradient(130% 100% at 50% 0%, #000 22%, transparent 78%);
 }
 
-.hero-atmosphere-topo {
-  opacity: 0.9;
-}
-
 .hero-atmosphere-grain {
-  opacity: 0.18;
+  opacity: 0;
+  visibility: hidden;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
 
-.dark .hero-atmosphere-topo {
-  opacity: 0.7;
+html.decorative-particle-effects .hero-atmosphere-grain {
+  visibility: visible;
+  opacity: 0.32;
 }
 
-.dark .hero-atmosphere-grain {
-  opacity: 0.22;
+html.decorative-particle-effects.dark .hero-atmosphere-grain,
+.dark html.decorative-particle-effects .hero-atmosphere-grain {
+  opacity: 0.4;
   mix-blend-mode: soft-light;
 }
 
@@ -323,6 +564,7 @@ section[id] {
 
 .nf-atmosphere-warping {
   opacity: 0.92;
+  filter: url(#nf-warp-filter);
 }
 
 .nf-mark {
@@ -367,6 +609,88 @@ section[id] {
 .reveal.in {
   opacity: 1;
   transform: none;
+}
+/* Reveal stagger via data attribute — avoids inline style= for CSP style-src */
+.reveal[data-reveal-delay="60"] { transition-delay: 60ms; }
+.reveal[data-reveal-delay="80"] { transition-delay: 80ms; }
+.reveal[data-reveal-delay="90"] { transition-delay: 90ms; }
+.reveal[data-reveal-delay="100"] { transition-delay: 100ms; }
+.reveal[data-reveal-delay="120"] { transition-delay: 120ms; }
+.reveal[data-reveal-delay="140"] { transition-delay: 140ms; }
+.reveal[data-reveal-delay="160"] { transition-delay: 160ms; }
+.reveal[data-reveal-delay="180"] { transition-delay: 180ms; }
+.reveal[data-reveal-delay="200"] { transition-delay: 200ms; }
+.reveal[data-reveal-delay="220"] { transition-delay: 220ms; }
+.reveal[data-reveal-delay="240"] { transition-delay: 240ms; }
+.reveal[data-reveal-delay="260"] { transition-delay: 260ms; }
+.reveal[data-reveal-delay="280"] { transition-delay: 280ms; }
+.reveal[data-reveal-delay="300"] { transition-delay: 300ms; }
+.reveal[data-reveal-delay="320"] { transition-delay: 320ms; }
+.reveal[data-reveal-delay="340"] { transition-delay: 340ms; }
+.reveal[data-reveal-delay="360"] { transition-delay: 360ms; }
+.reveal[data-reveal-delay="380"] { transition-delay: 380ms; }
+.reveal[data-reveal-delay="400"] { transition-delay: 400ms; }
+.reveal[data-reveal-delay="440"] { transition-delay: 440ms; }
+.reveal[data-reveal-delay="460"] { transition-delay: 460ms; }
+.reveal[data-reveal-delay="480"] { transition-delay: 480ms; }
+.reveal[data-reveal-delay="500"] { transition-delay: 500ms; }
+
+/* Article MDX body — readable measure, site typography */
+.article-prose {
+  color: var(--ink2);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+.article-prose > :first-child {
+  margin-top: 0;
+}
+.article-prose h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.article-prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.article-prose p {
+  margin-top: 1.15rem;
+}
+.article-prose ul,
+.article-prose ol {
+  margin-top: 1rem;
+  padding-inline-start: 1.25rem;
+}
+.article-prose li {
+  margin-top: 0.4rem;
+}
+.article-prose ul {
+  list-style: disc;
+}
+.article-prose ol {
+  list-style: decimal;
+}
+.article-prose a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-prose strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.article-prose code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.9em;
 }
 
 /* Practice graph (discipline → product strip) */
@@ -416,6 +740,10 @@ section[id] {
   animation: practice-core 2.4s ease-in-out infinite;
 }
 
+.practice-graph-label {
+  font-family: inherit;
+}
+
 @keyframes practice-breathe {
   0%, 100% {
     opacity: 0.55;
@@ -462,11 +790,11 @@ section[id] {
 @keyframes pulse-dot {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(163, 177, 138, 0.5);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 50%, transparent);
   }
   50% {
     opacity: 0.75;
-    box-shadow: 0 0 0 5px rgba(163, 177, 138, 0);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--success) 0%, transparent);
   }
 }
 .pulse-dot {
@@ -486,8 +814,18 @@ section[id] {
 .hero-in {
   animation: fade-up-hero 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+.hero-in-d60 { animation-delay: 60ms; }
+.hero-in-d140 { animation-delay: 140ms; }
+.hero-in-d240 { animation-delay: 240ms; }
+.hero-in-d340 { animation-delay: 340ms; }
+.hero-in-d420 { animation-delay: 420ms; }
+.hero-in-d500 { animation-delay: 500ms; }
 
-/* Hero name underline — fully drawn at rest; redraws on hover (pointer devices) */
+/* Hero name underline — fully drawn at rest; redraws on hover (pointer devices).
+ * SVG is width:100% of the accent span so it tracks Fraunces/Naskh letter widths. */
+.hero-name-underline {
+  bottom: -0.14em;
+}
 .hero-name-underline path {
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
@@ -530,6 +868,17 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  html,
+  body {
+    transition: none;
+  }
+  .page-enter {
+    animation: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
   .reveal {
     opacity: 1;
@@ -578,11 +927,14 @@ section[id] {
   z-index: 200;
   border-radius: 6px;
   background: var(--accent);
-  color: #211a10;
+  color: var(--surface2);
   padding: 0.65rem 1rem;
   font-size: 13px;
   font-weight: 700;
   transition: top 0.2s ease;
+}
+.dark .skip-link {
+  color: var(--page);
 }
 .skip-link:focus {
   top: 1rem;
@@ -595,7 +947,6 @@ section[id] {
 /* ------------------------------------------------------------------ */
 
 .career-timeline {
-  --career-draw: 0;
   --career-rail-x: 11px;
   position: relative;
   padding-inline-start: 0;
@@ -606,26 +957,18 @@ section[id] {
   inset-block: 0.35rem 1.1rem;
   inset-inline-start: var(--career-rail-x);
   width: 2px;
+  height: auto;
+  overflow: visible;
   pointer-events: none;
+  display: block;
 }
 
 .career-rail-track {
-  position: absolute;
-  inset: 0;
-  background: var(--line2);
-  border-radius: 2px;
+  fill: var(--line2);
 }
 
 .career-rail-draw {
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: 100%;
-  background: linear-gradient(to bottom, var(--accent), var(--hi));
-  border-radius: 2px;
-  transform: scaleY(var(--career-draw));
-  transform-origin: top center;
-  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  fill: var(--accent);
 }
 
 .career-rail-hash {
@@ -811,7 +1154,7 @@ section[id] {
 .pwa-install {
   --pwa-bg: color-mix(in srgb, var(--surface) 72%, transparent);
   --pwa-border: color-mix(in srgb, var(--line) 55%, transparent);
-  --pwa-shadow: 0 10px 30px -18px rgba(28, 28, 26, 0.35);
+  --pwa-shadow: 0 10px 30px -18px color-mix(in srgb, var(--ink) 35%, transparent);
   position: fixed;
   z-index: 35;
   left: 16px;
@@ -858,10 +1201,14 @@ section[id] {
   border: none;
   border-radius: 999px;
   background: var(--accent);
-  color: #211a10;
+  color: var(--surface2);
   font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.dark .pwa-install-btn {
+  color: var(--page);
 }
 
 .pwa-install-btn:hover {
@@ -898,9 +1245,12 @@ section[id] {
 /* ------------------------------------------------------------------ */
 
 .floating-quick-nav {
+  --fqn-desktop-inset: 24px;
+  --fqn-mobile-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  --fqn-mobile-side: 16px;
   --fqn-bg: color-mix(in srgb, var(--surface) 72%, transparent);
   --fqn-border: color-mix(in srgb, var(--line) 55%, transparent);
-  --fqn-shadow: 0 10px 30px -18px rgba(28, 28, 26, 0.35);
+  --fqn-shadow: 0 10px 30px -18px color-mix(in srgb, var(--ink) 35%, transparent);
   --fqn-pill-h: 48px;
   --fqn-scroll-size: 44px;
   /* CSS-variable host only — children are independently position:fixed. */
@@ -984,16 +1334,36 @@ section[id] {
   white-space: nowrap;
 }
 
-/* Mobile: icon-only, show label only for the active route */
+/* Mobile: keep all labels visible; tighten spacing so the pill still fits */
 @media (max-width: 767px) {
-  .fqn-label {
-    display: none;
-  }
-  .fqn-label-active {
-    display: inline;
+  .fqn-nav {
+    gap: 1px;
+    padding: 3px;
   }
   .fqn-item {
-    padding: 0 10px;
+    gap: 4px;
+    padding: 0 8px;
+    font-size: 11.5px;
+  }
+  .fqn-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* Narrow phones (≤400px): reduce side insets and pill footprint so the
+   bottom-left scroll-to-top button and bottom-right nav pill don't collide.
+   At 360px the default 16px side + 44px button leaves ~1px gap; 8px side +
+   smaller items gives ~33px clearance. */
+@media (max-width: 400px) {
+  .floating-quick-nav {
+    --fqn-mobile-side: 8px;
+    --fqn-scroll-size: 40px;
+  }
+  .fqn-item {
+    gap: 3px;
+    padding: 0 6px;
+    font-size: 11px;
   }
 }
 
@@ -1011,13 +1381,17 @@ section[id] {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  color: #211a10;
+  color: var(--surface2);
   background: var(--accent);
   border: none;
   box-shadow: var(--fqn-shadow);
   cursor: pointer;
   pointer-events: auto;
   animation: fqn-fade-in 150ms ease;
+}
+
+.dark .fqn-scroll-btn {
+  color: var(--page);
 }
 
 @media (min-width: 768px) {
@@ -1034,10 +1408,6 @@ section[id] {
 .fqn-scroll-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-}
-
-.dark .fqn-scroll-btn {
-  color: #211a10;
 }
 
 @keyframes fqn-fade-in {

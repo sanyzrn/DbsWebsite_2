@@ -1,23 +1,26 @@
 import { Link } from "react-router-dom";
-import { Globe } from "lucide-react";
 import { useApp } from "../lib/app";
+import { hasNewsContent } from "../lib/news";
 import { localePath } from "../lib/paths";
-import { getSiteUrl } from "../lib/siteUrl";
-import { LinkedinIcon, GithubIcon } from "./icons";
+import { LinkedinIcon, GithubIcon, TelegramIcon, WhatsappIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   const { t, lang } = useApp();
-  const year = new Date().getFullYear();
-  const siteUrl = getSiteUrl();
+  // Build-time constant, not `new Date()` — see the __BUILD_YEAR__ define in vite.config.ts.
+  const year = __BUILD_YEAR__;
 
   const home = localePath(lang, "/");
+  const articlesTo = localePath(lang, "/articles");
+  const newsTo = localePath(lang, "/news");
+  const showNews = hasNewsContent();
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
+    { label: t.nav.articles, to: articlesTo },
     { label: t.nav.expertise, to: `${home}#expertise` },
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },
-    { label: t.nav.contact, to: `${localePath(lang, "/about")}#contact` },
+    { label: t.nav.contact, to: localePath(lang, "/contact") },
   ];
   const legal = [
     { label: t.footer.privacy, to: localePath(lang, "/privacy") },
@@ -36,9 +39,14 @@ export default function Footer() {
       href: "https://www.linkedin.com/in/saeed-zarrini-20a56341",
     },
     {
-      icon: Globe,
-      label: "DBSGraphic",
-      href: `${siteUrl}/`,
+      icon: TelegramIcon,
+      label: "Telegram",
+      href: "https://t.me/dbsgraphic",
+    },
+    {
+      icon: WhatsappIcon,
+      label: "WhatsApp",
+      href: "https://wa.me/989301221816",
     },
   ];
 
@@ -49,7 +57,7 @@ export default function Footer() {
           <div className="min-w-0">
             <Link to={home} className="inline-flex leading-none">
               <span dir="ltr" className="text-[18px] font-extrabold tracking-tight">
-                Saeed<span className="text-hi">Zarrini</span>
+                Dbs<span className="text-hi">Studio</span>
                 <span className="ms-1.5 inline-block h-1.5 w-1.5 rounded-[2px] bg-accent align-baseline" />
               </span>
             </Link>
@@ -63,7 +71,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="flex h-9 w-9 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
+                className="hit-min relative flex h-9 w-9 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
               >
                 <s.icon className="h-4 w-4" />
               </a>
@@ -79,6 +87,17 @@ export default function Footer() {
               <Link to={l.to} className="px-1.5 py-1 text-[13px] font-semibold text-ink2 transition-colors hover:text-hi">
                 {l.label}
               </Link>
+              {l.to === articlesTo && showNews ? (
+                <>
+                  <span className="mx-0.5 select-none text-[10px] text-line2" aria-hidden="true">›</span>
+                  <Link
+                    to={newsTo}
+                    className="px-1 py-1 text-[11px] font-medium text-ink3 transition-colors hover:text-hi"
+                  >
+                    {t.nav.news}
+                  </Link>
+                </>
+              ) : null}
               {i < links.length - 1 && (
                 <span className="text-line2" aria-hidden="true">
                   ·
@@ -102,12 +121,12 @@ export default function Footer() {
           </a>
           <p className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.14em] text-ink3" dir="ltr">
             <BrandLogo variant="icon" imgClassName="h-3.5 w-3.5 object-contain" alt="" />
-            DBSGraphic
+            DbsStudio
           </p>
         </div>
 
         <p className="mt-4 text-[11px] leading-5 text-ink3">
-          © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
+          © {year} <span dir="ltr">DbsStudio</span> — {t.footer.rights}
         </p>
       </div>
 
@@ -115,7 +134,7 @@ export default function Footer() {
         <div className="md:col-span-6">
           <Link to={home} className="inline-flex flex-col leading-none">
             <span dir="ltr" className="text-[22px] font-extrabold tracking-tight">
-              Saeed<span className="text-hi">Zarrini</span>
+              Dbs<span className="text-hi">Studio</span>
               <span className="ms-1.5 inline-block h-2 w-2 rounded-[2px] bg-accent align-baseline" />
             </span>
           </Link>
@@ -135,6 +154,14 @@ export default function Footer() {
                 <Link to={l.to} className="text-[14px] font-semibold text-ink2 transition-colors hover:text-hi">
                   {l.label}
                 </Link>
+                {l.to === articlesTo && showNews ? (
+                  <Link
+                    to={newsTo}
+                    className="mt-1.5 block text-[12.5px] font-medium text-ink3 transition-colors hover:text-hi"
+                  >
+                    {t.nav.news}
+                  </Link>
+                ) : null}
               </li>
             ))}
           </ul>
@@ -165,7 +192,7 @@ export default function Footer() {
       <div className="hidden border-t border-line md:block">
         <div className="wrap flex flex-wrap items-center justify-between gap-4 py-6">
           <p className="text-[12px] font-medium text-ink3">
-            © {year} <span dir="ltr">SaeedZarrini</span> — {t.footer.rights}
+            © {year} <span dir="ltr">DbsStudio</span> — {t.footer.rights}
           </p>
           <nav className="flex flex-wrap items-center gap-4">
             {legal.map((l) => (

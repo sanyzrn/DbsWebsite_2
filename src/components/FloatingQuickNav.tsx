@@ -1,18 +1,12 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { ArrowUp, FolderKanban, Home, UserRound } from "lucide-react";
+import { ArrowUp, FolderKanban, Home, Mail, UserRound } from "lucide-react";
 import { useApp } from "../lib/app";
 import { localePath, stripLangPrefix } from "../lib/paths";
 import { cn } from "../utils/cn";
 
-/** Tunable layout offsets — change here without hunting through CSS. */
+/** Tunable layout offsets — inset values live in `.floating-quick-nav` CSS vars. */
 const FQN = {
-  /** Desktop inset from the physical corners (bottom-right nav, bottom-left scroll). */
-  desktopInsetPx: 24,
-  /** Mobile inset from the physical corners, above the home indicator / safe area. */
-  mobileBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)",
-  /** Mobile horizontal inset from the physical left/right edges. */
-  mobileSidePx: 16,
   scrollThreshold: 400,
 } as const;
 
@@ -52,10 +46,11 @@ function useScrollPast(threshold: number) {
   return past;
 }
 
-function isNavActive(pathname: string, item: "home" | "projects" | "about") {
+function isNavActive(pathname: string, item: "home" | "projects" | "about" | "contact") {
   const bare = stripLangPrefix(pathname);
   if (item === "home") return bare === "/";
   if (item === "projects") return bare === "/projects" || bare.startsWith("/projects/");
+  if (item === "contact") return bare === "/contact" || bare.startsWith("/contact/");
   return bare === "/about" || bare.startsWith("/about/");
 }
 
@@ -80,18 +75,12 @@ export default function FloatingQuickNav() {
     { key: "home" as const, to: localePath(lang, "/"), label: t.nav.home, Icon: Home },
     { key: "projects" as const, to: localePath(lang, "/projects"), label: t.nav.projects, Icon: FolderKanban },
     { key: "about" as const, to: localePath(lang, "/about"), label: t.nav.about, Icon: UserRound },
+    { key: "contact" as const, to: localePath(lang, "/contact"), label: t.nav.contact, Icon: Mail },
   ];
-
-  const cssVars = {
-    "--fqn-desktop-inset": `${FQN.desktopInsetPx}px`,
-    "--fqn-mobile-bottom": FQN.mobileBottom,
-    "--fqn-mobile-side": `${FQN.mobileSidePx}px`,
-  } as CSSProperties;
 
   return (
     <div
       className="floating-quick-nav print:hidden"
-      style={cssVars}
       data-reduce-motion={reduceMotion ? "true" : "false"}
     >
       <nav className="fqn-nav" aria-label={t.nav.quick} data-fqn-corner="bottom-right">

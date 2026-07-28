@@ -122,6 +122,9 @@ final class ProjectRepository
             'tech' => $project['tech'] ?? [],
             'tags' => $project['tags'] ?? [],
             'image_url' => $project['image_url'] ?: null,
+            'updatedAt' => !empty($project['updated_at'])
+                ? substr((string) $project['updated_at'], 0, 10)
+                : date('Y-m-d'),
         ];
         if (!empty($project['mock'])) {
             $out['mock'] = $project['mock'];

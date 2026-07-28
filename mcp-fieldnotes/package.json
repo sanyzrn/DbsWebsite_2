@@ -1,0 +1,27 @@
+{
+  "name": "mcp-fieldnotes",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Remote MCP server (Cloudflare Workers) for Field Notes content via GitHub Contents API",
+  "scripts": {
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "agents": "^0.17.4",
+    "yaml": "^2.8.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250620.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10",
+    "wrangler": "4.105.0"
+  }
+}

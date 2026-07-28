@@ -1,11 +1,14 @@
-import { useEffect, useId, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
-import { Reveal } from "../components/ui";
+import { Reveal, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
+import { DECORATIVE_PARTICLE_EFFECTS_ENABLED } from "../lib/decorativeEffects";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
+
+const WARP_FILTER_ID = "nf-warp-filter";
 
 /**
  * Creative concept — Option A, "Lost signal":
@@ -19,13 +22,12 @@ import { cn } from "../utils/cn";
 export default function NotFoundPage() {
   const { t, lang } = useApp();
   const copy = t.notFound;
-  const uid = useId().replace(/:/g, "");
-  const filterId = `nf-warp-${uid}`;
   const stageRef = useRef<HTMLElement>(null);
   const rafRef = useRef(0);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [warp, setWarp] = useState(0);
   const [settled, setSettled] = useState(false);
+  const warpEnabled = DECORATIVE_PARTICLE_EFFECTS_ENABLED;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -36,7 +38,7 @@ export default function NotFoundPage() {
   }, []);
 
   useEffect(() => {
-    if (reduceMotion) {
+    if (!warpEnabled || reduceMotion) {
       setWarp(0);
       setSettled(true);
       return;
@@ -48,10 +50,10 @@ export default function NotFoundPage() {
       setSettled(true);
     }, 2400);
     return () => window.clearTimeout(settle);
-  }, [reduceMotion]);
+  }, [reduceMotion, warpEnabled]);
 
   const onPointerMove = (e: ReactPointerEvent<HTMLElement>) => {
-    if (reduceMotion || !settled) return;
+    if (!warpEnabled || reduceMotion || !settled) return;
     const el = stageRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -66,16 +68,10 @@ export default function NotFoundPage() {
   };
 
   const onPointerLeave = () => {
-    if (reduceMotion) return;
+    if (!warpEnabled || reduceMotion) return;
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     setWarp(0);
   };
-
-  const fieldStyle: CSSProperties | undefined = reduceMotion
-    ? undefined
-    : {
-        filter: `url(#${filterId})`,
-      };
 
   return (
     <>
@@ -86,21 +82,24 @@ export default function NotFoundPage() {
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
       >
+        <DecorativeGrid />
         {/* Decorative atmosphere + soft center warp */}
         <div className="nf-atmosphere pointer-events-none absolute inset-0" aria-hidden="true">
           <div
-            className={cn("nf-atmosphere-field absolute inset-0", !reduceMotion && warp > 0.2 && "nf-atmosphere-warping")}
-            style={fieldStyle}
+            className={cn(
+              "nf-atmosphere-field absolute inset-0",
+              warpEnabled && !reduceMotion && warp > 0.2 && "nf-atmosphere-warping"
+            )}
           >
             <HeroAtmosphere />
           </div>
 
           {/* SVG filter defs live off-layout; scale driven by React state (no canvas). */}
-          {!reduceMotion ? (
+          {warpEnabled && !reduceMotion ? (
             <svg className="pointer-events-none absolute h-0 w-0 overflow-hidden" aria-hidden="true">
               <defs>
                 <filter
-                  id={filterId}
+                  id={WARP_FILTER_ID}
                   x="-8%"
                   y="-8%"
                   width="116%"

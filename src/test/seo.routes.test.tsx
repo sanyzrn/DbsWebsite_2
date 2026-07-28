@@ -2,8 +2,8 @@ import { cleanup, render, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 import { dictionaries } from "../lib/i18n";
-import { listPrerenderPaths, resolveSeoForPath } from "../lib/seo";
-import { loadProjectContent } from "../lib/projects";
+import { listPrerenderPaths, resolvePageSeo, resolveSeoForPath } from "../lib/seo";
+import { isPublishedProject, loadProjectContent } from "../lib/projects";
 
 afterEach(() => {
   cleanup();
@@ -45,7 +45,7 @@ describe("route SEO meta (both locales)", () => {
       expect(seo.title.length).toBeLessThanOrEqual(60);
       expect(seo.description.length).toBeLessThanOrEqual(155);
       expect(seo.title.startsWith("Saeed Zarrini |")).toBe(true);
-      for (const page of [seo.projects, seo.about, seo.privacy, seo.terms, seo.notFound]) {
+      for (const page of [seo.projects, seo.articles, seo.news, seo.about, seo.contact, seo.privacy, seo.terms, seo.notFound]) {
         expect(page.title.length).toBeLessThanOrEqual(60);
         expect(page.description.length).toBeLessThanOrEqual(155);
       }
@@ -62,6 +62,8 @@ describe("route SEO meta (both locales)", () => {
       hreflangFa: "/",
       hreflangEn: "/en",
     });
+    const xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+    expect(xDefault?.getAttribute("href")).toMatch(/\/en\/?$/);
 
     cleanup();
     window.history.pushState(null, "", "/en");
@@ -73,6 +75,8 @@ describe("route SEO meta (both locales)", () => {
       hreflangFa: "/",
       hreflangEn: "/en",
     });
+    const xDefaultEn = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+    expect(xDefaultEn?.getAttribute("href")).toMatch(/\/en\/?$/);
   });
 
   it("privacy and terms routes expose locale SEO in both languages", async () => {
@@ -124,29 +128,141 @@ describe("route SEO meta (both locales)", () => {
     });
   });
 
-  it("listPrerenderPaths covers both locales for static + project routes", () => {
+  it("listPrerenderPaths covers both locales for static + project + article routes, excludes drafts", () => {
     const paths = listPrerenderPaths();
-    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms"]) {
+    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles", "/news", "/en/news"]) {
       expect(paths).toContain(p);
     }
-    const slug = loadProjectContent()[0]?.slug;
-    if (slug) {
-      expect(paths).toContain(`/projects/${slug}`);
-      expect(paths).toContain(`/en/projects/${slug}`);
+    // Only published projects should be in prerender paths
+    const publishedSlug = loadProjectContent().find(isPublishedProject)?.slug;
+    if (publishedSlug) {
+      expect(paths).toContain(`/projects/${publishedSlug}`);
+      expect(paths).toContain(`/en/projects/${publishedSlug}`);
     }
+    // Draft projects must NOT be prerendered
+    const draftSlug = loadProjectContent().find((p) => p.maturity !== "published")?.slug;
+    if (draftSlug) {
+      expect(paths).not.toContain(`/projects/${draftSlug}`);
+      expect(paths).not.toContain(`/en/projects/${draftSlug}`);
+    }
+    // Published articles must be included
+    expect(paths).toContain("/articles/ai-layer-without-boiling-the-ocean");
+    expect(paths).toContain("/en/articles/ai-layer-without-boiling-the-ocean");
+    // Draft articles must NOT be prerendered
+    expect(paths).not.toContain("/articles/test-short-note");
+    expect(paths).not.toContain("/en/articles/test-short-note");
   });
 
-  it("resolveSeoForPath emits JSON-LD WebSite/Organization on home and CreativeWork on projects", () => {
+  it("resolveSeoForPath emits JSON-LD WebSite/Organization on home and explicit schemaType on projects", () => {
     const home = resolveSeoForPath("/");
     const blob = JSON.stringify(home.jsonLd);
     expect(blob).toContain("Person");
     expect(blob).toContain("Organization");
     expect(blob).toContain("ProfessionalService");
     expect(blob).toContain("WebSite");
+    // Person contact is a ContactPoint URL — not scrapable email/telephone fields
+    expect(blob).toContain('"@type":"ContactPoint"');
+    expect(blob).toContain("/contact");
+    expect(blob).not.toContain("zrn_sany@yahoo.com");
+    expect(blob).not.toContain("+989301221816");
+    expect(blob).not.toMatch(/"email"\s*:/);
+    expect(blob).not.toMatch(/"telephone"\s*:/);
+    // sameAs is external profiles only — not the site's own root URL
+    expect(blob).toContain("github.com");
+    expect(blob).toContain("linkedin.com");
+    expect(blob).not.toMatch(/"sameAs":\[[^\]]*"https:\/\/saeedzarrini\.ir\/"/);
 
-    const slug = loadProjectContent()[0]?.slug ?? "dbspulse";
-    const project = resolveSeoForPath(`/projects/${slug}`);
+    const projects = loadProjectContent();
+    const pulse = projects.find((p) => p.slug === "dbspulse") ?? projects[0];
+    const project = resolveSeoForPath(`/projects/${pulse.slug}`);
     const pblob = JSON.stringify(project.jsonLd);
-    expect(pblob).toMatch(/CreativeWork|SoftwareApplication/);
+    expect(pblob).toContain(`"@type":"${pulse.schemaType}"`);
+    expect(pblob).toContain('"@type":"BreadcrumbList"');
+    expect(pblob).toContain(dictionaries.fa.nav.projects);
+    expect(pblob).toContain(pulse.name.fa);
+    // No automatic zero-price Offer unless isPubliclyAvailable is true
+    expect(pulse.isPubliclyAvailable).toBe(false);
+    expect(pblob).not.toContain('"@type":"Offer"');
+    expect(pblob).not.toMatch(/"price"\s*:\s*"0"/);
+
+    const concept = projects.find((p) => p.schemaType === "CreativeWork");
+    if (concept) {
+      const cblob = JSON.stringify(resolveSeoForPath(`/projects/${concept.slug}`).jsonLd);
+      expect(cblob).toContain('"@type":"CreativeWork"');
+      expect(cblob).not.toContain('"@type":"Offer"');
+    }
+  });
+
+  it("x-default hreflang resolves to the English alternate", () => {
+    const faHome = resolveSeoForPath("/");
+    const enHome = resolveSeoForPath("/en");
+    expect(faHome.alternateEn).toMatch(/\/en\/?$/);
+    expect(enHome.alternateEn).toMatch(/\/en\/?$/);
+    // PageMeta / prerender must use alternateEn for x-default (asserted via SEO fields)
+    expect(faHome.alternateFa).not.toBe(faHome.alternateEn);
+  });
+
+  it("article detail JSON-LD includes BreadcrumbList Home > Field Notes > title", () => {
+    const path = "/en/articles/ai-layer-without-boiling-the-ocean";
+    const seo = resolveSeoForPath(path);
+    const blob = JSON.stringify(seo.jsonLd);
+    expect(blob).toContain('"@type":"BreadcrumbList"');
+    expect(blob).toContain(dictionaries.en.nav.home);
+    expect(blob).toContain(dictionaries.en.nav.articles);
+    expect(blob).toContain('"@type":"Article"');
+  });
+
+  it("project JSON-LD includes Offer only when isPubliclyAvailable is true", () => {
+    const pulse = loadProjectContent().find((p) => p.slug === "dbspulse");
+    expect(pulse).toBeTruthy();
+    const localized = {
+      id: pulse!.id,
+      slug: pulse!.slug,
+      name: pulse!.name.en,
+      subtitle: pulse!.subtitle.en,
+      desc: pulse!.desc.en,
+      problem: pulse!.problem.en,
+      approach: pulse!.approach.en,
+      result: pulse!.result.en,
+      role: pulse!.role.en,
+      tech: pulse!.tech,
+      tags: pulse!.tags,
+      status: pulse!.status,
+      maturity: pulse!.maturity,
+      schemaType: pulse!.schemaType,
+      isPubliclyAvailable: true,
+      featured: pulse!.featured,
+      order: pulse!.order,
+      image_url: pulse!.image_url,
+    };
+    const seo = resolvePageSeo("en", "project", { project: localized, path: "/en/projects/dbspulse" });
+    const blob = JSON.stringify(seo.jsonLd);
+    expect(blob).toContain('"@type":"Offer"');
+    expect(blob).toContain('"price":"0"');
+  });
+
+  it("article detail SEO emits Article JSON-LD and noindexes drafts", () => {
+    const draftPath = "/en/articles/test-short-note";
+    const draftSeo = resolveSeoForPath(draftPath);
+    expect(draftSeo.robots).toBe("noindex, follow");
+    expect(JSON.stringify(draftSeo.jsonLd)).toContain('"@type":"Article"');
+
+    const publishedPath = "/en/articles/ai-layer-without-boiling-the-ocean";
+    const publishedSeo = resolveSeoForPath(publishedPath);
+    expect(publishedSeo.robots).toBeUndefined();
+    const blob = JSON.stringify(publishedSeo.jsonLd);
+    expect(blob).toContain('"@type":"Article"');
+    expect(blob).toContain("datePublished");
+    expect(blob).toContain("#person");
+  });
+
+  it("marks notFound pages with robots noindex, follow", () => {
+    const fa = resolvePageSeo("fa", "notFound");
+    const en = resolvePageSeo("en", "notFound");
+    expect(fa.robots).toBe("noindex, follow");
+    expect(en.robots).toBe("noindex, follow");
+    expect(resolvePageSeo("fa", "home").robots).toBeUndefined();
+    expect(resolveSeoForPath("/missing-page").robots).toBe("noindex, follow");
+    expect(resolveSeoForPath("/en/missing-page").robots).toBe("noindex, follow");
   });
 });

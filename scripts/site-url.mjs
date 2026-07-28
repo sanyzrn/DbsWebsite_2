@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 
 /**
  * Shared SITE_URL resolution for build scripts and Vite.
- * Default: https://dbsgraphic.ir (until a custom domain is confirmed live).
+ * Default: https://saeedzarrini.ir
  */
-export const DEFAULT_SITE_URL = "https://dbsgraphic.ir";
+export const DEFAULT_SITE_URL = "https://saeedzarrini.ir";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, "..");

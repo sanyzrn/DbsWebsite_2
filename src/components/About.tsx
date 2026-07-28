@@ -76,15 +76,27 @@ export function CareerTimeline({ nodes, label }: { nodes: readonly PathNode[]; l
   const drawClamped = Math.min(1, Math.max(0, draw));
 
   return (
-    <ol
-      className="career-timeline"
-      style={{ ["--career-draw" as string]: String(drawClamped) }}
-      aria-label={label ?? "Career path"}
-    >
-      <span className="career-rail" aria-hidden="true">
-        <span className="career-rail-track" />
-        <span className="career-rail-draw" />
-      </span>
+    <ol className="career-timeline" aria-label={label ?? "Career path"}>
+      <svg className="career-rail" aria-hidden="true" width="2" height="100%" viewBox="0 0 2 100" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="career-rail-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--accent)" />
+            <stop offset="100%" stopColor="var(--hi)" />
+          </linearGradient>
+        </defs>
+        <rect className="career-rail-track" x="0" y="0" width="2" height="100" rx="1" />
+        {/* SVG transform attribute — not a CSS style=, so CSP style-src stays strict */}
+        <rect
+          className="career-rail-draw"
+          x="0"
+          y="0"
+          width="2"
+          height="100"
+          rx="1"
+          fill="url(#career-rail-grad)"
+          transform={`scale(1 ${drawClamped})`}
+        />
+      </svg>
 
       {nodes.map((node, i) => {
         const isEgg = node.kind === "easter-egg";
@@ -134,7 +146,7 @@ export default function About() {
               <figure className="relative overflow-hidden rounded-lg border border-line sm:rounded-xl">
                 <img
                   src="/images/studio.jpg"
-                  alt={t.about.title}
+                  alt={t.about.studioAlt}
                   loading="lazy"
                   className="aspect-[16/11] w-full object-cover transition-transform duration-[1200ms] hover:scale-[1.03] lg:aspect-[20/23]"
                 />
@@ -142,7 +154,7 @@ export default function About() {
                   <span className="inline-flex items-center gap-2.5">
                     <img src="/Dbs_logo_single.webp" alt="" className="h-5 w-5 object-contain" />
                     <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/80 sm:text-[10px] sm:tracking-[0.2em]">
-                      DBSGraphic — creative & product studio
+                      DbsStudio — creative & product studio
                     </span>
                   </span>
                 </div>
@@ -259,7 +271,7 @@ export function Skills() {
         {/* Desktop grid */}
         <div className="mt-10 hidden gap-5 md:grid md:grid-cols-2">
           {t.skills.cats.map((cat, i) => (
-            <Reveal key={cat.en} delay={i * 80} className="h-full">
+            <Reveal key={cat.en} delay={Math.min(i * 80, 480)} className="h-full">
               <div className="h-full rounded-lg border border-line bg-surface p-6 transition-colors duration-400 hover:border-hi/50 lg:p-7">
                 <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-line pb-4">
                   <h3 className="text-[18px] font-extrabold tracking-tight lg:text-[19px]">{cat.title}</h3>

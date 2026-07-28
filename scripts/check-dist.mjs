@@ -2,6 +2,7 @@
  * Post-build checks for prerendered dist/:
  *  1) Every internal href resolves to an existing file under dist/
  *  2) Every canonical / og:url matches the SITE_URL used for the build
+ *  3) Open Graph image (public/og.jpg + dist/og.jpg) is exactly 1200×630
  *
  * Extends the pre-build host checks in check-urls.mjs (source files).
  * Usage: node scripts/check-dist.mjs
@@ -9,6 +10,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { ROOT, getSiteUrl, getSiteHost } from "./site-url.mjs";
+import {
+  assertOgImageDimensions,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+} from "./og-image.mjs";
 
 const siteUrl = getSiteUrl();
 const siteHost = getSiteHost(siteUrl);
@@ -147,6 +153,83 @@ if (broken.length || badCanonical.length) {
   throw new Error(`check:dist failed (${lines.length} issue(s)):\n` + lines.slice(0, 40).join("\n"));
 }
 
+// Host-independent: prerendered 404 documents must carry robots noindex
+for (const rel of ["404.html", "en/404.html"]) {
+  const abs = path.join(DIST, rel);
+  if (!fs.existsSync(abs)) {
+    throw new Error(`check:dist missing ${rel}`);
+  }
+  const html = fs.readFileSync(abs, "utf8");
+  if (!/<meta\s+name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) {
+    throw new Error(`check:dist ${rel} is missing <meta name="robots" content="noindex…">`);
+  }
+}
+
+// Apache locale 404: root + nested en/.htaccess (no <If> expressions)
+const rootHtaccess = path.join(DIST, ".htaccess");
+const enHtaccess = path.join(DIST, "en", ".htaccess");
+if (!fs.existsSync(rootHtaccess)) {
+  throw new Error("check:dist missing dist/.htaccess");
+}
+if (!fs.existsSync(enHtaccess)) {
+  throw new Error("check:dist missing dist/en/.htaccess");
+}
+const rootHt = fs.readFileSync(rootHtaccess, "utf8");
+const enHt = fs.readFileSync(enHtaccess, "utf8");
+if (!/ErrorDocument\s+404\s+\/404\.html/.test(rootHt)) {
+  throw new Error("check:dist dist/.htaccess missing ErrorDocument 404 /404.html");
+}
+if (!/ErrorDocument\s+404\s+\/en\/404\.html/.test(enHt)) {
+  throw new Error("check:dist dist/en/.htaccess missing ErrorDocument 404 /en/404.html");
+}
+if (/<If\s|<Else>/.test(rootHt) || /<If\s|<Else>/.test(enHt)) {
+  throw new Error("check:dist .htaccess must not use Apache <If>/<Else> for ErrorDocument");
+}
+
+// JSON-LD must be one parseable object per <script> — several blocks concatenated
+// into a single tag is invalid JSON and silently drops the page's structured data.
+const JSON_LD_RE = /<script\s+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+let jsonLdBlocks = 0;
+for (const abs of htmlFiles) {
+  const rel = path.relative(DIST, abs);
+  const html = fs.readFileSync(abs, "utf8");
+  for (const match of html.matchAll(JSON_LD_RE)) {
+    jsonLdBlocks += 1;
+    try {
+      JSON.parse(match[1]);
+    } catch (err) {
+      throw new Error(
+        `check:dist ${rel} has an unparseable <script type="application/ld+json"> block ` +
+          `— emit one <script> per JSON-LD object`,
+        { cause: err }
+      );
+    }
+  }
+}
+
+// React 19 emits hoistable <link rel="preload"> at the start of the SSR output.
+// prerender.mjs moves them into <head>; any left inside #root means the client
+// (which does hoist them) will hydrate against extra nodes and re-render everything.
+for (const abs of htmlFiles) {
+  const rel = path.relative(DIST, abs);
+  const html = fs.readFileSync(abs, "utf8");
+  const rootStart = html.indexOf('<div id="root">');
+  if (rootStart === -1) continue;
+  const body = html.slice(rootStart);
+  if (/<link\b[^>]*rel=["']preload["']/i.test(body)) {
+    throw new Error(
+      `check:dist ${rel} has <link rel="preload"> inside #root — it must be hoisted into <head> ` +
+        `(see extractHoistableLinks in scripts/prerender.mjs), otherwise hydration mismatches`
+    );
+  }
+}
+
+// Open Graph / Twitter Card image — must stay exactly 1200×630 (LinkedIn / X / Telegram)
+await assertOgImageDimensions(path.join(ROOT, "public", "og.jpg"), "public/og.jpg");
+await assertOgImageDimensions(path.join(DIST, "og.jpg"), "dist/og.jpg");
+
 console.log(
-  `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}`
+  `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}, ` +
+    `404 pages noindex, locale .htaccess ErrorDocuments, ${jsonLdBlocks} valid JSON-LD blocks, ` +
+    `no preload links in #root, og.jpg ${OG_IMAGE_WIDTH}×${OG_IMAGE_HEIGHT}`
 );

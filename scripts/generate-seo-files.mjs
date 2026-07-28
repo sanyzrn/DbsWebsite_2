@@ -1,56 +1,93 @@
 /**
  * Generate public/robots.txt and public/sitemap.xml from SITE_URL.
- * Includes every locale route (home, projects index, about, privacy, terms, project slugs).
+ * Static paths come from shared/site-routes.json (single route manifest).
+ * Includes **published** project + article slugs only; emits <lastmod> when available.
+ * Each <url> includes xhtml:link hreflang alternates (fa + en) — Google's preferred method.
  */
 import fs from "node:fs";
 import path from "node:path";
+import { getPublishedArticleSlugs, validateAllArticleContent } from "./article-content.mjs";
+import { loadNewsFromDisk } from "./news-content.mjs";
+import { loadProjectsFromDisk, getPublishedProjectSlugs } from "./project-content.mjs";
+import { sitemapStaticPaths } from "./site-routes.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
+import { absoluteLoc, hreflangPair } from "./sitemap-hreflang.mjs";
 
 const site = getSiteUrl();
 
-function loadProjectSlugs() {
-  const dir = path.join(ROOT, "content", "projects");
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => {
-      const raw = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
-      return raw.slug || raw.id;
-    })
-    .filter(Boolean)
-    .sort();
+function loadPublishedProjects() {
+  const published = new Set(getPublishedProjectSlugs(ROOT));
+  return loadProjectsFromDisk(ROOT)
+    .map((e) => e.raw)
+    .filter((p) => published.has(p.slug));
 }
 
-const staticRoutes = ["/", "/projects", "/about", "/privacy", "/terms"];
-const slugs = loadProjectSlugs();
-const projectRoutes = slugs.map((slug) => `/projects/${slug}`);
+function loadPublishedArticleRoutes() {
+  const published = new Set(getPublishedArticleSlugs(ROOT));
+  const articles = validateAllArticleContent(ROOT).filter((a) => published.has(a.slug));
+  const bySlug = new Map();
+  for (const a of articles) {
+    const lastmod = (a.updated || a.date || "").trim() || null;
+    const prev = bySlug.get(a.slug);
+    if (!prev || (lastmod && (!prev.lastmod || lastmod > prev.lastmod))) {
+      bySlug.set(a.slug, { path: `/articles/${a.slug}`, lastmod });
+    }
+  }
+  return [...bySlug.values()];
+}
 
-const faRoutes = [...staticRoutes, ...projectRoutes];
-const enRoutes = faRoutes.map((route) => (route === "/" ? "/en" : `/en${route}`));
-const routes = [...faRoutes, ...enRoutes];
+const projects = loadPublishedProjects();
+const projectRoutes = projects.map((p) => ({
+  path: `/projects/${p.slug}`,
+  lastmod: typeof p.updatedAt === "string" && p.updatedAt.trim() ? p.updatedAt.trim() : null,
+}));
+
+const articleRoutes = loadPublishedArticleRoutes();
+
+const hasNews = loadNewsFromDisk(ROOT).length > 0;
+const staticPaths = sitemapStaticPaths({ hasNews });
 
 const robots = `User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /*.php$
 
 Sitemap: ${site}/sitemap.xml
 `;
 
-const urlEntries = routes
-  .map((route) => {
-    const loc = route === "/" ? `${site}/` : `${site}${route}`;
-    const priority =
-      route === "/" || route === "/en" ? "1.0" : route.includes("/projects/") ? "0.7" : "0.8";
-    return `  <url>
-    <loc>${loc}</loc>
+function urlEntry(route, lastmod, priority) {
+  const loc = absoluteLoc(route);
+  const { fa, en } = hreflangPair(route);
+  const lastmodLine = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : "";
+  return `  <url>
+    <loc>${loc}</loc>${lastmodLine}
+    <xhtml:link rel="alternate" hreflang="fa" href="${fa}" />
+    <xhtml:link rel="alternate" hreflang="en" href="${en}" />
     <changefreq>monthly</changefreq>
     <priority>${priority}</priority>
   </url>`;
-  })
-  .join("\n");
+}
+
+const urlEntries = [
+  ...staticPaths.map((route) => {
+    const priority = route === "/" || route === "/en" ? "1.0" : "0.8";
+    return urlEntry(route, null, priority);
+  }),
+  ...projectRoutes.flatMap(({ path: projectPath, lastmod }) => {
+    const fa = urlEntry(projectPath, lastmod, "0.7");
+    const en = urlEntry(`/en${projectPath}`, lastmod, "0.7");
+    return [fa, en];
+  }),
+  ...articleRoutes.flatMap(({ path: articlePath, lastmod }) => {
+    const fa = urlEntry(articlePath, lastmod, "0.7");
+    const en = urlEntry(`/en${articlePath}`, lastmod, "0.7");
+    return [fa, en];
+  }),
+].join("\n");
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urlEntries}
 </urlset>
 `;
@@ -60,4 +97,6 @@ fs.mkdirSync(publicDir, { recursive: true });
 fs.writeFileSync(path.join(publicDir, "robots.txt"), robots, "utf8");
 fs.writeFileSync(path.join(publicDir, "sitemap.xml"), sitemap, "utf8");
 
-console.log(`SEO files written with SITE_URL=${site} (${routes.length} URLs)`);
+console.log(
+  `SEO files written with SITE_URL=${site} (${staticPaths.length + projectRoutes.length * 2 + articleRoutes.length * 2} URLs, ${projects.length} published projects, ${articleRoutes.length} published articles)`
+);

@@ -4,6 +4,7 @@ import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
+import { hasNewsContent } from "../lib/news";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
@@ -40,6 +41,24 @@ export default function Nav() {
   useBodyScrollLock(open);
   useFocusTrap(panelWrapRef, open, { additionalRefs: [toggleRef] });
 
+  // Document-level outside click/touch — more reliable than backdrop onClick alone.
+  useEffect(() => {
+    if (!open) return;
+    const onPointerOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target;
+      if (!(target instanceof Node)) return;
+      if (panelWrapRef.current?.contains(target)) return;
+      if (toggleRef.current?.contains(target)) return;
+      closeMenu();
+    };
+    document.addEventListener("mousedown", onPointerOutside);
+    document.addEventListener("touchstart", onPointerOutside, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", onPointerOutside);
+      document.removeEventListener("touchstart", onPointerOutside);
+    };
+  }, [open]);
+
   useEffect(() => {
     if (open) {
       wasOpen.current = true;
@@ -54,14 +73,48 @@ export default function Nav() {
   }, [open]);
 
   const home = localePath(lang, "/");
+  const articlesTo = localePath(lang, "/articles");
+  const newsTo = localePath(lang, "/news");
+  const showNews = hasNewsContent();
+  /** Flat primary destinations — Field Notes is rendered as a primary+secondary pair. */
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
     { label: t.nav.expertise, to: `${home}#expertise` },
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },
-    { label: t.nav.contact, to: `${localePath(lang, "/about")}#contact` },
+    { label: t.nav.contact, to: localePath(lang, "/contact") },
   ];
-  const ctaTo = `${localePath(lang, "/about")}#contact/start`;
+  const ctaTo = localePath(lang, "/contact");
+
+  /**
+   * Ordered list of numbered primary links for the mobile menu.
+   * Ordinals are computed from this array index so adding/removing items
+   * (e.g. hiding news) keeps the sequence gap-free without manual updates.
+   */
+  const mobilePrimaryLinks = [
+    { label: t.nav.projects, to: localePath(lang, "/projects") },
+    { label: t.nav.articles, to: articlesTo },
+    ...links.slice(1),
+  ];
+
+  const fieldNotesDesktop = (
+    <div className="flex flex-col items-start px-3.5 py-1">
+      <Link
+        to={articlesTo}
+        className="text-[13.5px] font-semibold text-ink2 transition-colors duration-300 hover:text-hi"
+      >
+        {t.nav.articles}
+      </Link>
+      {showNews && (
+        <Link
+          to={newsTo}
+          className="mt-0.5 text-[11px] font-medium tracking-wide text-ink3 transition-colors duration-300 hover:text-hi"
+        >
+          {t.nav.news}
+        </Link>
+      )}
+    </div>
+  );
 
   return (
     <header
@@ -71,19 +124,19 @@ export default function Nav() {
       )}
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
-        <Link to={home} className="group flex items-center gap-2.5" aria-label={t.nav.homeLinkLabel}>
+        <Link to={home} className="group flex items-center" aria-label={t.nav.homeLinkLabel}>
           <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain opacity-90 transition-opacity group-hover:opacity-100" alt="" />
-          <span className="flex flex-col leading-none">
-            <span dir="ltr" className="text-[17px] font-extrabold tracking-tight">
-              Saeed<span className="text-hi">Zarrini</span>
-              <span className="ms-1 inline-block h-[7px] w-[7px] rounded-[2px] bg-accent align-baseline transition-transform duration-300 group-hover:rotate-45" />
-            </span>
-            <span className="mt-1.5 text-[10px] font-medium text-ink2">{t.brand.sub}</span>
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label={t.nav.primaryNavLabel}>
-          {links.map((l) => (
+          <Link
+            to={links[0].to}
+            className="rounded-sm px-3.5 py-2 text-[13.5px] font-semibold text-ink2 transition-colors duration-300 hover:text-hi"
+          >
+            {links[0].label}
+          </Link>
+          {fieldNotesDesktop}
+          {links.slice(1).map((l) => (
             <Link
               key={l.to}
               to={l.to}
@@ -137,17 +190,29 @@ export default function Nav() {
       >
         <nav id={PANEL_ID} className="mx-auto max-w-lg overflow-hidden rounded-lg border border-line bg-page shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]" aria-label={t.nav.mobileNavLabel}>
           <div className="flex flex-col p-2">
-            {links.map((l, i) => (
-              <Link
-                key={l.to}
-                ref={i === 0 ? firstLinkRef : undefined}
-                to={l.to}
-                onClick={closeMenu}
-                className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
-              >
-                {l.label}
-                <span className="font-mono text-[10px] font-medium text-ink3">0{i + 1}</span>
-              </Link>
+            {mobilePrimaryLinks.map((l, i) => (
+              <span key={l.to}>
+                <Link
+                  ref={i === 0 ? firstLinkRef : undefined}
+                  to={l.to}
+                  onClick={closeMenu}
+                  className="flex items-center justify-between rounded-sm px-3 py-3 text-[15px] font-bold tracking-tight text-ink transition-colors hover:bg-surface hover:text-hi"
+                >
+                  {l.label}
+                  <span className="font-mono text-[10px] font-medium text-ink3">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </Link>
+                {l.to === articlesTo && showNews && (
+                  <Link
+                    to={newsTo}
+                    onClick={closeMenu}
+                    className="ms-3 flex items-center justify-between rounded-sm border-s border-line px-3 py-2 text-[13px] font-semibold tracking-tight text-ink3 transition-colors hover:bg-surface hover:text-hi"
+                  >
+                    {t.nav.news}
+                  </Link>
+                )}
+              </span>
             ))}
           </div>
           <div className="border-t border-line p-3">

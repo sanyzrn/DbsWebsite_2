@@ -1,0 +1,38 @@
+---
+title: "Test fixture: code block and Callout"
+description: "Draft fixture for reviewing fenced code styling and the MDX Callout component in article prose."
+date: "2026-07-22"
+tags: ["Full-Stack", "Testing"]
+status: "draft"
+---
+
+This draft exists to exercise two article surfaces that short notes never touch: a fenced
+code block and the shared `<Callout>` component. Everything else is light scaffolding so the
+code and callout are not stranded at the top of an empty page.
+
+When reviewing, confirm the code block keeps monospace rhythm, horizontal scroll on narrow
+viewports, and enough contrast in both light and dark themes. The callout should read as a
+deliberate aside — not a second heading and not an error toast.
+
+```ts
+type ArticleFixture = {
+  slug: string;
+  status: "draft" | "published";
+};
+
+export function isPublicFixture(article: ArticleFixture): boolean {
+  return article.status === "published";
+}
+
+// Layout QA only — keep fixtures draft so they stay off public listings.
+console.assert(!isPublicFixture({ slug: "test-code-and-callout", status: "draft" }));
+```
+
+<Callout variant="note" title="Fixture note">
+  If this callout looks louder than the surrounding paragraphs, tune the component variants
+  in `src/components/mdx/Callout.tsx` rather than editing this MDX for one-off spacing.
+</Callout>
+
+A final paragraph after the callout checks that prose resumes cleanly. Spacing above and
+below both the code fence and the callout should feel even; if one hugs the next block, the
+article prose CSS needs a shared margin rule instead of per-component hacks.

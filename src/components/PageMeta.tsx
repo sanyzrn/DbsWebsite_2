@@ -1,4 +1,7 @@
+import { useEffect } from "react";
 import { useApp } from "../lib/app";
+import { findArticle } from "../lib/articles";
+import { applyPageHead } from "../lib/pageHead";
 import {
   localizedProjectForLang,
   resolvePageSeo,
@@ -7,47 +10,34 @@ import {
 
 type PageMetaProps = {
   page: PageSeoKey;
-  /** Project slug when `page` is `"project"`. */
+  /** Project or article slug when `page` is `"project"` / `"article"`. */
   slug?: string;
 };
 
-/** Emits document head tags (React 19 hoists these) + JSON-LD for the current page.
- *  Skipped during SSR — `scripts/prerender.mjs` injects the authoritative head per route.
+/**
+ * Keeps the document head in sync with the current route.
+ *
+ * Renders nothing — `scripts/prerender.mjs` writes the authoritative head for the
+ * initial route, so emitting the same tags from React would leave the server with an
+ * empty slot and the client with a tree (JSON-LD is not head-hoisted by React), which
+ * React reports as a hydration mismatch and recovers from by throwing the entire
+ * prerendered DOM away. Updating the head from an effect instead keeps hydration clean
+ * and still covers client-side navigation.
  */
 export function PageMeta({ page, slug }: PageMetaProps) {
   const { lang } = useApp();
-  const project = page === "project" && slug ? localizedProjectForLang(lang, slug) : undefined;
-  const seo = resolvePageSeo(lang, page, project ? { project } : undefined);
 
-  if (import.meta.env.SSR) {
-    return null;
-  }
+  useEffect(() => {
+    const project = page === "project" && slug ? localizedProjectForLang(lang, slug) : undefined;
+    const article = page === "article" && slug ? findArticle(lang, slug) : undefined;
+    const seo = resolvePageSeo(lang, page, {
+      ...(project ? { project } : {}),
+      ...(article ? { article } : {}),
+    });
+    const ogType = page === "project" || page === "article" ? "article" : "website";
 
-  return (
-    <>
-      <title>{seo.title}</title>
-      <meta name="description" content={seo.description} />
-      <link rel="canonical" href={seo.canonical} />
-      <link rel="alternate" hrefLang="fa" href={seo.alternateFa} />
-      <link rel="alternate" hrefLang="en" href={seo.alternateEn} />
-      <link rel="alternate" hrefLang="x-default" href={seo.alternateFa} />
-      <meta property="og:type" content={page === "project" ? "article" : "website"} />
-      <meta property="og:locale" content={seo.ogLocale} />
-      <meta property="og:locale:alternate" content={seo.ogLocaleAlternate} />
-      <meta property="og:site_name" content="Saeed Zarrini" />
-      <meta property="og:title" content={seo.title} />
-      <meta property="og:description" content={seo.description} />
-      <meta property="og:url" content={seo.canonical} />
-      <meta property="og:image" content={seo.image} />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={seo.title} />
-      <meta name="twitter:description" content={seo.description} />
-      <meta name="twitter:image" content={seo.image} />
-      {seo.jsonLd.map((block, i) => (
-        <script key={i} type="application/ld+json">
-          {JSON.stringify(block)}
-        </script>
-      ))}
-    </>
-  );
+    applyPageHead(seo, ogType);
+  }, [lang, page, slug]);
+
+  return null;
 }

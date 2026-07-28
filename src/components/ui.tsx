@@ -4,6 +4,17 @@ import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
 
 /* ------------------------------------------------------------------ */
+/*  Decorative page grid (Contact-style atmosphere)                     */
+/* ------------------------------------------------------------------ */
+
+/** Soft grid texture over a page section — Contact's exact treatment. */
+export function DecorativeGrid() {
+  return (
+    <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Scroll reveal wrapper                                               */
 /* ------------------------------------------------------------------ */
 
@@ -44,7 +55,11 @@ export function Reveal({
   }, []);
 
   return (
-    <div ref={ref} style={{ transitionDelay: `${delay}ms` }} className={cn("reveal", inView && "in", className)}>
+    <div
+      ref={ref}
+      className={cn("reveal", inView && "in", className)}
+      data-reveal-delay={delay > 0 ? delay : undefined}
+    >
       {children}
     </div>
   );
@@ -71,7 +86,7 @@ export function SectionHead({
         <span className="kicker">{kicker}</span>
       </Reveal>
       <Reveal delay={80}>
-        <h2 className="mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[42px] md:leading-[1.18]">
+        <h2 className="display-heading mt-4 text-[26px] font-extrabold leading-[1.25] tracking-tight sm:mt-5 sm:text-[30px] md:text-[42px] md:leading-[1.18]">
           {title}
         </h2>
       </Reveal>
@@ -104,6 +119,7 @@ export function SnapCarousel({
   className,
   itemClassName,
   gridClassName,
+  featuredFirst = false,
 }: {
   children: ReactNode;
   label: string;
@@ -111,6 +127,11 @@ export function SnapCarousel({
   itemClassName?: string;
   /** Applied from the `md` breakpoint (grid replaces the carousel). */
   gridClassName?: string;
+  /**
+   * When true, the first slide spans all grid columns at `md+` so it appears
+   * as a full-width "featured" item. Ignored on mobile (carousel mode).
+   */
+  featuredFirst?: boolean;
 }) {
   const items = Children.toArray(children);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -156,7 +177,9 @@ export function SnapCarousel({
         aria-roledescription="carousel"
         aria-label={label}
         className={cn(
-          "flex gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth snap-x snap-mandatory",
+          // Horizontal flex with default align-items:stretch so every slide
+          // shares the tallest card's cross size (equal heights on mobile).
+          "flex items-stretch gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth snap-x snap-mandatory",
           "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           "-mx-5 scroll-px-5 px-5",
           "md:mx-0 md:grid md:gap-5 md:overflow-visible md:scroll-px-0 md:px-0 md:snap-none",
@@ -167,8 +190,11 @@ export function SnapCarousel({
           <div
             key={i}
             className={cn(
-              "w-[min(82vw,320px)] shrink-0 snap-center self-stretch",
+              // Do NOT set height/h-full on the flex item — that disables stretch
+              // and each slide sizes to its own content instead of the row.
+              "flex w-[min(82vw,320px)] shrink-0 snap-center self-stretch",
               "md:w-auto md:min-w-0 md:shrink md:snap-align-none",
+              featuredFirst && i === 0 && "md:col-span-full",
               itemClassName
             )}
             aria-roledescription="slide"

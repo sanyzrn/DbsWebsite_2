@@ -24,7 +24,7 @@ const INDEX_ALLOWLIST = new Set([
 ]);
 
 /** Hosts allowed in robots.txt / sitemap.xml besides SITE_URL. */
-const SEO_FILE_ALLOWLIST = new Set([siteHost, "www.sitemaps.org"]);
+const SEO_FILE_ALLOWLIST = new Set([siteHost, "www.sitemaps.org", "www.w3.org"]);
 
 const URL_HOST_RE = /https?:\/\/([^/\s"'<>]+)/gi;
 
@@ -71,7 +71,12 @@ const forbiddenSiteHosts = [...indexHosts].filter(
   (h) => !INDEX_ALLOWLIST.has(h) && h !== siteHost
 );
 // Also flag known stale portfolio hosts even if somehow allowlisted incorrectly
-const stale = ["saeedzarrini.com", "www.saeedzarrini.com"];
+const stale = [
+  "saeedzarrini.com",
+  "www.saeedzarrini.com",
+  "dbsgraphic.ir",
+  "www.dbsgraphic.ir",
+];
 for (const h of stale) {
   if (indexHtml.toLowerCase().includes(h)) {
     throw new Error(`index.html still hardcodes stale domain: ${h}`);

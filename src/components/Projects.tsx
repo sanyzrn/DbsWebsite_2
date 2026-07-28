@@ -4,7 +4,8 @@ import { Check, Database, FileSearch, FileText, Languages, Lock, Plus, Repeat2, 
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
-import { DirArrow, Reveal, SectionHead, SnapCarousel } from "./ui";
+import { Breadcrumbs } from "./Breadcrumbs";
+import { DirArrow, Reveal, SectionHead, SnapCarousel, DecorativeGrid } from "./ui";
 
 type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar" | "concept";
 
@@ -14,14 +15,39 @@ type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesab
 
 function Shot({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div dir="ltr" className={cn("relative aspect-[16/10] overflow-hidden bg-shot", className)}>
+    <div dir="ltr" className={cn("relative aspect-[16/10] overflow-hidden bg-shot", className)} aria-hidden="true">
       {children}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.05] to-transparent" aria-hidden="true" />
     </div>
   );
 }
 
-const row = (w: string, tone = "bg-shotup") => <span className={cn("block h-1.5 rounded-full", tone)} style={{ width: w }} />;
+/** Map mock bar widths to Tailwind classes — no inline style= (CSP). */
+const W: Record<string, string> = {
+  "38%": "w-[38%]",
+  "42%": "w-[42%]",
+  "44px": "w-[44px]",
+  "45%": "w-[45%]",
+  "46%": "w-[46%]",
+  "48%": "w-[48%]",
+  "50%": "w-1/2",
+  "52%": "w-[52%]",
+  "55%": "w-[55%]",
+  "58%": "w-[58%]",
+  "60%": "w-[60%]",
+  "65%": "w-[65%]",
+  "70%": "w-[70%]",
+  "70px": "w-[70px]",
+  "72%": "w-[72%]",
+  "80%": "w-4/5",
+  "88%": "w-[88%]",
+  "90%": "w-[90%]",
+  "95%": "w-[95%]",
+  "100%": "w-full",
+};
+const row = (w: string, tone = "bg-shotup") => (
+  <span className={cn("block h-1.5 rounded-full", tone, W[w] ?? "w-1/2")} />
+);
 
 /* ------------------------------------------------------------------ */
 /*  Mocks                                                               */
@@ -65,8 +91,8 @@ function MockPulse() {
           ))}
         </div>
         <div className="flex flex-1 items-end gap-1 rounded-[4px] border border-shotline bg-shot p-2">
-          {[38, 62, 48, 78, 55, 90, 66, 82, 58, 74].map((h, i) => (
-            <span key={i} className={cn("flex-1 rounded-t-[2px]", i === 5 ? "bg-accent" : "bg-[#394047]")} style={{ height: `${h}%` }} />
+          {["h-[38%]", "h-[62%]", "h-[48%]", "h-[78%]", "h-[55%]", "h-[90%]", "h-[66%]", "h-[82%]", "h-[58%]", "h-[74%]"].map((h, i) => (
+            <span key={i} className={cn("flex-1 rounded-t-[2px]", h, i === 5 ? "bg-accent" : "bg-[#394047]")} />
           ))}
         </div>
       </div>
@@ -79,9 +105,9 @@ function MockAI() {
     <div className="absolute inset-4 flex overflow-hidden rounded-[10px] border border-shotline bg-shotpanel sm:inset-6">
       <div className="hidden w-[32%] flex-col gap-1.5 border-e border-shotline p-2.5 sm:flex">
         <span className="mb-1 font-mono text-[8px] uppercase tracking-widest text-shotmut">providers</span>
-        {["#BC9463", "#8FB0C0", "#A3B18A"].map((c, i) => (
+        {["bg-accent", "bg-[#8FB0C0]", "bg-[#A3B18A]"].map((c, i) => (
           <div key={i} className="flex items-center gap-1.5 rounded-[4px] border border-shotline bg-shot px-1.5 py-1.5">
-            <span className="h-2 w-2 rounded-full" style={{ background: c }} />
+            <span className={cn("h-2 w-2 rounded-full", c)} />
             {row("46%", "bg-shotup")}
             <span className="ms-auto h-2 w-3.5 rounded-full bg-sage/70" />
           </div>
@@ -105,8 +131,8 @@ function MockAI() {
           {row("100%", "bg-accent/50")}{row("60%", "bg-accent/35")}
         </div>
         <div className="flex gap-1 self-start px-1 py-0.5">
-          {[0, 1, 2].map((i) => (
-            <span key={i} className="h-1 w-1 animate-pulse rounded-full bg-shotmut" style={{ animationDelay: `${i * 200}ms` }} />
+          {["delay-0", "delay-200", "delay-[400ms]"].map((d) => (
+            <span key={d} className={cn("h-1 w-1 animate-pulse rounded-full bg-shotmut", d)} />
           ))}
         </div>
         <div className="mt-auto flex items-center gap-1.5 rounded-[5px] border border-shotline bg-shot p-1.5">
@@ -184,16 +210,20 @@ function MockBrain() {
             <circle cx="22" cy="22" r="17" fill="none" stroke="#242930" strokeWidth="5" />
             <circle cx="22" cy="22" r="17" fill="none" stroke="#A3B18A" strokeWidth="5" strokeLinecap="round" strokeDasharray="107" strokeDashoffset="27" transform="rotate(-90 22 22)" />
             <circle cx="22" cy="22" r="10" fill="none" stroke="#242930" strokeWidth="4" />
-            <circle cx="22" cy="22" r="10" fill="none" stroke="#BC9463" strokeWidth="4" strokeLinecap="round" strokeDasharray="63" strokeDashoffset="16" transform="rotate(-90 22 22)" />
+            <circle cx="22" cy="22" r="10" fill="none" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" strokeDasharray="63" strokeDashoffset="16" transform="rotate(-90 22 22)" />
           </svg>
           <div className="flex-1 space-y-1">{row("80%", "bg-shotmut/50")}{row("55%")}</div>
         </div>
         <div className="mt-2.5 space-y-1.5">
-          {[80, 55, 35].map((p, i) => (
+          {[
+            { p: 80, w: "w-4/5" },
+            { p: 55, w: "w-[55%]" },
+            { p: 35, w: "w-[35%]" },
+          ].map((item, i) => (
             <div key={i} className="rounded-[4px] border border-shotline p-1.5">
-              <div className="mb-1 flex justify-between">{row("52%", "bg-shotup")}<span className="font-mono text-[7px] text-shotmut">{p}%</span></div>
+              <div className="mb-1 flex justify-between">{row("52%", "bg-shotup")}<span className="font-mono text-[7px] text-shotmut">{item.p}%</span></div>
               <div className="h-1 overflow-hidden rounded-full bg-shotup">
-                <div className={cn("h-full rounded-full", ["bg-sage", "bg-accent", "bg-steel"][i])} style={{ width: `${p}%` }} />
+                <div className={cn("h-full rounded-full", item.w, ["bg-sage", "bg-accent", "bg-steel"][i])} />
               </div>
             </div>
           ))}
@@ -277,7 +307,7 @@ function MockTools() {
 
 function MockHesabyar() {
   return (
-    <div className="absolute inset-4 flex flex-col gap-2 overflow-hidden rounded-[10px] border border-shotline bg-shotpanel p-2.5 sm:inset-6" dir="rtl" style={{ fontFamily: "Vazirmatn, sans-serif" }}>
+    <div className="absolute inset-4 flex flex-col gap-2 overflow-hidden rounded-[10px] border border-shotline bg-shotpanel p-2.5 font-[family-name:Vazirmatn,sans-serif] sm:inset-6" dir="rtl">
       <div className="flex items-center gap-1.5">
         {["مهر", "آبان", "آذر"].map((m, i) => (
           <span key={m} className={cn("rounded-[4px] px-2 py-0.5 text-[9px] font-bold", i === 1 ? "bg-accent text-[#211a10]" : "border border-shotline text-shotmut")}>
@@ -292,15 +322,15 @@ function MockHesabyar() {
       </div>
       <div className="flex-1 space-y-1.5">
         {[
-          { p: 80, c: "bg-sage" },
-          { p: 45, c: "bg-accent" },
-          { p: 20, c: "bg-steel" },
+          { p: 80, c: "bg-sage", w: "w-4/5" },
+          { p: 45, c: "bg-accent", w: "w-[45%]" },
+          { p: 20, c: "bg-steel", w: "w-1/5" },
         ].map((item, i) => (
           <div key={i} className="flex items-center gap-2 rounded-[5px] border border-shotline p-1.5">
             <span className="h-2 w-2 rounded-full bg-shotline" />
             <span className="h-1.5 w-14 rounded-full bg-shotup" />
             <div className="ms-auto flex w-[38%] items-center gap-1.5">
-              <div className="h-1 flex-1 overflow-hidden rounded-full bg-shotup"><div className={cn("h-full rounded-full", item.c)} style={{ width: `${item.p}%` }} /></div>
+              <div className="h-1 flex-1 overflow-hidden rounded-full bg-shotup"><div className={cn("h-full rounded-full", item.c, item.w)} /></div>
               <span className="font-mono text-[7px] text-shotmut" dir="ltr">{item.p}%</span>
             </div>
           </div>
@@ -376,53 +406,115 @@ function ProjectShot({ project, className }: { project: ProjectItem; className?:
   );
 }
 
-/** Compact card used by the home teaser carousel (and as a shared building block). */
+/**
+ * Adaptive project card used in teaser carousels and grids.
+ *
+ * On mobile it renders as a compact vertical card (no Role/Tech).
+ * When `showMeta` is true the Role/Technology blocks appear at md+ via
+ * responsive classes so the same element adapts without a second instance.
+ * When `featured` is true the card switches to a horizontal image-left /
+ * content-right layout at lg+ (matching the full-page featured slot).
+ */
 function ProjectCard({
   project,
   detailTo,
   viewLabel,
   featuredLabel,
+  previewAria,
+  featured = false,
+  showMeta = false,
 }: {
   project: ProjectItem;
   detailTo: string;
   viewLabel: string;
   featuredLabel: string;
+  previewAria: string;
+  /** Expands to a horizontal image/content split at lg+. */
+  featured?: boolean;
+  /** Reveals Role/Technology blocks at md+; hidden on mobile. */
+  showMeta?: boolean;
 }) {
+  const { t } = useApp();
   return (
     <article
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface",
+        // flex-1 fills the stretched SnapCarousel slide (equal heights across cards).
+        "group flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-lg border bg-surface transition-colors duration-500 hover:border-hi/60",
+        featured && "lg:grid lg:flex-none lg:grid-cols-5",
         project.status === "concept" ? "border-dashed border-line2" : "border-line"
       )}
     >
-      <Link to={detailTo} className="overflow-hidden text-start">
-        <ProjectShot project={project} />
-      </Link>
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-[20px] font-extrabold tracking-tight" dir={project.id === "hesabyar" ? undefined : "ltr"}>
-            {project.name}
-          </h3>
-          <StatusBadge status={project.status} />
-        </div>
-        {project.featured && (
-          <span className="w-fit rounded-xs border border-hi/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-hi">
-            {featuredLabel}
+      <Link
+        to={detailTo}
+        className={cn("relative shrink-0 overflow-hidden text-start", featured && "lg:col-span-3")}
+        aria-label={previewAria}
+      >
+        <ProjectShot
+          project={project}
+          className={cn(
+            "transition-transform duration-700 group-hover:scale-[1.03]",
+            featured && "lg:h-full lg:min-h-[240px] lg:aspect-auto"
+          )}
+        />
+        {/* Badges overlay the shot so optional featured/concept chips don't change body height. */}
+        {(project.featured || project.status === "concept") && (
+          <span className="absolute start-3 top-3 flex flex-wrap gap-1.5" aria-hidden="true">
+            {project.featured && project.status !== "concept" ? (
+              <span className="rounded-xs border border-hi/40 bg-shot/90 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-accent backdrop-blur">
+                {featuredLabel}
+              </span>
+            ) : null}
+            <StatusBadge status={project.status} />
           </span>
         )}
-        <p className="text-[13px] font-bold leading-6 text-hi">{project.subtitle}</p>
-        <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{project.desc}</p>
-        <Link to={detailTo} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-bold text-ink2">
-          {viewLabel}
-          <DirArrow className="h-4 w-4" />
-        </Link>
+      </Link>
+      <div
+        className={cn(
+          "flex min-h-0 flex-1 flex-col gap-3 p-5",
+          featured && "lg:col-span-2 lg:gap-6 lg:p-10"
+        )}
+      >
+        <div>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3
+              className={cn(
+                "line-clamp-2 text-[20px] font-extrabold tracking-tight",
+                featured && "lg:line-clamp-none lg:text-[32px] lg:font-black"
+              )}
+              dir={project.id === "hesabyar" ? undefined : "ltr"}
+            >
+              {project.name}
+            </h3>
+            {featured && <StatusBadge status={project.status} />}
+          </div>
+          <p className="mt-1.5 line-clamp-2 text-[13px] font-bold leading-6 text-hi">
+            {project.subtitle}
+          </p>
+          <p className="mt-2 line-clamp-3 text-[13px] leading-7 text-ink2">{project.desc}</p>
+        </div>
+        {showMeta && (
+          <div className="hidden flex-col gap-5 md:flex">
+            <Meta label={t.projects.roleLabel} items={project.role} />
+            <Meta label={t.projects.techLabel} items={project.tech} mono />
+          </div>
+        )}
+        <div className="mt-auto border-t border-line pt-4" data-testid="project-card-footer">
+          {/* Always reserve one tag line so footers align across equal-height cards. */}
+          <p className="mb-3 line-clamp-1 min-h-[1.25rem] font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
+            {project.tags.length > 0 ? project.tags.join(" · ") : "\u00a0"}
+          </p>
+          <Link to={detailTo} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
+            {viewLabel}
+            <DirArrow className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </article>
   );
 }
 
-/** Home-page teaser: strongest production picks + concept placeholders. */
-const TEASER_IDS = ["dbspulse", "dbsai", "dbschatbot", "hesabyar", "concept-01", "concept-02"];
+/** Home-page teaser: strongest published production picks. */
+const TEASER_IDS = ["dbspulse", "dbsbrain", "dbschatbot", "dbskeep"];
 
 type ProjectsProps = {
   mode?: "teaser" | "full";
@@ -445,10 +537,12 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
 
   const detailTo = (id: string) => localePath(lang, `/projects/${id}`);
   const isTeaser = mode === "teaser";
+  const previewLabel = (name: string) => t.projects.previewAria.replace("{name}", name);
 
   return (
-    <section id="projects" className="section-pad border-t border-line">
-      <div className="wrap">
+    <section id="projects" className="relative overflow-hidden section-pad border-t border-line">
+      {mode === "full" ? <DecorativeGrid /> : null}
+      <div className={cn("wrap", mode === "full" && "relative")}>
         <SectionHead
           kicker={mode === "full" ? t.projects.pageKicker : t.projects.kicker}
           title={mode === "full" ? t.projects.pageTitle : t.projects.title}
@@ -473,121 +567,138 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
           </div>
         )}
 
-        {/* Mobile carousel — home teaser only */}
+        {/* Teaser: single SnapCarousel — carousel on mobile, CSS grid on md+.
+            Each project renders exactly once; Role/Tech and featured layout
+            are revealed via responsive classes inside ProjectCard. */}
         {isTeaser && (
           <div data-testid="projects-carousel">
-            <SnapCarousel className="mt-7 md:hidden" label={t.projects.title} itemClassName="h-full" key={`teaser-${filter}`}>
-              {source.map((p) => (
+            <SnapCarousel
+              className="mt-7"
+              label={t.projects.title}
+              key={`teaser-${filter}`}
+              gridClassName="md:grid-cols-3"
+              featuredFirst
+            >
+              {source.map((p, i) => (
                 <ProjectCard
                   key={p.id}
                   project={p}
                   detailTo={detailTo(p.slug)}
                   viewLabel={t.projects.view}
                   featuredLabel={t.projects.featured}
+                  previewAria={previewLabel(p.name)}
+                  featured={i === 0}
+                  showMeta
                 />
               ))}
             </SnapCarousel>
           </div>
         )}
 
-        {/* Desktop grid for teaser; all-viewport grid for full /projects page */}
-        <div
-          className={cn("mt-8", isTeaser && "hidden md:block")}
-          data-testid="projects-grid"
-        >
-          {featured && (
-            <Reveal>
-              <article
-                className={cn(
-                  "group grid overflow-hidden rounded-lg border bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5",
-                  featured.status === "concept" ? "border-dashed border-line2" : "border-line"
-                )}
-              >
-                <Link to={detailTo(featured.slug)} className="relative overflow-hidden text-start lg:col-span-3">
-                  <ProjectShot project={featured} className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto" />
-                  {featured.featured && featured.status !== "concept" && (
-                    <span className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur">
-                      {t.projects.featured}
-                    </span>
-                  )}
-                </Link>
-                <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
-                        {featured.name}
-                      </h3>
-                      <StatusBadge status={featured.status} />
-                    </div>
-                    <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
-                    <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
-                  </div>
-                  <Meta label={t.projects.roleLabel} items={featured.role} />
-                  <Meta label={t.projects.techLabel} items={featured.tech} mono />
-                  <Link
-                    to={detailTo(featured.slug)}
-                    className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
-                  >
-                    {t.projects.view}
-                    <DirArrow className="h-4 w-4" />
-                  </Link>
-                </div>
-              </article>
-            </Reveal>
-          )}
-
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {grid.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
+        {/* Full /projects page grid — featured hero + sub-grid. */}
+        {!isTeaser && (
+          <div className="mt-8" data-testid="projects-grid">
+            {featured && (
+              <Reveal>
                 <article
                   className={cn(
-                    "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60",
-                    p.status === "concept" ? "border-dashed border-line2" : "border-line"
+                    "group grid overflow-hidden rounded-lg border bg-surface transition-colors duration-500 hover:border-hi/60 lg:grid-cols-5",
+                    featured.status === "concept" ? "border-dashed border-line2" : "border-line"
                   )}
                 >
-                  <Link to={detailTo(p.slug)} className="overflow-hidden text-start">
-                    <ProjectShot project={p} className="transition-transform duration-700 group-hover:scale-[1.03]" />
-                  </Link>
-                  <div className="flex flex-1 flex-col gap-5 p-6">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
-                          {p.name}
-                        </h3>
-                        <StatusBadge status={p.status} />
-                      </div>
-                      <p className="mt-1.5 text-[13.5px] font-bold leading-7 text-hi">{p.subtitle}</p>
-                      <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
-                    </div>
-
-                    {p.caps && p.caps.length > 0 && (
-                      <div>
-                        <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
-                        <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
-                          {p.caps.map((c) => (
-                            <li key={c} className="flex items-center gap-1.5 text-[11.5px] font-medium leading-5 text-ink2">
-                              <Check className="h-3.5 w-3.5 shrink-0 text-sage" strokeWidth={2.5} />
-                              {c}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  <Link
+                    to={detailTo(featured.slug)}
+                    className="relative overflow-hidden text-start lg:col-span-3"
+                    aria-label={previewLabel(featured.name)}
+                  >
+                    <ProjectShot project={featured} className="h-full min-h-[240px] transition-transform duration-700 group-hover:scale-[1.015] lg:aspect-auto" />
+                    {featured.featured && featured.status !== "concept" && (
+                      <span
+                        className="absolute start-4 top-4 rounded-xs bg-shot/90 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-accent backdrop-blur"
+                        aria-hidden="true"
+                      >
+                        {t.projects.featured}
+                      </span>
                     )}
-
-                    <div className="mt-auto space-y-5 border-t border-line pt-5">
-                      <Meta label={t.projects.roleLabel} items={p.role} />
-                      <Meta label={t.projects.techLabel} items={p.tech} mono />
-                      <Link to={detailTo(p.slug)} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
-                        {t.projects.view}
-                        <DirArrow className="h-4 w-4" />
-                      </Link>
+                  </Link>
+                  <div className="flex flex-col gap-6 p-7 md:p-10 lg:col-span-2">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <h3 className="text-[28px] font-black tracking-tight md:text-[32px]" dir={featured.id === "hesabyar" ? undefined : "ltr"}>
+                          {featured.name}
+                        </h3>
+                        <StatusBadge status={featured.status} />
+                      </div>
+                      <p className="mt-2 text-[15px] font-bold leading-8 text-hi">{featured.subtitle}</p>
+                      <p className="mt-4 text-[14px] leading-[1.95] text-ink2">{featured.desc}</p>
                     </div>
+                    <Meta label={t.projects.roleLabel} items={featured.role} />
+                    <Meta label={t.projects.techLabel} items={featured.tech} mono />
+                    <Link
+                      to={detailTo(featured.slug)}
+                      className="mt-auto inline-flex items-center gap-2 border-t border-line pt-6 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
+                    >
+                      {t.projects.view}
+                      <DirArrow className="h-4 w-4" />
+                    </Link>
                   </div>
                 </article>
               </Reveal>
-            ))}
+            )}
+
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {grid.map((p, i) => (
+                <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
+                  <article
+                    className={cn(
+                      "group flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60",
+                      p.status === "concept" ? "border-dashed border-line2" : "border-line"
+                    )}
+                  >
+                    <Link to={detailTo(p.slug)} className="overflow-hidden text-start" aria-label={previewLabel(p.name)}>
+                      <ProjectShot project={p} className="transition-transform duration-700 group-hover:scale-[1.03]" />
+                    </Link>
+                    <div className="flex flex-1 flex-col gap-5 p-6">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-[21px] font-extrabold tracking-tight" dir={p.id === "hesabyar" ? undefined : "ltr"}>
+                            {p.name}
+                          </h3>
+                          <StatusBadge status={p.status} />
+                        </div>
+                        <p className="mt-1.5 text-[13.5px] font-bold leading-7 text-hi">{p.subtitle}</p>
+                        <p className="mt-3 text-[13px] leading-[1.9] text-ink2">{p.desc}</p>
+                      </div>
+
+                      {p.caps && p.caps.length > 0 && (
+                        <div>
+                          <span className="mb-2.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ink3">{t.projects.capsLabel}</span>
+                          <ul className="grid grid-cols-2 gap-x-3 gap-y-2">
+                            {p.caps.map((c) => (
+                              <li key={c} className="flex items-center gap-1.5 text-[11.5px] font-medium leading-5 text-ink2">
+                                <Check className="h-3.5 w-3.5 shrink-0 text-sage" strokeWidth={2.5} />
+                                {c}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <div className="mt-auto space-y-5 border-t border-line pt-5">
+                        <Meta label={t.projects.roleLabel} items={p.role} />
+                        <Meta label={t.projects.techLabel} items={p.tech} mono />
+                        <Link to={detailTo(p.slug)} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
+                          {t.projects.view}
+                          <DirArrow className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {isTeaser && (
           <div className="mt-10 flex justify-center">
@@ -602,20 +713,82 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
   );
 }
 
+function ProjectMetaRow({ project }: { project: ProjectItem }) {
+  const { t } = useApp();
+  const items: { key: string; label: string; value: ReactNode }[] = [];
+
+  if (project.year) {
+    items.push({ key: "year", label: t.projects.metaYear, value: project.year });
+  }
+  if (project.durationMonths != null) {
+    items.push({
+      key: "duration",
+      label: t.projects.metaDuration,
+      value: t.projects.metaDurationValue.replace("{n}", String(project.durationMonths)),
+    });
+  }
+  if (project.teamSize) {
+    items.push({ key: "team", label: t.projects.metaTeam, value: project.teamSize });
+  }
+  if (project.clientType) {
+    items.push({ key: "client", label: t.projects.metaClient, value: project.clientType });
+  }
+  if (project.links && project.links.length > 0) {
+    items.push({
+      key: "links",
+      label: t.projects.metaLinks,
+      value: (
+        <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-0.5">
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-hi underline-offset-2 transition-colors hover:underline"
+            >
+              {link.label}
+            </a>
+          ))}
+        </span>
+      ),
+    });
+  }
+
+  if (items.length === 0) return null;
+
+  return (
+    <dl className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1.5 text-[12px] leading-5 text-ink2">
+      {items.map((item) => (
+        <div key={item.key} className="inline-flex min-w-0 items-baseline gap-1.5">
+          <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">{item.label}</dt>
+          <dd className="min-w-0 font-medium text-ink">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 export function ProjectDetailView({ project }: { project: ProjectItem }) {
   const { t, lang } = useApp();
   return (
-    <div className="wrap section-pad">
-      <Link to={localePath(lang, "/projects")} className="inline-flex items-center gap-2 text-[13px] font-bold text-ink2 transition-colors hover:text-hi">
-        <DirArrow className="h-4 w-4 rotate-180" />
-        {t.projects.pageTitle}
-      </Link>
+    <section className="relative overflow-hidden section-pad border-t border-line">
+      <DecorativeGrid />
+      <div className="wrap relative">
+      <Breadcrumbs
+        items={[
+          { label: t.nav.home, to: localePath(lang, "/") },
+          { label: t.nav.projects, to: localePath(lang, "/projects") },
+          { label: project.name },
+        ]}
+      />
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <h1 className="text-[32px] font-black tracking-tight md:text-[40px]" dir={project.id === "hesabyar" ? undefined : "ltr"}>
           {project.name}
         </h1>
         <StatusBadge status={project.status} />
       </div>
+      <ProjectMetaRow project={project} />
       <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink3">{project.tags.join(" · ")}</p>
       <div className="mt-8 overflow-hidden rounded-lg border border-line">
         <ProjectShot project={project} />
@@ -661,10 +834,14 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
         <Meta label={t.projects.roleLabel} items={project.role} />
         <Meta label={t.projects.techLabel} items={project.tech} mono />
       </div>
-      <Link to={`${localePath(lang, "/about")}#contact/start`} className="btn btn-primary mt-10 w-full sm:w-auto">
+      <Link
+        to={`${localePath(lang, "/contact")}?project=${encodeURIComponent(project.slug)}`}
+        className="btn btn-primary mt-10 w-full sm:w-auto"
+      >
         {t.projects.discuss}
         <DirArrow className="h-4 w-4" />
       </Link>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -1,19 +1,37 @@
 /// <reference types="vitest/config" />
 import path from "path";
 import { fileURLToPath } from "url";
+import mdx from "@mdx-js/rollup";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import { toString as mdastToString } from "mdast-util-to-string";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DEFAULT_SITE_URL = "https://dbsgraphic.ir";
+/** Inject frontmatter.readingTimeMinutes from MDX body word count (~200 wpm). */
+function remarkArticleReadingTime() {
+  return (tree: unknown, file: { data?: Record<string, unknown> }) => {
+    const words = mdastToString(tree as never)
+      .split(/\s+/)
+      .filter(Boolean).length;
+    const minutes = Math.max(1, Math.round(words / 200));
+    const data = (file.data ??= {});
+    const matter = (data.matter as Record<string, unknown> | undefined) ?? {};
+    matter.readingTimeMinutes = minutes;
+    data.matter = matter;
+  };
+}
+
+const DEFAULT_SITE_URL = "https://saeedzarrini.ir";
 
 /** Light-theme tokens from src/index.css — keep in sync with <meta name="theme-color">. */
-const PWA_BG = "#f5f0e8"; // --page
-const PWA_THEME = "#bc9463"; // --accent
+const PWA_BG = "#f2efe9"; // --page (Paper)
+const PWA_THEME = "#a8471e"; // --accent (Oxide)
 
 /** English SEO description (manifest is single-locale; fa lives in the HTML head). */
 const PWA_DESCRIPTION =
@@ -38,13 +56,26 @@ function siteUrlHtmlPlugin(siteUrl: string): Plugin {
 }
 
 // https://vite.dev/config/
-export default defineConfig(({ mode, isSsrBuild }) => {
+export default defineConfig(async ({ mode, isSsrBuild }) => {
+  // Glob patterns shared with scripts/generate-sw.mjs (injectManifest post-prerender).
+  const {
+    workboxGlobPatterns,
+    workboxViteGlobIgnores,
+  } = await import("./scripts/workbox-shared-config.mjs");
+
   const env = loadEnv(mode, __dirname, "");
   const siteUrl = normalizeSiteUrl(env.SITE_URL || process.env.SITE_URL || DEFAULT_SITE_URL);
 
   return {
     plugins: [
-      react(),
+      // MDX must run before the React plugin (pre) so .mdx compiles to JSX first.
+      {
+        enforce: "pre" as const,
+        ...mdx({
+          remarkPlugins: [remarkFrontmatter, remarkArticleReadingTime, remarkMdxFrontmatter],
+        }),
+      },
+      react({ include: /\.(jsx|js|tsx|ts|mdx)$/ }),
       tailwindcss(),
       siteUrlHtmlPlugin(siteUrl),
       // Client build only — SSR pass must not emit a second service worker.
@@ -65,8 +96,8 @@ export default defineConfig(({ mode, isSsrBuild }) => {
             "og.jpg",
           ],
           manifest: {
-            name: "Saeed Zarrini — AI Solutions Engineer & Digital Product Builder",
-            short_name: "Saeed Zarrini",
+            name: "Saeed — AI Solutions Engineer & Digital Product Builder",
+            short_name: "Saeed",
             description: PWA_DESCRIPTION,
             // Locale redirect after launch is handled by LocalePreferenceRedirect.
             start_url: "/",
@@ -75,8 +106,8 @@ export default defineConfig(({ mode, isSsrBuild }) => {
             orientation: "portrait-primary",
             background_color: PWA_BG,
             theme_color: PWA_THEME,
-            lang: "en",
-            dir: "ltr",
+            lang: "fa",
+            dir: "rtl",
             icons: [
               {
                 src: "icons/pwa-192x192.png",
@@ -99,50 +130,15 @@ export default defineConfig(({ mode, isSsrBuild }) => {
             ],
           },
           workbox: {
-            // Precache build output (HTML/CSS/JS/fonts/icons). Revision hashes stay ON
-            // (default) so locale HTML and assets invalidate correctly across builds.
-            globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2,jpg,jpeg,webmanifest}"],
-            globIgnores: ["**/server/**", "**/admin/**", "**/*.php"],
-            // Uncached navigations (offline + miss) → on-brand offline page.
-            // Never claim PHP/admin routes for the public static PWA.
-            navigateFallback: "/offline.html",
-            navigateFallbackDenylist: [/^\/admin(?:\/|$)/i, /\.php$/i],
+            // Mid-build SW: precaches client assets only (locale HTML is added
+            // post-prerender by scripts/generate-sw.mjs via injectManifest).
+            // Navigation strategy and runtime caching live in scripts/sw-template.js
+            // which powers the final dist/sw.js that replaces this intermediate SW.
+            globPatterns: workboxGlobPatterns,
+            globIgnores: workboxViteGlobIgnores,
             cleanupOutdatedCaches: true,
             clientsClaim: true,
             skipWaiting: true,
-            runtimeCaching: [
-              {
-                // Project screenshots / OG / studio photos change infrequently.
-                urlPattern: ({ request, url }) =>
-                  request.destination === "image" ||
-                  /\.(?:png|jpe?g|gif|svg|webp|avif)$/i.test(url.pathname),
-                handler: "CacheFirst",
-                options: {
-                  cacheName: "images",
-                  expiration: {
-                    maxEntries: 80,
-                    maxAgeSeconds: 60 * 60 * 24 * 30,
-                  },
-                  cacheableResponse: { statuses: [0, 200] },
-                },
-              },
-              {
-                // Light NetworkFirst for misc same-origin docs that may update
-                // between deploys (sitemap/robots) without fighting HTML precache.
-                urlPattern: ({ url, sameOrigin }) =>
-                  sameOrigin && /\.(?:xml|txt)$/i.test(url.pathname) && !url.pathname.endsWith(".php"),
-                handler: "NetworkFirst",
-                options: {
-                  cacheName: "seo-files",
-                  networkTimeoutSeconds: 3,
-                  expiration: {
-                    maxEntries: 8,
-                    maxAgeSeconds: 60 * 60 * 24,
-                  },
-                  cacheableResponse: { statuses: [0, 200] },
-                },
-              },
-            ],
           },
           devOptions: {
             enabled: false,
@@ -156,6 +152,14 @@ export default defineConfig(({ mode, isSsrBuild }) => {
     },
     define: {
       "import.meta.env.VITE_SITE_URL": JSON.stringify(siteUrl),
+      /*
+       * Copyright year, frozen at build time. Reading `new Date()` during render
+       * would make the prerendered footer and the client disagree across a new
+       * year — a hydration mismatch, plus a stale year until the next deploy.
+       * A redeploy is what refreshes it, which is also when the rest of the
+       * prerendered HTML is refreshed.
+       */
+      __BUILD_YEAR__: JSON.stringify(String(new Date().getFullYear())),
     },
     build: {
       // Multi-page static emit (CSS/JS assets + prerendered HTML per route).

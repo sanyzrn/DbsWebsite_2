@@ -1,0 +1,35 @@
+# host-specific deployment config — replace with the equivalent for a new host if migrating
+# Netlify port of the Apache host rules (publish = dist).
+
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# Canonical: temporary Netlify subdomain → apex (update hostname if it changes)
+[[redirects]]
+  from = "https://YOUR-SITE.netlify.app/*"
+  to = "https://saeedzarrini.ir/:splat"
+  status = 301
+  force = true
+
+# True 404s (filesystem first; these only apply when no file matches)
+[[redirects]]
+  from = "/en/*"
+  to = "/en/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # CSP: self + Formspree; inline for FOUC/JSON-LD; self-hosted fonts — see hosting/README.md
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'sha256-1TyTUiUQaYnUOSkxfWN/m2BQXkyVQi80O22kk9Fe5e0=' 'sha256-7SlIgvFJntdkWWG4g9JFDyPOeIl8xfjW4ZSQRIHLyJ8=' 'sha256-8SRM0H1ymK/2cqAZDr7uhHVuUlriy+OB1heygaR6+hE=' 'sha256-8St1i8fCnLqTaHba1ndVXDmVUBwyya5nQIPknB/MMSE=' 'sha256-CsFQtK8V0Eq7YHkGpWA93ukDeJwJ/Udowa62mg90oxY=' 'sha256-Dkcn920WCH+j7w0gGZ9Eb98wEag3xKTPk3BZemKyNr4=' 'sha256-EGq0ZSC4E2cu/x99pr2/takRchSqrWN14cpCayj6H9Y=' 'sha256-FnBDcXBaE1yXJwlsC3PZlczDhW6vjuddaOciPdOv3Pg=' 'sha256-GwqYSySIepIb4wBs0cRyNIEtg4Fvigre9wxpdUgUqRg=' 'sha256-H7btt/BW67ZhLfOvRTF/hN0Ij9s80oSoyR+ptBcF7UI=' 'sha256-JEXHt2PcFwX8GTALM/gm4tr76nQ2EFyTa3OcxzRG0fw=' 'sha256-MqOXrBRkL+OyC71Jbg4qmxN2gW+k6d9d16RZCOaSY1s=' 'sha256-NaPX/uEHzfPMqA47sZe0dnxPe017Vb8cfizvGNkm3MQ=' 'sha256-OivhspbOmB9k/6Oe7tUM0R+pJaZ+hyNlbbeyyerTP6M=' 'sha256-OrKyOEdw0gUiiACuNfkcQEdTau2CGylEutxZsU3f1Vk=' 'sha256-OzmcyqUNTbjXIUH0w5EI0uW1KzvoYwO1GOseIWaAORo=' 'sha256-W0NO+/K4Qkt8F40o6PYVowhGAP8/3ggXLnTVxZUjWZA=' 'sha256-XC+FzjjMJ+jO0Gex2D9BC5orw/UpZcNSjStubVyKO4g=' 'sha256-Ya4ZUiE1pXXltvaUF3G23z+ryR2SEZYP7t8tFcbM03k=' 'sha256-ZGN/zAaHCTPMq+RK8hVT3Yzkj58hzTTxMUuu+XEOobQ=' 'sha256-aebMmlC9zoentNTnoFmyctvPQVMnN8tsvBcNOMzh6Og=' 'sha256-c0BAXUFW+y+a50tTAevPLhuR8TRQJNXVRzN4lXiSX4Q=' 'sha256-dLcFS8O9X6aI5MT1bDhlOdwgzAmgf9ZtM2W1P0sf650=' 'sha256-ehtqPMKuROm9Olah3Gb9xb2UneRzBhI6WZaiBdr79xU=' 'sha256-gV1K1d0Hp0rbAwm84ORqRyNkdmiSJ7eDPUQsMnR879I=' 'sha256-i+Whs6woTI8ag1YBMddnD8vH6Gmj5Nns2EYYiCgNSTg=' 'sha256-j4XQ3gA3AuaRMH9fqxcjGwB7/2sRBJhMyk3w8wR11TQ=' 'sha256-k0G0cTdPRAhp7hJsqdP05+q60hk4RpoaNlvKyMB1KmQ=' 'sha256-owNWFu9R9eNJrSO67WeTFGg9LdNq1leEUxdoEe7+XLU=' 'sha256-sj84UcnusqKsMtnccNj/TmNzUTihXKcaZ23tYy4V+rY=' 'sha256-srsWxEfBmFKivU6iOxhNO0vBcrtWG/lxOaq7wzsmnRE=' 'sha256-yleO5AdpWl8Gk4S9lx12gGzjaZvsgpPCcSA2FfC+r9g=' 'sha256-zPCAd/2Px1quHwujn8atG7CDeWlgdSKYpBSg9pq8q90='; style-src 'self'"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"
+    X-Frame-Options = "DENY"
+    # No Strict-Transport-Security until the permanent host is locked in.

@@ -1,0 +1,95 @@
+# Rename this file to `.htaccess` and upload it to your web root (the same folder as
+# index.html) alongside the rest of the dist/ build output — it must sit at the root
+# of the deployed site, not inside a subfolder.
+#
+# Requires:
+#   - mod_rewrite  (for filesystem-first checks before 404 fallback)
+#   - mod_headers  (security + cache headers — some shared hosts disable this by default)
+#   - mod_deflate  (gzip/deflate compression — optional but recommended)
+#   - mod_expires  (Expires header for cache-control — optional but recommended)
+#
+# Host-agnostic requirements mirrored from hosting/README.md (same as
+# Netlify / Cloudflare / Nginx examples):
+#   1. True HTTP 404 for unmatched paths (en → en/404.html, else 404.html)
+#   2. Security headers on every response (HSTS max-age=86400; includeSubDomains)
+#
+# ACTIVE HOST: Apache via GitHub Actions FTP (see .github/workflows/deploy.yml).
+# Place this next to the built files from `npm run build` (dist/ contents).
+
+DirectoryIndex index.html
+
+# Locale-aware 404 bodies (real HTTP 404 status — not soft-404).
+# Root default for Persian and non-/en paths. English overrides live in
+# dist/en/.htaccess (written by scripts/prerender.mjs) via directory inheritance:
+#   ErrorDocument 404 /en/404.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Existing files and directories (prerendered HTML routes, assets, images, fonts)
+  # must be served normally — only fall through to 404 when neither exists.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} ^/en(?:/|$)
+  RewriteRule ^ - [R=404,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ - [R=404,L]
+</IfModule>
+
+# --- Compression (requires mod_deflate) ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json \
+    application/xml text/xml text/plain image/svg+xml font/woff2
+</IfModule>
+
+# --- Cache-control (requires mod_expires + mod_headers) ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Vite-hashed assets: immutable for 1 year
+  <FilesMatch "\.(js|css|woff2)$">
+    ExpiresDefault "access plus 1 year"
+  </FilesMatch>
+  # HTML: always revalidate
+  <FilesMatch "\.html$">
+    ExpiresDefault "access plus 0 seconds"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# --- Security headers (requires mod_headers) ---
+<IfModule mod_headers.c>
+  # 1 year. Raised from the initial 1-day rollout value now that HTTPS is stable on
+  # the apex and all subdomains. Add `preload` only if submitting to the HSTS preload
+  # list — that commitment is hard to undo.
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  # Content-Security-Policy — generated at build by scripts/prerender.mjs (scripts/csp.mjs).
+  # Do not hand-edit the Header line below; re-run `npm run build` to refresh script hashes.
+  #   default-src 'self'              — deny by default; only same-origin unless overridden
+  #   base-uri 'self'                 — restrict <base> targets
+  #   object-src 'none'               — no plugins
+  #   frame-ancestors 'none'          — clickjacking protection (pairs with X-Frame-Options)
+  #   form-action 'self'              — same-origin form posts
+  #   script-src 'self' 'sha256-…' …  — app bundles + FOUC/theme + JSON-LD (per-build SHA-256 hashes)
+  #   style-src 'self' [+ hashes]     — bundled CSS only; inline style attrs removed from app
+  #   img-src 'self' data: blob:      — site images + inline/data URLs
+  #   font-src 'self' data:           — self-hosted @fontsource fonts (no Google Fonts CDN)
+  #   connect-src 'self'              — contact form POST to /api/contact.php
+  #   worker-src 'self' blob:         — PWA service worker + any blob workers
+  #   manifest-src 'self'             — web app manifest
+  #   upgrade-insecure-requests       — prefer HTTPS subresources
+  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests; script-src 'self' 'sha256-1TyTUiUQaYnUOSkxfWN/m2BQXkyVQi80O22kk9Fe5e0=' 'sha256-7SlIgvFJntdkWWG4g9JFDyPOeIl8xfjW4ZSQRIHLyJ8=' 'sha256-8SRM0H1ymK/2cqAZDr7uhHVuUlriy+OB1heygaR6+hE=' 'sha256-8St1i8fCnLqTaHba1ndVXDmVUBwyya5nQIPknB/MMSE=' 'sha256-CsFQtK8V0Eq7YHkGpWA93ukDeJwJ/Udowa62mg90oxY=' 'sha256-Dkcn920WCH+j7w0gGZ9Eb98wEag3xKTPk3BZemKyNr4=' 'sha256-EGq0ZSC4E2cu/x99pr2/takRchSqrWN14cpCayj6H9Y=' 'sha256-FnBDcXBaE1yXJwlsC3PZlczDhW6vjuddaOciPdOv3Pg=' 'sha256-GwqYSySIepIb4wBs0cRyNIEtg4Fvigre9wxpdUgUqRg=' 'sha256-H7btt/BW67ZhLfOvRTF/hN0Ij9s80oSoyR+ptBcF7UI=' 'sha256-JEXHt2PcFwX8GTALM/gm4tr76nQ2EFyTa3OcxzRG0fw=' 'sha256-MqOXrBRkL+OyC71Jbg4qmxN2gW+k6d9d16RZCOaSY1s=' 'sha256-NaPX/uEHzfPMqA47sZe0dnxPe017Vb8cfizvGNkm3MQ=' 'sha256-OivhspbOmB9k/6Oe7tUM0R+pJaZ+hyNlbbeyyerTP6M=' 'sha256-OrKyOEdw0gUiiACuNfkcQEdTau2CGylEutxZsU3f1Vk=' 'sha256-OzmcyqUNTbjXIUH0w5EI0uW1KzvoYwO1GOseIWaAORo=' 'sha256-W0NO+/K4Qkt8F40o6PYVowhGAP8/3ggXLnTVxZUjWZA=' 'sha256-XC+FzjjMJ+jO0Gex2D9BC5orw/UpZcNSjStubVyKO4g=' 'sha256-Ya4ZUiE1pXXltvaUF3G23z+ryR2SEZYP7t8tFcbM03k=' 'sha256-ZGN/zAaHCTPMq+RK8hVT3Yzkj58hzTTxMUuu+XEOobQ=' 'sha256-aebMmlC9zoentNTnoFmyctvPQVMnN8tsvBcNOMzh6Og=' 'sha256-c0BAXUFW+y+a50tTAevPLhuR8TRQJNXVRzN4lXiSX4Q=' 'sha256-dLcFS8O9X6aI5MT1bDhlOdwgzAmgf9ZtM2W1P0sf650=' 'sha256-ehtqPMKuROm9Olah3Gb9xb2UneRzBhI6WZaiBdr79xU=' 'sha256-gV1K1d0Hp0rbAwm84ORqRyNkdmiSJ7eDPUQsMnR879I=' 'sha256-i+Whs6woTI8ag1YBMddnD8vH6Gmj5Nns2EYYiCgNSTg=' 'sha256-j4XQ3gA3AuaRMH9fqxcjGwB7/2sRBJhMyk3w8wR11TQ=' 'sha256-k0G0cTdPRAhp7hJsqdP05+q60hk4RpoaNlvKyMB1KmQ=' 'sha256-owNWFu9R9eNJrSO67WeTFGg9LdNq1leEUxdoEe7+XLU=' 'sha256-sj84UcnusqKsMtnccNj/TmNzUTihXKcaZ23tYy4V+rY=' 'sha256-srsWxEfBmFKivU6iOxhNO0vBcrtWG/lxOaq7wzsmnRE=' 'sha256-yleO5AdpWl8Gk4S9lx12gGzjaZvsgpPCcSA2FfC+r9g=' 'sha256-zPCAd/2Px1quHwujn8atG7CDeWlgdSKYpBSg9pq8q90='; style-src 'self'"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"
+  Header set X-Frame-Options "DENY"
+</IfModule>

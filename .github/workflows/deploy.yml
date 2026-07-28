@@ -1,0 +1,86 @@
+# Deploys dist/ to Saeed's Apache FTP host after CI succeeds on main.
+# Vercel remains connected as a safety-net preview until FTP is confirmed end-to-end.
+name: Deploy to hosting
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Deploy the exact commit CI validated, not whatever tip main has now.
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+
+      - name: Generate Bale config
+        run: |
+          mkdir -p dist/api
+          printf '%s\n' \
+            '<?php' \
+            "define('BALE_BOT_TOKEN', '${{ secrets.BALE_BOT_TOKEN }}');" \
+            "define('BALE_CHAT_ID', '${{ secrets.BALE_CHAT_ID }}');" \
+            > dist/api/bale-config.php
+          test -f dist/api/contact.php
+          test -f dist/api/bale-config.php
+          php -l dist/api/contact.php
+          php -l dist/api/bale-config.php
+
+      # `npm run build` → prerender already writes dist/.htaccess (root ErrorDocument)
+      # and dist/en/.htaccess (English ErrorDocument override) from hosting examples,
+      # with live CSP hashes baked into the root file.
+      # Fail loudly if either is missing so FTP never ships without Apache 404 rules.
+      - name: Ensure dist/.htaccess is present
+        run: |
+          if [ ! -f dist/.htaccess ]; then
+            echo "dist/.htaccess missing after build — copying hosting/apache.htaccess.example as fallback"
+            cp hosting/apache.htaccess.example dist/.htaccess
+          fi
+          test -f dist/.htaccess
+          ls -la dist/.htaccess
+
+          mkdir -p dist/en
+          if [ ! -f dist/en/.htaccess ]; then
+            echo "dist/en/.htaccess missing after build — copying hosting/en.htaccess.example as fallback"
+            cp hosting/en.htaccess.example dist/en/.htaccess
+          fi
+          test -f dist/en/.htaccess
+          ls -la dist/en/.htaccess
+          grep -q 'ErrorDocument 404 /en/404.html' dist/en/.htaccess
+          grep -q 'ErrorDocument 404 /404.html' dist/.htaccess
+          # No Apache 2.4 <If> expressions — shared hosts often lack mod_version support.
+          if grep -E '<If |<Else>' dist/.htaccess dist/en/.htaccess; then
+            echo "ERROR: locale ErrorDocument must not use <If>/<Else>"
+            exit 1
+          fi
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # FTPS (explicit TLS) is required — plain FTP is not acceptable.
+          protocol: ftps
+          local-dir: ./dist/
+          # This FTP account's root IS already public_html — do not nest under /public_html/.
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**

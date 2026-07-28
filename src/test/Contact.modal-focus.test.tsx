@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
@@ -19,7 +19,7 @@ afterEach(() => {
 });
 
 describe("Contact inquiry modal focus management", () => {
-  it("moves focus into the form, traps Tab, and restores focus on Escape", async () => {
+  it("moves focus into the dialog, traps Tab, and restores focus on Escape", async () => {
     const user = userEvent.setup();
     window.history.pushState(null, "", "/about");
 
@@ -35,7 +35,7 @@ describe("Contact inquiry modal focus management", () => {
     await user.click(openBtn);
 
     const dialog = await screen.findByRole("dialog");
-    const nameField = screen.getByLabelText(new RegExp(dictionaries.fa.contact.form.name));
+    const nameField = within(dialog).getByLabelText(new RegExp(dictionaries.fa.contact.form.name));
     await waitFor(() => {
       expect(nameField).toHaveFocus();
     });

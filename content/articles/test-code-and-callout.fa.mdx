@@ -1,0 +1,37 @@
+---
+title: "فیکسچر تست: بلوک کد و Callout"
+description: "پیش‌نویس برای بازبینی استایل کد حصارکشی‌شده و کامپوننت Callout در نثر مقاله."
+date: "2026-07-22"
+tags: ["Full-Stack", "Testing"]
+status: "draft"
+---
+
+این پیش‌نویس دو سطح از مقاله را تمرین می‌کند که یادداشت‌های کوتاه لمس نمی‌کنند: یک بلوک کد
+حصارکشی‌شده و کامپوننت مشترک `<Callout>`. بقیه فقط داربست سبک است تا کد و Callout در بالای
+یک صفحهٔ خالی گیر نکنند.
+
+هنگام بازبینی، مطمئن شوید بلوک کد ریتم مونو، اسکرول افقی در عرض کم، و کنتراست کافی در تم
+روشن و تاریک دارد. Callout باید مثل یک حاشیهٔ عمدی خوانده شود — نه عنوان دوم و نه toast خطا.
+
+```ts
+type ArticleFixture = {
+  slug: string;
+  status: "draft" | "published";
+};
+
+export function isPublicFixture(article: ArticleFixture): boolean {
+  return article.status === "published";
+}
+
+// فقط برای QA چیدمان — فیکسچرها را draft نگه دارید تا در فهرست عمومی نیایند.
+console.assert(!isPublicFixture({ slug: "test-code-and-callout", status: "draft" }));
+```
+
+<Callout variant="note" title="یادداشت فیکسچر">
+  اگر این Callout از پاراگراف‌های اطراف بلندتر به نظر می‌رسد، واریانت‌ها را در
+  `src/components/mdx/Callout.tsx` تنظیم کنید؛ برای فاصلهٔ یک‌باره این MDX را دست نزنید.
+</Callout>
+
+یک پاراگراف پایانی بعد از Callout بررسی می‌کند که نثر تمیز ادامه پیدا کند. فاصلهٔ بالا و
+پایین هم حصار کد و هم Callout باید یکدست باشد؛ اگر یکی به بلوک بعدی می‌چسبد، CSS نثر مقاله
+به حاشیهٔ مشترک نیاز دارد نه هک‌های جداگانه برای هر کامپوننت.

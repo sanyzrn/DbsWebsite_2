@@ -9,19 +9,50 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - run: npx tsc --noEmit
       - run: npm run lint
+      - run: npm run check:i18n
       - run: npm test -- --run
       - run: npm run build
       # Post-build: internal links + canonical/OG vs SITE_URL (extends check-urls.mjs)
       - run: npm run check:dist
-      # axe-core + jsdom against key prerendered routes (see scripts/check-a11y.mjs)
+      # Playwright + axe-core (color-contrast enabled) against key prerendered routes
       - run: npm run check:a11y
-      # Initial JS/CSS gzip ceilings (~150 KiB / ~60 KiB)
+      # Initial JS/CSS/HTML/font/first-paint gzip ceilings
       - run: npm run check:bundle
+      # Optional live promotion gate (set repo Variable DEPLOY_CHECK_BASE_URL to an https origin)
+      - name: check:deploy (live HTTP 404 + noindex + SITE_URL HTTPS)
+        if: ${{ vars.DEPLOY_CHECK_BASE_URL != '' }}
+        env:
+          DEPLOY_CHECK_BASE_URL: ${{ vars.DEPLOY_CHECK_BASE_URL }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: npm run check:deploy
+
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+      - name: PHP syntax check (public/api/)
+        run: |
+          set -euo pipefail
+          mapfile -t files < <(find public/api -type f -name '*.php' 2>/dev/null || true)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No PHP files under public/api/"
+            exit 1
+          fi
+          for f in "${files[@]}"; do
+            php -l "$f"
+          done
+          echo "php -l OK — ${#files[@]} files"

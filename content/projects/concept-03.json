@@ -2,6 +2,9 @@
   "id": "concept-03",
   "slug": "concept-03",
   "status": "concept",
+  "maturity": "draft",
+  "schemaType": "CreativeWork",
+  "isPubliclyAvailable": false,
   "featured": false,
   "order": 10,
   "name": {

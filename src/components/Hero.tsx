@@ -1,10 +1,15 @@
-import { useId } from "react";
+import { lazy, Suspense, useId } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { useApp } from "../lib/app";
+import { useMagicDustEnabled, useMagicDustParticleCount } from "../lib/magicDustGate";
 import { localePath } from "../lib/paths";
 import { useTypewriter } from "../lib/useTypewriter";
 import { DirArrow } from "./ui";
+
+const MagicDust = lazy(() =>
+  import("./ui/magic-dust-shader").then((m) => ({ default: m.MagicDust }))
+);
 
 function SloganCycle({ phrases }: { phrases: string[] }) {
   const typed = useTypewriter(phrases);
@@ -17,7 +22,7 @@ function SloganCycle({ phrases }: { phrases: string[] }) {
   );
 }
 
-/** Soft accent glow + topographic contours + paper grain (static SVG/CSS). */
+/** Soft accent glow + paper grain (static SVG/CSS). Grain hidden unless `decorative-particle-effects` is on `<html>`. */
 export function HeroAtmosphere() {
   const uid = useId().replace(/:/g, "");
   const blurId = `ha-blur-${uid}`;
@@ -49,33 +54,7 @@ export function HeroAtmosphere() {
           <ellipse cx="640" cy="420" rx="340" ry="160" fill="var(--accent)" opacity="0.05" />
         </g>
 
-        {/* Topographic contour lines */}
-        <g fill="none" stroke="var(--line2)" strokeWidth="1.1" strokeLinecap="round" className="hero-atmosphere-topo">
-          <path d="M-40,160 C180,110 340,210 520,150 S880,70 1240,140" opacity="0.55" />
-          <path d="M-40,210 C200,155 360,250 540,190 S900,110 1240,185" opacity="0.45" />
-          <path d="M-40,260 C210,200 380,290 560,230 S920,150 1240,230" opacity="0.4" />
-          <path d="M-40,315 C220,250 400,335 580,275 S940,195 1240,280" opacity="0.35" />
-          <path d="M-40,375 C230,305 420,385 600,325 S960,245 1240,335" opacity="0.3" />
-          <path d="M-40,440 C240,365 440,440 620,380 S980,300 1240,395" opacity="0.26" />
-          <path d="M-40,510 C250,430 460,500 640,445 S1000,360 1240,460" opacity="0.22" />
-          <path d="M-40,585 C260,500 480,565 660,515 S1020,430 1240,530" opacity="0.18" />
-          <path d="M80,90 C260,40 420,120 600,70 S960,20 1120,80" stroke="var(--accent)" strokeWidth="1.2" opacity="0.22" />
-          <path d="M140,640 C360,580 560,650 760,600 S1040,540 1180,590" stroke="var(--accent)" strokeWidth="1" opacity="0.14" />
-        </g>
-
-        {/* Nested organic rings (contour islands) */}
-        <g fill="none" stroke="var(--line2)" strokeWidth="1" className="hero-atmosphere-topo">
-          <ellipse cx="200" cy="520" rx="90" ry="48" opacity="0.28" />
-          <ellipse cx="200" cy="520" rx="60" ry="30" opacity="0.22" />
-          <ellipse cx="200" cy="520" rx="32" ry="14" opacity="0.18" />
-          <ellipse cx="980" cy="480" rx="110" ry="56" opacity="0.24" />
-          <ellipse cx="980" cy="480" rx="72" ry="36" opacity="0.2" />
-          <ellipse cx="980" cy="480" rx="38" ry="18" opacity="0.16" />
-          <ellipse cx="620" cy="200" rx="70" ry="36" stroke="var(--accent)" opacity="0.16" />
-          <ellipse cx="620" cy="200" rx="42" ry="20" stroke="var(--accent)" opacity="0.12" />
-        </g>
-
-        {/* Fine paper grain */}
+        {/* Fine paper grain — hidden by default via .hero-atmosphere-grain + html class */}
         <rect width="1200" height="900" filter={`url(#${grainId})`} className="hero-atmosphere-grain" />
       </svg>
     </div>
@@ -85,13 +64,35 @@ export function HeroAtmosphere() {
 export default function Hero() {
   const { t, lang } = useApp();
   const connector = lang === "fa" ? " تا " : " to ";
+  // Gates run here — before lazy() mounts — so the WebGL chunk is never fetched when skipped.
+  const magicDustEnabled = useMagicDustEnabled();
+  const particleCount = useMagicDustParticleCount();
 
   return (
     <section id="top" className="relative flex min-h-dvh flex-col overflow-hidden">
+      {magicDustEnabled && (
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true" data-testid="magic-dust-layer">
+          <Suspense fallback={null}>
+            <MagicDust
+              key={particleCount}
+              particleColor="#a8471e"
+              particleCount={particleCount}
+              fontFamily="sans-serif"
+              sequence={[
+                { type: "text", text: "DbsStudio" },
+                { type: "text", text: "Design" },
+                { type: "text", text: "Build" },
+                { type: "text", text: "AI Solutions" },
+              ]}
+            />
+          </Suspense>
+        </div>
+      )}
+      {/* Static paper-texture / glow fallback — always present when WebGL is gated off */}
       <HeroAtmosphere />
 
-      <div className="wrap relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">
-        <div className="hero-in flex justify-center" style={{ animationDelay: "60ms" }}>
+      <div className="wrap relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center py-8 text-center pt-[96px] pb-10 md:pt-[120px] md:pb-14">
+        <div className="hero-in hero-in-d60 flex justify-center">
           <span className="chip max-w-full border-line2 font-[family-name:Vazirmatn,ui-sans-serif,system-ui,sans-serif] text-ink2">
             <Sparkles className="h-3.5 w-3.5 shrink-0 text-hi" strokeWidth={2.2} />
             <span className="truncate">{t.hero.badge}</span>
@@ -100,13 +101,16 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="hero-name mt-5 text-[48px] font-black leading-[1.12] tracking-tight sm:mt-7 sm:text-[64px] sm:leading-[1.1] lg:text-[72px] xl:text-[80px] xl:leading-[1.08]">
-          <span className="hero-in block" style={{ animationDelay: "140ms" }}>
+        <h1
+          dir="ltr"
+          className="hero-name hero-brand-name display-heading mt-5 text-[48px] font-black leading-[1.12] tracking-tight sm:mt-7 sm:text-[64px] sm:leading-[1.1] lg:text-[72px] xl:text-[80px] xl:leading-[1.08]"
+        >
+          <span className="hero-in hero-in-d140 block">
             {t.hero.name.split(t.hero.nameAccent)[0]}
             <span className="relative inline-block text-hi">
               {t.hero.nameAccent}
               <svg
-                className="hero-name-underline absolute -bottom-2 start-0 h-[0.18em] w-full min-h-[9px]"
+                className="hero-name-underline absolute start-0 h-[0.18em] w-full min-h-[9px]"
                 viewBox="0 0 200 9"
                 preserveAspectRatio="none"
                 aria-hidden="true"
@@ -125,24 +129,21 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p
-          className="hero-slogan hero-in mx-auto mt-4 max-w-3xl min-h-[2.7em] text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]"
-          style={{ animationDelay: "240ms" }}
-        >
+        <p className="hero-slogan hero-in hero-in-d240 mx-auto mt-4 max-w-3xl min-h-[2.7em] text-[18px] font-extrabold leading-[1.35] tracking-tight text-ink sm:mt-5 sm:text-[22px] md:text-[26px] md:leading-[1.35]">
           {t.hero.sloganA}
           {connector}
           <SloganCycle phrases={t.hero.sloganCycle} />
         </p>
 
-        <p className="hero-in mx-auto mt-5 max-w-4xl text-[14px] leading-7 text-ink2 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "340ms" }}>
+        <p className="hero-in hero-in-d340 mx-auto mt-5 max-w-4xl text-[14px] leading-7 text-ink2 sm:mt-7 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]">
           {t.hero.body}
         </p>
-        <p className="hero-in mx-auto mt-3 max-w-4xl text-[14px] font-semibold leading-7 text-ink sm:mt-4 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]" style={{ animationDelay: "420ms" }}>
+        <p className="hero-in hero-in-d420 mx-auto mt-3 max-w-4xl text-[14px] font-semibold leading-7 text-ink sm:mt-4 sm:text-[15px] sm:leading-8 md:text-base md:leading-[1.95]">
           {t.hero.body2}
         </p>
 
-        <div className="hero-in mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-3.5" style={{ animationDelay: "500ms" }}>
-          <Link to={`${localePath(lang, "/")}#projects`} className="btn btn-primary h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
+        <div className="hero-in hero-in-d500 mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-3.5">
+          <Link to={localePath(lang, "/projects")} className="btn btn-primary h-11 px-5 text-[14px] sm:h-[50px] sm:px-[26px] sm:text-[15px]">
             {t.hero.ctaPrimary}
             <DirArrow className="h-[18px] w-[18px]" />
           </Link>

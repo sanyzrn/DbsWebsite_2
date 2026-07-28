@@ -3,7 +3,8 @@ import { CareerTimeline, Skills } from "../components/About";
 import Contact from "../components/Contact";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
-import { Reveal, SectionHead } from "../components/ui";
+import Testimonials from "../components/Testimonials";
+import { Reveal, SectionHead, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 
 /**
@@ -17,15 +18,16 @@ export default function AboutPage() {
     <>
       <PageMeta page="about" />
       {/* 1–2. Strong opening + prominent studio image */}
-      <section id="about" className="section-pad border-t border-line bg-surface">
-        <div className="wrap">
+      <section id="about" className="relative overflow-hidden section-pad border-t border-line bg-surface">
+        <DecorativeGrid />
+        <div className="wrap relative">
           <SectionHead kicker={t.about.kicker} title={t.about.title} />
 
           <Reveal delay={80}>
             <figure className="relative mt-8 overflow-hidden rounded-lg border border-line sm:mt-10 sm:rounded-xl">
               <img
                 src="/images/studio.jpg"
-                alt={t.about.title}
+                alt={t.about.studioAlt}
                 loading="eager"
                 className="aspect-[16/9] w-full object-cover transition-transform duration-[1200ms] hover:scale-[1.02] md:aspect-[21/9]"
               />
@@ -33,7 +35,7 @@ export default function AboutPage() {
                 <span className="inline-flex items-center gap-2.5">
                   <img src="/Dbs_logo_single.webp" alt="" className="h-5 w-5 object-contain" />
                   <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/80 sm:text-[10px] sm:tracking-[0.2em]">
-                    DBSGraphic — creative & product studio
+                    DbsStudio — creative & product studio
                   </span>
                 </span>
               </div>
@@ -61,7 +63,6 @@ export default function AboutPage() {
             <Reveal delay={340}>
               <p className="mt-6 text-[15px] font-bold leading-8 sm:text-[16px]">{t.about.p3}</p>
             </Reveal>
-            {/* PLACEHOLDER — Saeed can add 1–2 more personal paragraphs here later. */}
             <Reveal delay={400}>
               <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                 {t.about.checklist.map((item, i) => (
@@ -117,7 +118,10 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* 5. Contact — keep id="contact" for /about#contact */}
+      {/* 5. Testimonials — trust nudge before Contact; hidden when empty */}
+      <Testimonials />
+
+      {/* 6. Contact — keep id="contact" for /about#contact */}
       <Contact />
     </>
   );

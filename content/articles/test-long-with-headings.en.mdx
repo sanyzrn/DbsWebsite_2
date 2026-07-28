@@ -1,0 +1,77 @@
+---
+title: "Test fixture: long article with headings"
+description: "A longer draft used to stress-test reading time, H2 hierarchy, lists, and blockquotes in the article prose styles."
+date: "2026-07-22"
+tags: ["Product Engineering", "Testing"]
+status: "draft"
+---
+
+This draft is a layout stress fixture for Field Notes. It is intentionally longer than a
+typical short note so reading-time calculation, heading rhythm, and mid-article spacing can
+be reviewed without inventing a real essay. Treat every sentence as placeholder texture for
+design QA — not as advice you would publish.
+
+## Why long fixtures still matter
+
+Short samples hide problems that only show up after a few scrolls. A long piece forces the
+prose container to reveal max-width comfort, paragraph spacing, and whether H2s create a
+clear outline when someone skims. If the page feels monotonous here, it will feel worse with
+real content that actually asks for attention.
+
+When evaluating, open this URL on mobile and desktop, then jump between the headings below.
+Confirm the sticky header clearance still leaves the first heading readable, and that the
+breadcrumb / meta row do not collide with the fixed nav on small screens.
+
+## Structure the reader can skim
+
+A useful long article usually exposes its shape early. For this fixture, the shape is fake
+but still hierarchical: an opening, a few section titles, a list of concrete checks, and a
+blockquote that should visually interrupt the column without looking like an error banner.
+
+Use this section to judge whether H2 size, weight, and top margin feel intentional next to
+body copy. If headings look timid, bump them in the prose stylesheet — do not pad the MDX
+with extra blank lines as a workaround.
+
+## Checklist for layout review
+
+When you open this fixture, walk through:
+
+- reading-time label matches roughly 800–1000 English words
+- each H2 is easy to spot while scrolling quickly
+- the bullet list below keeps consistent indent and line-height
+- the blockquote has enough contrast without stealing the page
+
+Concrete checks:
+
+- Title and description still feel secondary to the brand, not louder than the site chrome
+- Body measure stays near 70ch so lines do not stretch on wide monitors
+- Related-projects / related-articles asides (when present) sit below a clear rule
+- Draft status keeps this out of `/articles` listings and sitemap generation
+
+## A pause in the middle
+
+> Layout fixtures should look obviously temporary. If a visitor could mistake this for a
+> published Field Note, the draft pipeline or visual treatment is too quiet about its role.
+
+After the quote, keep reading for filler paragraphs that exist only to lengthen the scroll.
+They deliberately repeat ideas about testing article chrome: spacing, hierarchy, and the
+difference between a card on the index and a full reading column on the detail route.
+
+Imagine you are reviewing a pull request that only changes typography. You need enough text
+to see widows, cramped lists, and heading collisions. You also need enough text to notice
+when the page transition or decorative grid distracts from reading. That is the only job of
+the remaining paragraphs.
+
+Another pass: scan for uneven gaps between sections. If one H2 feels glued to the previous
+paragraph while another floats, the prose CSS is inconsistent. Fix the stylesheet, then
+re-check this fixture before touching real articles.
+
+Keep going a little further so the reading-time estimate climbs. Placeholder sentences about
+layout QA are fine here because status stays draft. Production content elsewhere on the site
+must remain specific and honest; these three test articles are the explicit exception called
+out for design evaluation.
+
+Finally, end with a calm closing paragraph. A long fixture should not climax — it should
+simply stop once it has exercised headings, a list, a quote, and enough words for timing.
+When you are done reviewing, leave the files as draft and move on to the next fixture that
+covers code and callouts.

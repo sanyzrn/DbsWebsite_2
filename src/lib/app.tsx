@@ -1,11 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getDictionary, type Dict, type Lang } from "./i18n";
+import { runThemeTransition } from "./motion";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
 
 export type Theme = "light" | "dark";
 
-interface AppState {
+export interface AppState {
   lang: Lang;
   dir: "rtl" | "ltr";
   isRTL: boolean;
@@ -16,7 +17,8 @@ interface AppState {
   toggleTheme: () => void;
 }
 
-const AppCtx = createContext<AppState | null>(null);
+/** Exported so tests can provide the context directly without module mocking. */
+export const AppCtx = createContext<AppState | null>(null);
 
 function initialTheme(): Theme {
   if (typeof window === "undefined") return "light";
@@ -50,13 +52,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.lang = lang;
     root.dir = dir;
-    localStorage.setItem("sz-lang", lang);
   }, [lang, dir]);
 
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
-    root.style.colorScheme = theme;
     localStorage.setItem("sz-theme", theme);
   }, [theme]);
 
@@ -66,10 +66,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // an explicit language choice with a stale sz-lang value.
       localStorage.setItem("sz-lang", next);
       const path = stripLangPrefix(location.pathname);
-      navigate(localePath(next, path) + location.hash + location.search);
+      navigate({
+        pathname: localePath(next, path),
+        search: location.search,
+        hash: location.hash,
+      });
     },
     [location.pathname, location.hash, location.search, navigate]
   );
+
+  const toggleTheme = useCallback(() => {
+    const next: Theme = theme === "light" ? "dark" : "light";
+    runThemeTransition(() => {
+      // Apply DOM tokens synchronously so View Transitions can capture old/new.
+      const root = document.documentElement;
+      root.classList.toggle("dark", next === "dark");
+      localStorage.setItem("sz-theme", next);
+      setTheme(next);
+    });
+  }, [theme]);
 
   const value = useMemo<AppState>(
     () => ({
@@ -80,9 +95,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setLang,
       toggleLang: () => setLang(lang === "fa" ? "en" : "fa"),
       theme,
-      toggleTheme: () => setTheme((m) => (m === "light" ? "dark" : "light")),
+      toggleTheme,
     }),
-    [lang, dir, theme, setLang]
+    [lang, dir, theme, setLang, toggleTheme]
   );
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;

@@ -31,18 +31,18 @@ const ok = (name, pass, detail = "") => {
 
 const html = await get(base + "/");
 ok("Home responds 200", html.status === 200);
-ok("theme-color is #bc9463", html.body.toString().includes('content="#bc9463"'));
+ok("theme-color is #a8471e", html.body.toString().includes('content="#a8471e"'));
 ok("manifest link present", /rel=["']manifest["']/.test(html.body.toString()));
 
 const man = await get(base + "/manifest.webmanifest");
 ok("manifest.webmanifest 200", man.status === 200);
 const m = JSON.parse(man.body.toString());
-ok("manifest.name", !!m.name && m.name.includes("Saeed Zarrini"));
-ok("manifest.short_name", m.short_name === "Saeed Zarrini");
+ok("manifest.name", !!m.name && m.name.includes("Saeed"));
+ok("manifest.short_name", m.short_name === "Saeed");
 ok("manifest.start_url /", m.start_url === "/");
 ok("manifest.display standalone", m.display === "standalone");
-ok("manifest.background_color", m.background_color?.toLowerCase() === "#f5f0e8");
-ok("manifest.theme_color", m.theme_color?.toLowerCase() === "#bc9463");
+ok("manifest.background_color", m.background_color?.toLowerCase() === "#f2efe9");
+ok("manifest.theme_color", m.theme_color?.toLowerCase() === "#a8471e");
 ok("manifest description from SEO", /idea and shipping/i.test(m.description || ""));
 const sizes = new Set((m.icons || []).flatMap((i) => (i.sizes || "").split(" ")));
 ok("icon 192x192", sizes.has("192x192"));
@@ -61,7 +61,8 @@ ok("sw navigateFallback offline.html", sw.body.toString().includes("/offline.htm
 ok("sw denylist admin/php", /admin/.test(sw.body.toString()) && /\.php/.test(sw.body.toString()));
 ok("sw CacheFirst images", sw.body.toString().includes("CacheFirst"));
 ok("sw NetworkFirst seo", sw.body.toString().includes("NetworkFirst"));
-ok("sw revisioning active", /revision:"[a-f0-9]+"/.test(sw.body.toString()));
+// Workbox emits the manifest as JSON ("revision":"…"); minifiers may drop the key quotes.
+ok("sw revisioning active", /"?revision"?:\s*"[a-f0-9]+"/.test(sw.body.toString()));
 ok("precache includes en locale HTML", sw.body.toString().includes("en/about/index.html"));
 
 const off = await get(base + "/offline.html");

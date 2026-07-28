@@ -1,0 +1,125 @@
+:root {
+  --page: #f2efe9;
+  --surface: #e9e5db;
+  --ink: #171310;
+  --ink2: color-mix(in srgb, var(--ink) 68%, var(--page));
+  --line: color-mix(in srgb, var(--ink) 12%, var(--page));
+  --accent: #a8471e;
+  --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #141110;
+    --surface: #1b1714;
+    --ink: #ede8de;
+    --ink2: color-mix(in srgb, var(--ink) 70%, var(--page));
+    --line: color-mix(in srgb, var(--ink) 14%, var(--page));
+    --accent: #d9713d;
+    --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
+  }
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  background: var(--page);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  width: min(36rem, 100%);
+  text-align: center;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 2.25rem 1.5rem 2rem;
+}
+.kicker {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+h1 {
+  margin: 1rem 0 0;
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+h1.en {
+  margin-top: 1.75rem;
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+}
+p {
+  margin: 1rem auto 0;
+  max-width: 28rem;
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink2);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.75rem;
+}
+a,
+button {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 48px;
+  padding: 0 1.4rem;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.primary {
+  background: var(--accent);
+  color: #fbf9f4;
+}
+.primary:hover {
+  background: var(--accentdark);
+  color: #fbf9f4;
+}
+@media (prefers-color-scheme: dark) {
+  .primary,
+  .primary:hover {
+    color: #141110;
+  }
+}
+.ghost {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+.lang {
+  margin-top: 1.25rem;
+  font-size: 12.5px;
+  color: var(--ink2);
+}
+.lang a {
+  height: auto;
+  padding: 0;
+  color: var(--accentdark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
