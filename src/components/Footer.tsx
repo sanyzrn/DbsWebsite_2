@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useApp } from "../lib/app";
 import { hasNewsContent } from "../lib/news";
 import { localePath } from "../lib/paths";
-import { LinkedinIcon, GithubIcon, TelegramIcon, WhatsappIcon } from "./icons";
+import { GithubIcon, TelegramIcon, WhatsappIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
@@ -32,11 +32,6 @@ export default function Footer() {
       icon: GithubIcon,
       label: "GitHub",
       href: "https://github.com/sanyzrn/",
-    },
-    {
-      icon: LinkedinIcon,
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/saeed-zarrini-20a56341",
     },
     {
       icon: TelegramIcon,

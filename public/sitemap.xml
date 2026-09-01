@@ -100,58 +100,30 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saeedzarrini.ir/projects/dbsbrain</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbsbrain" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbsbrain" />
+    <loc>https://saeedzarrini.ir/projects/dbsnex</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbsnex" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbsnex" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saeedzarrini.ir/en/projects/dbsbrain</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbsbrain" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbsbrain" />
+    <loc>https://saeedzarrini.ir/en/projects/dbsnex</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbsnex" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbsnex" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saeedzarrini.ir/projects/dbschatbot</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbschatbot" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbschatbot" />
+    <loc>https://saeedzarrini.ir/projects/nexahr</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/nexahr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/nexahr" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saeedzarrini.ir/en/projects/dbschatbot</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbschatbot" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbschatbot" />
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saeedzarrini.ir/projects/dbskeep</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbskeep" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbskeep" />
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saeedzarrini.ir/en/projects/dbskeep</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbskeep" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbskeep" />
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saeedzarrini.ir/projects/dbspulse</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbspulse" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbspulse" />
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saeedzarrini.ir/en/projects/dbspulse</loc>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/dbspulse" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/dbspulse" />
+    <loc>https://saeedzarrini.ir/en/projects/nexahr</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/projects/nexahr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/projects/nexahr" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

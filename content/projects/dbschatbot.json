@@ -2,7 +2,7 @@
   "id": "dbschatbot",
   "slug": "dbschatbot",
   "status": "production",
-  "maturity": "published",
+  "maturity": "draft",
   "schemaType": "SoftwareApplication",
   "isPubliclyAvailable": false,
   "featured": false,
