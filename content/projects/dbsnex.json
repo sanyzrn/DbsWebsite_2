@@ -1,0 +1,66 @@
+{
+  "id": "dbsnex",
+  "slug": "dbsnex",
+  "status": "production",
+  "maturity": "published",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
+  "featured": true,
+  "order": 1,
+  "name": {
+    "fa": "Nex",
+    "en": "Nex"
+  },
+  "subtitle": {
+    "fa": "هر فکر، صدا و لحظه؛ در چند ثانیه ثبت می‌شود و درست وقتی لازم است پیدا می‌شود.",
+    "en": "Capture every thought, voice and moment in seconds — then find it exactly when it matters."
+  },
+  "desc": {
+    "fa": "Nex یک فضای شخصیِ local-first برای ثبت فوری است؛ جایی میان یادداشت، صدا، تصویر و فایل که بدون فرم‌های شلوغ یا دکمهٔ ذخیره، ایده را همان لحظه امن نگه می‌دارد. تجربه‌ای سریع، آرام و خصوصی برای ذهنی که نمی‌خواهد هیچ چیز مهمی را گم کند.",
+    "en": "Nex is a local-first personal capture space for text, voice, photos and files. It keeps ideas safe the instant they appear — without cluttered forms, forced organization or a save button — in a calm, private experience built for minds that should not lose what matters."
+  },
+  "problem": {
+    "fa": "بیشتر ابزارهای یادداشت‌برداری کار را با انتخاب پوشه، قالب و دسته‌بندی شروع می‌کنند؛ همان اصطکاک کوچکی که باعث می‌شود ایده‌های کوتاه، صداهای مهم و لحظه‌های گذرا هرگز ثبت نشوند.",
+    "en": "Most note apps begin with friction: folders, templates and categorization. That tiny delay is enough for passing ideas, important voice notes and fleeting moments to disappear before they are captured."
+  },
+  "approach": {
+    "fa": "طراحی محصول بر یک اصل بنا شد: «اول ثبت کن، بعداً اگر خواستی مرتبش کن.» Nex همه‌چیز را در یک تایم‌لاین زنده جمع می‌کند و با جست‌وجوی تمام‌متن، تگ، فیلتر و یادآور، بازگشت به اطلاعات را بی‌دردسر می‌کند. قابلیت‌های هوشمند مثل OCR، تبدیل صدا به متن و خلاصه‌سازی کاملاً اختیاری‌اند تا حریم خصوصی و کنترل کاربر همیشه اول بماند.",
+    "en": "The product is built on one principle: capture first, organize later — if ever. A living timeline, full-text search, tags, filters and reminders make retrieval effortless. Optional intelligence such as OCR, transcription and summaries stays behind explicit controls, keeping privacy and user agency first."
+  },
+  "result": {
+    "fa": "یک ابزار capture سریع و خوش‌ساخت برای اندروید که داده را روی خود دستگاه نگه می‌دارد، با پشتیبان‌گیری و خروجی کامل از آن محافظت می‌کند و تجربهٔ ثبت را به اندازهٔ خود فکر، بی‌واسطه می‌سازد.",
+    "en": "A polished Android capture tool that keeps data on-device, protects it with complete backups and exports, and makes recording a thought feel as immediate as the thought itself."
+  },
+  "role": {
+    "fa": [
+      "استراتژی محصول",
+      "طراحی تجربه و رابط کاربری",
+      "معماری Local-first",
+      "توسعه Flutter",
+      "طراحی سیستم",
+      "تست و انتشار"
+    ],
+    "en": [
+      "Product Strategy",
+      "UX & UI Design",
+      "Local-first Architecture",
+      "Flutter Development",
+      "Design System",
+      "Testing & Release"
+    ]
+  },
+  "tech": [
+    "Flutter",
+    "Dart",
+    "SQLite",
+    "FTS5",
+    "Android"
+  ],
+  "tags": [
+    "Mobile",
+    "Product Design",
+    "Privacy"
+  ],
+  "image_url": "/images/projects/dbsnex.webp",
+  "mock": "keep"
+}

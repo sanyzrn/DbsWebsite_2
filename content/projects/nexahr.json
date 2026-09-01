@@ -1,0 +1,67 @@
+{
+  "id": "nexahr",
+  "slug": "nexahr",
+  "status": "production",
+  "maturity": "published",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
+  "featured": true,
+  "order": 2,
+  "name": {
+    "fa": "NexaHR",
+    "en": "NexaHR"
+  },
+  "subtitle": {
+    "fa": "ارزیابی عملکرد را از یک مسیر پراکنده و پرریسک، به تصمیمی شفاف، قابل‌پیگیری و قابل‌اتکا تبدیل می‌کند.",
+    "en": "Turns performance evaluation from a fragmented, high-risk process into a clear, traceable decision system."
+  },
+  "desc": {
+    "fa": "NexaHR یک سامانهٔ سازمانی برای مدیریت ارزیابی عملکرد پرسنل است؛ از تعریف شاخص‌ها و زنجیرهٔ تأیید تا تحلیل، اعتراض، خروجی رسمی و تصمیم‌گیری پیش از تمدید قرارداد. این محصول، منابع انسانی را از فایل‌ها و پیگیری‌های پراکنده به یک فرآیند دقیق، امن و قابل دفاع می‌رساند.",
+    "en": "NexaHR is an organizational performance-evaluation platform that manages the full journey: criteria, approval chains, analytics, appeals, official documents and pre-contract decisions. It replaces disconnected files and follow-ups with a rigorous, secure and defensible process."
+  },
+  "problem": {
+    "fa": "ارزیابی عملکرد در سازمان‌ها معمولاً میان اکسل، فرم کاغذی و پیام‌های پراکنده گم می‌شود؛ مسئولیت‌ها مبهم می‌مانند، سابقهٔ تصمیم‌ها قابل اتکا نیست و گزارش‌گیری زمان‌بر و آسیب‌پذیر می‌شود.",
+    "en": "Performance evaluation is often lost across spreadsheets, paper forms and scattered messages. Responsibility becomes unclear, decisions lose their audit trail, and reporting turns slow and fragile."
+  },
+  "approach": {
+    "fa": "NexaHR کل چرخه را به یک گردش‌کار نقش‌محور و نسخه‌دار تبدیل می‌کند: هر پرونده مسیر تأیید روشن دارد، هر تغییر ثبت می‌شود، وزن‌ها و شاخص‌ها تاریخچهٔ مستقل دارند و گزارش‌ها از دادهٔ زنده ساخته می‌شوند. طراحی RTL، تقویم جلالی، کنترل‌های دسترسی دقیق و خروجی قابل تأیید، محصول را برای استفادهٔ واقعی در سازمان ایرانی آماده می‌کند.",
+    "en": "NexaHR turns the entire cycle into a role-aware, versioned workflow: every case has a clear approval path, every change is logged, scoring and criteria preserve their history, and reports are built from live data. RTL design, Jalali dates, precise access controls and verifiable exports make it ready for real organizational use."
+  },
+  "result": {
+    "fa": "یک مرکز فرمان مدرن برای منابع انسانی که ارزیابی را قابل‌مشاهده، منصفانه و قابل‌تحلیل می‌کند؛ از کارنامهٔ هر فرد تا دید کلان سازمان، بدون قربانی‌کردن امنیت یا جزئیات فرآیند.",
+    "en": "A modern command center for HR that makes evaluation visible, fair and analyzable — from each employee's record to the organization-wide view, without sacrificing security or process detail."
+  },
+  "role": {
+    "fa": [
+      "تحقیق و طراحی محصول",
+      "معماری سیستم",
+      "طراحی UX/UI",
+      "توسعه Full-stack",
+      "مدل‌سازی داده",
+      "امنیت و استقرار"
+    ],
+    "en": [
+      "Product Research & Design",
+      "System Architecture",
+      "UX/UI Design",
+      "Full-stack Development",
+      "Data Modeling",
+      "Security & Deployment"
+    ]
+  },
+  "tech": [
+    "React",
+    "TypeScript",
+    "FastAPI",
+    "PostgreSQL",
+    "Tailwind CSS",
+    "Docker"
+  ],
+  "tags": [
+    "Enterprise",
+    "HR Tech",
+    "Full-Stack"
+  ],
+  "image_url": "/images/projects/nexahr.webp",
+  "mock": "pulse"
+}

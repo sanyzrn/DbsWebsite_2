@@ -6,8 +6,8 @@ import { resolvePageSeo } from "../lib/seo";
 describe("projects content pipeline", () => {
   it("loads all project JSON files sorted by order", () => {
     const all = loadProjectContent();
-    expect(all.length).toBeGreaterThanOrEqual(10);
-    expect(all[0].slug).toBe("dbspulse");
+    expect(all.length).toBeGreaterThanOrEqual(12);
+    expect(all[0].slug).toBe("dbsnex");
     expect(all[0].featured).toBe(true);
     for (let i = 1; i < all.length; i++) {
       expect(all[i].order).toBeGreaterThanOrEqual(all[i - 1].order);
@@ -17,15 +17,15 @@ describe("projects content pipeline", () => {
   it("localizes bilingual fields for fa and en (published listings)", () => {
     const fa = getLocalizedProjects("fa");
     const en = getLocalizedProjects("en");
-    const pulseFa = fa.find((p) => p.slug === "dbspulse");
-    const pulseEn = en.find((p) => p.slug === "dbspulse");
-    expect(pulseFa?.subtitle).toContain("ارزیابی");
-    expect(pulseEn?.subtitle).toContain("performance");
-    expect(pulseFa?.role.length).toBeGreaterThan(0);
-    expect(pulseEn?.tech).toContain("React");
-    expect(pulseFa?.problem).toContain("اکسل");
-    expect(pulseEn?.approach).toContain("FastAPI");
-    expect(pulseEn?.result).toContain("Claude Code");
+    const nexahrFa = fa.find((p) => p.slug === "nexahr");
+    const nexahrEn = en.find((p) => p.slug === "nexahr");
+    expect(nexahrFa?.subtitle).toContain("ارزیابی");
+    expect(nexahrEn?.subtitle).toContain("performance");
+    expect(nexahrFa?.role.length).toBeGreaterThan(0);
+    expect(nexahrEn?.tech).toContain("React");
+    expect(nexahrFa?.problem).toContain("اکسل");
+    expect(nexahrEn?.approach).toContain("RTL");
+    expect(nexahrEn?.result).toContain("HR");
     // Draft projects stay off public listings
     expect(fa.some((p) => p.slug === "hesabyar")).toBe(false);
     expect(fa.some((p) => p.slug.startsWith("concept-"))).toBe(false);
@@ -33,7 +33,7 @@ describe("projects content pipeline", () => {
 
   it("fills case-study fields for published production projects and keeps drafts marked", () => {
     const all = loadProjectContent();
-    const published = ["dbspulse", "dbskeep", "dbsbrain", "dbschatbot"];
+    const published = ["dbsnex", "nexahr"];
     for (const slug of published) {
       const p = all.find((x) => x.slug === slug);
       expect(p, slug).toBeTruthy();
@@ -46,9 +46,12 @@ describe("projects content pipeline", () => {
       expect(p!.result.en.trim().length).toBeGreaterThan(0);
       expect(p!._todo).toBeUndefined();
     }
-    for (const slug of ["dbsai", "dbstools", "hesabyar"]) {
+    for (const slug of ["dbsai", "dbstools", "hesabyar", "dbspulse", "dbskeep", "dbsbrain", "dbschatbot"]) {
       const p = all.find((x) => x.slug === slug);
       expect(p?.maturity).toBe("draft");
+    }
+    for (const slug of ["dbsai", "dbstools", "hesabyar"]) {
+      const p = all.find((x) => x.slug === slug);
       expect(p?._todo).toMatch(/confirm|replace/i);
     }
     for (const slug of ["concept-01", "concept-02", "concept-03"]) {
@@ -58,7 +61,9 @@ describe("projects content pipeline", () => {
 
   it("injects only published projects into the UI dictionary listings", () => {
     const dict = getDictionary("en");
-    expect(dict.projects.items.some((p) => p.slug === "dbspulse")).toBe(true);
+    expect(dict.projects.items.some((p) => p.slug === "dbsnex")).toBe(true);
+    expect(dict.projects.items.some((p) => p.slug === "nexahr")).toBe(true);
+    expect(dict.projects.items.some((p) => p.slug === "dbspulse")).toBe(false);
     expect(dict.projects.items.some((p) => p.slug === "hesabyar")).toBe(false);
     expect(dict.projects.items.some((p) => p.slug === "concept-01")).toBe(false);
   });

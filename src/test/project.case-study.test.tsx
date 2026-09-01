@@ -15,37 +15,37 @@ afterEach(() => {
 
 describe("project case-study detail rendering", () => {
   it("renders problem/approach/result on the Persian detail route", () => {
-    const pulse = getLocalizedProjects("fa").find((p) => p.slug === "dbspulse");
-    expect(pulse?.problem).toBeTruthy();
-    window.history.pushState(null, "", "/projects/dbspulse");
+    const nexahr = getLocalizedProjects("fa").find((p) => p.slug === "nexahr");
+    expect(nexahr?.problem).toBeTruthy();
+    window.history.pushState(null, "", "/projects/nexahr");
     render(<App />);
     expect(screen.getByText(dictionaries.fa.projects.problemLabel)).toBeTruthy();
     expect(screen.getByText(dictionaries.fa.projects.approachLabel)).toBeTruthy();
     expect(screen.getByText(dictionaries.fa.projects.resultLabel)).toBeTruthy();
-    expect(screen.getByText(pulse!.problem)).toBeTruthy();
-    expect(screen.getByText(pulse!.approach)).toBeTruthy();
-    expect(screen.getByText(pulse!.result)).toBeTruthy();
+    expect(screen.getByText(nexahr!.problem)).toBeTruthy();
+    expect(screen.getByText(nexahr!.approach)).toBeTruthy();
+    expect(screen.getByText(nexahr!.result)).toBeTruthy();
   });
 
   it("renders problem/approach/result on the English detail route", () => {
-    const pulse = getLocalizedProjects("en").find((p) => p.slug === "dbspulse");
-    window.history.pushState(null, "", "/en/projects/dbspulse");
+    const nexahr = getLocalizedProjects("en").find((p) => p.slug === "nexahr");
+    window.history.pushState(null, "", "/en/projects/nexahr");
     render(<App />);
     expect(screen.getByText(dictionaries.en.projects.problemLabel)).toBeTruthy();
-    expect(screen.getByText(pulse!.problem)).toBeTruthy();
-    expect(screen.getByText(pulse!.result)).toBeTruthy();
+    expect(screen.getByText(nexahr!.problem)).toBeTruthy();
+    expect(screen.getByText(nexahr!.result)).toBeTruthy();
   });
 
   it("omits the metadata row when optional case-study fields are empty", () => {
-    const pulse = getLocalizedProjects("en").find((p) => p.slug === "dbspulse");
-    expect(pulse).toBeTruthy();
-    expect(pulse!.year).toBeUndefined();
-    expect(pulse!.durationMonths).toBeUndefined();
-    expect(pulse!.teamSize).toBeUndefined();
-    expect(pulse!.clientType).toBeUndefined();
-    expect(pulse!.links).toBeUndefined();
+    const nexahr = getLocalizedProjects("en").find((p) => p.slug === "nexahr");
+    expect(nexahr).toBeTruthy();
+    expect(nexahr!.year).toBeUndefined();
+    expect(nexahr!.durationMonths).toBeUndefined();
+    expect(nexahr!.teamSize).toBeUndefined();
+    expect(nexahr!.clientType).toBeUndefined();
+    expect(nexahr!.links).toBeUndefined();
 
-    window.history.pushState(null, "", "/en/projects/dbspulse");
+    window.history.pushState(null, "", "/en/projects/nexahr");
     render(<App />);
     expect(screen.queryByText(dictionaries.en.projects.metaYear)).toBeNull();
     expect(screen.queryByText(dictionaries.en.projects.metaDuration)).toBeNull();
@@ -55,7 +55,7 @@ describe("project case-study detail rendering", () => {
   });
 
   it("renders only populated metadata fields on the detail view", () => {
-    const base = getLocalizedProjects("en").find((p) => p.slug === "dbspulse");
+    const base = getLocalizedProjects("en").find((p) => p.slug === "nexahr");
     expect(base).toBeTruthy();
 
     const withMeta: ProjectContent = {
@@ -88,7 +88,7 @@ describe("project case-study detail rendering", () => {
 
     const project = localizeProject(withMeta, "en");
     render(
-      <MemoryRouter initialEntries={["/en/projects/dbspulse"]}>
+      <MemoryRouter initialEntries={["/en/projects/nexahr"]}>
         <AppProvider>
           <ProjectDetailView project={project} />
         </AppProvider>
