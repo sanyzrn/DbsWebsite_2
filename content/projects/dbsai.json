@@ -2,34 +2,34 @@
   "id": "dbsai",
   "slug": "dbsai",
   "status": "production",
-  "maturity": "draft",
+  "maturity": "published",
   "schemaType": "SoftwareApplication",
   "isPubliclyAvailable": false,
   "featured": false,
-  "order": 2,
+  "order": 6,
   "name": {
     "fa": "DbsAI",
     "en": "DbsAI"
   },
   "subtitle": {
-    "fa": "یک محیط هوشمند برای کار سازمانی.",
-    "en": "An intelligent workspace for organizational work."
+    "fa": "در حال اجرا — فضای کاری هوش مصنوعی چندمدلی برای تیم‌هایی که کنترل، امنیت و بهره‌وری را یک‌جا می‌خواهند.",
+    "en": "In progress — a multi-model AI workspace for teams that need control, security and productivity in one place."
   },
   "desc": {
-    "fa": "یک پلتفرم داخلی برای استفاده سازمانی از مدل‌های مختلف هوش مصنوعی. هدف، ایجاد یک محیط متمرکز برای استفاده از مدل‌های مختلف، مدیریت کاربران، دسترسی‌ها، سهمیه مصرف و قابلیت‌های هوشمند سازمانی است.",
-    "en": "An internal platform for using multiple AI models across an organization — a centralized environment for models, user management, access control, usage quotas and intelligent capabilities."
+    "fa": "DbsAI یک فضای کاری هوشمند برای تیم‌هایی است که می‌خواهند از قدرت مدل‌های مختلف AI استفاده کنند، بدون آن‌که کلیدهای API، هزینه، دسترسی و داده‌ها میان ابزارهای پراکنده گم شوند. کاربران از یک رابط تمیز می‌توانند بین مدل‌ها جابه‌جا شوند، گفتگو را ادامه دهند، پاسخ را دوباره تولید کنند و از ابزارهای تحقیق، خلاصه‌سازی و دستیار کدنویسی استفاده کنند؛ مدیر هم دقیقاً می‌داند چه کسی، چه زمانی و با چه سقفی از هوش مصنوعی استفاده می‌کند.",
+    "en": "DbsAI is an intelligent workspace for teams that want the power of multiple AI models without letting API keys, costs, access and data disappear across scattered tools. From one clean interface, people can switch models, continue conversations, regenerate answers and use research, summarization and coding tools — while administrators know exactly who is using AI, when and within which limits."
   },
   "problem": {
-    "fa": "تیم‌های سازمانی از چند ارائه‌دهنده‌ی هوش مصنوعی مختلف استفاده می‌کردند بدون مدیریت متمرکز دسترسی، سهمیه‌ی مصرف یا کنترل هزینه.",
-    "en": "Organizational teams were using several different AI providers with no centralized access management, usage quotas, or cost control."
+    "fa": "وقتی هر نفر با یک اکانت و یک ابزار متفاوت کار می‌کند، هزینه‌ها قابل پیش‌بینی نیستند، کلیدهای API در معرض ریسک قرار می‌گیرند و مدیر هیچ تصویری از ارزش واقعی استفاده از AI ندارد.",
+    "en": "When everyone works through a different account and tool, spend becomes unpredictable, API keys become risky and management loses sight of the value AI is actually creating."
   },
   "approach": {
-    "fa": "یک فضای کاری داخلی طراحی شد که چند مدل هوش مصنوعی را زیر یک لایه‌ی مدیریتی واحد قرار می‌دهد: مدیریت کاربران، دسترسی نقش‌محور، سهمیه‌بندی مصرف و تخصیص توکن.",
-    "en": "Designed an internal workspace that puts multiple AI models under one management layer: user management, role-based access, usage quotas, and token allocation."
+    "fa": "معماری محصول، ارائه‌دهندگان متعدد و endpointهای سازگار با OpenAI را زیر یک لایهٔ مدیریت امن جمع می‌کند. نقش‌ها و مجوزها، سقف روزانهٔ درخواست، توکن و هزینه، ساعت‌های مجاز استفاده، کنترل ابزارها، گزارش مصرف، لاگ سیستمی و نگهداری گفتگوها همگی از پنل مدیریت قابل تنظیم‌اند. کلیدها فقط در سرور و به‌شکل رمزنگاری‌شده می‌مانند؛ نه در مرورگر و نه در bundle برنامه.",
+    "en": "The product brings multiple providers and OpenAI-compatible endpoints behind one secure management layer. Roles and permissions, daily request/token/cost limits, access hours, tool controls, usage analytics, system logs and conversation retention are all configurable from the admin panel. Keys remain encrypted on the server — never in the browser or application bundle."
   },
   "result": {
-    "fa": "یک محیط متمرکز که استفاده‌ی سازمانی از چند مدل هوش مصنوعی را قابل‌کنترل و قابل‌پیگیری می‌کند.",
-    "en": "A centralized environment that makes organizational multi-model AI usage controllable and trackable."
+    "fa": "در حال اجرا؛ یک لایهٔ عملیاتی برای تبدیل AI از چند اشتراک پراکنده به یک سرویس قابل‌مدیریت، امن و قابل‌اندازه‌گیری که با رشد تیم، مدل‌ها و نیازها رشد می‌کند.",
+    "en": "In progress — an operational layer that turns scattered AI subscriptions into a manageable, secure and measurable service that scales with the team, models and requirements."
   },
   "role": {
     "fa": [
@@ -65,6 +65,7 @@
       "سهمیه و محدودیت مصرف",
       "تخصیص توکن",
       "مدیریت قابلیت‌های هوشمند",
+      "گزارش مصرف و هزینه",
       "فضای کاری متمرکز"
     ],
     "en": [
@@ -74,8 +75,15 @@
       "Usage limits",
       "Token allocation",
       "AI capabilities management",
+      "Usage and cost analytics",
       "Centralized workspace"
     ]
   },
-  "_todo": "Placeholder case-study copy — Saeed should confirm/replace with real project specifics."
+  "links": [
+    {
+      "label": { "fa": "مشاهدهٔ کد", "en": "View source" },
+      "href": "https://github.com/sanyzrn/DbsAI"
+    }
+  ],
+  "updatedAt": "2026-09-01"
 }

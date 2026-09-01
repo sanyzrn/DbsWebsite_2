@@ -6,7 +6,7 @@
   "schemaType": "SoftwareApplication",
   "isPubliclyAvailable": false,
   "featured": true,
-  "order": 2,
+  "order": 1,
   "name": {
     "fa": "NexaHR",
     "en": "NexaHR"

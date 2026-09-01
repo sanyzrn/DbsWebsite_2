@@ -24,15 +24,15 @@ function renderContactWithProject(search: string) {
 }
 
 describe("Contact form project query prefill", () => {
-  it("pre-fills the message with the project display name for ?project=dbspulse", async () => {
-    renderContactWithProject("?project=dbspulse");
+  it("pre-fills the message with the project display name for ?project=nexahr", async () => {
+    renderContactWithProject("?project=nexahr");
 
     const message = await screen.findByLabelText(new RegExp(dictionaries.en.contact.form.message));
     await waitFor(() => {
-      expect((message as HTMLTextAreaElement).value).toContain("DbsPulse");
+      expect((message as HTMLTextAreaElement).value).toContain("NexaHR");
     });
-    expect((message as HTMLTextAreaElement).value).toMatch(/^Regarding:\s*DbsPulse/);
-    // Full-Stack tag on DbsPulse maps to web-app
+    expect((message as HTMLTextAreaElement).value).toMatch(/^Regarding:\s*NexaHR/);
+    // Full-Stack tag on NexaHR maps to web-app
     const type = screen.getByLabelText(new RegExp(dictionaries.en.contact.form.type)) as HTMLSelectElement;
     expect(type.value).toBe("web-app");
   });

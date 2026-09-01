@@ -58,7 +58,7 @@ describe("Contact form optional details", () => {
   });
 
   it("opens itself when a project link prefills the project type", async () => {
-    renderContact(["/contact?project=dbspulse"]);
+    renderContact(["/contact?project=nexahr"]);
 
     await waitFor(() => {
       expect(optionalDetails().open).toBe(true);

@@ -1,0 +1,72 @@
+{
+  "id": "nexaflow",
+  "slug": "nexaflow",
+  "status": "production",
+  "maturity": "published",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
+  "featured": false,
+  "order": 5,
+  "name": {
+    "fa": "NexaFlow",
+    "en": "NexaFlow"
+  },
+  "subtitle": {
+    "fa": "در حال اجرا — اتوماسیون اداری مدرن برای تبدیل مکاتبات، کارتابل و فرایندهای سازمانی به جریانی شفاف و قابل‌پیگیری.",
+    "en": "In progress — modern office automation that turns correspondence, inboxes and business processes into a clear, traceable flow."
+  },
+  "desc": {
+    "fa": "NexaFlow برای سازمانی ساخته شده که نمی‌خواهد نامه‌ها، درخواست‌ها، جلسات و کارهای روزانه میان ایمیل، پیام‌رسان و فایل‌های پراکنده گم شوند. هر چیز از یک کارتابل شخصی شروع می‌شود و با گردش‌کارهای تایید، اعلان، مسئولیت روشن، تاریخچهٔ قابل استناد و گزارش مدیریتی جلو می‌رود. نتیجه، فقط دیجیتال‌کردن فرم‌ها نیست؛ ساختن یک ستون فقرات عملیاتی است که تیم سریع‌تر تصمیم می‌گیرد، کمتر پیگیری می‌کند و هیچ موضوع مهمی را بی‌صدا از دست نمی‌دهد.",
+    "en": "NexaFlow is built for organizations that refuse to lose letters, requests, meetings and daily work across email, messaging apps and scattered files. Everything begins in a personal inbox and moves through approvals, notifications, clear ownership, defensible history and management reporting. The result is more than digitized forms: it is operational backbone that helps teams decide faster, chase less and never let important work disappear quietly."
+  },
+  "problem": {
+    "fa": "وقتی فرایندها در کانال‌های مختلف پخش شده‌اند، هیچ‌کس دقیق نمی‌داند یک درخواست کجاست، چه کسی مسئول گام بعدی است یا چرا تصمیمی گرفته شده. این ابهام هم سرعت را پایین می‌آورد و هم ریسک سازمان را بالا می‌برد.",
+    "en": "When processes are scattered across different channels, nobody knows exactly where a request stands, who owns the next action or why a decision was made. That ambiguity slows teams down and increases organizational risk."
+  },
+  "approach": {
+    "fa": "محصول به‌صورت ماژولار طراحی شده: مکاتبات ورودی و خروجی با شماره‌گذاری، مسیر تایید و خروجی PDF؛ کارتابل و وظایف؛ اعلان‌ها؛ مدیریت کاربران و نقش‌ها؛ لاگ ممیزی؛ گردش‌کارهای قابل‌پیکربندی؛ مدیریت سند با نسخه‌بندی؛ جلسات و تبدیل مصوبه به کار؛ فرم‌ساز؛ تقویم شمسی و برنامه‌ریزی؛ و ابزارهای پایهٔ منابع انسانی مثل مرخصی، حضور و ارزیابی. کنترل دسترسی دقیق، تاریخ جلالی، PWA و گزارش‌های مدیریتی باعث می‌شوند این یک نرم‌افزار نمایشی نباشد؛ برای کار واقعی روزانه ساخته شده است.",
+    "en": "The product is designed as modular infrastructure: incoming and outgoing correspondence with numbering, approvals and PDF output; inboxes and tasks; notifications; user and role management; audit logs; configurable workflows; versioned documents; meetings that turn resolutions into tasks; form building; Jalali calendar and scheduling; plus core HR tools for leave, attendance and performance review. Precise access control, Jalali dates, PWA support and management reporting make it more than a demo — it is built for real daily work."
+  },
+  "result": {
+    "fa": "در حال اجرا؛ NexaFlow در مسیر تبدیل‌شدن به هستهٔ دیجیتال عملیات سازمان است: قابل‌توسعه برای فرایندهای اختصاصی، آماده برای تیم‌های کوچک تا ساختارهای چندواحدی و طراحی‌شده برای اینکه کارها واقعاً جلو بروند.",
+    "en": "In progress — NexaFlow is becoming the digital core of organizational operations: extensible for bespoke processes, ready for small teams through multi-unit structures, and designed to make work genuinely move forward."
+  },
+  "role": {
+    "fa": [
+      "استراتژی و معماری محصول",
+      "طراحی UX/UI",
+      "طراحی گردش‌کار",
+      "توسعه Full-stack",
+      "مدل‌سازی داده و امنیت"
+    ],
+    "en": [
+      "Product Strategy & Architecture",
+      "UX/UI Design",
+      "Workflow Design",
+      "Full-stack Development",
+      "Data Modeling & Security"
+    ]
+  },
+  "tech": [
+    "Next.js",
+    "TypeScript",
+    "PostgreSQL",
+    "Drizzle ORM",
+    "JWT",
+    "PWA"
+  ],
+  "tags": [
+    "Office Automation",
+    "Workflow",
+    "Enterprise"
+  ],
+  "image_url": null,
+  "mock": "pulse",
+  "links": [
+    {
+      "label": { "fa": "مشاهدهٔ کد", "en": "View source" },
+      "href": "https://github.com/sanyzrn/office-automation-platform"
+    }
+  ],
+  "updatedAt": "2026-09-01"
+}

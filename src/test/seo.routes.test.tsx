@@ -103,7 +103,7 @@ describe("route SEO meta (both locales)", () => {
   });
 
   it("project detail routes expose case-study title and reciprocal hreflang", async () => {
-    const slug = loadProjectContent()[0]?.slug ?? "dbspulse";
+    const slug = loadProjectContent().find(isPublishedProject)?.slug ?? "dbsnex";
     window.history.pushState(null, "", `/projects/${slug}`);
     render(<App />);
     const faSeo = resolveSeoForPath(`/projects/${slug}`);
@@ -173,7 +173,7 @@ describe("route SEO meta (both locales)", () => {
     expect(blob).not.toMatch(/"sameAs":\[[^\]]*"https:\/\/saeedzarrini\.ir\/"/);
 
     const projects = loadProjectContent();
-    const pulse = projects.find((p) => p.slug === "dbspulse") ?? projects[0];
+    const pulse = projects.find((p) => p.slug === "dbsnex") ?? projects[0];
     const project = resolveSeoForPath(`/projects/${pulse.slug}`);
     const pblob = JSON.stringify(project.jsonLd);
     expect(pblob).toContain(`"@type":"${pulse.schemaType}"`);
@@ -213,7 +213,7 @@ describe("route SEO meta (both locales)", () => {
   });
 
   it("project JSON-LD includes Offer only when isPubliclyAvailable is true", () => {
-    const pulse = loadProjectContent().find((p) => p.slug === "dbspulse");
+    const pulse = loadProjectContent().find((p) => p.slug === "dbsnex");
     expect(pulse).toBeTruthy();
     const localized = {
       id: pulse!.id,
@@ -235,7 +235,7 @@ describe("route SEO meta (both locales)", () => {
       order: pulse!.order,
       image_url: pulse!.image_url,
     };
-    const seo = resolvePageSeo("en", "project", { project: localized, path: "/en/projects/dbspulse" });
+    const seo = resolvePageSeo("en", "project", { project: localized, path: "/en/projects/dbsnex" });
     const blob = JSON.stringify(seo.jsonLd);
     expect(blob).toContain('"@type":"Offer"');
     expect(blob).toContain('"price":"0"');
