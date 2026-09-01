@@ -130,9 +130,11 @@ describe("route SEO meta (both locales)", () => {
 
   it("listPrerenderPaths covers both locales for static + project + article routes, excludes drafts", () => {
     const paths = listPrerenderPaths();
-    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles", "/news", "/en/news"]) {
+    for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles"]) {
       expect(paths).toContain(p);
     }
+    expect(paths).not.toContain("/news");
+    expect(paths).not.toContain("/en/news");
     // Only published projects should be in prerender paths
     const publishedSlug = loadProjectContent().find(isPublishedProject)?.slug;
     if (publishedSlug) {

@@ -220,18 +220,18 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saeedzarrini.ir/articles/dbspulse-from-spreadsheet-to-system</loc>
-    <lastmod>2026-07-24</lastmod>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/dbspulse-from-spreadsheet-to-system" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/dbspulse-from-spreadsheet-to-system" />
+    <loc>https://saeedzarrini.ir/articles/enterprise-ai-governance-guide</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/enterprise-ai-governance-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/enterprise-ai-governance-guide" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://saeedzarrini.ir/en/articles/dbspulse-from-spreadsheet-to-system</loc>
-    <lastmod>2026-07-24</lastmod>
-    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/dbspulse-from-spreadsheet-to-system" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/dbspulse-from-spreadsheet-to-system" />
+    <loc>https://saeedzarrini.ir/en/articles/enterprise-ai-governance-guide</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/enterprise-ai-governance-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/enterprise-ai-governance-guide" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -248,6 +248,54 @@
     <lastmod>2026-07-24</lastmod>
     <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/moving-off-a-platform-without-losing-the-domain" />
     <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/moving-off-a-platform-without-losing-the-domain" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saeedzarrini.ir/articles/nexahr-from-spreadsheet-to-system</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/nexahr-from-spreadsheet-to-system" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/nexahr-from-spreadsheet-to-system" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saeedzarrini.ir/en/articles/nexahr-from-spreadsheet-to-system</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/nexahr-from-spreadsheet-to-system" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/nexahr-from-spreadsheet-to-system" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saeedzarrini.ir/articles/office-automation-workflow-guide</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/office-automation-workflow-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/office-automation-workflow-guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saeedzarrini.ir/en/articles/office-automation-workflow-guide</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/office-automation-workflow-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/office-automation-workflow-guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saeedzarrini.ir/articles/rag-chatbot-website-guide</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/rag-chatbot-website-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/rag-chatbot-website-guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saeedzarrini.ir/en/articles/rag-chatbot-website-guide</loc>
+    <lastmod>2026-09-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://saeedzarrini.ir/articles/rag-chatbot-website-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://saeedzarrini.ir/en/articles/rag-chatbot-website-guide" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

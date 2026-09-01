@@ -12,6 +12,7 @@ import { loadProjectsFromDisk, getPublishedProjectSlugs } from "./project-conten
 import { sitemapStaticPaths } from "./site-routes.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
 import { absoluteLoc, hreflangPair } from "./sitemap-hreflang.mjs";
+import contentFeatures from "../shared/content-features.json" with { type: "json" };
 
 const site = getSiteUrl();
 
@@ -44,7 +45,7 @@ const projectRoutes = projects.map((p) => ({
 
 const articleRoutes = loadPublishedArticleRoutes();
 
-const hasNews = loadNewsFromDisk(ROOT).length > 0;
+const hasNews = contentFeatures.dailyDigestEnabled && loadNewsFromDisk(ROOT).length > 0;
 const staticPaths = sitemapStaticPaths({ hasNews });
 
 const robots = `User-agent: *

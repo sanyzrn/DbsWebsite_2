@@ -4,6 +4,7 @@ import { DirArrow, Reveal, SectionHead, DecorativeGrid } from "../components/ui"
 import { useApp } from "../lib/app";
 import { getPublishedArticles, type Article } from "../lib/articles";
 import { formatArticleDate } from "../lib/formatDate";
+import { DAILY_DIGEST_ENABLED } from "../lib/news";
 import { localePath } from "../lib/paths";
 
 function ArticleCard({ article, index }: { article: Article; index: number }) {
@@ -95,7 +96,7 @@ export default function ArticlesPage() {
             </div>
           )}
 
-          <DailyDigestTeaser />
+          {DAILY_DIGEST_ENABLED ? <DailyDigestTeaser /> : null}
         </div>
       </section>
     </>

@@ -37,8 +37,8 @@ export const A11Y_ROUTES = [
   { urlPath: "/404", file: "404.html" },
   { urlPath: "/projects/dbsai", file: "projects/dbsai/index.html", fallbackDir: "projects" },
   {
-    urlPath: "/articles/dbspulse-from-spreadsheet-to-system",
-    file: "articles/dbspulse-from-spreadsheet-to-system/index.html",
+    urlPath: "/articles/nexahr-from-spreadsheet-to-system",
+    file: "articles/nexahr-from-spreadsheet-to-system/index.html",
     fallbackDir: "articles",
   },
 ];

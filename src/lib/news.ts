@@ -1,4 +1,11 @@
 import type { Lang } from "./i18n";
+import contentFeatures from "../../shared/content-features.json";
+
+/**
+ * Temporary publication switch for Daily Digest. Keep the page and content loader
+ * intact so the digest can return by changing one shared value.
+ */
+export const DAILY_DIGEST_ENABLED = contentFeatures.dailyDigestEnabled;
 
 /** Bilingual string used in content/news/*.json */
 export type LocaleText = { fa: string; en: string };
@@ -91,5 +98,5 @@ export function getLocalizedNewsItems(lang: Lang): LocalizedNewsItem[] {
 
 /** True when there is at least one news item available. Controls nav visibility and sitemap inclusion. */
 export function hasNewsContent(): boolean {
-  return loadNewsItems().length > 0;
+  return DAILY_DIGEST_ENABLED && loadNewsItems().length > 0;
 }

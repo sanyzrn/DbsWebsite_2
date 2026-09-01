@@ -1,7 +1,8 @@
 import React, { lazy, type ComponentType } from "react";
-import { Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import type { ReactElement } from "react";
 import siteRoutes from "../../shared/site-routes.json";
+import { DAILY_DIGEST_ENABLED } from "./news";
 
 /**
  * SSR/test-compatible lazy wrapper.
@@ -101,7 +102,27 @@ export async function preloadAllPages(): Promise<void> {
 export function routesFromManifest(): ReactElement[] {
   const out: ReactElement[] = [];
 
+  // The article was renamed to NexaHR; preserve inbound links to the former slug.
+  out.push(
+    <Route
+      key="legacy-dbspulse-article-fa"
+      path="/articles/dbspulse-from-spreadsheet-to-system"
+      element={<Navigate replace to="/articles/nexahr-from-spreadsheet-to-system" />}
+    />,
+    <Route
+      key="legacy-dbspulse-article-en"
+      path="/en/articles/dbspulse-from-spreadsheet-to-system"
+      element={<Navigate replace to="/en/articles/nexahr-from-spreadsheet-to-system" />}
+    />
+  );
+
   for (const bare of siteRoutes.staticPaths) {
+    if (bare === "/news" && !DAILY_DIGEST_ENABLED) {
+      // Preserve old links while keeping the paused digest out of public navigation.
+      out.push(<Route key={bare} path={bare} element={<Navigate replace to="/articles" />} />);
+      out.push(<Route key={enPath(bare)} path={enPath(bare)} element={<Navigate replace to="/en/articles" />} />);
+      continue;
+    }
     const key = (siteRoutes.pageKeys as Record<string, string>)[bare] as PageKey | undefined;
     if (!key || !(key in PAGES)) {
       throw new Error(`site-routes.json pageKeys missing component mapping for "${bare}"`);
