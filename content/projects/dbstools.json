@@ -2,55 +2,68 @@
   "id": "dbstools",
   "slug": "dbstools",
   "status": "production",
-  "maturity": "draft",
+  "maturity": "published",
   "schemaType": "SoftwareApplication",
   "isPubliclyAvailable": false,
   "featured": false,
-  "order": 6,
+  "order": 7,
   "name": {
     "fa": "DbsTools",
     "en": "DbsTools"
   },
   "subtitle": {
-    "fa": "ابزارهای کوچک برای کارهای تکراری و زمان‌بر.",
-    "en": "Small tools for repetitive, time-consuming work."
+    "fa": "در حال اجرا — جعبه‌ابزار حرفه‌ای برای تبدیل کارهای سندی، محتوایی و اداری به چند کلیک سریع و دقیق.",
+    "en": "In progress — a professional toolkit that turns document, content and office work into a few fast, accurate clicks."
   },
   "desc": {
-    "fa": "مجموعه‌ای از ابزارهای تخصصی برای پردازش اسناد، ترجمه، تولید محتوا و اتوماسیون فرآیندها؛ با هدف تبدیل کارهای تکراری و زمان‌بر به فرآیندهای سریع‌تر و هوشمندتر.",
-    "en": "A collection of specialized tools for document processing, translation, content generation and process automation — turning repetitive, time-consuming work into faster, smarter flows."
+    "fa": "DbsTools برای جایی ساخته شده که کارهای کوچک، هر روز زمان بزرگی می‌بلعند. از فشرده‌سازی، ادغام، تقسیم و تبدیل PDF تا ساخت PDF از تصاویر، تولید QR، پاک‌سازی متن و ساخت نامه و صورت‌جلسه، ابزارهای کاربردی در یک محیط سریع و خوش‌ساخت جمع شده‌اند. ترجمهٔ هوشمند فارسی، عربی و انگلیسی هم با زمینهٔ تخصصی، واژه‌نامه و پشتیبانی کامل RTL آماده است تا خروجی فقط سریع نباشد؛ قابل‌استفاده هم باشد.",
+    "en": "DbsTools is built for the small jobs that quietly consume a large part of every working day. Compress, merge, split and convert PDFs; build PDFs from images; generate QR codes; clean text; and create formal letters or meeting minutes from one fast, polished workspace. Context-aware Persian, Arabic and English AI translation — with terminology support and full RTL — makes the result not just faster, but ready to use."
   },
   "problem": {
-    "fa": "فرآیندهای تکراری مثل پردازش اسناد، ترجمه و تولید محتوا زمان زیادی می‌گرفتند و نیاز به ابزارهای اختصاصی و سریع داشتند.",
-    "en": "Repetitive processes like document handling, translation, and content generation were time-consuming and needed dedicated, fast tooling."
+    "fa": "ابزارهای عمومی یا بیش‌ازحد ساده‌اند یا فایل و محتوای حساس را به سرویس‌های نامطمئن می‌فرستند. میان چندین سایت و برنامه جابه‌جا شدن هم سرعت و تمرکز تیم را از بین می‌برد.",
+    "en": "Generic tools are often either too limited or force sensitive files and content through untrusted services. Moving between separate sites and apps also drains a team's speed and focus."
   },
   "approach": {
-    "fa": "مجموعه‌ای از ابزارهای تخصصی و مستقل ساخته شد، هرکدام برای یک وظیفه‌ی مشخص، با تمرکز بر اتوماسیون و یکپارچگی با AI APIs.",
-    "en": "Built a set of specialized, independent tools, each targeting one specific task, focused on automation and integration with AI APIs."
+    "fa": "هستهٔ پردازش PDF در مرورگر اجرا می‌شود تا فایل‌ها از دستگاه خارج نشوند؛ برای مثال ادغام، تقسیم، فشرده‌سازی و تبدیل صفحات بدون آپلود انجام می‌شود. در کنار آن، تولیدکنندهٔ اسناد، ابزارهای متن و QR و یک لایهٔ ترجمهٔ AI سمت‌سرور، یک مجموعهٔ ماژولار می‌سازند که می‌تواند برای هر تیم، برند و فرایند اختصاصی توسعه پیدا کند.",
+    "en": "The PDF engine runs in the browser so files stay on the device: merging, splitting, compressing and page conversion happen without upload. Alongside it, document generation, text utilities, QR tools and a server-side AI translation layer form a modular suite that can grow around any team's brand and workflow."
   },
   "result": {
-    "fa": "کاهش زمان صرف‌شده روی کارهای تکراری با مجموعه‌ای از ابزارهای کوچک و کاربردی.",
-    "en": "Reduced time spent on repetitive work through a set of small, practical tools."
+    "fa": "در حال اجرا؛ یک محصول قابل‌گسترش که کارهای تکراری روزانه را کوتاه می‌کند، کیفیت خروجی را یکدست نگه می‌دارد و می‌تواند به یک پرتال اختصاصی بهره‌وری برای هر کسب‌وکار تبدیل شود.",
+    "en": "In progress — an extensible product that shortens repetitive daily work, keeps output quality consistent and can become a custom productivity portal for any business."
   },
   "role": {
     "fa": [
-      "طراحی و توسعه",
+      "استراتژی محصول",
+      "طراحی UX/UI",
+      "توسعه Full-stack",
       "اتوماسیون فرآیند"
     ],
     "en": [
-      "Design & Development",
+      "Product Strategy",
+      "UX/UI Design",
+      "Full-stack Development",
       "Process Automation"
     ]
   },
   "tech": [
-    "Automation",
-    "Document Processing",
+    "Next.js",
+    "TypeScript",
+    "PDF Processing",
+    "Document Generation",
     "AI APIs"
   ],
   "tags": [
-    "Automation",
-    "AI"
+    "Productivity Tools",
+    "PDF Tools",
+    "AI Translation"
   ],
   "image_url": null,
   "mock": "tools",
-  "_todo": "Placeholder case-study copy — Saeed should confirm/replace with real project specifics."
+  "links": [
+    {
+      "label": { "fa": "مشاهدهٔ کد", "en": "View source" },
+      "href": "https://github.com/sanyzrn/DbsTools"
+    }
+  ],
+  "updatedAt": "2026-09-01"
 }

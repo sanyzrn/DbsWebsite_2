@@ -103,7 +103,7 @@ describe("route SEO meta (both locales)", () => {
   });
 
   it("project detail routes expose case-study title and reciprocal hreflang", async () => {
-    const slug = loadProjectContent()[0]?.slug ?? "dbspulse";
+    const slug = loadProjectContent().find(isPublishedProject)?.slug ?? "dbsnex";
     window.history.pushState(null, "", `/projects/${slug}`);
     render(<App />);
     const faSeo = resolveSeoForPath(`/projects/${slug}`);

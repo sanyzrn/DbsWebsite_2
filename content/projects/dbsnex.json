@@ -6,7 +6,7 @@
   "schemaType": "SoftwareApplication",
   "isPubliclyAvailable": false,
   "featured": true,
-  "order": 1,
+  "order": 2,
   "name": {
     "fa": "Nex",
     "en": "Nex"
