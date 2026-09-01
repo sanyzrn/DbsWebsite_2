@@ -513,8 +513,29 @@ function ProjectCard({
   );
 }
 
-/** Home-page teaser: strongest published production picks. */
-const TEASER_IDS = ["dbspulse", "dbsbrain", "dbschatbot", "dbskeep"];
+/** Most projects the home-page teaser shows. */
+const TEASER_LIMIT = 4;
+
+/**
+ * Home-page teaser picks, derived from content rather than a hardcoded slug list.
+ *
+ * This used to be `TEASER_IDS = ["dbspulse", ...]`. When those projects were later
+ * set to `maturity: "draft"`, none of the ids matched any published project and the
+ * home page silently rendered an empty "featured projects" section. Selecting by
+ * content flags means the teaser follows whatever is actually published.
+ *
+ * Order: shipped work before concept explorations, `featured` before the rest, then
+ * the content `order` already applied by getLocalizedProjects().
+ */
+function teaserProjects(all: ProjectItem[]): ProjectItem[] {
+  const rank = (p: ProjectItem) =>
+    (p.status === "concept" ? 2 : 0) + (p.featured ? 0 : 1);
+  return [...all]
+    .map((project, index) => ({ project, index }))
+    .sort((a, b) => rank(a.project) - rank(b.project) || a.index - b.index)
+    .slice(0, TEASER_LIMIT)
+    .map(({ project }) => project);
+}
 
 type ProjectsProps = {
   mode?: "teaser" | "full";
@@ -526,7 +547,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
 
   const items = useMemo(() => {
     if (mode === "teaser") {
-      return TEASER_IDS.map((id) => t.projects.items.find((p) => p.id === id)).filter(Boolean) as ProjectItem[];
+      return teaserProjects(t.projects.items);
     }
     return t.projects.items;
   }, [mode, t.projects.items]);

@@ -12,20 +12,20 @@
     "en": "NexaHR"
   },
   "subtitle": {
-    "fa": "ارزیابی عملکرد را از یک مسیر پراکنده و پرریسک، به تصمیمی شفاف، قابل‌پیگیری و قابل‌اتکا تبدیل می‌کند.",
-    "en": "Turns performance evaluation from a fragmented, high-risk process into a clear, traceable decision system."
+    "fa": "از ارزیابی‌های پراکنده و سلیقه‌ای تا تصمیم‌های منصفانه، مستند و قابل دفاع دربارهٔ مهم‌ترین سرمایهٔ سازمان: آدم‌ها.",
+    "en": "From fragmented, subjective reviews to fair, documented and defensible decisions about an organization's most valuable asset: its people."
   },
   "desc": {
-    "fa": "NexaHR یک سامانهٔ سازمانی برای مدیریت ارزیابی عملکرد پرسنل است؛ از تعریف شاخص‌ها و زنجیرهٔ تأیید تا تحلیل، اعتراض، خروجی رسمی و تصمیم‌گیری پیش از تمدید قرارداد. این محصول، منابع انسانی را از فایل‌ها و پیگیری‌های پراکنده به یک فرآیند دقیق، امن و قابل دفاع می‌رساند.",
-    "en": "NexaHR is an organizational performance-evaluation platform that manages the full journey: criteria, approval chains, analytics, appeals, official documents and pre-contract decisions. It replaces disconnected files and follow-ups with a rigorous, secure and defensible process."
+    "fa": "NexaHR یک سامانهٔ جدی برای سازمان‌هایی است که می‌خواهند تصمیم‌های منابع انسانی‌شان از حدس، اکسل و پیگیری تلفنی فراتر برود. از تعریف شاخص‌ها و بازکردن دورهٔ ارزیابی تا امتیازدهی، زنجیرهٔ تأیید، اعتراض، تحلیل مدیریتی و صدور کارنامهٔ رسمی، همه‌چیز در یک جریان روشن و قابل رهگیری انجام می‌شود. نتیجه فقط یک داشبورد زیبا نیست؛ یک زیرساخت تصمیم‌گیری است که به HR کمک می‌کند با داده، سابقه و منطق قابل دفاع، دربارهٔ تمدید قرارداد، رشد و برنامهٔ بهبود افراد تصمیم بگیرد.",
+    "en": "NexaHR is built for organizations ready to move people decisions beyond guesswork, spreadsheets and endless follow-ups. From defining criteria and opening an evaluation period through scoring, approval, appeals, management analytics and official performance records, every step lives in one clear, traceable flow. The outcome is not merely a polished dashboard; it is decision infrastructure that helps HR make defensible calls on contracts, growth and improvement plans with data, history and logic behind every decision."
   },
   "problem": {
     "fa": "ارزیابی عملکرد در سازمان‌ها معمولاً میان اکسل، فرم کاغذی و پیام‌های پراکنده گم می‌شود؛ مسئولیت‌ها مبهم می‌مانند، سابقهٔ تصمیم‌ها قابل اتکا نیست و گزارش‌گیری زمان‌بر و آسیب‌پذیر می‌شود.",
     "en": "Performance evaluation is often lost across spreadsheets, paper forms and scattered messages. Responsibility becomes unclear, decisions lose their audit trail, and reporting turns slow and fragile."
   },
   "approach": {
-    "fa": "NexaHR کل چرخه را به یک گردش‌کار نقش‌محور و نسخه‌دار تبدیل می‌کند: هر پرونده مسیر تأیید روشن دارد، هر تغییر ثبت می‌شود، وزن‌ها و شاخص‌ها تاریخچهٔ مستقل دارند و گزارش‌ها از دادهٔ زنده ساخته می‌شوند. طراحی RTL، تقویم جلالی، کنترل‌های دسترسی دقیق و خروجی قابل تأیید، محصول را برای استفادهٔ واقعی در سازمان ایرانی آماده می‌کند.",
-    "en": "NexaHR turns the entire cycle into a role-aware, versioned workflow: every case has a clear approval path, every change is logged, scoring and criteria preserve their history, and reports are built from live data. RTL design, Jalali dates, precise access controls and verifiable exports make it ready for real organizational use."
+    "fa": "NexaHR چرخهٔ پیچیدهٔ ارزیابی را به گردش‌کاری نقش‌محور، نسخه‌دار و مقاوم در برابر خطا تبدیل می‌کند. هر پرونده دقیقاً می‌داند از چه کسی به چه کسی می‌رود؛ هر برگشت دلیل دارد؛ هر تغییر در گزارش رویدادها ثبت می‌شود و هیچ‌کس نمی‌تواند خارج از اختیاراتش به پرونده دست بزند. نسخه‌گذاری شاخص‌ها و طرح امتیازدهی، اعتبار گزارش‌های گذشته را حفظ می‌کند؛ داشبوردها و گزارش‌های فیلترپذیر، تصمیم را از حس و برداشت فردی به شواهد واقعی نزدیک می‌کنند. RTL کامل، تقویم جلالی، کنترل دسترسی دقیق، PDF رسمی و امکان تأیید اصالت سند، این محصول را برای استفادهٔ روزمرهٔ یک سازمان ایرانی ساخته‌اند، نه یک دمو نمایشی.",
+    "en": "NexaHR turns a complex review cycle into a role-aware, versioned and error-resistant workflow. Every case knows exactly who owns the next step; every return needs a reason; every change is logged; and no one can reach beyond their authority. Versioned criteria and scoring protect the meaning of historical reports, while filterable analytics move decisions away from personal impressions and toward evidence. Full RTL, Jalali dates, precise access control, official PDFs and verifiable documents make this a product for everyday use in a real organization — not a polished demo."
   },
   "result": {
     "fa": "یک مرکز فرمان مدرن برای منابع انسانی که ارزیابی را قابل‌مشاهده، منصفانه و قابل‌تحلیل می‌کند؛ از کارنامهٔ هر فرد تا دید کلان سازمان، بدون قربانی‌کردن امنیت یا جزئیات فرآیند.",
