@@ -12,20 +12,20 @@
     "en": "Nex"
   },
   "subtitle": {
-    "fa": "هر فکر، صدا و لحظه؛ در چند ثانیه ثبت می‌شود و درست وقتی لازم است پیدا می‌شود.",
-    "en": "Capture every thought, voice and moment in seconds — then find it exactly when it matters."
+    "fa": "اپی برای ذهن‌های شلوغ: هر فکر، صدا، تصویر و فایل را در چند ثانیه بگیر؛ وقتی لازم شد، دقیقاً همان را پیدا کن.",
+    "en": "The capture app for busy minds: save every thought, voice, photo and file in seconds — then find exactly what you need."
   },
   "desc": {
-    "fa": "Nex یک فضای شخصیِ local-first برای ثبت فوری است؛ جایی میان یادداشت، صدا، تصویر و فایل که بدون فرم‌های شلوغ یا دکمهٔ ذخیره، ایده را همان لحظه امن نگه می‌دارد. تجربه‌ای سریع، آرام و خصوصی برای ذهنی که نمی‌خواهد هیچ چیز مهمی را گم کند.",
-    "en": "Nex is a local-first personal capture space for text, voice, photos and files. It keeps ideas safe the instant they appear — without cluttered forms, forced organization or a save button — in a calm, private experience built for minds that should not lose what matters."
+    "fa": "Nex برای لحظه‌ای ساخته شده که ایده می‌آید و نباید از دست برود. متن بنویس، ویس بگیر، عکس یا فایل بفرست و تمام؛ بدون انتخاب پوشه، بدون فرم‌های اضافی و بدون دکمهٔ ذخیره. همه‌چیز در یک تایم‌لاین تمیز می‌نشیند و بعد با جست‌وجوی سریع، تگ، فیلتر و یادآور دوباره سراغت می‌آید. اگر از ابزارهای شلوغ خسته‌ای و می‌خواهی بالاخره یک اپ ساده، خوش‌ساخت و خصوصی برای ثبت زندگی و کارت داشته باشی، Nex دقیقاً برای توست.",
+    "en": "Nex is built for the moment an idea arrives and must not be lost. Write, record, photograph or share a file — then move on. No folders to choose, no forms to fight and no save button. Everything lands in one clean timeline and comes back through fast search, tags, filters and reminders. For anyone tired of overbuilt note apps and ready for a simple, polished, private capture tool, Nex is the front door to their thinking."
   },
   "problem": {
     "fa": "بیشتر ابزارهای یادداشت‌برداری کار را با انتخاب پوشه، قالب و دسته‌بندی شروع می‌کنند؛ همان اصطکاک کوچکی که باعث می‌شود ایده‌های کوتاه، صداهای مهم و لحظه‌های گذرا هرگز ثبت نشوند.",
     "en": "Most note apps begin with friction: folders, templates and categorization. That tiny delay is enough for passing ideas, important voice notes and fleeting moments to disappear before they are captured."
   },
   "approach": {
-    "fa": "طراحی محصول بر یک اصل بنا شد: «اول ثبت کن، بعداً اگر خواستی مرتبش کن.» Nex همه‌چیز را در یک تایم‌لاین زنده جمع می‌کند و با جست‌وجوی تمام‌متن، تگ، فیلتر و یادآور، بازگشت به اطلاعات را بی‌دردسر می‌کند. قابلیت‌های هوشمند مثل OCR، تبدیل صدا به متن و خلاصه‌سازی کاملاً اختیاری‌اند تا حریم خصوصی و کنترل کاربر همیشه اول بماند.",
-    "en": "The product is built on one principle: capture first, organize later — if ever. A living timeline, full-text search, tags, filters and reminders make retrieval effortless. Optional intelligence such as OCR, transcription and summaries stays behind explicit controls, keeping privacy and user agency first."
+    "fa": "هستهٔ تجربه بر این اصل استوار شد: «اول ثبت کن، بعداً اگر خواستی مرتبش کن.» تایم‌لاین معکوس، جست‌وجوی تمام‌متن SQLite FTS5، تگ‌های آزاد، فیلترهای هوشمند، یادآور، سطل زباله، خروجی و پشتیبان‌گیری محلی باعث می‌شوند سرعت اولیه، بعداً به آشفتگی تبدیل نشود. OCR، تبدیل صدا به متن، خلاصه‌سازی و جست‌وجوی معنایی هم اختیاری‌اند؛ یعنی هوش فقط وقتی وارد می‌شود که خود کاربر انتخاب کند، نه به قیمت حریم خصوصی او.",
+    "en": "The experience is anchored in one rule: capture first, organize later — if ever. A reverse timeline, SQLite FTS5 search, flexible tags, intelligent filters, reminders, trash, export and local backups ensure immediate capture never becomes future chaos. OCR, transcription, summaries and semantic search are optional by design: intelligence enters only when the user chooses it, never at the expense of privacy."
   },
   "result": {
     "fa": "یک ابزار capture سریع و خوش‌ساخت برای اندروید که داده را روی خود دستگاه نگه می‌دارد، با پشتیبان‌گیری و خروجی کامل از آن محافظت می‌کند و تجربهٔ ثبت را به اندازهٔ خود فکر، بی‌واسطه می‌سازد.",
