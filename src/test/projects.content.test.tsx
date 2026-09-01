@@ -1,12 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { getLocalizedProjects, loadProjectContent } from "../lib/projects";
 import { getDictionary } from "../lib/i18n";
-import { resolvePageSeo } from "../lib/seo";
 
 describe("projects content pipeline", () => {
   it("loads all project JSON files sorted by order", () => {
     const all = loadProjectContent();
-    expect(all.length).toBeGreaterThanOrEqual(15);
+    expect(all).toHaveLength(7);
     for (let i = 1; i < all.length; i++) {
       expect(all[i].order).toBeGreaterThanOrEqual(all[i - 1].order);
     }
@@ -29,9 +28,15 @@ describe("projects content pipeline", () => {
     expect(nexahrFa?.problem).toContain("اکسل");
     expect(nexahrEn?.approach).toContain("RTL");
     expect(nexahrEn?.result).toContain("HR");
-    // Draft projects stay off public listings
-    expect(fa.some((p) => p.slug === "hesabyar")).toBe(false);
-    expect(fa.some((p) => p.slug.startsWith("concept-"))).toBe(false);
+    expect(fa.map((project) => project.slug)).toEqual([
+      "nexahr",
+      "dbsnex",
+      "patient2",
+      "nexachat",
+      "nexaflow",
+      "dbsai",
+      "dbstools",
+    ]);
   });
 
   it("fills published case studies and keeps incomplete projects clearly labeled", () => {
@@ -68,31 +73,9 @@ describe("projects content pipeline", () => {
     expect(dict.projects.items.some((p) => p.slug === "concept-01")).toBe(false);
   });
 
-  it("marks draft project pages with robots noindex", () => {
-    const draft = loadProjectContent().find((p) => p.slug === "dbspulse");
-    expect(draft?.maturity).toBe("draft");
-    const seo = resolvePageSeo("en", "project", {
-      project: {
-        id: draft!.id,
-        slug: draft!.slug,
-        name: draft!.name.en,
-        subtitle: draft!.subtitle.en,
-        desc: draft!.desc.en,
-        problem: draft!.problem.en,
-        approach: draft!.approach.en,
-        result: draft!.result.en,
-        role: draft!.role.en,
-        tech: draft!.tech,
-        tags: draft!.tags,
-        status: draft!.status,
-        maturity: draft!.maturity,
-        schemaType: draft!.schemaType,
-        isPubliclyAvailable: draft!.isPubliclyAvailable,
-        featured: draft!.featured,
-        order: draft!.order,
-        image_url: draft!.image_url,
-      },
-    });
-    expect(seo.robots).toBe("noindex, follow");
+  it("keeps every remaining project publicly published", () => {
+    const all = loadProjectContent();
+    expect(all).toHaveLength(7);
+    expect(all.every((project) => project.maturity === "published")).toBe(true);
   });
 });
