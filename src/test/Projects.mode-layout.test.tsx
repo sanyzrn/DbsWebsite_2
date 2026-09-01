@@ -44,14 +44,16 @@ describe("Projects mobile layout by mode", () => {
     const track = carousel.querySelector('[aria-roledescription="carousel"]');
     expect(track?.className).toMatch(/\bitems-stretch\b/);
     const slides = carousel.querySelectorAll('[aria-roledescription="slide"]');
-    expect(slides.length).toBeGreaterThan(1);
+    // Count is content-driven; this test is about per-card layout, so assert only
+    // that there is something to check. Emptiness is covered by the teaser test below.
+    expect(slides.length).toBeGreaterThan(0);
     slides.forEach((slide) => {
       expect(slide.className).toMatch(/\bself-stretch\b/);
       // Percentage height on the flex item disables stretch — must stay off.
       expect(slide.className).not.toMatch(/\bh-full\b/);
     });
     const cards = carousel.querySelectorAll("article");
-    expect(cards.length).toBeGreaterThan(1);
+    expect(cards.length).toBeGreaterThan(0);
 
     cards.forEach((card) => {
       expect(card.className).toMatch(/\bflex-1\b/);

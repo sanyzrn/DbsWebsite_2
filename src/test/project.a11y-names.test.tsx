@@ -12,15 +12,17 @@ afterEach(() => {
 
 describe("project visual accessible names + studio alt", () => {
   it("names project preview links from the localized aria template", () => {
-    const pulse = getLocalizedProjects("en").find((p) => p.slug === "dbspulse");
-    expect(pulse).toBeTruthy();
+    // Whatever is published first — never a hardcoded slug, which breaks the suite
+    // every time content maturity changes rather than when the markup regresses.
+    const [project] = getLocalizedProjects("en");
+    expect(project).toBeTruthy();
     window.history.pushState(null, "", "/en/projects");
     render(<App />);
 
-    const label = dictionaries.en.projects.previewAria.replace("{name}", pulse!.name);
+    const label = dictionaries.en.projects.previewAria.replace("{name}", project.name);
     const preview = screen.getAllByRole("link", { name: label });
     expect(preview.length).toBeGreaterThan(0);
-    expect(preview[0]).toHaveAttribute("href", "/en/projects/dbspulse");
+    expect(preview[0]).toHaveAttribute("href", `/en/projects/${project.slug}`);
   });
 
   it("uses a specific studio image alt on the About page", () => {
