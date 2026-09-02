@@ -1,0 +1,70 @@
+---
+title: "From spreadsheet to system: how NexaHR structured performance evaluation"
+description: "Why spreadsheets fall short for performance evaluation, and how NexaHR brings workflow, access control, and trustworthy reporting into one HR system."
+date: "2026-07-24"
+updated: "2026-09-01"
+tags: ["Enterprise", "HR Tech", "Full-Stack"]
+status: "published"
+---
+
+Performance evaluation is not an annual form. It is a chain of criteria design, evidence
+capture, scoring, review, approval, and analysis. When each link lives in a separate file or
+message thread, HR is left with three critical questions: where did this score come from, who
+changed it, and how can the decision be defended?
+
+NexaHR started with that problem: turning a scattered, manual process into a workspace where
+each evaluation stage, its owner, and its decision history are clear. The goal was not simply
+to replace an Excel form. It was to create one trustworthy source of truth for HR decisions.
+
+## Why spreadsheets reach a ceiling
+
+Spreadsheets are excellent for a first pass: fast, familiar, and useful for testing a form.
+But as employees, managers, evaluation cycles, and criteria multiply, versions spread and the
+business logic gets buried in formulas and files. The result is usually the work teams were
+trying to avoid: manual follow-up, ambiguous access, and reports that need another round of
+checking.
+
+When evaluation affects development, feedback, or HR decisions, being “digital” is not enough.
+The system has to preserve the decision path, control access precisely, and give the team an
+understandable outcome.
+
+## What NexaHR makes structured
+
+NexaHR is a performance-evaluation platform designed for multi-stage organizational workflows.
+HR can define cycles and criteria, add people and evaluators through a controlled process, and
+see the state of every stage from one place. Scores keep their context and feedback, so the
+output is more than a number.
+
+The project uses FastAPI for services, PostgreSQL for structured data, and React for an interface
+that keeps the work visible. Those choices are not there to look modern. They address real HR
+needs: distinct roles, concurrent users, searchable data, and a workflow that can grow.
+
+## Three rules that turn a form into a system
+
+**Access with an organizational owner.** Entry to the evaluation cycle and permissions are
+managed through controlled HR assignment. It stays clear who can act, in which role, and at
+which stage.
+
+**Scores with evidence.** Any non-neutral score requires at least fifteen words of explanation.
+That small rule turns an isolated number into feedback that can still be understood during later
+review.
+
+**Auditable rules.** For defined roles, supervisor logic is applied explicitly. For example,
+when a job title is exactly “Manager,” the unit-supervisor status locks automatically. The key
+decision is that rules live in the system—not only in someone’s memory—and can be explained.
+
+<Callout variant="note" title="Product, not a pretty form">
+  NexaHR’s value is not the number of fields. It is making evaluation traceable and defensible
+  for employees, managers, and HR.
+</Callout>
+
+## Current project status and what comes next
+
+NexaHR is an in-progress product. Its core evaluation flow, data model, roles, and main rules
+have been designed and implemented. The next phase focuses on completing the operational
+experience, management reporting, and readiness for wider organizational deployment. That
+clarity matters: the product is not making vague promises; it is solving a real performance
+evaluation problem step by step.
+
+If your organization still relies on files, manual follow-up, and verbal decisions to complete
+reviews, NexaHR shows how the same process can become a clear, extensible, decision-ready system.

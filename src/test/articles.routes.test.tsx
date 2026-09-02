@@ -38,39 +38,33 @@ describe("articles routes", () => {
     expect(crumbs.querySelector(`a[href="/en"]`)).toBeTruthy();
   });
 
-  it("exposes Field Notes as primary in nav/footer; hides Daily Digest when news is empty", () => {
+  it("exposes Field Notes as primary in nav/footer; hides the paused Daily Digest", () => {
     render(<App />);
     const articleLinks = screen.getAllByRole("link", { name: dictionaries.fa.nav.articles });
     expect(articleLinks.length).toBeGreaterThanOrEqual(2);
     expect(articleLinks.every((a) => a.getAttribute("href") === "/articles")).toBe(true);
 
-    // content/news/ is empty in test fixtures — news links must be hidden
+    // The temporary feature switch keeps Daily Digest out of public navigation.
     const newsLinks = screen.queryAllByRole("link", { name: dictionaries.fa.nav.news });
     expect(newsLinks.length).toBe(0);
   });
 
-  it("surfaces Daily Digest from the Field Notes landing", () => {
+  it("does not surface the paused Daily Digest from the Field Notes landing", () => {
     window.history.pushState(null, "", "/en/articles");
     render(<App />);
-    expect(screen.getByRole("heading", { level: 2, name: dictionaries.en.articles.digestTitle })).toBeTruthy();
-    expect(screen.getByRole("link", { name: dictionaries.en.articles.digestCta })).toHaveAttribute(
-      "href",
-      "/en/news"
-    );
+    expect(screen.queryByRole("heading", { level: 2, name: dictionaries.en.articles.digestTitle })).toBeNull();
+    expect(screen.queryByRole("link", { name: dictionaries.en.articles.digestCta })).toBeNull();
   });
 
-  it("renders the Daily Digest empty state with a back link to Field Notes", async () => {
+  it("redirects the paused English Daily Digest to Field Notes", async () => {
     window.history.pushState(null, "", "/en/news");
     render(<App />);
-    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.en.news.title })).toBeTruthy();
-    expect(screen.getByText(dictionaries.en.news.empty)).toBeTruthy();
-    expect(screen.getByRole("link", { name: dictionaries.en.news.back })).toHaveAttribute("href", "/en/articles");
+    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.en.articles.pageTitle })).toBeTruthy();
   });
 
-  it("renders the Persian Daily Digest empty state", async () => {
+  it("redirects the paused Persian Daily Digest to Field Notes", async () => {
     window.history.pushState(null, "", "/news");
     render(<App />);
-    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.fa.news.title })).toBeTruthy();
-    expect(screen.getByText(dictionaries.fa.news.empty)).toBeTruthy();
+    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.fa.articles.pageTitle })).toBeTruthy();
   });
 });

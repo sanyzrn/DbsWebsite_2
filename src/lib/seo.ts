@@ -3,7 +3,7 @@ import { dictionaries } from "./i18n";
 import { findArticle, getPublishedArticleSlugs, type Article } from "./articles";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
 import { isPublishedProject, loadProjectContent, localizeProject, type LocalizedProject } from "./projects";
-import { loadNewsItems } from "./news";
+import { DAILY_DIGEST_ENABLED, loadNewsItems } from "./news";
 import { getSiteUrl } from "./siteUrl";
 import { truncateDescription } from "./truncate";
 import siteRoutes from "../../shared/site-routes.json";
@@ -120,7 +120,7 @@ export function resolvePageSeo(
 
   const isNoindex =
     page === "notFound" ||
-    (page === "news" && loadNewsItems().length === 0) ||
+    (page === "news" && (!DAILY_DIGEST_ENABLED || loadNewsItems().length === 0)) ||
     (page === "project" && opts?.project && opts.project.maturity !== "published") ||
     (page === "article" && opts?.article && opts.article.frontmatter.status !== "published");
 
@@ -279,7 +279,9 @@ function buildBreadcrumbList(
 export function listPrerenderPaths(): string[] {
   const publishedProjects = loadProjectContent().filter(isPublishedProject);
   const publishedArticleSlugs = getPublishedArticleSlugs();
-  const staticBare = [...siteRoutes.staticPaths, ...siteRoutes.specialPaths];
+  const staticBare = [...siteRoutes.staticPaths, ...siteRoutes.specialPaths].filter(
+    (path) => DAILY_DIGEST_ENABLED || path !== "/news"
+  );
   const paths = staticBare.flatMap((p) => [p, p === "/" ? "/en" : `/en${p}`]);
   for (const p of publishedProjects) {
     paths.push(`/projects/${p.slug}`, `/en/projects/${p.slug}`);
