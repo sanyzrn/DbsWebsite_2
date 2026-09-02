@@ -258,3 +258,40 @@ export function Skills() {
                 </span>
                 <ChevronDown className="h-4 w-4 shrink-0 text-ink3 transition-transform duration-300 group-open:rotate-180" />
               </summary>
+              <div className="flex flex-wrap gap-1.5 border-t border-line px-4 py-3.5">
+                {cat.items.map((item) => (
+                  <span key={item} className={cn("chip text-[11px]", cat.mono && "chip-mono")}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </details>
+          ))}
+        </div>
+
+        {/* Desktop grid */}
+        <div className="mt-10 hidden gap-5 md:grid md:grid-cols-2">
+          {t.skills.cats.map((cat, i) => (
+            <Reveal key={cat.en} delay={Math.min(i * 80, 480)} className="h-full">
+              <div className="h-full rounded-lg border border-line bg-surface p-6 transition-colors duration-400 hover:border-hi/50 lg:p-7">
+                <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-line pb-4">
+                  <h3 className="text-[18px] font-extrabold tracking-tight lg:text-[19px]">{cat.title}</h3>
+                  <span className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink3" dir="ltr">
+                    {cat.en}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {cat.items.map((item) => (
+                    <span key={item} className={cn("chip chip-hover", cat.mono && "chip-mono")}>
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
