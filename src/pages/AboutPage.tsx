@@ -3,6 +3,7 @@ import { CareerTimeline, Skills } from "../components/About";
 import Contact from "../components/Contact";
 import { HeroAtmosphere } from "../components/Hero";
 import { PageMeta } from "../components/PageMeta";
+import BrandLogo from "../components/BrandLogo";
 import Testimonials from "../components/Testimonials";
 import { Reveal, SectionHead, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
@@ -33,7 +34,7 @@ export default function AboutPage() {
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent p-4 pt-16 sm:p-6 sm:pt-24" dir="ltr">
                 <span className="inline-flex items-center gap-2.5">
-                  <img src="/Dbs_logo_single.webp" alt="" className="h-5 w-5 object-contain" />
+                  <BrandLogo variant="icon" alt="" imgClassName="h-5 w-5 object-contain" />
                   <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/80 sm:text-[10px] sm:tracking-[0.2em]">
                     DbsStudio — creative & product studio
                   </span>

@@ -4,6 +4,7 @@ import { useApp } from "../lib/app";
 import type { Dict } from "../lib/i18n";
 import { cn } from "../utils/cn";
 import { Reveal, SectionHead } from "./ui";
+import BrandLogo from "./BrandLogo";
 
 type PathNode = Dict["about"]["path"][number];
 
@@ -152,7 +153,7 @@ export default function About() {
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent p-4 pt-12 sm:p-5 sm:pt-16" dir="ltr">
                   <span className="inline-flex items-center gap-2.5">
-                    <img src="/Dbs_logo_single.webp" alt="" className="h-5 w-5 object-contain" />
+                    <BrandLogo variant="icon" alt="" imgClassName="h-5 w-5 object-contain" />
                     <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/80 sm:text-[10px] sm:tracking-[0.2em]">
                       DbsStudio — creative & product studio
                     </span>
