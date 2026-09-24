@@ -31,7 +31,7 @@ const ok = (name, pass, detail = "") => {
 
 const html = await get(base + "/");
 ok("Home responds 200", html.status === 200);
-ok("theme-color is #2a1fc4", html.body.toString().includes('content="#2a1fc4"'));
+ok("theme-color is #3d4252", html.body.toString().includes('content="#3d4252"'));
 ok("manifest link present", /rel=["']manifest["']/.test(html.body.toString()));
 
 const man = await get(base + "/manifest.webmanifest");
@@ -42,7 +42,7 @@ ok("manifest.short_name", m.short_name === "Saeed");
 ok("manifest.start_url /", m.start_url === "/");
 ok("manifest.display standalone", m.display === "standalone");
 ok("manifest.background_color", m.background_color?.toLowerCase() === "#ecede8");
-ok("manifest.theme_color", m.theme_color?.toLowerCase() === "#2a1fc4");
+ok("manifest.theme_color", m.theme_color?.toLowerCase() === "#3d4252");
 ok("manifest description from SEO", /idea and shipping/i.test(m.description || ""));
 const sizes = new Set((m.icons || []).flatMap((i) => (i.sizes || "").split(" ")));
 ok("icon 192x192", sizes.has("192x192"));

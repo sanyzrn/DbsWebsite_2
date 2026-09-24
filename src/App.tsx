@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
 import FloatingQuickNav from "./components/FloatingQuickNav";
+import IntroLoader from "./components/IntroLoader";
 import ScrollToTop from "./components/ScrollToTop";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import { LocalePreferenceRedirect } from "./components/LocalePreferenceRedirect";
@@ -62,6 +63,7 @@ function Layout() {
 
   return (
     <div className="min-h-screen bg-page font-sans text-ink">
+      <IntroLoader />
       <a href="#main" className="skip-link">
         {t.a11y.skip}
       </a>

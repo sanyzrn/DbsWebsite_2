@@ -10,8 +10,8 @@
     />
     <meta name="author" content="Saeed" />
     <meta name="theme-color" content="#ecede8" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0d1021" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#2a1fc4" />
+    <meta name="theme-color" content="#121418" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#3d4252" />
 
     <link rel="canonical" href="__SITE_URL__/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -54,7 +54,13 @@
             (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
           root.classList.toggle("dark", dark);
           var accent = localStorage.getItem("sz-accent");
-          if (accent && accent !== "reflex" && /^[a-z-]{2,20}$/.test(accent)) root.setAttribute("data-accent", accent);
+          if (accent && accent !== "graphite" && /^[a-z-]{2,20}$/.test(accent)) root.setAttribute("data-accent", accent);
+          // Intro plays once per browser session, never under reduced motion.
+          var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (!calm && !sessionStorage.getItem("sz-intro")) {
+            root.classList.add("intro-play");
+            sessionStorage.setItem("sz-intro", "1");
+          }
         } catch (e) {}
       })();
     </script>
