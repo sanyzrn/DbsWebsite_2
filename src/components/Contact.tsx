@@ -113,7 +113,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
             </div>
           </div>
 
-          <div className="sheet mt-14 gap-y-14 md:mt-20">
+          <div className="sheet mt-8 gap-y-10 md:mt-14 lg:mt-20">
             <div className="lg:col-span-6 lg:col-start-4">
               <div className="border-t border-ink pt-8">
                 <h2 className="text-[22px] font-semibold">{f.title}</h2>
@@ -159,7 +159,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
           </div>
         </div>
 
-        <div className="sheet mt-14 gap-y-12 md:mt-20">
+        <div className="sheet mt-8 gap-y-10 md:mt-14 lg:mt-20">
           <div className="lg:col-span-5 lg:col-start-4">
             <p className="t-sub display max-w-[22ch]">{t.contact.strong}</p>
             <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">

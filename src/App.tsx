@@ -4,6 +4,7 @@ import { AppProvider, useApp } from "./lib/app";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
+import FloatingQuickNav from "./components/FloatingQuickNav";
 import ScrollToTop from "./components/ScrollToTop";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import { LocalePreferenceRedirect } from "./components/LocalePreferenceRedirect";
@@ -65,6 +66,7 @@ function Layout() {
         {t.a11y.skip}
       </a>
       <Nav />
+      <FloatingQuickNav />
       <PwaInstallPrompt />
       <main id="main" className={cn(clearFixedNav && "pt-[68px] md:pt-[76px]")}>
         <PageTransition>

@@ -37,9 +37,9 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-ink text-page">
+    <footer className="bg-ink pb-20 text-page lg:pb-0">
       {showInvite && (
-        <div className="wrap border-b border-page/15 pb-16 pt-20 md:pb-24 md:pt-32">
+        <div className="wrap border-b border-page/15 pb-12 pt-14 md:pb-24 md:pt-32">
           <div className="sheet items-end">
             <div className="lg:col-span-8">
               <p className="display t-page max-w-[12ch]">{t.contact.title}</p>
@@ -63,8 +63,8 @@ export default function Footer() {
         </div>
       )}
 
-      <div className="wrap py-14 md:py-20">
-        <div className="sheet gap-y-12">
+      <div className="wrap py-10 md:py-20">
+        <div className="sheet gap-y-10">
           <div className="lg:col-span-4">
             <Link to={home} className="inline-flex items-center gap-3" aria-label={t.nav.homeLinkLabel}>
               <span className="rounded-full bg-page p-1.5">
@@ -114,7 +114,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-page/15 pt-8 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-6 border-t border-page/15 pt-8 md:mt-16 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
             <RegMark className="h-5 w-5 text-page/75" />
             <p className="text-[13px] text-page/75">

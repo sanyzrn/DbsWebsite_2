@@ -5,7 +5,7 @@ import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import { Breadcrumbs } from "./Breadcrumbs";
-import { CropMarks, SectionHead } from "./ui";
+import { CropMarks, SectionHead, Slider } from "./ui";
 
 type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar" | "patient" | "concept";
 
@@ -506,7 +506,7 @@ function ProjectProof({ project, index, headingLevel = "h3" }: { project: Projec
   const Heading = headingLevel;
 
   return (
-    <article className="proof sheet items-center gap-y-8">
+    <article className="proof sheet w-full content-start items-center gap-y-6 lg:gap-y-8">
       <div className={cn("lg:col-span-7", flip && "lg:order-2 lg:col-start-6")}>
         <ProofFrame project={project} to={to} label={t.projects.previewAria.replace("{name}", project.name)} />
       </div>
@@ -520,12 +520,12 @@ function ProjectProof({ project, index, headingLevel = "h3" }: { project: Projec
           </Heading>
           <StatusBadge status={project.status} />
         </div>
-        <p className="mt-5 text-[17px] leading-relaxed text-ink">{project.subtitle}</p>
-        <p className="meta mt-5">
+        <p className="mt-4 line-clamp-3 text-[16px] leading-relaxed text-ink lg:mt-5 lg:line-clamp-none lg:text-[17px]">{project.subtitle}</p>
+        <p className="meta mt-5 hidden lg:block">
           <span className="text-ink2">{t.projects.roleLabel}: </span>
           {project.role.slice(0, 3).join(", ")}
         </p>
-        <Link to={to} className="link mt-7 inline-block text-[15px] font-semibold">
+        <Link to={to} className="link mt-5 inline-block text-[15px] font-semibold lg:mt-7">
           {t.projects.readCase}
         </Link>
       </div>
@@ -577,12 +577,14 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
       <section id="projects" className="section-pad border-t border-line">
         <div className="wrap">
           <SectionHead kicker={t.projects.kicker} title={t.projects.title} lead={t.projects.lead} />
-          <div data-testid="projects-teaser" className="mt-16 flex flex-col gap-24 md:mt-24 md:gap-36">
-            {shown.map((p, i) => (
-              <ProjectProof key={p.id} project={p} index={i} />
-            ))}
+          <div data-testid="projects-teaser" className="mt-10 md:mt-16 lg:mt-24">
+            <Slider label={t.projects.title} desktopClassName="lg:flex-col lg:gap-36" slideClassName="">
+              {shown.map((p, i) => (
+                <ProjectProof key={p.id} project={p} index={i} />
+              ))}
+            </Slider>
           </div>
-          <div className="mt-20 flex justify-center md:mt-28">
+          <div className="mt-10 flex justify-center md:mt-16 lg:mt-28">
             <Link to={localePath(lang, "/projects")} className="btn btn-ghost">
               {t.projects.seeAll}
             </Link>
@@ -597,7 +599,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
       <div className="wrap">
         <SectionHead as="h1" size="page" kicker={t.projects.pageKicker} title={t.projects.pageTitle} lead={t.projects.pageLead} />
 
-        <div className="sheet mt-12 md:mt-16">
+        <div className="sheet mt-8 md:mt-16">
           <div className="flex flex-wrap items-center gap-2 lg:col-span-9 lg:col-start-4" role="group" aria-label={t.projects.pageKicker}>
             <button
               type="button"
@@ -622,10 +624,12 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
           </div>
         </div>
 
-        <div data-testid="projects-grid" className="mt-16 flex flex-col gap-24 md:mt-24 md:gap-36">
-          {shown.map((p, i) => (
-            <ProjectProof key={p.id} project={p} index={i} headingLevel="h2" />
-          ))}
+        <div data-testid="projects-grid" className="mt-8 md:mt-14 lg:mt-24">
+          <Slider key={filter} label={t.projects.pageTitle} desktopClassName="lg:flex-col lg:gap-36" slideClassName="">
+            {shown.map((p, i) => (
+              <ProjectProof key={p.id} project={p} index={i} headingLevel="h2" />
+            ))}
+          </Slider>
         </div>
       </div>
     </section>

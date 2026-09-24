@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useApp } from "../lib/app";
 import type { Dict } from "../lib/i18n";
 import { cn } from "../utils/cn";
-import { SectionHead } from "./ui";
+import { SectionHead, Slider } from "./ui";
 
 type PathNode = Dict["about"]["path"][number];
 
@@ -141,19 +141,24 @@ export function Skills() {
       <div className="wrap">
         <SectionHead kicker={t.skills.kicker} title={t.skills.title} lead={t.skills.lead} />
 
-        <div className="mt-16 grid gap-x-8 gap-y-14 border-t border-ink pt-10 sm:grid-cols-2 md:mt-24 xl:grid-cols-4">
-          {t.skills.cats.map((cat) => (
-            <div key={cat.en}>
-              <h3 className="display text-[2rem] leading-none">{cat.title}</h3>
-              <ul className="mt-6">
-                {cat.items.map((item) => (
-                  <li key={item} className="border-b border-line py-2.5 text-[16px] text-ink2">
-                    <span dir={cat.mono ? "ltr" : undefined}>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div className="mt-10 md:mt-16 lg:mt-24 lg:border-t lg:border-ink lg:pt-10">
+          <Slider label={t.skills.title} desktopClassName="lg:grid lg:grid-cols-4 lg:gap-8">
+            {t.skills.cats.map((cat) => (
+              <div key={cat.en} className="w-full rounded-[6px] border border-line2 bg-surface2 p-6 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0">
+                <h3 className="display text-[2rem] leading-none">{cat.title}</h3>
+                <ul className="mt-5 flex flex-wrap gap-2 lg:mt-6 lg:block">
+                  {cat.items.map((item) => (
+                    <li
+                      key={item}
+                      className="chip text-[14px] lg:flex lg:rounded-none lg:border-0 lg:border-b lg:border-line lg:px-0 lg:py-2.5 lg:text-[16px]"
+                    >
+                      <span dir={cat.mono ? "ltr" : undefined}>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </Slider>
         </div>
       </div>
     </section>

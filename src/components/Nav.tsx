@@ -8,7 +8,6 @@ import { hasNewsContent } from "../lib/news";
 import { localePath, stripLangPrefix } from "../lib/paths";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
-import { ColorBar } from "./ui";
 
 const PANEL_ID = "mobile-nav-panel";
 
@@ -95,15 +94,23 @@ export default function Nav() {
     { label: t.nav.contact, to: localePath(lang, "/contact") },
   ];
   const ctaTo = localePath(lang, "/contact");
+  const articlesTo = localePath(lang, "/articles");
+  /** Mobile panel: primary pages plus the home-page section anchors. */
+  const mobileLinks = [
+    links[0],
+    links[1],
+    { label: t.nav.expertise, to: `${home}#expertise` },
+    { label: t.nav.process, to: `${home}#process` },
+    links[2],
+    links[3],
+  ];
+  const nf = new Intl.NumberFormat(lang === "fa" ? "fa-IR" : "en-US", { minimumIntegerDigits: 2 });
 
   return (
     <header
       className={cn(
         "nav-bar fixed inset-x-0 top-0 z-50 border-b border-transparent",
-        // backdrop-filter would become the containing block of the fixed menu
-        // sheet, so the open state swaps the glass bar for a plain ground.
-        scrolled && !open && "is-solid",
-        open && "bg-page"
+        (scrolled || open) && "is-solid"
       )}
     >
       <div className="wrap relative z-10 flex h-[68px] items-center justify-between gap-4 md:h-[76px]">
@@ -179,49 +186,49 @@ export default function Nav() {
         </div>
       </div>
 
+      {/* Compact popover anchored under the menu button (inline-end corner) */}
       <div
         ref={panelWrapRef}
         inert={!open}
-        className={cn("menu-sheet fixed inset-0 z-0 bg-page lg:hidden", open && "is-open")}
+        className={cn(
+          "absolute end-5 top-full z-50 w-60 origin-top-right pt-2 transition-[opacity,transform] duration-200 ease-out rtl:origin-top-left md:end-10 lg:hidden",
+          open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
+        )}
       >
         <nav
           id={PANEL_ID}
           aria-label={t.nav.mobileNavLabel}
-          className="wrap flex h-full flex-col overflow-y-auto pb-8 pt-[96px]"
+          className="overflow-hidden rounded-[10px] border border-ink bg-surface2 shadow-[var(--shadow-sheet)]"
         >
-          <ul className="flex flex-col">
-            {links.map((l, i) => (
-              <li key={l.to} className="menu-item border-b border-line">
+          <ul className="flex flex-col p-1.5">
+            {mobileLinks.map((l, i) => (
+              <li key={l.to}>
                 <Link
                   ref={i === 0 ? firstLinkRef : undefined}
                   to={l.to}
                   onClick={closeMenu}
                   aria-current={isActive(pathname, l.to) ? "page" : undefined}
-                  className="display flex items-baseline py-4 text-[2.75rem] transition-colors hover:text-accent aria-[current=page]:text-accent"
+                  className="flex items-center justify-between rounded-[6px] px-3 py-2.5 text-[15px] font-semibold text-ink transition-colors hover:bg-surface aria-[current=page]:text-accent"
                 >
                   {l.label}
+                  <span className="tnum text-[11px] font-medium text-ink3">{nf.format(i + 1)}</span>
                 </Link>
+                {l.to === articlesTo && showNews && (
+                  <Link
+                    to={newsTo}
+                    onClick={closeMenu}
+                    className="ms-3 flex items-center rounded-[6px] border-s border-line px-3 py-2 text-[13px] font-medium text-ink2 transition-colors hover:bg-surface"
+                  >
+                    {t.nav.news}
+                  </Link>
+                )}
               </li>
             ))}
-            {showNews && (
-              <li className="menu-item border-b border-line">
-                <Link to={newsTo} onClick={closeMenu} className="block py-4 text-[17px] font-semibold text-ink2">
-                  {t.nav.news}
-                </Link>
-              </li>
-            )}
           </ul>
-
-          <div className="menu-item mt-auto pt-10">
-            <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary w-full">
+          <div className="border-t border-line p-1.5">
+            <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary h-10 w-full text-[14px]">
               {t.nav.cta}
             </Link>
-            <div className="mt-6 flex items-center justify-between gap-4">
-              <a href={`mailto:${t.contact.email}`} dir="ltr" className="link text-[15px] font-semibold">
-                {t.contact.email}
-              </a>
-              <ColorBar />
-            </div>
           </div>
         </nav>
       </div>

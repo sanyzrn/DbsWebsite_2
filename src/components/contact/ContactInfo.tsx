@@ -10,7 +10,7 @@ export function ContactInfo() {
   ];
 
   return (
-    <dl className="mt-16 grid grid-cols-1 gap-x-8 gap-y-6 border-t border-ink pt-8 sm:grid-cols-2 md:mt-20 lg:grid-cols-4">
+    <dl className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 border-t border-ink pt-6 sm:grid-cols-2 md:mt-20 md:pt-8 lg:grid-cols-4">
       {info.map((item) => (
         <div key={item.label} className="min-w-0">
           <dt className="meta">{item.label}</dt>
