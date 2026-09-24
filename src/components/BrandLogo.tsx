@@ -17,12 +17,28 @@ export default function BrandLogo({
   className,
   imgClassName,
   alt = "DbsStudio",
+  tone = "auto",
 }: {
   variant?: Variant;
+  /** "auto" follows the theme; "onDark" always shows the mark made for dark grounds. */
+  tone?: "auto" | "onDark";
   className?: string;
   imgClassName?: string;
   alt?: string;
 }) {
+  if (variant === "icon" && tone === "onDark") {
+    return (
+      <span className={cn("inline-flex items-center", className)}>
+        <img
+          src="/Dbs_logo_single_w.png"
+          alt={alt}
+          className={cn("block h-auto w-auto select-none", imgClassName)}
+          draggable={false}
+        />
+      </span>
+    );
+  }
+
   if (variant === "icon") {
     return (
       <span className={cn("inline-flex items-center", className)}>

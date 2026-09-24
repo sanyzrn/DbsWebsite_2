@@ -115,11 +115,8 @@ export default function Nav() {
       )}
     >
       <div className="wrap relative z-10 flex h-[68px] items-center justify-between gap-4 md:h-[76px]">
-        <Link to={home} className="group flex items-center gap-3" aria-label={t.nav.homeLinkLabel}>
+        <Link to={home} className="flex items-center" aria-label={t.nav.homeLinkLabel}>
           <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain" alt="" />
-          <span className="hidden text-[15px] font-semibold tracking-[-0.01em] sm:inline" aria-hidden="true">
-            {t.hero.person}
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label={t.nav.primaryNavLabel}>

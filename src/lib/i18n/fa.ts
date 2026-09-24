@@ -164,6 +164,7 @@ const fa = {
   },
   projects: {
     readCase: "خواندن مطالعهٔ موردی",
+    ticketLabel: "شناسنامهٔ پروژه",
     next: "پروژهٔ بعدی",
     countLabel: "{n} پروژه",
     kicker: "نمونه‌کارها",

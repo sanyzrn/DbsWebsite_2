@@ -5,7 +5,7 @@ import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import { cn } from "../utils/cn";
 import { Breadcrumbs } from "./Breadcrumbs";
-import { CropMarks, SectionHead, Slider } from "./ui";
+import { ColorBar, CropMarks, SectionHead, Slider } from "./ui";
 
 type MockKind = "pulse" | "ai" | "keep" | "brain" | "chatbot" | "tools" | "hesabyar" | "patient" | "concept";
 
@@ -670,18 +670,47 @@ function JobTicket({ project }: { project: ProjectItem }) {
       ),
     });
   }
-  rows.push({ key: "role", label: t.projects.roleLabel, value: project.role.join(", ") });
-  rows.push({ key: "tech", label: t.projects.techLabel, value: <span dir="ltr">{project.tech.join(", ")}</span> });
+  rows.push({
+    key: "role",
+    label: t.projects.roleLabel,
+    value: (
+      <ul className="flex flex-col gap-1">
+        {project.role.map((r) => (
+          <li key={r}>{r}</li>
+        ))}
+      </ul>
+    ),
+  });
+  rows.push({
+    key: "tech",
+    label: t.projects.techLabel,
+    value: (
+      <span className="flex flex-wrap gap-1.5" dir="ltr">
+        {project.tech.map((tech) => (
+          <span key={tech} className="chip px-2.5 py-0.5 text-[12.5px]">
+            {tech}
+          </span>
+        ))}
+      </span>
+    ),
+  });
 
   return (
-    <dl className="border-t border-rule">
-      {rows.map((row) => (
-        <div key={row.key} className="grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-line py-3.5 text-[15px] sm:grid-cols-[9rem_minmax(0,1fr)]">
-          <dt className="text-ink3">{row.label}</dt>
-          <dd className="min-w-0 text-ink">{row.value}</dd>
-        </div>
-      ))}
-    </dl>
+    <div className="ticket">
+      <div className="flex items-center justify-between gap-4 px-5 pb-4 pt-5">
+        <span className="text-[13px] font-semibold text-ink2">{t.projects.ticketLabel}</span>
+        <ColorBar />
+      </div>
+      <div className="ticket-perf" aria-hidden="true" />
+      <dl className="px-5 pb-2 pt-1">
+        {rows.map((row) => (
+          <div key={row.key} className="border-b border-line py-4 last:border-b-0">
+            <dt className="meta">{row.label}</dt>
+            <dd className="mt-1.5 min-w-0 text-[15px] leading-relaxed text-ink">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }
 
@@ -691,6 +720,8 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
   const idx = all.findIndex((p) => p.slug === project.slug);
   const next = all.length > 1 && idx !== -1 ? all[(idx + 1) % all.length] : undefined;
 
+  // Persian zero is a dot; a leading "۰" reads as a bullet in the display face.
+  const nf = new Intl.NumberFormat(lang === "fa" ? "fa-IR" : "en-US", { minimumIntegerDigits: lang === "fa" ? 1 : 2 });
   const story = [
     { key: "problem", label: t.projects.problemLabel, body: project.problem },
     { key: "approach", label: t.projects.approachLabel, body: project.approach },
@@ -725,39 +756,55 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
           <ProofFrame project={project} eager className="md:aspect-[16/9]" />
         </div>
 
-        <div className="sheet mt-14 md:mt-20">
-          <div className="lg:col-span-5 lg:col-start-4">
-            <p className="lead text-ink">{project.desc}</p>
-          </div>
-          <div className="mt-6 lg:col-span-4 lg:col-start-9 lg:mt-0">
+        {/* Brief: sticky job ticket beside a reading column of chapters */}
+        <div className="sheet mt-14 gap-y-12 md:mt-20 lg:items-start">
+          <p className="lead text-ink lg:col-span-7 lg:col-start-6 lg:row-start-1">{project.desc}</p>
+
+          <aside className="lg:sticky lg:top-28 lg:col-span-4 lg:row-span-3 lg:row-start-1">
             <JobTicket project={project} />
-          </div>
+          </aside>
+
+          {story.length > 0 && (
+            <ol className="flex flex-col gap-12 lg:col-span-7 lg:col-start-6 lg:row-start-2 md:gap-16">
+              {story.map((s, i) => {
+                const isResult = s.key === "result";
+                return (
+                  <li
+                    key={s.key}
+                    className={cn(
+                      "chapter grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-4 md:grid-cols-[4rem_minmax(0,1fr)] md:gap-x-6",
+                      isResult ? "rounded-[12px] border border-line bg-surface2 p-6 md:p-8" : "border-t border-rule pt-8"
+                    )}
+                  >
+                    <span className="display tnum text-[2.25rem] leading-none text-accent md:text-[3rem]" aria-hidden="true">
+                      {nf.format(i + 1)}
+                    </span>
+                    <div className="min-w-0">
+                      <h2 className="text-[15px] font-semibold text-ink2">{s.label}</h2>
+                      <p className={cn("mt-3 max-w-[62ch] leading-[1.8] text-ink", isResult ? "text-[19px] font-medium" : "text-[17px]")}>
+                        {s.body}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+
+          {project.caps && project.caps.length > 0 && (
+            <div className="lg:col-span-7 lg:col-start-6 lg:row-start-3">
+              <h2 className="text-[15px] font-semibold text-ink2">{t.projects.capsLabel}</h2>
+              <ul className="mt-4 grid gap-x-8 sm:grid-cols-2">
+                {project.caps.map((c) => (
+                  <li key={c} className="flex items-baseline gap-3 border-b border-line py-3 text-[16px]">
+                    <Check className="h-4 w-4 shrink-0 translate-y-0.5 text-accent" strokeWidth={2.2} />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-
-        {story.length > 0 && (
-          <ol className="sheet mt-16 border-t border-rule pt-10 md:mt-24 md:pt-14">
-            {story.map((s, i) => (
-              <li key={s.key} className={cn("lg:col-span-3", i === 0 && "lg:col-start-4")}>
-                <h2 className="text-[15px] font-semibold text-accent">{s.label}</h2>
-                <p className="mt-3 text-[16px] leading-relaxed text-ink2">{s.body}</p>
-              </li>
-            ))}
-          </ol>
-        )}
-
-        {project.caps && project.caps.length > 0 && (
-          <div className="sheet mt-16 md:mt-24">
-            <h2 className="kicker lg:col-span-3">{t.projects.capsLabel}</h2>
-            <ul className="grid gap-x-8 sm:grid-cols-2 lg:col-span-9">
-              {project.caps.map((c) => (
-                <li key={c} className="flex items-baseline gap-3 border-b border-line py-3 text-[16px]">
-                  <Check className="h-4 w-4 shrink-0 translate-y-0.5 text-accent" strokeWidth={2.2} />
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         <div className="mt-20 flex flex-col gap-10 border-t border-line pt-12 md:mt-28 md:flex-row md:items-end md:justify-between">
           <Link

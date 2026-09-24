@@ -66,11 +66,9 @@ export default function Footer() {
       <div className="wrap py-10 md:py-20">
         <div className="sheet gap-y-10">
           <div className="lg:col-span-4">
-            <Link to={home} className="inline-flex items-center gap-3" aria-label={t.nav.homeLinkLabel}>
-              <span className="rounded-full bg-page p-1.5">
-                <BrandLogo variant="icon" imgClassName="h-7 w-7 object-contain" alt="" />
-              </span>
-              <span className="text-[17px] font-semibold">{t.hero.person}</span>
+            <Link to={home} className="inline-flex items-center" aria-label={t.nav.homeLinkLabel}>
+              {/* The footer is a dark ground in both themes — always use the light mark */}
+              <BrandLogo variant="icon" tone="onDark" imgClassName="h-9 w-9 object-contain" alt="" />
             </Link>
             <p className="mt-5 max-w-[38ch] text-[15px] text-footer-fg/75">{t.footer.desc}</p>
             <p className="mt-3 text-[14px] text-footer-fg/75">
