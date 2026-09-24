@@ -18,7 +18,7 @@ function renderTeaser() {
       </AppProvider>
     </MemoryRouter>
   );
-  return screen.getByTestId("projects-carousel");
+  return screen.getByTestId("projects-teaser");
 }
 
 /**

@@ -1,20 +1,20 @@
 :root {
-  --page: #f2efe9;
-  --surface: #e9e5db;
-  --ink: #171310;
+  --page: #ecede8;
+  --surface: #e2e4dc;
+  --ink: #151822;
   --ink2: color-mix(in srgb, var(--ink) 68%, var(--page));
   --line: color-mix(in srgb, var(--ink) 12%, var(--page));
-  --accent: #a8471e;
+  --accent: #2a1fc4;
   --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --page: #141110;
-    --surface: #1b1714;
-    --ink: #ede8de;
+    --page: #0d1021;
+    --surface: #141833;
+    --ink: #e8e9f0;
     --ink2: color-mix(in srgb, var(--ink) 70%, var(--page));
     --line: color-mix(in srgb, var(--ink) 14%, var(--page));
-    --accent: #d9713d;
+    --accent: #a39cff;
     --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
   }
 }
@@ -102,7 +102,7 @@ button {
 @media (prefers-color-scheme: dark) {
   .primary,
   .primary:hover {
-    color: #141110;
+    color: #0d1021;
   }
 }
 .ghost {

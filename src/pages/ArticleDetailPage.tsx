@@ -2,7 +2,6 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { PageMeta } from "../components/PageMeta";
 import { articleMdxComponents } from "../components/mdx/components";
-import { DirArrow, Reveal, DecorativeGrid } from "../components/ui";
 import { useApp } from "../lib/app";
 import { findArticle, getPublishedArticles } from "../lib/articles";
 import { formatArticleDate } from "../lib/formatDate";
@@ -31,82 +30,78 @@ export default function ArticleDetailPage() {
   return (
     <>
       <PageMeta page="article" slug={slug} />
-      <section className="relative overflow-hidden section-pad border-t border-line">
-        <DecorativeGrid />
-        <div className="wrap relative">
-        <Breadcrumbs
-          items={[
-            { label: t.nav.home, to: localePath(lang, "/") },
-            { label: t.nav.articles, to: localePath(lang, "/articles") },
-            { label: fm.title },
-          ]}
-        />
+      <article className="pb-[clamp(72px,9vw,160px)] pt-10 md:pt-16">
+        <div className="wrap">
+          <Breadcrumbs
+            items={[
+              { label: t.nav.home, to: localePath(lang, "/") },
+              { label: t.nav.articles, to: localePath(lang, "/articles") },
+              { label: fm.title },
+            ]}
+          />
 
-        <Reveal delay={60}>
-          <header className="mx-auto mt-8 max-w-[70ch]">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-ink3">
-              {formatArticleDate(fm.date, lang)}
-              <span className="mx-2 text-line2">·</span>
-              {t.articles.readingTime.replace("{n}", String(fm.readingTimeMinutes))}
-            </p>
-            <h1 className="mt-4 text-[32px] font-black leading-[1.2] tracking-tight md:text-[40px]">{fm.title}</h1>
-            <p className="mt-4 text-[16px] font-medium leading-8 text-ink2 md:text-[17px]">{fm.description}</p>
-            {fm.tags.length > 0 ? (
-              <p className="mt-5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-ink3">
-                {fm.tags.join(" · ")}
-              </p>
-            ) : null}
+          <header className="sheet mt-10 md:mt-14">
+            <div className="meta flex flex-col gap-1 lg:col-span-3 lg:pt-3">
+              <time dateTime={fm.date} className="tnum">
+                {formatArticleDate(fm.date, lang)}
+              </time>
+              <span>{t.articles.readingTime.replace("{n}", String(fm.readingTimeMinutes))}</span>
+              {fm.tags.length > 0 ? <span>{fm.tags.join(", ")}</span> : null}
+            </div>
+            <div className="lg:col-span-9">
+              <h1 className="display t-section max-w-[18ch]">{fm.title}</h1>
+              <p className="lead mt-8 max-w-[56ch]">{fm.description}</p>
+            </div>
           </header>
-        </Reveal>
 
-        <Reveal delay={120}>
-          <div className="article-prose mx-auto mt-10 max-w-[70ch]">
-            <Component components={articleMdxComponents} />
+          <div className="sheet mt-14 md:mt-20">
+            <div className="article-prose border-t border-ink pt-10 lg:col-span-7 lg:col-start-4">
+              <Component components={articleMdxComponents} />
+            </div>
           </div>
-        </Reveal>
 
-        {relatedProjects.length > 0 ? (
-          <Reveal delay={180}>
-            <aside className="mx-auto mt-14 max-w-[70ch] border-t border-line pt-10">
-              <h2 className="text-[14px] font-bold uppercase tracking-[0.14em] text-ink3">{t.articles.relatedProjects}</h2>
-              <ul className="mt-4 space-y-3">
-                {relatedProjects.map((p) => (
-                  <li key={p.slug}>
-                    <Link
-                      to={localePath(lang, `/projects/${p.slug}`)}
-                      className="group inline-flex items-center gap-2 text-[15px] font-bold text-ink transition-colors hover:text-hi"
-                    >
-                      {p.name}
-                      <DirArrow className="h-3.5 w-3.5 opacity-60 transition-opacity group-hover:opacity-100" />
-                    </Link>
-                    <p className="mt-0.5 text-[13px] leading-6 text-ink2">{p.subtitle}</p>
-                  </li>
-                ))}
-              </ul>
+          {relatedProjects.length > 0 ? (
+            <aside className="sheet mt-20">
+              <div className="border-t border-line pt-8 lg:col-span-7 lg:col-start-4">
+                <h2 className="meta">{t.articles.relatedProjects}</h2>
+                <ul className="mt-4">
+                  {relatedProjects.map((p) => (
+                    <li key={p.slug} className="border-b border-line py-4">
+                      <Link to={localePath(lang, `/projects/${p.slug}`)} className="text-[20px] font-semibold transition-colors hover:text-accent">
+                        {p.name}
+                      </Link>
+                      <p className="mt-1 text-[15px] text-ink2">{p.subtitle}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
-          </Reveal>
-        ) : relatedArticles.length > 0 ? (
-          <Reveal delay={180}>
-            <aside className="mx-auto mt-14 max-w-[70ch] border-t border-line pt-10">
-              <h2 className="text-[14px] font-bold uppercase tracking-[0.14em] text-ink3">{t.articles.pageTitle}</h2>
-              <ul className="mt-4 space-y-3">
-                {relatedArticles.map((a) => (
-                  <li key={a.slug}>
-                    <Link
-                      to={localePath(lang, `/articles/${a.slug}`)}
-                      className="group inline-flex items-center gap-2 text-[15px] font-bold text-ink transition-colors hover:text-hi"
-                    >
-                      {a.frontmatter.title}
-                      <DirArrow className="h-3.5 w-3.5 opacity-60 transition-opacity group-hover:opacity-100" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          ) : relatedArticles.length > 0 ? (
+            <aside className="sheet mt-20">
+              <div className="border-t border-line pt-8 lg:col-span-7 lg:col-start-4">
+                <h2 className="meta">{t.articles.pageTitle}</h2>
+                <ul className="mt-4">
+                  {relatedArticles.map((a) => (
+                    <li key={a.slug} className="border-b border-line py-4">
+                      <Link to={localePath(lang, `/articles/${a.slug}`)} className="text-[20px] font-semibold transition-colors hover:text-accent">
+                        {a.frontmatter.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
-          </Reveal>
-        ) : null}
+          ) : null}
+
+          <div className="sheet mt-16">
+            <div className="lg:col-span-7 lg:col-start-4">
+              <Link to={localePath(lang, "/articles")} className="link font-semibold">
+                {t.articles.back}
+              </Link>
+            </div>
+          </div>
         </div>
-      </section>
+      </article>
     </>
   );
 }

@@ -13,14 +13,14 @@ describe("articles routes", () => {
   it("renders the articles list for both locales with published notes", () => {
     window.history.pushState(null, "", "/en/articles");
     render(<App />);
-    expect(screen.getByRole("heading", { level: 2, name: dictionaries.en.articles.pageTitle })).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 1, name: dictionaries.en.articles.pageTitle })).toBeTruthy();
     expect(screen.queryByText(dictionaries.en.articles.empty)).toBeNull();
     expect(screen.getByRole("heading", { level: 2, name: /From idea to AI layer/i })).toBeTruthy();
 
     cleanup();
     window.history.pushState(null, "", "/articles");
     render(<App />);
-    expect(screen.getByRole("heading", { level: 2, name: dictionaries.fa.articles.pageTitle })).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 1, name: dictionaries.fa.articles.pageTitle })).toBeTruthy();
     expect(screen.queryByText(dictionaries.fa.articles.empty)).toBeNull();
   });
 
@@ -59,12 +59,12 @@ describe("articles routes", () => {
   it("redirects the paused English Daily Digest to Field Notes", async () => {
     window.history.pushState(null, "", "/en/news");
     render(<App />);
-    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.en.articles.pageTitle })).toBeTruthy();
+    expect(await screen.findByRole("heading", { level: 1, name: dictionaries.en.articles.pageTitle })).toBeTruthy();
   });
 
   it("redirects the paused Persian Daily Digest to Field Notes", async () => {
     window.history.pushState(null, "", "/news");
     render(<App />);
-    expect(await screen.findByRole("heading", { level: 2, name: dictionaries.fa.articles.pageTitle })).toBeTruthy();
+    expect(await screen.findByRole("heading", { level: 1, name: dictionaries.fa.articles.pageTitle })).toBeTruthy();
   });
 });

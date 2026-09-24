@@ -69,46 +69,24 @@ const en: UiDict = {
     breadcrumbLabel: "Breadcrumb",
   },
   hero: {
+    person: "Saeed Zarrini",
+    sinceLine: "Designing and building in Tehran since 2008",
     badge: "AI Solutions Engineer & Digital Product Builder",
-    badgeStudio: "DbsStudio",
-    name: "DbsStudio",
-    nameAccent: "Studio",
-    sloganA: "From an idea,",
-    sloganCycle: [
-      "a durable service",
-      "a living experience",
-      "a smart solution",
-      "code that works",
-      "a brand people remember",
-      "a tangible future",
-    ],
     body: "I help teams turn ideas into real digital products — bringing product design, software engineering, and AI integration together in one continuous path from concept to production, not just a mockup or a demo.",
-    body2:
-      "I focus on building the things teams actually use every day: clear interfaces, reliable software, stable APIs, and AI capabilities integrated into real workflows — turning ideas into products that work in the real world, not just on slides.",
     ctaPrimary: "See the projects",
     ctaSecondary: "About me",
   },
-  ecosystem: {
-    label: "DbsStudio practice graph",
-    fig: "fig. 02 — practice graph",
-    lead: "Three disciplines. One shared output.",
-    sources: {
-      design: "Design",
-      engineering: "Engineering",
-      intelligence: "Intelligence",
-    },
-    product: "Product",
-    caption: "design → engineering → intelligence",
-  },
   intro: {
     kicker: "Introduction",
-    title: "My work doesn't sit in one lane",
+    title: "My work doesn’t sit in one lane",
     p1: "I work at the intersection of several disciplines. To me, design, software engineering and AI are not separate worlds — they are tools for solving problems.",
     p2: "From brand identity and pharmaceutical packaging to UX design, software development, organizational systems and AI integration.",
-    strong: "My real value isn't in any single skill. It's in the combination.",
+    strong: "My real value isn’t in any single skill. It’s in the combination.",
     manifesto: ["I design ideas.", "I engineer products.", "I integrate intelligence."],
   },
   expertise: {
+    platesLabel: "Four colour separations that overprint into one full-colour image; each plate is a discipline.",
+    platesCaption: "Like four-colour print: each discipline is a separation, and the product is where they overprint.",
     kicker: "Expertise",
     title: "I design. I build. I make things intelligent.",
     lead: "Four areas — from visual identity to APIs, mobile apps, and LLM integration.",
@@ -143,7 +121,7 @@ const en: UiDict = {
   thinking: {
     kicker: "Product thinking",
     title: "Every project is a problem. Not just an order.",
-    lead: "Good projects don't start by choosing a technology. They start by understanding the problem.",
+    lead: "Good projects don’t start by choosing a technology. They start by understanding the problem.",
     intro2: "Before we talk about tools, frameworks or AI models, we need to know:",
     questions: [
       "What needs to get better?",
@@ -167,9 +145,12 @@ const en: UiDict = {
     ],
   },
   projects: {
+    readCase: "Read the case study",
+    next: "Next project",
+    countLabel: "{n} projects",
     kicker: "Selected work",
     title: "Featured projects",
-    lead: "Examples of organizational systems, personal tools, and AI integrations I've designed and engineered.",
+    lead: "Examples of organizational systems, personal tools, and AI integrations I’ve designed and engineered.",
     roleLabel: "Role",
     techLabel: "Technology",
     view: "Project details",
@@ -314,14 +295,14 @@ const en: UiDict = {
   contact: {
     kicker: "Contact",
     title: "Have an idea?",
-    lead: "Let's look at the idea together.",
+    lead: "Let’s look at the idea together.",
     lines: [
-      "You don't need to know from the start which technology fits your project.",
-      "You don't need to know exactly where AI can help your business.",
-      "You don't need every technical detail locked in advance.",
+      "You don’t need to know from the start which technology fits your project.",
+      "You don’t need to know exactly where AI can help your business.",
+      "You don’t need every technical detail locked in advance.",
     ],
     strong: "My job is to turn a need into architecture, interface, and integration you can run.",
-    cta: "Let's review the idea",
+    cta: "Let’s review the idea",
     secondary: "Start a project",
     emailLabel: "Email",
     email: "zrn_sany@yahoo.com",
@@ -333,7 +314,7 @@ const en: UiDict = {
     response: "Usually within 24 hours",
     form: {
       title: "Project inquiry",
-      desc: "Write a few lines about your idea — we'll clarify scope and the next step together.",
+      desc: "Write a few lines about your idea — we’ll clarify scope and the next step together.",
       name: "Your name",
       namePh: "Full name",
       email: "Email",
@@ -353,11 +334,11 @@ const en: UiDict = {
       /** Label of the disclosure holding every non-required field. */
       optionalDetails: "More details (optional)",
       optionalDetailsHint:
-        "Project type, organization, phone, budget and timeline — leave them blank if you don't know yet; we can work them out in conversation.",
+        "Project type, organization, phone, budget and timeline — leave them blank if you don’t know yet; we can work them out in conversation.",
       submit: "Send message",
       sending: "Sending…",
       deliveredTitle: "Message sent.",
-      deliveredBody: "I'll get back to you soon — usually within 24 hours.",
+      deliveredBody: "I’ll get back to you soon — usually within 24 hours.",
       mailedTitle: "Email client opened.",
       mailedBody:
         "Your inquiry has not been sent yet. Please send the pre-filled message in your email client to complete it. If nothing opened, email me directly below.",
@@ -365,11 +346,11 @@ const en: UiDict = {
         "Your message was long and has been shortened — please confirm it sent in full, or use the direct email link below.",
       timeoutTitle: "Taking longer than expected.",
       timeoutBody: "The connection stalled — try again, or email me directly below.",
-      errorTitle: "Couldn't send.",
+      errorTitle: "Couldn’t send.",
       errorBody: "Please try again, or email me directly.",
       rateLimitedTitle: "Hourly limit reached.",
       rateLimitedBody:
-        "You've reached the hourly message limit — please try again later, or email directly at {email}.",
+        "You’ve reached the hourly message limit — please try again later, or email directly at {email}.",
       fieldTooLong: "This field is too long (max {n} characters).",
       directEmail: "Or email me directly:",
       formUnavailable:
@@ -390,6 +371,8 @@ const en: UiDict = {
     },
   },
   footer: {
+    colophon: "Set in Archivo, Vazirmatn and Noto Kufi Arabic. Designed and built by Saeed.",
+    emailCta: "Or write directly",
     tagline: "AI Solutions Engineer & Digital Product Builder",
     studio: "A DbsStudio creative & product studio",
     desc: "From visual identity and UI to full-stack and LLM integration — for products that reach end users.",
@@ -412,7 +395,7 @@ const en: UiDict = {
       },
       {
         heading: "The contact form",
-        body: "When you send a message through the contact form, your name, email, optional phone number, message, and any optional project details are posted to a same-origin PHP endpoint on this site, which forwards a plain-text notification to Saeed via the Bale Bot API. The bot token never ships in the browser bundle. This information is used solely to respond to your inquiry — it is never sold. Bale's own processing of bot messages is covered by Bale's privacy policy (https://bale.ai).",
+        body: "When you send a message through the contact form, your name, email, optional phone number, message, and any optional project details are posted to a same-origin PHP endpoint on this site, which forwards a plain-text notification to Saeed via the Bale Bot API. The bot token never ships in the browser bundle. This information is used solely to respond to your inquiry — it is never sold. Bale’s own processing of bot messages is covered by Bale’s privacy policy (https://bale.ai).",
       },
       {
         heading: "Data retention",
@@ -424,7 +407,7 @@ const en: UiDict = {
       },
       {
         heading: "Your rights",
-        body: "You may ask about information you've submitted via the contact form, or request its deletion, at any time by emailing the address listed on the contact page.",
+        body: "You may ask about information you’ve submitted via the contact form, or request its deletion, at any time by emailing the address listed on the contact page.",
       },
       {
         heading: "Changes to this policy",
@@ -439,7 +422,7 @@ const en: UiDict = {
     sections: [
       {
         heading: "About this content",
-        body: "The content on this website — including project descriptions, images, and text — presents Saeed's services and portfolio work, and is provided for informational purposes.",
+        body: "The content on this website — including project descriptions, images, and text — presents Saeed’s services and portfolio work, and is provided for informational purposes.",
       },
       {
         heading: "Ownership and use",

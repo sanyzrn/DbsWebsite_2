@@ -20,15 +20,11 @@ export const workboxGlobPatterns = [
  *  - Fontsource emits one file per unicode-range subset. This site is Persian +
  *    English only, so the Cyrillic / Vietnamese / extended-Latin subsets are never
  *    selected by the browser — precaching them was ~450 KiB of pure waste.
- *  - The MagicDust WebGL chunk is three.js (~230 KiB gzip) behind a runtime gate that
- *    skips it entirely for reduced-motion, low-memory and small-screen devices, and
- *    is loaded on idle even when it does run. Precaching it defeated that gate.
  */
 export const workboxUnusedAssetGlobs = [
   "**/assets/*-cyrillic-*.woff2",
   "**/assets/*-vietnamese-*.woff2",
   "**/assets/*-latin-ext-*.woff2",
-  "**/assets/magic-dust-shader-*.js",
 ];
 
 /** Ignored during VitePWA's mid-build generateSW (before prerender). */

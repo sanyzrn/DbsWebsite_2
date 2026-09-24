@@ -240,7 +240,7 @@ export function ContactForm({
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor={`${idPrefix}-name`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+          <label htmlFor={`${idPrefix}-name`} className="mb-2 block text-[14px] font-semibold text-ink">
             {f.name} <span className="text-hi">*</span>
           </label>
           <input
@@ -256,7 +256,7 @@ export function ContactForm({
             aria-describedby={errors.name ? nameErrId : undefined}
           />
           {errors.name && (
-            <p id={nameErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
+            <p id={nameErrId} className="mt-1.5 text-[13px] font-semibold text-error">
               {fields.name.trim().length > CONTACT_FIELD_MAX.name
                 ? f.fieldTooLong.replace("{n}", String(CONTACT_FIELD_MAX.name))
                 : f.required}
@@ -264,7 +264,7 @@ export function ContactForm({
           )}
         </div>
         <div>
-          <label htmlFor={`${idPrefix}-email`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+          <label htmlFor={`${idPrefix}-email`} className="mb-2 block text-[14px] font-semibold text-ink">
             {f.email} <span className="text-hi">*</span>
           </label>
           <input
@@ -282,7 +282,7 @@ export function ContactForm({
             aria-describedby={errors.email ? emailErrId : undefined}
           />
           {errors.email && (
-            <p id={emailErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
+            <p id={emailErrId} className="mt-1.5 text-[13px] font-semibold text-error">
               {fields.email.length > CONTACT_FIELD_MAX.email
                 ? f.fieldTooLong.replace("{n}", String(CONTACT_FIELD_MAX.email))
                 : f.required}
@@ -290,7 +290,7 @@ export function ContactForm({
           )}
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor={`${idPrefix}-message`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+          <label htmlFor={`${idPrefix}-message`} className="mb-2 block text-[14px] font-semibold text-ink">
             {f.message} <span className="text-hi">*</span>
           </label>
           <textarea
@@ -305,7 +305,7 @@ export function ContactForm({
             aria-describedby={errors.message ? messageErrId : undefined}
           />
           {errors.message && (
-            <p id={messageErrId} className="mt-1.5 text-[11.5px] font-semibold text-error">
+            <p id={messageErrId} className="mt-1.5 text-[13px] font-semibold text-error">
               {fields.message.trim().length > CONTACT_FIELD_MAX.message
                 ? f.fieldTooLong.replace("{n}", String(CONTACT_FIELD_MAX.message))
                 : f.required}
@@ -325,16 +325,16 @@ export function ContactForm({
         open={optionalOpen}
         onToggle={(e) => setOptionalOpen((e.currentTarget as HTMLDetailsElement).open)}
       >
-        <summary className="flex cursor-pointer list-none items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
+        <summary className="flex cursor-pointer list-none items-center gap-2 text-[14px] font-bold text-ink2 transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
           <ChevronDown className="h-4 w-4 shrink-0 text-ink3 transition-transform group-open:rotate-180" />
           {f.optionalDetails}
         </summary>
 
-        <p className="mt-2 text-[11.5px] leading-5 text-ink3">{f.optionalDetailsHint}</p>
+        <p className="mt-2 text-[13px] leading-5 text-ink3">{f.optionalDetailsHint}</p>
 
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           <div>
-            <label htmlFor={`${idPrefix}-type`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+            <label htmlFor={`${idPrefix}-type`} className="mb-2 block text-[14px] font-semibold text-ink">
               {f.type}
             </label>
             <div className="relative">
@@ -354,7 +354,7 @@ export function ContactForm({
             </div>
           </div>
           <div>
-            <label htmlFor={`${idPrefix}-company`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+            <label htmlFor={`${idPrefix}-company`} className="mb-2 block text-[14px] font-semibold text-ink">
               {f.company}
             </label>
             <input
@@ -367,7 +367,7 @@ export function ContactForm({
             />
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor={`${idPrefix}-phone`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+            <label htmlFor={`${idPrefix}-phone`} className="mb-2 block text-[14px] font-semibold text-ink">
               {f.phone}
             </label>
             <input
@@ -381,12 +381,12 @@ export function ContactForm({
               autoComplete="tel"
               aria-describedby={`${idPrefix}-phone-hint`}
             />
-            <p id={`${idPrefix}-phone-hint`} className="mt-1.5 text-[11.5px] leading-5 text-ink3">
+            <p id={`${idPrefix}-phone-hint`} className="mt-1.5 text-[13px] leading-5 text-ink3">
               {f.phoneHint}
             </p>
           </div>
           <div>
-            <label htmlFor={`${idPrefix}-budget`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+            <label htmlFor={`${idPrefix}-budget`} className="mb-2 block text-[14px] font-semibold text-ink">
               {f.budget}
             </label>
             <input
@@ -398,7 +398,7 @@ export function ContactForm({
             />
           </div>
           <div>
-            <label htmlFor={`${idPrefix}-timeline`} className="mb-2 block text-[12.5px] font-bold text-ink2">
+            <label htmlFor={`${idPrefix}-timeline`} className="mb-2 block text-[14px] font-semibold text-ink">
               {f.timeline}
             </label>
             <input
@@ -417,7 +417,7 @@ export function ContactForm({
         <Send className="h-4 w-4 rtl:-scale-x-100" strokeWidth={2.2} />
       </button>
 
-      <p className="mt-4 text-center text-[12px] text-ink3">
+      <p className="mt-4 text-center text-[13px] text-ink3">
         {f.directEmail}{" "}
         <a href={`mailto:${t.contact.email}`} dir="ltr" className="font-bold text-hi hover:underline">
           {t.contact.email}
@@ -435,12 +435,12 @@ export function ContactForm({
           id={statusRegionId}
           role="status"
           aria-live="polite"
-          className="mt-5 flex items-start gap-3 rounded-sm border border-sage/40 bg-sage/10 px-4 py-3.5"
+          className="mt-5 flex items-start gap-3 rounded-[4px] border border-sage/40 bg-sage/10 px-4 py-3.5"
         >
           <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sage" />
           <div>
-            <p className="text-[13.5px] font-bold text-ink">{f.deliveredTitle}</p>
-            <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.deliveredBody}</p>
+            <p className="text-[15px] font-bold text-ink">{f.deliveredTitle}</p>
+            <p className="mt-1 text-[14px] leading-6 text-ink2">{f.deliveredBody}</p>
           </div>
         </div>
       )}
@@ -450,14 +450,14 @@ export function ContactForm({
           id={statusRegionId}
           role="status"
           aria-live="polite"
-          className="mt-5 flex items-start gap-3 rounded-sm border border-line bg-surface px-4 py-3.5"
+          className="mt-5 flex items-start gap-3 rounded-[4px] border border-line bg-surface px-4 py-3.5"
         >
           <Mail className="mt-0.5 h-5 w-5 shrink-0 text-hi" />
           <div>
-            <p className="text-[13.5px] font-bold text-ink">{f.mailedTitle}</p>
-            <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.mailedBody}</p>
+            <p className="text-[15px] font-bold text-ink">{f.mailedTitle}</p>
+            <p className="mt-1 text-[14px] leading-6 text-ink2">{f.mailedBody}</p>
             {truncated && (
-              <p className="mt-2 text-[12.5px] font-semibold leading-6 text-ink2">{f.mailedTruncated}</p>
+              <p className="mt-2 text-[14px] font-semibold leading-6 text-ink2">{f.mailedTruncated}</p>
             )}
           </div>
         </div>
@@ -469,12 +469,12 @@ export function ContactForm({
           id={statusRegionId}
           role="alert"
           tabIndex={-1}
-          className="mt-5 flex items-start gap-3 rounded-sm border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
+          className="mt-5 flex items-start gap-3 rounded-[4px] border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
         >
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
           <div>
-            <p className="text-[13.5px] font-bold text-ink">{f.timeoutTitle}</p>
-            <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.timeoutBody}</p>
+            <p className="text-[15px] font-bold text-ink">{f.timeoutTitle}</p>
+            <p className="mt-1 text-[14px] leading-6 text-ink2">{f.timeoutBody}</p>
           </div>
         </div>
       )}
@@ -485,12 +485,12 @@ export function ContactForm({
           id={statusRegionId}
           role="alert"
           tabIndex={-1}
-          className="mt-5 flex items-start gap-3 rounded-sm border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
+          className="mt-5 flex items-start gap-3 rounded-[4px] border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
         >
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
           <div>
-            <p className="text-[13.5px] font-bold text-ink">{f.rateLimitedTitle}</p>
-            <p className="mt-1 text-[12.5px] leading-6 text-ink2">
+            <p className="text-[15px] font-bold text-ink">{f.rateLimitedTitle}</p>
+            <p className="mt-1 text-[14px] leading-6 text-ink2">
               {f.rateLimitedBody.replace("{email}", t.contact.email)}
             </p>
           </div>
@@ -503,12 +503,12 @@ export function ContactForm({
           id={statusRegionId}
           role="alert"
           tabIndex={-1}
-          className="mt-5 flex items-start gap-3 rounded-sm border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
+          className="mt-5 flex items-start gap-3 rounded-[4px] border border-error/40 bg-error/10 px-4 py-3.5 outline-none"
         >
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
           <div>
-            <p className="text-[13.5px] font-bold text-ink">{f.errorTitle}</p>
-            <p className="mt-1 text-[12.5px] leading-6 text-ink2">{f.errorBody}</p>
+            <p className="text-[15px] font-bold text-ink">{f.errorTitle}</p>
+            <p className="mt-1 text-[14px] leading-6 text-ink2">{f.errorBody}</p>
           </div>
         </div>
       )}

@@ -3,10 +3,12 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it } from "vitest";
 import Projects from "../components/Projects";
 import { AppProvider } from "../lib/app";
+import { dictionaries } from "../lib/i18n";
+import { getLocalizedProjects } from "../lib/projects";
 
-function renderProjects(mode: "teaser" | "full") {
+function renderProjects(mode: "teaser" | "full", path = "/") {
   return render(
-    <MemoryRouter initialEntries={["/"]}>
+    <MemoryRouter initialEntries={[path]}>
       <AppProvider>
         <Projects mode={mode} />
       </AppProvider>
@@ -19,66 +21,48 @@ afterEach(() => {
   localStorage.clear();
 });
 
-describe("Projects mobile layout by mode", () => {
-  it('mode="teaser" renders a single SnapCarousel container (no duplicate hidden grid)', () => {
+describe("Projects layout by mode", () => {
+  it('mode="teaser" renders proofs inside a section heading (h2) and no page grid', () => {
     renderProjects("teaser");
-    // One unified carousel that handles both mobile snap-scroll and desktop grid.
-    expect(screen.getByTestId("projects-carousel")).toBeTruthy();
-    expect(screen.getByTestId("projects-carousel").querySelector('[aria-roledescription="carousel"]')).toBeTruthy();
-    // No separate hidden desktop grid — the carousel IS the grid (§7.2 fix).
+    const teaser = screen.getByTestId("projects-teaser");
     expect(screen.queryByTestId("projects-grid")).toBeNull();
+    expect(screen.getByRole("heading", { level: 2, name: dictionaries.fa.projects.title })).toBeTruthy();
+    const proofs = teaser.querySelectorAll("article");
+    expect(proofs.length).toBeGreaterThan(0);
+    proofs.forEach((proof) => {
+      // Each proof names its project in an h3 and links to the case study.
+      expect(proof.querySelector("h3 a")).toBeTruthy();
+      expect(within(proof as HTMLElement).getByText(dictionaries.fa.projects.readCase)).toBeTruthy();
+    });
   });
 
-  it('mode="full" renders the plain stacked grid and no carousel', () => {
-    renderProjects("full");
-    expect(screen.queryByTestId("projects-carousel")).toBeNull();
-    expect(document.querySelector('[aria-roledescription="carousel"]')).toBeNull();
+  it('mode="full" is the page: h1 title, every project, filters that match content', () => {
+    renderProjects("full", "/en/projects");
+    expect(screen.queryByTestId("projects-teaser")).toBeNull();
+    expect(screen.getByRole("heading", { level: 1, name: dictionaries.en.projects.pageTitle })).toBeTruthy();
     const grid = screen.getByTestId("projects-grid");
-    expect(grid).toBeTruthy();
-    expect(grid.className).not.toMatch(/\bhidden\b/);
+    const all = getLocalizedProjects("en");
+    expect(grid.querySelectorAll("article")).toHaveLength(all.length);
+
+    // Every offered filter selects at least one project.
+    const filterButtons = screen.getAllByRole("button", { pressed: false });
+    for (const btn of filterButtons) {
+      const tag = btn.textContent ?? "";
+      expect(all.some((p) => p.tags.includes(tag))).toBe(true);
+    }
+    expect(screen.getByRole("button", { pressed: true })).toHaveTextContent(dictionaries.en.projects.filterAll);
   });
 
-  it('mode="teaser" ProjectCards clamp title/description and keep a footer with mt-auto', () => {
-    renderProjects("teaser");
-    const carousel = screen.getByTestId("projects-carousel");
-    const track = carousel.querySelector('[aria-roledescription="carousel"]');
-    expect(track?.className).toMatch(/\bitems-stretch\b/);
-    const slides = carousel.querySelectorAll('[aria-roledescription="slide"]');
-    // Count is content-driven; this test is about per-card layout, so assert only
-    // that there is something to check. Emptiness is covered by the teaser test below.
-    expect(slides.length).toBeGreaterThan(0);
-    slides.forEach((slide) => {
-      expect(slide.className).toMatch(/\bself-stretch\b/);
-      // Percentage height on the flex item disables stretch — must stay off.
-      expect(slide.className).not.toMatch(/\bh-full\b/);
-    });
-    const cards = carousel.querySelectorAll("article");
-    expect(cards.length).toBeGreaterThan(0);
-
-    cards.forEach((card) => {
-      expect(card.className).toMatch(/\bflex-1\b/);
-      const title = card.querySelector("h3");
-      const desc = Array.from(card.querySelectorAll("p")).find((p) => p.className.includes("text-ink2"));
-      expect(title?.className).toMatch(/line-clamp-2/);
-      expect(desc?.className).toMatch(/line-clamp-3/);
-      const footer = card.querySelector('[data-testid="project-card-footer"]');
-      expect(footer).toBeTruthy();
-      expect(footer?.querySelector("a")).toBeTruthy();
-      expect(footer?.className).toMatch(/mt-auto/);
-      // Tag row is always present (nbsp when empty) so footers share one line of height.
-      const tagLine = footer?.querySelector("p");
-      expect(tagLine).toBeTruthy();
-      expect(tagLine?.className).toMatch(/min-h-\[1\.25rem\]/);
-    });
-
-    // Full-page grid markup (separate from ProjectCard) must stay unclamped.
-    cleanup();
-    const { container: full } = renderProjects("full");
-    const grid = within(full).getByTestId("projects-grid");
-    const gridTitles = grid.querySelectorAll("h3");
-    expect(gridTitles.length).toBeGreaterThan(0);
-    gridTitles.forEach((h) => {
-      expect(h.className).not.toMatch(/line-clamp/);
-    });
+  it("filtering narrows the list and marks the active filter", async () => {
+    const { default: userEvent } = await import("@testing-library/user-event");
+    const user = userEvent.setup();
+    renderProjects("full", "/en/projects");
+    const all = getLocalizedProjects("en");
+    const [first] = screen.getAllByRole("button", { pressed: false });
+    const tag = first.textContent ?? "";
+    await user.click(first);
+    expect(first).toHaveAttribute("aria-pressed", "true");
+    const expected = all.filter((p) => p.tags.includes(tag)).length;
+    expect(screen.getByTestId("projects-grid").querySelectorAll("article")).toHaveLength(expected);
   });
 });

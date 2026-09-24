@@ -39,7 +39,7 @@ export function ContactModal({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/45 p-4 backdrop-blur-sm sm:p-6"
+      className="fixed inset-0 z-[90] flex items-end justify-center bg-ink/50 p-0 sm:items-center sm:p-6"
       onClick={onClose}
       role="presentation"
     >
@@ -48,21 +48,20 @@ export function ContactModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="max-h-[min(85vh,720px)] w-full max-w-2xl overflow-y-auto rounded-lg border border-line bg-page shadow-2xl"
+        className="max-h-[92svh] w-full max-w-2xl overflow-y-auto rounded-t-[10px] border border-ink bg-page shadow-[var(--shadow-sheet)] sm:max-h-[min(88vh,760px)] sm:rounded-[6px]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 z-[1] flex items-start justify-between gap-4 border-b border-line bg-page/95 px-5 py-4 backdrop-blur md:px-7">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink3">{t.contact.kicker}</p>
-            <h3 id={titleId} className="mt-1 text-[22px] font-black tracking-tight">
+            <h3 id={titleId} className="display text-[2rem] leading-none">
               {f.title}
             </h3>
-            <p className="mt-1.5 max-w-md text-[13px] leading-6 text-ink2">{f.desc}</p>
+            <p className="mt-3 max-w-md text-[14px] leading-6 text-ink2">{f.desc}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="hit-min relative flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
+            className="hit-min relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink text-ink transition-colors hover:bg-ink hover:text-page"
             aria-label={t.nav.close}
           >
             <X className="h-4 w-4" strokeWidth={2.2} />

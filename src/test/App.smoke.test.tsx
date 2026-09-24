@@ -27,24 +27,24 @@ describe("App smoke", () => {
     render(<App />);
     expect(document.getElementById("main")).toBeTruthy();
     expect(screen.getAllByText(/Saeed/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/From an idea/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(dictionaries.en.intro.manifesto[0]);
     expect(err).not.toHaveBeenCalled();
   });
 
-  it("shows hero sloganCycle[0] on initial render (fa)", () => {
+  it("shows the hero manifesto on initial render (fa)", () => {
     render(<App />);
-    const phrase = dictionaries.fa.hero.sloganCycle[0];
-    expect(screen.getAllByText(phrase).length).toBeGreaterThan(0);
+    const heading = screen.getByRole("heading", { level: 1 });
+    for (const line of dictionaries.fa.intro.manifesto) expect(heading.textContent).toContain(line);
   });
 
-  it("shows hero sloganCycle[0] on initial render (en)", () => {
+  it("shows the hero manifesto on initial render (en)", () => {
     window.history.pushState(null, "", "/en");
     render(<App />);
-    const phrase = dictionaries.en.hero.sloganCycle[0];
-    expect(screen.getAllByText(phrase).length).toBeGreaterThan(0);
+    const heading = screen.getByRole("heading", { level: 1 });
+    for (const line of dictionaries.en.intro.manifesto) expect(heading.textContent).toContain(line);
   });
 
-  it("shows hero sloganCycle[0] under prefers-reduced-motion", () => {
+  it("shows the hero manifesto under prefers-reduced-motion", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
       configurable: true,
@@ -60,8 +60,8 @@ describe("App smoke", () => {
       }),
     });
     render(<App />);
-    const phrase = dictionaries.fa.hero.sloganCycle[0];
-    expect(screen.getAllByText(phrase).length).toBeGreaterThan(0);
+    const heading = screen.getByRole("heading", { level: 1 });
+    for (const line of dictionaries.fa.intro.manifesto) expect(heading.textContent).toContain(line);
   });
 
   it("applies shortened locale SEO title and description without keywords meta", () => {

@@ -1,14 +1,7 @@
 import "@testing-library/jest-dom/vitest";
-import { vi } from "vitest";
 import { articlesLoadPromise } from "../lib/articles";
 import { projectsLoadPromise } from "../lib/projects";
 import { preloadAllPages } from "../lib/routesFromManifest";
-
-// MagicDust / R3F need a real WebGL canvas — stub the module in jsdom unit tests.
-vi.mock("../components/ui/magic-dust-shader", () => ({
-  MagicDust: () => null,
-  MagicDustCore: () => null,
-}));
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,

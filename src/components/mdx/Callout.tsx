@@ -4,9 +4,9 @@ import { cn } from "../../utils/cn";
 export type CalloutVariant = "note" | "tip" | "warn";
 
 const variantClass: Record<CalloutVariant, string> = {
-  note: "border-line bg-surface text-ink2",
-  tip: "border-hi/40 bg-hi/8 text-ink2",
-  warn: "border-error/40 bg-error/10 text-ink2",
+  note: "border-ink3 bg-surface",
+  tip: "border-accent bg-soft",
+  warn: "border-error bg-error/10",
 };
 
 /**
@@ -25,11 +25,11 @@ export function Callout({
   return (
     <aside
       className={cn(
-        "my-6 rounded-sm border px-4 py-3.5 text-[14.5px] leading-7 md:px-5 md:py-4",
+        "my-8 border-s-[3px] px-5 py-4 text-[16px] leading-relaxed text-ink md:px-6 md:py-5",
         variantClass[variant]
       )}
     >
-      {title ? <p className="mb-1.5 text-[12px] font-bold uppercase tracking-[0.14em] text-ink3">{title}</p> : null}
+      {title ? <p className="mb-1.5 text-[15px] font-semibold text-ink">{title}</p> : null}
       <div className="[&>p]:m-0 [&>p+p]:mt-3">{children}</div>
     </aside>
   );

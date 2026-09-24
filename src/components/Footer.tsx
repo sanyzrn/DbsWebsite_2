@@ -1,22 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useApp } from "../lib/app";
 import { hasNewsContent } from "../lib/news";
-import { localePath } from "../lib/paths";
+import { localePath, stripLangPrefix } from "../lib/paths";
 import { GithubIcon, TelegramIcon, WhatsappIcon } from "./icons";
 import BrandLogo from "./BrandLogo";
+import { ColorBar, RegMark } from "./ui";
 
 export default function Footer() {
   const { t, lang } = useApp();
+  const { pathname } = useLocation();
   // Build-time constant, not `new Date()` — see the __BUILD_YEAR__ define in vite.config.ts.
   const year = __BUILD_YEAR__;
+  const bare = stripLangPrefix(pathname);
+  // The contact routes already end on the form — don't stack a second invitation under it.
+  const showInvite = bare !== "/contact" && bare !== "/about";
 
   const home = localePath(lang, "/");
-  const articlesTo = localePath(lang, "/articles");
-  const newsTo = localePath(lang, "/news");
   const showNews = hasNewsContent();
   const links = [
     { label: t.nav.projects, to: localePath(lang, "/projects") },
-    { label: t.nav.articles, to: articlesTo },
+    { label: t.nav.articles, to: localePath(lang, "/articles") },
+    ...(showNews ? [{ label: t.nav.news, to: localePath(lang, "/news") }] : []),
     { label: t.nav.expertise, to: `${home}#expertise` },
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },
@@ -26,180 +30,110 @@ export default function Footer() {
     { label: t.footer.privacy, to: localePath(lang, "/privacy") },
     { label: t.footer.terms, to: localePath(lang, "/terms") },
   ];
-
   const socials = [
-    {
-      icon: GithubIcon,
-      label: "GitHub",
-      href: "https://github.com/sanyzrn/",
-    },
-    {
-      icon: TelegramIcon,
-      label: "Telegram",
-      href: "https://t.me/dbsgraphic",
-    },
-    {
-      icon: WhatsappIcon,
-      label: "WhatsApp",
-      href: "https://wa.me/989301221816",
-    },
+    { icon: GithubIcon, label: "GitHub", href: "https://github.com/sanyzrn/" },
+    { icon: TelegramIcon, label: "Telegram", href: "https://t.me/dbsgraphic" },
+    { icon: WhatsappIcon, label: "WhatsApp", href: "https://wa.me/989301221816" },
   ];
 
   return (
-    <footer className="border-t border-line">
-      <div className="wrap py-8 md:hidden">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <Link to={home} className="inline-flex leading-none">
-              <span dir="ltr" className="text-[18px] font-extrabold tracking-tight">
-                Dbs<span className="text-hi">Studio</span>
-                <span className="ms-1.5 inline-block h-1.5 w-1.5 rounded-[2px] bg-accent align-baseline" />
-              </span>
-            </Link>
-            <p className="mt-2 text-[12px] font-bold leading-5 text-hi">{t.footer.tagline}</p>
-          </div>
-          <div className="flex shrink-0 gap-2">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="hit-min relative flex h-9 w-9 items-center justify-center rounded-sm border border-line text-ink2 transition-colors hover:border-hi hover:text-hi"
+    <footer className="bg-ink text-page">
+      {showInvite && (
+        <div className="wrap border-b border-page/15 pb-16 pt-20 md:pb-24 md:pt-32">
+          <div className="sheet items-end">
+            <div className="lg:col-span-8">
+              <p className="display t-page max-w-[12ch]">{t.contact.title}</p>
+              <p className="mt-6 max-w-[48ch] text-[18px] text-page/80">{t.contact.strong}</p>
+            </div>
+            <div className="flex flex-col items-start gap-5 lg:col-span-4 lg:items-end">
+              <Link
+                to={localePath(lang, "/contact")}
+                className="btn bg-page text-ink hover:bg-accent hover:text-on-accent"
               >
-                <s.icon className="h-4 w-4" />
-              </a>
-            ))}
+                {t.contact.secondary}
+              </Link>
+              <p className="text-[14px] text-page/75">
+                {t.footer.emailCta}{" "}
+                <a href={`mailto:${t.contact.email}`} dir="ltr" className="link font-semibold text-page">
+                  {t.contact.email}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="wrap py-14 md:py-20">
+        <div className="sheet gap-y-12">
+          <div className="lg:col-span-4">
+            <Link to={home} className="inline-flex items-center gap-3" aria-label={t.nav.homeLinkLabel}>
+              <span className="rounded-full bg-page p-1.5">
+                <BrandLogo variant="icon" imgClassName="h-7 w-7 object-contain" alt="" />
+              </span>
+              <span className="text-[17px] font-semibold">{t.hero.person}</span>
+            </Link>
+            <p className="mt-5 max-w-[38ch] text-[15px] text-page/75">{t.footer.desc}</p>
+            <p className="mt-3 text-[14px] text-page/75">
+              {t.footer.studio}
+            </p>
+          </div>
+
+          <nav aria-label={t.footer.navTitle} className="lg:col-span-4 lg:col-start-6">
+            <h2 className="text-[14px] text-page/75">{t.footer.navTitle}</h2>
+            <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3">
+              {links.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="link-quiet text-[16px]">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="lg:col-span-3 lg:col-start-10">
+            <h2 className="text-[14px] text-page/75">{t.footer.socialTitle}</h2>
+            <ul className="mt-5 flex gap-2">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-page/25 transition-colors hover:border-page hover:bg-page hover:text-ink"
+                  >
+                    <s.icon className="h-[18px] w-[18px]" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href={`mailto:${t.contact.email}`} dir="ltr" className="link-quiet mt-6 inline-block text-[15px]">
+              {t.contact.email}
+            </a>
           </div>
         </div>
 
-        <p className="mt-3 text-[12.5px] leading-6 text-ink2">{t.footer.desc}</p>
-
-        <nav aria-label={t.footer.navTitle} className="mt-5 flex flex-wrap gap-x-1 gap-y-1">
-          {links.map((l, i) => (
-            <span key={l.to} className="inline-flex items-center">
-              <Link to={l.to} className="px-1.5 py-1 text-[13px] font-semibold text-ink2 transition-colors hover:text-hi">
-                {l.label}
-              </Link>
-              {l.to === articlesTo && showNews ? (
-                <>
-                  <span className="mx-0.5 select-none text-[10px] text-line2" aria-hidden="true">›</span>
-                  <Link
-                    to={newsTo}
-                    className="px-1 py-1 text-[11px] font-medium text-ink3 transition-colors hover:text-hi"
-                  >
-                    {t.nav.news}
-                  </Link>
-                </>
-              ) : null}
-              {i < links.length - 1 && (
-                <span className="text-line2" aria-hidden="true">
-                  ·
-                </span>
-              )}
-            </span>
-          ))}
-        </nav>
-
-        <nav aria-label={t.footer.privacy} className="mt-4 flex flex-wrap gap-x-3 gap-y-1">
-          {legal.map((l) => (
-            <Link key={l.to} to={l.to} className="text-[12px] font-semibold text-ink3 transition-colors hover:text-hi">
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
-          <a href={`mailto:${t.contact.email}`} dir="ltr" className="text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
-            {t.contact.email}
-          </a>
-          <p className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.14em] text-ink3" dir="ltr">
-            <BrandLogo variant="icon" imgClassName="h-3.5 w-3.5 object-contain" alt="" />
-            DbsStudio
-          </p>
-        </div>
-
-        <p className="mt-4 text-[11px] leading-5 text-ink3">
-          © {year} <span dir="ltr">DbsStudio</span> — {t.footer.rights}
-        </p>
-      </div>
-
-      <div className="wrap hidden gap-12 py-16 md:grid md:grid-cols-12">
-        <div className="md:col-span-6">
-          <Link to={home} className="inline-flex flex-col leading-none">
-            <span dir="ltr" className="text-[22px] font-extrabold tracking-tight">
-              Dbs<span className="text-hi">Studio</span>
-              <span className="ms-1.5 inline-block h-2 w-2 rounded-[2px] bg-accent align-baseline" />
-            </span>
-          </Link>
-          <p className="mt-3.5 text-[13.5px] font-bold text-hi">{t.footer.tagline}</p>
-          <p className="mt-4 max-w-sm text-[13.5px] leading-7 text-ink2">{t.footer.desc}</p>
-          <p className="mt-6 inline-flex items-center gap-2.5 rounded-xs border border-line px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-ink3" dir="ltr">
-            <BrandLogo variant="icon" imgClassName="h-4 w-4 object-contain" alt="" />
-            {t.footer.studio}
-          </p>
-        </div>
-
-        <div className="md:col-span-3">
-          <h3 className="mb-5 text-[12.5px] font-bold uppercase tracking-wider text-ink3">{t.footer.navTitle}</h3>
-          <ul className="space-y-3">
-            {links.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="text-[14px] font-semibold text-ink2 transition-colors hover:text-hi">
+        <div className="mt-16 flex flex-col gap-6 border-t border-page/15 pt-8 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-4">
+            <RegMark className="h-5 w-5 text-page/75" />
+            <p className="text-[13px] text-page/75">
+              © {year} <span dir="ltr">DbsStudio</span>. {t.footer.rights}
+            </p>
+          </div>
+          <p className="text-[13px] text-page/75 md:max-w-[46ch] md:text-center">{t.footer.colophon}</p>
+          <div className="flex items-center gap-6">
+            <nav aria-label={t.footer.privacy} className="flex gap-5">
+              {legal.map((l) => (
+                <Link key={l.to} to={l.to} className="link-quiet text-[13px] text-page/80">
                   {l.label}
                 </Link>
-                {l.to === articlesTo && showNews ? (
-                  <Link
-                    to={newsTo}
-                    className="mt-1.5 block text-[12.5px] font-medium text-ink3 transition-colors hover:text-hi"
-                  >
-                    {t.nav.news}
-                  </Link>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="md:col-span-3">
-          <h3 className="mb-5 text-[12.5px] font-bold uppercase tracking-wider text-ink3">{t.footer.socialTitle}</h3>
-          <div className="flex gap-2.5">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="flex h-11 w-11 items-center justify-center rounded-sm border border-line text-ink2 transition-all duration-300 hover:-translate-y-1 hover:border-hi hover:text-hi"
-              >
-                <s.icon className="h-[18px] w-[18px]" />
-              </a>
-            ))}
+              ))}
+            </nav>
+            <ColorBar className="hidden sm:flex" />
           </div>
-          <a href={`mailto:${t.contact.email}`} dir="ltr" className="mt-6 inline-block text-[13.5px] font-bold text-ink2 transition-colors hover:text-hi">
-            {t.contact.email}
-          </a>
         </div>
       </div>
-
-      <div className="hidden border-t border-line md:block">
-        <div className="wrap flex flex-wrap items-center justify-between gap-4 py-6">
-          <p className="text-[12px] font-medium text-ink3">
-            © {year} <span dir="ltr">DbsStudio</span> — {t.footer.rights}
-          </p>
-          <nav className="flex flex-wrap items-center gap-4">
-            {legal.map((l) => (
-              <Link key={l.to} to={l.to} className="text-[12px] font-medium text-ink3 transition-colors hover:text-hi">
-                {l.label}
-              </Link>
-            ))}
-            <span className="text-[12px] font-medium text-ink3">{t.footer.built}</span>
-          </nav>
-        </div>
-      </div>
-      {/* Scroll-to-top lives on FloatingQuickNav (gooey dock) to avoid a duplicate FAB. */}
     </footer>
   );
 }
