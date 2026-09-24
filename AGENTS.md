@@ -30,3 +30,4 @@ This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScr
 - ⌘K / Ctrl+K opens the command palette.
 - Type: Archivo variable (wdth + wght) for all Latin text, Vazirmatn variable for Persian body, Noto Kufi Arabic variable for Persian display — subset-trimmed `@font-face` rules in `src/styles/fonts.css`.
 - Design system ("press proof"): tokens, printer's-mark primitives (crop marks, registration mark, colour bar) and the hero register animation live in `src/index.css` + `src/components/ui.tsx`. Keep motion to the single hero moment; respect `prefers-reduced-motion`.
+- Mobile: sections that would stack long (projects, disciplines, skills) use the `Slider` in `src/components/ui.tsx` below `lg`; the process dieline scrolls sideways. The bottom quick-nav dock (`FloatingQuickNav`) shows below `lg` only.

@@ -313,7 +313,7 @@ html[lang="fa"] .lead {
 }
 
 .section-pad {
-  padding-block: clamp(72px, 9vw, 160px);
+  padding-block: clamp(56px, 9vw, 160px);
 }
 
 /* The 12-column sheet: a narrow margin column for running heads, then content */
@@ -618,28 +618,46 @@ html[lang="fa"] .hero-title {
 
 .dieline {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
   border: 1px solid var(--ink);
 }
 .dieline > li {
   position: relative;
-  padding: 24px 22px 28px;
+  padding: 22px 20px 26px;
 }
 .dieline > li + li {
-  border-top: 1px dashed var(--line2);
+  border-inline-start: 1px dashed var(--line2);
 }
-@media (min-width: 768px) {
+/* Phones/tablets: the carton unrolls sideways — one swipeable strip of panels */
+@media (max-width: 1023px) {
   .dieline {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: column;
+    grid-auto-columns: 68%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
   }
-  .dieline > li + li {
-    border-top: 0;
+  .dieline::-webkit-scrollbar {
+    display: none;
   }
-  .dieline > li:nth-child(n + 3) {
+  .dieline > li {
+    scroll-snap-align: start;
+  }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .dieline {
+    grid-auto-columns: 40%;
+  }
+}
+@media (min-width: 1024px) {
+  .dieline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .dieline > li:nth-child(3n + 1) {
+    border-inline-start: 0;
+  }
+  .dieline > li:nth-child(n + 4) {
     border-top: 1px dashed var(--line2);
-  }
-  .dieline > li:nth-child(2n) {
-    border-inline-start: 1px dashed var(--line2);
   }
 }
 @media (min-width: 1280px) {
@@ -650,11 +668,14 @@ html[lang="fa"] .hero-title {
     padding: 28px 22px 36px;
     min-height: 320px;
   }
-  .dieline > li:nth-child(n + 3) {
-    border-top: 0;
-  }
-  .dieline > li + li {
+  .dieline > li:nth-child(3n + 1) {
     border-inline-start: 1px dashed var(--line2);
+  }
+  .dieline > li:first-child {
+    border-inline-start: 0;
+  }
+  .dieline > li:nth-child(n + 4) {
+    border-top: 0;
   }
 }
 /* Glue-flap notch on the closing panel */
@@ -762,6 +783,21 @@ html[lang="fa"] .hero-title {
 [dir="rtl"] .link-quiet:hover,
 [dir="rtl"] .link-quiet[aria-current="page"] {
   background-position: 100% 100%;
+}
+
+/* Slider track: hide the scrollbar, keep native momentum scrolling */
+.slider-track {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.slider-track::-webkit-scrollbar {
+  display: none;
+}
+/* Crop marks would collide between neighbouring slides — frames stand bare in the strip */
+@media (max-width: 1023px) {
+  .slider-track .crop-mark {
+    display: none;
+  }
 }
 
 /* Stretched link: whole proof is clickable while inner text stays selectable */
@@ -961,31 +997,6 @@ html[lang="fa"] .hero-title {
   border-color: var(--line);
 }
 
-.menu-sheet {
-  transition: clip-path 600ms var(--ease-out), visibility 0s linear 600ms;
-  clip-path: inset(0 0 100% 0);
-  visibility: hidden;
-}
-.menu-sheet.is-open {
-  clip-path: inset(0 0 0 0);
-  visibility: visible;
-  transition: clip-path 600ms var(--ease-out), visibility 0s;
-}
-.menu-sheet .menu-item {
-  transform: translateY(24px);
-  opacity: 0;
-  transition: transform 600ms var(--ease-out), opacity 400ms ease;
-}
-.menu-sheet.is-open .menu-item {
-  transform: none;
-  opacity: 1;
-}
-.menu-sheet.is-open .menu-item:nth-child(2) { transition-delay: 40ms; }
-.menu-sheet.is-open .menu-item:nth-child(3) { transition-delay: 80ms; }
-.menu-sheet.is-open .menu-item:nth-child(4) { transition-delay: 120ms; }
-.menu-sheet.is-open .menu-item:nth-child(5) { transition-delay: 160ms; }
-.menu-sheet.is-open .menu-item:nth-child(6) { transition-delay: 200ms; }
-
 /* ------------------------------------------------------------------ */
 /*  Article prose                                                       */
 /* ------------------------------------------------------------------ */
@@ -1123,8 +1134,13 @@ html[lang="fa"] .article-prose h2 {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 4px;
-  padding-bottom: 36px;
+  gap: 2px;
+  padding-bottom: 24px;
+}
+@media (min-width: 1024px) {
+  .career-node {
+    padding-bottom: 36px;
+  }
 }
 .career-node:last-child {
   padding-bottom: 0;
@@ -1357,4 +1373,172 @@ html[lang="fa"] .dieline h3 {
 html[lang="fa"] .discipline h3 {
   font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
   line-height: 1.4;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Floating quick-nav — bottom dock for phones/tablets                 */
+/*  Nav pill bottom-right, scroll-to-top bottom-left: two independent   */
+/*  fixed elements. Hidden from lg up, where the top bar shows links.   */
+/* ------------------------------------------------------------------ */
+
+.floating-quick-nav {
+  --fqn-desktop-inset: 24px;
+  --fqn-mobile-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  --fqn-mobile-side: 14px;
+  --fqn-bg: color-mix(in srgb, var(--surface2) 86%, transparent);
+  --fqn-border: var(--ink);
+  --fqn-pill-h: 50px;
+  --fqn-scroll-size: 50px;
+}
+
+.fqn-nav {
+  position: fixed;
+  /* Below the header (z-50) so the open menu panel covers the dock. */
+  z-index: 30;
+  top: auto;
+  left: auto;
+  right: var(--fqn-mobile-side, 14px);
+  bottom: var(--fqn-mobile-bottom);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: var(--fqn-pill-h);
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--fqn-bg);
+  border: 1px solid var(--fqn-border);
+  box-shadow: var(--shadow-sheet);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .fqn-nav {
+    right: var(--fqn-desktop-inset);
+    bottom: var(--fqn-desktop-inset);
+  }
+}
+
+.fqn-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  padding: 0 13px;
+  border-radius: 999px;
+  color: var(--ink2);
+  font-size: 13px;
+  font-weight: 650;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.fqn-item:hover {
+  color: var(--ink);
+}
+
+.fqn-item-active {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+.fqn-item-active:hover {
+  color: var(--on-accent);
+}
+
+.fqn-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.fqn-label {
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .fqn-nav {
+    gap: 1px;
+    padding: 3px;
+  }
+  .fqn-item {
+    gap: 5px;
+    padding: 0 10px;
+    font-size: 12.5px;
+  }
+  .fqn-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* Narrow phones: tighter insets so the pill and the scroll button never touch. */
+@media (max-width: 400px) {
+  .floating-quick-nav {
+    --fqn-mobile-side: 8px;
+    --fqn-pill-h: 46px;
+    --fqn-scroll-size: 46px;
+  }
+  .fqn-item {
+    gap: 3px;
+    padding: 0 7px;
+    font-size: 11.5px;
+  }
+}
+
+.fqn-scroll-btn {
+  position: fixed;
+  z-index: 30;
+  top: auto;
+  right: auto;
+  left: var(--fqn-mobile-side, 14px);
+  bottom: var(--fqn-mobile-bottom);
+  display: inline-flex;
+  width: var(--fqn-scroll-size);
+  height: var(--fqn-scroll-size);
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--page);
+  background: var(--ink);
+  border: none;
+  box-shadow: var(--shadow-sheet);
+  cursor: pointer;
+  pointer-events: auto;
+  animation: fqn-fade-in 200ms ease;
+}
+
+@media (min-width: 768px) {
+  .fqn-scroll-btn {
+    left: var(--fqn-desktop-inset);
+    bottom: var(--fqn-desktop-inset);
+  }
+}
+
+.fqn-scroll-btn:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+@keyframes fqn-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .floating-quick-nav {
+    display: none;
+  }
+}
+
+@media print {
+  .floating-quick-nav {
+    display: none;
+  }
 }

@@ -95,6 +95,17 @@ export default function Nav() {
     { label: t.nav.contact, to: localePath(lang, "/contact") },
   ];
   const ctaTo = localePath(lang, "/contact");
+  const articlesTo = localePath(lang, "/articles");
+  /** Mobile panel: primary pages plus the home-page section anchors. */
+  const mobileLinks = [
+    links[0],
+    links[1],
+    { label: t.nav.expertise, to: `${home}#expertise` },
+    { label: t.nav.process, to: `${home}#process` },
+    links[2],
+    links[3],
+  ];
+  const nf = new Intl.NumberFormat(lang === "fa" ? "fa-IR" : "en-US", { minimumIntegerDigits: 2 });
 
   return (
     <header
@@ -182,49 +193,59 @@ export default function Nav() {
       <div
         ref={panelWrapRef}
         inert={!open}
-        className={cn("menu-sheet fixed inset-0 z-0 bg-page lg:hidden", open && "is-open")}
+        className={cn(
+          "absolute inset-x-0 top-full z-50 px-4 pt-2 transition-[opacity,transform] duration-300 lg:hidden",
+          open ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
+        )}
       >
         <nav
           id={PANEL_ID}
           aria-label={t.nav.mobileNavLabel}
-          className="wrap flex h-full flex-col overflow-y-auto pb-8 pt-[96px]"
+          className="mx-auto max-w-lg overflow-hidden rounded-[10px] border border-ink bg-surface2 shadow-[var(--shadow-sheet)]"
         >
-          <ul className="flex flex-col">
-            {links.map((l, i) => (
-              <li key={l.to} className="menu-item border-b border-line">
+          <ul className="flex flex-col p-2">
+            {mobileLinks.map((l, i) => (
+              <li key={l.to}>
                 <Link
                   ref={i === 0 ? firstLinkRef : undefined}
                   to={l.to}
                   onClick={closeMenu}
                   aria-current={isActive(pathname, l.to) ? "page" : undefined}
-                  className="display flex items-baseline py-4 text-[2.75rem] transition-colors hover:text-accent aria-[current=page]:text-accent"
+                  className="flex items-center justify-between rounded-[6px] px-3 py-3 text-[16px] font-semibold text-ink transition-colors hover:bg-surface aria-[current=page]:text-accent"
                 >
                   {l.label}
+                  <span className="tnum text-[12px] font-medium text-ink3">{nf.format(i + 1)}</span>
                 </Link>
+                {l.to === articlesTo && showNews && (
+                  <Link
+                    to={newsTo}
+                    onClick={closeMenu}
+                    className="ms-3 flex items-center rounded-[6px] border-s border-line px-3 py-2 text-[14px] font-medium text-ink2 transition-colors hover:bg-surface"
+                  >
+                    {t.nav.news}
+                  </Link>
+                )}
               </li>
             ))}
-            {showNews && (
-              <li className="menu-item border-b border-line">
-                <Link to={newsTo} onClick={closeMenu} className="block py-4 text-[17px] font-semibold text-ink2">
-                  {t.nav.news}
-                </Link>
-              </li>
-            )}
           </ul>
-
-          <div className="menu-item mt-auto pt-10">
-            <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary w-full">
+          <div className="flex items-center gap-3 border-t border-line p-3">
+            <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary h-11 flex-1 text-[14px]">
               {t.nav.cta}
             </Link>
-            <div className="mt-6 flex items-center justify-between gap-4">
-              <a href={`mailto:${t.contact.email}`} dir="ltr" className="link text-[15px] font-semibold">
-                {t.contact.email}
-              </a>
-              <ColorBar />
-            </div>
+            <ColorBar />
           </div>
         </nav>
       </div>
+
+      {open && (
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-label={t.nav.close}
+          className="fixed inset-0 top-[68px] z-40 bg-ink/30 md:top-[76px] lg:hidden"
+          onClick={closeMenu}
+        />
+      )}
     </header>
   );
 }

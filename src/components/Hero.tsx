@@ -28,7 +28,7 @@ export default function Hero() {
 
   return (
     <section id="top" className="relative flex min-h-[100svh] flex-col pt-[88px] md:pt-[104px]">
-      <div className="wrap flex w-full flex-1 flex-col pb-10 md:pb-14">
+      <div className="wrap flex w-full flex-1 flex-col pb-24 md:pb-28 lg:pb-14">
         <div className="crop flex flex-1 flex-col border-y border-transparent">
           <CropMarks />
 

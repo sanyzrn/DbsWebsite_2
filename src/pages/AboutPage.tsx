@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="wrap">
           <SectionHead as="h1" size="page" kicker={t.about.kicker} title={t.about.title} />
 
-          <div className="sheet mt-14 gap-y-14 md:mt-24">
+          <div className="sheet mt-8 gap-y-10 md:mt-16 lg:mt-24 lg:gap-y-14">
             <figure className="lg:col-span-5">
               <div className="crop">
                 <CropMarks />
@@ -30,15 +30,15 @@ export default function AboutPage() {
                   width={717}
                   height={717}
                   loading="eager"
-                  className="aspect-[4/5] w-full bg-shot object-cover object-[center_30%]"
+                  className="aspect-[4/3] w-full bg-shot object-cover object-[center_25%] sm:aspect-[16/10] lg:aspect-[4/5] lg:object-[center_30%]"
                 />
               </div>
-              <figcaption className="meta mt-6">{t.about.studioNote}</figcaption>
+              <figcaption className="meta mt-4 lg:mt-6">{t.about.studioNote}</figcaption>
             </figure>
 
             <div className="lg:col-span-6 lg:col-start-7 lg:pt-4">
               <p className="lead text-ink">{t.about.p1}</p>
-              <blockquote className="display t-sub my-10 max-w-[20ch] text-accent md:my-14">{t.about.question}</blockquote>
+              <blockquote className="display t-sub my-8 max-w-[20ch] text-accent md:my-14">{t.about.question}</blockquote>
               <p className="text-[17px] text-ink2">{t.about.p2}</p>
               <p className="mt-8 text-[17px] font-semibold">{t.about.p3}</p>
               <ol className="mt-5 border-t border-line">
@@ -52,10 +52,10 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="sheet mt-24 gap-y-14 border-t border-ink pt-14 md:mt-36 md:pt-20">
+          <div className="sheet mt-14 gap-y-10 border-t border-ink pt-10 md:mt-24 md:pt-16 lg:mt-36 lg:gap-y-14 lg:pt-20">
             <div className="lg:col-span-5">
               <h2 className="display t-section max-w-[14ch]">{t.about.expTitle}</h2>
-              <p className="mt-8 max-w-[52ch] text-[17px] text-ink2">{t.about.expBody}</p>
+              <p className="mt-6 max-w-[52ch] text-[17px] text-ink2 lg:mt-8">{t.about.expBody}</p>
               <p className="mt-8 border-s-2 border-accent ps-5 text-[17px] font-semibold">{t.about.expClosing}</p>
             </div>
             <div className="lg:col-span-6 lg:col-start-7 lg:pt-4">
