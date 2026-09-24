@@ -48,7 +48,7 @@ export function ContactModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="max-h-[92svh] w-full max-w-2xl overflow-y-auto rounded-t-[10px] border border-ink bg-page shadow-[var(--shadow-sheet)] sm:max-h-[min(88vh,760px)] sm:rounded-[6px]"
+        className="max-h-[92svh] w-full max-w-2xl overflow-y-auto rounded-t-[10px] border border-line bg-page shadow-[var(--shadow-sheet)] sm:max-h-[min(88vh,760px)] sm:rounded-[6px]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 z-[1] flex items-start justify-between gap-4 border-b border-line bg-page/95 px-5 py-4 backdrop-blur md:px-7">
@@ -61,7 +61,7 @@ export function ContactModal({
           <button
             type="button"
             onClick={onClose}
-            className="hit-min relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink text-ink transition-colors hover:bg-ink hover:text-page"
+            className="hit-min relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line2 text-ink transition-colors hover:bg-surface"
             aria-label={t.nav.close}
           >
             <X className="h-4 w-4" strokeWidth={2.2} />

@@ -28,6 +28,8 @@ function ContactWithLangSwitch() {
       toggleLang: () => setLang((l) => (l === "fa" ? "en" : "fa")),
       theme: "light" as const,
       toggleTheme: () => {},
+      accent: "reflex" as const,
+      setAccent: () => {},
     }),
     [lang],
   );

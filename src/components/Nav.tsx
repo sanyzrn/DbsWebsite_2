@@ -8,6 +8,7 @@ import { hasNewsContent } from "../lib/news";
 import { localePath, stripLangPrefix } from "../lib/paths";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
+import { AccentMenu, AccentSwatches } from "./AccentPicker";
 
 const PANEL_ID = "mobile-nav-panel";
 
@@ -148,6 +149,7 @@ export default function Nav() {
           >
             <span lang={lang === "fa" ? "en" : "fa"}>{t.theme.lang}</span>
           </button>
+          <AccentMenu />
           <button
             type="button"
             onClick={toggleTheme}
@@ -166,7 +168,7 @@ export default function Nav() {
             aria-label={open ? t.nav.close : t.nav.menu}
             aria-expanded={open}
             aria-controls={PANEL_ID}
-            className="relative ms-1 flex h-11 w-11 items-center justify-center rounded-full border border-ink text-ink transition-colors hover:bg-ink hover:text-page lg:hidden"
+            className="relative ms-1 flex h-11 w-11 items-center justify-center rounded-full border border-line2 text-ink transition-colors hover:bg-surface lg:hidden"
           >
             <span aria-hidden="true" className="relative block h-3 w-4">
               <span
@@ -191,14 +193,14 @@ export default function Nav() {
         ref={panelWrapRef}
         inert={!open}
         className={cn(
-          "absolute end-5 top-full z-50 w-60 origin-top-right pt-2 transition-[opacity,transform] duration-200 ease-out rtl:origin-top-left md:end-10 lg:hidden",
+          "absolute end-5 top-full z-50 w-64 origin-top-right pt-2 transition-[opacity,transform] duration-200 ease-out rtl:origin-top-left md:end-10 lg:hidden",
           open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         )}
       >
         <nav
           id={PANEL_ID}
           aria-label={t.nav.mobileNavLabel}
-          className="overflow-hidden rounded-[10px] border border-ink bg-surface2 shadow-[var(--shadow-sheet)]"
+          className="overflow-hidden rounded-[14px] border border-line bg-surface2/95 backdrop-blur-md shadow-[var(--shadow-sheet)]"
         >
           <ul className="flex flex-col p-1.5">
             {mobileLinks.map((l, i) => (
@@ -225,6 +227,10 @@ export default function Nav() {
               </li>
             ))}
           </ul>
+          <div className="border-t border-line px-2.5 py-2">
+            <p className="meta px-1 pb-1">{t.accent.label}</p>
+            <AccentSwatches className="justify-between" />
+          </div>
           <div className="border-t border-line p-1.5">
             <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary h-10 w-full text-[14px]">
               {t.nav.cta}

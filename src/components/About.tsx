@@ -141,7 +141,7 @@ export function Skills() {
       <div className="wrap">
         <SectionHead kicker={t.skills.kicker} title={t.skills.title} lead={t.skills.lead} />
 
-        <div className="mt-10 md:mt-16 lg:mt-24 lg:border-t lg:border-ink lg:pt-10">
+        <div className="mt-10 md:mt-16 lg:mt-24 lg:border-t lg:border-rule lg:pt-10">
           <Slider label={t.skills.title} desktopClassName="lg:grid lg:grid-cols-4 lg:gap-8">
             {t.skills.cats.map((cat) => (
               <div key={cat.en} className="w-full rounded-[6px] border border-line2 bg-surface2 p-6 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0">

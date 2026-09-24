@@ -31,7 +31,7 @@ function AppLoadingFallback() {
       aria-label="Loading…"
     >
       <span
-        className="h-7 w-7 rounded-full border border-ink border-t-transparent motion-safe:animate-spin"
+        className="h-7 w-7 rounded-full border border-rule border-t-transparent motion-safe:animate-spin"
         aria-hidden="true"
       />
     </div>
@@ -47,7 +47,7 @@ function PageLoadingFallback() {
       aria-label="Loading…"
     >
       <span
-        className="h-6 w-6 rounded-full border border-ink border-t-transparent motion-safe:animate-spin"
+        className="h-6 w-6 rounded-full border border-rule border-t-transparent motion-safe:animate-spin"
         aria-hidden="true"
       />
     </div>

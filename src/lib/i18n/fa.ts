@@ -67,6 +67,8 @@ const fa = {
   nav: {
     home: "خانه",
     quick: "ناوبری سریع",
+    quickOpen: "باز کردن ناوبری سریع",
+    quickClose: "بستن ناوبری سریع",
     projects: "پروژه‌ها",
     articles: "یادداشت‌ها",
     /** Secondary Field Notes link — visually quieter than Articles */
@@ -482,6 +484,18 @@ const fa = {
     installBody: "با نصب روی دستگاه، سریع‌تر و حتی آفلاین در دسترس است.",
     install: "نصب",
     dismiss: "الان نه",
+  },
+  accent: {
+    label: "رنگ اصلی",
+    pick: "انتخاب رنگ اصلی",
+    names: {
+      reflex: "آبی رفلکس",
+      rhodamine: "رودامین",
+      green: "سبز پنتون",
+      "warm-red": "قرمز گرم",
+      cyan: "فیروزه‌ای",
+      graphite: "گرافیتی",
+    },
   },
   theme: { toDark: "حالت تیره", toLight: "حالت روشن", lang: "English" },
 };

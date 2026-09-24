@@ -15,7 +15,7 @@ function TestimonialCard({ item }: { item: LocalizedTestimonial }) {
     : null;
 
   return (
-    <article data-testid={`testimonial-${item.quoteType}`} className="border-t border-ink pt-8">
+    <article data-testid={`testimonial-${item.quoteType}`} className="border-t border-rule pt-8">
       <p className="meta">{isDirect ? t.testimonials.directLabel : t.testimonials.outcomeLabel}</p>
       {isDirect ? (
         <blockquote className="display t-sub mt-5 max-w-[28ch]">

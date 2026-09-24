@@ -49,7 +49,7 @@ export default function Intro() {
             <p className="lead text-ink">{t.intro.p1}</p>
             <p className="mt-5 text-ink2">{t.intro.p2}</p>
             <p className="display t-sub mt-10 max-w-[22ch] text-accent">{t.intro.strong}</p>
-            <p className="mt-8 border-s-2 border-ink ps-5 text-ink2">{t.thinking.lead}</p>
+            <p className="mt-8 border-s-2 border-rule ps-5 text-ink2">{t.thinking.lead}</p>
           </div>
           <figure className="mt-2 flex items-center gap-5 lg:col-span-4 lg:mt-0 lg:flex-col lg:items-end lg:gap-4">
             <div className="w-32 shrink-0 sm:w-44 lg:w-full lg:max-w-[360px]">
@@ -59,7 +59,7 @@ export default function Intro() {
           </figure>
         </div>
 
-        <div className="mt-12 lg:mt-24 lg:border-t lg:border-ink" onMouseLeave={() => setActive(null)}>
+        <div className="mt-12 lg:mt-24 lg:border-t lg:border-rule" onMouseLeave={() => setActive(null)}>
           <Slider label={t.nav.expertise} desktopClassName="lg:flex-col lg:gap-0">
             {t.expertise.cards.map((card, i) => (
               <div
