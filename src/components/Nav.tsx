@@ -8,7 +8,6 @@ import { hasNewsContent } from "../lib/news";
 import { localePath, stripLangPrefix } from "../lib/paths";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
-import { ColorBar } from "./ui";
 
 const PANEL_ID = "mobile-nav-panel";
 
@@ -111,10 +110,7 @@ export default function Nav() {
     <header
       className={cn(
         "nav-bar fixed inset-x-0 top-0 z-50 border-b border-transparent",
-        // backdrop-filter would become the containing block of the fixed menu
-        // sheet, so the open state swaps the glass bar for a plain ground.
-        scrolled && !open && "is-solid",
-        open && "bg-page"
+        (scrolled || open) && "is-solid"
       )}
     >
       <div className="wrap relative z-10 flex h-[68px] items-center justify-between gap-4 md:h-[76px]">
@@ -190,20 +186,21 @@ export default function Nav() {
         </div>
       </div>
 
+      {/* Compact popover anchored under the menu button (inline-end corner) */}
       <div
         ref={panelWrapRef}
         inert={!open}
         className={cn(
-          "absolute inset-x-0 top-full z-50 px-4 pt-2 transition-[opacity,transform] duration-300 lg:hidden",
-          open ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
+          "absolute end-5 top-full z-50 w-60 origin-top-right pt-2 transition-[opacity,transform] duration-200 ease-out rtl:origin-top-left md:end-10 lg:hidden",
+          open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         )}
       >
         <nav
           id={PANEL_ID}
           aria-label={t.nav.mobileNavLabel}
-          className="mx-auto max-w-lg overflow-hidden rounded-[10px] border border-ink bg-surface2 shadow-[var(--shadow-sheet)]"
+          className="overflow-hidden rounded-[10px] border border-ink bg-surface2 shadow-[var(--shadow-sheet)]"
         >
-          <ul className="flex flex-col p-2">
+          <ul className="flex flex-col p-1.5">
             {mobileLinks.map((l, i) => (
               <li key={l.to}>
                 <Link
@@ -211,16 +208,16 @@ export default function Nav() {
                   to={l.to}
                   onClick={closeMenu}
                   aria-current={isActive(pathname, l.to) ? "page" : undefined}
-                  className="flex items-center justify-between rounded-[6px] px-3 py-3 text-[16px] font-semibold text-ink transition-colors hover:bg-surface aria-[current=page]:text-accent"
+                  className="flex items-center justify-between rounded-[6px] px-3 py-2.5 text-[15px] font-semibold text-ink transition-colors hover:bg-surface aria-[current=page]:text-accent"
                 >
                   {l.label}
-                  <span className="tnum text-[12px] font-medium text-ink3">{nf.format(i + 1)}</span>
+                  <span className="tnum text-[11px] font-medium text-ink3">{nf.format(i + 1)}</span>
                 </Link>
                 {l.to === articlesTo && showNews && (
                   <Link
                     to={newsTo}
                     onClick={closeMenu}
-                    className="ms-3 flex items-center rounded-[6px] border-s border-line px-3 py-2 text-[14px] font-medium text-ink2 transition-colors hover:bg-surface"
+                    className="ms-3 flex items-center rounded-[6px] border-s border-line px-3 py-2 text-[13px] font-medium text-ink2 transition-colors hover:bg-surface"
                   >
                     {t.nav.news}
                   </Link>
@@ -228,24 +225,13 @@ export default function Nav() {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-3 border-t border-line p-3">
-            <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary h-11 flex-1 text-[14px]">
+          <div className="border-t border-line p-1.5">
+            <Link to={ctaTo} onClick={closeMenu} className="btn btn-primary h-10 w-full text-[14px]">
               {t.nav.cta}
             </Link>
-            <ColorBar />
           </div>
         </nav>
       </div>
-
-      {open && (
-        <button
-          type="button"
-          tabIndex={-1}
-          aria-label={t.nav.close}
-          className="fixed inset-0 top-[68px] z-40 bg-ink/30 md:top-[76px] lg:hidden"
-          onClick={closeMenu}
-        />
-      )}
     </header>
   );
 }
