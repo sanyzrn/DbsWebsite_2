@@ -130,33 +130,53 @@ export function CareerTimeline({ nodes, label }: { nodes: readonly PathNode[]; l
 }
 
 /* ------------------------------------------------------------------ */
-/*  Skills — four columns set like a specimen sheet                     */
+/*  Skills — a Pantone-style fan deck                                   */
+/*  Each category is one swatch blade printed in its discipline's plate */
+/*  (C design, M engineering, Y AI, spot for the stack); every skill is */
+/*  a chip tinted down the blade with a swatch-book code. On desktop    */
+/*  the blades fan out from a rivet; hovering one pulls it forward.     */
 /* ------------------------------------------------------------------ */
+
+const BLADE_CLASS = ["blade-c", "blade-m", "blade-y", "blade-s"] as const;
+
+function bladeCode(en: string, i: number) {
+  return `${en.charAt(0).toUpperCase()}-${String(i + 1).padStart(2, "0")}`;
+}
 
 export function Skills() {
   const { t } = useApp();
 
   return (
-    <section id="skills" className="section-pad border-t border-line">
+    <section id="skills" className="section-pad overflow-hidden border-t border-line">
       <div className="wrap">
         <SectionHead kicker={t.skills.kicker} title={t.skills.title} lead={t.skills.lead} />
 
-        <div className="mt-10 md:mt-16 lg:mt-24 lg:border-t lg:border-rule lg:pt-10">
-          <Slider label={t.skills.title} desktopClassName="lg:grid lg:grid-cols-4 lg:gap-8">
-            {t.skills.cats.map((cat) => (
-              <div key={cat.en} className="w-full rounded-[6px] border border-line2 bg-surface2 p-6 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0">
-                <h3 className="display text-[2rem] leading-none">{cat.title}</h3>
-                <ul className="mt-5 flex flex-wrap gap-2 lg:mt-6 lg:block">
-                  {cat.items.map((item) => (
-                    <li
-                      key={item}
-                      className="chip text-[14px] lg:flex lg:rounded-none lg:border-0 lg:border-b lg:border-line lg:px-0 lg:py-2.5 lg:text-[16px]"
-                    >
-                      <span dir={cat.mono ? "ltr" : undefined}>{item}</span>
+        <div className="fandeck mt-10 md:mt-16 lg:mt-24">
+          <Slider label={t.skills.title} desktopClassName="fandeck-track" slideClassName="items-start">
+            {t.skills.cats.map((cat, c) => (
+              <article key={cat.en} className={cn("blade", BLADE_CLASS[c] ?? "blade-s")}>
+                <header className="blade-head">
+                  <span className="blade-ink" aria-hidden="true" />
+                  <h3 className="display text-[1.75rem] leading-none">{cat.title}</h3>
+                  <span className="meta tnum" dir="ltr">
+                    {cat.items.length}
+                  </span>
+                </header>
+                <ul className="blade-list">
+                  {cat.items.map((item, i) => (
+                    <li key={item} className="blade-row">
+                      <span className="blade-chip" aria-hidden="true" />
+                      <span className="min-w-0 flex-1" dir={cat.mono ? "ltr" : undefined}>
+                        {item}
+                      </span>
+                      <span className="blade-code" dir="ltr" aria-hidden="true">
+                        {bladeCode(cat.en, i)}
+                      </span>
                     </li>
                   ))}
                 </ul>
-              </div>
+                <span className="blade-rivet" aria-hidden="true" />
+              </article>
             ))}
           </Slider>
         </div>

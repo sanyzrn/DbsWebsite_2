@@ -779,6 +779,37 @@ html[lang="fa"] .hero-title {
   .shot-canvas { transform: scale(1.9); width: 52.63%; height: 52.63%; }
 }
 
+/* Job ticket: a printed spec card with a perforated tear line */
+.ticket {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface2);
+  box-shadow: var(--shadow-sheet);
+}
+.ticket-perf {
+  position: relative;
+  margin-inline: 14px;
+  border-top: 1.5px dashed var(--line2);
+}
+.ticket-perf::before,
+.ticket-perf::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--page);
+  border: 1px solid var(--line);
+}
+.ticket-perf::before {
+  left: -24px;
+}
+.ticket-perf::after {
+  right: -24px;
+}
+
 /* Text link with a drawn underline — the site's one link idiom */
 .link {
   background-image: linear-gradient(currentColor, currentColor);
@@ -2050,5 +2081,146 @@ html[lang="fa"] .intro-lines {
 @media (prefers-reduced-motion: reduce) {
   html.intro-play .intro {
     display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Skills fan deck — swatch blades                                     */
+/* ------------------------------------------------------------------ */
+
+.blade {
+  --blade: var(--accent);
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 46px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface2);
+  box-shadow: var(--shadow-sheet);
+}
+.blade-c { --blade: var(--plate-c); }
+.blade-m { --blade: var(--plate-m); }
+.blade-y { --blade: var(--plate-y); }
+.blade-s { --blade: var(--accent); }
+
+/* Solid ink band across the top of the blade, like a swatch-book tab */
+.blade::before {
+  content: "";
+  display: block;
+  height: 12px;
+  background: var(--blade);
+}
+.blade-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px 16px;
+}
+.blade-head h3 {
+  flex: 1;
+  min-width: 0;
+}
+html[lang="fa"] .blade-head h3 {
+  font-size: 1.375rem;
+  line-height: 1.5;
+}
+.blade-ink {
+  width: 6px;
+  height: 26px;
+  border-radius: 3px;
+  background: var(--blade);
+}
+.blade-list {
+  display: flex;
+  flex-direction: column;
+}
+.blade-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 20px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+  color: var(--ink);
+}
+.blade-chip {
+  --tint: 100%;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--blade) var(--tint), var(--surface2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 8%, transparent);
+}
+/* Tint steps down the blade: full ink at the top, lighter toward the rivet */
+.blade-row:nth-child(2) .blade-chip { --tint: 92%; }
+.blade-row:nth-child(3) .blade-chip { --tint: 84%; }
+.blade-row:nth-child(4) .blade-chip { --tint: 77%; }
+.blade-row:nth-child(5) .blade-chip { --tint: 70%; }
+.blade-row:nth-child(6) .blade-chip { --tint: 63%; }
+.blade-row:nth-child(7) .blade-chip { --tint: 57%; }
+.blade-row:nth-child(8) .blade-chip { --tint: 51%; }
+.blade-row:nth-child(9) .blade-chip { --tint: 46%; }
+.blade-row:nth-child(10) .blade-chip { --tint: 41%; }
+.blade-row:nth-child(11) .blade-chip { --tint: 37%; }
+.blade-row:nth-child(12) .blade-chip { --tint: 33%; }
+.blade-row:nth-child(13) .blade-chip { --tint: 30%; }
+.blade-row:nth-child(14) .blade-chip { --tint: 27%; }
+.blade-row:nth-child(n + 15) .blade-chip { --tint: 24%; }
+.blade-code {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--ink3);
+}
+/* The rivet the blades pivot on */
+.blade-rivet {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: var(--page);
+  border: 1px solid var(--line2);
+  box-shadow: inset 0 0 0 4px var(--surface);
+}
+
+/* Desktop: fan the blades out from their rivets */
+@media (min-width: 1024px) {
+  .fandeck-track {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-top: 48px;
+  }
+  .fandeck-track > div {
+    position: relative;
+    flex: 0 1 300px;
+    margin-inline: -4px;
+    transform-origin: 50% calc(100% - 22px);
+    transition:
+      transform 600ms var(--ease-out),
+      opacity 300ms ease;
+  }
+  .fandeck-track > div:nth-child(1) { transform: rotate(-4.5deg) translateY(10px); }
+  .fandeck-track > div:nth-child(2) { transform: rotate(-1.5deg); }
+  .fandeck-track > div:nth-child(3) { transform: rotate(1.5deg); }
+  .fandeck-track > div:nth-child(4) { transform: rotate(4.5deg) translateY(10px); }
+  [dir="rtl"] .fandeck-track > div:nth-child(1) { transform: rotate(4.5deg) translateY(10px); }
+  [dir="rtl"] .fandeck-track > div:nth-child(2) { transform: rotate(1.5deg); }
+  [dir="rtl"] .fandeck-track > div:nth-child(3) { transform: rotate(-1.5deg); }
+  [dir="rtl"] .fandeck-track > div:nth-child(4) { transform: rotate(-4.5deg) translateY(10px); }
+  .fandeck-track > div:hover {
+    z-index: 5;
+    transform: rotate(0deg) translateY(-22px);
+  }
+  .fandeck-track:hover > div:not(:hover) {
+    opacity: 0.78;
   }
 }

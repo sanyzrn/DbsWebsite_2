@@ -148,6 +148,7 @@ const en: UiDict = {
   },
   projects: {
     readCase: "Read the case study",
+    ticketLabel: "Job ticket",
     next: "Next project",
     countLabel: "{n} projects",
     kicker: "Selected work",
