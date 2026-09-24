@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Reveal, SectionHead, SnapCarousel } from "./ui";
+import { SectionHead } from "./ui";
 import { useApp } from "../lib/app";
 import { localePath } from "../lib/paths";
 import {
@@ -15,39 +15,21 @@ function TestimonialCard({ item }: { item: LocalizedTestimonial }) {
     : null;
 
   return (
-    <article
-      data-testid={`testimonial-${item.quoteType}`}
-      className="flex min-h-0 w-full flex-1 flex-col border border-line bg-surface p-5 sm:p-6"
-    >
-      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink3">
-        {isDirect ? t.testimonials.directLabel : t.testimonials.outcomeLabel}
-      </p>
-
+    <article data-testid={`testimonial-${item.quoteType}`} className="border-t border-ink pt-8">
+      <p className="meta">{isDirect ? t.testimonials.directLabel : t.testimonials.outcomeLabel}</p>
       {isDirect ? (
-        <blockquote className="mt-3 flex-1 text-[15px] font-medium leading-7 text-ink sm:text-[16px] sm:leading-8">
-          <span aria-hidden="true" className="text-hi">
-            “
-          </span>
+        <blockquote className="display t-sub mt-5 max-w-[28ch]">
+          <span aria-hidden="true" className="text-accent">“</span>
           {item.quote}
-          <span aria-hidden="true" className="text-hi">
-            ”
-          </span>
+          <span aria-hidden="true" className="text-accent">”</span>
         </blockquote>
       ) : (
-        <p className="mt-3 flex-1 border-s-[3px] border-hi/70 ps-3 text-[15px] font-semibold leading-7 text-ink sm:text-[16px] sm:leading-8">
-          {item.quote}
-        </p>
+        <p className="mt-5 max-w-[48ch] text-[20px] font-semibold leading-snug">{item.quote}</p>
       )}
-
-      <footer className="mt-5 border-t border-line pt-4">
-        <cite className="block text-[13px] font-semibold not-italic text-ink2 sm:text-[14px]">
-          {item.attribution}
-        </cite>
+      <footer className="mt-6 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+        <cite className="text-[15px] not-italic text-ink2">{item.attribution}</cite>
         {projectHref && (
-          <Link
-            to={projectHref}
-            className="mt-2 inline-flex text-[12px] font-semibold text-hi underline-offset-4 hover:underline"
-          >
+          <Link to={projectHref} className="link text-[14px] font-semibold">
             {t.testimonials.relatedProject}
           </Link>
         )}
@@ -57,8 +39,8 @@ function TestimonialCard({ item }: { item: LocalizedTestimonial }) {
 }
 
 /**
- * Social-proof section above Contact.
- * Returns null when there are zero published testimonials — no empty-state box.
+ * Social proof above Contact. Returns null when there are zero published
+ * testimonials — no empty-state box.
  */
 export default function Testimonials() {
   const { lang, t } = useApp();
@@ -67,38 +49,16 @@ export default function Testimonials() {
   if (items.length === 0) return null;
 
   return (
-    <section
-      id="testimonials"
-      data-testid="testimonials-section"
-      className="section-pad border-t border-line bg-page"
-    >
+    <section id="testimonials" data-testid="testimonials-section" className="section-pad border-t border-line">
       <div className="wrap">
-        <SectionHead
-          kicker={t.testimonials.kicker}
-          title={t.testimonials.title}
-          lead={t.testimonials.lead}
-        />
-
-        <Reveal delay={80}>
-          <div data-testid="testimonials-carousel" className="mt-8 md:hidden">
-            <SnapCarousel label={t.testimonials.title}>
-              {items.map((item) => (
-                <TestimonialCard key={item.id} item={item} />
-              ))}
-            </SnapCarousel>
-          </div>
-
-          <div
-            data-testid="testimonials-grid"
-            className="mt-8 hidden gap-5 md:grid md:grid-cols-2 lg:grid-cols-3"
-          >
-            {items.map((item, i) => (
-              <Reveal key={item.id} delay={100 + i * 60}>
-                <TestimonialCard item={item} />
-              </Reveal>
+        <SectionHead kicker={t.testimonials.kicker} title={t.testimonials.title} lead={t.testimonials.lead} />
+        <div className="sheet mt-14 md:mt-20">
+          <div data-testid="testimonials-grid" className="grid gap-14 md:grid-cols-2 lg:col-span-9 lg:col-start-4">
+            {items.map((item) => (
+              <TestimonialCard key={item.id} item={item} />
             ))}
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

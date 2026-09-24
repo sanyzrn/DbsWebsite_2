@@ -1,46 +1,37 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/PageMeta";
-import { DirArrow, Reveal, SectionHead, DecorativeGrid } from "../components/ui";
+import { SectionHead } from "../components/ui";
 import { useApp } from "../lib/app";
 import { getPublishedArticles, type Article } from "../lib/articles";
 import { formatArticleDate } from "../lib/formatDate";
 import { DAILY_DIGEST_ENABLED } from "../lib/news";
 import { localePath } from "../lib/paths";
 
-function ArticleCard({ article, index }: { article: Article; index: number }) {
+/** One entry in the contents list: date in the margin, title and standfirst beside it. */
+function ArticleRow({ article }: { article: Article }) {
   const { t, lang } = useApp();
   const to = localePath(lang, `/articles/${article.slug}`);
   const { frontmatter: fm } = article;
 
   return (
-    <Reveal delay={Math.min(index * 80, 480)} className="h-full">
-      <article className="group flex h-full min-h-[280px] w-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-hi/60">
-        <div className="flex flex-1 flex-col gap-3 p-5 md:p-6">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
-            {formatArticleDate(fm.date, lang)}
-            <span className="mx-2 text-line2">·</span>
-            {t.articles.readingTime.replace("{n}", String(fm.readingTimeMinutes))}
-          </p>
-          <h2 className="line-clamp-2 text-[20px] font-extrabold tracking-tight">
-            <Link to={to} className="transition-colors hover:text-hi">
+    <li className="group relative border-b border-line">
+      <article className="sheet py-8 md:py-10">
+        <p className="meta tnum lg:col-span-3 lg:pt-2">
+          <time dateTime={fm.date}>{formatArticleDate(fm.date, lang)}</time>
+        </p>
+        <div className="lg:col-span-7">
+          <h2 className="display text-[1.875rem] leading-[1.02] md:text-[2.5rem]">
+            <Link to={to} className="stretch transition-colors group-hover:text-accent">
               {fm.title}
             </Link>
           </h2>
-          <p className="line-clamp-3 text-[13px] leading-7 text-ink2">{fm.description}</p>
-          <div className="mt-auto border-t border-line pt-4">
-            {fm.tags.length > 0 ? (
-              <p className="mb-3 line-clamp-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
-                {fm.tags.join(" · ")}
-              </p>
-            ) : null}
-            <Link to={to} className="inline-flex items-center gap-2 text-[12.5px] font-bold text-ink2 transition-colors hover:text-hi">
-              {t.articles.view}
-              <DirArrow className="h-4 w-4" />
-            </Link>
-          </div>
+          <p className="mt-4 max-w-[60ch] text-[16px] text-ink2">{fm.description}</p>
         </div>
+        <p className="meta lg:col-span-2 lg:pt-2 lg:text-end">
+          {t.articles.readingTime.replace("{n}", String(fm.readingTimeMinutes))}
+        </p>
       </article>
-    </Reveal>
+    </li>
   );
 }
 
@@ -49,26 +40,15 @@ function DailyDigestTeaser() {
   const { t, lang } = useApp();
 
   return (
-    <Reveal delay={120}>
-      <aside className="mt-12 border-t border-line pt-10 md:mt-14 md:pt-12">
-        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-ink3">
-          {t.articles.digestKicker}
-        </p>
-        <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-          <div className="max-w-xl">
-            <h2 className="text-[18px] font-extrabold tracking-tight md:text-[20px]">{t.articles.digestTitle}</h2>
-            <p className="mt-2 text-[13.5px] leading-7 text-ink2">{t.articles.digestLead}</p>
-          </div>
-          <Link
-            to={localePath(lang, "/news")}
-            className="inline-flex shrink-0 items-center gap-2 text-[13px] font-bold text-hi transition-colors hover:text-ink"
-          >
-            {t.articles.digestCta}
-            <DirArrow className="h-4 w-4" />
-          </Link>
-        </div>
-      </aside>
-    </Reveal>
+    <aside className="sheet mt-16 md:mt-24">
+      <div className="border-t border-ink pt-8 lg:col-span-9 lg:col-start-4">
+        <h2 className="text-[22px] font-semibold">{t.articles.digestTitle}</h2>
+        <p className="mt-2 max-w-[56ch] text-ink2">{t.articles.digestLead}</p>
+        <Link to={localePath(lang, "/news")} className="link mt-5 inline-block font-semibold">
+          {t.articles.digestCta}
+        </Link>
+      </div>
+    </aside>
   );
 }
 
@@ -79,21 +59,18 @@ export default function ArticlesPage() {
   return (
     <>
       <PageMeta page="articles" />
-      <section id="articles" className="relative overflow-hidden section-pad border-t border-line">
-        <DecorativeGrid />
-        <div className="wrap relative">
-          <SectionHead kicker={t.articles.pageKicker} title={t.articles.pageTitle} lead={t.articles.pageLead} />
+      <section id="articles" className="pb-[clamp(72px,9vw,160px)] pt-10 md:pt-16">
+        <div className="wrap">
+          <SectionHead as="h1" size="page" kicker={t.articles.pageKicker} title={t.articles.pageTitle} lead={t.articles.pageLead} />
 
           {articles.length === 0 ? (
-            <Reveal delay={80}>
-              <p className="mt-10 max-w-xl text-[15px] leading-8 text-ink2">{t.articles.empty}</p>
-            </Reveal>
+            <p className="lead mt-16 max-w-xl">{t.articles.empty}</p>
           ) : (
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {articles.map((article, i) => (
-                <ArticleCard key={article.slug} article={article} index={i} />
+            <ol className="mt-16 border-t border-ink md:mt-24">
+              {articles.map((article) => (
+                <ArticleRow key={article.slug} article={article} />
               ))}
-            </div>
+            </ol>
           )}
 
           {DAILY_DIGEST_ENABLED ? <DailyDigestTeaser /> : null}

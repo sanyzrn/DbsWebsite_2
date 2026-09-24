@@ -23,7 +23,7 @@ describe("PageTransition", () => {
     expect(shell).toHaveAttribute("data-pathname", "/");
     expect(shell).toHaveClass("page-enter");
     // Routed home content is inside the transition wrapper.
-    expect(shell?.textContent).toContain(dictionaries.fa.hero.sloganCycle[0]);
+    expect(shell?.textContent).toContain(dictionaries.fa.intro.manifesto[0]);
   });
 
   it("disables transition classes under prefers-reduced-motion", () => {
@@ -50,6 +50,6 @@ describe("PageTransition", () => {
     expect(shell).toHaveAttribute("data-page-transition", "off");
     expect(shell).not.toHaveClass("page-enter");
     expect(shell).toHaveAttribute("data-pathname", "/en");
-    expect(screen.getAllByText(dictionaries.en.hero.sloganCycle[0]).length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(dictionaries.en.intro.manifesto[0]);
   });
 });

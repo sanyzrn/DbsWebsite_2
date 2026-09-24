@@ -13,25 +13,33 @@ import { VitePWA } from "vite-plugin-pwa";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/** Inject frontmatter.readingTimeMinutes from MDX body word count (~200 wpm). */
+/**
+ * Inject frontmatter.readingTimeMinutes from MDX body word count (~200 wpm).
+ * remark-mdx-frontmatter exports whatever the YAML node says, so the value is
+ * written into that node (replacing any hand-set line); the frontmatter itself
+ * is excluded from the count.
+ */
 function remarkArticleReadingTime() {
-  return (tree: unknown, file: { data?: Record<string, unknown> }) => {
-    const words = mdastToString(tree as never)
+  type Node = { type: string; value?: string; children?: Node[] };
+  return (tree: unknown) => {
+    const root = tree as Node;
+    const body = (root.children ?? []).filter((n) => n.type !== "yaml");
+    const words = mdastToString({ type: "root", children: body } as never)
       .split(/\s+/)
       .filter(Boolean).length;
     const minutes = Math.max(1, Math.round(words / 200));
-    const data = (file.data ??= {});
-    const matter = (data.matter as Record<string, unknown> | undefined) ?? {};
-    matter.readingTimeMinutes = minutes;
-    data.matter = matter;
+    const yaml = (root.children ?? []).find((n) => n.type === "yaml");
+    if (!yaml) return;
+    const lines = (yaml.value ?? "").split("\n").filter((l) => !/^readingTimeMinutes\s*:/.test(l));
+    yaml.value = [...lines, `readingTimeMinutes: ${minutes}`].join("\n");
   };
 }
 
 const DEFAULT_SITE_URL = "https://saeedzarrini.ir";
 
 /** Light-theme tokens from src/index.css — keep in sync with <meta name="theme-color">. */
-const PWA_BG = "#f2efe9"; // --page (Paper)
-const PWA_THEME = "#a8471e"; // --accent (Oxide)
+const PWA_BG = "#ecede8"; // --page (Stock)
+const PWA_THEME = "#2a1fc4"; // --accent (Reflex Blue)
 
 /** English SEO description (manifest is single-locale; fa lives in the HTML head). */
 const PWA_DESCRIPTION =

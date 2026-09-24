@@ -1,11 +1,10 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Mail } from "lucide-react";
 import { useApp } from "../lib/app";
 import { type ContactStatus } from "../lib/mailto";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
-import { DirArrow, Reveal, DecorativeGrid } from "./ui";
+import { RegMark } from "./ui";
 import { ContactForm } from "./contact/ContactForm";
 import { ContactInfo } from "./contact/ContactInfo";
 import { ContactModal } from "./contact/ContactModal";
@@ -89,120 +88,97 @@ export default function Contact({ variant = "section" }: ContactProps) {
     };
   }, [open, variant]); // eslint-disable-line react-hooks/exhaustive-deps -- closeModal is stable enough via navigate
 
+  const lines = (
+    <ul className="border-t border-line">
+      {t.contact.lines.map((line) => (
+        <li key={line} className="border-b border-line py-4 text-[16px] text-ink2">
+          {line}
+        </li>
+      ))}
+    </ul>
+  );
+
   if (variant === "page") {
     return (
-      <section id="contact" className="relative overflow-hidden border-t border-line bg-surface section-pad">
-        <DecorativeGrid />
-        <div
-          className="pointer-events-none absolute -top-24 end-[-10%] h-[420px] w-[420px] rounded-full bg-hi/10 blur-3xl dark:bg-hi/5"
-          aria-hidden="true"
-        />
-
-        <div className="wrap relative max-w-3xl">
-          <Reveal>
-            <span className="kicker">{t.contact.kicker}</span>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="mt-5 text-[36px] font-black leading-[1.12] tracking-tight md:text-[48px]">
-              {t.contact.title}
-            </h1>
-          </Reveal>
-          <Reveal delay={140}>
-            <p className="mt-5 max-w-xl text-[16px] font-medium leading-8 text-ink2 md:text-[17px]">{t.contact.lead}</p>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="mt-5 max-w-xl border-s-[3px] border-hi ps-5 text-[15px] font-extrabold leading-8 tracking-tight md:text-[16px]">
-              {t.contact.strong}
+      <section id="contact" className="pb-[clamp(72px,9vw,160px)] pt-10 md:pt-16">
+        <div className="wrap">
+          <div className="sheet">
+            <p className="kicker lg:col-span-3 lg:pt-3">
+              <RegMark className="h-3.5 w-3.5 text-accent" />
+              {t.contact.kicker}
             </p>
-          </Reveal>
+            <div className="lg:col-span-9">
+              <h1 className="display t-page max-w-[12ch]">{t.contact.title}</h1>
+              <p className="lead measure mt-6 md:mt-8">{t.contact.lead}</p>
+            </div>
+          </div>
 
-          <Reveal delay={260}>
-            <div className="relative mt-10">
-              <h2 className="text-[22px] font-black tracking-tight">{f.title}</h2>
-              <p className="mt-1.5 max-w-md text-[13px] leading-6 text-ink2">{f.desc}</p>
-              <div className="mt-6">
-                <ContactForm
-                  idPrefix="ct-page"
-                  status={status}
-                  setStatus={setStatus}
-                  truncated={truncated}
-                  setTruncated={setTruncated}
-                />
+          <div className="sheet mt-14 gap-y-14 md:mt-20">
+            <div className="lg:col-span-6 lg:col-start-4">
+              <div className="border-t border-ink pt-8">
+                <h2 className="text-[22px] font-semibold">{f.title}</h2>
+                <p className="mt-2 max-w-[52ch] text-[15px] text-ink2">{f.desc}</p>
+                <div className="mt-8">
+                  <ContactForm
+                    idPrefix="ct-page"
+                    status={status}
+                    setStatus={setStatus}
+                    truncated={truncated}
+                    setTruncated={setTruncated}
+                  />
+                </div>
               </div>
             </div>
-          </Reveal>
+            <aside className="lg:col-span-3 lg:col-start-10">
+              <p className="text-[17px] font-semibold">{t.contact.strong}</p>
+              <div className="mt-6">{lines}</div>
+            </aside>
+          </div>
 
-          <Reveal delay={320}>
-            <ContactInfo />
-          </Reveal>
+          <div className="sheet">
+            <div className="lg:col-span-9 lg:col-start-4">
+              <ContactInfo />
+            </div>
+          </div>
         </div>
       </section>
     );
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden border-t border-line bg-surface section-pad">
-      <DecorativeGrid />
-      <div
-        className="pointer-events-none absolute -top-24 end-[-10%] h-[420px] w-[420px] rounded-full bg-hi/10 blur-3xl dark:bg-hi/5"
-        aria-hidden="true"
-      />
-
-      <div className="wrap relative">
-        <div className="grid items-end gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <span className="kicker">{t.contact.kicker}</span>
-            </Reveal>
-            <Reveal delay={80}>
-              <h2 className="display-heading mt-5 max-w-xl text-[42px] font-black leading-[1.12] tracking-tight md:text-[56px] lg:text-[64px]">
-                {t.contact.title}
-              </h2>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-6 max-w-lg text-[17px] font-medium leading-8 text-ink2 md:text-[18px] md:leading-9">
-                {t.contact.lead}
-              </p>
-            </Reveal>
-            <Reveal delay={240}>
-              <p className="mt-6 max-w-xl border-s-[3px] border-hi ps-5 text-[16px] font-extrabold leading-8 tracking-tight md:text-[18px]">
-                {t.contact.strong}
-              </p>
-            </Reveal>
-
-            <Reveal delay={320}>
-              <div className="mt-10 flex flex-wrap items-center gap-3.5">
-                <button type="button" onClick={openModal} className="btn btn-primary">
-                  {t.contact.secondary}
-                  <DirArrow className="h-[18px] w-[18px]" />
-                </button>
-                <a href={`mailto:${t.contact.email}`} dir="ltr" className="btn btn-ghost">
-                  <Mail className="h-4 w-4" strokeWidth={2.1} />
-                  {t.contact.email}
-                </a>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-5">
-            <Reveal delay={200}>
-              <ol className="space-y-5">
-                {t.contact.lines.map((line, i) => (
-                  <li key={i} className="flex gap-4">
-                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-line bg-page font-mono text-[11px] font-bold text-hi">
-                      0{i + 1}
-                    </span>
-                    <p className="pt-1 text-[14.5px] font-medium leading-7 text-ink2 md:text-[15px] md:leading-8">{line}</p>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
+    <section id="contact" className="section-pad border-t border-line bg-surface">
+      <div className="wrap">
+        <div className="sheet">
+          <p className="kicker lg:col-span-3 lg:pt-3">
+            <RegMark className="h-3.5 w-3.5 text-accent" />
+            {t.contact.kicker}
+          </p>
+          <div className="lg:col-span-9">
+            <h2 className="display t-page max-w-[12ch]">{t.contact.title}</h2>
+            <p className="lead measure mt-6 md:mt-8">{t.contact.lead}</p>
           </div>
         </div>
 
-        <Reveal delay={400}>
-          <ContactInfo />
-        </Reveal>
+        <div className="sheet mt-14 gap-y-12 md:mt-20">
+          <div className="lg:col-span-5 lg:col-start-4">
+            <p className="t-sub display max-w-[22ch]">{t.contact.strong}</p>
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <button type="button" onClick={openModal} className="btn btn-primary">
+                {t.contact.secondary}
+              </button>
+              <a href={`mailto:${t.contact.email}`} dir="ltr" className="link text-[15px] font-semibold">
+                {t.contact.email}
+              </a>
+            </div>
+          </div>
+          <div className="lg:col-span-4 lg:col-start-9">{lines}</div>
+        </div>
+
+        <div className="sheet">
+          <div className="lg:col-span-9 lg:col-start-4">
+            <ContactInfo />
+          </div>
+        </div>
       </div>
 
       <ContactModal

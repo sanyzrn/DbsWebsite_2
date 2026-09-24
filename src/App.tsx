@@ -5,7 +5,6 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
 import ScrollToTop from "./components/ScrollToTop";
-import FloatingQuickNav from "./components/FloatingQuickNav";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import { LocalePreferenceRedirect } from "./components/LocalePreferenceRedirect";
 import { PageTransition } from "./components/PageTransition";
@@ -31,7 +30,7 @@ function AppLoadingFallback() {
       aria-label="Loading…"
     >
       <span
-        className="h-8 w-8 rounded-full border-2 border-accent border-t-transparent motion-safe:animate-spin"
+        className="h-7 w-7 rounded-full border border-ink border-t-transparent motion-safe:animate-spin"
         aria-hidden="true"
       />
     </div>
@@ -47,7 +46,7 @@ function PageLoadingFallback() {
       aria-label="Loading…"
     >
       <span
-        className="h-6 w-6 rounded-full border-2 border-accent border-t-transparent motion-safe:animate-spin"
+        className="h-6 w-6 rounded-full border border-ink border-t-transparent motion-safe:animate-spin"
         aria-hidden="true"
       />
     </div>
@@ -57,7 +56,7 @@ function PageLoadingFallback() {
 function Layout() {
   const { t } = useApp();
   const { pathname } = useLocation();
-  // Hero already clears the fixed 72px nav; other routes need mobile top padding.
+  // Hero clears the fixed nav itself; every other route starts below it.
   const clearFixedNav = !isHomePath(pathname);
 
   return (
@@ -66,9 +65,8 @@ function Layout() {
         {t.a11y.skip}
       </a>
       <Nav />
-      <FloatingQuickNav />
       <PwaInstallPrompt />
-      <main id="main" className={cn(clearFixedNav && "pt-[88px]")}>
+      <main id="main" className={cn(clearFixedNav && "pt-[68px] md:pt-[76px]")}>
         <PageTransition>
           <Outlet />
         </PageTransition>

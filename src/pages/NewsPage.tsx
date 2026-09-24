@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/PageMeta";
-import { DirArrow, Reveal, SectionHead, DecorativeGrid } from "../components/ui";
+import { SectionHead } from "../components/ui";
 import { useApp } from "../lib/app";
 import { formatArticleDate } from "../lib/formatDate";
 import { getLocalizedNewsItems, type LocalizedNewsItem } from "../lib/news";
@@ -10,44 +10,44 @@ import { localePath } from "../lib/paths";
 function AiCuratedBadge() {
   const { t } = useApp();
   return (
-    <span className="shrink-0 rounded-xs border border-dashed border-ink3/50 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-ink3">
+    <span className="shrink-0 rounded-full border border-dashed border-ink3 px-2.5 py-0.5 text-[12px] font-semibold text-ink2">
       {t.news.curatedByAI}
     </span>
   );
 }
 
-function NewsItemRow({ item, index }: { item: LocalizedNewsItem; index: number }) {
+function NewsItemRow({ item }: { item: LocalizedNewsItem }) {
   const { t, lang } = useApp();
 
   return (
-    <Reveal delay={Math.min(index * 80, 480)}>
-      <article className="border-b border-line py-8 first:pt-0 last:border-b-0">
+    <li>
+      <article className="border-b border-line py-8">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
+          <p className="meta tnum">
             {formatArticleDate(item.date, lang)}
           </p>
           {item.curatedByAI ? <AiCuratedBadge /> : null}
         </div>
-        <h2 className="mt-3 text-[20px] font-extrabold tracking-tight md:text-[22px]">{item.title}</h2>
-        <p className="mt-3 max-w-2xl text-[14.5px] leading-7 text-ink2">{item.summary}</p>
-        <p className="mt-4 text-[13px] font-semibold text-ink2">
+        <h2 className="display mt-3 text-[1.75rem] leading-[1.05]">{item.title}</h2>
+        <p className="mt-3 max-w-[62ch] text-[16px] text-ink2">{item.summary}</p>
+        <p className="mt-4 text-[14px] font-semibold text-ink2">
           {t.news.sourceLabel}{" "}
           <a
             href={item.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-hi transition-colors hover:text-ink"
+            className="link text-ink"
           >
             {item.sourceName}
           </a>
         </p>
         {item.tags.length > 0 ? (
-          <p className="mt-3 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink3">
-            {item.tags.join(" · ")}
+          <p className="meta mt-3">
+            {item.tags.join(", ")}
           </p>
         ) : null}
       </article>
-    </Reveal>
+    </li>
   );
 }
 
@@ -63,51 +63,39 @@ export default function NewsPage() {
   return (
     <>
       <PageMeta page="news" />
-      <section className="relative overflow-hidden section-pad border-t border-line bg-surface">
-        <DecorativeGrid />
-        <div className="wrap relative max-w-3xl">
-          <Reveal>
-            <Link
-              to={localePath(lang, "/articles")}
-              className="inline-flex items-center gap-2 text-[13px] font-bold text-ink2 transition-colors hover:text-hi"
-            >
-              <DirArrow className="h-4 w-4 rotate-180" />
-              {copy.back}
-            </Link>
-          </Reveal>
+      <section className="pb-[clamp(72px,9vw,160px)] pt-10 md:pt-16">
+        <div className="wrap">
+          <Link to={localePath(lang, "/articles")} className="link text-[14px] font-semibold text-ink2">
+            {copy.back}
+          </Link>
 
-          <Reveal delay={60}>
-            <div className="mt-8">
-              <SectionHead kicker={copy.kicker} title={copy.title} lead={copy.lead} />
-            </div>
-          </Reveal>
+          <div className="mt-10">
+            <SectionHead as="h1" size="page" kicker={copy.kicker} title={copy.title} lead={copy.lead} />
+          </div>
 
-          {items.length === 0 ? (
-            <Reveal delay={120}>
-              <p className="mt-10 max-w-xl text-[15px] leading-8 text-ink2">{copy.empty}</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  to={localePath(lang, "/articles")}
-                  className="btn btn-ghost h-10 px-5 text-[13.5px]"
-                >
-                  {copy.emptyCtaArticles}
-                  <DirArrow className="h-4 w-4" />
-                </Link>
-                <Link
-                  to={localePath(lang, "/contact")}
-                  className="btn btn-primary h-10 px-5 text-[13.5px]"
-                >
-                  {copy.emptyCtaContact}
-                </Link>
-              </div>
-            </Reveal>
-          ) : (
-            <div className="mt-10">
-              {items.map((item, i) => (
-                <NewsItemRow key={item.id} item={item} index={i} />
-              ))}
+          <div className="sheet mt-14 md:mt-20">
+            <div className="lg:col-span-9 lg:col-start-4">
+              {items.length === 0 ? (
+                <div className="border-t border-ink pt-8">
+                  <p className="lead max-w-xl">{copy.empty}</p>
+                  <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+                    <Link to={localePath(lang, "/contact")} className="btn btn-primary">
+                      {copy.emptyCtaContact}
+                    </Link>
+                    <Link to={localePath(lang, "/articles")} className="link font-semibold">
+                      {copy.emptyCtaArticles}
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <ol className="border-t border-ink">
+                  {items.map((item) => (
+                    <NewsItemRow key={item.id} item={item} />
+                  ))}
+                </ol>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </section>
     </>

@@ -28,4 +28,5 @@ This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScr
 - Contact form: posts JSON to same-origin `/api/contact.php`, which forwards to Bale via a server-side bot token (GitHub Actions secrets → `dist/api/bale-config.php` at deploy). Always keep the visible direct-email link.
 - PWA: `vite-plugin-pwa` (generateSW). Icons via `npm run generate:icons`. After prerender, `scripts/generate-sw.mjs` rebuilds the service worker so all locale HTML is precached. Offline fallback is `public/offline.html`. Admin/PHP routes are denylisted.
 - ⌘K / Ctrl+K opens the command palette.
-- English UI uses self-hosted Bricolage Grotesque (variable) + IBM Plex Mono; Persian uses Vazirmatn (`@fontsource` packages imported in `src/main.tsx`).
+- Type: Archivo variable (wdth + wght) for all Latin text, Vazirmatn variable for Persian body, Noto Kufi Arabic variable for Persian display — subset-trimmed `@font-face` rules in `src/styles/fonts.css`.
+- Design system ("press proof"): tokens, printer's-mark primitives (crop marks, registration mark, colour bar) and the hero register animation live in `src/index.css` + `src/components/ui.tsx`. Keep motion to the single hero moment; respect `prefers-reduced-motion`.
