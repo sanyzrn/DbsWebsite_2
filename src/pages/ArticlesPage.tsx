@@ -41,7 +41,7 @@ function DailyDigestTeaser() {
 
   return (
     <aside className="sheet mt-16 md:mt-24">
-      <div className="border-t border-ink pt-8 lg:col-span-9 lg:col-start-4">
+      <div className="border-t border-rule pt-8 lg:col-span-9 lg:col-start-4">
         <h2 className="text-[22px] font-semibold">{t.articles.digestTitle}</h2>
         <p className="mt-2 max-w-[56ch] text-ink2">{t.articles.digestLead}</p>
         <Link to={localePath(lang, "/news")} className="link mt-5 inline-block font-semibold">
@@ -66,7 +66,7 @@ export default function ArticlesPage() {
           {articles.length === 0 ? (
             <p className="lead mt-16 max-w-xl">{t.articles.empty}</p>
           ) : (
-            <ol className="mt-16 border-t border-ink md:mt-24">
+            <ol className="mt-16 border-t border-rule md:mt-24">
               {articles.map((article) => (
                 <ArticleRow key={article.slug} article={article} />
               ))}

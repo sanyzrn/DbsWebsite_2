@@ -51,6 +51,8 @@ const en: UiDict = {
   nav: {
     home: "Home",
     quick: "Quick navigation",
+    quickOpen: "Open quick navigation",
+    quickClose: "Close quick navigation",
     projects: "Projects",
     articles: "Field Notes",
     /** Secondary Field Notes link — visually quieter than Articles */
@@ -466,6 +468,18 @@ const en: UiDict = {
     installBody: "Add it to your device for faster access — even offline.",
     install: "Install",
     dismiss: "Not now",
+  },
+  accent: {
+    label: "Accent colour",
+    pick: "Choose accent colour",
+    names: {
+      reflex: "Reflex Blue",
+      rhodamine: "Rhodamine",
+      green: "Pantone Green",
+      "warm-red": "Warm Red",
+      cyan: "Process Cyan",
+      graphite: "Graphite",
+    },
   },
   theme: { toDark: "Dark mode", toLight: "Light mode", lang: "فارسی" },
 };

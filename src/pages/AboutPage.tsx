@@ -52,7 +52,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="sheet mt-14 gap-y-10 border-t border-ink pt-10 md:mt-24 md:pt-16 lg:mt-36 lg:gap-y-14 lg:pt-20">
+          <div className="sheet mt-14 gap-y-10 border-t border-rule pt-10 md:mt-24 md:pt-16 lg:mt-36 lg:gap-y-14 lg:pt-20">
             <div className="lg:col-span-5">
               <h2 className="display t-section max-w-[14ch]">{t.about.expTitle}</h2>
               <p className="mt-6 max-w-[52ch] text-[17px] text-ink2 lg:mt-8">{t.about.expBody}</p>

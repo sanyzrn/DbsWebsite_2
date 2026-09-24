@@ -55,7 +55,7 @@ export default function ArticleDetailPage() {
           </header>
 
           <div className="sheet mt-14 md:mt-20">
-            <div className="article-prose border-t border-ink pt-10 lg:col-span-7 lg:col-start-4">
+            <div className="article-prose border-t border-rule pt-10 lg:col-span-7 lg:col-start-4">
               <Component components={articleMdxComponents} />
             </div>
           </div>

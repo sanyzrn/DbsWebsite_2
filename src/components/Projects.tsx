@@ -605,7 +605,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
               type="button"
               aria-pressed={filter === "all"}
               onClick={() => setFilter("all")}
-              className="chip chip-hover aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-page"
+              className="chip chip-hover aria-pressed:border-rule aria-pressed:bg-ink aria-pressed:text-page"
             >
               {t.projects.filterAll}
               <span className="tnum opacity-60">{nf.format(items.length)}</span>
@@ -616,7 +616,7 @@ export default function Projects({ mode = "full" }: ProjectsProps) {
                 type="button"
                 aria-pressed={filter === tag}
                 onClick={() => setFilter(tag)}
-                className="chip chip-hover aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-page"
+                className="chip chip-hover aria-pressed:border-rule aria-pressed:bg-ink aria-pressed:text-page"
               >
                 {tag}
               </button>
@@ -674,7 +674,7 @@ function JobTicket({ project }: { project: ProjectItem }) {
   rows.push({ key: "tech", label: t.projects.techLabel, value: <span dir="ltr">{project.tech.join(", ")}</span> });
 
   return (
-    <dl className="border-t border-ink">
+    <dl className="border-t border-rule">
       {rows.map((row) => (
         <div key={row.key} className="grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-line py-3.5 text-[15px] sm:grid-cols-[9rem_minmax(0,1fr)]">
           <dt className="text-ink3">{row.label}</dt>
@@ -735,7 +735,7 @@ export function ProjectDetailView({ project }: { project: ProjectItem }) {
         </div>
 
         {story.length > 0 && (
-          <ol className="sheet mt-16 border-t border-ink pt-10 md:mt-24 md:pt-14">
+          <ol className="sheet mt-16 border-t border-rule pt-10 md:mt-24 md:pt-14">
             {story.map((s, i) => (
               <li key={s.key} className={cn("lg:col-span-3", i === 0 && "lg:col-start-4")}>
                 <h2 className="text-[15px] font-semibold text-accent">{s.label}</h2>

@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { useLocation, useNavigate } from "react-router-dom";
 import { getDictionary, type Dict, type Lang } from "./i18n";
 import { runThemeTransition } from "./motion";
+import { ACCENT_STORAGE_KEY, DEFAULT_ACCENT, applyAccent, isAccentId, type AccentId } from "./accent";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
 
 export type Theme = "light" | "dark";
@@ -15,6 +16,8 @@ export interface AppState {
   toggleLang: () => void;
   theme: Theme;
   toggleTheme: () => void;
+  accent: AccentId;
+  setAccent: (a: AccentId) => void;
 }
 
 /** Exported so tests can provide the context directly without module mocking. */
@@ -25,6 +28,16 @@ function initialTheme(): Theme {
   const stored = localStorage.getItem("sz-theme");
   if (stored === "light" || stored === "dark") return stored;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function initialAccent(): AccentId {
+  if (typeof window === "undefined") return DEFAULT_ACCENT;
+  try {
+    const stored = localStorage.getItem(ACCENT_STORAGE_KEY);
+    return isAccentId(stored) ? stored : DEFAULT_ACCENT;
+  } catch {
+    return DEFAULT_ACCENT;
+  }
 }
 
 /** Preference memory only — never overrides URL locale by itself. */
@@ -39,6 +52,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const [lang, setLangState] = useState<Lang>(() => langFromPath(location.pathname));
   const [theme, setTheme] = useState<Theme>(initialTheme);
+  const [accent, setAccentState] = useState<AccentId>(initialAccent);
 
   const dir: "rtl" | "ltr" = lang === "fa" ? "rtl" : "ltr";
 
@@ -59,6 +73,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
     root.classList.toggle("dark", theme === "dark");
     localStorage.setItem("sz-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    applyAccent(accent);
+    try {
+      localStorage.setItem(ACCENT_STORAGE_KEY, accent);
+    } catch {
+      /* storage blocked — the choice still applies for this visit */
+    }
+  }, [accent]);
+
+  const setAccent = useCallback((next: AccentId) => {
+    runThemeTransition(() => {
+      applyAccent(next);
+      setAccentState(next);
+    });
+  }, []);
 
   const setLang = useCallback(
     (next: Lang) => {
@@ -96,8 +126,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       toggleLang: () => setLang(lang === "fa" ? "en" : "fa"),
       theme,
       toggleTheme,
+      accent,
+      setAccent,
     }),
-    [lang, dir, theme, setLang, toggleTheme]
+    [lang, dir, theme, setLang, toggleTheme, accent, setAccent]
   );
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;

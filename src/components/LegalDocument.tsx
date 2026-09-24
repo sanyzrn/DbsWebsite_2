@@ -21,7 +21,7 @@ export function LegalDocument({ copy }: { copy: LegalCopy }) {
         <SectionHead as="h1" size="page" kicker={copy.kicker} title={copy.title} lead={copy.updated} />
 
         <div className="sheet mt-14 md:mt-20">
-          <div className="border-t border-ink lg:col-span-7 lg:col-start-4">
+          <div className="border-t border-rule lg:col-span-7 lg:col-start-4">
             {copy.sections.map((section, i) => (
               <section key={section.heading} className="grid grid-cols-[2.5rem_minmax(0,1fr)] border-b border-line py-8">
                 <span className="tnum pt-1 text-[15px] font-semibold text-accent">{nf.format(i + 1)}</span>

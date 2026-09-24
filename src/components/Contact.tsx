@@ -115,7 +115,7 @@ export default function Contact({ variant = "section" }: ContactProps) {
 
           <div className="sheet mt-8 gap-y-10 md:mt-14 lg:mt-20">
             <div className="lg:col-span-6 lg:col-start-4">
-              <div className="border-t border-ink pt-8">
+              <div className="border-t border-rule pt-8">
                 <h2 className="text-[22px] font-semibold">{f.title}</h2>
                 <p className="mt-2 max-w-[52ch] text-[15px] text-ink2">{f.desc}</p>
                 <div className="mt-8">

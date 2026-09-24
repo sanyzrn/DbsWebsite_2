@@ -76,7 +76,7 @@ export default function NewsPage() {
           <div className="sheet mt-14 md:mt-20">
             <div className="lg:col-span-9 lg:col-start-4">
               {items.length === 0 ? (
-                <div className="border-t border-ink pt-8">
+                <div className="border-t border-rule pt-8">
                   <p className="lead max-w-xl">{copy.empty}</p>
                   <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
                     <Link to={localePath(lang, "/contact")} className="btn btn-primary">
@@ -88,7 +88,7 @@ export default function NewsPage() {
                   </div>
                 </div>
               ) : (
-                <ol className="border-t border-ink">
+                <ol className="border-t border-rule">
                   {items.map((item) => (
                     <NewsItemRow key={item.id} item={item} />
                   ))}

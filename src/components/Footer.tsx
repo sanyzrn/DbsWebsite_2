@@ -37,24 +37,24 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-ink pb-20 text-page lg:pb-0">
+    <footer className="bg-footer pb-20 text-footer-fg lg:pb-0">
       {showInvite && (
-        <div className="wrap border-b border-page/15 pb-12 pt-14 md:pb-24 md:pt-32">
+        <div className="wrap border-b border-footer-fg/15 pb-12 pt-14 md:pb-24 md:pt-32">
           <div className="sheet items-end">
             <div className="lg:col-span-8">
               <p className="display t-page max-w-[12ch]">{t.contact.title}</p>
-              <p className="mt-6 max-w-[48ch] text-[18px] text-page/80">{t.contact.strong}</p>
+              <p className="mt-6 max-w-[48ch] text-[18px] text-footer-fg/80">{t.contact.strong}</p>
             </div>
             <div className="flex flex-col items-start gap-5 lg:col-span-4 lg:items-end">
               <Link
                 to={localePath(lang, "/contact")}
-                className="btn bg-page text-ink hover:bg-accent hover:text-on-accent"
+                className="btn bg-footer-fg text-footer hover:bg-accent hover:text-on-accent"
               >
                 {t.contact.secondary}
               </Link>
-              <p className="text-[14px] text-page/75">
+              <p className="text-[14px] text-footer-fg/75">
                 {t.footer.emailCta}{" "}
-                <a href={`mailto:${t.contact.email}`} dir="ltr" className="link font-semibold text-page">
+                <a href={`mailto:${t.contact.email}`} dir="ltr" className="link font-semibold text-footer-fg">
                   {t.contact.email}
                 </a>
               </p>
@@ -72,14 +72,14 @@ export default function Footer() {
               </span>
               <span className="text-[17px] font-semibold">{t.hero.person}</span>
             </Link>
-            <p className="mt-5 max-w-[38ch] text-[15px] text-page/75">{t.footer.desc}</p>
-            <p className="mt-3 text-[14px] text-page/75">
+            <p className="mt-5 max-w-[38ch] text-[15px] text-footer-fg/75">{t.footer.desc}</p>
+            <p className="mt-3 text-[14px] text-footer-fg/75">
               {t.footer.studio}
             </p>
           </div>
 
           <nav aria-label={t.footer.navTitle} className="lg:col-span-4 lg:col-start-6">
-            <h2 className="text-[14px] text-page/75">{t.footer.navTitle}</h2>
+            <h2 className="text-[14px] text-footer-fg/75">{t.footer.navTitle}</h2>
             <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3">
               {links.map((l) => (
                 <li key={l.to}>
@@ -92,7 +92,7 @@ export default function Footer() {
           </nav>
 
           <div className="lg:col-span-3 lg:col-start-10">
-            <h2 className="text-[14px] text-page/75">{t.footer.socialTitle}</h2>
+            <h2 className="text-[14px] text-footer-fg/75">{t.footer.socialTitle}</h2>
             <ul className="mt-5 flex gap-2">
               {socials.map((s) => (
                 <li key={s.label}>
@@ -101,7 +101,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-page/25 transition-colors hover:border-page hover:bg-page hover:text-ink"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-footer-fg/25 transition-colors hover:border-footer-fg hover:bg-footer-fg hover:text-footer"
                   >
                     <s.icon className="h-[18px] w-[18px]" />
                   </a>
@@ -114,18 +114,18 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-6 border-t border-page/15 pt-8 md:mt-16 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-6 border-t border-footer-fg/15 pt-8 md:mt-16 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
-            <RegMark className="h-5 w-5 text-page/75" />
-            <p className="text-[13px] text-page/75">
+            <RegMark className="h-5 w-5 text-footer-fg/75" />
+            <p className="text-[13px] text-footer-fg/75">
               © {year} <span dir="ltr">DbsStudio</span>. {t.footer.rights}
             </p>
           </div>
-          <p className="text-[13px] text-page/75 md:max-w-[46ch] md:text-center">{t.footer.colophon}</p>
+          <p className="text-[13px] text-footer-fg/75 md:max-w-[46ch] md:text-center">{t.footer.colophon}</p>
           <div className="flex items-center gap-6">
             <nav aria-label={t.footer.privacy} className="flex gap-5">
               {legal.map((l) => (
-                <Link key={l.to} to={l.to} className="link-quiet text-[13px] text-page/80">
+                <Link key={l.to} to={l.to} className="link-quiet text-[13px] text-footer-fg/80">
                   {l.label}
                 </Link>
               ))}

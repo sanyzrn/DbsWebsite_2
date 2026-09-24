@@ -53,6 +53,8 @@
             theme === "dark" ||
             (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
           root.classList.toggle("dark", dark);
+          var accent = localStorage.getItem("sz-accent");
+          if (accent && accent !== "reflex" && /^[a-z-]{2,20}$/.test(accent)) root.setAttribute("data-accent", accent);
         } catch (e) {}
       })();
     </script>

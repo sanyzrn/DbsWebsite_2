@@ -28,17 +28,17 @@
 @property --surface2 {
   syntax: "<color>";
   inherits: true;
-  initial-value: #f7f8f4;
+  initial-value: #f4f5f0;
 }
 @property --ink {
   syntax: "<color>";
   inherits: true;
-  initial-value: #151822;
+  initial-value: #272b36;
 }
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #2a1fc4;
+  initial-value: #3328b8;
 }
 
 :root {
@@ -46,9 +46,9 @@
   /* Core palette */
   --page: #ecede8; /* Stock — coated, faintly cool */
   --surface: #e2e4dc; /* Stock shade — secondary grounds */
-  --surface2: #f7f8f4; /* Bright sheet — fields, raised panes */
-  --ink: #151822; /* Key — blue-black process ink */
-  --accent: #2a1fc4; /* Reflex Blue — the single spot colour */
+  --surface2: #f4f5f0; /* Bright sheet — fields, raised panes */
+  --ink: #272b36; /* Key — blue-black ink, eased off full density for comfort */
+  --accent: #3328b8; /* Reflex Blue — the default spot colour (switchable) */
   /* Process separations — only used as marks and plates, never as UI chrome */
   --plate-c: #00a0dc;
   --plate-m: #e5097f;
@@ -56,13 +56,18 @@
   --plate-blend: multiply;
   /* Derived tiers */
   --ink2: color-mix(in srgb, var(--ink) 74%, var(--page));
-  --ink3: color-mix(in srgb, var(--ink) 68%, var(--page));
+  --ink3: color-mix(in srgb, var(--ink) 76%, var(--page));
   --line: color-mix(in srgb, var(--ink) 13%, var(--page));
-  --line2: color-mix(in srgb, var(--ink) 24%, var(--page));
+  --line2: color-mix(in srgb, var(--ink) 22%, var(--page));
+  /* Structural rules (section tops, frames, menus): present but never harsh */
+  --rule: color-mix(in srgb, var(--ink) 30%, var(--page));
   --hi: var(--accent);
   --accentdark: color-mix(in srgb, var(--accent) 78%, var(--ink));
   --soft: color-mix(in srgb, var(--accent) 10%, var(--page));
-  --on-accent: #f7f8f4;
+  --on-accent: #f4f5f0;
+  /* Footer: a deep ground in light mode, a quiet recessed panel in dark mode */
+  --footer: #232734;
+  --footer-fg: #e4e6e0;
   --error: #b3261e;
   --success: #2f7a4b;
   --shadow-sheet: 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent),
@@ -90,26 +95,45 @@ html[lang="fa"] {
 
 .dark {
   color-scheme: dark;
-  --page: #0d1021; /* Night lightbox — deep blue, a chosen colour, not a tinted black */
-  --surface: #141833;
-  --surface2: #1a1f40;
-  --ink: #e8e9f0;
-  --accent: #a39cff; /* Reflex Blue, lit from behind */
-  --plate-c: #00d1ff;
-  --plate-m: #ff3d9a;
-  --plate-y: #ffe14d;
+  --page: #151a2e; /* Night lightbox — lifted deep blue, a chosen colour, not a tinted black */
+  --surface: #1b2139;
+  --surface2: #222843;
+  --ink: #d3d6e2; /* Dimmed from paper white so long reading doesn't glare */
+  --accent: #9d98f0; /* Reflex Blue, lit from behind */
+  --plate-c: #3cc3e6;
+  --plate-m: #ec64a6;
+  --plate-y: #eed866;
   --plate-blend: screen;
-  --ink2: color-mix(in srgb, var(--ink) 76%, var(--page));
-  --ink3: color-mix(in srgb, var(--ink) 66%, var(--page));
-  --line: color-mix(in srgb, var(--ink) 13%, var(--page));
-  --line2: color-mix(in srgb, var(--ink) 24%, var(--page));
+  --ink2: color-mix(in srgb, var(--ink) 80%, var(--page));
+  --ink3: color-mix(in srgb, var(--ink) 70%, var(--page));
+  --line: color-mix(in srgb, var(--ink) 11%, var(--page));
+  --line2: color-mix(in srgb, var(--ink) 19%, var(--page));
+  --rule: color-mix(in srgb, var(--ink) 25%, var(--page));
   --accentdark: color-mix(in srgb, var(--accent) 80%, var(--ink));
   --soft: color-mix(in srgb, var(--accent) 12%, var(--page));
-  --on-accent: #0d1021;
+  --on-accent: #151a2e;
+  --footer: #10142a;
+  --footer-fg: #c9ccd9;
   --error: #ff8a80;
   --success: #7fd6a0;
-  --shadow-sheet: 0 1px 0 color-mix(in srgb, #fff 4%, transparent), 0 30px 60px -36px rgba(0, 0, 0, 0.8);
+  --shadow-sheet: 0 1px 0 color-mix(in srgb, #fff 3%, transparent), 0 30px 60px -36px rgba(0, 0, 0, 0.6);
 }
+
+/* ------------------------------------------------------------------ */
+/*  Spot colours — the accent is switchable; each is a real ink name.   */
+/*  Default (no data-accent) is Reflex Blue.                            */
+/* ------------------------------------------------------------------ */
+
+html[data-accent="rhodamine"] { --accent: #b3246b; }
+html[data-accent="green"] { --accent: #14744d; }
+html[data-accent="warm-red"] { --accent: #b0361f; }
+html[data-accent="cyan"] { --accent: #0b6a8c; }
+html[data-accent="graphite"] { --accent: #3d4252; }
+html.dark[data-accent="rhodamine"] { --accent: #ee8fc0; }
+html.dark[data-accent="green"] { --accent: #74cda6; }
+html.dark[data-accent="warm-red"] { --accent: #f09c82; }
+html.dark[data-accent="cyan"] { --accent: #78c4e3; }
+html.dark[data-accent="graphite"] { --accent: #c3c7d5; }
 
 @theme inline {
   --color-page: var(--page);
@@ -127,6 +151,9 @@ html[lang="fa"] {
   --color-error: var(--error);
   --color-success: var(--success);
   --color-on-accent: var(--on-accent);
+  --color-rule: var(--rule);
+  --color-footer: var(--footer);
+  --color-footer-fg: var(--footer-fg);
   --color-plate-c: var(--plate-c);
   --color-plate-m: var(--plate-m);
   --color-plate-y: var(--plate-y);
@@ -618,7 +645,7 @@ html[lang="fa"] .hero-title {
 
 .dieline {
   display: grid;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--rule);
 }
 .dieline > li {
   position: relative;
@@ -685,7 +712,7 @@ html[lang="fa"] .hero-title {
   inset-block: 18%;
   inset-inline-end: -13px;
   width: 12px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--rule);
   border-inline-start: 0;
   border-start-end-radius: 6px;
   border-end-end-radius: 6px;
@@ -850,17 +877,17 @@ html[lang="fa"] .hero-title {
     color: var(--on-accent);
   }
   .btn-primary:hover {
-    background: var(--ink);
-    color: var(--page);
+    background: var(--accentdark);
+    color: var(--on-accent);
   }
   .btn-ghost {
-    border: 1px solid var(--ink);
+    border: 1px solid var(--rule);
     color: var(--ink);
     background: transparent;
   }
   .btn-ghost:hover {
-    background: var(--ink);
-    color: var(--page);
+    border-color: var(--ink3);
+    background: var(--surface);
   }
 
   .chip {
@@ -881,7 +908,7 @@ html[lang="fa"] .hero-title {
   }
   a.chip:hover,
   .chip-hover:hover {
-    border-color: var(--ink);
+    border-color: var(--ink3);
     color: var(--ink);
   }
   .hit-min {
@@ -1281,7 +1308,7 @@ html[lang="fa"] .career-node-egg .career-node-title {
   padding: 14px 14px 14px 18px;
   border-radius: 6px;
   background: var(--surface2);
-  border: 1px solid var(--ink);
+  border: 1px solid var(--rule);
   box-shadow: var(--shadow-sheet);
 }
 .pwa-install-btn {
@@ -1376,32 +1403,33 @@ html[lang="fa"] .discipline h3 {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Floating quick-nav — bottom dock for phones/tablets                 */
-/*  Nav pill bottom-right, scroll-to-top bottom-left: two independent   */
-/*  fixed elements. Hidden from lg up, where the top bar shows links.   */
+/*  Floating quick-nav — a registration-mark button that unfolds into   */
+/*  a strip of destinations. Nav bottom-right, scroll-to-top            */
+/*  bottom-left: two independent fixed elements. Hidden from lg up.     */
 /* ------------------------------------------------------------------ */
 
 .floating-quick-nav {
   --fqn-desktop-inset: 24px;
   --fqn-mobile-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
   --fqn-mobile-side: 14px;
-  --fqn-bg: color-mix(in srgb, var(--surface2) 86%, transparent);
-  --fqn-border: var(--ink);
-  --fqn-pill-h: 50px;
-  --fqn-scroll-size: 50px;
+  --fqn-bg: color-mix(in srgb, var(--surface2) 90%, transparent);
+  --fqn-border: var(--line);
+  --fqn-pill-h: 56px;
+  --fqn-scroll-size: 48px;
+  --fqn-toggle: 46px;
 }
 
 .fqn-nav {
   position: fixed;
-  /* Below the header (z-50) so the open menu panel covers the dock. */
+  /* Below the header (z-50) so the open header menu covers the dock. */
   z-index: 30;
   top: auto;
   left: auto;
   right: var(--fqn-mobile-side, 14px);
   bottom: var(--fqn-mobile-bottom);
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 2px;
   height: var(--fqn-pill-h);
   padding: 4px;
   border-radius: 999px;
@@ -1412,6 +1440,10 @@ html[lang="fa"] .discipline h3 {
   backdrop-filter: blur(14px) saturate(140%);
   pointer-events: auto;
 }
+/* The toggle always sits at the physical right edge, whatever the script direction */
+[dir="rtl"] .fqn-nav {
+  flex-direction: row-reverse;
+}
 
 @media (min-width: 768px) {
   .fqn-nav {
@@ -1420,30 +1452,75 @@ html[lang="fa"] .discipline h3 {
   }
 }
 
+/* Unfold: the strip grows out of the button (0fr → 1fr keeps it content-sized) */
+.fqn-panel {
+  display: grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns 560ms var(--ease-out);
+}
+.fqn-nav.is-open .fqn-panel {
+  grid-template-columns: 1fr;
+}
+.fqn-list {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  overflow: hidden;
+}
+/* Physical gap between strip and toggle (the toggle is always on the right) */
+.fqn-nav.is-open .fqn-panel {
+  margin-right: 4px;
+}
+
 .fqn-item {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 100%;
-  padding: 0 13px;
+  height: calc(var(--fqn-pill-h) - 12px);
+  padding: 0 12px;
   border-radius: 999px;
   color: var(--ink2);
   font-size: 13px;
   font-weight: 650;
-  transition: color 0.25s ease, background-color 0.25s ease;
+  white-space: nowrap;
+  /* Closed: slid toward the button, faded, with C/M ghosts out of register */
+  opacity: 0;
+  transform: translateX(14px) scale(0.96);
+  text-shadow:
+    -3px 0 color-mix(in srgb, var(--plate-c) 70%, transparent),
+    3px 0 color-mix(in srgb, var(--plate-m) 70%, transparent);
+  transition:
+    opacity 300ms ease,
+    transform 520ms var(--ease-out),
+    text-shadow 700ms var(--ease-out),
+    color 0.25s ease,
+    background-color 0.25s ease;
 }
+[dir="rtl"] .fqn-item {
+  transform: translateX(-14px) scale(0.96);
+}
+.fqn-nav.is-open .fqn-item {
+  opacity: 1;
+  transform: none;
+  text-shadow:
+    0 0 transparent,
+    0 0 transparent;
+}
+/* Stagger outward from the button: the item nearest it arrives first */
+.fqn-nav.is-open li:nth-last-child(1) .fqn-item { transition-delay: 60ms, 60ms, 200ms, 0s, 0s; }
+.fqn-nav.is-open li:nth-last-child(2) .fqn-item { transition-delay: 110ms, 110ms, 250ms, 0s, 0s; }
+.fqn-nav.is-open li:nth-last-child(3) .fqn-item { transition-delay: 160ms, 160ms, 300ms, 0s, 0s; }
+.fqn-nav.is-open li:nth-last-child(4) .fqn-item { transition-delay: 210ms, 210ms, 350ms, 0s, 0s; }
 
 .fqn-item:hover {
   color: var(--ink);
+  background: var(--surface);
 }
 
 .fqn-item-active {
-  color: var(--on-accent);
-  background: var(--accent);
-}
-
-.fqn-item-active:hover {
-  color: var(--on-accent);
+  color: var(--accent);
+  background: var(--soft);
 }
 
 .fqn-icon {
@@ -1456,33 +1533,87 @@ html[lang="fa"] .discipline h3 {
   white-space: nowrap;
 }
 
-@media (max-width: 767px) {
-  .fqn-nav {
-    gap: 1px;
-    padding: 3px;
+/* The toggle: a spot-colour disc carrying a registration mark */
+.fqn-toggle {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--fqn-toggle);
+  height: var(--fqn-toggle);
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  transition: background-color 250ms ease, transform 250ms var(--ease-out);
+}
+.fqn-toggle:active {
+  transform: scale(0.94);
+}
+/* Idle pulse ring — a quiet "tap me" that stops once the dock has been opened */
+.fqn-toggle::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1.5px solid var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fqn-nav:not(.is-open) .fqn-toggle::after {
+    animation: fqn-ping 2.8s var(--ease-out) 1.6s 2;
   }
-  .fqn-item {
-    gap: 5px;
-    padding: 0 10px;
-    font-size: 12.5px;
+}
+@keyframes fqn-ping {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.9);
   }
-  .fqn-icon {
-    width: 15px;
-    height: 15px;
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
   }
 }
 
-/* Narrow phones: tighter insets so the pill and the scroll button never touch. */
+.fqn-toggle-icon {
+  width: 22px;
+  height: 22px;
+  transition: transform 560ms var(--ease-out);
+}
+.fqn-toggle-icon .fqn-ring,
+.fqn-toggle-icon .fqn-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 420ms var(--ease-out), opacity 300ms ease;
+}
+.fqn-nav.is-open .fqn-toggle-icon {
+  transform: rotate(45deg);
+}
+.fqn-nav.is-open .fqn-toggle-icon .fqn-ring,
+.fqn-nav.is-open .fqn-toggle-icon .fqn-dot {
+  transform: scale(0);
+  opacity: 0;
+}
+
 @media (max-width: 400px) {
   .floating-quick-nav {
     --fqn-mobile-side: 8px;
-    --fqn-pill-h: 46px;
-    --fqn-scroll-size: 46px;
+    --fqn-pill-h: 52px;
+    --fqn-scroll-size: 44px;
+    --fqn-toggle: 42px;
   }
   .fqn-item {
-    gap: 3px;
-    padding: 0 7px;
-    font-size: 11.5px;
+    gap: 4px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+  .fqn-icon {
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -1493,16 +1624,20 @@ html[lang="fa"] .discipline h3 {
   right: auto;
   left: var(--fqn-mobile-side, 14px);
   bottom: var(--fqn-mobile-bottom);
+  /* Centre it on the dock's height */
+  margin-bottom: calc((var(--fqn-pill-h) - var(--fqn-scroll-size)) / 2);
   display: inline-flex;
   width: var(--fqn-scroll-size);
   height: var(--fqn-scroll-size);
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  color: var(--page);
-  background: var(--ink);
-  border: none;
+  color: var(--ink);
+  background: var(--fqn-bg);
+  border: 1px solid var(--fqn-border);
   box-shadow: var(--shadow-sheet);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   cursor: pointer;
   pointer-events: auto;
   animation: fqn-fade-in 200ms ease;
@@ -1516,8 +1651,7 @@ html[lang="fa"] .discipline h3 {
 }
 
 .fqn-scroll-btn:hover {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--surface);
 }
 
 @keyframes fqn-fade-in {
