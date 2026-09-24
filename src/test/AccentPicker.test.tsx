@@ -23,11 +23,11 @@ afterEach(() => {
 });
 
 describe("Accent picker", () => {
-  it("defaults to Reflex Blue with no data-accent attribute", () => {
+  it("defaults to Graphite with no data-accent attribute", () => {
     renderPicker();
     const group = screen.getByRole("radiogroup", { name: dictionaries.en.accent.label });
     expect(group).toBeTruthy();
-    expect(screen.getByRole("radio", { name: dictionaries.en.accent.names.reflex })).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("radio", { name: dictionaries.en.accent.names.graphite })).toHaveAttribute("aria-checked", "true");
     expect(document.documentElement.hasAttribute("data-accent")).toBe(false);
   });
 

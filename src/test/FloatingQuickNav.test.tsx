@@ -89,8 +89,16 @@ describe("FloatingQuickNav", () => {
     const btn = await screen.findByRole("button", { name: fa.footer.backTop });
     const nav = container.querySelector(".fqn-nav")!;
     expect(nav.contains(btn)).toBe(false);
-    expect(nav).toHaveAttribute("data-fqn-corner", "bottom-right");
-    expect(btn).toHaveAttribute("data-fqn-corner", "bottom-left");
+    // Persian mirrors the dock: nav bottom-left, scroll-to-top bottom-right.
+    expect(nav).toHaveAttribute("data-fqn-corner", "bottom-left");
+    expect(btn).toHaveAttribute("data-fqn-corner", "bottom-right");
+  });
+
+  it("keeps the English corners: nav bottom-right, scroll-to-top bottom-left", () => {
+    const { container } = renderNav("/en");
+    expect(container.querySelector(".fqn-nav")).toHaveAttribute("data-fqn-corner", "bottom-right");
+    expect(css).toMatch(/\[dir="rtl"\] \.fqn-nav\s*\{[^}]*left:\s*var\(--fqn-mobile-side/s);
+    expect(css).toMatch(/\[dir="rtl"\] \.fqn-scroll-btn\s*\{[^}]*right:\s*var\(--fqn-mobile-side/s);
   });
 
   it("keeps its CSS contract: fixed corners, below the header, hidden from lg up", () => {

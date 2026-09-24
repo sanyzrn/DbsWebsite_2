@@ -60,10 +60,11 @@ function RegToggleIcon() {
  * cyan/magenta ghosts settle into register, echoing the hero. The mark rotates
  * into a close ×. Escape, an outside tap, or navigating closes it again.
  *
- * Nav and scroll-to-top stay independent fixed elements (bottom-right / bottom-left).
+ * Nav and scroll-to-top stay independent fixed elements in opposite corners:
+ * nav bottom-right / scroll bottom-left in English, mirrored in Persian.
  */
 export default function FloatingQuickNav() {
-  const { t, lang } = useApp();
+  const { t, lang, isRTL } = useApp();
   const { pathname } = useLocation();
   const reduceMotion = usePrefersReducedMotion();
   const showTop = useScrollPast(SCROLL_THRESHOLD);
@@ -111,7 +112,7 @@ export default function FloatingQuickNav() {
         ref={navRef}
         className={cn("fqn-nav", open && "is-open")}
         aria-label={t.nav.quick}
-        data-fqn-corner="bottom-right"
+        data-fqn-corner={isRTL ? "bottom-left" : "bottom-right"}
       >
         <div id={panelId} className="fqn-panel" inert={!open}>
           <ul className="fqn-list">
@@ -151,7 +152,7 @@ export default function FloatingQuickNav() {
         <button
           type="button"
           className="fqn-scroll-btn"
-          data-fqn-corner="bottom-left"
+          data-fqn-corner={isRTL ? "bottom-right" : "bottom-left"}
           onClick={scrollTop}
           aria-label={t.footer.backTop}
         >

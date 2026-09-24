@@ -4,17 +4,17 @@
   --ink: #151822;
   --ink2: color-mix(in srgb, var(--ink) 68%, var(--page));
   --line: color-mix(in srgb, var(--ink) 12%, var(--page));
-  --accent: #2a1fc4;
+  --accent: #3d4252;
   --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --page: #0d1021;
-    --surface: #141833;
+    --page: #121418;
+    --surface: #181a1f;
     --ink: #e8e9f0;
     --ink2: color-mix(in srgb, var(--ink) 70%, var(--page));
     --line: color-mix(in srgb, var(--ink) 14%, var(--page));
-    --accent: #a39cff;
+    --accent: #c3c7d5;
     --accentdark: color-mix(in srgb, var(--accent) 85%, var(--ink));
   }
 }
@@ -102,7 +102,7 @@ button {
 @media (prefers-color-scheme: dark) {
   .primary,
   .primary:hover {
-    color: #0d1021;
+    color: #121418;
   }
 }
 .ghost {

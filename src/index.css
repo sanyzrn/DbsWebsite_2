@@ -38,7 +38,7 @@
 @property --accent {
   syntax: "<color>";
   inherits: true;
-  initial-value: #3328b8;
+  initial-value: #3d4252;
 }
 
 :root {
@@ -48,7 +48,7 @@
   --surface: #e2e4dc; /* Stock shade — secondary grounds */
   --surface2: #f4f5f0; /* Bright sheet — fields, raised panes */
   --ink: #272b36; /* Key — blue-black ink, eased off full density for comfort */
-  --accent: #3328b8; /* Reflex Blue — the default spot colour (switchable) */
+  --accent: #3d4252; /* Graphite — the default spot colour (switchable) */
   /* Process separations — only used as marks and plates, never as UI chrome */
   --plate-c: #00a0dc;
   --plate-m: #e5097f;
@@ -95,11 +95,13 @@ html[lang="fa"] {
 
 .dark {
   color-scheme: dark;
-  --page: #151a2e; /* Night lightbox — lifted deep blue, a chosen colour, not a tinted black */
-  --surface: #1b2139;
-  --surface2: #222843;
-  --ink: #d3d6e2; /* Dimmed from paper white so long reading doesn't glare */
-  --accent: #9d98f0; /* Reflex Blue, lit from behind */
+  --accent: #c3c7d5; /* Graphite, lit from behind */
+  /* Night lightbox: a neutral charcoal ground carrying a faint cast of the
+   * chosen spot colour, so the whole sheet shifts with the accent. */
+  --page: color-mix(in srgb, var(--accent) 6%, #111317);
+  --surface: color-mix(in srgb, var(--accent) 8%, #16181d);
+  --surface2: color-mix(in srgb, var(--accent) 10%, #1c1f25);
+  --ink: color-mix(in srgb, var(--accent) 8%, #d6d7db); /* Dimmed from paper white */
   --plate-c: #3cc3e6;
   --plate-m: #ec64a6;
   --plate-y: #eed866;
@@ -111,9 +113,9 @@ html[lang="fa"] {
   --rule: color-mix(in srgb, var(--ink) 25%, var(--page));
   --accentdark: color-mix(in srgb, var(--accent) 80%, var(--ink));
   --soft: color-mix(in srgb, var(--accent) 12%, var(--page));
-  --on-accent: #151a2e;
-  --footer: #10142a;
-  --footer-fg: #c9ccd9;
+  --on-accent: #121418;
+  --footer: color-mix(in srgb, var(--accent) 5%, #0c0d10);
+  --footer-fg: color-mix(in srgb, var(--accent) 6%, #c9cad0);
   --error: #ff8a80;
   --success: #7fd6a0;
   --shadow-sheet: 0 1px 0 color-mix(in srgb, #fff 3%, transparent), 0 30px 60px -36px rgba(0, 0, 0, 0.6);
@@ -121,19 +123,19 @@ html[lang="fa"] {
 
 /* ------------------------------------------------------------------ */
 /*  Spot colours — the accent is switchable; each is a real ink name.   */
-/*  Default (no data-accent) is Reflex Blue.                            */
+/*  Default (no data-accent) is Graphite.                               */
 /* ------------------------------------------------------------------ */
 
 html[data-accent="rhodamine"] { --accent: #b3246b; }
 html[data-accent="green"] { --accent: #14744d; }
 html[data-accent="warm-red"] { --accent: #b0361f; }
 html[data-accent="cyan"] { --accent: #0b6a8c; }
-html[data-accent="graphite"] { --accent: #3d4252; }
+html[data-accent="reflex"] { --accent: #3328b8; }
 html.dark[data-accent="rhodamine"] { --accent: #ee8fc0; }
 html.dark[data-accent="green"] { --accent: #74cda6; }
 html.dark[data-accent="warm-red"] { --accent: #f09c82; }
 html.dark[data-accent="cyan"] { --accent: #78c4e3; }
-html.dark[data-accent="graphite"] { --accent: #c3c7d5; }
+html.dark[data-accent="reflex"] { --accent: #9d98f0; }
 
 @theme inline {
   --color-page: var(--page);
@@ -532,13 +534,13 @@ html[lang="fa"] .hero-title {
 @media (prefers-reduced-motion: no-preference) {
   .register-key {
     animation: key-in 1500ms var(--ease-out) both;
-    animation-delay: calc(var(--line-i, 0) * 110ms + 500ms);
+    animation-delay: calc(var(--intro-delay, 0ms) + var(--line-i, 0) * 110ms + 500ms);
   }
   .register::before,
   .register-key::before,
   .register-key::after {
     animation: plate-in 1700ms var(--ease-inout) both;
-    animation-delay: calc(var(--line-i, 0) * 110ms);
+    animation-delay: calc(var(--intro-delay, 0ms) + var(--line-i, 0) * 110ms);
   }
 }
 @keyframes plate-in {
@@ -584,10 +586,10 @@ html[lang="fa"] .hero-title {
 @media (prefers-reduced-motion: no-preference) {
   .after-register {
     animation: after-register 900ms var(--ease-out) both;
-    animation-delay: 900ms;
+    animation-delay: calc(var(--intro-delay, 0ms) + 900ms);
   }
   .after-register-2 {
-    animation-delay: 1050ms;
+    animation-delay: calc(var(--intro-delay, 0ms) + 1050ms);
   }
 }
 @keyframes after-register {
@@ -1440,9 +1442,12 @@ html[lang="fa"] .discipline h3 {
   backdrop-filter: blur(14px) saturate(140%);
   pointer-events: auto;
 }
-/* The toggle always sits at the physical right edge, whatever the script direction */
+/* Persian mirrors the dock: toggle bottom-left, strip unfolding to the right,
+ * scroll-to-top bottom-right. (In RTL, flex row already puts the toggle — the
+ * last child — on the left.) */
 [dir="rtl"] .fqn-nav {
-  flex-direction: row-reverse;
+  right: auto;
+  left: var(--fqn-mobile-side, 14px);
 }
 
 @media (min-width: 768px) {
@@ -1468,9 +1473,9 @@ html[lang="fa"] .discipline h3 {
   min-width: 0;
   overflow: hidden;
 }
-/* Physical gap between strip and toggle (the toggle is always on the right) */
+/* Gap between strip and toggle — the toggle sits at the inline end in both scripts */
 .fqn-nav.is-open .fqn-panel {
-  margin-right: 4px;
+  margin-inline-end: 4px;
 }
 
 .fqn-item {
@@ -1654,6 +1659,19 @@ html[lang="fa"] .discipline h3 {
   background: var(--surface);
 }
 
+[dir="rtl"] .fqn-scroll-btn {
+  left: auto;
+  right: var(--fqn-mobile-side, 14px);
+}
+@media (min-width: 768px) {
+  [dir="rtl"] .fqn-nav {
+    left: var(--fqn-desktop-inset);
+  }
+  [dir="rtl"] .fqn-scroll-btn {
+    right: var(--fqn-desktop-inset);
+  }
+}
+
 @keyframes fqn-fade-in {
   from {
     opacity: 0;
@@ -1673,6 +1691,364 @@ html[lang="fa"] .discipline h3 {
 
 @media print {
   .floating-quick-nav {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Intro — design → engineering → intelligence, then into register    */
+/*  Shown only when the pre-paint script sets html.intro-play (first   */
+/*  visit this session, motion allowed). Timeline in ms:               */
+/*    0–850 design · 850–1700 engineering · 1700–2500 intelligence ·   */
+/*    2500–2950 register · 2950–3400 sheet wipes away                  */
+/* ------------------------------------------------------------------ */
+
+.intro {
+  display: none;
+}
+html.intro-play {
+  --intro-delay: 3050ms;
+}
+html.intro-skip {
+  --intro-delay: 0ms;
+}
+html.intro-play .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--page);
+  animation: intro-exit 450ms var(--ease-inout) 2950ms both;
+}
+html.intro-skip .intro {
+  animation: intro-exit 260ms ease both;
+}
+html.intro-done .intro {
+  display: none;
+}
+@keyframes intro-exit {
+  from {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+.intro-stage {
+  display: flex;
+  width: min(420px, 100%);
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.intro-art {
+  width: min(300px, 78vw);
+  height: auto;
+  overflow: visible;
+}
+
+/* Shared: every piece starts hidden and is revealed by its own keyframes */
+.intro-art g,
+.intro-art path,
+.intro-art line,
+.intro-art circle,
+.intro-art rect,
+.intro-art text {
+  animation-fill-mode: both;
+}
+
+/* Act 1 — design ------------------------------------------------------- */
+.intro-crop {
+  stroke: var(--ink3);
+  stroke-width: 1;
+  animation: intro-fade 350ms ease 0ms both;
+}
+.intro-handle {
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  animation:
+    intro-draw 400ms var(--ease-out) 150ms both,
+    intro-out 300ms ease 1150ms forwards;
+}
+.intro-handle-b {
+  animation-delay: 420ms, 1150ms;
+}
+.intro-knob {
+  fill: var(--page);
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    intro-pop 300ms var(--ease-out) 380ms both,
+    intro-out 300ms ease 1150ms forwards;
+}
+.intro-knob-b {
+  animation-delay: 640ms, 1150ms;
+}
+.intro-curve {
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    intro-draw 650ms var(--ease-inout) 200ms both,
+    intro-blueprint 400ms ease 1100ms forwards;
+}
+.intro-anchor {
+  fill: var(--page);
+  stroke: var(--ink);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    intro-pop 280ms var(--ease-out) 240ms both,
+    intro-out 300ms ease 1150ms forwards;
+}
+.intro-anchor-b {
+  animation-delay: 800ms, 1150ms;
+}
+
+/* Act 2 — engineering -------------------------------------------------- */
+.intro-grid line {
+  stroke: var(--line2);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+.intro-grid {
+  transform-box: view-box;
+  transform-origin: 120px 100px;
+  animation: intro-grid 450ms var(--ease-out) 850ms both;
+}
+.intro-brace {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 34px;
+  fill: var(--ink3);
+  animation: intro-fade 350ms ease 1000ms both;
+}
+.intro-brace-l {
+  animation-name: intro-brace-l;
+}
+.intro-brace-r {
+  animation-name: intro-brace-r;
+}
+.intro-sample {
+  fill: var(--page);
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: intro-pop 260ms var(--ease-out) both;
+}
+.intro-sample-0 { animation-delay: 950ms; }
+.intro-sample-1 { animation-delay: 1010ms; }
+.intro-sample-2 { animation-delay: 1070ms; }
+.intro-sample-3 { animation-delay: 1130ms; }
+.intro-sample-4 { animation-delay: 1190ms; }
+.intro-sample-5 { animation-delay: 1250ms; }
+.intro-sample-6 { animation-delay: 1310ms; }
+
+/* Act 3 — intelligence ------------------------------------------------- */
+.intro-edges line {
+  stroke: var(--ink3);
+  stroke-width: 0.8;
+}
+.intro-edges {
+  animation: intro-fade 400ms ease 1700ms both;
+}
+.intro-node {
+  fill: var(--surface2);
+  stroke: var(--ink);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: intro-pop 280ms var(--ease-out) both;
+}
+.intro-node-0 { animation-delay: 1800ms; }
+.intro-node-1 { animation-delay: 1860ms; }
+.intro-node-2 { animation-delay: 1920ms; }
+.intro-out {
+  fill: var(--accent);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: intro-glow 500ms var(--ease-out) 2250ms both;
+}
+.intro-pulse {
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 0.08 1;
+  stroke-dashoffset: 0.08;
+  opacity: 0;
+  animation: intro-pulse 520ms var(--ease-inout) both;
+}
+.intro-pulse-0 { animation-delay: 1980ms; }
+.intro-pulse-1 { animation-delay: 2040ms; }
+.intro-pulse-2 { animation-delay: 2100ms; }
+
+/* Finale — collapse into the registration mark ------------------------- */
+.intro-sheet {
+  transform-box: view-box;
+  transform-origin: 120px 100px;
+  animation: intro-collapse 300ms var(--ease-inout) 2500ms forwards;
+}
+.intro-grid {
+  animation:
+    intro-grid 450ms var(--ease-out) 850ms both,
+    intro-collapse 300ms var(--ease-inout) 2500ms forwards;
+}
+.intro-ring {
+  fill: none;
+  stroke-width: 2.4;
+  mix-blend-mode: var(--plate-blend);
+  opacity: 0;
+  animation: intro-ring 450ms var(--ease-out) 2560ms both;
+}
+.intro-ring-c { stroke: var(--plate-c); --rx: -9px; --ry: -5px; }
+.intro-ring-m { stroke: var(--plate-m); --rx: 8px; --ry: 4px; }
+.intro-ring-y { stroke: var(--plate-y); --rx: 3px; --ry: -9px; }
+.intro-ring-k {
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  --rx: 0px;
+  --ry: 0px;
+  animation: intro-fade 250ms ease 2800ms both;
+}
+.intro-reg-dot {
+  fill: var(--ink);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: intro-pop 250ms var(--ease-out) 2780ms both;
+}
+.intro-reg-cross {
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  animation: intro-fade 250ms ease 2780ms both;
+}
+
+/* Words — one manifesto line per act ----------------------------------- */
+.intro-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-track);
+  font-size: clamp(1.375rem, 1rem + 1.6vw, 2rem);
+  line-height: 1.05;
+}
+html[lang="fa"] .intro-lines {
+  font-size: clamp(1.125rem, 0.9rem + 1.2vw, 1.5rem);
+  line-height: 1.6;
+}
+.intro-line {
+  color: var(--ink);
+  opacity: 0;
+  animation:
+    intro-line-in 420ms var(--ease-out) both,
+    intro-line-dim 300ms ease forwards;
+}
+.intro-line-0 { animation-delay: 100ms, 900ms; }
+.intro-line-1 { animation-delay: 900ms, 1750ms; }
+.intro-line-2 { animation-delay: 1750ms, 99s; }
+
+/* Print-control strip as the progress bar ------------------------------ */
+.intro-bar {
+  display: flex;
+  outline: 1px solid var(--line2);
+}
+.intro-bar > span {
+  width: 14px;
+  height: 10px;
+  opacity: 0.12;
+  animation: intro-bar 180ms ease both;
+}
+.intro-bar-0 { background: var(--plate-c); animation-delay: 0ms !important; }
+.intro-bar-1 { background: var(--plate-m); animation-delay: 290ms !important; }
+.intro-bar-2 { background: var(--plate-y); animation-delay: 580ms !important; }
+.intro-bar-3 { background: var(--ink); animation-delay: 870ms !important; }
+.intro-bar-4 { background: var(--accent); animation-delay: 1160ms !important; }
+.intro-bar-5 { background: color-mix(in srgb, var(--ink) 80%, var(--page)); animation-delay: 1450ms !important; }
+.intro-bar-6 { background: color-mix(in srgb, var(--ink) 60%, var(--page)); animation-delay: 1740ms !important; }
+.intro-bar-7 { background: color-mix(in srgb, var(--ink) 40%, var(--page)); animation-delay: 2030ms !important; }
+.intro-bar-8 { background: color-mix(in srgb, var(--ink) 20%, var(--page)); animation-delay: 2320ms !important; }
+.intro-bar-9 { background: color-mix(in srgb, var(--ink) 8%, var(--page)); animation-delay: 2610ms !important; }
+
+/* Keyframes ------------------------------------------------------------ */
+@keyframes intro-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes intro-out {
+  to { opacity: 0; }
+}
+@keyframes intro-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes intro-pop {
+  from { opacity: 0; transform: scale(0); }
+  70% { opacity: 1; transform: scale(1.25); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes intro-blueprint {
+  to { stroke: var(--ink3); stroke-width: 1.2; stroke-dasharray: 0.012 0.012; }
+}
+@keyframes intro-grid {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes intro-brace-l {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes intro-brace-r {
+  from { opacity: 0; transform: translateX(-14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes intro-pulse {
+  0% { opacity: 0; stroke-dashoffset: 0.08; }
+  8%,
+  90% { opacity: 1; }
+  100% { opacity: 0; stroke-dashoffset: -0.92; }
+}
+@keyframes intro-glow {
+  from { opacity: 0; transform: scale(0.2); }
+  60% { opacity: 1; transform: scale(1.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes intro-collapse {
+  to { opacity: 0; transform: scale(0.18); }
+}
+@keyframes intro-ring {
+  from { opacity: 0; transform: translate(var(--rx), var(--ry)) scale(1.6); }
+  30% { opacity: 0.95; }
+  to { opacity: 0.95; transform: none; }
+}
+@keyframes intro-line-in {
+  from { opacity: 0; transform: translateY(8px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes intro-line-dim {
+  to { opacity: 0.32; }
+}
+@keyframes intro-bar {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.intro-play .intro {
     display: none;
   }
 }

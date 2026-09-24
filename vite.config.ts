@@ -39,7 +39,7 @@ const DEFAULT_SITE_URL = "https://saeedzarrini.ir";
 
 /** Light-theme tokens from src/index.css — keep in sync with <meta name="theme-color">. */
 const PWA_BG = "#ecede8"; // --page (Stock)
-const PWA_THEME = "#2a1fc4"; // --accent (Reflex Blue)
+const PWA_THEME = "#3d4252"; // --accent (Graphite)
 
 /** English SEO description (manifest is single-locale; fa lives in the HTML head). */
 const PWA_DESCRIPTION =
