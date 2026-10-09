@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import path from "path";
+import fs from "node:fs";
 import { fileURLToPath } from "url";
 import mdx from "@mdx-js/rollup";
 import tailwindcss from "@tailwindcss/vite";
@@ -63,6 +64,29 @@ function siteUrlHtmlPlugin(siteUrl: string): Plugin {
   };
 }
 
+/** Vite's SPA preview otherwise serves the Persian homepage for extensionless routes. */
+function prerenderPreviewPlugin(): Plugin {
+  return {
+    name: "prerender-preview",
+    configurePreviewServer(server) {
+      const dist = path.resolve(server.config.root, server.config.build.outDir);
+      server.middlewares.use((req, _res, next) => {
+        try {
+          const url = new URL(req.url ?? "/", "http://localhost");
+          const pathname = decodeURIComponent(url.pathname);
+          const file = path.resolve(dist, `.${pathname}`, "index.html");
+          if (file.startsWith(`${dist}${path.sep}`) && fs.existsSync(file)) {
+            req.url = `${url.pathname.replace(/\/+$/, "")}/index.html${url.search}`;
+          }
+        } catch {
+          // Malformed paths are handled by Vite's regular middleware.
+        }
+        next();
+      });
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig(async ({ mode, isSsrBuild }) => {
   // Glob patterns shared with scripts/generate-sw.mjs (injectManifest post-prerender).
@@ -86,6 +110,7 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
       react({ include: /\.(jsx|js|tsx|ts|mdx)$/ }),
       tailwindcss(),
       siteUrlHtmlPlugin(siteUrl),
+      prerenderPreviewPlugin(),
       // Client build only — SSR pass must not emit a second service worker.
       !isSsrBuild &&
         VitePWA({

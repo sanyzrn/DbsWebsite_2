@@ -36,5 +36,5 @@ export function LocalePreferenceRedirect() {
   }, [shouldRedirect, location.pathname]);
 
   if (!shouldRedirect || location.pathname !== "/") return null;
-  return <Navigate to="/en" replace />;
+  return <Navigate to={{ pathname: "/en", search: location.search, hash: location.hash }} replace />;
 }

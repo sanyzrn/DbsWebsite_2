@@ -169,7 +169,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
   try {
     for (const route of resolvedRoutes) {
       for (const theme of THEMES) {
-        const context = await browser.newContext();
+        const context = await browser.newContext({ reducedMotion: "reduce" });
         await context.addInitScript((themeName) => {
           try {
             localStorage.setItem("sz-theme", themeName);
@@ -178,6 +178,11 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           }
         }, theme.name);
         const page = await context.newPage();
+        const runtimeErrors = [];
+        page.on("pageerror", (error) => runtimeErrors.push(String(error)));
+        page.on("console", (message) => {
+          if (message.type() === "error") runtimeErrors.push(message.text());
+        });
         const url = `${origin}${route.urlPath === "/" ? "/" : route.urlPath}`;
         await page.goto(url, { waitUntil: "networkidle" });
         await page.evaluate(`document.documentElement.classList.toggle("dark", ${theme.dark});`);
@@ -210,6 +215,10 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         // Playwright's addScriptTag has no nonce option, so inline content is blocked.
         await page.addScriptTag({ url: `${origin}/__a11y/axe.js` });
         const axeResults = await page.evaluate(`axe.run(document, ${JSON.stringify(AXE_RUN_OPTIONS)})`);
+
+        if (runtimeErrors.length) {
+          throw new Error(`${route.urlPath} [${theme.name}] runtime/hydration errors:\n${runtimeErrors.join("\n")}`);
+        }
 
         const serious = axeResults.violations.filter(
           (v) => v.impact === "critical" || v.impact === "serious"

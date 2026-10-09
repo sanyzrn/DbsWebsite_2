@@ -38,6 +38,8 @@ describe("CommandPalette focus containment", () => {
     });
 
     expect(root.hasAttribute("inert")).toBe(true);
+    expect(root.contains(dialog)).toBe(false);
+    expect(dialog.closest("[inert]")).toBeNull();
     expect(document.body.style.overflow).toBe("hidden");
 
     let wrapped = false;

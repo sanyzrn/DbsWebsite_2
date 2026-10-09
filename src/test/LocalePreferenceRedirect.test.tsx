@@ -25,6 +25,16 @@ async function toggleLang(user: ReturnType<typeof userEvent.setup>, lang: "fa" |
 }
 
 describe("locale preference + language switch", () => {
+  it("keeps deep-link query and fragment when redirecting an English preference", async () => {
+    localStorage.setItem("sz-lang", "en");
+    window.history.replaceState(null, "", "/?ref=profile#process");
+    render(<App />);
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/en");
+      expect(window.location.search).toBe("?ref=profile");
+      expect(window.location.hash).toBe("#process");
+    });
+  });
   it("redirects first visit to / toward /en when sz-lang is en", async () => {
     localStorage.setItem("sz-lang", "en");
     window.history.replaceState(null, "", "/");

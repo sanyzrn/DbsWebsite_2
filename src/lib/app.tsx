@@ -1,9 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getDictionary, type Dict, type Lang } from "./i18n";
 import { runThemeTransition } from "./motion";
 import { ACCENT_STORAGE_KEY, DEFAULT_ACCENT, applyAccent, isAccentId, type AccentId } from "./accent";
 import { langFromPath, localePath, stripLangPrefix } from "./paths";
+import { readPreference, writePreference } from "./storage";
 
 export type Theme = "light" | "dark";
 
@@ -23,33 +24,36 @@ export interface AppState {
 /** Exported so tests can provide the context directly without module mocking. */
 export const AppCtx = createContext<AppState | null>(null);
 
+const subscribeToHydration = () => () => {};
+const clientHydrated = () => true;
+const serverHydrated = () => false;
+
 function initialTheme(): Theme {
   if (typeof window === "undefined") return "light";
-  const stored = localStorage.getItem("sz-theme");
+  const stored = readPreference("sz-theme");
   if (stored === "light" || stored === "dark") return stored;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 function initialAccent(): AccentId {
   if (typeof window === "undefined") return DEFAULT_ACCENT;
-  try {
-    const stored = localStorage.getItem(ACCENT_STORAGE_KEY);
-    return isAccentId(stored) ? stored : DEFAULT_ACCENT;
-  } catch {
-    return DEFAULT_ACCENT;
-  }
+  const stored = readPreference(ACCENT_STORAGE_KEY);
+  return isAccentId(stored) ? stored : DEFAULT_ACCENT;
 }
 
 /** Preference memory only — never overrides URL locale by itself. */
 export function readStoredLang(): Lang | null {
   if (typeof window === "undefined") return null;
-  const stored = localStorage.getItem("sz-lang");
+  const stored = readPreference("sz-lang");
   return stored === "en" || stored === "fa" ? stored : null;
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const navigate = useNavigate();
+  // Match the prerender's preference-dependent controls on the hydration pass.
+  // The pre-paint script already applies the chosen CSS theme and accent.
+  const hydrated = useSyncExternalStore(subscribeToHydration, clientHydrated, serverHydrated);
   const [lang, setLangState] = useState<Lang>(() => langFromPath(location.pathname));
   const [theme, setTheme] = useState<Theme>(initialTheme);
   const [accent, setAccentState] = useState<AccentId>(initialAccent);
@@ -69,19 +73,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [lang, dir]);
 
   useEffect(() => {
+    if (!hydrated) return;
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("sz-theme", theme);
-  }, [theme]);
+    writePreference("sz-theme", theme);
+  }, [theme, hydrated]);
 
   useEffect(() => {
+    if (!hydrated) return;
     applyAccent(accent);
-    try {
-      localStorage.setItem(ACCENT_STORAGE_KEY, accent);
-    } catch {
-      /* storage blocked — the choice still applies for this visit */
-    }
-  }, [accent]);
+    writePreference(ACCENT_STORAGE_KEY, accent);
+  }, [accent, hydrated]);
 
   const setAccent = useCallback((next: AccentId) => {
     runThemeTransition(() => {
@@ -94,7 +96,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (next: Lang) => {
       // Persist before navigate so a racey preference redirect cannot override
       // an explicit language choice with a stale sz-lang value.
-      localStorage.setItem("sz-lang", next);
+      writePreference("sz-lang", next);
       const path = stripLangPrefix(location.pathname);
       navigate({
         pathname: localePath(next, path),
@@ -111,7 +113,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // Apply DOM tokens synchronously so View Transitions can capture old/new.
       const root = document.documentElement;
       root.classList.toggle("dark", next === "dark");
-      localStorage.setItem("sz-theme", next);
+      writePreference("sz-theme", next);
       setTheme(next);
     });
   }, [theme]);
@@ -124,12 +126,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
       t: getDictionary(lang),
       setLang,
       toggleLang: () => setLang(lang === "fa" ? "en" : "fa"),
-      theme,
+      theme: hydrated ? theme : "light",
       toggleTheme,
-      accent,
+      accent: hydrated ? accent : DEFAULT_ACCENT,
       setAccent,
     }),
-    [lang, dir, theme, setLang, toggleTheme, accent, setAccent]
+    [lang, dir, theme, setLang, toggleTheme, accent, setAccent, hydrated]
   );
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;
