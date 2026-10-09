@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
 import { ArrowRight, Languages, Mail, Moon, Phone, Search, Sun, X } from "lucide-react";
 import { useApp } from "../lib/app";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
@@ -127,6 +128,8 @@ export default function CommandPalette() {
     const onKey = (e: globalThis.KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
+        // Keep one modal active: competing traps would steal each other's focus.
+        if (document.querySelector('[role="dialog"][aria-modal="true"]') && !dialogRef.current) return;
         setOpen((o) => !o);
         return;
       }
@@ -172,7 +175,7 @@ export default function CommandPalette() {
     phone: Phone,
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[100] flex items-start justify-center bg-ink/40 px-4 pt-[12vh] backdrop-blur-sm" onClick={close} role="presentation">
       <div
         ref={dialogRef}
@@ -196,6 +199,7 @@ export default function CommandPalette() {
             aria-controls={listboxId}
             aria-activedescendant={activeDescendant}
             aria-autocomplete="list"
+            aria-label={t.command.title}
           />
           <button
             type="button"
@@ -208,9 +212,6 @@ export default function CommandPalette() {
         </form>
 
         <ul id={listboxId} className="max-h-[50vh] overflow-y-auto p-2" role="listbox">
-          {filtered.length === 0 && (
-            <li className="px-3 py-6 text-center text-[13px] text-ink3">{t.command.empty}</li>
-          )}
           {filtered.map((cmd, i) => {
             const Icon = icons[cmd.id] ?? ArrowRight;
             return (
@@ -232,12 +233,16 @@ export default function CommandPalette() {
             );
           })}
         </ul>
+        {filtered.length === 0 && (
+          <p role="status" className="px-3 py-6 text-center text-[13px] text-ink3">{t.command.empty}</p>
+        )}
 
         <div className="flex items-center justify-between border-t border-line px-4 py-2.5 font-mono text-[10px] text-ink3">
           <span>{t.command.hint}</span>
           <kbd className="rounded-xs border border-line px-1.5 py-0.5">esc</kbd>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

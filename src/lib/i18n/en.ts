@@ -359,6 +359,7 @@ const en: UiDict = {
       formUnavailable:
         "The contact form is temporarily being set up. In the meantime, feel free to reach me directly at the email below:",
       required: "This field is required.",
+      invalidEmail: "Please enter a valid email address.",
       regardingProject: "Regarding: {name} — ",
       types: {
         "ai-product": "AI Product",
@@ -390,15 +391,15 @@ const en: UiDict = {
   privacy: {
     kicker: "Legal",
     title: "Privacy policy",
-    updated: "Last updated: July 2026",
+    updated: "Last updated: October 2026",
     sections: [
       {
         heading: "What information is collected",
-        body: "This site is a personal portfolio. No third-party analytics service loads by default. Your language and theme preference are stored only in your own browser (localStorage) and are never sent to a server. If a privacy-respecting, non-tracking analytics service is added in the future, this section will be updated.",
+        body: "This site is a personal portfolio with no third-party analytics service by default. Your language, theme, accent colour and install-prompt preference are stored only in your browser. To limit contact-form submissions in one-hour windows, the server stores submission times in temporary files identified by a hash of the IP address. If analytics is added, this policy will be updated.",
       },
       {
         heading: "The contact form",
-        body: "When you send a message through the contact form, your name, email, optional phone number, message, and any optional project details are posted to a same-origin PHP endpoint on this site, which forwards a plain-text notification to Saeed via the Bale Bot API. The bot token never ships in the browser bundle. This information is used solely to respond to your inquiry — it is never sold. Bale’s own processing of bot messages is covered by Bale’s privacy policy (https://bale.ai).",
+        body: "When you send the contact form, your name, email, message and optional details, including your phone number, are sent to this site's server. The message is then forwarded to Saeed through a Bale bot. This information is used only to respond to your inquiry and is never sold. Bale's processing of the message is covered by its privacy policy (https://bale.ai).",
       },
       {
         heading: "Data retention",
@@ -406,7 +407,7 @@ const en: UiDict = {
       },
       {
         heading: "Cookies",
-        body: "This site does not use advertising or tracking cookies. The only locally stored data is your language and theme preference, which stays on your own device.",
+        body: "This site does not use advertising or tracking cookies. Your display and install preferences, the introductory animation's session state, and cached pages for offline access are kept in your browser. You can remove them through your browser's site-data settings.",
       },
       {
         heading: "Your rights",

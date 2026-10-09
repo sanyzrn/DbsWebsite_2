@@ -6,7 +6,7 @@
     <title>Saeed | مهندس راهکارهای هوش مصنوعی</title>
     <meta
       name="description"
-      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
+      content="از ایده تا محصول دیجیتال؛ طراحی محصول، توسعه نرم‌افزار و یکپارچه‌سازی هوش مصنوعی برای تیم‌ها و کسب‌وکارها."
     />
     <meta name="author" content="Saeed" />
     <meta name="theme-color" content="#ecede8" media="(prefers-color-scheme: light)" />
@@ -23,7 +23,7 @@
     <meta property="og:title" content="Saeed | مهندس راهکارهای هوش مصنوعی" />
     <meta
       property="og:description"
-      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
+      content="از ایده تا محصول دیجیتال؛ طراحی محصول، توسعه نرم‌افزار و یکپارچه‌سازی هوش مصنوعی برای تیم‌ها و کسب‌وکارها."
     />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:locale:alternate" content="en_US" />
@@ -35,7 +35,7 @@
     <meta name="twitter:title" content="Saeed | مهندس راهکارهای هوش مصنوعی" />
     <meta
       name="twitter:description"
-      content="برای تیم‌هایی که ایده دارند ولی محصول قابل‌تحویل نمی‌سازند: طراحی، مهندسی و هوش مصنوعی را در یک مسیر به محصول دیجیتال واقعی تبدیل می‌کنم."
+      content="از ایده تا محصول دیجیتال؛ طراحی محصول، توسعه نرم‌افزار و یکپارچه‌سازی هوش مصنوعی برای تیم‌ها و کسب‌وکارها."
     />
     <meta name="twitter:image" content="__SITE_URL__/og.jpg" />
 
@@ -48,12 +48,14 @@
           var isEn = path === "/en" || path.indexOf("/en/") === 0;
           root.lang = isEn ? "en" : "fa";
           root.dir = isEn ? "ltr" : "rtl";
-          var theme = localStorage.getItem("sz-theme");
+          var theme = null;
+          try { theme = localStorage.getItem("sz-theme"); } catch (e) {}
           var dark =
             theme === "dark" ||
             (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
           root.classList.toggle("dark", dark);
-          var accent = localStorage.getItem("sz-accent");
+          var accent = null;
+          try { accent = localStorage.getItem("sz-accent"); } catch (e) {}
           if (accent && accent !== "graphite" && /^[a-z-]{2,20}$/.test(accent)) root.setAttribute("data-accent", accent);
           // Intro plays once per browser session, never under reduced motion.
           var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

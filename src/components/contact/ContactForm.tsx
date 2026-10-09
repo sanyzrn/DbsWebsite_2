@@ -77,9 +77,11 @@ export function ContactForm({
   const emailFieldRef = useRef<HTMLInputElement>(null);
   const messageFieldRef = useRef<HTMLTextAreaElement>(null);
   const statusAlertRef = useRef<HTMLDivElement>(null);
+  const requestRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     mountedAt.current = Date.now();
+    return () => requestRef.current?.abort();
   }, []);
 
   useEffect(() => {
@@ -125,11 +127,12 @@ export function ContactForm({
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
+    if (requestRef.current) return;
     const next: Partial<Record<keyof ContactFields, boolean>> = {
       name: !fields.name.trim() || fields.name.trim().length > CONTACT_FIELD_MAX.name,
       email:
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email) ||
-        fields.email.length > CONTACT_FIELD_MAX.email,
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.trim()) ||
+        fields.email.trim().length > CONTACT_FIELD_MAX.email,
       message: !fields.message.trim() || fields.message.trim().length > CONTACT_FIELD_MAX.message,
     };
     setErrors(next);
@@ -156,16 +159,28 @@ export function ContactForm({
       return;
     }
 
+    // Lock before the timing wait, including rapid clicks and Enter submissions.
+    const controller = new AbortController();
+    requestRef.current = controller;
+    setStatus("sending");
+
     // Fast humans (autofill / power users): wait out the remainder of SUBMIT_MIN_MS
     // instead of showing a confusing error. Server-side timing in contact.php stays as-is.
     if (elapsedMs < SUBMIT_MIN_MS) {
-      await new Promise((resolve) => setTimeout(resolve, SUBMIT_MIN_MS - elapsedMs));
+      await new Promise<void>((resolve) => {
+        const finish = () => {
+          window.clearTimeout(waitTimer);
+          controller.signal.removeEventListener("abort", finish);
+          resolve();
+        };
+        const waitTimer = window.setTimeout(finish, SUBMIT_MIN_MS - elapsedMs);
+        controller.signal.addEventListener("abort", finish, { once: true });
+      });
     }
+    if (controller.signal.aborted) return;
     // Wall-clock after any client wait; clamp so timer jitter cannot re-trip the PHP gate.
     const submitElapsedMs = Math.max(SUBMIT_MIN_MS, Date.now() - mountedAt.current);
 
-    setStatus("sending");
-    const controller = new AbortController();
     let timedOut = false;
     const timer = window.setTimeout(() => {
       timedOut = true;
@@ -179,7 +194,7 @@ export function ContactForm({
         signal: controller.signal,
         body: JSON.stringify({
           name: fields.name,
-          email: fields.email,
+          email: fields.email.trim(),
           ...(fields.phone.trim() ? { phone: fields.phone.trim() } : {}),
           company: fields.company,
           type: fields.type,
@@ -196,6 +211,7 @@ export function ContactForm({
       } catch {
         payload = {};
       }
+      if (controller.signal.aborted && !timedOut) return;
       if (res.status === 429 || payload.error === "rate_limited") {
         setStatus("rateLimited");
         return;
@@ -206,10 +222,12 @@ export function ContactForm({
       setFields({ ...emptyContactFields });
       setWebsite("");
     } catch (err) {
+      if (controller.signal.aborted && !timedOut) return;
       const aborted = err instanceof DOMException && err.name === "AbortError";
       setStatus(timedOut || aborted ? "timeout" : "error");
     } finally {
       window.clearTimeout(timer);
+      requestRef.current = null;
     }
   };
 
@@ -251,6 +269,7 @@ export function ContactForm({
             value={fields.name}
             onChange={(e) => set("name", e.target.value)}
             autoComplete="name"
+            required
             maxLength={CONTACT_FIELD_MAX.name}
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={errors.name ? nameErrId : undefined}
@@ -277,15 +296,16 @@ export function ContactForm({
             value={fields.email}
             onChange={(e) => set("email", e.target.value)}
             autoComplete="email"
+            required
             maxLength={CONTACT_FIELD_MAX.email}
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? emailErrId : undefined}
           />
           {errors.email && (
             <p id={emailErrId} className="mt-1.5 text-[13px] font-semibold text-error">
-              {fields.email.length > CONTACT_FIELD_MAX.email
+              {fields.email.trim().length > CONTACT_FIELD_MAX.email
                 ? f.fieldTooLong.replace("{n}", String(CONTACT_FIELD_MAX.email))
-                : f.required}
+                : fields.email.trim() ? f.invalidEmail : f.required}
             </p>
           )}
         </div>
@@ -301,6 +321,7 @@ export function ContactForm({
             value={fields.message}
             onChange={(e) => set("message", e.target.value)}
             maxLength={CONTACT_FIELD_MAX.message}
+            required
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={errors.message ? messageErrId : undefined}
           />
@@ -364,6 +385,7 @@ export function ContactForm({
               value={fields.company}
               onChange={(e) => set("company", e.target.value)}
               autoComplete="organization"
+              maxLength={CONTACT_FIELD_MAX.company}
             />
           </div>
           <div className="sm:col-span-2">
@@ -379,6 +401,7 @@ export function ContactForm({
               value={fields.phone}
               onChange={(e) => set("phone", e.target.value)}
               autoComplete="tel"
+              maxLength={CONTACT_FIELD_MAX.phone}
               aria-describedby={`${idPrefix}-phone-hint`}
             />
             <p id={`${idPrefix}-phone-hint`} className="mt-1.5 text-[13px] leading-5 text-ink3">
@@ -395,6 +418,7 @@ export function ContactForm({
               placeholder={f.budgetPh}
               value={fields.budget}
               onChange={(e) => set("budget", e.target.value)}
+              maxLength={CONTACT_FIELD_MAX.budget}
             />
           </div>
           <div>
@@ -407,6 +431,7 @@ export function ContactForm({
               placeholder={f.timelinePh}
               value={fields.timeline}
               onChange={(e) => set("timeline", e.target.value)}
+              maxLength={CONTACT_FIELD_MAX.timeline}
             />
           </div>
         </div>

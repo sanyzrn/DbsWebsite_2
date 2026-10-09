@@ -6,14 +6,23 @@ const FOCUSABLE_SELECTOR = [
   "textarea:not([disabled])",
   "input:not([disabled]):not([type='hidden'])",
   "select:not([disabled])",
+  "summary",
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
 
 function isFocusable(el: HTMLElement): boolean {
-  if (el.getAttribute("aria-hidden") === "true") return false;
+  if (el.closest('[inert], [hidden], [aria-hidden="true"]')) return false;
   if (el.hasAttribute("disabled") || el.getAttribute("aria-disabled") === "true") return false;
-  const style = window.getComputedStyle(el);
-  if (style.visibility === "hidden" || style.display === "none") return false;
+  if (el.tabIndex < 0) return false;
+  // Closed disclosures and CSS-hidden ancestors must not interrupt the Tab cycle.
+  for (let node: HTMLElement | null = el; node; node = node.parentElement) {
+    const style = window.getComputedStyle(node);
+    if (style.visibility === "hidden" || style.display === "none") return false;
+    if (node instanceof HTMLDetailsElement && !node.open) {
+      const summary = node.querySelector("summary");
+      if (!summary?.contains(el)) return false;
+    }
+  }
   return true;
 }
 

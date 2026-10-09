@@ -25,6 +25,13 @@ function renderContactPage() {
 }
 
 describe("Contact form field error association", () => {
+  it("distinguishes an invalid email from a missing required value", async () => {
+    const user = userEvent.setup();
+    renderContactPage();
+    await user.type(screen.getByLabelText(new RegExp(dictionaries.en.contact.form.email)), "not-an-email");
+    await user.click(screen.getByRole("button", { name: dictionaries.en.contact.form.submit }));
+    expect(screen.getByText(dictionaries.en.contact.form.invalidEmail)).toBeTruthy();
+  });
   it("marks invalid fields with aria-invalid and aria-describedby pointing at the error message", async () => {
     const user = userEvent.setup();
     renderContactPage();

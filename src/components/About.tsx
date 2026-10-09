@@ -3,22 +3,9 @@ import { useApp } from "../lib/app";
 import type { Dict } from "../lib/i18n";
 import { cn } from "../utils/cn";
 import { SectionHead, Slider } from "./ui";
+import { usePrefersReducedMotion } from "../lib/motion";
 
 type PathNode = Dict["about"]["path"][number];
-
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
-  );
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduced(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-  return reduced;
-}
 
 /**
  * Survey-rail career timeline: a vertical measure with scroll-drawn accent fill.

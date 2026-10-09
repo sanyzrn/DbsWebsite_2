@@ -2,6 +2,7 @@ import { Children, useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useApp } from "../lib/app";
 import { cn } from "../utils/cn";
+import { prefersReducedMotion } from "../lib/motion";
 
 /* ------------------------------------------------------------------ */
 /*  Reveal — kept as a plain wrapper                                    */
@@ -132,7 +133,7 @@ export function Slider({
   /** Width/extra classes per slide below lg. */
   slideClassName?: string;
 }) {
-  const { lang } = useApp();
+  const { lang, isRTL } = useApp();
   const items = Children.toArray(children);
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -142,16 +143,20 @@ export function Slider({
     const root = trackRef.current;
     if (!root || typeof IntersectionObserver === "undefined") return;
     const slides = Array.from(root.children);
+    const ratios = new Map<Element, number>();
     const io = new IntersectionObserver(
       (entries) => {
-        const best = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        entries.forEach((entry) => ratios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0));
+        // Entries contain only slides that crossed a threshold, not every visible slide.
+        const best = slides.reduce<Element | undefined>((current, slide) =>
+          (ratios.get(slide) ?? 0) > (current ? ratios.get(current) ?? 0 : 0) ? slide : current,
+          undefined
+        );
         if (!best) return;
-        const next = slides.indexOf(best.target);
+        const next = slides.indexOf(best);
         if (next >= 0) setIndex(next);
       },
-      { root, threshold: [0.6, 0.8] }
+      { root, threshold: [0, 0.6, 0.8, 1] }
     );
     slides.forEach((slide) => io.observe(slide));
     return () => io.disconnect();
@@ -162,8 +167,13 @@ export function Slider({
     const slide = root?.children[i] as HTMLElement | undefined;
     if (!root || !slide) return;
     // Horizontal-only scroll so the page never jumps vertically; works in RTL too.
-    const delta = slide.getBoundingClientRect().left - root.getBoundingClientRect().left;
-    root.scrollBy({ left: delta, behavior: "smooth" });
+    const bounds = root.getBoundingClientRect();
+    const target = slide.getBoundingClientRect();
+    const style = window.getComputedStyle(root);
+    const delta = isRTL
+      ? target.right - bounds.right + (parseFloat(style.scrollPaddingRight) || 0)
+      : target.left - bounds.left - (parseFloat(style.scrollPaddingLeft) || 0);
+    root.scrollBy({ left: delta, behavior: prefersReducedMotion() ? "auto" : "smooth" });
   };
 
   return (
