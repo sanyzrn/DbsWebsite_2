@@ -4,6 +4,9 @@ Personal portfolio site for Saeed Zarrini (DBSGraphic). Not a pure client-only S
 the public site is a **static-prerendered** React frontend; project and article content
 is edited as files in git.
 
+Use Node.js 22.22.2+, 24.15.0+, or 26+ (the supported ranges in `package.json`).
+Install dependencies with `npm ci`; CI and deployment use Node.js 22.
+
 ## Architecture
 
 | Piece | Role |
