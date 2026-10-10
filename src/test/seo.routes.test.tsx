@@ -172,7 +172,7 @@ describe("route SEO meta (both locales)", () => {
     // sameAs is external profiles only — not the site's own root URL
     expect(blob).toContain("github.com");
     expect(blob).toContain("linkedin.com");
-    expect(blob).not.toMatch(/"sameAs":\[[^\]]*"https:\/\/saeedzarrini\.ir\/"/);
+    expect(blob).not.toMatch(/"sameAs":\[[^\]]*"https:\/\/dbsstudio\.ir\/"/);
 
     const projects = loadProjectContent();
     const pulse = projects.find((p) => p.slug === "dbsnex") ?? projects[0];

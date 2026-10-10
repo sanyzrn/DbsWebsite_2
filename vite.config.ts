@@ -36,7 +36,7 @@ function remarkArticleReadingTime() {
   };
 }
 
-const DEFAULT_SITE_URL = "https://saeedzarrini.ir";
+const DEFAULT_SITE_URL = "https://dbsstudio.ir";
 
 /** Light-theme tokens from src/index.css — keep in sync with <meta name="theme-color">. */
 const PWA_BG = "#ecede8"; // --page (Stock)

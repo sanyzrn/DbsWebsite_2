@@ -15,7 +15,7 @@ Install dependencies with `npm ci`; CI and deployment use Node.js 22.
 | **Content** (`content/projects/*.json`, `content/articles/*.mdx`, `content/news/*.json`) | Canonical case studies, Field Notes, and Daily Digest. Validated at build time (`npm run validate:content`). |
 | **Admin** (`admin/`) | **Deactivated (standby).** Former PHP + MySQL authoring UI. Kept in the repo for possible reactivation; not the primary editing path and not deployed with the static site. See [`admin/README.md`](./admin/README.md). |
 | **Field Notes MCP** (`mcp-fieldnotes/`) | Optional Cloudflare Worker remote MCP server for Claude to read/write `content/articles` + `content/news` via the GitHub Contents API. See [`mcp-fieldnotes/README.md`](./mcp-fieldnotes/README.md). |
-| **Hosting** | **Production:** Apache FTP at `https://saeedzarrini.ir` via [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) (runs after CI succeeds on `main`). Host examples and Apache notes live under [`hosting/`](./hosting/README.md). |
+| **Hosting** | **Production:** Apache FTP at `https://dbsstudio.ir` via [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) (runs after CI succeeds on `main`). Host examples and Apache notes live under [`hosting/`](./hosting/README.md). |
 | **Publishing flow** | Edit content files in git (or via the Field Notes MCP) → push to `main` → CI → FTP deploy uploads `dist/`. |
 
 Route lists for the app, sitemap, and prerender share [`shared/site-routes.json`](./shared/site-routes.json).
@@ -73,7 +73,7 @@ EXIF, caps the longest edge at 2000px, and re-encodes to WebP by default (JPEG/P
 
 Host-specific rules (404 status, security headers) live in **[`hosting/`](./hosting/README.md)**.
 
-**Production deploy (FTP):** push to `main` → **CI** workflow → on success, **Deploy to hosting** builds with secrets and uploads `./dist/` to the FTP account root (already `public_html`). Live config is Apache `.htaccess` (emitted as `dist/.htaccess` at build time).
+**Production deploy (FTP):** push to `main` → **CI** workflow → on success, **Deploy to hosting** builds with secrets and uploads `./dist/` to the FTP account root (verify it maps to `dbsstudio.ir`). Live config is Apache `.htaccess` (emitted as `dist/.htaccess` at build time).
 
 `admin/` is **not** included in `dist/` and is **not** uploaded by the static-frontend deploy
 pipeline — it is a separate PHP app that would need its own host. Deactivating it as the
@@ -88,9 +88,18 @@ Set these under **Settings → Secrets and variables → Actions**. They are **n
 | `FTP_SERVER` | `<your-ftp-hostname>` |
 | `FTP_USERNAME` | `<your-ftp-username>` |
 | `FTP_PASSWORD` | Current FTP account password |
-| `SITE_URL` | `https://saeedzarrini.ir` |
+| `SITE_URL` | `https://dbsstudio.ir` |
 | `BALE_BOT_TOKEN` | Bot token from Bale's BotFather — written only into `dist/api/bale-config.php` at deploy time (never committed) |
 | `BALE_CHAT_ID` | Numeric chat id that should receive form notifications |
+
+### Domain cutover checklist
+
+- Confirm `dbsstudio.ir` (and optionally `www.dbsstudio.ir`) points at the new host and has valid HTTPS.
+- Verify FTP logs in to the document root **for dbsstudio.ir**; `server-dir: ./` assumes it. Do not blindly append `public_html`.
+- FTP uses a per-site state file, never clean-slate deletion, and excludes independent `/nex/` content.
+- Preserve SEO by setting a path-preserving HTTP 301 from `saeedzarrini.ir` on the **old** domain's host. The new Apache `.htaccess` can handle this only if the old hostname reaches the same document root.
+- After deploy check homepage, `/en`, `/sitemap.xml`, 404/noindex, the contact form, and any separate `/nex/` site.
+- Review Actions variables (`DEPLOY_CHECK_BASE_URL`, `SITE_URL`) and external analytics / Search Console separately.
 
 ### `.htaccess` checklist
 
@@ -98,23 +107,23 @@ Set these under **Settings → Secrets and variables → Actions**. They are **n
 
 **After a successful FTP run**, confirm on the live host:
 
-1. `https://saeedzarrini.ir` loads correctly
+1. `https://dbsstudio.ir` loads correctly
 2. An unknown path returns a **real HTTP 404** with the custom body (requires root `.htaccess`; `/en/…` unknowns use `en/.htaccess`)
-3. Deployed files match a local `SITE_URL=https://saeedzarrini.ir npm run build` `dist/`
+3. Deployed files match a local `SITE_URL=https://dbsstudio.ir npm run build` `dist/`
 
 ### `SITE_URL`
 
 All canonical / social / sitemap URLs are derived from a single environment variable:
 
 ```bash
-SITE_URL=https://saeedzarrini.ir
+SITE_URL=https://dbsstudio.ir
 ```
 
 Copy `.env.example` to `.env` for local overrides (`.env` is gitignored).
 
 | Environment | Typical `SITE_URL` |
 |-------------|--------------------|
-| **Production (FTP)** | `https://saeedzarrini.ir` (GitHub Actions secret) |
+| **Production (FTP)** | `https://dbsstudio.ir` (GitHub Actions secret) |
 | **Local / preview** | Same production origin, or another HTTPS origin you control for staging checks |
 
 Set `SITE_URL` in GitHub Actions secrets for production FTP builds. Use a different value only when deliberately checking a non-production origin (Open Graph and sitemap URLs follow whatever `SITE_URL` was at build time).
@@ -131,7 +140,7 @@ Do not hardcode the site domain elsewhere — change `SITE_URL` only.
 Before promoting a production build, run:
 
 ```bash
-SITE_URL=https://saeedzarrini.ir npm run check:deploy
+SITE_URL=https://dbsstudio.ir npm run check:deploy
 ```
 
 (or set `DEPLOY_CHECK_BASE_URL` to another HTTPS origin). This hits the live URL over HTTPS and asserts real HTTP 404 + `noindex` on unknown paths.

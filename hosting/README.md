@@ -1,8 +1,8 @@
 # Host-specific deployment config
 
-> **ACTIVE HOST: Apache FTP (`https://saeedzarrini.ir`)**  
+> **ACTIVE HOST: Apache FTP (`https://dbsstudio.ir`)**  
 > Automated deploy: [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) builds after CI on `main` and uploads `dist/` (including `dist/.htaccess`) via FTP.  
-> This FTP account’s root **is already** `public_html` — `server-dir` must stay `./` (do not nest under `/public_html/`).
+> `server-dir: ./` is correct **only if the new FTP login lands in the actual document root of dbsstudio.ir**. Verify its root before the first deploy.
 
 This folder isolates everything that is **host-specific**. App logic (prerendered `404.html` / `en/404.html`, `noindex` meta, `SITE_URL`) is host-independent and lives in the build.
 
@@ -16,7 +16,7 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
    - Existing prerendered files/assets must still be served normally (filesystem-first).  
    - On Apache use `RewriteCond %{REQUEST_FILENAME} !-f` / `!-d` before any 404 fallback, plus locale-aware `ErrorDocument 404` (see `apache.htaccess.example`).
 
-2. **Security headers on every response** (no HSTS yet — wait until the permanent host + TLS for `saeedzarrini.ir` are locked in)  
+2. **Security headers on every response** (no HSTS yet — wait until the permanent host + TLS for `dbsstudio.ir` are locked in)  
    - On Apache use `Header set` via `mod_headers` (verify the module is enabled on shared hosts).  
    - `Content-Security-Policy` (see annotated breakdown below)  
    - `X-Content-Type-Options: nosniff`  
@@ -25,7 +25,7 @@ When migrating hosts, **apply the equivalent rules from the matching example bel
    - `X-Frame-Options: DENY` (also mirrored by CSP `frame-ancestors 'none'`)
 
 3. **Canonical hostname**  
-   - Apex: `https://saeedzarrini.ir`  
+   - Apex: `https://dbsstudio.ir`  
    - Do not point `SITE_URL` at a host that does not resolve over HTTPS.
 
 4. **`SITE_URL` env var** (not in these files)  
@@ -58,7 +58,7 @@ rather than a per-build nonce, so hosting configs and HTML stay in sync automati
 
 **Apache FTP:** prefer `dist/.htaccess` from the **same** build as the HTML (hashes change each build). The GitHub Actions deploy workflow uploads that file with `dist/`. Prefer that over copying a stale `apache.htaccess.example` from an older commit by hand.
 
-**Do not add `Strict-Transport-Security` here until the final host is permanent.**
+**During domain cutover:** keep HSTS short (`max-age=86400`) and avoid `includeSubDomains` until HTTPS works everywhere.
 
 ## Files in this folder
 
@@ -72,4 +72,8 @@ rather than a per-build nonce, so hosting configs and HTML stay in sync automati
 | `cloudflare/_redirects.example` | Cloudflare Pages `_redirects` (optional alternate host) |
 | `cloudflare/_headers.example` | Cloudflare Pages `_headers` (optional alternate host) |
 
-**Note on the current apex (`saeedzarrini.ir`):** Production is served via **Apache + GitHub Actions FTP**. Each deploy uploads `dist/.htaccess` produced by the build. Until a `.htaccess` is next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body.
+**Note on the current apex (`dbsstudio.ir`):** Production is served via **Apache + GitHub Actions FTP**. Each deploy uploads `dist/.htaccess` produced by the build. Until a `.htaccess` is next to `index.html`, unknown paths may still return a stock host 404 without the app `noindex` body.
+
+## Old-domain redirect and shared hosting
+
+If `saeedzarrini.ir` and `dbsstudio.ir` share the same Apache document root, the shipped `.htaccess` redirects the old hostname to the new hostname while preserving the path. If the old domain is on a **different** host or document root, its 301 redirect must be installed there separately: changing the FTP secrets to the new host does not update the old server. Do not remove unrelated paths such as `/nex/`.
