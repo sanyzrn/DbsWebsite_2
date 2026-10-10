@@ -12,12 +12,12 @@
     "en": "NexaHR"
   },
   "subtitle": {
-    "fa": "از ارزیابی‌های پراکنده و سلیقه‌ای تا تصمیم‌های منصفانه، مستند و قابل دفاع دربارهٔ مهم‌ترین سرمایهٔ سازمان: آدم‌ها.",
-    "en": "From fragmented, subjective performance reviews to fair, documented and defensible decisions about an organization's most valuable asset: its people."
+    "fa": "سامانهٔ ارزیابی عملکرد کارکنان با گردش‌کار مشخص، کنترل دسترسی و گزارش‌های مدیریتی.",
+    "en": "Employee performance reviews with traceable workflows, access control and management reporting."
   },
   "desc": {
-    "fa": "NexaHR یک سامانهٔ جدی برای سازمان‌هایی است که می‌خواهند تصمیم‌های منابع انسانی‌شان از حدس، اکسل و پیگیری تلفنی فراتر برود. از تعریف شاخص‌ها و بازکردن دورهٔ ارزیابی تا امتیازدهی، زنجیرهٔ تأیید، اعتراض، تحلیل مدیریتی و صدور کارنامهٔ رسمی، همه‌چیز در یک جریان روشن و قابل رهگیری انجام می‌شود. نتیجه فقط یک داشبورد زیبا نیست؛ یک زیرساخت تصمیم‌گیری است که به HR کمک می‌کند با داده، سابقه و منطق قابل دفاع، دربارهٔ تمدید قرارداد، رشد و برنامهٔ بهبود افراد تصمیم بگیرد.",
-    "en": "NexaHR is built for organizations ready to move people decisions beyond guesswork, spreadsheets and endless follow-ups. From defining criteria and opening an evaluation period through scoring, approval, appeals, management analytics and official performance records, every step lives in one clear, traceable flow. The outcome is not merely a polished dashboard; it is decision infrastructure that helps HR make defensible calls on contracts, growth and improvement plans with data, history and logic behind every decision."
+    "fa": "NexaHR سامانه‌ای برای اجرای ساختاریافتهٔ ارزیابی عملکرد کارکنان است. تعریف شاخص‌ها و دوره‌ها، امتیازدهی، زنجیرهٔ بررسی و تأیید، رسیدگی به اعتراض‌ها و گزارش‌های مدیریتی در یک گردش‌کار قابل‌ردیابی انجام می‌شوند. نقش‌های سازمانی، ثبت رویدادها، نسخه‌بندی شاخص‌ها و پشتیبانی از زبان فارسی و تقویم جلالی، آن را برای فرایندهای منابع انسانی در سازمان‌های ایرانی مناسب می‌کنند.",
+    "en": "NexaHR structures employee performance reviews from criteria and evaluation periods to scoring, approvals, appeals and management reports. Role-based workflows, audit logs, versioned criteria, Persian RTL support and the Jalali calendar make reviews more traceable and suited to HR operations in Iranian organizations."
   },
   "problem": {
     "fa": "ارزیابی عملکرد در سازمان‌ها معمولاً میان اکسل، فرم کاغذی و پیام‌های پراکنده گم می‌شود؛ مسئولیت‌ها مبهم می‌مانند، سابقهٔ تصمیم‌ها قابل اتکا نیست و گزارش‌گیری زمان‌بر و آسیب‌پذیر می‌شود.",
@@ -28,8 +28,8 @@
     "en": "NexaHR turns a complex review cycle into a role-aware, versioned and error-resistant workflow. Every case knows exactly who owns the next step; every return needs a reason; every change is logged; and no one can reach beyond their authority. Versioned criteria and scoring protect the meaning of historical reports, while filterable analytics move decisions away from personal impressions and toward evidence. Full RTL, Jalali dates, precise access control, official PDFs and verifiable documents make this a product for everyday use in a real organization — not a polished demo."
   },
   "result": {
-    "fa": "یک مرکز فرمان مدرن برای منابع انسانی که ارزیابی را قابل‌مشاهده، منصفانه و قابل‌تحلیل می‌کند؛ از کارنامهٔ هر فرد تا دید کلان سازمان، بدون قربانی‌کردن امنیت یا جزئیات فرآیند.",
-    "en": "A modern command center for HR that makes evaluation visible, fair and analyzable — from each employee's record to the organization-wide view, without sacrificing security or process detail."
+    "fa": "یک بستر متمرکز برای ثبت و پیگیری ارزیابی‌ها و تهیهٔ گزارش‌های قابل‌اتکا؛ بدون ادعای جایگزینی قضاوت انسانی با امتیازهای خودکار.",
+    "en": "A central place to record, track and report on evaluations, designed to support rather than replace human judgment."
   },
   "role": {
     "fa": [
@@ -63,5 +63,14 @@
     "Full-Stack"
   ],
   "image_url": "/images/projects/nexahr.webp",
-  "mock": "pulse"
+  "mock": "pulse",
+  "seoTitle": {
+    "fa": "NexaHR | سامانه ارزیابی عملکرد کارکنان | DbsStudio",
+    "en": "NexaHR | Employee Performance Reviews | DbsStudio"
+  },
+  "seoDescription": {
+    "fa": "NexaHR سامانه ارزیابی عملکرد کارکنان با شاخص‌های نسخه‌دار، گردش تأیید، مدیریت اعتراض‌ها، کنترل دسترسی و گزارش‌های منابع انسانی است.",
+    "en": "Explore NexaHR, an employee performance evaluation system with versioned criteria, approval workflows, appeals and HR reporting."
+  },
+  "applicationCategory": "BusinessApplication"
 }

@@ -12,12 +12,12 @@
     "en": "NexaFlow"
   },
   "subtitle": {
-    "fa": "در حال اجرا — اتوماسیون اداری مدرن برای تبدیل مکاتبات، کارتابل و فرایندهای سازمانی به جریانی شفاف و قابل‌پیگیری.",
-    "en": "In progress — modern office automation that turns correspondence, inboxes and business processes into a clear, traceable flow."
+    "fa": "سامانهٔ در حال توسعهٔ اتوماسیون اداری برای مکاتبات، کارتابل و گردش‌کارهای سازمانی.",
+    "en": "An office automation platform in development for correspondence, inboxes and organizational workflows."
   },
   "desc": {
-    "fa": "NexaFlow برای سازمانی ساخته شده که نمی‌خواهد نامه‌ها، درخواست‌ها، جلسات و کارهای روزانه میان ایمیل، پیام‌رسان و فایل‌های پراکنده گم شوند. هر چیز از یک کارتابل شخصی شروع می‌شود و با گردش‌کارهای تایید، اعلان، مسئولیت روشن، تاریخچهٔ قابل استناد و گزارش مدیریتی جلو می‌رود. نتیجه، فقط دیجیتال‌کردن فرم‌ها نیست؛ ساختن یک ستون فقرات عملیاتی است که تیم سریع‌تر تصمیم می‌گیرد، کمتر پیگیری می‌کند و هیچ موضوع مهمی را بی‌صدا از دست نمی‌دهد.",
-    "en": "NexaFlow is built for organizations that refuse to lose letters, requests, meetings and daily work across email, messaging apps and scattered files. Everything begins in a personal inbox and moves through approvals, notifications, clear ownership, defensible history and management reporting. The result is more than digitized forms: it is operational backbone that helps teams decide faster, chase less and never let important work disappear quietly."
+    "fa": "NexaFlow برای مدیریت مکاتبات و فرایندهای اداری در یک سامانهٔ متمرکز طراحی شده است. کارتابل شخصی، گردش تأیید، ارجاع وظایف، مدیریت اسناد، ثبت تاریخچه و گزارش مدیریتی به روشن‌شدن مسئولیت‌ها و وضعیت هر درخواست کمک می‌کنند. ساختار ماژولار آن امکان توسعهٔ بخش‌هایی مانند جلسات، فرم‌ساز و ابزارهای منابع انسانی را فراهم می‌کند. محصول در حال توسعه است.",
+    "en": "NexaFlow is an office automation platform designed to centralize correspondence and internal workflows. Personal inboxes, approval flows, task assignments, document management, audit history and reporting make each request's status and owner clearer. Its modular architecture supports further work on meetings, forms and HR tools. The platform is in development."
   },
   "problem": {
     "fa": "وقتی فرایندها در کانال‌های مختلف پخش شده‌اند، هیچ‌کس دقیق نمی‌داند یک درخواست کجاست، چه کسی مسئول گام بعدی است یا چرا تصمیمی گرفته شده. این ابهام هم سرعت را پایین می‌آورد و هم ریسک سازمان را بالا می‌برد.",
@@ -28,8 +28,8 @@
     "en": "The product is designed as modular infrastructure: incoming and outgoing correspondence with numbering, approvals and PDF output; inboxes and tasks; notifications; user and role management; audit logs; configurable workflows; versioned documents; meetings that turn resolutions into tasks; form building; Jalali calendar and scheduling; plus core HR tools for leave, attendance and performance review. Precise access control, Jalali dates, PWA support and management reporting make it more than a demo — it is built for real daily work."
   },
   "result": {
-    "fa": "در حال اجرا؛ NexaFlow در مسیر تبدیل‌شدن به هستهٔ دیجیتال عملیات سازمان است: قابل‌توسعه برای فرایندهای اختصاصی، آماده برای تیم‌های کوچک تا ساختارهای چندواحدی و طراحی‌شده برای اینکه کارها واقعاً جلو بروند.",
-    "en": "In progress — NexaFlow is becoming the digital core of organizational operations: extensible for bespoke processes, ready for small teams through multi-unit structures, and designed to make work genuinely move forward."
+    "fa": "در حال توسعه؛ زیرساختی ماژولار برای قابل‌پیگیری‌کردن درخواست‌ها، مصوبات و مکاتبات در سازمان.",
+    "en": "In development, with a modular foundation for tracking requests, decisions and correspondence across teams."
   },
   "role": {
     "fa": [
@@ -64,9 +64,21 @@
   "mock": "pulse",
   "links": [
     {
-      "label": { "fa": "مشاهدهٔ کد", "en": "View source" },
+      "label": {
+        "fa": "مشاهدهٔ کد",
+        "en": "View source"
+      },
       "href": "https://github.com/sanyzrn/office-automation-platform"
     }
   ],
-  "updatedAt": "2026-09-01"
+  "updatedAt": "2026-09-01",
+  "seoTitle": {
+    "fa": "NexaFlow | اتوماسیون اداری و گردش‌کار | DbsStudio",
+    "en": "NexaFlow | Office Workflow Automation | DbsStudio"
+  },
+  "seoDescription": {
+    "fa": "NexaFlow سامانهٔ اتوماسیون اداری در حال توسعه برای مکاتبات، کارتابل، تأیید درخواست‌ها، مدیریت اسناد و گردش‌کار سازمانی است.",
+    "en": "NexaFlow is an office automation platform for correspondence, approval workflows, document management, tasks and audit history."
+  },
+  "applicationCategory": "BusinessApplication"
 }

@@ -12,12 +12,12 @@
     "en": "DbsAI"
   },
   "subtitle": {
-    "fa": "در حال اجرا — فضای کاری هوش مصنوعی چندمدلی برای تیم‌هایی که کنترل، امنیت و بهره‌وری را یک‌جا می‌خواهند.",
-    "en": "In progress — a multi-model AI workspace for teams that need control, security and productivity in one place."
+    "fa": "فضای کاری متمرکز برای استفادهٔ تیمی از چند مدل هوش مصنوعی، همراه با مدیریت دسترسی و مصرف.",
+    "en": "A shared workspace for multiple AI models, with team access and usage controls."
   },
   "desc": {
-    "fa": "DbsAI یک فضای کاری هوشمند برای تیم‌هایی است که می‌خواهند از قدرت مدل‌های مختلف AI استفاده کنند، بدون آن‌که کلیدهای API، هزینه، دسترسی و داده‌ها میان ابزارهای پراکنده گم شوند. کاربران از یک رابط تمیز می‌توانند بین مدل‌ها جابه‌جا شوند، گفتگو را ادامه دهند، پاسخ را دوباره تولید کنند و از ابزارهای تحقیق، خلاصه‌سازی و دستیار کدنویسی استفاده کنند؛ مدیر هم دقیقاً می‌داند چه کسی، چه زمانی و با چه سقفی از هوش مصنوعی استفاده می‌کند.",
-    "en": "DbsAI is an intelligent workspace for teams that want the power of multiple AI models without letting API keys, costs, access and data disappear across scattered tools. From one clean interface, people can switch models, continue conversations, regenerate answers and use research, summarization and coding tools — while administrators know exactly who is using AI, when and within which limits."
+    "fa": "DbsAI یک فضای کاری چندمدلی برای تیم‌هاست که گفت‌وگو با مدل‌های مختلف، ابزارهای تحقیق و خلاصه‌سازی و مدیریت مصرف را در یک محیط جمع می‌کند. کاربران بدون جابه‌جایی میان چند سرویس، کارشان را ادامه می‌دهند و مدیران می‌توانند نقش‌ها، سهمیه‌ها، کلیدهای API و گزارش هزینه را از یک نقطه مدیریت کنند. این محصول همچنان در حال توسعه است.",
+    "en": "DbsAI brings multi-model conversations, research and summarization tools, and usage management into one team workspace. People can work across providers without juggling separate services, while administrators manage roles, quotas, API keys and cost reporting centrally. The product remains in development."
   },
   "problem": {
     "fa": "وقتی هر نفر با یک اکانت و یک ابزار متفاوت کار می‌کند، هزینه‌ها قابل پیش‌بینی نیستند، کلیدهای API در معرض ریسک قرار می‌گیرند و مدیر هیچ تصویری از ارزش واقعی استفاده از AI ندارد.",
@@ -28,8 +28,8 @@
     "en": "The product brings multiple providers and OpenAI-compatible endpoints behind one secure management layer. Roles and permissions, daily request/token/cost limits, access hours, tool controls, usage analytics, system logs and conversation retention are all configurable from the admin panel. Keys remain encrypted on the server — never in the browser or application bundle."
   },
   "result": {
-    "fa": "در حال اجرا؛ یک لایهٔ عملیاتی برای تبدیل AI از چند اشتراک پراکنده به یک سرویس قابل‌مدیریت، امن و قابل‌اندازه‌گیری که با رشد تیم، مدل‌ها و نیازها رشد می‌کند.",
-    "en": "In progress — an operational layer that turns scattered AI subscriptions into a manageable, secure and measurable service that scales with the team, models and requirements."
+    "fa": "در حال توسعه؛ تمرکز پروژه بر ساده‌کردن دسترسی تیمی به هوش مصنوعی و شفاف‌کردن مدیریت هزینه و مجوزهاست.",
+    "en": "In development, with a focus on simpler team access to AI and clearer oversight of permissions and spending."
   },
   "role": {
     "fa": [
@@ -81,9 +81,21 @@
   },
   "links": [
     {
-      "label": { "fa": "مشاهدهٔ کد", "en": "View source" },
+      "label": {
+        "fa": "مشاهدهٔ کد",
+        "en": "View source"
+      },
       "href": "https://github.com/sanyzrn/DbsAI"
     }
   ],
-  "updatedAt": "2026-09-01"
+  "updatedAt": "2026-09-01",
+  "seoTitle": {
+    "fa": "DbsAI | فضای کاری چندمدلی هوش مصنوعی | DbsStudio",
+    "en": "DbsAI | Multi-Model AI Workspace | DbsStudio"
+  },
+  "seoDescription": {
+    "fa": "معرفی DbsAI، فضای کاری تیمی برای چند مدل هوش مصنوعی با مدیریت API، نقش‌ها، سهمیهٔ مصرف و گزارش هزینه.",
+    "en": "Explore DbsAI, a multi-model AI workspace with team roles, API-key management, usage quotas and cost reporting."
+  },
+  "applicationCategory": "BusinessApplication"
 }

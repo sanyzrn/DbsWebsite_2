@@ -1,10 +1,83 @@
 {
-  "id":"nexachat","slug":"nexachat","status":"production","maturity":"published","schemaType":"SoftwareApplication","isPubliclyAvailable":false,"featured":false,"order":4,
-  "name":{"fa":"NexaChat AI","en":"NexaChat AI"},
-  "subtitle":{"fa":"چت‌باتِ آماده‌ای که فقط جواب نمی‌دهد؛ مشتری را راهنمایی می‌کند، لید می‌گیرد و تیم را به شناخت واقعی مخاطب نزدیک می‌کند.","en":"An AI assistant that does more than answer: it guides customers, captures leads and reveals what your audience truly needs."},
-  "desc":{"fa":"NexaChat AI یک افزونهٔ حرفه‌ای وردپرس برای کسب‌وکارهایی است که نمی‌خواهند بازدیدکننده را با سؤال و ابهام تنها بگذارند. هر سایت می‌تواند چند چت‌بات مستقل با شخصیت، دانش، ظاهر و قوانین نمایش خودش داشته باشد؛ از پاسخ‌گویی به محصولات و خدمات تا دریافت لید، اتصال به ووکامرس، تحویل گفت‌وگو به اپراتور انسانی و تحلیل سؤال‌هایی که سایت هنوز جوابشان را ندارد. و اگر ایدهٔ اختصاصی‌تری داری، این پروژه نمونه‌ای از توانایی طراحی و ساخت افزونهٔ وردپرس دقیقاً مطابق فرآیند کسب‌وکار توست.","en":"NexaChat AI is a professional WordPress plugin for businesses that refuse to leave visitors alone with questions and uncertainty. A site can run multiple independent assistants, each with its own personality, knowledge, look and display rules — answering about products and services, capturing leads, integrating with WooCommerce, handing conversations to human agents and revealing the questions the site still cannot answer. And if your workflow is more specific, this project demonstrates the ability to design and build a WordPress plugin around the way your business actually works."},
-  "problem":{"fa":"یک ویجت چت ساده، نه دانش سایت را می‌فهمد، نه به فروش و پشتیبانی وصل است و نه چیزی به تیم یاد می‌دهد. نتیجه، پاسخ‌های بی‌ربط، لیدهای از دست‌رفته و هزینهٔ هوش مصنوعی بدون بازده است.","en":"A basic chat widget understands neither the site knowledge nor the sales and support workflow — and teaches the team nothing. The result is irrelevant answers, lost leads and AI spend with no measurable return."},
-  "approach":{"fa":"NexaChat بر یک RAG واقعی بنا شده: محتوا از صفحه، sitemap، PDF، DOCX و متن وارد می‌شود، ساختارمند تکه‌بندی و بازیابی می‌شود و با ارجاع به منبع پاسخ می‌دهد. چند مدل و چند سرویس‌دهنده با failover، داشبورد کیفیت، inbox انسانی، فرم لید، بانک پاسخ، تحلیل شکاف دانش، جست‌وجوی زندهٔ وب و پشتیبانی عمیق فارسی/RTL، آن را به یک لایهٔ واقعی از تجربهٔ مشتری تبدیل می‌کنند؛ نه یک حباب تزئینی گوشهٔ سایت.","en":"NexaChat is built on a real RAG pipeline: pages, sitemaps, PDFs, DOCX files and text are structured, retrieved and answered with sources. Multiple models and providers with failover, quality analytics, human inbox, lead forms, answer bank, knowledge-gap analysis, live web search and deep Persian/RTL support turn it into a genuine customer-experience layer — not a decorative bubble in the corner of a website."},
-  "result":{"fa":"یک افزونهٔ ماژولار و قابل توسعه که هم به‌تنهایی برای سایت‌های وردپرسی کاربردی است و هم نقطهٔ شروعی قدرتمند برای ساخت دستیار اختصاصی هر کسب‌وکار؛ از فروشگاه و کلینیک تا شرکت خدماتی و سازمان بزرگ.","en":"A modular, extensible plugin that is useful out of the box for WordPress sites and a powerful starting point for a custom assistant tailored to any business — from stores and clinics to service companies and larger organizations."},
-  "role":{"fa":["معماری محصول","طراحی تجربهٔ گفتگو","توسعه افزونه وردپرس","RAG و Prompt Design","طراحی پنل مدیریت"],"en":["Product Architecture","Conversational UX","WordPress Plugin Development","RAG & Prompt Design","Admin Design"]},
-  "tech":["WordPress","PHP","MySQL","JavaScript","RAG","WooCommerce"],"tags":["WordPress Plugin","AI","Customer Experience"],"image_url":"/images/projects/nexachat.webp","mock":"chatbot","links":[{"label":{"fa":"مشاهدهٔ کد","en":"View source"},"href":"https://github.com/sanyzrn/WpChatBot"}]}
+  "id": "nexachat",
+  "slug": "nexachat",
+  "status": "production",
+  "maturity": "published",
+  "schemaType": "SoftwareApplication",
+  "isPubliclyAvailable": false,
+  "featured": false,
+  "order": 4,
+  "name": {
+    "fa": "NexaChat AI",
+    "en": "NexaChat AI"
+  },
+  "subtitle": {
+    "fa": "چت‌بات هوشمند وردپرس با مدیریت دانش، پاسخ‌گویی به مشتری و اتصال به ووکامرس.",
+    "en": "A WordPress AI chatbot with knowledge retrieval, customer assistance and WooCommerce integration."
+  },
+  "desc": {
+    "fa": "NexaChat AI افزونه‌ای برای افزودن دستیار هوشمند به وب‌سایت وردپرسی است. هر چت‌بات می‌تواند ظاهر، دانش و قواعد نمایش جداگانه داشته باشد. بازیابی پاسخ از محتوای سایت و فایل‌ها، اتصال به ووکامرس، ثبت سرنخ‌های فروش، ارجاع گفت‌وگو به اپراتور و گزارش سؤال‌های بی‌پاسخ، ارتباط با بازدیدکننده را به بخشی قابل‌مدیریت از فرایند پشتیبانی تبدیل می‌کند.",
+    "en": "NexaChat AI adds configurable assistants to WordPress websites. Each chatbot can have its own appearance, knowledge base and display rules. Retrieval from site content and documents, WooCommerce integration, lead capture, human handoff and reporting on unanswered questions connect visitor conversations to a manageable support workflow."
+  },
+  "problem": {
+    "fa": "یک ویجت چت ساده، نه دانش سایت را می‌فهمد، نه به فروش و پشتیبانی وصل است و نه چیزی به تیم یاد می‌دهد. نتیجه، پاسخ‌های بی‌ربط، لیدهای از دست‌رفته و هزینهٔ هوش مصنوعی بدون بازده است.",
+    "en": "A basic chat widget understands neither the site knowledge nor the sales and support workflow — and teaches the team nothing. The result is irrelevant answers, lost leads and AI spend with no measurable return."
+  },
+  "approach": {
+    "fa": "NexaChat بر یک RAG واقعی بنا شده: محتوا از صفحه، sitemap، PDF، DOCX و متن وارد می‌شود، ساختارمند تکه‌بندی و بازیابی می‌شود و با ارجاع به منبع پاسخ می‌دهد. چند مدل و چند سرویس‌دهنده با failover، داشبورد کیفیت، inbox انسانی، فرم لید، بانک پاسخ، تحلیل شکاف دانش، جست‌وجوی زندهٔ وب و پشتیبانی عمیق فارسی/RTL، آن را به یک لایهٔ واقعی از تجربهٔ مشتری تبدیل می‌کنند؛ نه یک حباب تزئینی گوشهٔ سایت.",
+    "en": "NexaChat is built on a real RAG pipeline: pages, sitemaps, PDFs, DOCX files and text are structured, retrieved and answered with sources. Multiple models and providers with failover, quality analytics, human inbox, lead forms, answer bank, knowledge-gap analysis, live web search and deep Persian/RTL support turn it into a genuine customer-experience layer — not a decorative bubble in the corner of a website."
+  },
+  "result": {
+    "fa": "یک ساختار افزونه‌ای قابل‌گسترش برای پاسخ‌گویی مبتنی بر محتوای سایت، پشتیبانی مشتری و جریان‌های ارتباطی اختصاصی.",
+    "en": "An extensible plugin foundation for knowledge-based answers, customer support and tailored visitor journeys."
+  },
+  "role": {
+    "fa": [
+      "معماری محصول",
+      "طراحی تجربهٔ گفتگو",
+      "توسعه افزونه وردپرس",
+      "RAG و Prompt Design",
+      "طراحی پنل مدیریت"
+    ],
+    "en": [
+      "Product Architecture",
+      "Conversational UX",
+      "WordPress Plugin Development",
+      "RAG & Prompt Design",
+      "Admin Design"
+    ]
+  },
+  "tech": [
+    "WordPress",
+    "PHP",
+    "MySQL",
+    "JavaScript",
+    "RAG",
+    "WooCommerce"
+  ],
+  "tags": [
+    "WordPress Plugin",
+    "AI",
+    "Customer Experience"
+  ],
+  "image_url": "/images/projects/nexachat.webp",
+  "mock": "chatbot",
+  "links": [
+    {
+      "label": {
+        "fa": "مشاهدهٔ کد",
+        "en": "View source"
+      },
+      "href": "https://github.com/sanyzrn/WpChatBot"
+    }
+  ],
+  "seoTitle": {
+    "fa": "NexaChat AI | چت‌بات هوشمند وردپرس | DbsStudio",
+    "en": "NexaChat AI | WordPress AI Chatbot | DbsStudio"
+  },
+  "seoDescription": {
+    "fa": "معرفی NexaChat AI، افزونه چت‌بات وردپرس با RAG، اتصال به ووکامرس، مدیریت دانش، ثبت لید و انتقال به اپراتور.",
+    "en": "NexaChat AI is a WordPress chatbot plugin with RAG, WooCommerce integration, knowledge management, lead capture and human handoff."
+  },
+  "applicationCategory": "BusinessApplication"
+}

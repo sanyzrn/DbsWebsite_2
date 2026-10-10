@@ -2090,6 +2090,7 @@ html[lang="fa"] .intro-lines {
 
 .blade {
   --blade: var(--accent);
+  min-height: 704px;
   position: relative;
   display: flex;
   width: 100%;
@@ -2114,6 +2115,7 @@ html[lang="fa"] .intro-lines {
   background: var(--blade);
 }
 .blade-head {
+  min-height: 88px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -2138,12 +2140,14 @@ html[lang="fa"] .blade-head h3 {
   flex-direction: column;
 }
 .blade-row {
+  min-height: 55px;
+  line-height: 1.5;
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 9px 20px;
   border-top: 1px solid var(--line);
-  font-size: 15px;
+  font-size: 14px;
   color: var(--ink);
 }
 .blade-chip {
