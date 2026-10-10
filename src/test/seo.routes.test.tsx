@@ -303,7 +303,11 @@ describe("project SEO quality in both locales", () => {
         expect(main?.["aggregateRating"]).toBeUndefined();
         expect(main?.["review"]).toBeUndefined();
         expect(main?.["offers"]).toBeUndefined();
-        expect(main?.["applicationCategory"]).toBe(project.applicationCategory);
+        if (project.schemaType === "SoftwareApplication") {
+          expect(main?.["applicationCategory"]).toBe(project.applicationCategory);
+        } else {
+          expect(main?.["applicationCategory"]).toBeUndefined();
+        }
         if (project.operatingSystem) expect(main?.["operatingSystem"]).toBe(project.operatingSystem);
       }
     }
