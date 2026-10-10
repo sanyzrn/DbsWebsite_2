@@ -5,12 +5,12 @@
 # server {
 #   listen 443 ssl http2;
 #   server_name preview.example.com;
-#   return 301 https://saeedzarrini.ir$request_uri;
+#   return 301 https://dbsstudio.ir$request_uri;
 # }
 
 server {
   listen 443 ssl http2;
-  server_name saeedzarrini.ir;
+  server_name dbsstudio.ir;
   root /var/www/saeedzarrini/dist;   # ← point at the built `dist/` folder
   index index.html;
 

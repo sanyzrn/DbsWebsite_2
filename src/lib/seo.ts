@@ -43,7 +43,7 @@ function site() {
   try {
     return getSiteUrl();
   } catch {
-    return (typeof process !== "undefined" && process.env?.SITE_URL?.replace(/\/+$/, "")) || "https://saeedzarrini.ir";
+    return (typeof process !== "undefined" && process.env?.SITE_URL?.replace(/\/+$/, "")) || "https://dbsstudio.ir";
   }
 }
 

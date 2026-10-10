@@ -72,6 +72,8 @@ const forbiddenSiteHosts = [...indexHosts].filter(
 );
 // Also flag known stale portfolio hosts even if somehow allowlisted incorrectly
 const stale = [
+  "saeedzarrini.ir",
+  "www.saeedzarrini.ir",
   "saeedzarrini.com",
   "www.saeedzarrini.com",
   "dbsgraphic.ir",
