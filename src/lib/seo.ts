@@ -99,7 +99,8 @@ export function resolvePageSeo(
     path = opts.path ?? localePath(lang, `/projects/${opts.project.slug}`);
   } else if (page === "article" && opts?.article) {
     const fm = opts.article.frontmatter;
-    title = `${fm.title} | Saeed Zarrini`;
+    const authorSuffix = " | Saeed Zarrini";
+    title = fm.title.length + authorSuffix.length <= 65 ? fm.title + authorSuffix : fm.title;
     description = truncateDescription(fm.description, 155) || (seo.articles?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/articles/${opts.article.slug}`);
   } else if (page === "home") {

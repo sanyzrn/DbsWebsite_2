@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Moon, Sun } from "lucide-react";
+import { BookOpenText, FolderKanban, GitBranch, Layers3, Mail, Moon, Sun, UserRound } from "lucide-react";
 import { useApp } from "../lib/app";
 import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
@@ -107,14 +107,13 @@ export default function Nav() {
   const articlesTo = localePath(lang, "/articles");
   /** Mobile panel: primary pages plus the home-page section anchors. */
   const mobileLinks = [
-    links[0],
-    links[1],
-    { label: t.nav.expertise, to: `${home}#expertise` },
-    { label: t.nav.process, to: `${home}#process` },
-    links[2],
-    links[3],
+    { ...links[0], Icon: FolderKanban },
+    { ...links[1], Icon: BookOpenText },
+    { label: t.nav.expertise, to: `${home}#expertise`, Icon: Layers3 },
+    { label: t.nav.process, to: `${home}#process`, Icon: GitBranch },
+    { ...links[2], Icon: UserRound },
+    { ...links[3], Icon: Mail },
   ];
-  const nf = new Intl.NumberFormat(lang === "fa" ? "fa-IR" : "en-US", { minimumIntegerDigits: 2 });
 
   return (
     <header
@@ -216,10 +215,12 @@ export default function Nav() {
                   to={l.to}
                   onClick={closeMenu}
                   aria-current={isActive(pathname, l.to) ? "page" : undefined}
-                  className="flex items-center justify-between rounded-[6px] px-3 py-2.5 text-[15px] font-semibold text-ink transition-colors hover:bg-surface aria-[current=page]:text-accent"
+                  className="group flex min-h-14 items-center justify-between gap-4 rounded-[8px] px-3 py-2 text-[15px] font-semibold text-ink transition-colors hover:bg-surface aria-[current=page]:text-accent"
                 >
                   {l.label}
-                  <span className="tnum text-[11px] font-medium text-ink3">{nf.format(i + 1)}</span>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line/70 bg-surface text-ink2 transition-colors group-hover:text-accent" aria-hidden="true">
+                    <l.Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                  </span>
                 </Link>
                 {l.to === articlesTo && showNews && (
                   <Link

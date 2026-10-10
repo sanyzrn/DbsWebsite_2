@@ -269,6 +269,33 @@ describe("route SEO meta (both locales)", () => {
   });
 });
 
+describe("sales articles SEO in both languages", () => {
+  it("prerenders both guides with unique descriptions, canonical and reciprocal hreflang", () => {
+    const slugs = ["employee-performance-software-buyers-guide", "wordpress-ai-chatbot-sales-guide"];
+    const paths = listPrerenderPaths();
+    for (const slug of slugs) {
+      const faPath = `/articles/${slug}`;
+      const enPath = `/en/articles/${slug}`;
+      expect(paths).toContain(faPath);
+      expect(paths).toContain(enPath);
+      const fa = resolveSeoForPath(faPath);
+      const en = resolveSeoForPath(enPath);
+      for (const doc of [fa, en]) {
+        expect(doc.title.length).toBeLessThanOrEqual(65);
+        expect(doc.description.length).toBeLessThanOrEqual(155);
+        expect(doc.alternateFa).toBe(`https://dbsstudio.ir${faPath}`);
+        expect(doc.alternateEn).toBe(`https://dbsstudio.ir${enPath}`);
+        expect(doc.robots).toBeUndefined();
+        expect(JSON.stringify(doc.jsonLd)).toContain('"@type":"Article"');
+        expect(JSON.stringify(doc.jsonLd)).toContain('"@type":"BreadcrumbList"');
+      }
+      expect(fa.canonical).toBe(`https://dbsstudio.ir${faPath}`);
+      expect(en.canonical).toBe(`https://dbsstudio.ir${enPath}`);
+      expect(fa.description).not.toBe(en.description);
+    }
+  });
+});
+
 describe("project SEO quality in both locales", () => {
   it("uses unique editorial titles, descriptions and self canonicals for published projects", () => {
     const projects = loadProjectContent().filter(isPublishedProject);

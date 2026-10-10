@@ -2,6 +2,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import App from "../App";
 import { dictionaries } from "../lib/i18n";
+import { getPublishedArticles } from "../lib/articles";
 
 afterEach(() => {
   cleanup();
@@ -10,6 +11,19 @@ afterEach(() => {
 });
 
 describe("articles routes", () => {
+  it("publishes both buyer guides in Persian and English", () => {
+    const slugs = ["employee-performance-software-buyers-guide", "wordpress-ai-chatbot-sales-guide"];
+    for (const lang of ["fa", "en"] as const) {
+      const list = getPublishedArticles(lang);
+      for (const slug of slugs) {
+        const article = list.find((item) => item.slug === slug);
+        expect(article?.frontmatter.status).toBe("published");
+        expect(article?.frontmatter.date).toBe("2026-10-10");
+        expect(article?.frontmatter.description.length).toBeLessThanOrEqual(155);
+      }
+    }
+  });
+
   it("renders the articles list for both locales with published notes", () => {
     window.history.pushState(null, "", "/en/articles");
     render(<App />);
