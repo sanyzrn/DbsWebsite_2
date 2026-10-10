@@ -12,6 +12,20 @@ afterEach(() => {
 });
 
 describe("Mobile nav focus management", () => {
+  it("uses six decorative minimal icons instead of numbered menu items", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(screen.getByRole("button", { name: dictionaries.fa.nav.menu }));
+
+    const mobileNav = screen.getByRole("navigation", { name: dictionaries.fa.nav.mobileNavLabel });
+    const destinations = mobileNav.querySelectorAll("ul > li > a");
+    expect(destinations).toHaveLength(6);
+    for (const link of destinations) {
+      expect(link.querySelector("svg[aria-hidden='true']")).toBeTruthy();
+      expect(link.querySelector(".tnum")).toBeNull();
+    }
+  });
+
   it("keeps closed links inert, focuses first link on open, restores toggle on close", async () => {
     const user = userEvent.setup();
     render(<App />);
