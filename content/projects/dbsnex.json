@@ -12,12 +12,12 @@
     "en": "Nex"
   },
   "subtitle": {
-    "fa": "اپی برای ذهن‌های شلوغ: هر فکر، صدا، تصویر و فایل را در چند ثانیه بگیر؛ وقتی لازم شد، دقیقاً همان را پیدا کن.",
-    "en": "The capture app for busy minds: save every thought, voice, photo and file in seconds — then find exactly what you need."
+    "fa": "ثبت سریع یادداشت، صدا، تصویر و فایل؛ بازیابی آسان با جست‌وجو و یادآور.",
+    "en": "Capture notes, voice, photos and files quickly, then find them with search and reminders."
   },
   "desc": {
-    "fa": "Nex برای لحظه‌ای ساخته شده که ایده می‌آید و نباید از دست برود. متن بنویس، ویس بگیر، عکس یا فایل بفرست و تمام؛ بدون انتخاب پوشه، بدون فرم‌های اضافی و بدون دکمهٔ ذخیره. همه‌چیز در یک تایم‌لاین تمیز می‌نشیند و بعد با جست‌وجوی سریع، تگ، فیلتر و یادآور دوباره سراغت می‌آید. اگر از ابزارهای شلوغ خسته‌ای و می‌خواهی بالاخره یک اپ ساده، خوش‌ساخت و خصوصی برای ثبت زندگی و کارت داشته باشی، Nex دقیقاً برای توست.",
-    "en": "Nex is built for the moment an idea arrives and must not be lost. Write, record, photograph or share a file — then move on. No folders to choose, no forms to fight and no save button. Everything lands in one clean timeline and comes back through fast search, tags, filters and reminders. For anyone tired of overbuilt note apps and ready for a simple, polished, private capture tool, Nex is the front door to their thinking."
+    "fa": "Nex اپلیکیشن ثبت سریع اطلاعات برای اندروید است. متن، صدا، عکس و فایل بدون نیاز به پوشه‌بندی اولیه در یک تایم‌لاین جمع می‌شوند. جست‌وجوی تمام‌متن، برچسب‌ها، فیلترها و یادآورها پیدا کردن و پیگیری اطلاعات را ساده می‌کنند. معماری محلی‌محور، پشتیبان‌گیری و خروجی گرفتن نیز به کاربر کنترل بیشتری روی داده‌هایش می‌دهند.",
+    "en": "Nex is an Android capture app for notes, voice, photos and files. New items go straight into a timeline without an up-front filing process. Full-text search, tags, filters and reminders make information easier to retrieve and follow up. Its local-first design, backups and export tools help users stay in control of their data."
   },
   "problem": {
     "fa": "بیشتر ابزارهای یادداشت‌برداری کار را با انتخاب پوشه، قالب و دسته‌بندی شروع می‌کنند؛ همان اصطکاک کوچکی که باعث می‌شود ایده‌های کوتاه، صداهای مهم و لحظه‌های گذرا هرگز ثبت نشوند.",
@@ -28,8 +28,8 @@
     "en": "The experience is anchored in one rule: capture first, organize later — if ever. A reverse timeline, SQLite FTS5 search, flexible tags, intelligent filters, reminders, trash, export and local backups ensure immediate capture never becomes future chaos. OCR, transcription, summaries and semantic search are optional by design: intelligence enters only when the user chooses it, never at the expense of privacy."
   },
   "result": {
-    "fa": "یک ابزار capture سریع و خوش‌ساخت برای اندروید که داده را روی خود دستگاه نگه می‌دارد، با پشتیبان‌گیری و خروجی کامل از آن محافظت می‌کند و تجربهٔ ثبت را به اندازهٔ خود فکر، بی‌واسطه می‌سازد.",
-    "en": "A polished Android capture tool that keeps data on-device, protects it with complete backups and exports, and makes recording a thought feel as immediate as the thought itself."
+    "fa": "یک تجربهٔ ثبت سریع و محلی‌محور برای اندروید، با ابزارهای جست‌وجو، یادآوری و پشتیبان‌گیری در یک محیط منسجم.",
+    "en": "A local-first Android capture experience combining fast input, search, reminders and backups in one interface."
   },
   "role": {
     "fa": [
@@ -62,5 +62,16 @@
     "Privacy"
   ],
   "image_url": "/images/projects/dbsnex.webp",
-  "mock": "keep"
+  "mock": "keep",
+  "seoTitle": {
+    "fa": "Nex | اپ ثبت یادداشت و یادآور اندروید | DbsStudio",
+    "en": "Nex | Android Notes & Capture App | DbsStudio"
+  },
+  "seoDescription": {
+    "fa": "Nex اپ ثبت یادداشت، صدا، عکس و فایل در اندروید است؛ با تایم‌لاین، جست‌وجوی سریع، برچسب، یادآور و پشتیبان‌گیری محلی.",
+    "en": "Nex is a local-first Android app for notes, voice, photos and files, with a timeline, full-text search, tags, reminders and backups."
+  },
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Android",
+  "updatedAt": "2026-10-10"
 }

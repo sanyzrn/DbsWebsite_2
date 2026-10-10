@@ -268,3 +268,68 @@ describe("route SEO meta (both locales)", () => {
     expect(resolveSeoForPath("/en/missing-page").robots).toBe("noindex, follow");
   });
 });
+
+describe("project SEO quality in both locales", () => {
+  it("uses unique editorial titles, descriptions and self canonicals for published projects", () => {
+    const projects = loadProjectContent().filter(isPublishedProject);
+    const titles = new Set<string>();
+    const descriptions = new Set<string>();
+    for (const project of projects) {
+      for (const lang of ["fa", "en"] as const) {
+        const path = lang === "fa" ? `/projects/${project.slug}` : `/en/projects/${project.slug}`;
+        const seo = resolveSeoForPath(path);
+        expect(seo.title.length).toBeLessThanOrEqual(65);
+        expect(seo.description.length).toBeLessThanOrEqual(155);
+        expect(seo.title).toContain(project.name[lang]);
+        expect(seo.canonical).toBe(`https://dbsstudio.ir${path}`);
+        expect(seo.alternateFa).toBe(`https://dbsstudio.ir/projects/${project.slug}`);
+        expect(seo.alternateEn).toBe(`https://dbsstudio.ir/en/projects/${project.slug}`);
+        expect(seo.robots).toBeUndefined();
+        expect(titles.has(seo.title)).toBe(false);
+        expect(descriptions.has(seo.description)).toBe(false);
+        titles.add(seo.title);
+        descriptions.add(seo.description);
+
+        const graph = seo.jsonLd[0]["@graph"] as Record<string, unknown>[];
+        expect(Array.isArray(graph)).toBe(true);
+        const page = graph.find((node) => node["@type"] === "WebPage");
+        const main = graph.find((node) => node["@type"] === project.schemaType);
+        expect(page?.["url"]).toBe(seo.canonical);
+        expect((page?.mainEntity as { "@id": string })["@id"]).toBe(main?.["@id"]);
+        expect(main?.["name"]).toBe(project.name[lang]);
+        expect(main?.["description"]).toBe(project.desc[lang]);
+        expect(main?.["dateModified"]).toBe(project.updatedAt);
+        expect(page?.["dateModified"]).toBe(project.updatedAt);
+        expect(main?.["aggregateRating"]).toBeUndefined();
+        expect(main?.["review"]).toBeUndefined();
+        expect(main?.["offers"]).toBeUndefined();
+        if (project.schemaType === "SoftwareApplication") {
+          expect(main?.["applicationCategory"]).toBe(project.applicationCategory);
+        } else {
+          expect(main?.["applicationCategory"]).toBeUndefined();
+        }
+        if (project.operatingSystem) expect(main?.["operatingSystem"]).toBe(project.operatingSystem);
+      }
+    }
+  });
+
+  it("includes only published case studies in the bilingual projects collection", () => {
+    for (const path of ["/projects", "/en/projects"]) {
+      const seo = resolveSeoForPath(path);
+      const graph = seo.jsonLd[0]["@graph"] as Record<string, unknown>[];
+      const collection = graph.find((node) => node["@type"] === "CollectionPage");
+      const list = graph.find((node) => node["@type"] === "ItemList");
+      expect(collection).toBeTruthy();
+      expect((list?.["itemListElement"] as unknown[]).length).toBe(
+        loadProjectContent().filter(isPublishedProject).length
+      );
+    }
+  });
+
+  it("keeps every skills swatch at exactly ten bilingual items", () => {
+    for (const lang of ["fa", "en"] as const) {
+      expect(dictionaries[lang].skills.cats).toHaveLength(4);
+      for (const category of dictionaries[lang].skills.cats) expect(category.items).toHaveLength(10);
+    }
+  });
+});

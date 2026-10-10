@@ -56,8 +56,8 @@ describe("projects content pipeline", () => {
     for (const slug of ["nexaflow", "dbsai", "dbstools"]) {
       const p = all.find((project) => project.slug === slug);
       expect(p?.maturity).toBe("published");
-      expect(p?.subtitle.fa).toContain("در حال اجرا");
-      expect(p?.subtitle.en).toContain("In progress");
+      expect(p?.subtitle.fa).toContain("در حال توسعه");
+      expect(p?.subtitle.en).toContain("In development");
     }
   });
 

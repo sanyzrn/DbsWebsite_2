@@ -41,6 +41,10 @@ export function buildHeadTags(seo) {
   const jsonLd = seo.jsonLd
     .map((block) => `<script type="application/ld+json">${serializeJsonLd(block)}</script>`)
     .join("\n    ");
+  const defaultOgImage = seo.image.endsWith("/og.jpg");
+  const ogDimensions = defaultOgImage
+    ? '\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />'
+    : "";
   const robots =
     typeof seo.robots === "string" && seo.robots.trim()
       ? `\n    <meta name="robots" content="${escapeHtml(seo.robots)}" />`
@@ -64,8 +68,7 @@ export function buildHeadTags(seo) {
     <meta property="og:description" content="${escapeHtml(seo.description)}" />
     <meta property="og:url" content="${escapeHtml(seo.canonical)}" />
     <meta property="og:image" content="${escapeHtml(seo.image)}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(seo.imageAlt)}" />${ogDimensions}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(seo.title)}" />
     <meta name="twitter:description" content="${escapeHtml(seo.description)}" />

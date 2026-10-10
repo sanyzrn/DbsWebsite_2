@@ -72,7 +72,7 @@ const en: UiDict = {
   },
   hero: {
     person: "Saeed Zarrini",
-    sinceLine: "Designing and building in Tehran since 2008",
+    sinceLine: "Designing & building since 2008",
     badge: "AI Solutions Engineer & Digital Product Builder",
     body: "I help teams turn ideas into real digital products — bringing product design, software engineering, and AI integration together in one continuous path from concept to production, not just a mockup or a demo.",
     ctaPrimary: "See the projects",
@@ -267,22 +267,22 @@ const en: UiDict = {
       {
         en: "Design",
         title: "Design",
-        items: ["Graphic Design", "Brand Identity", "Pharmaceutical Packaging", "Catalog Design", "UI Design", "UX Design", "Product Design", "Design Systems"],
+        items: ["Graphic Design","Brand Identity","Pharmaceutical Packaging","Catalog Design","UI Design","UX Design","Product Design","Design Systems","Poster Design","Icon Design"],
       },
       {
         en: "Product & Engineering",
         title: "Product & Engineering",
-        items: ["Product Thinking", "System Architecture", "Full-Stack Development", "Web Applications", "Mobile Applications", "Desktop Applications", "REST APIs", "Database Design"],
+        items: ["Product Thinking","System Architecture","Full-Stack Development","Web Applications","Mobile Applications","Desktop Applications","REST APIs","Database Design","API Integration","Software Testing"],
       },
       {
         en: "AI",
         title: "AI",
-        items: ["AI Product Development", "LLM Integration", "AI APIs", "Chatbots", "AI Agents", "Workflow Automation", "Multi-model Systems", "Prompt Engineering", "RAG & Knowledge Systems"],
+        items: ["AI Product Development","LLM Integration","AI APIs","Chatbots","AI Agents","Workflow Automation","Multi-model Systems","Prompt Engineering","RAG & Knowledge Systems","Semantic Search"],
       },
       {
         en: "Technologies",
         title: "Technologies",
-        items: ["React", "TypeScript", "JavaScript", "Python", "FastAPI", "PHP", "Laravel", "WordPress", "Kotlin", "Rust", "Tauri", "PostgreSQL", "MySQL", "Docker", "GitHub Actions"],
+        items: ["React","TypeScript","Python","FastAPI","Flutter","PostgreSQL","WordPress","PHP","Docker","GitHub Actions"],
         mono: true,
       },
     ],
