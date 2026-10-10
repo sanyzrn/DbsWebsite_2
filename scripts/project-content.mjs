@@ -52,6 +52,11 @@ export const projectContentSchema = z.object({
   name: localeText,
   subtitle: localeText,
   desc: localeText,
+  // Optional per-language search metadata; do not duplicate the same generic snippet across projects.
+  seoTitle: localeText.optional(),
+  seoDescription: localeText.optional(),
+  applicationCategory: z.string().min(1).optional(),
+  operatingSystem: z.string().min(1).optional(),
   problem: localeText,
   approach: localeText,
   result: localeText,

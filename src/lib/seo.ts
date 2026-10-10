@@ -31,6 +31,7 @@ export type PageSeo = {
   ogLocale: string;
   ogLocaleAlternate: string;
   image: string;
+  imageAlt: string;
   canonical: string;
   alternateFa: string;
   alternateEn: string;
@@ -91,9 +92,10 @@ export function resolvePageSeo(
     description = seo.notFound.description;
     path = opts?.path ?? localePath(lang, "/404");
   } else if (page === "project" && opts?.project) {
-    title = `${opts.project.name} — ${opts.project.subtitle} | Saeed Zarrini`;
+    title = opts.project.seoTitle?.trim() || `${opts.project.name} | DbsStudio`;
     description =
-      truncateDescription(opts.project.desc, 155) || (seo.projects?.description ?? seo.description);
+      truncateDescription(opts.project.seoDescription || opts.project.desc, 155) ||
+      (seo.projects?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/projects/${opts.project.slug}`);
   } else if (page === "article" && opts?.article) {
     const fm = opts.article.frontmatter;
@@ -133,6 +135,7 @@ export function resolvePageSeo(
     ogLocale: lang === "fa" ? "fa_IR" : "en_US",
     ogLocaleAlternate: lang === "fa" ? "en_US" : "fa_IR",
     image,
+    imageAlt: opts?.project ? `${opts.project.name}: ${opts.project.subtitle}` : "DbsStudio — Saeed Zarrini",
     canonical: `${origin}${path === "/" ? "/" : path}`,
     alternateFa: `${origin}${pathFa === "/" ? "/" : pathFa}`,
     alternateEn: `${origin}${pathEn}`,
@@ -195,25 +198,55 @@ function buildJsonLd(
     ];
   }
 
+
+  if (page === "projects") {
+    const items = loadProjectContent().filter(isPublishedProject);
+    const itemList = {
+      "@type": "ItemList",
+      "@id": `${origin}${path}#projects`,
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name[lang],
+        url: `${origin}${localePath(lang, `/projects/${item.slug}`)}`,
+      })),
+    };
+    const collection = {
+      "@type": "CollectionPage",
+      "@id": `${origin}${path}#webpage`,
+      url: `${origin}${path}`,
+      name: dictionaries[lang].seo.projects.title,
+      description: dictionaries[lang].seo.projects.description,
+      inLanguage: lang,
+      isPartOf: { "@id": `${origin}/#website` },
+      mainEntity: { "@id": itemList["@id"] },
+    };
+    return [{ "@context": "https://schema.org", "@graph": [collection, itemList, website] }];
+  }
+
   if (page === "project" && project) {
+    const pageUrl = `${origin}${path}`;
+    const workId = `${pageUrl}#project`;
+    const pageId = `${pageUrl}#webpage`;
     const work: Record<string, unknown> = {
-      "@context": "https://schema.org",
       "@type": project.schemaType,
-      "@id": `${origin}${path}`,
+      "@id": workId,
       name: project.name,
       description: project.desc,
-      url: `${origin}${path}`,
+      url: pageUrl,
       inLanguage: lang,
       author: { "@id": `${origin}/#person` },
       creator: { "@id": `${origin}/#person` },
+      mainEntityOfPage: { "@id": pageId },
       keywords: project.tags.join(", "),
     };
     if (project.schemaType === "SoftwareApplication") {
-      work.applicationCategory = project.tags.includes("AI")
-        ? "BusinessApplication"
-        : "DeveloperApplication";
+      // Editorial project metadata, not a guess based on arbitrary tags.
+      if (project.applicationCategory) work.applicationCategory = project.applicationCategory;
+      if (project.operatingSystem) work.operatingSystem = project.operatingSystem;
     }
-    // Offer only when the project is explicitly a free public app — never invent price:0.
+    // Never fabricate ratings, reviews, or prices to qualify for rich snippets.
     if (project.isPubliclyAvailable) {
       work.offers = { "@type": "Offer", price: "0", priceCurrency: "USD" };
     }
@@ -222,12 +255,44 @@ function buildJsonLd(
         ? project.image_url
         : `${origin}${project.image_url}`;
     }
+    const codeLink = project.links?.find((link) => /^https:\/\/github\.com\//.test(link.href));
+    if (codeLink) work.codeRepository = codeLink.href;
     const crumbs = buildBreadcrumbList(origin, [
       { name: dictionaries[lang].nav.home, path: localePath(lang, "/") },
       { name: dictionaries[lang].nav.projects, path: localePath(lang, "/projects") },
       { name: project.name, path },
     ]);
-    return [work, crumbs, { "@context": "https://schema.org", "@graph": [person, organization] }];
+    crumbs["@id"] = `${pageUrl}#breadcrumb`;
+    const webpage = {
+      "@type": "WebPage",
+      "@id": pageId,
+      url: pageUrl,
+      name: project.seoTitle || project.name,
+      description: project.seoDescription || project.desc,
+      inLanguage: lang,
+      isPartOf: { "@id": `${origin}/#website` },
+      breadcrumb: { "@id": crumbs["@id"] },
+      mainEntity: { "@id": workId },
+      ...(project.image_url ? { primaryImageOfPage: { "@id": `${pageUrl}#image` } } : {}),
+    };
+    if (project.image_url) {
+      const imageUrl = project.image_url.startsWith("http")
+        ? project.image_url
+        : `${origin}${project.image_url}`;
+      return [{
+        "@context": "https://schema.org",
+        "@graph": [
+          webpage,
+          work,
+          { "@type": "ImageObject", "@id": `${pageUrl}#image`, contentUrl: imageUrl, caption: project.name },
+          crumbs,
+          person,
+          organization,
+          website,
+        ],
+      }];
+    }
+    return [{ "@context": "https://schema.org", "@graph": [webpage, work, crumbs, person, organization, website] }];
   }
 
   if (page === "article" && article) {

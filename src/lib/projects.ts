@@ -35,6 +35,12 @@ export type ProjectContent = {
   name: LocaleText;
   subtitle: LocaleText;
   desc: LocaleText;
+  /** Unique, editorial SEO title and search description per language. */
+  seoTitle?: LocaleText;
+  seoDescription?: LocaleText;
+  /** Schema.org software category, included only when verified from the case study. */
+  applicationCategory?: string;
+  operatingSystem?: string;
   problem: LocaleText;
   approach: LocaleText;
   result: LocaleText;
@@ -69,6 +75,10 @@ export type LocalizedProject = {
   name: string;
   subtitle: string;
   desc: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  applicationCategory?: string;
+  operatingSystem?: string;
   problem: string;
   approach: string;
   result: string;
@@ -144,6 +154,10 @@ export function localizeProject(project: ProjectContent, lang: Lang): LocalizedP
     name: pick(project.name),
     subtitle: pick(project.subtitle),
     desc: pick(project.desc),
+    seoTitle: project.seoTitle ? pick(project.seoTitle) : undefined,
+    seoDescription: project.seoDescription ? pick(project.seoDescription) : undefined,
+    applicationCategory: project.applicationCategory,
+    operatingSystem: project.operatingSystem,
     problem: pick(project.problem),
     approach: pick(project.approach),
     result: pick(project.result),
