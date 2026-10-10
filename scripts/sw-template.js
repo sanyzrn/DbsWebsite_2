@@ -31,8 +31,9 @@ precacheAndRoute(self.__WB_MANIFEST);
 // Project screenshots / OG / studio photos — long-lived cache-first.
 registerRoute(
   ({ request, url }) =>
-    request.destination === "image" ||
-    /\.(?:png|jpe?g|gif|svg|webp|avif)$/i.test(url.pathname),
+    !/^\/nex(?:\/|$)/i.test(url.pathname) &&
+    (request.destination === "image" ||
+    /\.(?:png|jpe?g|gif|svg|webp|avif)$/i.test(url.pathname)),
   new CacheFirst({
     cacheName: "images",
     plugins: [
@@ -45,7 +46,8 @@ registerRoute(
 // Sitemap / robots — network-first, 24h TTL.
 registerRoute(
   ({ url, sameOrigin }) =>
-    sameOrigin && /\.(?:xml|txt)$/i.test(url.pathname) && !url.pathname.endsWith(".php"),
+    sameOrigin && !/^\/nex(?:\/|$)/i.test(url.pathname) &&
+    /\.(?:xml|txt)$/i.test(url.pathname) && !url.pathname.endsWith(".php"),
   new NetworkFirst({
     cacheName: "seo-files",
     networkTimeoutSeconds: 3,
@@ -82,6 +84,6 @@ registerRoute(
         return offlineFallback ?? new Response("Not Found", { status: 404 });
       }
     },
-    { denylist: [/^\/admin(?:\/|$)/i, /\.php$/i] }
+    { denylist: [/^\/admin(?:\/|$)/i, /^\/nex(?:\/|$)/i, /\.php$/i] }
   )
 );

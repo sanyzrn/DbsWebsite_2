@@ -89,7 +89,7 @@ jobs:
           # FTPS (explicit TLS) is required — plain FTP is not acceptable.
           protocol: ftps
           local-dir: ./dist/
-          # This FTP account's root IS already public_html — do not nest under /public_html/.
+          # Confirm this FTP login opens the dbsstudio.ir document root before first deploy.
           server-dir: ./
           # Separate sync history from other sites sharing the host.
           state-name: .dbswebsite-2-sync-state.json

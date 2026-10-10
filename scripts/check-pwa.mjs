@@ -58,7 +58,7 @@ const sw = await get(base + "/sw.js");
 ok("service worker sw.js 200", sw.status === 200);
 ok("sw precacheAndRoute", sw.body.toString().includes("precacheAndRoute"));
 ok("sw navigateFallback offline.html", sw.body.toString().includes("/offline.html"));
-ok("sw denylist admin/php", /admin/.test(sw.body.toString()) && /\.php/.test(sw.body.toString()));
+ok("sw denylist admin/nex/php", /admin/.test(sw.body.toString()) && /nex/.test(sw.body.toString()) && /\.php/.test(sw.body.toString()));
 ok("sw CacheFirst images", sw.body.toString().includes("CacheFirst"));
 ok("sw NetworkFirst seo", sw.body.toString().includes("NetworkFirst"));
 // Workbox emits the manifest as JSON ("revision":"…"); minifiers may drop the key quotes.
