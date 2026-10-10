@@ -97,6 +97,7 @@ export type LocalizedProject = {
   year?: string;
   durationMonths?: number;
   teamSize?: string;
+  updatedAt?: string;
   clientType?: string;
   links?: { label: string; href: string }[];
 };
@@ -176,6 +177,7 @@ export function localizeProject(project: ProjectContent, lang: Lang): LocalizedP
     year: project.year,
     durationMonths: project.durationMonths,
     teamSize: project.teamSize,
+    updatedAt: project.updatedAt,
     clientType: project.clientType ? pick(project.clientType) : undefined,
     links: project.links?.map((link) => ({ label: pick(link.label), href: link.href })),
   };

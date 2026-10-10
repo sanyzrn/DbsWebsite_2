@@ -79,5 +79,6 @@
     "fa": "معرفی NexaChat AI، افزونه چت‌بات وردپرس با RAG، اتصال به ووکامرس، مدیریت دانش، ثبت لید و انتقال به اپراتور.",
     "en": "NexaChat AI is a WordPress chatbot plugin with RAG, WooCommerce integration, knowledge management, lead capture and human handoff."
   },
-  "applicationCategory": "BusinessApplication"
+  "applicationCategory": "BusinessApplication",
+  "updatedAt": "2026-10-10"
 }

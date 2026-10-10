@@ -72,5 +72,6 @@
     "fa": "NexaHR سامانه ارزیابی عملکرد کارکنان با شاخص‌های نسخه‌دار، گردش تأیید، مدیریت اعتراض‌ها، کنترل دسترسی و گزارش‌های منابع انسانی است.",
     "en": "Explore NexaHR, an employee performance evaluation system with versioned criteria, approval workflows, appeals and HR reporting."
   },
-  "applicationCategory": "BusinessApplication"
+  "applicationCategory": "BusinessApplication",
+  "updatedAt": "2026-10-10"
 }

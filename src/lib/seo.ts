@@ -240,6 +240,7 @@ function buildJsonLd(
       creator: { "@id": `${origin}/#person` },
       mainEntityOfPage: { "@id": pageId },
       keywords: project.tags.join(", "),
+      ...(project.updatedAt ? { dateModified: project.updatedAt } : {}),
     };
     if (project.schemaType === "SoftwareApplication") {
       // Editorial project metadata, not a guess based on arbitrary tags.
@@ -255,8 +256,6 @@ function buildJsonLd(
         ? project.image_url
         : `${origin}${project.image_url}`;
     }
-    const codeLink = project.links?.find((link) => /^https:\/\/github\.com\//.test(link.href));
-    if (codeLink) work.codeRepository = codeLink.href;
     const crumbs = buildBreadcrumbList(origin, [
       { name: dictionaries[lang].nav.home, path: localePath(lang, "/") },
       { name: dictionaries[lang].nav.projects, path: localePath(lang, "/projects") },
@@ -273,6 +272,7 @@ function buildJsonLd(
       isPartOf: { "@id": `${origin}/#website` },
       breadcrumb: { "@id": crumbs["@id"] },
       mainEntity: { "@id": workId },
+      ...(project.updatedAt ? { dateModified: project.updatedAt } : {}),
       ...(project.image_url ? { primaryImageOfPage: { "@id": `${pageUrl}#image` } } : {}),
     };
     if (project.image_url) {

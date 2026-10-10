@@ -72,5 +72,6 @@
     "en": "Nex is a local-first Android app for notes, voice, photos and files, with a timeline, full-text search, tags, reminders and backups."
   },
   "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "Android"
+  "operatingSystem": "Android",
+  "updatedAt": "2026-10-10"
 }

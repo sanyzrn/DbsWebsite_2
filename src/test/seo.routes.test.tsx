@@ -298,6 +298,8 @@ describe("project SEO quality in both locales", () => {
         expect((page?.mainEntity as { "@id": string })["@id"]).toBe(main?.["@id"]);
         expect(main?.["name"]).toBe(project.name[lang]);
         expect(main?.["description"]).toBe(project.desc[lang]);
+        expect(main?.["dateModified"]).toBe(project.updatedAt);
+        expect(page?.["dateModified"]).toBe(project.updatedAt);
         expect(main?.["aggregateRating"]).toBeUndefined();
         expect(main?.["review"]).toBeUndefined();
         expect(main?.["offers"]).toBeUndefined();
