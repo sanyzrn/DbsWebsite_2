@@ -2,9 +2,13 @@
 
 Nex replaces only `/nex/` and `/en/nex/`. It uses the existing React router, locale/theme context, Vite build, static prerender, sitemap and Apache/FTPS workflow. No independent project or deployment was added.
 
-The page itself is a narrow timeline: a pinned download note, six notes today, two yesterday, and the maker on day one. Motion is a brief octopus greeting, pin settling and waveform, plus progressive CSS view-timeline settling. No motion hides content; reduced-motion disables it. Voice is an illustrative waveform with a real disclosure for its text, not a simulated audio player.
+The page is now a wide Nex world: an oversized bilingual hero, an orbital octopus with illustrative notes, and three chronological chapters. Desktop notes follow an asymmetric connected path, with a sticky day navigator. Mobile becomes a readable single-column chronology. The latest owner brief explicitly lifts the narrow-column and no-hero constraints.
 
-- Copy / metadata / store destinations: `src/lib/nex.ts` (`NEX_COPY.fa`, `NEX_COPY.en`, `NEX_STORES`).
+The hero's native radios bring text, voice or a checklist to the foreground. The local note still persists without a Save action. A separate search example demonstrates Persian letter/digit normalisation entirely in memory, and a native private-vault disclosure opens a CSS door. Voice remains a labelled visual example; it does not record or pretend to play audio. No accounts, requests or data collection were added.
+
+Continuous CSS motion has an explicit pause/resume button and follows reduced-motion preferences. Chapter navigation uses normal anchors and an optional IntersectionObserver for the active-day indicator; there is no scroll-jacking. Cards remain readable without JavaScript, and the existing prerendered page stylesheet remains authoritative.
+
+- Copy / metadata / store destinations: `src/lib/nex.ts` (`NEX_COPY.fa`, `NEX_COPY.en`, `NEX_STORES`). Hero / chapter copy and the illustrative search normaliser are in `src/lib/nexExperience.ts`.
 - Composition: `src/pages/NexLandingPage.tsx`; all page styles and animation names are scoped in `src/pages/nex-landing.css`.
 - Images: `public/images/nex/PLACEHOLDERS.md` documents final file names and dimensions.
 - Type: the site's local Vazirmatn plus local Inter Latin variable subset in `public/fonts/nex/`. Inter source: Fontsource `@fontsource-variable/inter` 5.3.0, bundled under the SIL OFL in `Inter-OFL.txt`. No CDN requests.
@@ -24,6 +28,6 @@ Download links marked `#` are explicitly disabled and show a visible pending-lin
 
 ## Validate / publish
 
-`npm run typecheck`, `npm run lint`, `npm test -- --run`, `npm run build`, `npm run check:dist`, `npm run check:pwa`, `npm run check:bundle`. Browser accessibility checks use the repository's `npm run check:a11y` when Chromium is available.
+`npm run typecheck`, `npm run lint`, `npm test -- --run`, `npm run build`, `npm run check:dist`, `npm run check:pwa`, `npm run check:bundle`. Browser accessibility checks use the repository's `npm run check:a11y` when Chromium is available. Both Nex locales are scanned in light/dark at 1440, 820 and 320px. The same gate checks capture-mode switching, local-note persistence/deletion, Persian search matching, native-vault disclosure, horizontal layout containment and static no-JS light/dark content.
 
 Keep using the permanent `cursor-dev` branch and its PR to `main`. Merge through the existing GitHub Actions workflow; do not upload `dist/` manually or deploy a second website.
