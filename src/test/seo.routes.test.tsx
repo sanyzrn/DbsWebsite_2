@@ -128,6 +128,27 @@ describe("route SEO meta (both locales)", () => {
     });
   });
 
+  it("serves bilingual product launch placeholders with unique SEO and noindex", () => {
+    const slugs = ["nex", "nexahr", "nexachatai", "nexaslider"];
+    const paths = listPrerenderPaths();
+    const titles = new Set<string>();
+    for (const slug of slugs) {
+      for (const prefix of ["", "/en"]) {
+        const route = `${prefix}/${slug}`;
+        expect(paths).toContain(route);
+        const seo = resolveSeoForPath(route);
+        expect(seo.robots).toBe("noindex, follow");
+        expect(seo.title).toContain("Nex");
+        expect(seo.title).not.toContain("404");
+        expect(seo.canonical).toBe(`https://dbsstudio.ir${route}`);
+        expect(seo.alternateFa).toBe(`https://dbsstudio.ir/${slug}`);
+        expect(seo.alternateEn).toBe(`https://dbsstudio.ir/en/${slug}`);
+        expect(titles.has(seo.title)).toBe(false);
+        titles.add(seo.title);
+      }
+    }
+  });
+
   it("listPrerenderPaths covers both locales for static + project + article routes, excludes drafts", () => {
     const paths = listPrerenderPaths();
     for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles"]) {
