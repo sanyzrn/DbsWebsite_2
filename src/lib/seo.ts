@@ -7,6 +7,7 @@ import { DAILY_DIGEST_ENABLED, loadNewsItems } from "./news";
 import { getSiteUrl } from "./siteUrl";
 import { truncateDescription } from "./truncate";
 import siteRoutes from "../../shared/site-routes.json";
+import { isLaunchSlug, LAUNCH_PAGES } from "./launches";
 
 export type PageSeoKey =
   | "home"
@@ -19,6 +20,7 @@ export type PageSeoKey =
   | "article"
   | "privacy"
   | "terms"
+  | "launch"
   | "notFound";
 
 export type PageSeo = {
@@ -103,6 +105,12 @@ export function resolvePageSeo(
     title = fm.title.length + authorSuffix.length <= 65 ? fm.title + authorSuffix : fm.title;
     description = truncateDescription(fm.description, 155) || (seo.articles?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/articles/${opts.article.slug}`);
+  } else if (page === "launch") {
+    const slug = stripLangPrefix(path).replace(/^\/|\/$/g, "");
+    if (isLaunchSlug(slug)) {
+      title = LAUNCH_PAGES[slug].copy[lang].seoTitle;
+      description = LAUNCH_PAGES[slug].copy[lang].seoDescription;
+    }
   } else if (page === "home") {
     path = opts?.path ?? localePath(lang, "/");
   }
@@ -123,6 +131,7 @@ export function resolvePageSeo(
 
   const isNoindex =
     page === "notFound" ||
+    page === "launch" ||
     (page === "news" && (!DAILY_DIGEST_ENABLED || loadNewsItems().length === 0)) ||
     (page === "project" && opts?.project && opts.project.maturity !== "published") ||
     (page === "article" && opts?.article && opts.article.frontmatter.status !== "published");
@@ -395,6 +404,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   }
   if (bare === "/404") {
     return resolvePageSeo(lang, "notFound", { path });
+  }
+  if (isLaunchSlug(bare.replace(/^\/|\/$/g, ""))) {
+    return resolvePageSeo(lang, "launch", { path });
   }
   const projectMatch = bare.match(/^\/projects\/([^/]+)\/?$/);
   if (projectMatch) {
