@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -90,6 +91,35 @@ describe("Nex timeline and routing", () => {
 });
 
 describe("Nex browser-only note", () => {
+  it("captures with Enter, preserves Shift+Enter, restores the card and allows editing/deletion", async () => {
+    const user = userEvent.setup();
+    open();
+    await user.type(screen.getByRole("textbox"), "Coffee{shift>}{enter}{/shift}Design review{enter}");
+    expect(screen.queryByRole("textbox")).toBeNull();
+    expect(document.querySelector(".nex-submitted-note > p")).toHaveTextContent("Coffee Design review");
+    expect(JSON.parse(localStorage.getItem(NEX_NOTE_KEY)!)).toEqual({ text: "Coffee\nDesign review", submitted: true });
+    cleanup();
+    open("/en/nex/");
+    expect(screen.queryByRole("textbox")).toBeNull();
+    await user.click(screen.getByRole("button", { name: "Edit note" }));
+    expect(screen.getByRole("textbox")).toHaveValue("Coffee\nDesign review");
+    await user.click(screen.getByRole("button", { name: NEX_COPY.en.draftClear }));
+    expect(screen.getByRole("textbox")).toHaveValue("");
+    expect(localStorage.getItem(NEX_NOTE_KEY)).toBeNull();
+  });
+
+  it("ignores empty submissions and Enter during IME composition", () => {
+    open();
+    const input = screen.getByRole("textbox");
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(input).toBeVisible();
+    expect(localStorage.getItem(NEX_NOTE_KEY)).toBeNull();
+    fireEvent.change(input, { target: { value: "فکر" } });
+    fireEvent.keyDown(input, { key: "Enter", isComposing: true });
+    expect(input).toBeVisible();
+    expect(document.querySelector(".nex-draft")).toHaveAttribute("data-submitted", "false");
+  });
+
   it("creates, restores across visits/locales, and deletes a note without a Save action", () => {
     open();
     const input = screen.getByRole("textbox");
@@ -97,7 +127,7 @@ describe("Nex browser-only note", () => {
     fireEvent.change(input, { target: { value: "قرار کافه — design review ۱۲" } });
     expect(JSON.parse(localStorage.getItem(NEX_NOTE_KEY)!)).toEqual({ text: "قرار کافه — design review ۱۲" });
     expect(document.querySelector(".nex-draft")).toHaveClass("nex-draft--written");
-    expect(screen.getByRole("status")).toHaveTextContent(NEX_COPY.fa.draftSaved);
+    expect(document.querySelector("#nex-draft-status")).toHaveTextContent(NEX_COPY.fa.draftSaved);
     cleanup();
     open("/en/nex/");
     expect(screen.getByRole("textbox")).toHaveValue("قرار کافه — design review ۱۲");
@@ -113,7 +143,7 @@ describe("Nex browser-only note", () => {
     open();
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "فکر من" } });
     expect(screen.getByRole("textbox")).toHaveValue("فکر من");
-    expect(screen.getByRole("status")).toHaveTextContent(NEX_COPY.fa.draftSession);
+    expect(document.querySelector("#nex-draft-status")).toHaveTextContent(NEX_COPY.fa.draftSession);
   });
 
   it.each(["invalid JSON", '{"text": 12}', '{"text": null}'])("ignores malformed storage: %s", (raw) => {
@@ -178,6 +208,39 @@ describe("Nex SEO, sitemap and isolated motion", () => {
 
 
 describe("Nex world interactions", () => {
+  it("links the footer to the page's top, above the masthead and hero", () => {
+    open();
+    const link = screen.getByRole("link", { name: NEX_EXPERIENCE.fa.backToHero });
+    expect(link).toHaveAttribute("href", "#nex-top");
+    expect(document.querySelector("#nex-top .nex-masthead")).toBeInTheDocument();
+  });
+
+  it("uses English coffee search examples and LTR result text in English", () => {
+    open("/en/nex/");
+    expect(screen.getByText("Coffee catch-up — at 12")).toHaveAttribute("dir", "ltr");
+    expect(document.querySelector(".nex-search-experiment")).not.toHaveTextContent("كافه");
+    fireEvent.click(screen.getByRole("button", { name: /Try: coffee 12/ }));
+    expect(screen.getByRole("searchbox")).toHaveValue("coffee 12");
+    expect(document.querySelector(".nex-search-result")).toHaveAttribute("data-match", "true");
+  });
+
+  it.each(["fa", "en"] as const)("turns on the local AI illustration in %s, connects thoughts and turns off again", (lang) => {
+    open(lang === "fa" ? "/nex/" : "/en/nex/");
+    const toggle = screen.getByRole("switch");
+    expect(toggle).toHaveAttribute("aria-checked", "false");
+    expect(document.querySelectorAll(".nex-ai-connections li")).toHaveLength(0);
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-checked", "true");
+    expect(document.querySelectorAll(".nex-ai-connections li")).toHaveLength(3);
+    const first = document.querySelector(".nex-ai-seed")?.textContent;
+    fireEvent.click(screen.getByRole("button", { name: lang === "fa" ? "یک فکر دیگر" : "Another thought" }));
+    expect(document.querySelector(".nex-ai-seed")?.textContent).not.toBe(first);
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-checked", "false");
+    expect(document.querySelectorAll(".nex-ai-connections li")).toHaveLength(0);
+    expect(localStorage.getItem(NEX_NOTE_KEY)).toBeNull();
+  });
+
   it("switches capture illustrations through native keyboard-accessible radios", () => {
     open();
     const voice = screen.getByRole("radio", { name: NEX_COPY.fa.voiceLabel });

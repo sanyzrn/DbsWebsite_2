@@ -8,6 +8,7 @@ import NexMark from "../components/nex/NexMark";
 import NexWordmark from "../components/nex/NexWordmark";
 import ThoughtStage from "../components/nex/ThoughtStage";
 import SearchExperiment from "../components/nex/SearchExperiment";
+import IntelligenceDemo from "../components/nex/IntelligenceDemo";
 import { useApp } from "../lib/app";
 import { NEX_COPY, NEX_SCREENSHOT, NEX_STORES } from "../lib/nex";
 import { NEX_EXPERIENCE } from "../lib/nexExperience";
@@ -63,7 +64,7 @@ export default function NexLandingPage() {
 
   return <>
     <PageMeta page="nex" />
-    <div className="nex-page" dir={dir} lang={lang} data-motion={paused ? "paused" : "playing"} data-enhanced={ready}>
+    <div id="nex-top" className="nex-page" dir={dir} lang={lang} data-motion={paused ? "paused" : "playing"} data-enhanced={ready}>
       <NexIntro tagline={c.tagline} />
       <div className="nex-reading-progress" aria-hidden="true" />
       <div className="nex-shell">
@@ -134,7 +135,7 @@ export default function NexLandingPage() {
             <Day id="nex-yesterday" title={c.yesterday} aside={c.yesterdayAside}>
               <div className="nex-privacy-world">
                 <div className="nex-privacy-copy"><h3 className="nex-chapter-title"><Lines text={e.yesterdayHeadline} /></h3><p className="nex-privacy-description">{c.privateText}</p><p className="nex-fine-print">{c.privateAside}</p></div>
-                <details className="nex-vault"><summary><span className="nex-vault-illustration" aria-hidden="true"><span className="nex-vault-card nex-vault-card--back" /><span className="nex-vault-card nex-vault-card--middle" /><span className="nex-vault-door"><LockKeyhole size={44} strokeWidth={1.2} /><span>nex / private</span></span></span><span className="nex-vault-action">{e.vaultLabel}<Plus size={19} aria-hidden="true" /></span></summary><p>{e.vaultInside}</p></details>
+                <div className="nex-vault-slot"><details className="nex-vault"><summary><span className="nex-vault-illustration" aria-hidden="true"><span className="nex-vault-card nex-vault-card--back" /><span className="nex-vault-card nex-vault-card--middle" /><span className="nex-vault-door"><LockKeyhole size={44} strokeWidth={1.2} /><span>nex / private</span></span></span><span className="nex-vault-action">{e.vaultLabel}<Plus size={19} aria-hidden="true" /></span></summary><p>{e.vaultInside}</p></details></div>
               </div>
               <p className="nex-vault-caption">{e.vaultCaption}</p>
               <div className="nex-yesterday-notes">
@@ -142,7 +143,7 @@ export default function NexLandingPage() {
                   <div className="nex-reminder-ticket"><Repeat2 size={26} aria-hidden="true" /><div><strong>{e.reminderSample}</strong><span>{e.reminderMeta}</span></div></div>
                   <p className="nex-note-title nex-note-title--small">{c.reminderTitle}</p><p>{c.reminderText}</p>
                 </Card>
-                <Card label={c.aiLabel} icon={<Circle size={16} aria-hidden="true" />} className="nex-ai-note"><div className="nex-ai-switch" aria-hidden="true"><i /><span>OFF</span></div><p>{c.aiText}</p></Card>
+                <Card label={c.aiLabel} icon={<Circle size={16} aria-hidden="true" />} className="nex-ai-note"><p>{c.aiText}</p><IntelligenceDemo lang={lang} /></Card>
               </div>
             </Day>
 
@@ -152,7 +153,7 @@ export default function NexLandingPage() {
             </Day>
           </div>
         </div>
-        <footer className="nex-footer"><span className="nex-footer-brand" dir="ltr"><NexWordmark className="nex-footer-word" /> / DbsStudio</span><a href="#nex-world">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
+        <footer className="nex-footer"><span className="nex-footer-brand" dir="ltr"><NexWordmark className="nex-footer-word" /> / DbsStudio</span><a href="#nex-top">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
       </div>
     </div>
   </>;
