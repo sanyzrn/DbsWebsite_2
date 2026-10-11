@@ -3,6 +3,7 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App, { AppShell } from "../App";
+import { NEX_EXPERIENCE, normalizeNexDemo } from "../lib/nexExperience";
 import { NEX_COPY, NEX_NOTE_KEY, NEX_NOTE_LIMIT } from "../lib/nex";
 import { listPrerenderPaths, resolveSeoForPath } from "../lib/seo";
 import siteRoutes from "../../shared/site-routes.json";
@@ -31,12 +32,14 @@ describe("Nex timeline and routing", () => {
     const { container } = open(path);
     const en = path.startsWith("/en");
     const c = NEX_COPY[en ? "en" : "fa"];
-    expect(screen.getByRole("heading", { level: 1, name: c.pageLabel })).toBeInTheDocument();
+    const e = NEX_EXPERIENCE[en ? "en" : "fa"];
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(e.heroLine1);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(e.heroLine2);
     expect(container.querySelector(".nex-page")).toHaveAttribute("dir", en ? "ltr" : "rtl");
-    expect(container.querySelector(".nex-day-notes")?.children).toHaveLength(6);
+    expect(container.querySelectorAll(".nex-day-notes > article, .nex-day-notes > .nex-local-stage")).toHaveLength(6);
     expect(screen.getByRole("heading", { name: c.today })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: c.yesterday })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: c.tagline })).toBeInTheDocument();
+    expect(screen.getAllByText(c.tagline).length).toBeGreaterThan(0);
     expect(container.querySelector("header.nav-bar, footer.bg-footer, .intro, .product-launch")).toBeNull();
     expect(screen.queryByText(/Google Play/)).not.toBeInTheDocument();
     expect(document.title).toBe(c.seoTitle);
@@ -47,6 +50,8 @@ describe("Nex timeline and routing", () => {
       const path = lang === "fa" ? "/nex/" : "/en/nex/";
       const html = renderToString(<StaticRouter location={path}><AppShell /></StaticRouter>);
       const c = NEX_COPY[lang];
+      expect(html).toContain(NEX_EXPERIENCE[lang].heroLine1);
+      expect(html).toContain("nex-orbit-scene");
       expect(html).toContain(c.downloadTitle);
       expect(html).toContain(c.introText);
       expect(html).toContain(c.privateText);
@@ -168,5 +173,54 @@ describe("Nex SEO, sitemap and isolated motion", () => {
     expect(css).not.toMatch(/opacity:\s*0(?:\D|$)/);
     expect(css).not.toMatch(/url\(["']?https?:/);
     expect(css).toContain('font-family: "Nex Inter"');
+  });
+});
+
+
+describe("Nex world interactions", () => {
+  it("switches capture illustrations through native keyboard-accessible radios", () => {
+    open();
+    const voice = screen.getByRole("radio", { name: NEX_COPY.fa.voiceLabel });
+    expect(screen.getByRole("radio", { name: NEX_COPY.fa.textLabel })).toBeChecked();
+    fireEvent.click(voice);
+    expect(voice).toBeChecked();
+    expect(document.querySelector(".nex-universe")).toHaveAttribute("data-mode", "voice");
+    fireEvent.click(screen.getByRole("radio", { name: NEX_COPY.fa.checklistLabel }));
+    expect(document.querySelector(".nex-universe")).toHaveAttribute("data-mode", "checklist");
+  });
+
+  it("pauses and resumes continuous motion without affecting the note", () => {
+    open();
+    fireEvent.change(screen.getByRole("textbox"), { target: { value: "A thought" } });
+    fireEvent.click(screen.getByRole("button", { name: NEX_EXPERIENCE.fa.motionPause }));
+    expect(document.querySelector(".nex-page")).toHaveAttribute("data-motion", "paused");
+    expect(screen.getByRole("button", { name: NEX_EXPERIENCE.fa.motionPlay })).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(screen.getByRole("button", { name: NEX_EXPERIENCE.fa.motionPlay }));
+    expect(document.querySelector(".nex-page")).toHaveAttribute("data-motion", "playing");
+    expect(screen.getByRole("textbox")).toHaveValue("A thought");
+  });
+
+  it("demonstrates Persian normalisation locally, without treating the app demo as a real search service", () => {
+    open();
+    fireEvent.change(screen.getByRole("searchbox"), { target: { value: "كافه 12" } });
+    expect(screen.getByText(NEX_EXPERIENCE.fa.searchFound)).toBeInTheDocument();
+    expect(document.querySelector(".nex-search-result")).toHaveAttribute("data-match", "true");
+    fireEvent.change(screen.getByRole("searchbox"), { target: { value: "unrelated" } });
+    expect(screen.getByText(NEX_EXPERIENCE.fa.searchEmpty)).toBeInTheDocument();
+    expect(screen.getByText(NEX_EXPERIENCE.fa.searchDemo)).toBeInTheDocument();
+    expect(localStorage.getItem(NEX_NOTE_KEY)).toBeNull();
+  });
+
+  it("keeps the native vault disclosure and chapter navigation usable without custom navigation", () => {
+    open();
+    const summary = screen.getByText(NEX_EXPERIENCE.fa.vaultLabel).closest("summary");
+    expect(summary?.closest("details")?.querySelector("p")).toHaveTextContent(NEX_EXPERIENCE.fa.vaultInside);
+    const nav = screen.getByRole("navigation", { name: NEX_EXPERIENCE.fa.dayNav });
+    expect(nav.querySelectorAll('a[href^="#nex-"]')).toHaveLength(3);
+  });
+
+  it("normalises letter variants, half-spaces and both numeral sets in the illustrative search", () => {
+    expect(normalizeNexDemo("كافه ۱۲۳")).toBe(normalizeNexDemo("کافه 123"));
+    expect(normalizeNexDemo("يادداشت\u200c۱۲")).toBe(normalizeNexDemo("یادداشت ١٢"));
   });
 });

@@ -171,7 +171,10 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
   try {
     for (const route of resolvedRoutes) {
       for (const theme of THEMES) {
-        const context = await browser.newContext({ reducedMotion: "reduce" });
+        const isNex = /^\/(?:en\/)?nex\/?$/.test(route.urlPath);
+        const viewports = isNex ? [{ width: 1440, height: 900 }, { width: 820, height: 900 }, { width: 320, height: 740 }] : [{ width: 1280, height: 720 }];
+        for (const viewport of viewports) {
+        const context = await browser.newContext({ reducedMotion: "reduce", viewport });
         await context.addInitScript((themeName) => {
           try {
             localStorage.setItem("sz-theme", themeName);
@@ -213,6 +216,30 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         `);
         await page.waitForTimeout(40);
 
+        if (isNex) {
+          await page.locator('input[name="nex-capture-mode"][value="voice"]').focus();
+          await page.locator('input[name="nex-capture-mode"][value="voice"]').press("Space");
+          if (await page.locator(".nex-universe").getAttribute("data-mode") !== "voice") throw new Error("Nex capture mode did not switch");
+          await page.locator("#nex-search-demo").fill("كافه 12");
+          if (await page.locator(".nex-search-result").getAttribute("data-match") !== "true") throw new Error("Nex Persian search example failed");
+          await page.locator("#nex-search-demo").fill("");
+          await page.locator("#nex-local-note").fill("A browser-only Nex thought");
+          await page.reload({ waitUntil: "networkidle" });
+          if (await page.locator("#nex-local-note").inputValue() !== "A browser-only Nex thought") throw new Error("Nex local note did not persist");
+          await page.locator(".nex-clear").click();
+          await page.locator(".nex-vault summary").click();
+          if (!(await page.locator(".nex-vault").evaluate((el) => el.open))) throw new Error("Nex vault disclosure did not open");
+          const layout = await page.evaluate(() => {
+            const width = globalThis.innerWidth;
+            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro")];
+            return elements.filter((el) => {
+              const box = el.getBoundingClientRect();
+              return box.left < -1 || box.right > width + 1;
+            }).map((el) => el.className);
+          });
+          if (layout.length) throw new Error(`Nex layout overflows at ${viewport.width}px: ${layout.join(", ")}`);
+        }
+
         // Load axe as a same-origin external script (CSP script-src 'self').
         // Playwright's addScriptTag has no nonce option, so inline content is blocked.
         await page.addScriptTag({ url: `${origin}/__a11y/axe.js` });
@@ -226,10 +253,24 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           (v) => v.impact === "critical" || v.impact === "serious"
         );
         results.push({
-          path: `${route.urlPath} [${theme.name}]`,
+          path: `${route.urlPath} [${theme.name}, ${viewport.width}px]`,
           violations: serious,
         });
         await context.close();
+        }
+      }
+      // The world and chronological content must also stand alone as static HTML.
+      if (/^\/(?:en\/)?nex\/?$/.test(route.urlPath)) {
+        for (const colorScheme of ["light", "dark"]) {
+          const context = await browser.newContext({ javaScriptEnabled: false, colorScheme, viewport: { width: 320, height: 740 } });
+          const page = await context.newPage();
+          await page.goto(`${origin}${route.urlPath}`, { waitUntil: "networkidle" });
+          if (!(await page.locator("#nex-hero-title").isVisible()) || !(await page.locator(".nex-origin-copy").isVisible())) throw new Error("Nex static content is missing");
+          if (!(await page.locator("#nex-local-note").isDisabled())) throw new Error("Nex no-JS demo must clearly be disabled");
+          await page.locator(".nex-vault summary").click();
+          if (!(await page.locator(".nex-vault > p").isVisible())) throw new Error("Nex native disclosure failed without JavaScript");
+          await context.close();
+        }
       }
     }
   } finally {
