@@ -94,8 +94,6 @@ jobs:
           # Separate sync history from other sites sharing the host.
           state-name: .dbswebsite-2-sync-state.json
           dangerous-clean-slate: false
-          # Keep independent deployments at /nex/ intact.
           exclude: |
             **/.git*
             **/.git*/**
-            nex/**
