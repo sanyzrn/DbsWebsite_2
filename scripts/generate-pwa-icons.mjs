@@ -11,7 +11,9 @@ import { ROOT } from "./site-url.mjs";
 
 const OUT = path.join(ROOT, "public", "icons");
 const SRC_SVG = path.join(ROOT, "public", "favicon.svg");
-const BG = "#f5f0e8"; // --page (light)
+// Match vite.config.ts PWA_BG and the intro light --page exactly.
+// Otherwise Android shows a visible tile around the native splash icon.
+const BG = "#ecede8";
 
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -45,11 +47,12 @@ async function squareIcon(outSize, markRatio) {
 }
 
 const jobs = [
-  // Standard icons — logo fills most of the canvas with light padding.
+  // Retain a legible 192px launcher icon; soften larger splash-capable assets.
+  // Android controls the actual splash size, and uses these icons for installation too.
   { file: "pwa-192x192.png", size: 192, ratio: 0.72 },
-  { file: "pwa-512x512.png", size: 512, ratio: 0.72 },
-  // Maskable — keep brand content inside the ~80% safe zone (logo ~55–60%).
-  { file: "pwa-512x512-maskable.png", size: 512, ratio: 0.55 },
+  { file: "pwa-512x512.png", size: 512, ratio: 0.52 },
+  // Keep the maskable mark comfortably inside Android’s safe zone.
+  { file: "pwa-512x512-maskable.png", size: 512, ratio: 0.43 },
   // Apple touch (180) from the same pipeline for consistency.
   { file: "apple-touch-icon.png", size: 180, ratio: 0.72 },
 ];
