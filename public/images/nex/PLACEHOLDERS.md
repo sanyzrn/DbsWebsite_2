@@ -7,4 +7,4 @@
 
 The screenshot is deliberately absent. A labelled, hatched placeholder is rendered instead of a broken image. Place the real file here, then set `NEX_SCREENSHOT.ready = true` in `src/lib/nex.ts`. It uses a lazy-loading `<img>` with fixed intrinsic dimensions and descriptive alt text.
 
-The octopus in `src/components/nex/NexMark.tsx` is a provisional vector interpretation. TODO: replace it with the owner's final Nex octopus mark. Its two on-page uses are decorative beside readable text.
+The octopus (`src/components/nex/NexMark.tsx`) and the wordmark (`NexWordmark.tsx`) are the final brand artwork from the Nex repository; `og.jpg` uses the same wordmark and the app icon.

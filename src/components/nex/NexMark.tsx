@@ -1,12 +1,20 @@
-/** Small provisional octopus mark; replace with the final brand asset when supplied. */
-export default function NexMark({ className = "" }: { className?: string }) {
+import { MARK_ACCENT, MARK_EYES, MARK_INK, MARK_VIEWBOX } from "./brand";
+
+/**
+ * The Nex octopus: one mind, a thousand connections.
+ *
+ * The outline and the right eye take `currentColor`, and the blue arm and eye
+ * `--nx-mark-accent`, so one mark serves a light page, a dark one and the blue
+ * app tile alike.
+ */
+export default function NexMark({ className = "", title }: { className?: string; title?: string }) {
+  const accent = "var(--nx-mark-accent, #0084f7)";
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="none" aria-hidden="true">
-      <path d="M18 34V25a14 14 0 0 1 28 0v9" fill="currentColor" />
-      <g stroke="currentColor" strokeWidth="5" strokeLinecap="round">
-        <path d="M20 32c-8 0-12 3-12 9s-5 6-5 1M23 33c-8 3-9 8-9 13s-6 7-8 2M27 33c-5 6-6 13-4 18s-4 7-6 3M31 33v18c0 6-5 8-7 5M33 33v18c0 6 5 8 7 5M37 33c5 6 6 13 4 18s4 7 6 3M41 33c8 3 9 8 9 13s6 7 8 2M44 32c8 0 12 3 12 9s5 6 5 1" />
-      </g>
-      <g fill="var(--nx-card, #fff)"><circle cx="27" cy="25" r="2" /><circle cx="37" cy="25" r="2" /></g>
+    <svg className={className} viewBox={`0 0 ${MARK_VIEWBOX.width} ${MARK_VIEWBOX.height}`} role={title ? "img" : undefined} aria-hidden={title ? undefined : true} aria-label={title}>
+      {MARK_INK.map((d) => <path key={d.slice(0, 12)} fill="currentColor" d={d} />)}
+      <path fill={accent} d={MARK_ACCENT} />
+      <circle fill={accent} cx={MARK_EYES.blue.x} cy={MARK_EYES.blue.y} r={MARK_EYES.r} />
+      <circle fill="currentColor" cx={MARK_EYES.ink.x} cy={MARK_EYES.ink.y} r={MARK_EYES.r} />
     </svg>
   );
 }

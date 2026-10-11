@@ -4,6 +4,7 @@ import type { Lang } from "../../lib/i18n";
 import { NEX_COPY } from "../../lib/nex";
 import { NEX_EXPERIENCE } from "../../lib/nexExperience";
 import NexMark from "./NexMark";
+import NexWordmark from "./NexWordmark";
 
 const BARS = [18, 32, 23, 46, 34, 20, 39, 55, 31, 19, 44, 27, 53, 35, 22, 41, 29, 18, 37, 51, 24, 32, 17, 27];
 
@@ -22,7 +23,7 @@ export default function ThoughtStage({ lang }: { lang: Lang }) {
         <path className="nex-connection-thread" d="M130 155C390 20 480 215 300 270S160 420 460 411" />
         <circle cx="96" cy="288" r="5" /><circle cx="448" cy="104" r="5" /><circle cx="493" cy="340" r="5" />
       </svg>
-      <div className="nex-thought-core" aria-hidden="true"><NexMark /><span>nex</span></div>
+      <div className="nex-thought-core" aria-hidden="true"><NexMark /><NexWordmark className="nex-core-word" /></div>
       <article className="nex-scene-note nex-scene-text" dir={lang === "fa" ? "rtl" : "ltr"}>
         <div className="nex-scene-meta"><FileText size={15} aria-hidden="true" /><span>{c.textLabel}</span><span>{lang === "fa" ? "۱۰:۴۲" : "10:42"}</span></div>
         <p>{e.sampleNote}</p><span className="nex-scene-tag"># {lang === "fa" ? "فکر_تازه" : "fresh_thought"}</span>

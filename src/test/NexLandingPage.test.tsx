@@ -224,3 +224,46 @@ describe("Nex world interactions", () => {
     expect(normalizeNexDemo("يادداشت\u200c۱۲")).toBe(normalizeNexDemo("یادداشت ١٢"));
   });
 });
+
+describe("Nex loading intro", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+    document.documentElement.classList.remove("nex-intro-play", "nex-intro-skip", "nex-intro-done");
+  });
+
+  it("is decorative, in the server HTML, and shown only when the pre-paint script asks for it", () => {
+    const html = renderToString(<StaticRouter location="/nex/"><AppShell /></StaticRouter>);
+    expect(html).toMatch(/<div class="nex-intro" aria-hidden="true">/);
+    const css = fs.readFileSync("src/components/nex/nex-intro.css", "utf8");
+    expect(css).toMatch(/^\.nex-intro \{ display: none; \}$/m);
+    expect(css).toContain("html.nex-intro-play .nex-intro {");
+    expect(css).toContain("html.nex-intro-done .nex-intro { display: none; }");
+    const script = fs.readFileSync("index.html", "utf8");
+    expect(script).toContain('if (isNex && !calm && !sessionStorage.getItem("nex-intro"))');
+    expect(script).toContain('if (!isNex && !calm && !sessionStorage.getItem("sz-intro"))');
+  });
+
+  it("gets out of the way on a key or a tap, and on its own", () => {
+    vi.useFakeTimers();
+    const root = document.documentElement;
+    root.classList.add("nex-intro-play");
+    open();
+    fireEvent.keyDown(window, { key: "Escape" });
+    expect(root).toHaveClass("nex-intro-skip");
+    vi.advanceTimersByTime(400);
+    expect(root).toHaveClass("nex-intro-done");
+    cleanup();
+    root.classList.remove("nex-intro-skip", "nex-intro-done");
+    open();
+    vi.advanceTimersByTime(3200);
+    expect(root).toHaveClass("nex-intro-done");
+    expect(root).not.toHaveClass("nex-intro-skip");
+  });
+
+  it("draws the whole brand: the octopus's two eyes and the wordmark's dot", () => {
+    const { container } = open();
+    const mark = container.querySelector(".nex-mark");
+    expect(mark?.querySelectorAll("circle")).toHaveLength(2);
+    expect(container.querySelector(".nex-wordmark")?.querySelectorAll("circle")).toHaveLength(1);
+  });
+});

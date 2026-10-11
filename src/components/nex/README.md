@@ -22,7 +22,10 @@ Continuous CSS motion has an explicit pause/resume button and follows reduced-mo
 1. Supply the actual Cafe Bazaar app URL; replace the `#` in `NEX_STORES.bazaar.href` and remove its TODO marker.
 2. Supply the actual Myket app URL; replace the `#` in `NEX_STORES.myket.href` and remove its TODO marker.
 3. Supply the real app screenshot and enable `NEX_SCREENSHOT.ready`.
-4. Supply the final octopus logo; replace the provisional `NexMark` artwork.
+
+The octopus (`NexMark.tsx`, with both eyes) and the wordmark (`NexWordmark.tsx`, with its dot) are the final brand artwork, drawn from `docs/brand/nex_logo.svg` and `nex_logo_type.svg` in the Nex repository; the path data lives once in `brand.ts`. Their outlines follow `currentColor` and the blue parts `--nx-mark-accent`. The share image `public/images/nex/og.jpg` carries the same wordmark and the app icon.
+
+Loading intro (`NexIntro.tsx`, `nex-intro.css`): the app's splash screen retold, about 2.9 s. It opens on the two eyes (the blue one blinks), the octopus grows out from between them, six pieces of a day are pulled in along threads to its arms, `nex` rises letter by letter with its blue stroke and dot, the tagline follows, and the page opens from the eyes. It plays once per browser session via `html.nex-intro-play`, set by the pre-paint script in `index.html` (never under reduced motion, never without JavaScript, never on client-side navigation); a tap or any key skips it. It is decorative and `aria-hidden`.
 
 Download links marked `#` are explicitly disabled and show a visible pending-link explanation. When actual URLs are set they work normally.
 
