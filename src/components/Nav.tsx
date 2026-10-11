@@ -6,6 +6,7 @@ import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
 import { hasNewsContent } from "../lib/news";
 import { localePath, stripLangPrefix } from "../lib/paths";
+import { isLaunchSlug } from "../lib/launches";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
 import { AccentMenu, AccentSwatches } from "./AccentPicker";
@@ -21,6 +22,7 @@ function isActive(pathname: string, target: string) {
 export default function Nav() {
   const { t, theme, toggleTheme, toggleLang, lang } = useApp();
   const { pathname } = useLocation();
+  const onProductLaunch = isLaunchSlug(stripLangPrefix(pathname).split("/")[1] ?? "");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -119,7 +121,7 @@ export default function Nav() {
     <header
       className={cn(
         "nav-bar fixed inset-x-0 top-0 z-50 border-b border-transparent",
-        (scrolled || open) && "is-solid"
+        (scrolled || open || onProductLaunch) && "is-solid"
       )}
     >
       <div className="wrap relative z-10 flex h-[68px] items-center justify-between gap-4 md:h-[76px]">
