@@ -9,7 +9,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: max(660px, calc(100svh - 76px));
+  min-height: max(660px, 100svh);
   color: var(--launch-ink);
   background: #0d1118;
   font-family: var(--font-text);
@@ -247,7 +247,7 @@
 @keyframes launch-scan { to { transform: translateX(120px); } }
 
 @media (max-width: 850px) {
-  .product-launch { min-height: max(760px, calc(100svh - 68px)); }
+  .product-launch { min-height: max(760px, 100svh); }
   .product-launch__wrap { padding-inline: 24px; }
   .product-launch__hero { min-height: 650px; align-items: flex-end; }
   .product-launch__art { top: 0; left: 50%; right: auto; width: min(78vw, 390px); transform: translateX(-50%); opacity: .75; }
