@@ -14,7 +14,7 @@ export default function ThoughtStage({ lang }: { lang: Lang }) {
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
 
-  return <div className="nex-universe" data-mode={mode} aria-label={e.sceneLabel}>
+  return <div className="nex-universe" role="group" data-mode={mode} aria-label={e.sceneLabel}>
     <div className="nex-orbit-scene">
       <svg className="nex-connections" viewBox="0 0 600 520" fill="none" aria-hidden="true">
         <ellipse cx="300" cy="270" rx="232" ry="148" transform="rotate(-26 300 270)" />
