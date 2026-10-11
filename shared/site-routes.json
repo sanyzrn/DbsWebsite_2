@@ -1,9 +1,30 @@
 {
-  "staticPaths": ["/", "/projects", "/articles", "/news", "/about", "/contact", "/privacy", "/terms"],
-  "specialPaths": ["/404"],
+  "staticPaths": [
+    "/",
+    "/projects",
+    "/articles",
+    "/news",
+    "/about",
+    "/contact",
+    "/privacy",
+    "/terms",
+    "/nex",
+    "/nexahr",
+    "/nexachatai",
+    "/nexaslider"
+  ],
+  "specialPaths": [
+    "/404"
+  ],
   "dynamicPaths": [
-    { "path": "/projects/:slug", "page": "projectDetail" },
-    { "path": "/articles/:slug", "page": "articleDetail" }
+    {
+      "path": "/projects/:slug",
+      "page": "projectDetail"
+    },
+    {
+      "path": "/articles/:slug",
+      "page": "articleDetail"
+    }
   ],
   "seoKeys": {
     "/": "home",
@@ -14,7 +35,11 @@
     "/contact": "contact",
     "/privacy": "privacy",
     "/terms": "terms",
-    "/404": "notFound"
+    "/404": "notFound",
+    "/nex": "launch",
+    "/nexahr": "launch",
+    "/nexachatai": "launch",
+    "/nexaslider": "launch"
   },
   "pageKeys": {
     "/": "home",
@@ -24,6 +49,16 @@
     "/about": "about",
     "/contact": "contact",
     "/privacy": "privacy",
-    "/terms": "terms"
-  }
+    "/terms": "terms",
+    "/nex": "launch",
+    "/nexahr": "launch",
+    "/nexachatai": "launch",
+    "/nexaslider": "launch"
+  },
+  "noindexPaths": [
+    "/nex",
+    "/nexahr",
+    "/nexachatai",
+    "/nexaslider"
+  ]
 }
