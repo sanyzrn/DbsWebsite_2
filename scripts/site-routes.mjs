@@ -13,6 +13,7 @@ const manifestPath = path.join(here, "..", "shared", "site-routes.json");
  * @type {{
  *   staticPaths: string[],
  *   specialPaths: string[],
+ *   noindexPaths?: string[],
  *   dynamicPaths?: { path: string, page: string }[],
  *   seoKeys: Record<string, string>,
  *   pageKeys?: Record<string, string>
@@ -41,8 +42,8 @@ export function allLocalePrerenderStaticPaths() {
  * Pass `{ hasNews: false }` to omit /news and /en/news when the digest is empty.
  */
 export function sitemapStaticPaths({ hasNews = true } = {}) {
-  const base = hasNews
-    ? siteRoutes.staticPaths
-    : siteRoutes.staticPaths.filter((p) => p !== "/news");
+  const base = siteRoutes.staticPaths.filter(
+    (p) => (hasNews || p !== "/news") && !(siteRoutes.noindexPaths ?? []).includes(p)
+  );
   return base.flatMap((p) => [p, localePath("en", p)]);
 }
