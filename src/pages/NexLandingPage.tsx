@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, FileText, Image, Link2, LockKeyhole, Mic, Moon, Pause, Pin, Play, Plus, Repeat2, Sun } from "lucide-react";
 import { PageMeta } from "../components/PageMeta";
 import LocalNote from "../components/nex/LocalNote";
+import NexIntro from "../components/nex/NexIntro";
 import NexMark from "../components/nex/NexMark";
 import NexWordmark from "../components/nex/NexWordmark";
 import ThoughtStage from "../components/nex/ThoughtStage";
@@ -63,6 +64,7 @@ export default function NexLandingPage() {
   return <>
     <PageMeta page="nex" />
     <div className="nex-page" dir={dir} lang={lang} data-motion={paused ? "paused" : "playing"} data-enhanced={ready}>
+      <NexIntro tagline={c.tagline} />
       <div className="nex-reading-progress" aria-hidden="true" />
       <div className="nex-shell">
         <header className="nex-masthead">

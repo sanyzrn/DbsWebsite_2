@@ -61,6 +61,11 @@
           var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
           var isNex = /^\/(?:en\/)?nex\/?$/.test(path);
           if (isNex) root.setAttribute("data-nex-theme", dark ? "dark" : "light");
+          // Nex has its own intro, the app's splash, once per session as well.
+          if (isNex && !calm && !sessionStorage.getItem("nex-intro")) {
+            root.classList.add("nex-intro-play");
+            sessionStorage.setItem("nex-intro", "1");
+          }
           if (!isNex && !calm && !sessionStorage.getItem("sz-intro")) {
             root.classList.add("intro-play");
             sessionStorage.setItem("sz-intro", "1");
