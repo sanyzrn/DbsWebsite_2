@@ -28,6 +28,8 @@ export const AXE_RUN_OPTIONS = {
  * to whatever is published, since content maturity decides what actually ships.
  */
 export const A11Y_ROUTES = [
+  { urlPath: "/nex/", file: "nex/index.html" },
+  { urlPath: "/en/nex/", file: "en/nex/index.html" },
   { urlPath: "/", file: "index.html" },
   { urlPath: "/en", file: "en/index.html" },
   { urlPath: "/projects", file: "projects/index.html" },

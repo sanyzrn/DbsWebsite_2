@@ -197,6 +197,7 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
     build: {
       // Multi-page static emit (CSS/JS assets + prerendered HTML per route).
       cssCodeSplit: true,
+      manifest: !isSsrBuild,
     },
     test: {
       environment: "jsdom",

@@ -55,6 +55,7 @@ const AboutPage = syncCompatibleLazy(() => import("../pages/AboutPage"));
 const ContactPage = syncCompatibleLazy(() => import("../pages/ContactPage"));
 const PrivacyPage = syncCompatibleLazy(() => import("../pages/PrivacyPage"));
 const TermsPage = syncCompatibleLazy(() => import("../pages/TermsPage"));
+const NexPage = syncCompatibleLazy(() => import("../pages/NexLandingPage"));
 const LaunchPage = syncCompatibleLazy(() => import("../pages/ComingSoonPage"));
 
 /** Page key → component. Keys match shared/site-routes.json pageKeys + dynamicPaths.page */
@@ -70,6 +71,7 @@ const PAGES = {
   privacy: PrivacyPage,
   terms: TermsPage,
   launch: LaunchPage,
+  nex: NexPage,
 } as const;
 
 type PageKey = keyof typeof PAGES;
@@ -95,6 +97,7 @@ export async function preloadAllPages(): Promise<void> {
     import("../pages/PrivacyPage"),
     import("../pages/TermsPage"),
     import("../pages/ComingSoonPage"),
+    import("../pages/NexLandingPage"),
   ]);
 }
 
