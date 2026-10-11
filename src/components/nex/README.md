@@ -22,7 +22,8 @@ Continuous CSS motion has an explicit pause/resume button and follows reduced-mo
 1. Supply the actual Cafe Bazaar app URL; replace the `#` in `NEX_STORES.bazaar.href` and remove its TODO marker.
 2. Supply the actual Myket app URL; replace the `#` in `NEX_STORES.myket.href` and remove its TODO marker.
 3. Supply the real app screenshot and enable `NEX_SCREENSHOT.ready`.
-4. Supply the final octopus logo; replace the provisional `NexMark` artwork.
+
+The octopus (`NexMark.tsx`) and the wordmark (`NexWordmark.tsx`) are the final brand artwork, drawn from `docs/brand/nex_logo.svg` and `nex_logo_type.svg` in the Nex repository. Their outlines follow `currentColor` and the blue part `--nx-mark-accent`. The share image `public/images/nex/og.jpg` carries the same wordmark and the app icon.
 
 Download links marked `#` are explicitly disabled and show a visible pending-link explanation. When actual URLs are set they work normally.
 

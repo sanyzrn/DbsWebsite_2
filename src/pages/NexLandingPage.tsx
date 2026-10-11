@@ -4,6 +4,7 @@ import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, FileText, Image, Link
 import { PageMeta } from "../components/PageMeta";
 import LocalNote from "../components/nex/LocalNote";
 import NexMark from "../components/nex/NexMark";
+import NexWordmark from "../components/nex/NexWordmark";
 import ThoughtStage from "../components/nex/ThoughtStage";
 import SearchExperiment from "../components/nex/SearchExperiment";
 import { useApp } from "../lib/app";
@@ -65,7 +66,7 @@ export default function NexLandingPage() {
       <div className="nex-reading-progress" aria-hidden="true" />
       <div className="nex-shell">
         <header className="nex-masthead">
-          <a className="nex-brand" href="#nex-world" aria-label={c.pageLabel}><NexMark className="nex-mark" /><span dir="ltr">nex<span className="nex-brand-dot">.</span></span></a>
+          <a className="nex-brand" href="#nex-world" aria-label={c.pageLabel}><NexMark className="nex-mark" /><NexWordmark className="nex-wordmark" /></a>
           <span className="nex-masthead-line">{e.eyebrow}</span>
           <div className="nex-tools">
             <Link to={fa ? "/en/nex/" : "/nex/"} lang={fa ? "en" : "fa"} aria-label={c.languageLabel}>{c.language}</Link>
@@ -144,12 +145,12 @@ export default function NexLandingPage() {
             </Day>
 
             <Day id="nex-first-day" title={c.firstDay} aside={c.firstDayAside}>
-              <div className="nex-origin-world"><div className="nex-origin-art" aria-hidden="true"><span>nex</span><NexMark className="nex-origin-mark" /></div><div className="nex-origin-copy"><h3 className="nex-chapter-title"><Lines text={e.firstDayHeadline} /></h3><p>{e.firstDayLead}</p><p className="nex-origin-tagline">{c.tagline}</p><a href={fa ? "/" : "/en"}>{c.maker}</a></div></div>
+              <div className="nex-origin-world"><div className="nex-origin-art" aria-hidden="true"><NexWordmark className="nex-origin-word" /><NexMark className="nex-origin-mark" /></div><div className="nex-origin-copy"><h3 className="nex-chapter-title"><Lines text={e.firstDayHeadline} /></h3><p>{e.firstDayLead}</p><p className="nex-origin-tagline">{c.tagline}</p><a href={fa ? "/" : "/en"}>{c.maker}</a></div></div>
               <a className="nex-final-cta" href="#nex-download"><span>{c.downloadText}</span><ArrowUp size={20} aria-hidden="true" /></a>
             </Day>
           </div>
         </div>
-        <footer className="nex-footer"><span dir="ltr">nex / DbsStudio</span><a href="#nex-world">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
+        <footer className="nex-footer"><span className="nex-footer-brand" dir="ltr"><NexWordmark className="nex-footer-word" /> / DbsStudio</span><a href="#nex-world">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
       </div>
     </div>
   </>;
