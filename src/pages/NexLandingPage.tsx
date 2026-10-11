@@ -9,8 +9,9 @@ import NexWordmark from "../components/nex/NexWordmark";
 import ThoughtStage from "../components/nex/ThoughtStage";
 import SearchExperiment from "../components/nex/SearchExperiment";
 import IntelligenceDemo from "../components/nex/IntelligenceDemo";
+import StoreLinks from "../components/nex/StoreLinks";
 import { useApp } from "../lib/app";
-import { NEX_COPY, NEX_SCREENSHOT, NEX_STORES } from "../lib/nex";
+import { NEX_COPY, NEX_SCREENSHOT } from "../lib/nex";
 import { NEX_EXPERIENCE } from "../lib/nexExperience";
 import "./nex-landing.css";
 
@@ -88,10 +89,7 @@ export default function NexLandingPage() {
             <article id="nex-download" className="nex-pinned" aria-labelledby="nex-download-title">
               <div className="nex-pin-label"><Pin size={14} aria-hidden="true" />{c.pinned}</div>
               <h2 id="nex-download-title">{c.downloadTitle}</h2>
-              <div className="nex-store-links">
-                {([{ ...NEX_STORES.bazaar, label: c.bazaar }, { ...NEX_STORES.myket, label: c.myket }]).map((store) => <a key={store.label} href={store.href} data-todo={store.todo} aria-disabled={store.href === "#"} aria-describedby={store.href === "#" ? "nex-store-pending" : undefined} onClick={(event) => { if (store.href === "#") event.preventDefault(); }}><ArrowDown size={15} aria-hidden="true" />{store.label}</a>)}
-              </div>
-              {(NEX_STORES.bazaar.href === "#" || NEX_STORES.myket.href === "#") && <p id="nex-store-pending" className="nex-fine-print">{c.storePending}</p>}
+              <StoreLinks lang={lang} />
             </article>
           </div>
           <ThoughtStage lang={lang} />

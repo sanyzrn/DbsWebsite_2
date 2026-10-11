@@ -217,6 +217,9 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         await page.waitForTimeout(40);
 
         if (isNex) {
+          if (await page.locator(".nex-store-links button:disabled").count() !== 5) throw new Error("Nex must show five coming-soon stores");
+          const logosLoaded = await page.locator(".nex-store-links img").evaluateAll((images) => images.every((img) => img.complete && img.naturalWidth > 0));
+          if (!logosLoaded) throw new Error("Nex store logos did not load");
           await page.locator('input[name="nex-capture-mode"][value="voice"]').focus();
           await page.locator('input[name="nex-capture-mode"][value="voice"]').press("Space");
           if (await page.locator(".nex-universe").getAttribute("data-mode") !== "voice") throw new Error("Nex capture mode did not switch");
@@ -254,7 +257,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.waitForFunction(() => globalThis.scrollY <= 1);
           const layout = await page.evaluate(() => {
             const width = globalThis.innerWidth;
-            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro")];
+            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-store, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro")];
             return elements.filter((el) => {
               const box = el.getBoundingClientRect();
               return box.left < -1 || box.right > width + 1;

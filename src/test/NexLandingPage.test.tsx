@@ -5,7 +5,7 @@ import { StaticRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App, { AppShell } from "../App";
 import { NEX_EXPERIENCE, normalizeNexDemo } from "../lib/nexExperience";
-import { NEX_COPY, NEX_NOTE_KEY, NEX_NOTE_LIMIT } from "../lib/nex";
+import { NEX_COPY, NEX_NOTE_KEY, NEX_NOTE_LIMIT, NEX_STORES } from "../lib/nex";
 import { listPrerenderPaths, resolveSeoForPath } from "../lib/seo";
 import siteRoutes from "../../shared/site-routes.json";
 import fs from "node:fs";
@@ -42,7 +42,6 @@ describe("Nex timeline and routing", () => {
     expect(screen.getByRole("heading", { name: c.yesterday })).toBeInTheDocument();
     expect(screen.getAllByText(c.tagline).length).toBeGreaterThan(0);
     expect(container.querySelector("header.nav-bar, footer.bg-footer, .intro, .product-launch")).toBeNull();
-    expect(screen.queryByText(/Google Play/)).not.toBeInTheDocument();
     expect(document.title).toBe(c.seoTitle);
   });
 
@@ -65,17 +64,22 @@ describe("Nex timeline and routing", () => {
     }
   });
 
-  it("uses truthful unavailable download links and a visible missing-image slot", () => {
-    open();
-    for (const name of [NEX_COPY.fa.bazaar, NEX_COPY.fa.myket]) {
-      const store = screen.getByRole("link", { name });
-      expect(store).toHaveAttribute("href", "#");
-      expect(store).toHaveAttribute("aria-disabled", "true");
+  it.each(["fa", "en"] as const)("shows all five branded stores as coming soon in %s, with a visible screenshot placeholder", (lang) => {
+    open(lang === "fa" ? "/nex/" : "/en/nex/");
+    const c = NEX_COPY[lang];
+    for (const id of Object.keys(NEX_STORES) as (keyof typeof NEX_STORES)[]) {
+      const store = screen.getByRole("button", { name: `${c[id]} ${c.storeSoon}` });
+      expect(store).toBeDisabled();
+      expect(store).not.toHaveAttribute("href");
       expect(store.getAttribute("data-todo")).toMatch(/TODO:/);
+      const src = store.querySelector("img")?.getAttribute("src");
+      expect(src).toBe(NEX_STORES[id].logo);
+      expect(fs.existsSync(`public${src}`)).toBe(true);
     }
-    expect(screen.getByText(NEX_COPY.fa.storePending)).toBeVisible();
-    expect(screen.getByText(NEX_COPY.fa.screenshot)).toBeVisible();
-    expect(document.querySelector(".nex-page img")).toBeNull();
+    expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(5);
+    expect(screen.getByText(c.storePending)).toBeVisible();
+    expect(screen.getByText(c.screenshot)).toBeVisible();
+    expect(document.querySelector(".nex-screenshot")).toBeNull();
   });
 
   it("has a native voice-text disclosure and locale/theme controls", () => {

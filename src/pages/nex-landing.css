@@ -90,10 +90,18 @@ html.dark .nex-theme-sun { display: block; }
 .nex-pin-label { display: inline-flex; align-items: center; gap: 6px; color: var(--nx-muted); font-size: 10px; }
 .nex-pin-label svg { color: var(--nx-blue); transform: rotate(-25deg); }
 .nex-pinned h2 { font-size: 17px; font-weight: 500; margin-top: 4px; }
-.nex-store-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; }
-.nex-store-links a { display: inline-flex; align-items: center; gap: 9px; color: var(--nx-ink); background: var(--nx-card); border: 1px solid var(--nx-rule); border-radius: 10px; text-decoration: none; padding: 7px 15px; min-height: 44px; font-size: 12px; transition: border-color .2s; }
-.nex-store-links a:hover { border-color: var(--nx-blue); }
-.nex-store-links svg { color: var(--nx-blue); }
+.nex-store-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
+.nex-store-links .nex-store { display: flex; align-items: center; gap: 10px; text-align: start; color: var(--nx-ink); background: var(--nx-card); border: 1px solid var(--nx-rule); border-inline-start: 3px solid var(--nx-store-color); border-radius: 12px; text-decoration: none; padding: 10px 12px; min-height: 64px; font-size: 12px; }
+.nex-store-links .nex-store:disabled { cursor: default; opacity: 1; }
+.nex-store img { flex-shrink: 0; width: 32px; height: 32px; object-fit: contain; }
+.nex-store > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.nex-store strong { font-size: 11px; font-weight: 500; line-height: 1.6; }
+.nex-store small { color: var(--nx-muted); font-size: 10px; }
+.nex-store[data-store="bazaar"] { --nx-store-color: #0ea960; }
+.nex-store[data-store="myket"] { --nx-store-color: #0091ea; }
+.nex-store[data-store="googlePlay"] { --nx-store-color: #34a853; }
+.nex-store[data-store="appStore"] { --nx-store-color: #0d96f6; }
+.nex-store[data-store="microsoftStore"] { --nx-store-color: #0078d4; }
 .nex-fine-print { color: var(--nx-muted); font-size: 11px; line-height: 1.9; }
 .nex-scroll-cue { position: absolute; inset-inline-start: 0; bottom: 16px; display: flex; align-items: center; gap: 14px; color: var(--nx-muted); font-size: 10px; }
 .nex-scroll-cue svg { animation: nex-nudge 2s ease-in-out infinite; }
