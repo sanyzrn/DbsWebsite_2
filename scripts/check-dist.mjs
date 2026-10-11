@@ -224,6 +224,18 @@ for (const abs of htmlFiles) {
   }
 }
 
+// Nex must keep its full layout before JavaScript and use its own verified social image.
+for (const rel of ["nex/index.html", "en/nex/index.html"]) {
+  const html = fs.readFileSync(path.join(DIST, rel), "utf8");
+  if (!/<link[^>]*rel="stylesheet"[^>]*href="[^"<>]*NexLandingPage[^"<>]*\.css"/.test(html)) {
+    throw new Error(`check:dist ${rel} is missing its no-JavaScript stylesheet`);
+  }
+  if (!html.includes("nex-pinned") || !html.includes("nex-draft") || /name="robots"[^>]*noindex/.test(html)) {
+    throw new Error(`check:dist ${rel} must be an indexable, prerendered Nex timeline`);
+  }
+}
+await assertOgImageDimensions(path.join(DIST, "images/nex/og.jpg"), "Nex og.jpg");
+
 // Open Graph / Twitter Card image — must stay exactly 1200×630 (LinkedIn / X / Telegram)
 await assertOgImageDimensions(path.join(ROOT, "public", "og.jpg"), "public/og.jpg");
 await assertOgImageDimensions(path.join(DIST, "og.jpg"), "dist/og.jpg");

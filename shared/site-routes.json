@@ -36,7 +36,7 @@
     "/privacy": "privacy",
     "/terms": "terms",
     "/404": "notFound",
-    "/nex": "launch",
+    "/nex": "nex",
     "/nexahr": "launch",
     "/nexachatai": "launch",
     "/nexaslider": "launch"
@@ -50,13 +50,12 @@
     "/contact": "contact",
     "/privacy": "privacy",
     "/terms": "terms",
-    "/nex": "launch",
+    "/nex": "nex",
     "/nexahr": "launch",
     "/nexachatai": "launch",
     "/nexaslider": "launch"
   },
   "noindexPaths": [
-    "/nex",
     "/nexahr",
     "/nexachatai",
     "/nexaslider"

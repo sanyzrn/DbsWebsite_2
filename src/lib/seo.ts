@@ -7,6 +7,7 @@ import { DAILY_DIGEST_ENABLED, loadNewsItems } from "./news";
 import { getSiteUrl } from "./siteUrl";
 import { truncateDescription } from "./truncate";
 import siteRoutes from "../../shared/site-routes.json";
+import { NEX_COPY } from "./nex";
 import { isLaunchSlug, LAUNCH_PAGES } from "./launches";
 
 export type PageSeoKey =
@@ -21,6 +22,7 @@ export type PageSeoKey =
   | "privacy"
   | "terms"
   | "launch"
+  | "nex"
   | "notFound";
 
 export type PageSeo = {
@@ -105,6 +107,10 @@ export function resolvePageSeo(
     title = fm.title.length + authorSuffix.length <= 65 ? fm.title + authorSuffix : fm.title;
     description = truncateDescription(fm.description, 155) || (seo.articles?.description ?? seo.description);
     path = opts.path ?? localePath(lang, `/articles/${opts.article.slug}`);
+  } else if (page === "nex") {
+    title = NEX_COPY[lang].seoTitle;
+    description = NEX_COPY[lang].seoDescription;
+    path = localePath(lang, "/nex");
   } else if (page === "launch") {
     const slug = stripLangPrefix(path).replace(/^\/|\/$/g, "");
     if (isLaunchSlug(slug)) {
@@ -123,7 +129,7 @@ export function resolvePageSeo(
 
   // Per-page OG image: use project's own image when available (§5), else og.jpg fallback.
   const projectImage = opts?.project?.image_url;
-  const image = projectImage
+  const image = page === "nex" ? `${origin}/images/nex/og.jpg` : projectImage
     ? projectImage.startsWith("http")
       ? projectImage
       : `${origin}${projectImage}`
@@ -145,7 +151,7 @@ export function resolvePageSeo(
     ogLocale: lang === "fa" ? "fa_IR" : "en_US",
     ogLocaleAlternate: lang === "fa" ? "en_US" : "fa_IR",
     image,
-    imageAlt: opts?.project ? `${opts.project.name}: ${opts.project.subtitle}` : "DbsStudio — Saeed Zarrini",
+    imageAlt: page === "nex" ? NEX_COPY[lang].tagline : opts?.project ? `${opts.project.name}: ${opts.project.subtitle}` : "DbsStudio — Saeed Zarrini",
     canonical: `${origin}${path === "/" ? "/" : path}`,
     alternateFa: `${origin}${pathFa === "/" ? "/" : pathFa}`,
     alternateEn: `${origin}${pathEn}`,
@@ -201,6 +207,15 @@ function buildJsonLd(
     publisher: { "@id": `${origin}/#organization` },
     author: { "@id": `${origin}/#person` },
   };
+
+  if (page === "nex") {
+    const url = `${origin}${localePath(lang, "/nex")}`;
+    return [{ "@context": "https://schema.org", "@graph": [
+      { "@type": "SoftwareApplication", "@id": `${url}#app`, name: "Nex", operatingSystem: "Android 7.0+", applicationCategory: "ProductivityApplication", inLanguage: ["fa", "en"], description: NEX_COPY[lang].seoDescription, url, image: `${origin}/images/nex/og.jpg`, creator: { "@id": `${origin}/#organization` } },
+      { "@type": "WebPage", "@id": `${url}#webpage`, url, name: NEX_COPY[lang].seoTitle, inLanguage: lang, mainEntity: { "@id": `${url}#app` }, isPartOf: { "@id": `${origin}/#website` } },
+      organization, website,
+    ] }];
+  }
 
   if (page === "home") {
     return [
@@ -404,6 +419,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   }
   if (bare === "/404") {
     return resolvePageSeo(lang, "notFound", { path });
+  }
+  if (bare.replace(/\/$/, "") === "/nex") {
+    return resolvePageSeo(lang, "nex", { path });
   }
   if (isLaunchSlug(bare.replace(/^\/|\/$/g, ""))) {
     return resolvePageSeo(lang, "launch", { path });

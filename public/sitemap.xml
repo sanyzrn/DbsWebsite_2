@@ -100,6 +100,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dbsstudio.ir/nex</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dbsstudio.ir/projects/dbsai</loc>
     <lastmod>2026-10-10</lastmod>
     <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/projects/dbsai" />
@@ -228,6 +242,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dbsstudio.ir/articles/employee-performance-software-buyers-guide</loc>
+    <lastmod>2026-10-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/articles/employee-performance-software-buyers-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/articles/employee-performance-software-buyers-guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/articles/employee-performance-software-buyers-guide</loc>
+    <lastmod>2026-10-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/articles/employee-performance-software-buyers-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/articles/employee-performance-software-buyers-guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dbsstudio.ir/articles/enterprise-ai-governance-guide</loc>
     <lastmod>2026-09-01</lastmod>
     <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/articles/enterprise-ai-governance-guide" />
@@ -304,6 +334,22 @@
     <lastmod>2026-09-01</lastmod>
     <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/articles/rag-chatbot-website-guide" />
     <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/articles/rag-chatbot-website-guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/articles/wordpress-ai-chatbot-sales-guide</loc>
+    <lastmod>2026-10-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/articles/wordpress-ai-chatbot-sales-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/articles/wordpress-ai-chatbot-sales-guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/articles/wordpress-ai-chatbot-sales-guide</loc>
+    <lastmod>2026-10-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/articles/wordpress-ai-chatbot-sales-guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/articles/wordpress-ai-chatbot-sales-guide" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

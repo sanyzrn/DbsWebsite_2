@@ -129,7 +129,7 @@ describe("route SEO meta (both locales)", () => {
   });
 
   it("serves bilingual product launch placeholders with unique SEO and noindex", () => {
-    const slugs = ["nex", "nexahr", "nexachatai", "nexaslider"];
+    const slugs = ["nexahr", "nexachatai", "nexaslider"];
     const paths = listPrerenderPaths();
     const titles = new Set<string>();
     for (const slug of slugs) {
@@ -156,7 +156,7 @@ describe("route SEO meta (both locales)", () => {
         cleanup();
         window.history.replaceState(null, "", `${prefix}/${slug}/`);
         const { container } = render(<App />);
-        expect(container.querySelector(".product-launch")).toBeTruthy();
+        expect(container.querySelector(slug === "nex" ? ".nex-page" : ".product-launch")).toBeTruthy();
         expect(container.querySelector("header.nav-bar")).toBeNull();
         expect(container.querySelector("footer.bg-footer")).toBeNull();
         expect(container.querySelector("main#main")?.className).not.toContain("pt-[68px]");

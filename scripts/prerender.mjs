@@ -16,6 +16,7 @@ import {
   walkHtmlFiles,
   writeCspToHostingConfigs,
 } from "./csp.mjs";
+import { nexPageStyles } from "./nex-page-styles.mjs";
 import { serializeJsonLd } from "./jsonld-serialize.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
 
@@ -105,12 +106,12 @@ export function extractHoistableLinks(html) {
   return { links: match[0], body: html.slice(match[0].length) };
 }
 
-function injectHtml(template, { html, seo, lang }) {
+function injectHtml(template, { html, seo, lang }, styles = []) {
   const dir = lang === "en" ? "ltr" : "rtl";
   const { links, body } = extractHoistableLinks(html);
   let out = stripManagedHead(template);
   out = out.replace(/<html[^>]*>/i, `<html lang="${lang}" dir="${dir}">`);
-  out = out.replace(/<\/head>/i, `${buildHeadTags(seo)}\n    ${links}\n  </head>`);
+  out = out.replace(/<\/head>/i, `${buildHeadTags(seo)}\n    ${styles.map((href) => `<link rel="stylesheet" href="${escapeHtml(href)}" />`).join("\n    ")}\n    ${links}\n  </head>`);
   out = out.replace(
     /<div id="root"><\/div>|<div id="root">[\s\S]*?<\/div>/i,
     `<div id="root">${body}</div>`
@@ -177,6 +178,7 @@ async function main() {
 
   const template = fs.readFileSync(templatePath, "utf8");
   const paths = listPrerenderPaths();
+  const clientManifest = JSON.parse(fs.readFileSync(path.join(dist, ".vite", "manifest.json"), "utf8"));
 
   const scriptBodies = new Set();
   const styleHashes = new Set();
@@ -185,7 +187,7 @@ async function main() {
     const result = render(urlPath);
     const file = outFileForPath(urlPath);
     fs.mkdirSync(path.dirname(file), { recursive: true });
-    const page = injectHtml(template, result);
+    const page = injectHtml(template, result, nexPageStyles(urlPath, clientManifest));
     fs.writeFileSync(file, page, "utf8");
 
     for (const body of collectInlineScriptBodies(page)) {
@@ -231,6 +233,9 @@ async function main() {
     ) + "\n",
     "utf8"
   );
+
+  // Client manifest is build metadata, not public website content.
+  fs.rmSync(path.join(dist, ".vite"), { recursive: true, force: true });
 
   // Drop the SSR bundle — deploy stays static-only.
   fs.rmSync(path.join(dist, "server"), { recursive: true, force: true });

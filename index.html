@@ -59,7 +59,9 @@
           if (accent && accent !== "graphite" && /^[a-z-]{2,20}$/.test(accent)) root.setAttribute("data-accent", accent);
           // Intro plays once per browser session, never under reduced motion.
           var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (!calm && !sessionStorage.getItem("sz-intro")) {
+          var isNex = /^\/(?:en\/)?nex\/?$/.test(path);
+          if (isNex) root.setAttribute("data-nex-theme", dark ? "dark" : "light");
+          if (!isNex && !calm && !sessionStorage.getItem("sz-intro")) {
             root.classList.add("intro-play");
             sessionStorage.setItem("sz-intro", "1");
           }
