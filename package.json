@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run generate:icons",
     "generate:seo": "node scripts/generate-seo-files.mjs",
     "generate:icons": "node scripts/generate-pwa-icons.mjs",
     "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",
