@@ -256,15 +256,12 @@ describe("Nex world interactions", () => {
     expect(document.querySelector(".nex-universe")).toHaveAttribute("data-mode", "checklist");
   });
 
-  it("pauses and resumes continuous motion without affecting the note", () => {
+  it("keeps the masthead wordmark-only, without an animation playback control", () => {
     open();
-    fireEvent.change(screen.getByRole("textbox"), { target: { value: "A thought" } });
-    fireEvent.click(screen.getByRole("button", { name: NEX_EXPERIENCE.fa.motionPause }));
-    expect(document.querySelector(".nex-page")).toHaveAttribute("data-motion", "paused");
-    expect(screen.getByRole("button", { name: NEX_EXPERIENCE.fa.motionPlay })).toHaveAttribute("aria-pressed", "true");
-    fireEvent.click(screen.getByRole("button", { name: NEX_EXPERIENCE.fa.motionPlay }));
-    expect(document.querySelector(".nex-page")).toHaveAttribute("data-motion", "playing");
-    expect(screen.getByRole("textbox")).toHaveValue("A thought");
+    expect(document.querySelectorAll(".nex-brand svg")).toHaveLength(1);
+    expect(document.querySelector(".nex-brand .nex-wordmark")).toBeInTheDocument();
+    expect(document.querySelector(".nex-motion-toggle")).toBeNull();
+    expect(document.querySelector(".nex-page")).not.toHaveAttribute("data-motion");
   });
 
   it("demonstrates Persian normalisation locally, without treating the app demo as a real search service", () => {
@@ -329,7 +326,7 @@ describe("Nex loading intro", () => {
 
   it("draws the whole brand: the octopus's two eyes and the wordmark's dot", () => {
     const { container } = open();
-    const mark = container.querySelector(".nex-mark");
+    const mark = container.querySelector(".nex-thought-core svg");
     expect(mark?.querySelectorAll("circle")).toHaveLength(2);
     expect(container.querySelector(".nex-wordmark")?.querySelectorAll("circle")).toHaveLength(1);
   });

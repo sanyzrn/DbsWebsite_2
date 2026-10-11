@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, FileText, Image, Link2, LockKeyhole, Mic, Moon, Pause, Pin, Play, Plus, Repeat2, Sun } from "lucide-react";
+import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, FileText, Image, Link2, LockKeyhole, Mic, Moon, Pin, Plus, Repeat2, Sun } from "lucide-react";
 import { PageMeta } from "../components/PageMeta";
 import LocalNote from "../components/nex/LocalNote";
 import NexIntro from "../components/nex/NexIntro";
@@ -40,7 +40,6 @@ export default function NexLandingPage() {
   const c = NEX_COPY[lang];
   const e = NEX_EXPERIENCE[lang];
   const fa = lang === "fa";
-  const [paused, setPaused] = useState(false);
   const [ready, setReady] = useState(false);
   const [activeDay, setActiveDay] = useState("nex-today");
 
@@ -65,16 +64,15 @@ export default function NexLandingPage() {
 
   return <>
     <PageMeta page="nex" />
-    <div id="nex-top" className="nex-page" dir={dir} lang={lang} data-motion={paused ? "paused" : "playing"} data-enhanced={ready}>
+    <div id="nex-top" className="nex-page" dir={dir} lang={lang} data-enhanced={ready}>
       <NexIntro tagline={c.tagline} />
       <div className="nex-reading-progress" aria-hidden="true" />
       <div className="nex-shell">
         <header className="nex-masthead">
-          <a className="nex-brand" href="#nex-world" aria-label={c.pageLabel}><NexMark className="nex-mark" /><NexWordmark className="nex-wordmark" /></a>
+          <a className="nex-brand" href="#nex-world" aria-label={c.pageLabel}><NexWordmark className="nex-wordmark" /></a>
           <span className="nex-masthead-line">{e.eyebrow}</span>
           <div className="nex-tools">
             <Link to={fa ? "/en/nex/" : "/nex/"} lang={fa ? "en" : "fa"} aria-label={c.languageLabel}>{c.language}</Link>
-            <button className="nex-motion-toggle" type="button" onClick={() => setPaused(!paused)} aria-label={paused ? e.motionPlay : e.motionPause} aria-pressed={paused}>{paused ? <Play size={15} aria-hidden="true" /> : <Pause size={15} aria-hidden="true" />}</button>
             <button className="nex-theme" type="button" onClick={toggleTheme} aria-label={c.themeLabel}><Moon className="nex-theme-moon" size={17} aria-hidden="true" /><Sun className="nex-theme-sun" size={17} aria-hidden="true" /></button>
           </div>
         </header>
@@ -110,7 +108,7 @@ export default function NexLandingPage() {
                 </Card>
                 <Card label={c.voiceLabel} icon={<Mic size={16} aria-hidden="true" />} time={fa ? "۱۰:۳۸" : "10:38"} className="nex-voice-note">
                   <div className="nex-wave" aria-hidden="true">{WAVE.map((height, i) => <i key={i} className={`nex-wave-${height}`} />)}</div>
-                  <details className="nex-transcript"><summary>{c.voiceCaption}<span className="nex-sr-only"> — {c.voiceTranscript}</span><Plus size={17} aria-hidden="true" /></summary><p>{c.voiceText}</p></details>
+                  <div className="nex-transcript-slot"><details className="nex-transcript"><summary>{c.voiceCaption}<span className="nex-sr-only"> — {c.voiceTranscript}</span><Plus size={17} aria-hidden="true" /></summary><p>{c.voiceText}</p></details></div>
                 </Card>
                 <Card label={c.checklistLabel} icon={<Check size={16} aria-hidden="true" />} time={fa ? "۱۰:۳۱" : "10:31"} className="nex-checklist-note">
                   <p className="nex-note-title nex-note-title--small">{c.checklistTitle}</p>

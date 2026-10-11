@@ -52,22 +52,24 @@ export default function LocalNote({ lang }: { lang: Lang }) {
         <h3 id="nex-draft-title"><ArrowDownLeft size={15} aria-hidden="true" />{copy.draftLabel}</h3>
         {text && <button className="nex-clear" type="button" onClick={() => update("")} aria-label={copy.draftClear}><Trash2 size={15} aria-hidden="true" /></button>}
       </div>
-      <label className="nex-sr-only" htmlFor="nex-local-note">{copy.draftPlaceholder}</label>
-      <textarea ref={inputRef} id="nex-local-note" hidden={submitted} dir="auto" value={text} onChange={(event) => update(event.target.value)} onKeyDown={(event) => {
-        if (event.key !== "Enter" || event.shiftKey || event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) return;
-        event.preventDefault();
-        if (!text.trim()) return;
-        update(text, true);
-        requestAnimationFrame(() => editRef.current?.focus({ preventScroll: true }));
-      }} placeholder={copy.draftPlaceholder} maxLength={NEX_NOTE_LIMIT} rows={2} disabled={!ready} aria-describedby="nex-draft-privacy nex-draft-status" spellCheck={false} />
-      {submitted && <div className="nex-submitted-note"><p dir="auto">{text}</p><button ref={editRef} className="nex-edit-note" type="button" onClick={() => {
-        update(text);
-        requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
-      }}><Pencil size={13} aria-hidden="true" />{fa ? "ویرایش یادداشت" : "Edit note"}</button></div>}
+      <div className="nex-draft-editor">
+        <label className="nex-sr-only" htmlFor="nex-local-note">{copy.draftPlaceholder}</label>
+        <textarea ref={inputRef} id="nex-local-note" hidden={submitted} dir="auto" value={text} onChange={(event) => update(event.target.value)} onKeyDown={(event) => {
+          if (event.key !== "Enter" || event.shiftKey || event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) return;
+          event.preventDefault();
+          if (!text.trim()) return;
+          update(text, true);
+          requestAnimationFrame(() => editRef.current?.focus({ preventScroll: true }));
+        }} placeholder={copy.draftPlaceholder} maxLength={NEX_NOTE_LIMIT} rows={2} disabled={!ready} aria-describedby="nex-draft-privacy nex-draft-status" spellCheck={false} />
+        {submitted && <div className="nex-submitted-note"><p dir="auto" tabIndex={0} role="region" aria-label={fa ? "یادداشت ثبت‌شده" : "Captured note"}>{text}</p><button ref={editRef} className="nex-edit-note" type="button" onClick={() => {
+          update(text);
+          requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+        }}><Pencil size={13} aria-hidden="true" />{fa ? "ویرایش یادداشت" : "Edit note"}</button></div>}
+        {!submitted && <p className="nex-draft-help nex-fine-print">{fa ? "Enter برای ثبت · Shift+Enter برای خط جدید" : "Enter to capture · Shift+Enter for a new line"}</p>}
+      </div>
       <p id="nex-draft-status" className="nex-draft-status" role="status">
         {text ? <><Check size={13} aria-hidden="true" />{submitted ? (fa ? "ثبت شد. " : "Captured. ") : ""}{persistent ? copy.draftSaved : copy.draftSession}</> : copy.draftHint}
       </p>
-      {!submitted && <p className="nex-fine-print">{fa ? "Enter برای ثبت · Shift+Enter برای خط جدید" : "Enter to capture · Shift+Enter for a new line"}</p>}
       <p id="nex-draft-privacy" className="nex-fine-print">{copy.draftPrivacy}</p>
       <noscript><p className="nex-fine-print">{copy.noJs}</p></noscript>
     </article>

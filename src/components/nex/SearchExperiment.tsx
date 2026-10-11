@@ -17,7 +17,7 @@ export default function SearchExperiment({ lang }: { lang: Lang }) {
     <div className="nex-search-result" data-match={matched}>
       <span dir={lang === "fa" ? "rtl" : "ltr"} lang={lang}>{e.searchSample}</span>{matched ? <Check size={16} aria-hidden="true" /> : <ArrowDownLeft size={16} aria-hidden="true" />}
     </div>
-    {query ? <p className="nex-search-status" role="status">{matched ? e.searchFound : e.searchEmpty}</p> : <button className="nex-search-example" type="button" disabled={!ready} onClick={() => setQuery(e.searchExample)}>{lang === "fa" ? "امتحان کن:" : "Try:"} <bdi lang={lang}>{e.searchExample}</bdi><ArrowDownLeft size={13} aria-hidden="true" /></button>}
+    <div className="nex-search-feedback">{query ? <p className="nex-search-status" role="status">{matched ? e.searchFound : e.searchEmpty}</p> : <button className="nex-search-example" type="button" disabled={!ready} onClick={() => setQuery(e.searchExample)}>{lang === "fa" ? "امتحان کن:" : "Try:"} <bdi lang={lang}>{e.searchExample}</bdi><ArrowDownLeft size={13} aria-hidden="true" /></button>}</div>
     <p className="nex-fine-print">{e.searchDemo}</p>
   </div>;
 }
