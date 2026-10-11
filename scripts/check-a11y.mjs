@@ -217,21 +217,47 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         await page.waitForTimeout(40);
 
         if (isNex) {
+          if (await page.locator(".nex-store-links button:disabled").count() !== 5) throw new Error("Nex must show five coming-soon stores");
+          const logosLoaded = await page.locator(".nex-store-links img").evaluateAll((images) => images.every((img) => img.complete && img.naturalWidth > 0));
+          if (!logosLoaded) throw new Error("Nex store logos did not load");
           await page.locator('input[name="nex-capture-mode"][value="voice"]').focus();
           await page.locator('input[name="nex-capture-mode"][value="voice"]').press("Space");
           if (await page.locator(".nex-universe").getAttribute("data-mode") !== "voice") throw new Error("Nex capture mode did not switch");
-          await page.locator("#nex-search-demo").fill("كافه 12");
-          if (await page.locator(".nex-search-result").getAttribute("data-match") !== "true") throw new Error("Nex Persian search example failed");
+          await page.locator("#nex-search-demo").fill(route.urlPath.startsWith("/en") ? "coffee 12" : "كافه 12");
+          if (await page.locator(".nex-search-result").getAttribute("data-match") !== "true") throw new Error("Nex locale search example failed");
           await page.locator("#nex-search-demo").fill("");
           await page.locator("#nex-local-note").fill("A browser-only Nex thought");
           await page.reload({ waitUntil: "networkidle" });
           if (await page.locator("#nex-local-note").inputValue() !== "A browser-only Nex thought") throw new Error("Nex local note did not persist");
+          await page.locator("#nex-local-note").press("Control+End");
+          await page.locator("#nex-local-note").press("Shift+Enter");
+          await page.locator("#nex-local-note").press("Enter");
+          if (!(await page.locator(".nex-submitted-note").isVisible())) throw new Error("Nex Enter capture failed");
+          await page.reload({ waitUntil: "networkidle" });
+          if (!(await page.locator(".nex-submitted-note").isVisible())) throw new Error("Nex captured card did not persist");
+          await page.locator(".nex-edit-note").click();
+          if (await page.locator("#nex-local-note").inputValue() !== "A browser-only Nex thought\n") throw new Error("Nex multiline note did not survive capture/edit");
           await page.locator(".nex-clear").click();
+          await page.locator(".nex-vault summary").scrollIntoViewIfNeeded();
+          const beforeVault = await page.locator("#nex-first-day").evaluate((el) => el.getBoundingClientRect().top + globalThis.scrollY);
           await page.locator(".nex-vault summary").click();
           if (!(await page.locator(".nex-vault").evaluate((el) => el.open))) throw new Error("Nex vault disclosure did not open");
+          const afterVault = await page.locator("#nex-first-day").evaluate((el) => el.getBoundingClientRect().top + globalThis.scrollY);
+          if (Math.abs(beforeVault - afterVault) > 1) throw new Error("Nex vault displaced the timeline below it");
+          await page.locator(".nex-vault summary").click();
+          const afterClose = await page.locator("#nex-first-day").evaluate((el) => el.getBoundingClientRect().top + globalThis.scrollY);
+          if (Math.abs(beforeVault - afterClose) > 1) throw new Error("Nex vault close displaced the timeline");
+          await page.locator(".nex-ai-switch").focus();
+          await page.locator(".nex-ai-switch").press("Space");
+          if (await page.locator(".nex-ai-switch").getAttribute("aria-checked") !== "true" || await page.locator(".nex-ai-connections li").count() !== 3) throw new Error("Nex AI demo did not connect the example thought");
+          const thought = await page.locator(".nex-ai-seed").textContent();
+          await page.locator(".nex-ai-next").click();
+          if (await page.locator(".nex-ai-seed").textContent() === thought) throw new Error("Nex AI next example did not change");
+          await page.locator('.nex-footer a[href="#nex-top"]').click();
+          await page.waitForFunction(() => globalThis.scrollY <= 1);
           const layout = await page.evaluate(() => {
             const width = globalThis.innerWidth;
-            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro")];
+            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-store, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro")];
             return elements.filter((el) => {
               const box = el.getBoundingClientRect();
               return box.left < -1 || box.right > width + 1;
@@ -267,6 +293,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.goto(`${origin}${route.urlPath}`, { waitUntil: "networkidle" });
           if (!(await page.locator("#nex-hero-title").isVisible()) || !(await page.locator(".nex-origin-copy").isVisible())) throw new Error("Nex static content is missing");
           if (!(await page.locator("#nex-local-note").isDisabled())) throw new Error("Nex no-JS demo must clearly be disabled");
+          if (!(await page.locator(".nex-ai-switch").isDisabled())) throw new Error("Nex no-JS AI demo must clearly be disabled");
           await page.locator(".nex-vault summary").click();
           if (!(await page.locator(".nex-vault > p").isVisible())) throw new Error("Nex native disclosure failed without JavaScript");
           await context.close();

@@ -2,8 +2,11 @@ import type { Lang } from "./i18n";
 
 /** Replace only when the owner supplies the real store destinations. */
 export const NEX_STORES = {
-  bazaar: { href: "#", todo: "TODO: Cafe Bazaar app URL" },
-  myket: { href: "#", todo: "TODO: Myket app URL" },
+  bazaar: { href: "#", logo: "/images/nex/stores/bazaar.png", todo: "TODO: Cafe Bazaar app URL" },
+  myket: { href: "#", logo: "/images/nex/stores/myket.png", todo: "TODO: Myket app URL" },
+  googlePlay: { href: "#", logo: "/images/nex/stores/googleplay.svg", todo: "TODO: Google Play app URL" },
+  appStore: { href: "#", logo: "/images/nex/stores/appstore.svg", todo: "TODO: App Store app URL" },
+  microsoftStore: { href: "#", logo: "/images/nex/stores/microsoftstore.svg", todo: "TODO: Microsoft Store app URL" },
 };
 
 export const NEX_SCREENSHOT = {
@@ -32,6 +35,10 @@ export const NEX_COPY = {
     android: "اندروید ۷ و بالاتر",
     bazaar: "کافه‌بازار",
     myket: "مایکت",
+    googlePlay: "گوگل‌پلی",
+    appStore: "اپ‌استور",
+    microsoftStore: "مایکروسافت استور",
+    storeSoon: "به‌زودی",
     storePending: "لینک دریافت به‌زودی اضافه می‌شود.",
     today: "امروز",
     todayAside: "از یک فکر شروع می‌شود",
@@ -94,6 +101,10 @@ export const NEX_COPY = {
     android: "Android 7.0 and later",
     bazaar: "Cafe Bazaar",
     myket: "Myket",
+    googlePlay: "Google Play",
+    appStore: "App Store",
+    microsoftStore: "Microsoft Store",
+    storeSoon: "Coming soon",
     storePending: "Download links will be added soon.",
     today: "Today",
     todayAside: "It starts with a thought",

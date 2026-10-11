@@ -15,9 +15,9 @@ export default function SearchExperiment({ lang }: { lang: Lang }) {
     <label htmlFor="nex-search-demo" className="nex-sr-only">{e.searchLabel}</label>
     <div className="nex-search-field"><Search size={18} aria-hidden="true" /><input id="nex-search-demo" type="search" value={query} onChange={(event) => setQuery(event.target.value)} disabled={!ready} placeholder={e.searchPlaceholder} dir="auto" maxLength={100} /></div>
     <div className="nex-search-result" data-match={matched}>
-      <span dir="rtl" lang="fa">{e.searchSample}</span>{matched ? <Check size={16} aria-hidden="true" /> : <ArrowDownLeft size={16} aria-hidden="true" />}
+      <span dir={lang === "fa" ? "rtl" : "ltr"} lang={lang}>{e.searchSample}</span>{matched ? <Check size={16} aria-hidden="true" /> : <ArrowDownLeft size={16} aria-hidden="true" />}
     </div>
-    {query ? <p className="nex-search-status" role="status">{matched ? e.searchFound : e.searchEmpty}</p> : <button className="nex-search-example" type="button" disabled={!ready} onClick={() => setQuery(e.searchExample)}>{lang === "fa" ? "امتحان کن:" : "Try:"} <bdi lang="fa">{e.searchExample}</bdi><ArrowDownLeft size={13} aria-hidden="true" /></button>}
+    {query ? <p className="nex-search-status" role="status">{matched ? e.searchFound : e.searchEmpty}</p> : <button className="nex-search-example" type="button" disabled={!ready} onClick={() => setQuery(e.searchExample)}>{lang === "fa" ? "امتحان کن:" : "Try:"} <bdi lang={lang}>{e.searchExample}</bdi><ArrowDownLeft size={13} aria-hidden="true" /></button>}
     <p className="nex-fine-print">{e.searchDemo}</p>
   </div>;
 }
