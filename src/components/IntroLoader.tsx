@@ -47,7 +47,8 @@ const PULSES = [
   [5, 2],
 ] as const;
 
-const INTRO_MS = 3500;
+// Keep the custom intro, but shorten the wait after the native Android splash.
+const INTRO_MS = 2800;
 
 export default function IntroLoader() {
   const { t } = useApp();
