@@ -149,6 +149,27 @@ describe("route SEO meta (both locales)", () => {
     }
   });
 
+  it("renders all launch pages without portfolio header, footer, or padding", () => {
+    const launches = ["nex", "nexahr", "nexachatai", "nexaslider"];
+    for (const slug of launches) {
+      for (const prefix of ["", "/en"]) {
+        cleanup();
+        window.history.replaceState(null, "", `${prefix}/${slug}/`);
+        const { container } = render(<App />);
+        expect(container.querySelector(".product-launch")).toBeTruthy();
+        expect(container.querySelector("header.nav-bar")).toBeNull();
+        expect(container.querySelector("footer.bg-footer")).toBeNull();
+        expect(container.querySelector("main#main")?.className).not.toContain("pt-[68px]");
+      }
+    }
+
+    cleanup();
+    window.history.replaceState(null, "", "/about");
+    const { container } = render(<App />);
+    expect(container.querySelector("header.nav-bar")).toBeTruthy();
+    expect(container.querySelector("footer.bg-footer")).toBeTruthy();
+  });
+
   it("listPrerenderPaths covers both locales for static + project + article routes, excludes drafts", () => {
     const paths = listPrerenderPaths();
     for (const p of ["/", "/en", "/privacy", "/en/privacy", "/terms", "/en/terms", "/articles", "/en/articles"]) {
