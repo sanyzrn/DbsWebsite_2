@@ -13,9 +13,17 @@ import { PageTransition } from "./components/PageTransition";
 import NotFoundPage from "./pages/NotFoundPage";
 import { routesFromManifest } from "./lib/routesFromManifest";
 import { cn } from "./utils/cn";
+import { isLaunchSlug } from "./lib/launches";
+import { stripLangPrefix } from "./lib/paths";
 
 function isHomePath(pathname: string) {
   return pathname === "/" || pathname === "/en" || pathname === "/en/";
+}
+
+/** Product launch pages have their own full-screen shell, not the portfolio chrome. */
+function isProductLandingPath(pathname: string): boolean {
+  const slug = stripLangPrefix(pathname).replace(/^\/+|\/+$/g, "");
+  return isLaunchSlug(slug);
 }
 
 /**
@@ -58,6 +66,18 @@ function PageLoadingFallback() {
 function Layout() {
   const { t } = useApp();
   const { pathname } = useLocation();
+
+  if (isProductLandingPath(pathname)) {
+    return (
+      <div className="min-h-screen font-sans">
+        <a href="#main" className="skip-link">
+          {t.a11y.skip}
+        </a>
+        <main id="main"><Outlet /></main>
+      </div>
+    );
+  }
+
   // Hero clears the fixed nav itself; every other route starts below it.
   const clearFixedNav = !isHomePath(pathname);
 
