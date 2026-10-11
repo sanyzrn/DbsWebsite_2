@@ -1730,15 +1730,15 @@ html[lang="fa"] .discipline h3 {
 /*  Intro — design → engineering → intelligence, then into register    */
 /*  Shown only when the pre-paint script sets html.intro-play (first   */
 /*  visit this session, motion allowed). Timeline in ms:               */
-/*    0–850 design · 850–1700 engineering · 1700–2500 intelligence ·   */
-/*    2500–2950 register · 2950–3400 sheet wipes away                  */
+/*    0–680 design · 680–1360 engineering · 1360–2000 intelligence ·   */
+/*    2000–2360 register · 2360–2720 sheet wipes away                  */
 /* ------------------------------------------------------------------ */
 
 .intro {
   display: none;
 }
 html.intro-play {
-  --intro-delay: 3050ms;
+  --intro-delay: 2440ms;
 }
 html.intro-skip {
   --intro-delay: 0ms;
@@ -1752,10 +1752,10 @@ html.intro-play .intro {
   justify-content: center;
   padding: 24px;
   background: var(--page);
-  animation: intro-exit 450ms var(--ease-inout) 2950ms both;
+  animation: intro-exit 360ms var(--ease-inout) 2360ms both;
 }
 html.intro-skip .intro {
-  animation: intro-exit 260ms ease both;
+  animation: intro-exit 208ms ease both;
 }
 html.intro-done .intro {
   display: none;
@@ -1798,7 +1798,7 @@ html.intro-done .intro {
 .intro-crop {
   stroke: var(--ink3);
   stroke-width: 1;
-  animation: intro-fade 350ms ease 0ms both;
+  animation: intro-fade 280ms ease 0ms both;
 }
 .intro-handle {
   stroke: var(--accent);
@@ -1806,11 +1806,11 @@ html.intro-done .intro {
   stroke-dasharray: 120;
   stroke-dashoffset: 120;
   animation:
-    intro-draw 400ms var(--ease-out) 150ms both,
-    intro-out 300ms ease 1150ms forwards;
+    intro-draw 320ms var(--ease-out) 120ms both,
+    intro-out 240ms ease 920ms forwards;
 }
 .intro-handle-b {
-  animation-delay: 420ms, 1150ms;
+  animation-delay: 336ms, 920ms;
 }
 .intro-knob {
   fill: var(--page);
@@ -1819,11 +1819,11 @@ html.intro-done .intro {
   transform-box: fill-box;
   transform-origin: center;
   animation:
-    intro-pop 300ms var(--ease-out) 380ms both,
-    intro-out 300ms ease 1150ms forwards;
+    intro-pop 240ms var(--ease-out) 304ms both,
+    intro-out 240ms ease 920ms forwards;
 }
 .intro-knob-b {
-  animation-delay: 640ms, 1150ms;
+  animation-delay: 512ms, 920ms;
 }
 .intro-curve {
   stroke: var(--ink);
@@ -1832,8 +1832,8 @@ html.intro-done .intro {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation:
-    intro-draw 650ms var(--ease-inout) 200ms both,
-    intro-blueprint 400ms ease 1100ms forwards;
+    intro-draw 520ms var(--ease-inout) 160ms both,
+    intro-blueprint 320ms ease 880ms forwards;
 }
 .intro-anchor {
   fill: var(--page);
@@ -1842,11 +1842,11 @@ html.intro-done .intro {
   transform-box: fill-box;
   transform-origin: center;
   animation:
-    intro-pop 280ms var(--ease-out) 240ms both,
-    intro-out 300ms ease 1150ms forwards;
+    intro-pop 224ms var(--ease-out) 192ms both,
+    intro-out 240ms ease 920ms forwards;
 }
 .intro-anchor-b {
-  animation-delay: 800ms, 1150ms;
+  animation-delay: 640ms, 920ms;
 }
 
 /* Act 2 — engineering -------------------------------------------------- */
@@ -1858,13 +1858,13 @@ html.intro-done .intro {
 .intro-grid {
   transform-box: view-box;
   transform-origin: 120px 100px;
-  animation: intro-grid 450ms var(--ease-out) 850ms both;
+  animation: intro-grid 360ms var(--ease-out) 680ms both;
 }
 .intro-brace {
   font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
   font-size: 34px;
   fill: var(--ink3);
-  animation: intro-fade 350ms ease 1000ms both;
+  animation: intro-fade 280ms ease 800ms both;
 }
 .intro-brace-l {
   animation-name: intro-brace-l;
@@ -1878,15 +1878,15 @@ html.intro-done .intro {
   stroke-width: 1.4;
   transform-box: fill-box;
   transform-origin: center;
-  animation: intro-pop 260ms var(--ease-out) both;
+  animation: intro-pop 208ms var(--ease-out) both;
 }
-.intro-sample-0 { animation-delay: 950ms; }
-.intro-sample-1 { animation-delay: 1010ms; }
-.intro-sample-2 { animation-delay: 1070ms; }
-.intro-sample-3 { animation-delay: 1130ms; }
-.intro-sample-4 { animation-delay: 1190ms; }
-.intro-sample-5 { animation-delay: 1250ms; }
-.intro-sample-6 { animation-delay: 1310ms; }
+.intro-sample-0 { animation-delay: 760ms; }
+.intro-sample-1 { animation-delay: 808ms; }
+.intro-sample-2 { animation-delay: 856ms; }
+.intro-sample-3 { animation-delay: 904ms; }
+.intro-sample-4 { animation-delay: 952ms; }
+.intro-sample-5 { animation-delay: 1000ms; }
+.intro-sample-6 { animation-delay: 1048ms; }
 
 /* Act 3 — intelligence ------------------------------------------------- */
 .intro-edges line {
@@ -1894,7 +1894,7 @@ html.intro-done .intro {
   stroke-width: 0.8;
 }
 .intro-edges {
-  animation: intro-fade 400ms ease 1700ms both;
+  animation: intro-fade 320ms ease 1360ms both;
 }
 .intro-node {
   fill: var(--surface2);
@@ -1902,16 +1902,16 @@ html.intro-done .intro {
   stroke-width: 1.2;
   transform-box: fill-box;
   transform-origin: center;
-  animation: intro-pop 280ms var(--ease-out) both;
+  animation: intro-pop 224ms var(--ease-out) both;
 }
-.intro-node-0 { animation-delay: 1800ms; }
-.intro-node-1 { animation-delay: 1860ms; }
-.intro-node-2 { animation-delay: 1920ms; }
+.intro-node-0 { animation-delay: 1440ms; }
+.intro-node-1 { animation-delay: 1488ms; }
+.intro-node-2 { animation-delay: 1536ms; }
 .intro-out {
   fill: var(--accent);
   transform-box: fill-box;
   transform-origin: center;
-  animation: intro-glow 500ms var(--ease-out) 2250ms both;
+  animation: intro-glow 400ms var(--ease-out) 1800ms both;
 }
 .intro-pulse {
   stroke: var(--accent);
@@ -1920,29 +1920,29 @@ html.intro-done .intro {
   stroke-dasharray: 0.08 1;
   stroke-dashoffset: 0.08;
   opacity: 0;
-  animation: intro-pulse 520ms var(--ease-inout) both;
+  animation: intro-pulse 416ms var(--ease-inout) both;
 }
-.intro-pulse-0 { animation-delay: 1980ms; }
-.intro-pulse-1 { animation-delay: 2040ms; }
-.intro-pulse-2 { animation-delay: 2100ms; }
+.intro-pulse-0 { animation-delay: 1584ms; }
+.intro-pulse-1 { animation-delay: 1632ms; }
+.intro-pulse-2 { animation-delay: 1680ms; }
 
 /* Finale — collapse into the registration mark ------------------------- */
 .intro-sheet {
   transform-box: view-box;
   transform-origin: 120px 100px;
-  animation: intro-collapse 300ms var(--ease-inout) 2500ms forwards;
+  animation: intro-collapse 240ms var(--ease-inout) 2000ms forwards;
 }
 .intro-grid {
   animation:
-    intro-grid 450ms var(--ease-out) 850ms both,
-    intro-collapse 300ms var(--ease-inout) 2500ms forwards;
+    intro-grid 360ms var(--ease-out) 680ms both,
+    intro-collapse 240ms var(--ease-inout) 2000ms forwards;
 }
 .intro-ring {
   fill: none;
   stroke-width: 2.4;
   mix-blend-mode: var(--plate-blend);
   opacity: 0;
-  animation: intro-ring 450ms var(--ease-out) 2560ms both;
+  animation: intro-ring 360ms var(--ease-out) 2048ms both;
 }
 .intro-ring-c { stroke: var(--plate-c); --rx: -9px; --ry: -5px; }
 .intro-ring-m { stroke: var(--plate-m); --rx: 8px; --ry: 4px; }
@@ -1952,18 +1952,18 @@ html.intro-done .intro {
   stroke-width: 1.4;
   --rx: 0px;
   --ry: 0px;
-  animation: intro-fade 250ms ease 2800ms both;
+  animation: intro-fade 200ms ease 2240ms both;
 }
 .intro-reg-dot {
   fill: var(--ink);
   transform-box: fill-box;
   transform-origin: center;
-  animation: intro-pop 250ms var(--ease-out) 2780ms both;
+  animation: intro-pop 200ms var(--ease-out) 2224ms both;
 }
 .intro-reg-cross {
   stroke: var(--ink);
   stroke-width: 1.4;
-  animation: intro-fade 250ms ease 2780ms both;
+  animation: intro-fade 200ms ease 2224ms both;
 }
 
 /* Words — one manifesto line per act ----------------------------------- */
@@ -1988,12 +1988,12 @@ html[lang="fa"] .intro-lines {
   color: var(--ink);
   opacity: 0;
   animation:
-    intro-line-in 420ms var(--ease-out) both,
-    intro-line-dim 300ms ease forwards;
+    intro-line-in 336ms var(--ease-out) both,
+    intro-line-dim 240ms ease forwards;
 }
-.intro-line-0 { animation-delay: 100ms, 900ms; }
-.intro-line-1 { animation-delay: 900ms, 1750ms; }
-.intro-line-2 { animation-delay: 1750ms, 99s; }
+.intro-line-0 { animation-delay: 80ms, 720ms; }
+.intro-line-1 { animation-delay: 720ms, 1400ms; }
+.intro-line-2 { animation-delay: 1400ms, 99s; }
 
 /* Print-control strip as the progress bar ------------------------------ */
 .intro-bar {
@@ -2004,18 +2004,18 @@ html[lang="fa"] .intro-lines {
   width: 14px;
   height: 10px;
   opacity: 0.12;
-  animation: intro-bar 180ms ease both;
+  animation: intro-bar 144ms ease both;
 }
 .intro-bar-0 { background: var(--plate-c); animation-delay: 0ms !important; }
-.intro-bar-1 { background: var(--plate-m); animation-delay: 290ms !important; }
-.intro-bar-2 { background: var(--plate-y); animation-delay: 580ms !important; }
-.intro-bar-3 { background: var(--ink); animation-delay: 870ms !important; }
-.intro-bar-4 { background: var(--accent); animation-delay: 1160ms !important; }
-.intro-bar-5 { background: color-mix(in srgb, var(--ink) 80%, var(--page)); animation-delay: 1450ms !important; }
-.intro-bar-6 { background: color-mix(in srgb, var(--ink) 60%, var(--page)); animation-delay: 1740ms !important; }
-.intro-bar-7 { background: color-mix(in srgb, var(--ink) 40%, var(--page)); animation-delay: 2030ms !important; }
-.intro-bar-8 { background: color-mix(in srgb, var(--ink) 20%, var(--page)); animation-delay: 2320ms !important; }
-.intro-bar-9 { background: color-mix(in srgb, var(--ink) 8%, var(--page)); animation-delay: 2610ms !important; }
+.intro-bar-1 { background: var(--plate-m); animation-delay: 232ms !important; }
+.intro-bar-2 { background: var(--plate-y); animation-delay: 464ms !important; }
+.intro-bar-3 { background: var(--ink); animation-delay: 696ms !important; }
+.intro-bar-4 { background: var(--accent); animation-delay: 928ms !important; }
+.intro-bar-5 { background: color-mix(in srgb, var(--ink) 80%, var(--page)); animation-delay: 1160ms !important; }
+.intro-bar-6 { background: color-mix(in srgb, var(--ink) 60%, var(--page)); animation-delay: 1392ms !important; }
+.intro-bar-7 { background: color-mix(in srgb, var(--ink) 40%, var(--page)); animation-delay: 1624ms !important; }
+.intro-bar-8 { background: color-mix(in srgb, var(--ink) 20%, var(--page)); animation-delay: 1856ms !important; }
+.intro-bar-9 { background: color-mix(in srgb, var(--ink) 8%, var(--page)); animation-delay: 2088ms !important; }
 
 /* Keyframes ------------------------------------------------------------ */
 @keyframes intro-fade {
