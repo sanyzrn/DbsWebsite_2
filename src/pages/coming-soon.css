@@ -1,0 +1,275 @@
+/*
+ * Product launch interludes. Dark editorial canvas, four independent kinetic
+ * signatures, almost no chrome. CSS-only animation so prerendered HTML is real.
+ */
+.product-launch {
+  --launch-accent: #79bdff;
+  --launch-ink: #f1f3f7;
+  --launch-muted: #a2a9b8;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: max(660px, calc(100svh - 76px));
+  color: var(--launch-ink);
+  background: #0d1118;
+  font-family: var(--font-text);
+}
+.product-launch--nexahr { --launch-accent: #79dfb9; background: #101613; }
+.product-launch--nexachatai { --launch-accent: #b7a0ff; background: #120f19; }
+.product-launch--nexaslider { --launch-accent: #efb985; background: #17120f; }
+
+.product-launch__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .5;
+  background-image:
+    linear-gradient(90deg, transparent calc(50% - .5px), rgb(255 255 255 / .035) 50%, transparent calc(50% + .5px)),
+    repeating-linear-gradient(90deg, transparent 0 139px, rgb(255 255 255 / .025) 139px 140px);
+  mask-image: linear-gradient(90deg, transparent, black 30%, black 85%, transparent);
+}
+.product-launch__wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 1500px;
+  min-height: inherit;
+  margin-inline: auto;
+  padding: clamp(28px, 3.8vw, 64px) clamp(24px, 5vw, 92px) 30px;
+}
+.product-launch__masthead,
+.product-launch__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: var(--launch-muted);
+}
+.product-launch__signature {
+  font-family: "Archivo Variable", sans-serif;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  font-size: 18px;
+  color: var(--launch-ink);
+}
+.product-launch__signature-mark { color: var(--launch-accent); padding-inline: 2px; }
+.product-launch__edition { font-family: "Archivo Variable", sans-serif; font-size: 10px; letter-spacing: .16em; }
+.product-launch__hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-height: 525px;
+}
+.product-launch__copy {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 680px);
+  padding-block: 105px 90px;
+  animation: launch-copy-in 1000ms cubic-bezier(.16,1,.3,1) both;
+}
+.product-launch__status {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 12px;
+  color: var(--launch-accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+.product-launch__status-light {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background: var(--launch-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--launch-accent) 13%, transparent);
+  animation: launch-blink 2.7s ease-in-out infinite;
+}
+.product-launch__status-line { width: 31px; height: 1px; background: currentColor; opacity: .4; }
+.product-launch__name {
+  margin-block: 30px 21px;
+  width: fit-content;
+  max-width: 100%;
+  font-family: "Archivo Variable", var(--font-display), sans-serif;
+  font-size: clamp(76px, 10vw, 160px);
+  line-height: .94;
+  font-weight: 780;
+  letter-spacing: -.075em;
+  text-wrap: nowrap;
+  color: var(--launch-ink);
+}
+.product-launch--nexachatai .product-launch__name,
+.product-launch--nexaslider .product-launch__name { font-size: clamp(62px, 8vw, 120px); }
+.product-launch__tagline {
+  max-width: 32ch;
+  font-size: clamp(19px, 2.25vw, 27px);
+  line-height: 1.8;
+  font-weight: 550;
+  letter-spacing: -.015em;
+}
+.product-launch__note {
+  max-width: 47ch;
+  margin-top: 18px;
+  color: var(--launch-muted);
+  line-height: 1.95;
+  font-size: 14px;
+}
+.product-launch__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 38px;
+  color: var(--launch-ink);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color .3s ease;
+}
+.product-launch__back:hover { color: var(--launch-accent); }
+.product-launch__back:focus-visible { outline: 2px solid var(--launch-accent); outline-offset: 7px; }
+.product-launch__back-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid color-mix(in srgb, var(--launch-accent) 48%, transparent);
+  border-radius: 50%;
+  color: var(--launch-accent);
+  transition: transform .4s cubic-bezier(.16,1,.3,1), background .4s ease;
+}
+.product-launch__back:hover .product-launch__back-icon { transform: rotate(45deg); background: color-mix(in srgb, var(--launch-accent) 10%, transparent); }
+.product-launch__art {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 50%;
+  width: min(58vw, 680px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  opacity: .9;
+  pointer-events: none;
+}
+[dir="ltr"] .product-launch__art { left: auto; right: 0; }
+.product-launch__orbit,
+.product-launch__axis,
+.product-launch__core,
+.product-launch__locator { position: absolute; }
+.product-launch__orbit {
+  border: 1px solid color-mix(in srgb, var(--launch-accent) 27%, transparent);
+  border-radius: 50%;
+  inset: 10%;
+  animation: launch-revolve 26s linear infinite;
+}
+.product-launch__orbit::before {
+  content: "";
+  position: absolute;
+  top: 9%;
+  left: 16%;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background: var(--launch-accent);
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--launch-accent) 8%, transparent);
+}
+.product-launch__orbit--outer { inset: 0; border-style: dashed; border-color: color-mix(in srgb, var(--launch-accent) 16%, transparent); animation-duration: 65s; animation-direction: reverse; }
+.product-launch__orbit--middle { inset: 16%; border-color: color-mix(in srgb, var(--launch-accent) 36%, transparent); animation-duration: 27s; }
+.product-launch__orbit--inner { inset: 30%; border-style: dashed; border-color: color-mix(in srgb, var(--launch-accent) 30%, transparent); animation-duration: 18s; animation-direction: reverse; }
+.product-launch__axis--x { top: 50%; left: -8%; right: -8%; height: 1px; background: color-mix(in srgb, var(--launch-accent) 12%, transparent); }
+.product-launch__axis--y { top: -8%; bottom: -8%; left: 50%; width: 1px; background: color-mix(in srgb, var(--launch-accent) 12%, transparent); }
+.product-launch__core {
+  inset: 37%;
+  border-radius: 28%;
+  border: 1px solid color-mix(in srgb, var(--launch-accent) 38%, transparent);
+  background: color-mix(in srgb, var(--launch-accent) 6%, #0d1118);
+  animation: launch-breathe 6s ease-in-out infinite;
+}
+.product-launch__tile { position: absolute; display: block; border: 2px solid var(--launch-accent); border-radius: 5px; width: 30%; height: 30%; opacity: .85; }
+.product-launch__tile--1 { top: 17%; left: 17%; animation: launch-tile-1 5.5s ease-in-out infinite; }
+.product-launch__tile--2 { top: 17%; right: 17%; animation: launch-tile-2 5.5s ease-in-out infinite; }
+.product-launch__tile--3 { bottom: 17%; left: 17%; animation: launch-tile-2 5.5s ease-in-out infinite; }
+.product-launch__tile--4 { bottom: 17%; right: 17%; animation: launch-tile-1 5.5s ease-in-out infinite; }
+.product-launch__locator {
+  inset: 3%;
+  border-radius: 50%;
+  border-left: 2px solid var(--launch-accent);
+  border-top: 1px solid transparent;
+  animation: launch-revolve 11s linear infinite;
+}
+.product-launch__locator span {
+  position: absolute; top: 45%; left: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--launch-accent);
+}
+.product-launch__coordinates {
+  position: absolute; bottom: 7%; right: 0;
+  color: var(--launch-accent);
+  font-family: "Archivo Variable", sans-serif;
+  letter-spacing: .19em;
+  font-size: 10px;
+  opacity: .55;
+}
+.product-launch__foot { padding-top: 24px; border-top: 1px solid rgb(255 255 255 / .12); letter-spacing: .02em; }
+.product-launch__foot-rule { flex: 1; height: 1px; max-width: 145px; background: rgb(255 255 255 / .14); position: relative; overflow: hidden; }
+.product-launch__foot-rule i { width: 36px; height: 1px; display: block; background: var(--launch-accent); animation: launch-scan 4s ease-in-out infinite alternate; }
+
+/* NexaHR: the central symbol reorganizes into a connected team. */
+.product-launch--nexahr .product-launch__core { border-radius: 50%; }
+.product-launch--nexahr .product-launch__tile { width: 19%; height: 19%; border-radius: 50%; background: var(--launch-accent); border-width: 0; }
+.product-launch--nexahr .product-launch__tile--1 { top: 19%; left: 41%; }
+.product-launch--nexahr .product-launch__tile--2 { top: 61%; right: 15%; }
+.product-launch--nexahr .product-launch__tile--3 { bottom: 20%; left: 15%; }
+.product-launch--nexahr .product-launch__tile--4 { bottom: 37%; right: 40%; opacity: .24; }
+
+/* NexaChatAI: a conversational pulse, with three typing dots. */
+.product-launch--nexachatai .product-launch__core { border-radius: 47% 47% 47% 15%; transform: rotate(-8deg); }
+.product-launch--nexachatai .product-launch__tile { width: 11%; height: 11%; border-radius: 50%; border: 0; background: var(--launch-accent); }
+.product-launch--nexachatai .product-launch__tile--1 { top: 45%; left: 22%; }
+.product-launch--nexachatai .product-launch__tile--2 { top: 45%; right: 22%; }
+.product-launch--nexachatai .product-launch__tile--3 { bottom: 44%; left: 44%; }
+.product-launch--nexachatai .product-launch__tile--4 { opacity: 0; }
+
+/* Nexa Slider: the four plates slide past one another. */
+.product-launch--nexaslider .product-launch__core { inset: 36% 31%; border-radius: 12px; }
+.product-launch--nexaslider .product-launch__tile { width: 54%; height: 60%; border-radius: 6px; border-width: 1px; background: color-mix(in srgb, var(--launch-accent) 12%, #17120f); }
+.product-launch--nexaslider .product-launch__tile--1 { left: -20%; top: 20%; transform: rotate(-16deg); }
+.product-launch--nexaslider .product-launch__tile--2 { right: -20%; top: 20%; transform: rotate(16deg); }
+.product-launch--nexaslider .product-launch__tile--3 { left: 23%; bottom: 21%; }
+.product-launch--nexaslider .product-launch__tile--4 { left: 23%; top: 6%; opacity: .3; }
+
+@keyframes launch-revolve { to { transform: rotate(360deg); } }
+@keyframes launch-breathe { 50% { box-shadow: 0 0 0 32px color-mix(in srgb, var(--launch-accent) 4%, transparent); } }
+@keyframes launch-blink { 50% { opacity: .45; } }
+@keyframes launch-copy-in { from { opacity: 0; transform: translateY(23px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes launch-tile-1 { 50% { translate: 4px -3px; } }
+@keyframes launch-tile-2 { 50% { translate: -4px 3px; } }
+@keyframes launch-scan { to { transform: translateX(120px); } }
+
+@media (max-width: 850px) {
+  .product-launch { min-height: max(760px, calc(100svh - 68px)); }
+  .product-launch__wrap { padding-inline: 24px; }
+  .product-launch__hero { min-height: 650px; align-items: flex-end; }
+  .product-launch__art { top: 0; left: 50%; right: auto; width: min(78vw, 390px); transform: translateX(-50%); opacity: .75; }
+  [dir="ltr"] .product-launch__art { left: 50%; right: auto; }
+  .product-launch__copy { width: 100%; padding-block: 345px 58px; }
+  .product-launch__name { font-size: clamp(68px, 12vw, 102px); }
+  .product-launch--nexachatai .product-launch__name,
+  .product-launch--nexaslider .product-launch__name { font-size: clamp(50px, 9.5vw, 83px); }
+  .product-launch__foot { font-size: 10px; }
+}
+@media (max-width: 430px) {
+  .product-launch__art { top: 22px; width: min(80vw, 318px); }
+  .product-launch__copy { padding-top: 316px; }
+  .product-launch__name { font-size: clamp(67px, 13vw, 82px); }
+  .product-launch--nexachatai .product-launch__name,
+  .product-launch--nexaslider .product-launch__name { font-size: clamp(42px, 10vw, 58px); }
+  .product-launch__masthead { flex-wrap: wrap; }
+  .product-launch__status { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-launch *, .product-launch *::before, .product-launch *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
