@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowDownLeft, Check, Pencil, Trash2 } from "lucide-react";
 import type { Lang } from "../../lib/i18n";
 import { NEX_COPY, NEX_NOTE_KEY, NEX_NOTE_LIMIT } from "../../lib/nex";
+import { NEX_EXPERIENCE } from "../../lib/nexExperience";
+import PersonalConnections from "./PersonalConnections";
 
-export default function LocalNote({ lang }: { lang: Lang }) {
+export default function LocalNote({ lang, onCaptureChange }: { lang: Lang; onCaptureChange?: (text: string) => void }) {
   const copy = NEX_COPY[lang];
   const [text, setText] = useState("");
   const [ready, setReady] = useState(false);
@@ -12,6 +14,10 @@ export default function LocalNote({ lang }: { lang: Lang }) {
   const editRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const fa = lang === "fa";
+
+  useEffect(() => {
+    if (ready) onCaptureChange?.(submitted ? text : "");
+  }, [ready, submitted, text, onCaptureChange]);
 
   // Identical empty server/first client render, then restore optional local storage.
   useEffect(() => {
@@ -71,8 +77,9 @@ export default function LocalNote({ lang }: { lang: Lang }) {
         }}><Pencil size={13} aria-hidden="true" />{fa ? "ویرایش یادداشت" : "Edit note"}</button></div>}
         <p id="nex-draft-help" hidden={submitted} className="nex-draft-help nex-fine-print">{fa ? "Enter برای ثبت · Shift+Enter برای خط جدید" : "Enter to capture · Shift+Enter for a new line"}</p>
       </div>
+      <PersonalConnections lang={lang} connected={submitted} />
       <p id="nex-draft-status" className="nex-draft-status" role="status">
-        {text ? <><Check size={13} aria-hidden="true" />{submitted ? (fa ? "ثبت شد. " : "Captured. ") : ""}{persistent ? copy.draftSaved : copy.draftSession}</> : copy.draftHint}
+        {text ? <><Check size={13} aria-hidden="true" />{submitted ? `${NEX_EXPERIENCE[lang].thoughtConnected} ` : ""}{persistent ? copy.draftSaved : copy.draftSession}</> : copy.draftHint}
       </p>
       <p id="nex-draft-privacy" className="nex-fine-print">{copy.draftPrivacy}</p>
       <noscript><p className="nex-fine-print">{copy.noJs}</p></noscript>

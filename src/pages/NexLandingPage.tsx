@@ -10,6 +10,7 @@ import ThoughtStage from "../components/nex/ThoughtStage";
 import SearchExperiment from "../components/nex/SearchExperiment";
 import IntelligenceDemo from "../components/nex/IntelligenceDemo";
 import StoreLinks from "../components/nex/StoreLinks";
+import TimelineThread from "../components/nex/TimelineThread";
 import { useApp } from "../lib/app";
 import { NEX_COPY, NEX_SCREENSHOT } from "../lib/nex";
 import { NEX_EXPERIENCE } from "../lib/nexExperience";
@@ -42,6 +43,7 @@ export default function NexLandingPage() {
   const fa = lang === "fa";
   const [ready, setReady] = useState(false);
   const [activeDay, setActiveDay] = useState("nex-today");
+  const [personalThought, setPersonalThought] = useState("");
 
   useEffect(() => {
     const root = document.documentElement;
@@ -85,7 +87,7 @@ export default function NexLandingPage() {
             <a className="nex-enter" href="#nex-today"><span>{e.enter}</span><ArrowDownLeft size={22} aria-hidden="true" /></a>
             <p className="nex-hero-footnote">{e.heroFootnote}</p>
           </div>
-          <ThoughtStage lang={lang} />
+          <ThoughtStage lang={lang} personalThought={personalThought} />
           <div className="nex-scroll-cue"><span>{e.scrollCue}</span><ArrowDown size={15} aria-hidden="true" /></div>
         </section>
 
@@ -94,10 +96,10 @@ export default function NexLandingPage() {
             {[["nex-today", c.today], ["nex-yesterday", c.yesterday], ["nex-first-day", c.firstDay]].map(([id, title]) => <a href={`#${id}`} key={id} aria-current={activeDay === id ? "location" : undefined}><span className="nex-nav-dot" aria-hidden="true" /><span>{title}</span></a>)}
           </nav>
           <div className="nex-timeline">
+            <TimelineThread lang={lang} />
             <Day id="nex-today" title={c.today} aside={c.todayAside}>
               <div className="nex-chapter-intro"><h3><Lines text={e.todayHeadline} /></h3><p>{e.todayLead}</p></div>
               <div className="nex-day-notes">
-                <svg className="nex-timeline-thread" viewBox="0 0 1000 1150" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M300 0C300 140 750 120 750 260S200 320 200 510S750 520 750 700S240 770 240 920S800 1020 800 1150" /></svg>
                 <Card label={c.textLabel} icon={<FileText size={16} aria-hidden="true" />} time={fa ? "۱۰:۴۲" : "10:42"} className="nex-text-note">
                   <p className="nex-note-title">{c.intro}</p><p>{c.introText}</p><div className="nex-note-stamp" aria-hidden="true">nex / capture</div>
                 </Card>
@@ -109,7 +111,7 @@ export default function NexLandingPage() {
                   <p className="nex-note-title nex-note-title--small">{c.checklistTitle}</p>
                   <ul className="nex-checklist">{c.checklist.map((item, i) => <li key={item}>{i < 2 ? <Check className="nex-check-checked" size={17} aria-hidden="true" /> : <Circle size={17} aria-hidden="true" />}<span>{item}</span></li>)}</ul>
                 </Card>
-                <div className="nex-local-stage"><span className="nex-handwritten">{e.demoNoteHint}<ArrowDownLeft size={25} aria-hidden="true" /></span><LocalNote lang={lang} /></div>
+                <div className="nex-local-stage"><span className="nex-handwritten">{e.demoNoteHint}<ArrowDownLeft size={25} aria-hidden="true" /></span><LocalNote lang={lang} onCaptureChange={setPersonalThought} /></div>
                 <Card label={c.photoLabel} icon={<Image size={16} aria-hidden="true" />} time={fa ? "۱۰:۱۹" : "10:19"} className="nex-photo-note">
                   <p className="nex-note-title nex-note-title--small">{c.photoTitle}</p>
                   {NEX_SCREENSHOT.ready ? <img className="nex-screenshot" src={NEX_SCREENSHOT.src} width={NEX_SCREENSHOT.width} height={NEX_SCREENSHOT.height} loading="lazy" alt={c.screenshotAlt} /> : <div className="nex-photo-placeholder" data-todo="TODO: timeline-fa.webp, 1080 × 1920">

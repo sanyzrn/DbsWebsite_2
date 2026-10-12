@@ -259,8 +259,10 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.locator("#nex-local-note").press("Shift+Enter");
           await assertNexLayoutStable(page, "note capture", () => page.locator("#nex-local-note").press("Enter"));
           if (!(await page.locator(".nex-submitted-note").isVisible())) throw new Error("Nex Enter capture failed");
+          if (await page.locator(".nex-personal-network").getAttribute("data-connected") !== "true" || !(await page.locator(".nex-orbit-thought").textContent()).includes("A browser-only Nex thought")) throw new Error("Nex captured thought did not join its network and hero");
           await page.reload({ waitUntil: "networkidle" });
           if (!(await page.locator(".nex-submitted-note").isVisible())) throw new Error("Nex captured card did not persist");
+          if (await page.locator(".nex-universe").getAttribute("data-personal") !== "true") throw new Error("Nex personal world did not restore");
           await assertNexLayoutStable(page, "note editing", () => page.locator(".nex-edit-note").click());
           if (await page.locator("#nex-local-note").inputValue() !== "A browser-only Nex thought\n") throw new Error("Nex multiline note did not survive capture/edit");
           await assertNexLayoutStable(page, "multiline note typing", () => page.locator("#nex-local-note").fill("A longer thought\n".repeat(60)));
@@ -269,6 +271,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           if (!readable) throw new Error("Long captured notes must remain scrollable inside their card");
           await assertNexLayoutStable(page, "note deletion", () => page.locator(".nex-clear").click());
           if (!(await page.locator("#nex-local-note").evaluate((el) => el === globalThis.document.activeElement))) throw new Error("Nex note deletion lost keyboard focus");
+          if (await page.locator(".nex-universe").getAttribute("data-personal") !== "false" || await page.locator(".nex-personal-network").getAttribute("data-connected") !== "false") throw new Error("Nex deleted thought remained in the visual network");
           await page.locator(".nex-vault summary").scrollIntoViewIfNeeded();
           const beforeVault = await page.locator("#nex-first-day").evaluate((el) => el.getBoundingClientRect().top + globalThis.scrollY);
           await assertNexLayoutStable(page, "vault opening", () => page.locator(".nex-vault summary").click());
@@ -302,6 +305,26 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
             }).map((el) => el.className);
           });
           if (layout.length) throw new Error(`Nex layout overflows at ${viewport.width}px: ${layout.join(", ")}`);
+          await page.waitForFunction(() => globalThis.document.querySelector(".nex-timeline-thread")?.dataset.measured === "true");
+          if (await page.locator(".nex-timeline-thread").getAttribute("data-progress") !== "1.000") throw new Error("Nex reduced-motion timeline must be fully drawn");
+          await page.emulateMedia({ reducedMotion: "no-preference" });
+          await page.waitForFunction(() => Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress) === 0);
+          await page.evaluate(() => {
+            const el = globalThis.document.querySelector(".nex-timeline");
+            globalThis.scrollTo({ top: el.getBoundingClientRect().top + globalThis.scrollY + el.clientHeight * .4, behavior: "instant" });
+          });
+          await page.waitForFunction(() => {
+            const progress = Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress);
+            return progress > 0 && progress < 1;
+          });
+          await page.evaluate(() => globalThis.scrollTo({ top: 0, behavior: "instant" }));
+          await page.waitForFunction(() => Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress) === 0);
+          await page.locator(".nex-orbit-scene").scrollIntoViewIfNeeded();
+          const scene = await page.locator(".nex-orbit-scene").boundingBox();
+          await page.mouse.move(scene.x + scene.width * .9, scene.y + scene.height * .35);
+          await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") !== "");
+          await page.emulateMedia({ reducedMotion: "reduce" });
+          await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") === "");
         }
 
         // Load axe as a same-origin external script (CSP script-src 'self').

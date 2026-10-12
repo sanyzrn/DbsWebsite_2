@@ -17,6 +17,14 @@ Continuous CSS motion plays automatically, with no playback control, and follows
 - The blue palette is independent of portfolio accents. Theme control uses the existing theme preference; a system-theme CSS fallback also works without JavaScript.
 - SEO uses the existing `PageMeta` and prerender resolver, with reciprocal hreflang, a scoped 1200 × 630 OG asset and factual SoftwareApplication JSON-LD. No prices, ratings or invented store URLs. The owner requested all five stores as upcoming destinations; this supersedes the original Bazaar/Myket-only brief and is not a claim of current availability on the other platforms.
 
+## Living connections
+
+The hero octopus keeps the existing vector artwork. Its two eyes follow a fine pointer within the scene (one requestAnimationFrame at most), and its blue arm breathes. Selecting a native capture radio by keyboard or touch sends a blue reaching thread toward that card. Touch does not chase a pointer. Reduced motion disables gaze, rotation and drawing animation; its preference can change while the page is open.
+
+Capturing with Enter connects the personal note to a fixed-height, decorative network in its own card and replaces the hero's example text with a bounded two-line preview. The full note remains readable in its scrollable card. Editing/deleting restores the example and dormant network; a captured note restores across visits/locales. This is a visual connection, not AI analysis, automatic tagging, cloud sync or a request. The AI demonstration still never reads the personal note.
+
+`TimelineThread.tsx` measures actual card/chapter positions in layout coordinates, sorts them vertically and draws one monotonic SVG path through all three days. On narrow screens it becomes a vertical line at the correct RTL/LTR edge. A passive scroll listener changes only the line's dash offset and pen position, coalesced to one animation frame and suspended offscreen. Resize/font completion remeasures the path. Reduced motion shows the whole path; no-JS visitors get a static dotted guide. Observers, frames, media-query and window listeners are released on unmount.
+
 ## Remaining TODOs
 
 1. Supply each actual marketplace URL when that release is available: Cafe Bazaar, Myket, Google Play, App Store and Microsoft Store. Set the matching `NEX_STORES` href; only that destination becomes an active link. Keep the rest as `#` / Coming soon.
