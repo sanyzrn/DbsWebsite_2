@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
@@ -76,7 +76,12 @@ describe("Nex timeline and routing", () => {
       expect(src).toBe(NEX_STORES[id].logo);
       expect(fs.existsSync(`public${src}`)).toBe(true);
     }
-    expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(5);
+    expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(6);
+    expect(screen.getByRole("button", { name: `${c.apk} ${c.storeSoon}` })).toBeDisabled();
+    expect(document.querySelector(".nex-hero .nex-store-links")).toBeNull();
+    const downloads = document.querySelector("#nex-download")!;
+    expect(document.querySelector(".nex-chronicle")!.compareDocumentPosition(downloads) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(downloads.querySelectorAll(".nex-store")).toHaveLength(6);
     expect(screen.getByText(c.storePending)).toBeVisible();
     expect(screen.getByText(c.screenshot)).toBeVisible();
     expect(document.querySelector(".nex-screenshot")).toBeNull();
@@ -95,6 +100,21 @@ describe("Nex timeline and routing", () => {
 });
 
 describe("Nex browser-only note", () => {
+  it("keeps an overlong restored note editable when its retained text is whitespace", () => {
+    localStorage.setItem(NEX_NOTE_KEY, JSON.stringify({ text: " ".repeat(NEX_NOTE_LIMIT) + "A thought", submitted: true }));
+    open();
+    expect(screen.getByRole("textbox")).toHaveValue(" ".repeat(NEX_NOTE_LIMIT));
+    expect(document.querySelector(".nex-draft")).toHaveAttribute("data-submitted", "false");
+  });
+
+  it("returns keyboard focus to the editor after deleting a captured note", async () => {
+    const user = userEvent.setup();
+    open();
+    await user.type(screen.getByRole("textbox"), "My thought{enter}");
+    await user.click(screen.getByRole("button", { name: NEX_COPY.fa.draftClear }));
+    await waitFor(() => expect(screen.getByRole("textbox")).toHaveFocus());
+    expect(screen.getByRole("textbox")).toHaveAttribute("aria-describedby", "nex-draft-privacy nex-draft-status nex-draft-help");
+  });
   it("captures with Enter, preserves Shift+Enter, restores the card and allows editing/deletion", async () => {
     const user = userEvent.setup();
     open();
@@ -225,6 +245,7 @@ describe("Nex world interactions", () => {
     expect(document.querySelector(".nex-search-experiment")).not.toHaveTextContent("كافه");
     fireEvent.click(screen.getByRole("button", { name: /Try: coffee 12/ }));
     expect(screen.getByRole("searchbox")).toHaveValue("coffee 12");
+    expect(screen.getByRole("searchbox")).toHaveFocus();
     expect(document.querySelector(".nex-search-result")).toHaveAttribute("data-match", "true");
   });
 

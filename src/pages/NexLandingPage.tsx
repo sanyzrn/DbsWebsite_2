@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, FileText, Image, Link2, LockKeyhole, Mic, Moon, Pin, Plus, Repeat2, Sun } from "lucide-react";
+import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, Download, FileText, Image, Link2, LockKeyhole, Mic, Moon, Plus, Repeat2, Sun } from "lucide-react";
 import { PageMeta } from "../components/PageMeta";
 import LocalNote from "../components/nex/LocalNote";
 import NexIntro from "../components/nex/NexIntro";
@@ -69,7 +69,7 @@ export default function NexLandingPage() {
       <div className="nex-reading-progress" aria-hidden="true" />
       <div className="nex-shell">
         <header className="nex-masthead">
-          <a className="nex-brand" href="#nex-world" aria-label={c.pageLabel}><NexWordmark className="nex-wordmark" /></a>
+          <a className="nex-brand" href="#nex-top" aria-label={c.pageLabel}><NexWordmark className="nex-wordmark" /></a>
           <span className="nex-masthead-line">{e.eyebrow}</span>
           <div className="nex-tools">
             <Link to={fa ? "/en/nex/" : "/nex/"} lang={fa ? "en" : "fa"} aria-label={c.languageLabel}>{c.language}</Link>
@@ -84,11 +84,6 @@ export default function NexLandingPage() {
             <p className="nex-hero-description">{e.heroText}</p>
             <a className="nex-enter" href="#nex-today"><span>{e.enter}</span><ArrowDownLeft size={22} aria-hidden="true" /></a>
             <p className="nex-hero-footnote">{e.heroFootnote}</p>
-            <article id="nex-download" className="nex-pinned" aria-labelledby="nex-download-title">
-              <div className="nex-pin-label"><Pin size={14} aria-hidden="true" />{c.pinned}</div>
-              <h2 id="nex-download-title">{c.downloadTitle}</h2>
-              <StoreLinks lang={lang} />
-            </article>
           </div>
           <ThoughtStage lang={lang} />
           <div className="nex-scroll-cue"><span>{e.scrollCue}</span><ArrowDown size={15} aria-hidden="true" /></div>
@@ -145,10 +140,15 @@ export default function NexLandingPage() {
 
             <Day id="nex-first-day" title={c.firstDay} aside={c.firstDayAside}>
               <div className="nex-origin-world"><div className="nex-origin-art" aria-hidden="true"><NexWordmark className="nex-origin-word" /><NexMark className="nex-origin-mark" /></div><div className="nex-origin-copy"><h3 className="nex-chapter-title"><Lines text={e.firstDayHeadline} /></h3><p>{e.firstDayLead}</p><p className="nex-origin-tagline">{c.tagline}</p><a href={fa ? "/" : "/en"}>{c.maker}</a></div></div>
-              <a className="nex-final-cta" href="#nex-download"><span>{c.downloadText}</span><ArrowUp size={20} aria-hidden="true" /></a>
+              <a className="nex-final-cta" href="#nex-download"><span>{c.downloadText}</span><ArrowDown size={20} aria-hidden="true" /></a>
             </Day>
           </div>
         </div>
+        <section id="nex-download" className="nex-download" aria-labelledby="nex-download-title">
+          <div className="nex-download-label"><Download size={16} aria-hidden="true" />{c.downloadLabel}</div>
+          <h2 id="nex-download-title">{c.downloadTitle}</h2>
+          <StoreLinks lang={lang} />
+        </section>
         <footer className="nex-footer"><span className="nex-footer-brand" dir="ltr"><NexWordmark className="nex-footer-word" /> / DbsStudio</span><a href="#nex-top">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
       </div>
     </div>

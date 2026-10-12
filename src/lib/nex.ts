@@ -9,6 +9,9 @@ export const NEX_STORES = {
   microsoftStore: { href: "#", logo: "/images/nex/stores/microsoftstore.svg", todo: "TODO: Microsoft Store app URL" },
 };
 
+/** Set the owner-supplied APK URL when a public Android build is available. */
+export const NEX_APK = { href: "#", todo: "TODO: direct Nex APK download URL" };
+
 export const NEX_SCREENSHOT = {
   src: "/images/nex/timeline-fa.webp",
   width: 1080,
@@ -30,6 +33,8 @@ export const NEX_COPY = {
     languageLabel: "Read this page in English",
     themeLabel: "تغییر حالت روشن و تاریک",
     pinned: "سنجاق‌شده",
+    downloadLabel: "دریافت نکس",
+    apk: "دانلود مستقیم APK",
     downloadTitle: "جای فکر بعدی‌ات، همین‌جاست.",
     downloadText: "نکس را به گوشی‌ات اضافه کن.",
     android: "اندروید ۷ و بالاتر",
@@ -96,6 +101,8 @@ export const NEX_COPY = {
     languageLabel: "خواندن این صفحه به فارسی",
     themeLabel: "Switch between light and dark mode",
     pinned: "Pinned",
+    downloadLabel: "Get Nex",
+    apk: "Direct APK download",
     downloadTitle: "Your next thought goes here.",
     downloadText: "Make a little room for Nex on your phone.",
     android: "Android 7.0 and later",

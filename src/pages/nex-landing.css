@@ -85,14 +85,14 @@ html.dark .nex-theme-sun { display: block; }
 .nex-enter:hover { gap: 44px; transform: translateY(-2px); }
 .nex-page[lang="en"] .nex-enter svg { transform: scaleX(-1); }
 .nex-hero-footnote { color: var(--nx-muted); font-size: 11px; margin-top: 13px !important; }
-.nex-pinned { margin-top: 32px; padding-top: 19px; max-width: 420px; border-top: 1px solid var(--nx-rule); }
-.nex-pin-label { display: inline-flex; align-items: center; gap: 6px; color: var(--nx-muted); font-size: 10px; }
-.nex-pin-label svg { color: var(--nx-blue); transform: rotate(-25deg); }
-.nex-pinned h2 { font-size: 17px; font-weight: 500; margin-top: 4px; }
-.nex-store-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
+.nex-download { margin-top: 90px; padding: 32px; background: var(--nx-card); border: 1px solid var(--nx-rule); border-radius: 24px; }
+.nex-download-label { display: inline-flex; align-items: center; gap: 8px; color: var(--nx-blue-ink); font-size: 12px; }
+.nex-download h2 { font-size: clamp(23px,3vw,36px); line-height: 1.5; font-weight: 500; margin-block: 12px 22px; }
+.nex-store-links { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
 .nex-store-links .nex-store { display: flex; align-items: center; gap: 10px; text-align: start; color: var(--nx-ink); background: var(--nx-card); border: 1px solid var(--nx-rule); border-inline-start: 3px solid var(--nx-store-color); border-radius: 12px; text-decoration: none; padding: 10px 12px; min-height: 64px; font-size: 12px; }
 .nex-store-links .nex-store:disabled { cursor: default; opacity: 1; }
 .nex-store img { flex-shrink: 0; width: 32px; height: 32px; object-fit: contain; }
+.nex-store > svg { flex-shrink: 0; color: var(--nx-blue-ink); }
 .nex-store > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .nex-store strong { font-size: 11px; font-weight: 500; line-height: 1.6; }
 .nex-store small { color: var(--nx-muted); font-size: 10px; }
@@ -101,6 +101,7 @@ html.dark .nex-theme-sun { display: block; }
 .nex-store[data-store="googlePlay"] { --nx-store-color: #34a853; }
 .nex-store[data-store="appStore"] { --nx-store-color: #0d96f6; }
 .nex-store[data-store="microsoftStore"] { --nx-store-color: #0078d4; }
+.nex-store[data-store="apk"] { --nx-store-color: var(--nx-blue); }
 .nex-fine-print { color: var(--nx-muted); font-size: 11px; line-height: 1.9; }
 .nex-scroll-cue { position: absolute; inset-inline-start: 0; bottom: 16px; display: flex; align-items: center; gap: 14px; color: var(--nx-muted); font-size: 10px; }
 .nex-scroll-cue svg { animation: nex-nudge 2s ease-in-out infinite; }
@@ -324,7 +325,6 @@ html.dark .nex-theme-sun { display: block; }
   .nex-hero { grid-template-columns: 1fr; gap: 22px; padding-top: 38px; padding-bottom: 60px; }
   .nex-hero h1, .nex-page[lang="en"] .nex-hero h1 { font-size: clamp(38px,7.3vw,64px); }
   .nex-hero-description { max-width: 500px; }
-  .nex-pinned { max-width: 500px; }
   .nex-universe { width: 100%; max-width: 580px; margin-inline: auto; }
   .nex-orbit-scene { height: 540px; }
   .nex-scene-note { padding: 18px; }
@@ -337,6 +337,8 @@ html.dark .nex-theme-sun { display: block; }
   .nex-photo-note { margin-top: 70px; }
 }
 @media (max-width: 600px) {
+  .nex-download { margin-top: 50px; padding: 20px; border-radius: 18px; }
+  .nex-store-links { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .nex-wordmark { height: 22px; }
   .nex-shell { padding-inline: 20px; }
   .nex-hero h1, .nex-page[lang="en"] .nex-hero h1 { font-size: clamp(37px,8.2vw,49px); letter-spacing: -1.8px; }

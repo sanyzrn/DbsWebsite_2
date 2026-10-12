@@ -230,8 +230,11 @@ for (const rel of ["nex/index.html", "en/nex/index.html"]) {
   if (!/<link[^>]*rel="stylesheet"[^>]*href="[^"<>]*NexLandingPage[^"<>]*\.css"/.test(html)) {
     throw new Error(`check:dist ${rel} is missing its no-JavaScript stylesheet`);
   }
-  if (!html.includes("nex-pinned") || !html.includes("nex-draft") || /name="robots"[^>]*noindex/.test(html)) {
+  if (!html.includes('id="nex-download"') || !html.includes("nex-draft") || /name="robots"[^>]*noindex/.test(html)) {
     throw new Error(`check:dist ${rel} must be an indexable, prerendered Nex timeline`);
+  }
+  if (html.indexOf('id="nex-download"') < html.indexOf('id="nex-first-day"') || !html.includes('data-store="apk"')) {
+    throw new Error(`check:dist ${rel} must place downloads and direct APK after the timeline`);
   }
 }
 await assertOgImageDimensions(path.join(DIST, "images/nex/og.jpg"), "Nex og.jpg");
