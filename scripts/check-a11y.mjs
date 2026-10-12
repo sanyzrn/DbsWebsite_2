@@ -305,20 +305,38 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
             }).map((el) => el.className);
           });
           if (layout.length) throw new Error(`Nex layout overflows at ${viewport.width}px: ${layout.join(", ")}`);
-          await page.waitForFunction(() => globalThis.document.querySelector(".nex-timeline-thread")?.dataset.measured === "true");
-          if (await page.locator(".nex-timeline-thread").getAttribute("data-progress") !== "1.000") throw new Error("Nex reduced-motion timeline must be fully drawn");
+          const thread = page.locator(".nex-timeline-thread");
+          const aiBackground = await page.locator(".nex-ai-note").evaluate((el) => globalThis.getComputedStyle(el).backgroundColor);
+          if (aiBackground === "transparent" || aiBackground === "rgba(0, 0, 0, 0)") throw new Error("Nex AI card must have an opaque background");
+          if (viewport.width <= 820) {
+            if (await thread.isVisible() || await thread.getAttribute("data-measured") !== "false") throw new Error("Nex mobile thread must be hidden and unmeasured");
+          } else {
+            await page.waitForFunction(() => globalThis.document.querySelector(".nex-timeline-thread")?.dataset.measured === "true");
+            if (await thread.getAttribute("data-progress") !== "1.000") throw new Error("Nex reduced-motion timeline must be fully drawn");
+            if (await thread.locator(".nex-thread-ports circle").count() !== 8) throw new Error("Nex desktop connections must dock to eight note cards");
+            // Connections stay within the two note groups, never through chapter copy.
+            const d = await thread.locator(".nex-thread-ink").getAttribute("d");
+            if (d.split("M").length !== 3) throw new Error("Nex thread must keep separate Today and Yesterday paths");
+            await page.emulateMedia({ reducedMotion: "no-preference" });
+            await page.waitForFunction(() => Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress) === 0);
+            await page.evaluate(() => {
+              const el = globalThis.document.querySelector(".nex-timeline");
+              globalThis.scrollTo({ top: el.getBoundingClientRect().top + globalThis.scrollY + el.clientHeight * .4, behavior: "instant" });
+            });
+            await page.waitForFunction(() => {
+              const progress = Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress);
+              return progress > 0 && progress < 1;
+            });
+            await page.evaluate(() => globalThis.scrollTo({ top: 0, behavior: "instant" }));
+            await page.waitForFunction(() => Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress) === 0);
+            // A viewport change must release desktop work and restore it on return.
+            await page.setViewportSize({ width: 390, height: viewport.height });
+            await page.waitForFunction(() => globalThis.document.querySelector(".nex-timeline-thread")?.dataset.measured === "false");
+            if (await thread.isVisible()) throw new Error("Nex thread remained visible after resizing to mobile");
+            await page.setViewportSize(viewport);
+            await page.waitForFunction(() => globalThis.document.querySelector(".nex-timeline-thread")?.dataset.measured === "true");
+          }
           await page.emulateMedia({ reducedMotion: "no-preference" });
-          await page.waitForFunction(() => Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress) === 0);
-          await page.evaluate(() => {
-            const el = globalThis.document.querySelector(".nex-timeline");
-            globalThis.scrollTo({ top: el.getBoundingClientRect().top + globalThis.scrollY + el.clientHeight * .4, behavior: "instant" });
-          });
-          await page.waitForFunction(() => {
-            const progress = Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress);
-            return progress > 0 && progress < 1;
-          });
-          await page.evaluate(() => globalThis.scrollTo({ top: 0, behavior: "instant" }));
-          await page.waitForFunction(() => Number(globalThis.document.querySelector(".nex-timeline-thread")?.dataset.progress) === 0);
           await page.locator(".nex-orbit-scene").scrollIntoViewIfNeeded();
           const scene = await page.locator(".nex-orbit-scene").boundingBox();
           await page.mouse.move(scene.x + scene.width * .9, scene.y + scene.height * .35);

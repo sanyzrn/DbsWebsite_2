@@ -42,30 +42,40 @@ describe("Nex lightweight motion", () => {
   it("draws and reverses with scroll, stays complete under reduced motion, and cleans up", async () => {
     let top = 1200;
     let calm = false;
+    let desktop = true;
     const mediaListeners = new Set<() => void>();
+    const viewportListeners = new Set<() => void>();
     let intersection: ((entries: IntersectionObserverEntry[]) => void) | undefined;
     vi.spyOn(window, "IntersectionObserver").mockImplementation(function (callback: IntersectionObserverCallback) {
       intersection = (entries) => callback(entries, {} as IntersectionObserver);
       return { observe: vi.fn(), disconnect: vi.fn() } as unknown as IntersectionObserver;
     });
-    vi.spyOn(window, "matchMedia").mockImplementation(() => ({
-      get matches() { return calm; },
-      addEventListener: (_: string, fn: () => void) => mediaListeners.add(fn),
-      removeEventListener: (_: string, fn: () => void) => mediaListeners.delete(fn),
-    }) as unknown as MediaQueryList);
+    vi.spyOn(window, "matchMedia").mockImplementation((query) => {
+      const viewport = query.includes("min-width");
+      const listeners = viewport ? viewportListeners : mediaListeners;
+      return {
+        get matches() { return viewport ? desktop : calm; },
+        addEventListener: (_: string, fn: () => void) => listeners.add(fn),
+        removeEventListener: (_: string, fn: () => void) => listeners.delete(fn),
+      } as unknown as MediaQueryList;
+    });
     const remove = vi.spyOn(window, "removeEventListener");
     const originalLength = Object.getOwnPropertyDescriptor(SVGElement.prototype, "getTotalLength");
     const originalPoint = Object.getOwnPropertyDescriptor(SVGElement.prototype, "getPointAtLength");
     Object.defineProperty(SVGElement.prototype, "getTotalLength", { configurable: true, value: () => 2000 });
     Object.defineProperty(SVGElement.prototype, "getPointAtLength", { configurable: true, value: (n: number) => ({ x: 400, y: n }) });
     try {
-      const { unmount } = render(<div className="nex-timeline"><TimelineThread lang="en" /></div>);
+      const { unmount } = render(<div className="nex-timeline"><TimelineThread lang="en" /><div className="nex-day-notes"><article className="nex-card" /><article className="nex-card" /></div></div>);
       const timeline = document.querySelector<HTMLElement>(".nex-timeline")!;
       Object.defineProperties(timeline, { clientWidth: { value: 800 }, clientHeight: { value: 2000 } });
       vi.spyOn(timeline, "getBoundingClientRect").mockImplementation(() => ({ top, height: 2000 }) as DOMRect);
+      timeline.querySelectorAll(".nex-card").forEach((card, index) => {
+        Object.defineProperties(card, { offsetWidth: { value: 300 }, offsetHeight: { value: 320 }, offsetTop: { value: index ? 1840 : 0 }, offsetLeft: { value: index ? 500 : 0 } });
+      });
       fireEvent(window, new Event("resize"));
       const svg = timeline.querySelector<SVGSVGElement>("svg")!;
       await waitFor(() => expect(svg.dataset.progress).toBe("0.000"));
+      expect(svg.querySelector("clipPath rect")).toHaveAttribute("height", "0");
       top = -2000;
       fireEvent.scroll(window);
       await waitFor(() => expect(svg.dataset.progress).toBe("1.000"));
@@ -80,6 +90,7 @@ describe("Nex lightweight motion", () => {
       act(() => mediaListeners.forEach((fn) => fn()));
       await waitFor(() => expect(svg.dataset.progress).toBe("1.000"));
       expect(svg.dataset.calm).toBe("true");
+      expect(svg.querySelector("clipPath rect")).toHaveAttribute("height", "2000");
       calm = false;
       top = 1200;
       act(() => mediaListeners.forEach((fn) => fn()));
@@ -90,8 +101,21 @@ describe("Nex lightweight motion", () => {
       expect(svg.dataset.progress).toBe("0.000");
       act(() => intersection?.([{ isIntersecting: true } as IntersectionObserverEntry]));
       await waitFor(() => expect(svg.dataset.progress).toBe("1.000"));
+      // Mobile turns off measurement, observers and scroll work; desktop can resume.
+      desktop = false;
+      act(() => viewportListeners.forEach((fn) => fn()));
+      expect(svg.dataset.measured).toBe("false");
+      expect(mediaListeners.size).toBe(0);
+      fireEvent.scroll(window);
+      await act(async () => { await new Promise((resolve) => requestAnimationFrame(resolve)); });
+      expect(svg.dataset.progress).toBe("0.000");
+      desktop = true;
+      act(() => viewportListeners.forEach((fn) => fn()));
+      await waitFor(() => expect(svg.dataset.measured).toBe("true"));
+      await waitFor(() => expect(svg.dataset.progress).toBe("1.000"));
       unmount();
       expect(mediaListeners.size).toBe(0);
+      expect(viewportListeners.size).toBe(0);
       expect(remove).toHaveBeenCalledWith("scroll", expect.any(Function));
       expect(remove).toHaveBeenCalledWith("resize", expect.any(Function));
     } finally {
