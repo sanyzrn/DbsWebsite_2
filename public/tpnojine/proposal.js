@@ -1,9 +1,6 @@
 /* Nojin proposal. No tracking, cookies, or external requests. */
 (() => {
   "use strict";
-  const printButton = document.querySelector("[data-print]");
-  printButton?.addEventListener("click", () => window.print());
-
   const progress = document.querySelector(".reading-progress");
   let scheduled = false;
   function updateProgress() {
@@ -24,7 +21,7 @@
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       !("IntersectionObserver" in window)) return;
 
-  const sections = document.querySelectorAll(".section-heading, .pillar, .audit-card, .strategy-card, .deliverable, .timeline-item, .kpi, .competitor-panel, .journey-detail");
+  const sections = document.querySelectorAll(".section-heading, .pillar, .audit-card, .strategy-card, .deliverable, .timeline-item, .kpi, .competitor-panel");
   const observer = new IntersectionObserver((entries) => {
     for (const item of entries) {
       if (item.isIntersecting) {
