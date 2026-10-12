@@ -114,6 +114,21 @@ html.dark .nex-theme-sun { display: block; }
 .nex-thought-core { --nx-mark-accent: #fff; color: #10151d; }
 .nex-thought-core svg { width: 62px; height: 72px; }
 .nex-thought-core svg.nex-core-word { width: 64px; height: auto; margin-top: 4px; }
+.nex-universe[data-mode="text"] { --nx-eye-x: -6px; --nx-eye-y: -5px; --nx-look-tilt: -3deg; }
+.nex-universe[data-mode="voice"] { --nx-eye-x: 7px; --nx-eye-y: 2px; --nx-look-tilt: 4deg; }
+.nex-universe[data-mode="checklist"] { --nx-eye-x: -4px; --nx-eye-y: 7px; --nx-look-tilt: -2deg; }
+.nex-live-mark { rotate: var(--nx-look-tilt,0deg); transition: rotate .45s ease; }
+.nex-live-eyes { translate: var(--nx-eye-x,0px) var(--nx-eye-y,0px); transition: translate .18s ease-out; }
+.nex-live-arm { transform-origin: 130px 178px; animation: nex-arm-breathe 5s ease-in-out infinite; }
+.nex-reaching-arms { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.nex-reach { stroke: var(--nx-rule); stroke-width: 1.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.nex-universe[data-mode="text"] .nex-reach--text,
+.nex-universe[data-mode="voice"] .nex-reach--voice,
+.nex-universe[data-mode="checklist"] .nex-reach--checklist { stroke: var(--nx-blue); stroke-width: 2.5; stroke-dasharray: 1; animation: nex-reach-out .75s cubic-bezier(.2,.7,.2,1) both; }
+.nex-universe[data-personal="true"] .nex-orbit-thought { animation: nex-thought-join .7s cubic-bezier(.2,.7,.2,1) both; }
+.nex-scene-text .nex-orbit-thought { height: 54px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.nex-scene-text .nex-scene-tag { max-width: 100%; height: 23px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.nex-scene-disclaimer { height: 38px; }
 .nex-scene-note { position: absolute; background: var(--nx-card); border: 1px solid var(--nx-rule); border-radius: 18px; padding: 19px; box-shadow: 0 16px 40px var(--nx-shadow); transform-origin: center; transition: transform .7s cubic-bezier(.2,.7,.2,1), border-color .4s, box-shadow .4s; }
 .nex-scene-meta { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--nx-muted); margin-bottom: 13px; }
 .nex-scene-meta > span:last-child:not(:nth-child(2)) { margin-inline-start: auto; }
@@ -151,7 +166,8 @@ html.dark .nex-theme-sun { display: block; }
 .nex-nav-dot { width: 6px; height: 6px; border: 1px solid var(--nx-muted); border-radius: 50%; transition: background .2s, transform .2s; }
 .nex-day-nav a[aria-current] { color: var(--nx-blue-ink); font-weight: 600; }
 .nex-day-nav a[aria-current] .nex-nav-dot { background: var(--nx-blue); border-color: var(--nx-blue); transform: scale(1.4); }
-.nex-timeline { min-width: 0; }
+.nex-timeline { min-width: 0; position: relative; }
+.nex-day { position: relative; }
 .nex-day + .nex-day { margin-top: 120px; }
 .nex-day-heading { display: flex; align-items: center; gap: 15px; color: var(--nx-muted); padding-bottom: 18px; border-bottom: 1px solid var(--nx-rule); margin-bottom: 36px; }
 .nex-day-heading h2 { font-size: 13px; font-weight: 600; }
@@ -162,7 +178,13 @@ html.dark .nex-theme-sun { display: block; }
 .nex-chapter-intro h3 span, .nex-chapter-title span { display: block; }
 .nex-chapter-intro > p { width: 33%; color: var(--nx-muted); font-size: 13px; }
 .nex-day-notes { position: relative; padding: 10px 0 0; }
-.nex-timeline-thread { position: absolute; inset: 0; width: 100%; height: 100%; stroke: var(--nx-blue); stroke-width: 1; stroke-dasharray: 3 11; pointer-events: none; }
+.nex-timeline-thread { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.nex-timeline-thread path { vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.nex-thread-guide { stroke: var(--nx-rule); stroke-width: 1; stroke-dasharray: 3 9; }
+.nex-thread-ink { stroke: var(--nx-blue); stroke-width: 1.8; stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+.nex-thread-tip { fill: var(--nx-blue); stroke: var(--nx-bg); stroke-width: 3; visibility: hidden; }
+.nex-timeline-thread[data-measured="true"] .nex-thread-tip { visibility: visible; }
+.nex-timeline-thread[data-calm="true"] .nex-thread-tip { visibility: hidden; }
 .nex-card { position: relative; z-index: 1; border: 1px solid var(--nx-rule); border-radius: 20px; padding: 25px 28px; background: var(--nx-card); min-width: 0; box-shadow: 0 12px 32px var(--nx-shadow); transition: border-color .25s, box-shadow .25s; }
 .nex-card:hover { border-color: color-mix(in srgb,var(--nx-blue) 40%,var(--nx-rule)); }
 .nex-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; color: var(--nx-muted); font-size: 11px; }
@@ -194,6 +216,21 @@ html.dark .nex-theme-sun { display: block; }
 .nex-checklist .nex-check-checked { color: var(--nx-blue); }
 .nex-draft { background: var(--nx-tint); border: 1px dashed var(--nx-blue); box-shadow: none; }
 .nex-draft--written { background: var(--nx-card); border-style: solid; }
+.nex-draft[data-submitted="true"] .nex-submitted-note { animation: nex-thought-join .6s ease-out both; }
+.nex-personal-network { height: 148px; padding-top: 8px; color: var(--nx-muted); }
+.nex-personal-network > p { font-size: 10px; text-align: center; }
+.nex-personal-map { position: relative; height: 115px; direction: ltr; }
+.nex-personal-map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nex-personal-map path { stroke: var(--nx-rule); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.nex-personal-seed { position: absolute; left: calc(50% - 17px); top: 10px; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--nx-rule); background: var(--nx-card); border-radius: 11px; }
+.nex-personal-nodes { position: absolute; inset: 76px 0 0; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 4px; }
+.nex-personal-nodes > span { display: flex; align-items: center; flex-direction: column; gap: 5px; font-size: 9px; text-align: center; line-height: 1.4; }
+.nex-personal-network[data-connected="true"] { color: var(--nx-blue-ink); }
+.nex-personal-network[data-connected="true"] path { stroke: var(--nx-blue); stroke-dasharray: 1; animation: nex-reach-out .7s ease-out both; }
+.nex-personal-network[data-connected="true"] .nex-personal-seed { border-color: var(--nx-blue); animation: nex-thought-join .5s ease-out both; }
+.nex-personal-network[data-connected="true"] .nex-personal-nodes > span { animation: nex-node-join .65s ease-out both; }
+.nex-personal-network[data-connected="true"] .nex-personal-nodes > span:nth-child(2) { animation-delay: .12s; }
+.nex-personal-network[data-connected="true"] .nex-personal-nodes > span:nth-child(3) { animation-delay: .24s; }
 .nex-draft-editor { height: 176px; }
 .nex-draft textarea { display: block; width: 100%; resize: none; height: 120px; border: 0; border-radius: 4px; background: transparent; color: var(--nx-ink); padding: 5px 0; font-size: 20px; line-height: 1.85; }
 .nex-draft textarea::placeholder { color: var(--nx-muted); opacity: 1; }
@@ -307,6 +344,10 @@ html.dark .nex-theme-sun { display: block; }
 @keyframes nex-speaking { from { transform: scaleY(.45); } to { transform: scaleY(1); } }
 @keyframes nex-nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 @keyframes nex-origin-wave { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(8deg); } }
+@keyframes nex-arm-breathe { 50% { transform: rotate(4deg); } }
+@keyframes nex-reach-out { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes nex-thought-join { from { transform: translateY(7px) scale(.97); } to { transform: translateY(0) scale(1); } }
+@keyframes nex-node-join { from { transform: translateY(-5px); } to { transform: translateY(0); } }
 @media (max-width: 1100px) {
   .nex-shell { padding-inline: 30px; }
   .nex-chronicle { grid-template-columns: 85px minmax(0,1fr); gap: 28px; }
@@ -314,6 +355,7 @@ html.dark .nex-theme-sun { display: block; }
   .nex-orbit-scene { height: 535px; }
   .nex-scene-note { padding: 15px; }
   .nex-scene-note p { font-size: 13px; }
+  .nex-scene-text .nex-orbit-thought { height: 47px; }
   .nex-thought-core { width: 115px; height: 115px; border-radius: 32px; }
   .nex-chapter-intro { gap: 20px; }
   .nex-privacy-world { gap: 24px; }
@@ -329,6 +371,7 @@ html.dark .nex-theme-sun { display: block; }
   .nex-orbit-scene { height: 540px; }
   .nex-scene-note { padding: 18px; }
   .nex-scene-note p { font-size: 15px; }
+  .nex-scene-text .nex-orbit-thought { height: 54px; }
   .nex-chronicle { grid-template-columns: 1fr; gap: 30px; padding-top: 30px; }
   .nex-day-nav { position: static; flex-direction: row; justify-content: space-between; border-bottom: 1px solid var(--nx-rule); padding-bottom: 15px; }
   .nex-chapter-intro { align-items: flex-start; }
@@ -347,6 +390,7 @@ html.dark .nex-theme-sun { display: block; }
   .nex-orbit-scene { height: 405px; }
   .nex-scene-note { padding: 12px; border-radius: 12px; }
   .nex-scene-note p { font-size: 12px; }
+  .nex-scene-text .nex-orbit-thought { height: 44px; }
   .nex-scene-meta { font-size: 9px; gap: 4px; margin-bottom: 8px; }
   .nex-scene-meta svg { width: 12px; }
   .nex-scene-tag { font-size: 8px; margin-top: 8px; }
@@ -368,7 +412,7 @@ html.dark .nex-theme-sun { display: block; }
   .nex-chapter-intro h3, .nex-chapter-title { font-size: 32px; letter-spacing: -.9px; }
   .nex-chapter-intro > p { width: 100%; max-width: 330px; margin-top: 17px; }
   .nex-day-notes { padding-inline-start: 12px; border-inline-start: 1px solid var(--nx-rule); display: flex; flex-direction: column; gap: 24px; }
-  .nex-timeline-thread { display: none; }
+  .nex-day-notes { border-inline-start-color: transparent; }
   .nex-day-notes > :where(.nex-card,.nex-local-stage) { width: 100%; margin: 0; transform: none; }
   .nex-day-notes > .nex-card::before { content: ""; position: absolute; top: 35px; inset-inline-start: -17px; width: 7px; height: 7px; border-radius: 50%; background: var(--nx-blue); }
   .nex-card { padding: 23px; border-radius: 16px; box-shadow: none; }
@@ -399,6 +443,7 @@ html.dark .nex-theme-sun { display: block; }
   .nex-orbit-scene { height: 355px; }
   .nex-scene-note { padding: 10px; }
   .nex-scene-note p { font-size: 11px; }
+  .nex-scene-text .nex-orbit-thought { height: 40px; }
   .nex-scene-checklist { width: 54%; left: 4%; top: 73%; }
   .nex-scene-checklist ul { font-size: 9px; }
   .nex-capture-switch label > span { padding-inline: 9px; font-size: 9px; }
@@ -409,6 +454,9 @@ html.dark .nex-theme-sun { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .nex-page *, .nex-page *::before, .nex-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .nex-enter:hover { transform: none; }
+  .nex-live-mark { rotate: none; }
+  .nex-live-eyes { translate: none; }
+  .nex-thread-ink { stroke-dashoffset: 0 !important; }
 }
 .nex-bar-17 { height: 17px; }
 .nex-bar-18 { height: 18px; }

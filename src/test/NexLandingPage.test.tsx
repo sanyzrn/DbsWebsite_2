@@ -232,6 +232,37 @@ describe("Nex SEO, sitemap and isolated motion", () => {
 
 
 describe("Nex world interactions", () => {
+  it.each(["fa", "en"] as const)("joins a captured thought to the world in %s and removes it on edit/delete", (lang) => {
+    open(lang === "fa" ? "/nex/" : "/en/nex/");
+    const text = '<img src=x onerror="alert(1)"> — فکر من';
+    fireEvent.change(screen.getByRole("textbox"), { target: { value: text } });
+    expect(document.querySelector(".nex-universe")).toHaveAttribute("data-personal", "false");
+    fireEvent.keyDown(screen.getByRole("textbox"), { key: "Enter" });
+    expect(document.querySelector(".nex-orbit-thought")).toHaveTextContent(text);
+    expect(document.querySelector(".nex-scene-text img")).toBeNull();
+    expect(document.querySelector(".nex-personal-network")).toHaveAttribute("data-connected", "true");
+    expect(document.querySelector("#nex-draft-status")).toHaveTextContent(NEX_EXPERIENCE[lang].thoughtConnected);
+    cleanup();
+    open(lang === "fa" ? "/nex/" : "/en/nex/");
+    expect(document.querySelector(".nex-orbit-thought")).toHaveTextContent(text);
+    fireEvent.click(screen.getByRole("button", { name: lang === "fa" ? "ویرایش یادداشت" : "Edit note" }));
+    expect(document.querySelector(".nex-orbit-thought")).toHaveTextContent(NEX_EXPERIENCE[lang].sampleNote.replace("\n", " "));
+    expect(document.querySelector(".nex-personal-network")).toHaveAttribute("data-connected", "false");
+    fireEvent.keyDown(screen.getByRole("textbox"), { key: "Enter" });
+    fireEvent.click(screen.getByRole("button", { name: NEX_COPY[lang].draftClear }));
+    expect(document.querySelector(".nex-universe")).toHaveAttribute("data-personal", "false");
+  });
+
+  it("reacts to radio keyboard focus without adding a tab stop to the decorative octopus", () => {
+    open();
+    fireEvent.focus(screen.getByRole("radio", { name: NEX_COPY.fa.checklistLabel }));
+    expect(document.querySelector(".nex-universe")).toHaveAttribute("data-mode", "checklist");
+    expect(document.querySelector(".nex-live-eyes")).toBeInTheDocument();
+    expect(document.querySelectorAll(".nex-reaching-arms path")).toHaveLength(3);
+    expect(document.querySelector(".nex-thought-core")).toHaveAttribute("aria-hidden", "true");
+    expect(document.querySelector(".nex-thought-core [tabindex]")).toBeNull();
+  });
+
   it("links the footer to the page's top, above the masthead and hero", () => {
     open();
     const link = screen.getByRole("link", { name: NEX_EXPERIENCE.fa.backToHero });
