@@ -243,6 +243,21 @@ await assertOgImageDimensions(path.join(DIST, "images/nex/og.jpg"), "Nex og.jpg"
 await assertOgImageDimensions(path.join(ROOT, "public", "og.jpg"), "public/og.jpg");
 await assertOgImageDimensions(path.join(DIST, "og.jpg"), "dist/og.jpg");
 
+// Standalone, private proposal must be shipped separately from the React route table.
+const proposalDir = path.join(DIST, "tpnojine");
+for (const name of ["index.html", "proposal.css", "proposal.js"]) {
+  if (!fs.existsSync(path.join(proposalDir, name))) {
+    throw new Error(`check:dist missing tpnojine/${name}`);
+  }
+}
+const proposalHtml = fs.readFileSync(path.join(proposalDir, "index.html"), "utf8");
+if (!/<meta\s+name="robots"\s+content="noindex, nofollow, noarchive"/i.test(proposalHtml)) {
+  throw new Error("check:dist Nojin proposal must remain noindex");
+}
+if (!proposalHtml.includes("تأمین پلاسما نوژین")) {
+  throw new Error("check:dist Nojin proposal body is unexpectedly empty");
+}
+
 console.log(
   `check:dist OK — ${htmlFiles.length} HTML files, internal links + canonical/og:url match SITE_URL=${siteUrl}, ` +
     `404 pages noindex, locale .htaccess ErrorDocuments, ${jsonLdBlocks} valid JSON-LD blocks, ` +
