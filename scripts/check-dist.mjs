@@ -251,7 +251,7 @@ for (const name of ["index.html", "proposal.css", "proposal.js"]) {
   }
 }
 const proposalHtml = fs.readFileSync(path.join(proposalDir, "index.html"), "utf8");
-if (!/<meta\\s+name="robots"\\s+content="noindex, nofollow, noarchive"/i.test(proposalHtml)) {
+if (!/<meta\s+name="robots"\s+content="noindex, nofollow, noarchive"/i.test(proposalHtml)) {
   throw new Error("check:dist Nojin proposal must remain noindex");
 }
 if (!proposalHtml.includes("تأمین پلاسما نوژین")) {
