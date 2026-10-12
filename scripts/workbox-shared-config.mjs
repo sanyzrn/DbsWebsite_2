@@ -22,6 +22,8 @@ export const workboxGlobPatterns = [
  *    selected by the browser — precaching them was ~450 KiB of pure waste.
  */
 export const workboxUnusedAssetGlobs = [
+  // Private client proposal: never eager-precache it for unrelated visitors.
+  "**/tpnojine/**",
   "**/assets/*-cyrillic-*.woff2",
   "**/assets/*-vietnamese-*.woff2",
   "**/assets/*-latin-ext-*.woff2",
