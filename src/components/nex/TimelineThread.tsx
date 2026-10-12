@@ -25,7 +25,7 @@ export default function TimelineThread({ lang }: { lang: Lang }) {
 
     function paint() {
       frame = 0;
-      if (!length || !visible || disposed) return;
+      if (!length || disposed) return;
       const rect = timeline!.getBoundingClientRect();
       const y = Math.max(0, Math.min(rect.height, window.innerHeight * .72 - rect.top));
       // Invert the monotonic vertical path so the pen follows the reading position,
@@ -46,8 +46,12 @@ export default function TimelineThread({ lang }: { lang: Lang }) {
       svg!.dataset.calm = String(calm.matches);
     }
 
+    function refresh() {
+      if (!frame && !disposed) frame = requestAnimationFrame(paint);
+    }
+
     function schedule() {
-      if (!frame && visible && !disposed) frame = requestAnimationFrame(paint);
+      if (visible) refresh();
     }
 
     function measure() {
@@ -83,19 +87,20 @@ export default function TimelineThread({ lang }: { lang: Lang }) {
       ink!.setAttribute("d", d);
       length = ink!.getTotalLength();
       svg!.dataset.measured = "true";
-      schedule();
+      refresh();
     }
 
     const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
     resize?.observe(timeline);
     const intersection = typeof IntersectionObserver === "undefined" ? null : new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
-      schedule();
+      // Settle the endpoint once on exit; then stop scroll work while offscreen.
+      refresh();
     });
     intersection?.observe(timeline);
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", measure);
-    calm.addEventListener("change", schedule);
+    calm.addEventListener("change", refresh);
     measure();
     void document.fonts?.ready.then(measure);
     return () => {
@@ -105,7 +110,7 @@ export default function TimelineThread({ lang }: { lang: Lang }) {
       intersection?.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", measure);
-      calm.removeEventListener("change", schedule);
+      calm.removeEventListener("change", refresh);
     };
   }, [lang]);
 

@@ -43,6 +43,11 @@ describe("Nex lightweight motion", () => {
     let top = 1200;
     let calm = false;
     const mediaListeners = new Set<() => void>();
+    let intersection: ((entries: IntersectionObserverEntry[]) => void) | undefined;
+    vi.spyOn(window, "IntersectionObserver").mockImplementation(function (callback: IntersectionObserverCallback) {
+      intersection = (entries) => callback(entries, {} as IntersectionObserver);
+      return { observe: vi.fn(), disconnect: vi.fn() } as unknown as IntersectionObserver;
+    });
     vi.spyOn(window, "matchMedia").mockImplementation(() => ({
       get matches() { return calm; },
       addEventListener: (_: string, fn: () => void) => mediaListeners.add(fn),
@@ -70,10 +75,21 @@ describe("Nex lightweight motion", () => {
         expect(Number(svg.dataset.progress)).toBeGreaterThan(0);
         expect(Number(svg.dataset.progress)).toBeLessThan(1);
       });
+      act(() => intersection?.([{ isIntersecting: false } as IntersectionObserverEntry]));
       calm = true;
       act(() => mediaListeners.forEach((fn) => fn()));
       await waitFor(() => expect(svg.dataset.progress).toBe("1.000"));
       expect(svg.dataset.calm).toBe("true");
+      calm = false;
+      top = 1200;
+      act(() => mediaListeners.forEach((fn) => fn()));
+      await waitFor(() => expect(svg.dataset.progress).toBe("0.000"));
+      top = -2000;
+      fireEvent.scroll(window);
+      await act(async () => { await new Promise((resolve) => requestAnimationFrame(resolve)); });
+      expect(svg.dataset.progress).toBe("0.000");
+      act(() => intersection?.([{ isIntersecting: true } as IntersectionObserverEntry]));
+      await waitFor(() => expect(svg.dataset.progress).toBe("1.000"));
       unmount();
       expect(mediaListeners.size).toBe(0);
       expect(remove).toHaveBeenCalledWith("scroll", expect.any(Function));

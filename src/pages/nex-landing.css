@@ -412,7 +412,8 @@ html.dark .nex-theme-sun { display: block; }
   .nex-chapter-intro h3, .nex-chapter-title { font-size: 32px; letter-spacing: -.9px; }
   .nex-chapter-intro > p { width: 100%; max-width: 330px; margin-top: 17px; }
   .nex-day-notes { padding-inline-start: 12px; border-inline-start: 1px solid var(--nx-rule); display: flex; flex-direction: column; gap: 24px; }
-  .nex-day-notes { border-inline-start-color: transparent; }
+  .nex-timeline-thread:not([data-measured="true"]) { display: none; }
+  .nex-timeline:has(> .nex-timeline-thread[data-measured="true"]) .nex-day-notes { border-inline-start-color: transparent; }
   .nex-day-notes > :where(.nex-card,.nex-local-stage) { width: 100%; margin: 0; transform: none; }
   .nex-day-notes > .nex-card::before { content: ""; position: absolute; top: 35px; inset-inline-start: -17px; width: 7px; height: 7px; border-radius: 50%; background: var(--nx-blue); }
   .nex-card { padding: 23px; border-radius: 16px; box-shadow: none; }
