@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
@@ -41,8 +41,9 @@ describe("Nex timeline and routing", () => {
     const en = path.startsWith("/en");
     const c = NEX_COPY[en ? "en" : "fa"];
     const e = NEX_EXPERIENCE[en ? "en" : "fa"];
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(e.heroLine1);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(e.heroLine2);
+    const heroTitle = within(container.querySelector<HTMLElement>(".nex-hero")!).getByRole("heading", { level: 1 });
+    expect(heroTitle).toHaveTextContent(e.heroLine1);
+    expect(heroTitle).toHaveTextContent(e.heroLine2);
     expect(container.querySelector(".nex-page")).toHaveAttribute("dir", en ? "ltr" : "rtl");
     expect(container.querySelectorAll(".nex-day-notes > article, .nex-day-notes > .nex-local-stage")).toHaveLength(6);
     expect(screen.getByRole("heading", { name: c.today })).toBeInTheDocument();
@@ -76,8 +77,9 @@ describe("Nex timeline and routing", () => {
   it.each(["fa", "en"] as const)("shows Android stores as coming soon, a real APK and an honestly labelled preview in %s", (lang) => {
     open(lang === "fa" ? "/nex/" : "/en/nex/");
     const c = NEX_COPY[lang];
+    const downloads = document.querySelector<HTMLElement>("#nex-download")!;
     for (const id of Object.keys(NEX_STORES) as (keyof typeof NEX_STORES)[]) {
-      const store = screen.getByRole("button", { name: `${c[id]} ${c.storeSoon}` });
+      const store = within(downloads).getByRole("button", { name: `${c[id]} ${c.storeSoon}` });
       expect(store).toBeDisabled();
       expect(store).not.toHaveAttribute("href");
       expect(store.getAttribute("data-todo")).toMatch(/TODO:/);
@@ -88,11 +90,10 @@ describe("Nex timeline and routing", () => {
     expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(3);
     expect(document.querySelector('a[data-store="apk"]')).toHaveAttribute("href", expect.stringMatching(/^https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//));
     expect(document.querySelector(".nex-hero .nex-store-links")).toBeNull();
-    const downloads = document.querySelector("#nex-download")!;
     expect(document.querySelector(".nex-chronicle")!.compareDocumentPosition(downloads) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(downloads.querySelectorAll(".nex-store")).toHaveLength(3);
     expect(screen.getByText(c.storePending)).toBeVisible();
-    expect(screen.getByText(c.screenshotPreview)).toBeVisible();
+    expect(screen.getAllByText(c.screenshotPreview).every((caption) => caption.tagName === "FIGCAPTION")).toBe(true);
     expect(document.querySelector('img[src*="/guide/home"]')).toBeNull();
     expect(document.querySelector(".nex-photo-placeholder")).toBeNull();
   });

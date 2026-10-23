@@ -28,8 +28,8 @@ export const NEX_EXPERIENCE = {
     searchExample: "كافه 12",
     searchSample: "قرار کافه — ساعت ۱۲",
     searchFound: "پیدا شد؛ حروف و رقم‌ها به یک شکل خوانده شدند.",
-    searchEmpty: "تطابق دقیق نیست؛ نزدیک‌ترین نمونه همین است.",
-    searchDemo: "نمونهٔ محلی برای نمایش یکسان‌سازی حروف و رقم‌ها",
+    searchEmpty: "در یادداشت‌های نمونه تطابقی پیدا نشد. عبارت دیگری را امتحان کن.",
+    searchDemo: "۴۸ یادداشت ساختگی؛ فقط در حافظهٔ همین صفحه. زمان نمایش‌داده‌شده مربوط به این دموست، نه سنجش سرعت اپ.",
     yesterdayHeadline: "ذهنت آزاد.\nفکرهایت خصوصی.",
     vaultLabel: "صندوق خصوصی را باز کن",
     vaultCaption: "نمایش قابلیت؛ بدون اطلاعات واقعی",
@@ -69,8 +69,8 @@ export const NEX_EXPERIENCE = {
     searchExample: "coffee 12",
     searchSample: "Coffee catch-up — at 12",
     searchFound: "Found it. A thought, back within reach.",
-    searchEmpty: "No exact match; this is the closest example.",
-    searchDemo: "A local search example. Nex also understands Persian letter and digit variants.",
+    searchEmpty: "No sample notes match. Try another word.",
+    searchDemo: "48 fictional notes, held only in page memory. The time measures this demo, not the app’s search performance.",
     yesterdayHeadline: "A free mind.\nPrivate thoughts.",
     vaultLabel: "Open the private vault",
     vaultCaption: "A feature illustration, with no real private data",
@@ -87,6 +87,7 @@ export const NEX_EXPERIENCE = {
 /** Deliberately small demo of the documented matching rules, not the app's search engine. */
 export function normalizeNexDemo(value: string): string {
   return value.normalize("NFKC").replace(/ك/g, "ک").replace(/ي/g, "ی")
+    .replace(/[\u064b-\u065f\u0670\u0640]/g, "")
     .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
     .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
     .replace(/[\s\u200c]+/g, "").toLowerCase();

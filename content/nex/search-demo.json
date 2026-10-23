@@ -1,0 +1,482 @@
+[
+  {
+    "id": "demo-01",
+    "fa": "قرار کافه — ساعت ۱۲",
+    "en": "Coffee catch-up — at 12",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-02",
+    "fa": "قرار دندان‌پزشکی سه‌شنبه ساعت ۱۰",
+    "en": "Dentist appointment on Tuesday at 10",
+    "tag": {
+      "fa": "یادآوری",
+      "en": "Reminders"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-03",
+    "fa": "ایدهٔ بسته‌بندی: فضای سفید بیشتر، نوشتهٔ کمتر",
+    "en": "Packaging idea: more white space, fewer words",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-04",
+    "fa": "خرید خانه: نان، شیر، تخم‌مرغ",
+    "en": "Groceries: bread, milk, eggs",
+    "tag": {
+      "fa": "خرید",
+      "en": "Shopping"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-05",
+    "fa": "برای سفر: شارژر، هدفون، گذرنامه",
+    "en": "For the trip: charger, headphones, passport",
+    "tag": {
+      "fa": "سفر",
+      "en": "Travel"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-06",
+    "fa": "کتاب تاریخ ایران را برای آخر هفته بردارم",
+    "en": "Pick up the book on Iranian history for the weekend",
+    "tag": {
+      "fa": "مطالعه",
+      "en": "Reading"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-07",
+    "fa": "ایدهٔ صوتی برای شروع مقاله",
+    "en": "A voice idea for the opening of an article",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "voice"
+  },
+  {
+    "id": "demo-08",
+    "fa": "رسید خرید مانیتور در پوشهٔ مدارک",
+    "en": "Monitor receipt in the documents folder",
+    "tag": {
+      "fa": "خرید",
+      "en": "Shopping"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-09",
+    "fa": "لینک آموزش ساخت موشن لوگو",
+    "en": "Tutorial link for animating a logo",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "link"
+  },
+  {
+    "id": "demo-10",
+    "fa": "اجارهٔ خانه، روز ۲۱ هر ماه",
+    "en": "Rent, on day 21 of each month",
+    "tag": {
+      "fa": "یادآوری",
+      "en": "Reminders"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-11",
+    "fa": "تمرین امروز: پیاده‌روی ۳۰ دقیقه",
+    "en": "Today’s exercise: a 30-minute walk",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-12",
+    "fa": "خلاصهٔ جلسه: نسخهٔ اول طرح تا یکشنبه",
+    "en": "Meeting summary: first design draft by Sunday",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-13",
+    "fa": "ایدهٔ رنگ: فیروزه‌ای در کنار خاکستری",
+    "en": "Colour idea: turquoise alongside grey",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-14",
+    "fa": "دستور پاستا: گوجه، سیر، ریحان تازه",
+    "en": "Pasta recipe: tomatoes, garlic, fresh basil",
+    "tag": {
+      "fa": "آشپزی",
+      "en": "Cooking"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-15",
+    "fa": "یادداشت صوتی بعد از بازدید نمایشگاه",
+    "en": "Voice memo after visiting the exhibition",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "voice"
+  },
+  {
+    "id": "demo-16",
+    "fa": "هتل نزدیک ایستگاه قطار را بررسی کنم",
+    "en": "Check the hotel near the train station",
+    "tag": {
+      "fa": "سفر",
+      "en": "Travel"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-17",
+    "fa": "رمز وای‌فای را در صندوق خصوصی نگه دارم",
+    "en": "Keep the Wi-Fi password in the private vault",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-18",
+    "fa": "ایدهٔ صفحهٔ اصلی: یک پیام، یک اقدام",
+    "en": "Homepage idea: one message, one action",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-19",
+    "fa": "تولد دوست: یک کتاب هدیه بخرم",
+    "en": "Friend’s birthday: buy a book as a gift",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-20",
+    "fa": "لینک مقاله دربارهٔ معماری هخامنشی",
+    "en": "Article link about Achaemenid architecture",
+    "tag": {
+      "fa": "مطالعه",
+      "en": "Reading"
+    },
+    "kind": "link"
+  },
+  {
+    "id": "demo-21",
+    "fa": "خرید میوه برای مهمانی پنجشنبه",
+    "en": "Buy fruit for Thursday’s gathering",
+    "tag": {
+      "fa": "خرید",
+      "en": "Shopping"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-22",
+    "fa": "فاکتور چاپ: تعداد ۵۰۰ نسخه",
+    "en": "Print invoice: 500 copies",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-23",
+    "fa": "ضبط توضیح کوتاه برای همکار",
+    "en": "Record a short explanation for a colleague",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "voice"
+  },
+  {
+    "id": "demo-24",
+    "fa": "نکتهٔ تایپوگرافی: فاصلهٔ سطرها را بیشتر کنم",
+    "en": "Typography note: increase line spacing",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-25",
+    "fa": "آدرس کتاب‌فروشی نزدیک میدان",
+    "en": "Address of the bookshop near the square",
+    "tag": {
+      "fa": "مطالعه",
+      "en": "Reading"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-26",
+    "fa": "مواد سوپ: هویج، سیب‌زمینی، جو",
+    "en": "Soup ingredients: carrots, potatoes, barley",
+    "tag": {
+      "fa": "آشپزی",
+      "en": "Cooking"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-27",
+    "fa": "چراغ میز کار را قبل از عکاسی تنظیم کنم",
+    "en": "Adjust the desk lamp before photographing",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-28",
+    "fa": "لینک مسیر پیاده‌روی کنار رودخانه",
+    "en": "Link to the walking route by the river",
+    "tag": {
+      "fa": "سفر",
+      "en": "Travel"
+    },
+    "kind": "link"
+  },
+  {
+    "id": "demo-29",
+    "fa": "برای ارائه: لپ‌تاپ، تبدیل، فایل پشتیبان",
+    "en": "For the presentation: laptop, adapter, backup file",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-30",
+    "fa": "ایدهٔ فردا: یادداشت‌ها را با برچسب پروژه جمع کنم",
+    "en": "Tomorrow’s idea: group notes with a project tag",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-31",
+    "fa": "زمان رسیدن قطار: ۱۸:۳۰",
+    "en": "Train arrival time: 18:30",
+    "tag": {
+      "fa": "سفر",
+      "en": "Travel"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-32",
+    "fa": "واژهٔ تازه: palimpsest، نوشته روی نوشته",
+    "en": "New word: palimpsest, writing over earlier writing",
+    "tag": {
+      "fa": "مطالعه",
+      "en": "Reading"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-33",
+    "fa": "مقایسهٔ دو کاغذ برای جلد دفتر",
+    "en": "Compare two papers for a notebook cover",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-34",
+    "fa": "صدای باران برای ایدهٔ تدوین",
+    "en": "Rain recording for an editing idea",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "voice"
+  },
+  {
+    "id": "demo-35",
+    "fa": "خرید پیچ و بست برای قفسهٔ کتاب",
+    "en": "Buy screws and brackets for the bookshelf",
+    "tag": {
+      "fa": "خرید",
+      "en": "Shopping"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-36",
+    "fa": "چای را کمتر دم کنم تا تلخ نشود",
+    "en": "Brew the tea for less time so it stays mild",
+    "tag": {
+      "fa": "آشپزی",
+      "en": "Cooking"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-37",
+    "fa": "یادآوری تمدید بیمه در پایان ماه",
+    "en": "Reminder to renew insurance at the end of the month",
+    "tag": {
+      "fa": "یادآوری",
+      "en": "Reminders"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-38",
+    "fa": "فهرست موزه‌هایی که می‌خواهم ببینم",
+    "en": "A list of museums I want to visit",
+    "tag": {
+      "fa": "سفر",
+      "en": "Travel"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-39",
+    "fa": "لینک مرجع خوانایی فونت فارسی",
+    "en": "Reference link on Persian font readability",
+    "tag": {
+      "fa": "طراحی",
+      "en": "Design"
+    },
+    "kind": "link"
+  },
+  {
+    "id": "demo-40",
+    "fa": "جمع‌بندی کتاب: سه ایده برای دوباره خواندن",
+    "en": "Book recap: three ideas to read again",
+    "tag": {
+      "fa": "مطالعه",
+      "en": "Reading"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-41",
+    "fa": "بذر ریحان را کنار پنجره بگذارم",
+    "en": "Put the basil seedlings near the window",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-42",
+    "fa": "توضیح صوتی طرح جدید کاتالوگ",
+    "en": "Voice explanation of the new catalogue layout",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "voice"
+  },
+  {
+    "id": "demo-43",
+    "fa": "برنامهٔ جمعه: استراحت، مطالعه، پیاده‌روی",
+    "en": "Friday plan: rest, reading, a walk",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "checklist"
+  },
+  {
+    "id": "demo-44",
+    "fa": "نکتهٔ سفر: نسخهٔ آفلاین نقشه را نگه دارم",
+    "en": "Travel note: keep an offline copy of the map",
+    "tag": {
+      "fa": "سفر",
+      "en": "Travel"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-45",
+    "fa": "لینک راهنمای کوتاه میان‌بُرهای صفحه‌کلید",
+    "en": "A short guide to keyboard shortcuts",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "link"
+  },
+  {
+    "id": "demo-46",
+    "fa": "یک ایده برای ناهار: عدسی با آب‌لیمو",
+    "en": "Lunch idea: lentils with lemon juice",
+    "tag": {
+      "fa": "آشپزی",
+      "en": "Cooking"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-47",
+    "fa": "جلسهٔ بررسی طرح چهارشنبه ساعت ۹",
+    "en": "Design review meeting on Wednesday at 9",
+    "tag": {
+      "fa": "کار",
+      "en": "Work"
+    },
+    "kind": "note"
+  },
+  {
+    "id": "demo-48",
+    "fa": "کارهای تمام‌شده را آخر شب مرور کنم",
+    "en": "Review the things I finished at the end of the day",
+    "tag": {
+      "fa": "روزمره",
+      "en": "Everyday"
+    },
+    "kind": "note"
+  }
+]

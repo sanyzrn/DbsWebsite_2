@@ -253,6 +253,18 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           if (await page.locator(".nex-search-result").getAttribute("data-match") !== "true") throw new Error("Nex locale search example failed");
           await assertNexLayoutStable(page, "search miss", () => page.locator("#nex-search-demo").fill("unrelated"));
           await assertNexLayoutStable(page, "search clearing", () => page.locator("#nex-search-demo").fill(""));
+          if (await page.locator(".nex-search-result li").count() !== 48) throw new Error("Nex must expose all 48 fictional demo notes");
+          await page.locator(".nex-story-controls button").last().focus();
+          await page.locator(".nex-story-controls button").last().press("Space");
+          if (await page.locator("#nex-story").getAttribute("data-active") !== "3") throw new Error("Nex reduced-motion story must support manual selection");
+          await page.locator(".nex-calendar-controls select").first().selectOption("gregory");
+          await page.locator(".nex-calendar-controls select").last().selectOption("31");
+          const occurrences = await page.locator(".nex-calendar-occurrences time").evaluateAll((times) => times.map((time) => time.dateTime));
+          if (occurrences.length !== 10 || new Set(occurrences).size !== 10 || occurrences.some((date, i) => i > 0 && date <= occurrences[i - 1])) throw new Error("Nex must show ten distinct ordered recurring dates");
+          for (const choice of [2, 3, 4]) {
+            await page.locator(".nex-privacy-selector button").nth(choice).click();
+            if (await page.locator(".nex-privacy-map").getAttribute("data-route") !== String(choice)) throw new Error("Nex privacy route did not switch");
+          }
           await assertNexLayoutStable(page, "note typing", () => page.locator("#nex-local-note").fill("A browser-only Nex thought"));
           await page.reload({ waitUntil: "networkidle" });
           if (await page.locator("#nex-local-note").inputValue() !== "A browser-only Nex thought") throw new Error("Nex local note did not persist");
@@ -299,7 +311,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.waitForFunction(() => globalThis.scrollY <= 1);
           const layout = await page.evaluate(() => {
             const width = globalThis.innerWidth;
-            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-store, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro")];
+            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-store, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro, .nex-story-phone, .nex-calendar-demo, .nex-privacy-map")];
             return elements.filter((el) => {
               const box = el.getBoundingClientRect();
               return box.left < -1 || box.right > width + 1;
@@ -374,6 +386,8 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           if (!(await page.locator("#nex-hero-title").isVisible()) || !(await page.locator(".nex-origin-copy").isVisible())) throw new Error("Nex static content is missing");
           if (!(await page.locator("#nex-local-note").isDisabled())) throw new Error("Nex no-JS demo must clearly be disabled");
           if (!(await page.locator(".nex-ai-switch").isDisabled())) throw new Error("Nex no-JS AI demo must clearly be disabled");
+          if (!(await page.locator(".nex-story-controls button").last().isDisabled()) || !(await page.locator(".nex-privacy-selector button").last().isDisabled())) throw new Error("Nex no-JS story/privacy controls must clearly be disabled");
+          if (await page.locator(".nex-story-step").count() !== 4) throw new Error("Nex static story must expose every chapter");
           await page.locator(".nex-transcript summary").click();
           if (!(await page.locator(".nex-transcript > p").isVisible())) throw new Error("Nex voice disclosure failed without JavaScript");
           await page.locator(".nex-vault summary").click();

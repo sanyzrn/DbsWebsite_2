@@ -24,12 +24,13 @@ Each phase leaves a usable page. Recheck published app facts before writing new 
 
 Keep the existing octopus, bilingual typography, independent Nex palette, intro and personal-note demo. Develop the story as one continuous day, rather than an unrelated collection of widgets.
 
-- [ ] Refine hero, navigation and real phone imagery in light/dark.
-- [ ] Extend existing search experiment to 40–60 local sample notes, Persian normalization, highlights and measured response.
-- [ ] Interactive Persian/Gregorian calendar and ten accurate recurring dates (including month/year edges).
-- [ ] Privacy data-flow explorer: local capture, optional local/cloud AI, user-selected backup and isolated vault; include actual network exceptions.
-- [ ] Scroll story with real guide screens, one main motion, mobile and reduced-motion alternatives.
-- [ ] Optional three-second capture illustrations and a six-icon home-screen preview if they improve the composition.
+- [x] Integrate product anchor navigation with the existing hero, octopus and light/dark palette.
+- [x] Extend existing search experiment to 48 fictional bilingual notes, Persian normalization, highlights and measured response.
+- [x] Interactive Persian/Gregorian calendar and ten accurate recurring dates (including month/year edges).
+- [x] Privacy data-flow explorer: local capture, optional local/cloud AI, user-selected backup and isolated vault; include actual network exceptions.
+- [x] Four-moment sticky-phone story, one short screen transition, manual controls on mobile and under reduced motion. All chapters remain in static HTML.
+- [ ] Owner input remains: replace labelled phone illustrations with real guide screens after visual/hash approval. The story already consumes approved image metadata.
+- Optional capture/widget additions deferred: the continuous-day story already supplies the capture moment; avoid adding a second unrelated visual system.
 
 ## Phase 3 — Complete bilingual product pages
 
@@ -67,3 +68,23 @@ Verified on 2026-10-23:
 - **Not passed here:** `check:a11y` could not start because Playwright's Chromium was absent; the browser download returned an invalid/truncated archive. `check:pwa` could not connect from the executor to the supervised preview (loopback refused / forwarded endpoint reset). The production preview rendered static content but reported failed dynamic imports through the preview transport, while all referenced emitted modules exist; production hydration is therefore unverified. Development-preview hydration worked. The new timeline illustration was also checked after discovering that upstream guide images are placeholders. Re-run production browser/PWA/accessibility gates in CI before merging.
 
 The cron/dispatch workflow becomes active only after it reaches the default branch. No release-repo changes, default-branch promotion or production deploy were performed. Phase 1 completion does not mean the full brief is complete.
+
+## Phase 2 implementation and verification
+
+Implemented on 2026-10-23:
+
+- Story: morning capture → noon search → evening recurrence → night vault. Desktop IntersectionObserver work is scoped to wide screens and disconnected on resize/unmount; manual buttons work at every width. Reduced motion removes the screen transition and sticky behaviour. All four chapters are prerendered.
+- Search: `content/nex/search-demo.json` contains 48 fictional FA/EN notes. No visitor data, storage or network call is involved. Matching folds Arabic/Persian letter and numeral variants, diacritics and half-spaces; highlights map back to the original displayed text. The measured duration is explicitly a browser-demo measurement, not an app benchmark.
+- Calendar: device-local today is read only after hydration; UTC-noon date-only arithmetic and `Intl` Persian/Gregorian calendars avoid DST drift. Ten monthly occurrences include today where applicable. Missing days clamp to month end without losing the requested day in later months. The demo creates no notification or actual reminder. Space is reserved before the live calendar arrives; dates are also readable as an ordered, keyboard-scrollable list.
+- Privacy: five selectable data routes, native network-details disclosure and links to the app's actual privacy policy. Reviewed app revision `6a653a3620c18e68af37fdf3bcce3c7d78ae052a`, including `apps/client/assets/privacy/{fa,en}.md`, guide, AI context and backup/vault implementation. Ordinary backups are not described as fully encrypted. The previous absolute “nothing leaves” aside was replaced with a narrower offline-capture/search statement.
+- Real screenshot input is still outstanding. Both illustrated phone treatments say so; no placeholder image is passed off as a real app screen. `product.json` supplies the approved-image replacement hook.
+
+Verification:
+
+- Full suite: 54 files / 265 tests pass with two workers. Earlier runs hit different 5-second page-test timeouts. Hero/download test queries were scoped to their own sections, retaining the same assertions and timeout. The final focused rerun passes all 50 landing/experience tests with one worker.
+- Final TypeScript, lint and copy parity pass. Clean offline-snapshot build passes (54 prerender routes); `check:dist` passes (56 HTML files / 86 JSON-LD blocks). `check:bundle` passes: initial JS 78.6/90 KiB gzip, HTML 15.5/80 KiB and first paint 450.6/1480 KiB.
+- Final `check:a11y` cannot launch: the Playwright Chromium executable is missing. This is a blocked check, not a pass. No browser-download retry was made after Phase 1's truncated archives. The HTTP PWA gate remains blocked by the previously observed supervisor networking restriction.
+- Development browser: Persian light story and manual night selection, Gregorian day-31 recurrence (ten dates), English cloud-AI explanation, English dark search with original-text highlights inspected. Production browser, actual narrow viewports and full axe/PWA gates remain unverified in this environment because of the Phase 1 preview/Chromium limitations; the extended `check:a11y` now exercises the new controls at 1440/820/320px in both languages/themes when Chromium is available.
+- The merged Phase 1 main CI run `40015585494` completed successfully. This is not a Phase 2 CI result; CI runs on PR/main, not a push to `cursor-dev`.
+
+No new dependencies, production deployment, app-repo changes or extra branch were introduced. The fifth planned creative experience (version comparison) remains in Phase 3.
