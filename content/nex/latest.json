@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "releases": [
+    {
+      "version": "2.2.2",
+      "tag": "v2.2.2",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.2.2",
+      "publishedAt": "2026-10-23T08:50:39.000Z",
+      "notes": {
+        "en": "- **The portrait arrives as you scroll.** Each part of your writing portrait — the figures, the 30-day bars, the ring, the shape of your traits — now plays its entrance when you scroll to it, instead of everything finishing the moment the page opens. The page also opens lighter, so the small stutter on entering is gone.\r\n- **A different \"One thing to try\" each time.** Writing the portrait again used to give the same suggestion over and over. Nex now remembers the last few it gave and steers the next one to a different area.",
+        "fa": "- **پرتره همزمان با اسکرول می‌آید.** هر بخش از پرتره‌ی نوشتن شما — عددها، ستون‌های ۳۰ روز، حلقه و شکل ویژگی‌ها — حالا وقتی به آن می‌رسید اجرا می‌شود، نه اینکه همه‌چیز به محض باز شدن صفحه تمام شود. صفحه هم سبک‌تر باز می‌شود و لگ کوچک موقع ورود از بین رفته است.\r\n- **«یک پیشنهاد» هر بار متفاوت.** نوشتن دوباره‌ی پرتره قبلاً همان پیشنهاد را بارها می‌داد. نکس حالا چند پیشنهاد آخر را به خاطر می‌سپارد و پیشنهاد بعدی را به سمت موضوعی دیگر می‌برد."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.2.2-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.2.2/Nex-2.2.2-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 58150187,
+          "downloads": 1,
+          "sha256": "d2664e33f266d23eff6f6c1d6b63964097f65313c656f91fb938a432eee31f4b"
+        },
+        {
+          "name": "Nex-2.2.2-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.2.2/Nex-2.2.2-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 34965329,
+          "downloads": 0,
+          "sha256": "52bc5190e84b55e2271f5d3d13623b4d17ee10e7efef3643b2398d2e26a6a769"
+        },
+        {
+          "name": "Nex-2.2.2-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.2.2/Nex-2.2.2-universal.apk",
+          "kind": "universal",
+          "size": 146100544,
+          "downloads": 0,
+          "sha256": "83ffac4b1f5d6bae6609a1fd282b04faf4104cea86b8fb63c3f8a57e56cda81f"
+        },
+        {
+          "name": "Nex-2.2.2-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.2.2/Nex-2.2.2-x86_64.apk",
+          "kind": "x64",
+          "size": 63704358,
+          "downloads": 0,
+          "sha256": "4ea018a9dfa15af6a729a76b28fd00acfba04e3e4c7440134b19906693c69f0e"
+        },
+        {
+          "name": "Nex-2.2.2.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.2.2/Nex-2.2.2.aab",
+          "kind": "bundle",
+          "size": 109758076,
+          "downloads": 0,
+          "sha256": "38222dacea3a9b549b9d15b0641552226106de7d08bf2904510d61d933eddcde"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.2.2/SHA256SUMS",
+          "kind": "other",
+          "size": 434,
+          "downloads": 1,
+          "sha256": "ba78eb7048b7157db702fefa68c71316a0e7898f6008e6fbd5032bf5e6180196"
+        }
+      ]
+    },
+    {
+      "version": "2.2.1",
+      "tag": "v2.2.1",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.2.1",
+      "publishedAt": "2026-10-23T05:41:09.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.2.0",
+      "tag": "v2.2.0",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.2.0",
+      "publishedAt": "2026-10-22T22:24:01.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.1.15",
+      "tag": "v2.1.15",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.1.15",
+      "publishedAt": "2026-10-21T09:33:14.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.1.14",
+      "tag": "v2.1.14",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.1.14",
+      "publishedAt": "2026-10-20T21:16:17.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.1.13",
+      "tag": "v2.1.13",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.1.13",
+      "publishedAt": "2026-10-20T09:21:58.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.1.10",
+      "tag": "v2.1.10",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.1.10",
+      "publishedAt": "2026-10-20T05:00:31.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.1.9",
+      "tag": "v2.1.9",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.1.9",
+      "publishedAt": "2026-10-19T16:20:43.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    }
+  ]
+}

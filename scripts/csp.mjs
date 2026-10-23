@@ -45,7 +45,7 @@ export function buildCspHeader({ scriptHashes = [], styleHashes = [], forMeta = 
     "form-action 'self'",
     "img-src 'self' data: blob:",
     "font-src 'self' data:",
-    "connect-src 'self'",
+    "connect-src 'self' https://api.github.com",
     "worker-src 'self' blob:",
     "manifest-src 'self'",
     "upgrade-insecure-requests",

@@ -29,6 +29,13 @@ afterEach(() => {
 });
 
 describe("Nex timeline and routing", () => {
+  it("keeps every product UI key and list aligned in Persian and English", () => {
+    expect(Object.keys(NEX_COPY.fa).sort()).toEqual(Object.keys(NEX_COPY.en).sort());
+    for (const key of Object.keys(NEX_COPY.fa) as (keyof typeof NEX_COPY.fa)[]) {
+      expect(Array.isArray(NEX_COPY.fa[key])).toBe(Array.isArray(NEX_COPY.en[key]));
+      if (Array.isArray(NEX_COPY.fa[key])) expect(NEX_COPY.en[key]).toHaveLength(NEX_COPY.fa[key].length);
+    }
+  });
   it.each(["/nex", "/nex/", "/en/nex", "/en/nex/"])("serves %s as an independent, readable timeline", (path) => {
     const { container } = open(path);
     const en = path.startsWith("/en");
@@ -57,6 +64,8 @@ describe("Nex timeline and routing", () => {
       expect(html).toContain(c.privateText);
       expect(html).toContain(c.tagline);
       expect(html).toContain("<details");
+      expect(html).toMatch(/href="https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//);
+      expect(html).toContain(c.screenshotPreview);
       expect(html).toContain("<noscript>");
       expect(html).toMatch(/<textarea[^>]*disabled/);
       expect(html).not.toContain("product-launch__hero");
@@ -64,7 +73,7 @@ describe("Nex timeline and routing", () => {
     }
   });
 
-  it.each(["fa", "en"] as const)("shows all five branded stores as coming soon in %s, with a visible screenshot placeholder", (lang) => {
+  it.each(["fa", "en"] as const)("shows Android stores as coming soon, a real APK and an honestly labelled preview in %s", (lang) => {
     open(lang === "fa" ? "/nex/" : "/en/nex/");
     const c = NEX_COPY[lang];
     for (const id of Object.keys(NEX_STORES) as (keyof typeof NEX_STORES)[]) {
@@ -76,15 +85,16 @@ describe("Nex timeline and routing", () => {
       expect(src).toBe(NEX_STORES[id].logo);
       expect(fs.existsSync(`public${src}`)).toBe(true);
     }
-    expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(6);
-    expect(screen.getByRole("button", { name: `${c.apk} ${c.storeSoon}` })).toBeDisabled();
+    expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(3);
+    expect(document.querySelector('a[data-store="apk"]')).toHaveAttribute("href", expect.stringMatching(/^https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//));
     expect(document.querySelector(".nex-hero .nex-store-links")).toBeNull();
     const downloads = document.querySelector("#nex-download")!;
     expect(document.querySelector(".nex-chronicle")!.compareDocumentPosition(downloads) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(downloads.querySelectorAll(".nex-store")).toHaveLength(6);
+    expect(downloads.querySelectorAll(".nex-store")).toHaveLength(3);
     expect(screen.getByText(c.storePending)).toBeVisible();
-    expect(screen.getByText(c.screenshot)).toBeVisible();
-    expect(document.querySelector(".nex-screenshot")).toBeNull();
+    expect(screen.getByText(c.screenshotPreview)).toBeVisible();
+    expect(document.querySelector('img[src*="/guide/home"]')).toBeNull();
+    expect(document.querySelector(".nex-photo-placeholder")).toBeNull();
   });
 
   it("has a native voice-text disclosure and locale/theme controls", () => {

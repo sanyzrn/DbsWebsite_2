@@ -1,0 +1,293 @@
+# Using Nex
+
+**Text size and module preparation (2.1.3).** System text enlargement is no longer capped at 1.9×; the app size setting composes with the system accessibility curve. Enter activates a focused control's normal tap. Module drafts save after a short pause and on close. Module calendar buttons use your calendar setting (Jalali or Gregorian) and keep the existing stored dates. The shared editor supports Persian/English text. Damaged rows and unknown recovery operations are preserved separately for recovery. An explicit one-time OS reminder control is prepared for Medicine; it requests notification permission and uses a generic lock-screen message, independently of reference dose times. Removing or archiving its record cancels its alert; removing the module cancels its alerts. **Only Cycle is available; other modules remain Soon and schedule no reminders.**
+
+
+Nex is the fastest way to put something down and find it again: a thought, a photo, a recording, a file or a link, all in one stream. Everything stays on this phone unless you choose otherwise, and the library works completely without AI.
+
+The first time you open Nex, four short pages show what it does, and a last one asks for your name, theme and language — with the greeting your name buys drawn above them as you type. Nothing there is required: **Skip** goes straight to the timeline, and every choice is in **Settings** later.
+
+**Phone orientation.** Nex temporarily stays in portrait while the landscape layout is being redesigned.
+
+## Capture something
+
+Tap **+** at the centre of the bottom bar to write. The kinds sit at the top of the box — **Note**, **Checklist** and **Link** — and switch in place: what you typed stays, so a note becomes a list line by line, and a pasted address (with a line about it if you like) becomes a link. **Voice** turns the box into a recorder: the square keeps the recording, the bin throws it away. Below the box, **Voice**, **Camera**, **Gallery** and **File** each have their own button. Nothing has a Save button: what you write is kept from the first letter and is turned into the kind you chose when you close the box; words that are not a link stay a note.
+
+The small clipboard icon in the editor’s corner pastes into **Note**, **Checklist** or **Link**, at your caret or in place of selected text.
+
+Flick **+** left or right to start a shortcut without opening the box — by default left records a voice note and right opens the camera. Choose them in **Settings → Gestures**. As you swipe, a border traces the screen in the shortcut’s colour from Settings; releasing after it completes opens the shortcut, while returning or releasing early cancels it. A tap still writes a note. Hold still to open the assistant: its glow starts after a short pause so swiping does not flash it. Reduced motion skips the border and glow.
+
+To have a note arrive later — a letter to yourself, a thought for next month — **hold** the send button instead of tapping it and choose when: tomorrow morning, next week, in a month, in a year, or any day and time. Until then it is not in your notes, search or widgets; at its time it lands on the timeline with a notification. **Tools → Scheduled** shows what is on its way, where you can deliver one now, change its time or discard it.
+
+Without opening Nex first: add the **Nex capture** tile to your Quick Settings (pull the shade down twice, then edit the tiles), or turn on **Settings → Capture → Capture from notifications** for a silent row with **Note**, **Voice** and **Photo** buttons.
+
+**Photo** opens Nex's camera over the timeline: the large button takes the picture, **⋮** switches between front and back camera and sets the flash, and pulling the panel down closes it. If the camera cannot be opened, Nex offers the phone's camera app instead. Photos save immediately. Enable **Settings → Capture → Edit photos before capture** to open the preview first; it is off by default. You can also edit a photo after capture. Choose **Edit** only when you want to change it: pick a shape (free, square or a common photo size) and drag the corners, **Rotate** a quarter turn at a time, **Flip** it left to right, or **Draw or add text**; **Reset** puts it back as it was. A photo the camera saved on its side opens the right way up. In drawing, a tap leaves a dot and a drag a line; the slider sets the pen's width, or the size of new text when placing text; tap where text should go, drag a label to move it, and hold it to change or remove it. Undo and redo are at the top. Files shared into Nex from another app arrive exactly like files you pick inside it. When the app sends words along with a video or photo — a Telegram or WhatsApp caption — they become the note's caption.
+
+![The capture menu](capture.webp)
+
+**From a text selection.** In compatible Android apps, select words and choose **Save to Nex** from the selection menu (it may be inside **⋮**). Nex saves them through quick capture and returns you to the source app, without replacing the original text. Availability and placement depend on the source app's selection menu.
+
+## The home timeline
+
+Reminders and attachment counts share a small row below the card’s text. Their position follows the interface language, even when individual notes use another language.
+
+Everything lives in one reverse-chronological stream, grouped under date headings. At the top, today's date in your calendar sits over the greeting, and the filter button is beside the search field; the row of tag chips under it appears once you have tags. Tap a heading to fold its day; pinch two fingers together on the timeline to fold every day at once, and spread them to open them all again — a pinch never pulls to refresh, even at the top of the list. Once you scroll down, the day of the notes you are passing stays named under the filters. Each card's square takes its note type's colour, a family drawn from your theme's accent: text in the accent itself, and checklists, links, voice notes and photos in neighbouring shades of it, with files in a quiet grey. A new accent brings a new family. The notes of one day are joined by a thin thread down their squares. Tap a card and it opens into the note; **Settings → Appearance → Card size** makes cards compact, standard or easier to read.
+
+Hold a note for a quick menu: **Pin**, **Set aside**, **Copy**, **Edit**, **Remind** and **Delete** by default. **Settings → Gestures and menus** can add any action from a note's details — Share, Add tag, Translate and the rest — to the hold menu, or take some away, with one tap on each. Up to five notes can be pinned to the top. Swipe a card from either edge for the actions you chose on the same page: tap an action under each edge, and the small card above shows what each swipe will uncover. The bottom bar holds, from left to right: **Tools**, **Recurring**, **+**, **Library** and **Settings**.
+
+**Set aside** takes a note off the home screen without deleting it — for the note you need, but not right now. Choose until when: this evening, tomorrow morning, next week, a date you pick, or until you bring it back yourself. The note leaves the timeline and waits in **Library → Set aside**, where **Bring back** puts it home again; the banner that appears when you set it aside has an **Undo**. It is still an ordinary note: search finds it (marked **Set aside**), its reminder still rings, it is in your backups, and the assistant can find it. A pinned note loses its pin when set aside. When a date you chose arrives, the note comes back by itself and a capsule says so. If every note is set aside, the home screen says **All clear** and offers a way to them.
+
+To work on several notes at once, hold one and choose **Select** — it is always first in the menu. Now each tap on a card picks it or takes it back out, and the bottom bar shows how many are picked with **Tag**, **Threads**, **Pin**, **Set aside**, **Share**, **Copy** and **Delete** for all of them together; one **Undo** brings back everything a delete took. **✕**, Back, or taking out the last one ends it. Swiping cards does nothing while picking.
+
+![The home timeline](home.webp)
+
+## Find and organize
+
+Tap anywhere in the search field and type part of a word: **tor** also finds **Generator**. Results come best match first. With semantic search on (**Settings → Intelligence**), notes about the same thing follow, even when they share no word with the query, marked **Found by meaning**: always after the notes that contain your words, and only the few closest. In the build with on-device models, **Settings → Intelligence → On-device search** downloads a small search model (about 160 MB) that does this on your phone: no internet, no provider, and nothing you write sent anywhere for it. It also powers related notes and the notes the assistant finds before it answers. It only finds — it does not chat. The chips beside the field narrow results by type, tag or date, and `tag:` and `type:` still work in the field itself. When nothing matches, Nex offers the closest thing you actually wrote. Before you type, your last few searches are there to tap again, beside the ones you saved; the button beside them clears them. With words typed and the keyboard up, the first touch outside the field only closes the keyboard; after that, tap a result to open it, the field to type again, or anywhere else to leave the search. With nothing typed, a touch outside leaves at once.
+
+**Threads** gather notes about the same thing — a renovation, a trip, a project — without moving them: a note in a thread is still on the timeline and under its tags, and can be in several threads or none. When a note you have just saved clearly continues one, a capsule can offer to add it; the offer is off until you turn it on in **Settings → Capture**, and even then nothing is added without a tap. Find them in **Library → Threads**, where a thread reads oldest first, and from a note's details, where its threads sit beside its tags.
+
+Tags group related notes and can carry any colour. **Library → Tags** renames, merges and deletes them; **Library → Trash** keeps deleted notes for 30 days, so a mistake can be undone.
+
+![Search with filters](search.webp)
+
+## Read, edit and share
+
+Repeating reminder labels show **Daily · time** or the weekday and time beside a repeat icon; hold one for its full schedule. Tap outside selected text to clear the selection and its menu.
+
+Open an item for its exact date and time, tags, description and every action. The common actions are always visible; **More** holds the rest. **More → Details** says what the sheet does not: how long ago it was made and last changed, how long it is or how much of a list is ticked, and how much room it takes on the phone with its attachments. Select text to copy or format it. When you edit a note, the **Full screen** button gives the whole page to the text: the AI edits are behind one button at the bottom, next to Save. Open a photo to zoom with two fingers, drag to look around, and drag down to close it.
+
+**Save to device** puts a copy of the item anywhere you choose — Downloads, Documents, Google Drive — through Android's own save window, with no extra permission. A file, photo or recording is saved as it is (a photo without where and when it was taken); a note of words is saved as a Markdown file named after its first line. A file item can be given a new name with **Rename**: only the name it shows changes, the extension stays, and the new name is used when you search, share or save it.
+
+Voice notes, audio files and voice clips play in Nex's player: tap the round button to play or pause, touch or drag the recording's shape to move through it, and tap **1×** to play at 1.5× or 2×. On Android the shape is drawn from the recording itself; formats without one still play. A recording is kept when you tap Keep; if Nex is closed in the middle of recording, that recording is lost.
+
+When you write in two languages, each line keeps its own direction and side while you edit it, just as it does when you read it. While you type in the settings search, touching anywhere outside it only closes the keyboard, so no setting is changed by accident.
+
+Web addresses in a note or caption become links automatically. Tap a link to open it in your browser; hold it for **Open link** or **Copy link**. Hold ordinary words to select and copy text.
+
+![A note's details](note-details.webp)
+
+**Card expansion.** The hold menu offers **Show in full** only when the expanded card reveals more content at your current width and text size; an expanded card still offers **Collapse**.
+
+**Editing an attachment.** Hold an attached image and choose **Edit** to crop, rotate or annotate it. Save replaces only that attachment while keeping its caption and order; cancelling leaves it as it was. The original file is kept until unreferenced media is cleaned up. Choose Describe & read image when you want the edited picture read again.
+
+## Long notes, Markdown and files
+
+Long notes open folded; tap **More** to read the rest and **Less** to fold them again.
+
+A text note can become a Markdown file with **Save as Markdown**: the same item, with its tags, pin and reminder, now a `.md` file named after its first line, which you can share. That is the only direction a note is ever converted — Markdown is what a note already is.
+
+The other way round works for any file that is mostly words. Open a file item and tap **Convert to note** to turn it into editable, searchable text. This works for Markdown, plain text and logs, Word (`.docx` and older `.doc`), OpenDocument (`.odt`), Rich Text (`.rtf`), web pages (`.html`), e-books (`.epub`), spreadsheets saved as `.csv` or `.tsv` (they become a table), and source or configuration files (they keep a fixed-width font). Older Persian text files in Windows encoding are read correctly. PDFs stay files: their text has no reliable reading order. Files up to 16 MB are supported, and a failed conversion leaves the original untouched.
+
+**Video and PDF, in place.** A video file opens in a rounded player in its note details. Tap Play to start; use the timeline to seek, the speed button for 1×/1.5×/2×, and the speaker to mute. Playback pauses when the app leaves the foreground or another page/sheet covers it; returning does not start it automatically. A PDF opens in the same detail sheet: swipe sideways to turn pages, or use the arrows in the capsule over the bottom of the page; tap the page count in between to jump straight to any page. Pinch or double-tap to zoom, and drag to move around while enlarged — a sideways drag then moves the page rather than turning it — or use the zoom/reset button. The current PDF page stays visible while the next page is prepared; the reader keeps its height and changes pages with a short transition. If a page fails, retry without losing the page you were reading. Tap a video or PDF attachment to show it below its attachment strip; close that preview with ×. **Open in another app** is available when a format is unsupported or you prefer another reader. The inline PDF reader uses Android's renderer; protected or damaged files may need another app. Link notes now offer the same **Attach** action as text, photo and file notes.
+
+A note can carry more than one file. Open a text, link, photo or file note and tap **Attach** beside **Tag** — or, once it has some, **+** at the end of its **Attached** row — to take a photo, choose several photos from the gallery at once, record a voice clip, or choose a file. Choosing several photos while capturing does the same: the first one becomes the note, and the others are attached to it, and so does sharing several files into Nex at once from the gallery or a file manager. The **Attached** row says how many files there are and how much room they take; each tile shows what it is — a photo as itself, a PDF by its first page, a video by a frame, a voice clip by its length, any other file by its kind. A card with attachments shows a small paperclip with how many more it holds at the end of the note's last line, beside its reminder when it has one; a long note fades out just before them.
+
+Tap a photo to open every photo of the note in one gallery — swipe between them, with each one's caption at the bottom — and a voice clip to play it where it is. Hold a tile and drag it to change the order; hold it and let go for everything else: give it a caption, share it or save it to your device on its own, rename a file, make an attached photo the note's own photo, move it earlier or later, take it out as a note of its own, or remove it, which **Undo** puts back. Captions are searched with the note — and so are the words in attached photos and what is said in voice clips, when reading text in photos and transcription are on in **Settings → Intelligence**. **Share** on the note sends every file together, and attachments go with the note into exports and complete backups.
+
+![Turning a file into a note](files-to-notes.webp)
+
+## Recover unfinished work
+
+If Android closes Nex while you are editing, reopen the same editor to find its draft waiting: note text, captions, checklists, links, profile details and recurring items are all kept. To resume an unfinished photo, choose Photo again; crop and annotation drafts reopen from their own editors. Discarding a draft on purpose removes it, and quick text is recovered automatically at startup.
+
+## Reminders
+
+A reminder brings one note back at the time you choose, once or repeating. Use the quick choices, the wheels or the calendar button, and confirm the time shown. Once it rings, its notification stays until you tap or dismiss it — opening Nex does not clear it. Android's notification permission is required. If Android refuses to schedule one — exact alarms off, notifications blocked, battery optimisation — Nex tells you in Android's own words, and **Settings → Reminders and notifications** has a test notification to tell "Nex never sent it" apart from "the phone swallowed it".
+
+## Recurring
+
+**Recurring**, on the bottom bar, is for the things that come back round: rent, insurance, a tablet every eight hours, a glass of water every two. They are not notes and never crowd the timeline. It opens as a page of its own: at the top, how many are **Overdue**, due **Today** and due in the **Next 7 days** — tap one to see just those, tap it again for everything — and what the ones with an amount add up to over the next 30 days.
+
+Tap **Add a recurring item** to add one; it opens a full page: a title, how often, and when it is next due; optionally how far ahead to be told, a daily window for hourly items, several weekdays, a day of the month or its last day, and an amount with its currency. Persian monthly and yearly repeats follow the Persian calendar. **Save** is at the top and at the end of the page; **✕** or Back closes it, and asks first if you have typed something.
+
+The **List** shows what has slipped first, then what is coming up, then what is paused; the chips above it narrow it the same way the numbers do. **Calendar** shows a month or a week, each day shaded by how much falls on it, and what is due on the day you tap. The next occurrence can be moved from there without moving the schedule. In an item's editor, **Attachments** holds receipt photos — taken with Nex's camera or chosen from the gallery, and kept with the item rather than among your notes — links to any note and, optionally, one bank card from the vault, which only opens after the vault is unlocked and is never shown to the assistant. Mark an item done (the tick on its card) to move it to its next turn; its **⋯** menu can snooze one occurrence, skip it, open its history or delete it. In its history, each entry can carry a short note. Undo restores an accidental change, and snoozing never moves the underlying schedule. Upcoming 30-day totals are shown per currency.
+
+![The Recurring page](recurring.webp)
+
+## The assistant and AI
+
+AI is optional and off until you turn it on. In **Settings → Intelligence**, choose a provider (or a downloaded offline model) — for **Custom**, enter the full chat address, which is used exactly as written; for a **Google Gemini** key bought from a reseller, choose Google Gemini and put the reseller's address (with or without `/v1beta`) in **Service address** instead, so the model can still watch YouTube videos — test it, and pick which features to use — each is a tile switched with one tap, greyed with the reason when your provider or model cannot do it — "Anthropic has no speech-to-text service", for instance: transcription, text in photos, summaries, tag suggestions and the daily smart summary. If the offline model will not start, open its page and tap **Try loading it again** — there is no need to download it again. A model on the phone never reaches the quality of a cloud model: it is good for simple requests, and on an older phone it answers slowly. With a cloud provider, how good the results are depends entirely on the model you choose.
+
+**Hold +** to open the assistant: a coloured light washes in from the edges of the screen, and a thin band of it keeps circling the screen while the assistant is open. Ask about your notes, or ask it to act — create, edit, tag, remind, pin, merge, add notes to a thread, add a recurring item, or change a setting. It can read every note with a tag or in a thread, so "summarise my work notes" or "what is in the Trip thread" works, and one request can act on several notes at once: "tag these as home and put them in a Kitchen thread". It knows which notes are pinned, which have a reminder and when, which thread each is in, and when each was written, and it can look at your tags, your recurring items with their next dates, and Recently Deleted — so "when is my insurance due?" or "bring back the note I deleted yesterday" works. A new note can come with its reminder in one request: "remind me Saturday at 9 about the doctor". It can change a setting such as the theme palette, accent, text size or language. Nothing is applied until you confirm it. A cloud provider receives only what the request needs; an offline model keeps everything on the phone.
+
+If your model thinks before it answers and the summary comes back empty, turn on **No token limit** in the Smart summary settings — it can use many more tokens, when a summary is generated.
+
+Each line of the smart summary is one thing, with its emoji at the start and the words lined up beside it. A reminder you set is said as when to do the thing — "call the plumber tomorrow at 9" — not as a deadline, days are counted by the calendar, and the summary never suggests a reminder you already have. A deadline is mentioned only when the note itself names one, and is kept apart from your reminder.
+
+Tap the smart summary to open or fold it and pull down to refresh it. Automatic generation requires changed relevant notes, commitments or summary settings and at least one hour since the last successful generation; failures wait at least 15 minutes before retrying. Pulling down refreshes immediately, sharing any request already in progress. The previous summary stays readable while its replacement is being written. Folded, it stays folded — even after you leave the app and come back — and updates without opening. Hold the greeting for another phrase. If you do not want it at all, turn off **Show the smart summary** at the top of its settings: no summary is written and nothing is sent to a provider for it. The greeting above it has its own switch, under **Home layout**.
+
+When an answer uses your notes, they appear under it as chips; tap one to open that note. With **Stay in my notes** off, an answer that comes from general knowledge instead says so.
+
+With Gemini or OpenAI as your provider, the **microphone** in the message bar (it shows while the box is empty) lets you ask by voice. The bar turns into a recording with the time and your voice as it is heard — **✕** cancels, **↑** sends. Say what you want and it is sent as your message — "remind me tomorrow at nine to call the bank" — and anything it would change still waits for your confirmation. To check the words before they are sent, turn on **Check what I said before sending** in the assistant's settings.
+
+![The assistant opening](assistant.webp)
+
+**Read media when you choose.** In an item's **AI** section above its content, use **Describe & read image** for a picture or **Transcribe audio** for a recording. The same actions are in an attachment's hold menu. Capturing, editing, opening an item or enabling a provider does not automatically read or upload its media. A new image reading begins with a brief visual description, including pictures without words; screenshots then show organized main content and a clearly readable URL, skipping keyboard keys and routine controls. Documents and receipts keep faithful transcription. Text-only actions appear when usable text exists; images do not offer a generic Translate action. Results appear immediately under the actions, with a short preview and an expandable reading area. Switch between results with their labels; copy or add the selected result to the caption. Translation appears here too, with a language picker and Save as note. If the caption already has text, choose **Cancel**, **Append** or **Replace caption**. Replacement preserves your original note and media and stops if the caption was edited while the confirmation was open. **Similar notes** are temporarily unavailable; semantic search still works. Results depend on the chosen model.
+
+**Analyze a YouTube video.** When your provider is Gemini, a link note holding a YouTube video shows **Analyze video** in its AI section in place of a page summary, unless the capability check found that the chosen Gemini model cannot watch videos. Gemini watches the video from its address and answers with what it is about, its main points with their times, and who it is for; the result is kept as the note's summary. The video is watched at a lower resolution and frame rate, which is enough to follow a talk or a tutorial and lets longer videos fit a free plan's limits. When it cannot be done, Nex says why: the plan's limit was reached (usually a long video — wait a minute, or try a shorter one), it took too long, or Gemini refused it with its own reason, such as a private or age-restricted video.
+
+**Use AI output as a caption.** Beside each result's Copy button, **Add to caption** fills an empty caption. If it already has words, choose **Cancel**, **Append text** or **Replace caption**. Append adds the result below the existing text; replacement stops if the caption changed during confirmation. The original note body and media stay intact. Hold a copied or recognized link for a menu styled like the card's own menu.
+
+## Tools and private vault
+
+**Pause (coming soon).** Tools → Add modules previews a short offline breathing break with three modes and optional haptics.
+
+
+**Modules** are extra features that stay out of the app until you want them: **Tools → Add modules** lists each one with what it does. **Add** installs it, which you can watch as its pieces gather into its icon, and puts it in Tools under **Modules**; **Remove** takes it out again — with nothing left running — and asks whether to keep its data for later or delete it. Cycle keeps its existing opt-in. Below the modules you can add, **On the way** lists the ones being planned, and the row at the bottom opens a short form that sends us your own idea for one.
+
+**Finding modules.** Search in **Tools → Add modules** by name or keyword. Cards show a brief preview; tap one to expand its details and Add, Open or Remove actions. Opening a preview does not enable it.
+
+**Modules.** **Cycle** is available. The others — **Habits**, **Price Lens**, **Lent & Borrowed**, **Quit Habits**, **Birthdays & occasions**, **Expenses**, **Gold**, **Words**, **Parking**, **Medicine**, **Warranty** and **Maintenance** — are marked **Soon** for now, with no install or open action, while they are finished properly; anything you saved in them is kept and they come back when ready. What each of them does:
+
+- **Habits:** daily/weekly check-ins, history and streaks, a calendar of every month (in your own calendar) where you can mark or take back any past day, how often you kept it, and an optional daily reminder.
+- **Birthdays & occasions:** birthdays, anniversaries and other dates you keep, each repeating in its own calendar — a Jalali date returns on the same Jalali day every year. A countdown, the age it comes to (if you know the year), the day in both calendars, a greeting to copy or share, and an optional reminder ahead of the day.
+- **Price Lens:** compare unit prices across differently sized offers, in plain words ("X costs 7.1% less per kg"), per 100 g or 100 ml if you like; save and copy comparisons.
+- **Lent & Borrowed:** track money/item loans, due dates and partial/full returns; totals owed to you and by you in each currency, search and filters, a page for each person, an optional due-day reminder and polite reminder messages you can share.
+- **Expenses:** manually record income/expenses, categories, budgets and separate currencies.
+- **Gold:** calculate manual gold/jewelry quotes and save receipts; no live prices.
+- **Words:** build vocabulary cards, paste a batch and review at spaced intervals.
+- **Parking:** save manual location clues and track paid-until time; no GPS or maps.
+- **Medicine:** track medicines, stock, expiry and taken/skipped doses; no automatic reminders.
+- **Warranty:** keep product details, typed receipt references, warranty dates and claim notes.
+- **Maintenance:** log equipment services, costs, meter readings and service intervals.
+- **Quit Habits:** count the days since you quit smoking, vaping, alcohol, caffeine, sugar, social media, gambling or anything of your own — several at once, each with a live count, the money and time kept, a saving goal, your own reason, marks along the way and the last five weeks at a glance. **I need help now** opens breathing (4-7-8), a ten-minute wait and quick ideas, with your reason on top. A slip never erases the attempts before it. Starting later is allowed. For things that are unsafe to stop suddenly, Nex says so once; it gives no medical advice.
+
+Each module stores its own data locally and in backups. These records do not enter notes, search, note widgets or the assistant. These modules have no camera, location or network integration. Dates in the modules follow your calendar setting (Jalali or Gregorian) and are kept the same way underneath; where you type a date, a line under it reads that day in your calendar. Reminders are always your choice: a habit can nudge you at a time you pick every day (open the habit, switch on **Daily reminder**), and a loan can remind you on its due day (**Reminder** on the loan's page), and a birthday or occasion can remind you a few days ahead (it keeps the next two times ready and renews them whenever you open the module); the notification says only that something is waiting, and removing, archiving or settling the item takes its reminder away. Expenses, Gold, Words, Parking, Medicine, Warranty and Maintenance send no reminders. **Copy result** in Price Lens puts the comparison on the clipboard as plain lines.
+
+**Tools**, at the left of the bottom bar, holds **Passwords**, **Bank cards**, **Private saved messages** and a **Password generator**. The private tools need your fingerprint or screen lock, and one unlock opens all of them for as long as you are using them. They lock after two minutes without activity — including time spent in another app, so you can copy a password, paste it in your browser and come straight back. Leaving the app always hides their contents from the task switcher, and **Lock** closes them at once. Hold any tool to pin it to the top of the home screen, in its own colour and icon; hold it there to take it off. A pinned private tool shows only its name and still asks for your fingerprint. The lock on a private tool's card shows open while they are unlocked.
+
+Everything is shown on the list itself: each password with its login, password, website and notes, and each card as a card with everything on it. Tap any field of a password, or its copy icon, to copy it. On a card, tap what you need — the number, the name, CVV2, the expiry, or the IBAN, account number, bank or notes below the card's face — and it is copied, with a tick to say so. Use the **⋮** menu on an item to edit it, favourite it or delete it. Each bank card can have its own colour, chosen with the same picker as tags, and its CVV2 is shown on the card beside the expiry. While you type, the number is grouped as on the card, Persian digits become ordinary digits, and for Iranian banks Nex recognises the bank from the first digits and fills the **Bank** field if it is empty (a name you typed is never changed). A number only has to be 12 to 19 digits to be kept, from any bank in any country, and under it Nex names the card network when it can (Visa, Mastercard, American Express, Discover, UnionPay, JCB, Diners Club, Maestro, Mir, Troy, RuPay): if its last digit does not match the rest, Nex says so under the field and still lets you save it. The expiry is accepted as month/year or as year/month. Opening a card and leaving without a change leaves nothing to resume; **Continue unfinished edit** appears only when you actually changed something. In Passwords, **Import Chrome CSV** adds passwords exported from Chrome or Google Password Manager, skipping exact duplicates. A row that cannot be read — one with no password, for example — does not stop the rest: everything else is imported, and the rows left out are listed by line with the reason. Delete the exported file afterwards, as it is not encrypted. The **⋮** menu at the top of each page can delete every password, card or message on that page at once, after a confirmation.
+
+In **Private saved messages**, the **+** beside the box attaches a voice message, a photo taken with Nex's camera or chosen from the gallery, or a file (up to 25 MB), with whatever you typed as its caption. Messages are grouped by day with their time. Tap a photo to open it full screen and pinch or double-tap to zoom; tap a file to open it, or its share icon to send it to another app; play a voice message in place. Tap a message for everything else: copy, open, share or delete. A shared copy leaves the vault for the app you chose. Attachments are encrypted on this phone and are not part of any backup. The vault uses the phone's secure storage and never enters notes, widgets, search or AI. Unfinished edits are kept as encrypted drafts. Copied values are marked sensitive, and the clipboard is cleared after 30 seconds, even if Nex was closed in the meantime. On Android 10 and later the system does not let an app in the background look at the clipboard, so if you have left Nex the copy is cleared the moment you come back to it. The vault is included in a backup only when you choose **Include private vault** in a complete backup.
+
+![Tools](tools.webp)
+
+![Bank cards with every detail on the list](vault-cards.webp)
+
+## Cycle
+
+Your **Profile** is at the top of Settings. Tap the picture to choose one from the gallery, take one, or remove it; the name and bio show at the top as you type them, over a small sky of stars drawn from the name — a star for each letter — that drifts, twinkles and now and then sends a spark along its lines, and once your birthday is set the page counts the days to the next one — by the Persian calendar when you use it.
+
+**Your writing portrait** sits at the foot of the profile. Once you have 30 notes written on at least 7 different days, it shows when in the day you write most, how many of the last 30 days you wrote on (as a row of bars, today on the end), your current streak of days and your longest run, how much of your checklists you tick, the kinds of notes you keep and your most used tags — counted on the phone, nothing sent. Before that, a ring shows how many notes and days are still to go. With an AI provider chosen, **Write my portrait** asks it for a portrait in words: a headline, a few sentences, five traits with a bar for how strongly each shows and why, your strengths and one thing to try. It is read from a sample of up to 80 notes spread across your library, sent once when you tap and listed under **What left this device**; the portrait is kept on the phone until you tap **Write again** (which is always there; without a provider it tells you where to choose one). The card assembles itself as you scroll to it, and the five traits are also drawn as a shape. It is a reflection of your notes, not a personality test or a diagnosis.
+
+**Cycle** is a module: it is not part of the app until you add it in **Tools → Modules**, where its card says what it does. Once added, **Tools → Cycle** keeps track of your menstrual cycle, in a quiet space of its own: soft blush and lavender light, a greeting, and a gentle line for where you are in your cycle. The first time, it asks when your last period started and how long your periods and cycles usually are; answer what you know, or **I don't know**, and Nex learns the rest from what you log.
+
+The large button says **Period started** or **Period ended**; **On another day?** sets either on a date in the past. The ring shows the day of your cycle, the period in rose and the likely fertile days in teal. Under it is when the next period is likely — as a range, because nobody's cycle is exact — and how sure that is. **Log today** notes flow, mood, energy, symptoms, pain relief, intimacy, the pill and a few words; tap any past day on the calendar to do the same for it. Past periods are listed with their lengths; tap one to correct or delete it.
+
+Touch the ring to look at any day of the cycle — its date, its day and its stage (period, follicular, fertile window or luteal) — and touch the middle to come back to today. **For today** has a short, gentle word for where you are in the cycle, a different one each day. Under **Log today**, a row of faces logs your mood in one tap. If a period has stayed open longer than yours usually last, Cycle asks whether it has ended, so a forgotten end does not leave the page saying "period, day 12".
+
+If something looks unusual — a period much later than expected, or one lasting more than eight days — a short note says so and suggests a doctor; it is never a diagnosis. The settings button at the top sets the reminders (two days before a period, each evening of a period, a daily pill), which only ever say "Nex reminder", and holds **Delete all cycle data**.
+
+**Modes**, in the same settings, fit Cycle to where you are:
+- **Trying to conceive** leads with the fertile window and likely ovulation. A day's log then also has **Fertility signs**: your temperature on waking, an ovulation test and cervical mucus; a positive test is shown on the page for the rest of that cycle.
+- **Pregnant** shows the week and day, the due date and the trimester, counted from the first day of your last period or from a due date you already know. Once the due date has passed, Cycle asks whether your baby has arrived and offers to switch to **Breastfeeding** or back to **Normal**.
+- **Breastfeeding** and **perimenopause or menopause** turn predictions off and keep logging.
+
+After a couple of cycles with symptoms logged, **Patterns** shows the ones that come back at the same point in your cycle. **Report for a doctor** makes a one-page summary — averages, recent periods, symptoms and patterns — to save as a PDF or share.
+
+Cycle stays on this phone and in your backups. It never appears in your notes, search or the notes widgets — only in the two Cycle widgets, and only if you add one. It is sent to an AI service only if you turn on **Let the assistant read Cycle**, and then only as a short summary when you ask the assistant about it — never your day notes. **Gentle companion**, also in Cycle's settings and off by default, makes the assistant softer and more patient on the days that are often harder: just before and at the start of a period, or when you log feeling low, sensitive or in pain. It never mentions your cycle, and only a line about tone is sent, never your cycle data. To remove Cycle entirely, tap **Remove** on its card in **Tools → Modules**; you choose whether to keep or delete its data. It is not a method of contraception and does not replace a doctor.
+
+## Appearance, language and calendar
+
+In Settings → Appearance, **Liquid glass** is a separate optional effect, off by default. It adds frosted depth to page headers, dialogs, menus, sheets, Settings groups and Tools/Library panels while keeping note cards opaque. High contrast uses solid surfaces, and reduced motion keeps swipe icons still.
+
+**Settings → Appearance** keeps light, dark or system mode, text size, card size, accent colour and optional glass on the main page. Below accent and glass, **Theme** opens the palette gallery and **App icon** opens its own picker. Existing themes keep their saved IDs. Four new themes — **Bauhaus**, **Kintsugi**, **Circuit** and **Afterimage** — add geometric forms, gold seams, electronic routes and an optical dot rhythm. Their static motifs fade behind the lower part of the page; note reading surfaces stay opaque. Choosing a theme brings its own accent, which you can change afterwards.
+
+In **Appearance → App icon**, the picker changes the icon on your home screen to one of six — on dark, the Nex logotype (the default), the octopus and the swirl, and below them the same three on light; a home-screen shortcut may need adding again afterwards.
+
+Settings opens as a page of its own, like Tools and the Library, on a list of categories — Appearance, Language and calendar, Capture, Gestures and menus, Reminders and notifications, Home screen widget, Intelligence, Security and privacy, Data and backup, About — and each opens on its own page. The field at the top of Settings finds any setting by name, or by something on the page it opens — "accent" finds Theme. The Persian calendar changes how dates are shown and picked, independently of the interface language; what is stored never changes. **Language and calendar** shows today's date in each calendar, previews how a day heading and a note will look, and also sets the language AI answers in.
+
+![The Theme page](theme.webp)
+
+## Notices inside the app
+
+Confirmations and warnings arrive as a small capsule that drips down from the top of the screen and is drawn back up when it leaves. Tap it or swipe it upwards to dismiss it early. When it offers **Undo**, it stays a little longer so there is time to reach it.
+
+![A notice with Undo](notices.webp)
+
+## Home-screen widgets
+
+Add the **Nex Capture**, **Nex Timeline** or **Smart summary** widget from your launcher. The Timeline widget starts a note, a voice note, a photo from the camera or the gallery, or a checklist with one tap from its top row; the Smart summary widget shows the recap under the Nex logo and scrolls when it is longer than the widget, and when there is none yet, tapping it asks for one. Under **Settings → Home screen widget**, choose which kinds of note and which tag the timeline widget shows and whether pinned notes come first. Widgets follow the app's language and accent. While the app lock is closed they hide your notes, unless you choose otherwise.
+
+With Cycle on, two more are in the launcher's list. **Cycle** shows the ring, where you are ("12 days until your period", "Period, day 2"), the fertile window and a kind word for the day, in Cycle's own colours. **Cycle, discreet** is just the ring and one number, with no words. Both count from today's date, so they stay right even on days you do not open Nex; a tap opens Cycle, behind the app lock, and while the lock is closed they show nothing.
+
+![Home-screen widgets](widgets.webp)
+
+## Backups and restoring
+
+**Settings → Data & backup → Backup & restore** starts with whether you are backed up: when the last backup was, how the folder copy went, and **Back up now**, which makes a restore point on this phone and, if a folder is set, copies it there too.
+
+- **Automatic.** A restore point is made on this phone every 12 hours while you use Nex, and the last five are kept. **Automatic copy to a folder** adds, once a day, a complete backup — without the private vault — in a folder you choose: on the phone, or one that Google Drive, Nextcloud or Syncthing offers in the picker, so your notes survive losing the phone. Both run when Nex opens and whenever you come back to it. Tap the folder row to copy now, see its **Recovery code**, change the folder or stop. The settings and keys in a copy are locked with that code; the notes are not encrypted, so pick a folder you trust. If a copy cannot be written, the page says why.
+- **Restore points on this phone.** Tap one to restore it, share it, or delete it. One saved just before a restore says so.
+- **Keep a copy or move to a new phone.** A **complete backup** is one file with settings and service keys too, the private vault if you choose it, and optionally the offline model (about 2.6 GB); its settings, keys and vault are encrypted with a recovery code shown once — keep it somewhere else. **Export notes** gives a ZIP of Markdown and JSON readable without Nex. **Restore or import from a file** takes any of these: a complete backup or a backup replaces the library, a Nex export adds to it. Notes from Google Keep or a folder of Markdown files come in through **Import notes**, next to it in Data & backup.
+
+Restoring replaces the library and restarts Nex. If a restore is interrupted, the next launch puts everything back as it was.
+
+![Data and backup](backup.webp)
+
+## Security and privacy
+
+**App lock.** Under **Settings → Security and privacy → App lock**, turn on **Device passcode** and Nex asks for your phone's own fingerprint, face, PIN, pattern or password before it shows anything. **Fingerprint or biometrics** asks for the fingerprint or face only, with no PIN in its place. Turning the lock on or off, and turning biometrics off, each ask for it first. Nex never sees or keeps your fingerprint or PIN — the phone checks them and only tells Nex yes or no — so if you can unlock your phone, you can unlock Nex; there is no separate Nex password to forget. If the phone has no screen lock yet, Nex says so and opens the phone's security settings to set one.
+
+**When it locks**, chosen under the switches:
+- **As soon as I leave** — every time Nex goes to the background.
+- **After a while** — 15 or 30 seconds, 1, 2, 5, 15 or 30 minutes, or an hour away; a quick trip to another app does not ask again.
+- **Only when I ask** — Nex stays open until you tap the lock at the top of the home screen.
+
+Locking sooner takes one tap; making Nex lock later, or only when you ask, asks for your fingerprint first, so nobody holding your phone for a moment can loosen it. The lock at the top of the home screen locks at once whatever the choice. A lock that has closed stays closed even if Android stops the app, and "after a while" is measured by the clock, so it holds even if the app was closed in between.
+
+**While Nex is locked:** the recent-apps screen shows it blank and it cannot be captured; the home-screen widgets hide your notes (unless you choose otherwise in **Home screen widget**); reminder notifications are not shown on the phone's lock screen; and Passwords, Bank cards and Private messages lock with it. Once Nex is open and in front of you, it is your own screen to photograph. After too many wrong fingerprints the phone pauses them: Nex says to wait a moment, or — if the phone wants its own PIN first — to unlock the phone and try again.
+
+**Privacy.** Your notes and anything about you stay on the phone unless you turn on a cloud AI provider, send feedback or share something yourself. Nex itself goes online only for these: to check for a new version about once a day and refresh the sponsor card at most hourly on launch or resume (with limited retries when the connection fails); to read the page of a link you save for its title and preview, as a browser would; and to download a model you choose. None of these sends anything about you or your notes. The update check can be turned off in **Settings → About**. **Settings → Security and privacy → What left this device** lists every request Nex made to an AI provider — which one, what for, what kind of content and from which notes — kept on the phone only; clear it whenever you like.
+
+**Settings → Security and privacy → Speed and reliability** lets Nex time itself on your phone: how long it takes to open, how long a capture takes from opening to saved, how long a search takes to find the note you open, and how many sessions with a capture ran without an error. It is off until you switch it on. The numbers are timings and counts only — never your notes or what you searched for — stay on the phone, are never backed up, and are deleted when you switch it off.
+
+## Settings at a glance
+
+- **Profile** (top of Settings): picture, name, bio and birthday.
+- **Appearance**: light or dark, text size, accent, palette, card size and the app icon.
+- **Language and calendar**: the app's language, the Persian or Gregorian calendar, and the language AI answers in.
+- **Capture**: whether Enter saves a quick note (Shift+Enter always starts a new line), haptics, offers to add a new note to a thread, and the capture row in the notification shade.
+- **Gestures and menus**: what each swipe of a card does and what the hold menu holds.
+- **Reminders and notifications**: the daily nudge and its time, the sound of reminders, and a test notification.
+- **Home screen widget**: which notes the Timeline widget shows, and what widgets show while the lock is closed.
+- **Intelligence**: the AI provider or offline model, which AI features are on, on-device search, the **Assistant** (what it calls you and a few words about you, its voice — natural, friendly, formal, serious, romantic or your own — how long and how inventive its answers are, how many recent notes it can see, **Stay in my notes**, and checking spoken questions before they are sent) and the **Smart summary** (its style — Assistant, Facts plus one observation, Plain report, Planner or My own brief — how it sounds, how much of it, and **No token limit**).
+- **Security and privacy**: app lock, what left this device, speed and reliability.
+- **Data and backup**: backup and restore, export, import from Google Keep or Markdown.
+- **About**: version, updates, guide, feedback, diagnostics and the privacy policy.
+
+The field at the top of Settings finds any of these by name.
+
+## Common questions
+
+- **Where are my notes kept?** On this phone, in Nex's own storage. Nothing is uploaded unless you turn on a cloud AI provider, and then only what a request needs.
+- **How do I move to a new phone?** Make a **complete backup** in **Settings → Data and backup**, keep its recovery code, copy the file to the new phone and choose **Restore or import from a file** there. An automatic copy to a folder you can reach from both phones works too.
+- **A reminder did not ring.** Open **Settings → Reminders and notifications** and send the test notification. If it does not arrive, Android is blocking Nex: allow notifications and exact alarms for Nex, and take it out of battery optimisation.
+- **I deleted a note by mistake.** Look in **Library → Trash** within 30 days, or ask the assistant to bring it back.
+- **Search does not find something I know is there.** Try part of a word. Semantic search can also find related wording. For words in photos or recordings, first use **Describe & read image** or **Transcribe audio** from the item’s AI section, with the corresponding capability and provider enabled.
+- **A voice note has no sound.** Check the phone's media volume first. If a file will not open, the note says so under its player; tell us through **Send feedback** with the diagnostics report attached.
+- **The assistant or smart summary does nothing.** AI is off until you choose a provider in **Settings → Intelligence** and test it. With a cloud provider, a missing key, no internet or an exhausted plan is the usual cause; with the offline model, try **Try loading it again** on its page.
+- **I forgot how to open the app lock.** The lock is your phone's own: unlock it the way you unlock your phone. Nex has no password of its own to forget.
+- **Is my vault in my backups?** Only in a complete backup with **Include private vault** chosen, encrypted with its recovery code. Automatic copies never include it.
+- **Does Nex need the internet?** No. Capturing, reading, searching and reminders all work offline; only cloud AI, link previews, updates and downloads need a connection.
+- **How do I ask the assistant about Nex itself?** Ask it as you would ask a person — "how do I pin a tool?", "why did my reminder not ring?" — and it answers from this guide.
+
+## Updates, feedback and help
+
+**Settings → About Nex** shows the installed version and checks for updates; releases download inside the app and install over the existing one, keeping all your data. The same page links to the maker, **DbsStudio.ir**, and to Nex's own page with news, downloads and help.
+
+**Send feedback** goes straight to the people who make Nex. Choose whether it is a problem, an idea or something else, and add a Telegram ID or email if you would like a reply; nothing from your notes is attached. The app version, the Android version and the phone model go with it, so a problem can be traced to the phones it happens on. If speed measurements are on, you can tick **Attach my speed measurements**; the exact text that will be added is shown before you send. If sending is not available, copy your message and send it another way. If something has gone wrong, tick **Attach the diagnostics report**: recent errors and app events, with links, keys and passwords removed and nothing from your notes. Failures Nex shows as a short message — an AI request the provider refused (with its status code), a video that could not be analysed, a backup, export or restore that failed, a photo or recording that could not be saved, an update that stopped — are written there too, by kind and code only. The exact report is shown before you send. **Share diagnostics** in About sends the same report any other way you like. Both stay on your phone until you choose to send them.
+
+Swiping the capture **+** button gradually changes its fill to the selected shortcut's colour. Cancel returns its original colour. In Android's text editor, a quick vertical flick scrolls with momentum; tap to stop, and hold to select text normally. Formatting a note keeps every typed line break.
+
+**What the model can do.** **Test connection** first checks that the model answers, saves those settings, and then finds out what else it can do with four small test requests: a picture of a number for **Read pictures**, a second of tone for **Hear recordings**, one sentence for **Search by meaning** and a short public YouTube video for **Watch YouTube videos** (Gemini only). The card **What this model can do** fills in row by row and says why one does not work — the provider has no such service, the model refused (with its error code), or it could not be checked just now. What it finds decides which features Nex offers: a model that cannot read pictures is not asked to. Nothing of yours is sent for the check, it runs only when you test, and the requests are listed as connection tests under **What left this device**. Change the model and test again to check the new one; **Check again** repeats it. By default, Custom voice uses the sibling `/audio/transcriptions` endpoint and the model `whisper-1`, and Custom embeddings `text-embedding-3-small`. Local requests run one at a time; a request that has not finished within five minutes reports a timeout. The native runtime may still be settling; it is never disposed in the middle of generation.
+
+The list button in the **Model** field shows the models your key can use, with a search box; under the field, Nex says which model is used when it is left empty. In **AI provider → Speech and search models**, choose a separate transcription or embedding model, or for Custom enter the full speech and search addresses; the next test checks them. When a check finds that a provider you already use can now search by meaning, search stays off until you turn it on in **Intelligence**, because it sends your notes' text to be indexed. With a downloaded model and no usable cloud provider, a note’s manual **Summary** and **Tags** actions use the local model; capturing a note never waits for it.
+
+The small close button on a sponsor card hides that campaign for **eight hours**, across app restarts. It returns after that window and may be closed again. Campaign updates are checked hourly when opening or returning to Nex. Complete backups (`.nexfull`) can be selected from Android’s document picker; enter the recovery key saved when exporting. The update screen includes changes from the versions between your installed build and the available update.
+
+
+Cloud provider changes require **Test connection** to succeed for those exact settings before they can be saved. Failed or outdated tests keep the previous setup. Full-backup restoration reopens the library inside the app, including stored credentials; there is no need to force-close it. Nex AI result choices are compact tabs rather than a dropdown. Resizing the note editor keeps the same draft, and closing it dismisses the keyboard.
+
+Assistant: a question is saved when sent. In cloud conversations, Stop stays available during lookups and context refresh and prevents a later request from that cancelled turn. Retry repeats your original question. Very long conversations send only recent context. Filter-only search offers Load more results without dropping earlier pages. Incomplete or filtered AI output keeps the original text, including earlier image readings and transcripts.

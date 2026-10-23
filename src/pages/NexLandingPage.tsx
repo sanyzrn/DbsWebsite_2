@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, Download, FileText, Image, Link2, LockKeyhole, Mic, Moon, Plus, Repeat2, Sun } from "lucide-react";
+import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, FileText, Image, Link2, LockKeyhole, Mic, Moon, Plus, Repeat2, Sun } from "lucide-react";
 import { PageMeta } from "../components/PageMeta";
 import LocalNote from "../components/nex/LocalNote";
 import NexIntro from "../components/nex/NexIntro";
@@ -9,10 +9,12 @@ import NexWordmark from "../components/nex/NexWordmark";
 import ThoughtStage from "../components/nex/ThoughtStage";
 import SearchExperiment from "../components/nex/SearchExperiment";
 import IntelligenceDemo from "../components/nex/IntelligenceDemo";
-import StoreLinks from "../components/nex/StoreLinks";
+import ReleaseDownload, { ReleaseBadge } from "../components/nex/ReleaseDownload";
 import TimelineThread from "../components/nex/TimelineThread";
+import TimelinePreview from "../components/nex/TimelinePreview";
 import { useApp } from "../lib/app";
-import { NEX_COPY, NEX_SCREENSHOT } from "../lib/nex";
+import { NEX_COPY } from "../lib/nex";
+import { useNexReleases } from "../lib/useNexReleases";
 import { NEX_EXPERIENCE } from "../lib/nexExperience";
 import "./nex-landing.css";
 
@@ -41,6 +43,7 @@ export default function NexLandingPage() {
   const c = NEX_COPY[lang];
   const e = NEX_EXPERIENCE[lang];
   const fa = lang === "fa";
+  const releases = useNexReleases();
   const [ready, setReady] = useState(false);
   const [activeDay, setActiveDay] = useState("nex-today");
   const [personalThought, setPersonalThought] = useState("");
@@ -82,9 +85,10 @@ export default function NexLandingPage() {
         <section id="nex-world" className="nex-hero" aria-labelledby="nex-hero-title">
           <div className="nex-hero-copy">
             <p className="nex-eyebrow"><span aria-hidden="true" />{c.android}</p>
+            <ReleaseBadge release={releases[0]} lang={lang} />
             <h1 id="nex-hero-title"><span>{e.heroLine1}</span><span className="nex-hero-accent">{e.heroLine2}</span></h1>
             <p className="nex-hero-description">{e.heroText}</p>
-            <a className="nex-enter" href="#nex-today"><span>{e.enter}</span><ArrowDownLeft size={22} aria-hidden="true" /></a>
+            <div className="nex-hero-actions"><a className="nex-enter" href="#nex-download"><span>{c.downloadNow}</span><ArrowDown size={20} aria-hidden="true" /></a><a className="nex-see-it" href="#nex-today"><span>{e.enter}</span><ArrowDownLeft size={20} aria-hidden="true" /></a></div>
             <p className="nex-hero-footnote">{e.heroFootnote}</p>
           </div>
           <ThoughtStage lang={lang} personalThought={personalThought} />
@@ -114,10 +118,7 @@ export default function NexLandingPage() {
                 <div className="nex-local-stage"><span className="nex-handwritten">{e.demoNoteHint}<ArrowDownLeft size={25} aria-hidden="true" /></span><LocalNote lang={lang} onCaptureChange={setPersonalThought} /></div>
                 <Card label={c.photoLabel} icon={<Image size={16} aria-hidden="true" />} time={fa ? "۱۰:۱۹" : "10:19"} className="nex-photo-note">
                   <p className="nex-note-title nex-note-title--small">{c.photoTitle}</p>
-                  {NEX_SCREENSHOT.ready ? <img className="nex-screenshot" src={NEX_SCREENSHOT.src} width={NEX_SCREENSHOT.width} height={NEX_SCREENSHOT.height} loading="lazy" alt={c.screenshotAlt} /> : <div className="nex-photo-placeholder" data-todo="TODO: timeline-fa.webp, 1080 × 1920">
-                    <div className="nex-placeholder-frame" aria-hidden="true"><NexMark /><span /><span /><span /></div>
-                    <div><span className="nex-placeholder-label">{c.screenshot}</span><span className="nex-fine-print">{c.screenshotHint}</span></div>
-                  </div>}
+                  <TimelinePreview lang={lang} />
                 </Card>
                 <Card label={c.linkLabel} icon={<Link2 size={16} aria-hidden="true" />} time={fa ? "۱۰:۰۸" : "10:08"} className="nex-search-note">
                   <p className="nex-note-title nex-note-title--small">{c.searchTitle}</p><p>{c.searchText}</p><SearchExperiment lang={lang} /><a className="nex-inline-link" href="#nex-yesterday">{c.privacyLink}<ArrowDown size={13} aria-hidden="true" /></a>
@@ -146,11 +147,7 @@ export default function NexLandingPage() {
             </Day>
           </div>
         </div>
-        <section id="nex-download" className="nex-download" aria-labelledby="nex-download-title">
-          <div className="nex-download-label"><Download size={16} aria-hidden="true" />{c.downloadLabel}</div>
-          <h2 id="nex-download-title">{c.downloadTitle}</h2>
-          <StoreLinks lang={lang} />
-        </section>
+        <ReleaseDownload releases={releases} lang={lang} />
         <footer className="nex-footer"><span className="nex-footer-brand" dir="ltr"><NexWordmark className="nex-footer-word" /> / DbsStudio</span><a href="#nex-top">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
       </div>
     </div>

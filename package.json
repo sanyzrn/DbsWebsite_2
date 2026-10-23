@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "npm run generate:icons",
+    "prebuild": "npm run fetch:nex && npm run generate:icons",
+    "fetch:nex": "node scripts/fetch-nex-data.mjs",
     "generate:seo": "node scripts/generate-seo-files.mjs",
     "generate:icons": "node scripts/generate-pwa-icons.mjs",
     "check:urls": "npm run generate:seo && node scripts/check-urls.mjs",

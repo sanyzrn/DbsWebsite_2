@@ -159,3 +159,9 @@ The visible direct-email link remains on the contact UI as a backup.
 ## License
 
 See [`LICENSE`](./LICENSE) — all rights reserved.
+
+## Nex product website
+
+The `/nex` and `/en/nex` pages use verified release data, direct APK downloads and localized app screenshots. Product snapshots update before builds and remain usable without upstream access. Run `npm run fetch:nex` to refresh or `NEX_DATA_OFFLINE=1 npm run build` for a deterministic build.
+
+See [snapshot sources and scheduled refresh](content/nex/README.md), including the optional cross-repository release dispatch, and the [four-phase upgrade checklist](docs/nex-website-roadmap.md). The existing CI → Apache/FTPS deployment remains authoritative; the snapshot workflow commits to `cursor-dev` and does not merge or deploy it.
