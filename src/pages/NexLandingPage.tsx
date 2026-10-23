@@ -12,11 +12,15 @@ import IntelligenceDemo from "../components/nex/IntelligenceDemo";
 import ReleaseDownload, { ReleaseBadge } from "../components/nex/ReleaseDownload";
 import TimelineThread from "../components/nex/TimelineThread";
 import TimelinePreview from "../components/nex/TimelinePreview";
+import DayStory from "../components/nex/DayStory";
+import ReminderCalendar from "../components/nex/ReminderCalendar";
+import PrivacyExplorer from "../components/nex/PrivacyExplorer";
 import { useApp } from "../lib/app";
 import { NEX_COPY } from "../lib/nex";
 import { useNexReleases } from "../lib/useNexReleases";
 import { NEX_EXPERIENCE } from "../lib/nexExperience";
 import "./nex-landing.css";
+import "../components/nex/nex-experiences.css";
 
 const WAVE = [10, 17, 25, 13, 30, 39, 19, 29, 43, 32, 18, 10, 22, 34, 46, 29, 18, 32, 39, 25, 15, 9, 18, 29, 40, 27, 14, 22, 32, 43, 28, 16, 10, 20, 29, 37, 23, 14];
 
@@ -81,6 +85,9 @@ export default function NexLandingPage() {
             <button className="nex-theme" type="button" onClick={toggleTheme} aria-label={c.themeLabel}><Moon className="nex-theme-moon" size={17} aria-hidden="true" /><Sun className="nex-theme-sun" size={17} aria-hidden="true" /></button>
           </div>
         </header>
+        <nav className="nex-product-nav" aria-label={c.productNav}>
+          {[["#nex-story", c.navStory], ["#nex-today", c.navCapture], ["#nex-calendar", c.navReminder], ["#nex-privacy", c.navPrivacy], ["#nex-download", c.downloadLabel]].map(([href, label]) => <a key={href} href={href}>{label}</a>)}
+        </nav>
 
         <section id="nex-world" className="nex-hero" aria-labelledby="nex-hero-title">
           <div className="nex-hero-copy">
@@ -94,6 +101,8 @@ export default function NexLandingPage() {
           <ThoughtStage lang={lang} personalThought={personalThought} />
           <div className="nex-scroll-cue"><span>{e.scrollCue}</span><ArrowDown size={15} aria-hidden="true" /></div>
         </section>
+
+        <DayStory lang={lang} />
 
         <div className="nex-chronicle">
           <nav className="nex-day-nav" aria-label={e.dayNav}>
@@ -132,10 +141,11 @@ export default function NexLandingPage() {
                 <div className="nex-vault-slot"><details className="nex-vault"><summary><span className="nex-vault-illustration" aria-hidden="true"><span className="nex-vault-card nex-vault-card--back" /><span className="nex-vault-card nex-vault-card--middle" /><span className="nex-vault-door"><LockKeyhole size={44} strokeWidth={1.2} /><span>nex / private</span></span></span><span className="nex-vault-action">{e.vaultLabel}<Plus size={19} aria-hidden="true" /></span></summary><p>{e.vaultInside}</p></details></div>
               </div>
               <p className="nex-vault-caption">{e.vaultCaption}</p>
+              <PrivacyExplorer lang={lang} />
               <div className="nex-yesterday-notes">
                 <Card label={c.reminderLabel} icon={<Repeat2 size={16} aria-hidden="true" />} className="nex-reminder-note">
-                  <div className="nex-reminder-ticket"><Repeat2 size={26} aria-hidden="true" /><div><strong>{e.reminderSample}</strong><span>{e.reminderMeta}</span></div></div>
                   <p className="nex-note-title nex-note-title--small">{c.reminderTitle}</p><p>{c.reminderText}</p>
+                  <ReminderCalendar lang={lang} />
                 </Card>
                 <Card label={c.aiLabel} icon={<Circle size={16} aria-hidden="true" />} className="nex-ai-note"><p>{c.aiText}</p><IntelligenceDemo lang={lang} /></Card>
               </div>
