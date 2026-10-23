@@ -20,6 +20,8 @@ This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScr
 - Typecheck: `npm run typecheck` (`tsc --noEmit`)
 - Tests: `npm test` (Vitest + Testing Library smoke tests)
 - Build: `npm run build` (client bundle + SSR prerender → static HTML per route in `dist/`)
+- Nex snapshot: `npm run fetch:nex` (also prebuild); `NEX_DATA_OFFLINE=1 npm run build` uses committed data. Read `content/nex/README.md` for sources, anonymous runtime refresh, scheduled workflow and optional publisher dispatch. Never add a GitHub token to client code.
+- Nex upgrade phases and remaining work: `docs/nex-website-roadmap.md`. Keep all work on `cursor-dev`; snapshot refresh must not promote production.
 
 ### Notes
 - Dependencies are installed on startup via the update script (`npm install`), so you normally don't need to reinstall.

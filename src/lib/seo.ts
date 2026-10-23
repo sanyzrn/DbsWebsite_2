@@ -8,6 +8,7 @@ import { getSiteUrl } from "./siteUrl";
 import { truncateDescription } from "./truncate";
 import siteRoutes from "../../shared/site-routes.json";
 import { NEX_COPY } from "./nex";
+import nexLatest from "../../content/nex/latest.json";
 import { isLaunchSlug, LAUNCH_PAGES } from "./launches";
 
 export type PageSeoKey =
@@ -211,7 +212,7 @@ function buildJsonLd(
   if (page === "nex") {
     const url = `${origin}${localePath(lang, "/nex")}`;
     return [{ "@context": "https://schema.org", "@graph": [
-      { "@type": "SoftwareApplication", "@id": `${url}#app`, name: "Nex", operatingSystem: "Android 7.0+", applicationCategory: "ProductivityApplication", inLanguage: ["fa", "en"], description: NEX_COPY[lang].seoDescription, url, image: `${origin}/images/nex/og.jpg`, creator: { "@id": `${origin}/#organization` } },
+      { "@type": "SoftwareApplication", "@id": `${url}#app`, name: "Nex", operatingSystem: "Android 7.0+", applicationCategory: "ProductivityApplication", inLanguage: ["fa", "en"], description: NEX_COPY[lang].seoDescription, softwareVersion: nexLatest.releases[0].version, dateModified: nexLatest.releases[0].publishedAt, downloadUrl: nexLatest.releases[0].assets.find((a) => a.kind === "universal")?.url ?? nexLatest.releases[0].url, url, image: `${origin}/images/nex/og.jpg`, creator: { "@id": `${origin}/#organization` } },
       { "@type": "WebPage", "@id": `${url}#webpage`, url, name: NEX_COPY[lang].seoTitle, inLanguage: lang, mainEntity: { "@id": `${url}#app` }, isPartOf: { "@id": `${origin}/#website` } },
       organization, website,
     ] }];

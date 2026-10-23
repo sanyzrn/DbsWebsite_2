@@ -183,6 +183,10 @@ export default defineConfig(async ({ mode, isSsrBuild }) => {
         "@": path.resolve(__dirname, "src"),
       },
     },
+    server: {
+      // Explicit internal QA host; never allow arbitrary hostnames.
+      allowedHosts: ["terminal.local"],
+    },
     define: {
       "import.meta.env.VITE_SITE_URL": JSON.stringify(siteUrl),
       /*

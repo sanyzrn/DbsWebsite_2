@@ -1,0 +1,92 @@
+/* A quiet install ticket: one action, then progressively disclosed detail. */
+.nex-release-badge { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 5px 11px; margin-bottom: 18px; border: 1px solid var(--nx-rule); border-radius: 30px; color: var(--nx-muted); font-size: 11px; text-decoration: none; }
+.nex-release-badge > span { width: 5px; height: 5px; border-radius: 50%; background: var(--nx-blue-ink); }
+.nex-release-badge bdi { color: var(--nx-blue-ink); font-weight: 500; }
+.nex-hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 22px; }
+.nex-see-it { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; color: var(--nx-ink); text-decoration: none; font-size: 13px; }
+.nex-page[lang="en"] .nex-see-it svg { transform: scaleX(-1); }
+.nex-release-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,5vw,70px); padding-block: 15px 28px; }
+.nex-release-intro { min-width: 0; align-self: start; }
+.nex-release-intro > h3 { font-size: 16px; font-weight: 500; margin-top: 18px; }
+.nex-download-lead { color: var(--nx-muted); font-size: 14px; }
+.nex-release-ticket { align-self: start; min-width: 0; border: 1px solid var(--nx-rule); border-radius: 18px; padding: 24px; background: var(--nx-bg); }
+.nex-ticket-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 18px; border-bottom: 1px dashed var(--nx-rule); }
+.nex-ticket-heading > span { color: var(--nx-muted); font-size: 12px; }
+.nex-ticket-heading > strong { color: var(--nx-blue-ink); font-size: clamp(26px,3vw,38px); font-weight: 550; letter-spacing: -1px; line-height: 1.3; }
+.nex-release-facts { margin: 18px 0 22px; display: grid; gap: 8px; }
+.nex-release-facts > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; font-size: 11px; }
+.nex-release-facts dt { color: var(--nx-muted); }
+.nex-release-facts dd { margin: 0; flex-shrink: 0; }
+.nex-install-button { display: flex; align-items: center; gap: 12px; min-height: 58px; border-radius: 12px; padding: 12px 16px; text-decoration: none; color: var(--nx-bg); background: var(--nx-ink); transition: background .2s; }
+.nex-install-button > span { flex: 1; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; font-size: 14px; font-weight: 500; }
+.nex-install-button > svg { flex-shrink: 0; }
+.nex-install-button > svg:last-child { width: 15px; }
+.nex-install-button:hover { background: var(--nx-blue-ink); color: var(--nx-card); }
+.nex-apk-caption { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; margin-block: 12px 0 !important; color: var(--nx-muted); font-size: 10px; }
+.nex-universal-hint { color: var(--nx-muted); font-size: 11px; margin-block: 12px 20px !important; }
+.nex-install-steps { list-style: none; display: grid; gap: 18px; padding: 0; margin: 30px 0 20px; counter-reset: install; }
+.nex-install-steps li { display: flex; align-items: flex-start; gap: 13px; }
+.nex-install-steps li > span { display: grid; place-items: center; flex: 0 0 28px; height: 28px; border: 1px solid var(--nx-rule); border-radius: 50%; color: var(--nx-blue-ink); font-size: 11px; }
+.nex-install-steps p { color: var(--nx-muted); font-size: 12px; line-height: 1.9; }
+.nex-release-source { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--nx-blue-ink); font-size: 11px; text-underline-offset: 5px; }
+.nex-release-disclosure { border-top: 1px solid var(--nx-rule); }
+.nex-release-disclosure > summary { display: flex; align-items: center; gap: 10px; min-height: 50px; padding-block: 10px; cursor: pointer; font-size: 12px; list-style: none; }
+.nex-release-disclosure > summary::-webkit-details-marker { display: none; }
+.nex-release-disclosure > summary > svg { margin-inline-start: auto; color: var(--nx-muted); transition: transform .2s; }
+.nex-release-disclosure[open] > summary > svg { transform: rotate(45deg); }
+.nex-release-disclosure > summary > span { color: var(--nx-muted); font-size: 10px; }
+.nex-release-notes { padding-inline-start: 18px; margin: 0 0 10px; font-size: 12px; color: var(--nx-muted); }
+.nex-release-notes li { margin-block: 0 14px; }
+.nex-release-notes strong { color: var(--nx-ink); font-weight: 550; }
+.nex-release-files { list-style: none; margin: 0; padding: 0; }
+.nex-release-file { padding: 12px 0 18px; border-top: 1px dashed var(--nx-rule); min-width: 0; }
+.nex-release-file > a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; text-decoration: none; color: var(--nx-ink); }
+.nex-release-file > a > span { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.nex-release-file strong { display: block; overflow-wrap: anywhere; text-align: start; font-size: 11px; font-weight: 500; }
+.nex-release-file small { color: var(--nx-muted); font-size: 10px; }
+.nex-release-file svg { flex-shrink: 0; color: var(--nx-blue-ink); }
+.nex-file-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 10px; color: var(--nx-muted); }
+.nex-file-hash { margin-top: 6px; font-size: 10px; color: var(--nx-muted); }
+.nex-file-hash summary { display: flex; align-items: center; gap: 6px; min-height: 36px; cursor: pointer; }
+.nex-file-hash code { display: block; overflow-wrap: anywhere; user-select: all; font-size: 10px; background: var(--nx-card); border: 1px solid var(--nx-rule); border-radius: 6px; padding: 8px; }
+.nex-file-hash p { margin-top: 6px !important; }
+.nex-old-releases { list-style: none; padding: 0; margin: 0; }
+.nex-old-releases a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; font-size: 11px; color: var(--nx-ink); text-decoration: none; }
+.nex-old-releases time { margin-inline-start: auto; color: var(--nx-muted); }
+.nex-download :where(a,summary):focus-visible { outline: 2px solid var(--nx-blue-ink); outline-offset: 4px; border-radius: 4px; }
+.nex-timeline-preview { margin: 18px 0 0; }
+.nex-preview-phone { width: 100%; max-width: 290px; padding: 20px 15px 15px; margin-inline: auto; background: var(--nx-bg); border: 1px solid var(--nx-rule); border-radius: 24px; }
+.nex-preview-phone header { display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--nx-muted); }
+.nex-preview-phone header svg { width: 45px; height: 22px; --nx-mark-accent: var(--nx-blue); }
+.nex-preview-search { display: flex; gap: 8px; align-items: center; margin-top: 20px; border: 1px solid var(--nx-rule); border-radius: 10px; padding: 9px; font-size: 9px; color: var(--nx-muted); }
+.nex-preview-date { color: var(--nx-muted); font-size: 9px; margin-block: 16px 9px; }
+.nex-preview-items { border-inline-start: 1px solid var(--nx-rule); margin-inline-start: 8px; }
+.nex-preview-items > div { position: relative; display: flex; gap: 10px; margin-bottom: 14px; margin-inline-start: -8px; }
+.nex-preview-items > div > svg { color: var(--nx-blue-ink); background: var(--nx-bg); flex-shrink: 0; margin-top: 12px; }
+.nex-preview-items p { flex: 1; min-width: 0; padding: 12px; border: 1px solid var(--nx-rule); border-radius: 10px; background: var(--nx-card); font-size: 11px; line-height: 1.9; white-space: pre-line; }
+.nex-preview-items small { display: block; color: var(--nx-muted); font-size: 8px; margin-top: 9px; }
+.nex-preview-wave { display: flex; align-items: center; gap: 3px; height: 28px; }
+.nex-preview-wave i { width: 3px; border-radius: 2px; height: 8px; background: var(--nx-blue-ink); }
+.nex-preview-wave .nex-preview-bar-1 { height: 16px; }
+.nex-preview-wave .nex-preview-bar-2 { height: 26px; }
+.nex-preview-wave .nex-preview-bar-3 { height: 12px; }
+.nex-preview-wave .nex-preview-bar-4 { height: 20px; }
+.nex-preview-check { display: flex; align-items: baseline; gap: 6px; margin-block: 2px; font-size: 9px; }
+.nex-preview-check svg { color: var(--nx-blue-ink); flex-shrink: 0; }
+.nex-preview-plus { display: grid; place-items: center; width: 40px; height: 40px; margin: 18px auto 0; border-radius: 50%; color: var(--nx-bg); background: var(--nx-ink); }
+.nex-timeline-preview figcaption { color: var(--nx-muted); text-align: center; margin-top: 12px; font-size: 10px; }
+@media (max-width: 820px) {
+  .nex-release-layout { grid-template-columns: 1fr; gap: 24px; }
+  .nex-release-ticket { padding: 18px; }
+  .nex-install-steps { margin-top: 20px; }
+  .nex-hero-actions { gap: 8px 16px; }
+}
+@media (max-width: 400px) {
+  .nex-release-ticket { padding: 14px; }
+  .nex-release-facts > div { flex-wrap: wrap; gap: 2px 10px; }
+  .nex-hero-actions { align-items: flex-start; flex-direction: column; }
+  .nex-store-links { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nex-install-button, .nex-release-disclosure > summary > svg { transition: none; }
+}
