@@ -10,6 +10,7 @@ export async function verifyNexOffline(browser, origin) {
     await context.setOffline(true);
     for (const route of ['/nex/guide', '/en/nex/guide', '/en/nex/themes', '/nex/changelog']) {
       await page.goto(`${origin}${route}`, { waitUntil: 'domcontentloaded' });
+      await page.locator('.nex-product-page[data-enhanced="true"]').waitFor();
       await page.locator('.nex-product-heading h1').waitFor();
       if (await page.locator('header.nav-bar').count()) throw new Error(`Portfolio shell leaked into offline ${route}`);
       if (route.endsWith('/guide')) {
