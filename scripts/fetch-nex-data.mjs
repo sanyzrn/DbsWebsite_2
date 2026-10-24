@@ -60,6 +60,8 @@ async function refreshProduct(version) {
     ["changelog.en.md", "CHANGELOG.md"],
     ["theme-presets.dart", "apps/client/lib/platform/theme_presets.dart"],
     ["module-rollout.dart", "apps/client/lib/modules/module_rollout.dart"],
+    ["privacy.fa.md", "apps/client/assets/privacy/fa.md"],
+    ["privacy.en.md", "apps/client/assets/privacy/en.md"],
   ];
   const results = await Promise.all(sources.map(async ([name, source]) => [name, await get(raw + source, "text")]));
   if (results.some(([, text]) => text.length < 20)) throw new Error("Empty product source");

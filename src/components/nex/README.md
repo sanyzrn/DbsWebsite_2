@@ -8,7 +8,7 @@ The current page has a published-version badge, real APK download ticket, honest
 
 Only Cafe Bazaar, Myket and Google Play are shown as upcoming store destinations. App Store and Microsoft Store were removed because the product source explicitly says only Android is published. No store link is invented. `NEX_APK` has been replaced with validated release data. Upstream guide images are themselves placeholders, so `TimelinePreview.tsx` shows a labelled illustration; actual screenshots remain an owner input and require visual/hash approval before publishing. The interactive story below continues to share the same locale/theme state and build pipeline.
 
-Nex replaces only `/nex/` and `/en/nex/`. It uses the existing React router, locale/theme context, Vite build, static prerender, sitemap and Apache/FTPS workflow. No independent project or deployment was added.
+Nex owns `/nex/`, its seven product subpages and their `/en` counterparts. It uses the existing React router, locale/theme context, Vite build, static prerender, sitemap and Apache/FTPS workflow. No independent project or deployment was added.
 
 The page is now a wide Nex world: an oversized bilingual hero, an orbital octopus with illustrative notes, and three chronological chapters. Desktop notes follow an asymmetric connected path, with a sticky day navigator. Mobile becomes a readable single-column chronology. The latest owner brief explicitly lifts the narrow-column and no-hero constraints.
 
@@ -49,3 +49,9 @@ Loading intro (`NexIntro.tsx`, `nex-intro.css`): the app's splash screen retold,
 `npm run typecheck`, `npm run lint`, `npm test -- --run`, `npm run build`, `npm run check:dist`, `npm run check:pwa`, `npm run check:bundle`. Browser accessibility checks use the repository's `npm run check:a11y` when Chromium is available. Both Nex locales are scanned in light/dark at 1440, 820 and 320px. The same gate checks capture-mode switching, local-note Enter/Shift+Enter capture, restore/edit/deletion, locale search matching, document-coordinate layout stability during voice/vault disclosures, search match/miss/reset, short/long note capture/edit/delete and every AI state, keyboard AI switching and changing examples, exact back-to-top navigation, horizontal layout containment and static no-JS light/dark content.
 
 Keep using the permanent `cursor-dev` branch and its PR to `main`. Merge through the existing GitHub Actions workflow; do not upload `dist/` manually or deploy a second website.
+
+## Phase 3 product pages
+
+`NexPageFrame`, `NexNavigation` and `nex-product.css` provide shared navigation and an independent product shell. Copy in `nexProductCopy.ts` is composed into `NEX_COPY` for FA/EN parity. Safe content contracts, release merging and date formatting live in `nexContent.ts`; the build-only parser is `shared/nex-content.mjs`. Heavy guide/history data stays in route chunks. Theme previews use `nexThemePreview.ts` and context scoped to the Nex route family, never global accent variables or persistence.
+
+`DayStory` now uses a native horizontal scroll-snap track, mouse drag, touch scrolling and RTL-aware keyboard/manual controls. All four slides remain prerendered, with inactive slides inert after hydration. The AI-off canvas contains three prepared thoughts instead of empty space. `VersionBridge` adds cumulative changes since an installed version. See the roadmap for source facts, verification and remaining screenshot inputs.

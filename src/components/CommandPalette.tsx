@@ -7,6 +7,8 @@ import { useBodyScrollLock } from "../lib/useBodyScrollLock";
 import { useFocusTrap } from "../lib/useFocusTrap";
 import { hasNewsContent } from "../lib/news";
 import { localePath } from "../lib/paths";
+import { NEX_COPY } from "../lib/nex";
+import { NEX_PAGE_SLUGS, nexPath } from "../lib/nexContent";
 import { cn } from "../utils/cn";
 
 type Cmd = {
@@ -49,6 +51,7 @@ export default function CommandPalette() {
 
     const home = localePath(lang, "/");
     return [
+      ...NEX_PAGE_SLUGS.slice(0, 7).map((slug, i) => go(nexPath(lang, slug), `Nex · ${NEX_COPY[lang].productPages[i]}`)),
       go(localePath(lang, "/projects"), t.nav.projects),
       go(localePath(lang, "/articles"), t.nav.articles),
       ...(hasNewsContent() ? [go(localePath(lang, "/news"), t.nav.news, t.nav.articles)] : []),

@@ -34,6 +34,7 @@ export function PageMeta({ page, slug }: PageMetaProps) {
     const seo = resolvePageSeo(lang, page, {
       ...(project ? { project } : {}),
       ...(article ? { article } : {}),
+      ...(page === "nex" && slug ? { path: localePath(lang, `/nex/${slug}`) } : {}),
       ...(page === "launch" && slug ? { path: localePath(lang, `/${slug}`) } : {}),
     });
     const ogType = page === "project" || page === "article" ? "article" : "website";

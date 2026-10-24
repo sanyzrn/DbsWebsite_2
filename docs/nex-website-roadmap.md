@@ -34,20 +34,20 @@ Keep the existing octopus, bilingual typography, independent Nex palette, intro 
 
 ## Phase 3 — Complete bilingual product pages
 
-- [ ] Shared product navigation and routes `/nex/features`, `/nex/guide`, `/nex/changelog`, `/nex/download`, `/nex/themes`; FAQ as a page or landing section.
-- [ ] Source-backed bilingual feature data, category/search/status filters; module status from rollout.
-- [ ] Guide renderer: treat upstream Markdown as untrusted content, never executable MDX. Sticky contents, mobile contents sheet, scroll spy, Persian search, localized lazy images and report-error links.
-- [ ] Changelog timeline, exact release downloads, Persian/English fallback, search, permalinks and RSS/Atom.
-- [ ] “What changed since my version?” cumulative release summary (fifth required creative experience).
-- [ ] Generate `themes.json` from Dart presets. All actual themes, seed/surface colours, textures and honest labelled previews; page-scoped try-on with light/dark controls.
-- [ ] FAQ and actual app Privacy/Terms; no invented pricing, testimonials or store URLs.
-- [ ] Competitor comparison only if current, primary evidence supports every included criterion; otherwise omit with explanation.
+- [x] Shared product navigation and routes `/nex/features`, `/nex/guide`, `/nex/changelog`, `/nex/download`, `/nex/themes`; FAQ as a page or landing section.
+- [x] Source-backed bilingual feature data, category/search/status filters; module status from rollout.
+- [x] Guide renderer: treat upstream Markdown as untrusted content, never executable MDX. Sticky contents, mobile contents sheet, scroll spy, Persian search, localized lazy images and report-error links.
+- [x] Changelog timeline, exact release downloads, Persian/English fallback, search, permalinks and RSS/Atom.
+- [x] “What changed since my version?” cumulative release summary (fifth required creative experience).
+- [x] Generate `themes.json` from Dart presets. All actual themes, seed/surface colours, textures and honest labelled previews; page-scoped try-on with light/dark controls.
+- [x] FAQ and actual app Privacy; upstream has no separate Terms document, disclosed without inventing one; no invented pricing, testimonials or store URLs.
+- [x] Competitor comparison omitted: the pinned app snapshot supplies no verified competitor comparison, and an unsupported comparison adds little to this phase.
 
 ## Phase 4 — Integration and release verification
 
-- [ ] Extend prerender, sitemap, canonical/hreflang, command palette and URL checks for every route.
+- [x] Extend prerender, sitemap, canonical/hreflang, command palette and URL checks for every route. Included with Phase 3 to keep new routes usable.
 - [ ] Per-page OG/SoftwareApplication/FAQ structured data where factual.
-- [ ] Complete guide refresh delivery, generated theme data and content schema checks.
+- [x] Complete guide refresh delivery, generated theme data and content schema checks. Included with Phase 3.
 - [ ] Finish automatic production rebuild integration through existing deployment; Phase 1 workflow only updates `cursor-dev`, never promotes it.
 - [ ] PWA/offline coverage and bounded GitHub runtime caching; never precache GitHub responses.
 - [ ] Lazy-load heavy demos/galleries; check bundle, contrast, keyboard use and reduced motion.
@@ -88,3 +88,25 @@ Verification:
 - The merged Phase 1 main CI run `40015585494` completed successfully. This is not a Phase 2 CI result; CI runs on PR/main, not a push to `cursor-dev`.
 
 No new dependencies, production deployment, app-repo changes or extra branch were introduced. The fifth planned creative experience (version comparison) remains in Phase 3.
+
+## Phase 3 implementation and verification
+
+Implemented on 2026-10-24:
+
+- Seven independent bilingual pages: features, guide, changelog, download, themes, FAQ and app privacy. Shared Nex navigation, locale counterparts and command-palette destinations. Other products retain their own shells.
+- Four-story scroll-snap carousel with native touch scrolling, desktop pointer drag, RTL-aware arrow/Home/End controls, manual buttons, reduced motion and inert inactive slides. The owner-requested four real screenshots still require input/visual approval; existing CSS illustrations are explicitly labelled.
+- AI-off mode contains a quiet stack of three prepared note/voice/photo examples inside the same reserved canvas. Switching states does not access the visitor note, invoke AI or send requests.
+- 33 curated bilingual feature entries with category/search/status filtering. Only Cycle is available; 12 other module cards read availability from rollout metadata and remain marked soon.
+- Nineteen guide chapters, Persian-folding search, scroll spy, sticky contents/current chapter, native mobile contents dialog and source report links. Build-time Markdown parsing emits an allowlisted data AST, removes HTML and unsafe links, never executes MDX and only renders visually approved local images. Image paragraphs use valid block markup to avoid hydration mismatches.
+- All 134 actual public stable releases (2.2.2 through 0.6.0): safe rich notes, source dates, exact-version APKs, English fallback label, search, pagination, stable hash permalinks and locale RSS. Unreleased/prerelease changelog sections cannot create fake release entries. Runtime summaries preserve the full saved asset archive.
+- Version bridge selects the visitor's installed version, accumulates subsequent releases/change bullets and links directly into the archive. This completes the fifth planned creative experience.
+- Fourteen actual Dart theme presets, source seed/surface colours, lightweight SVG texture interpretations, light/dark controls and temporary Nex-only try-on. Text/accent contrast is tested in both modes. The try-on is not persisted and resets when leaving Nex; it never changes portfolio accent settings.
+- Eleven source FAQ answers and the app's actual bilingual privacy policy. MIT code license is linked separately. No separate upstream Terms document exists; the page discloses this. No invented pricing, endorsements or comparison claims.
+- Page imports now begin on navigation rather than eagerly downloading every route. SSR/tests explicitly preload modules; the full existing suite verifies other routes continue to render.
+- Generated content and RSS participate in the existing scheduled snapshot refresh on cursor-dev. Hosting/deployment remains unchanged; automatic production promotion is still Phase 4.
+
+Verification: full pre-final suite 55 files / 281 tests passed; an additional page integration suite passes 10 tests covering both locale SSR, guide search, deep release permalinks and theme isolation. Typecheck/lint and the clean offline build pass; 68 routes prerender. `check:dist` passes with 70 HTML files and 100 JSON-LD blocks. `check:bundle` passes (80.1/90 KiB initial JS, 453.3/1480 KiB first paint). Final rerun: 56 files / 291 tests pass, TypeScript and lint pass. After incorporating the concurrent scheduled snapshot refresh 0edb7f6, a clean build and dist/bundle checks pass again (80.2 KiB initial JS).
+
+Development browser: Persian story layout and a short RTL mouse drag advancing to slide 2; AI on/off with the restored three-note stack; full archive/old-version selection; Persian guide; English source-theme preview/temporary try-on inspected. The real mobile touch gesture and production hydration still require the CI/browser checks. `check:a11y` is blocked by the missing Playwright Chromium executable; `check:pwa` is blocked by executor-to-supervisor loopback refusal. These are not passing checks. The a11y gate now covers nine additional product layouts/locales at 1440/820/320px, AI-off content and containment of active carousel content. No browser-download retry was made.
+
+Earlier work confirmed complete: main CI 40021961359 and deployment 40022449021 succeeded for the reviewed dependency merge. This is not a Phase 3 CI/deployment result. Phase 3 remains on cursor-dev for review.

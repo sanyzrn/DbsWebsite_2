@@ -366,7 +366,7 @@ describe("Nex loading intro", () => {
     expect(css).toContain("html.nex-intro-play .nex-intro {");
     expect(css).toContain("html.nex-intro-done .nex-intro { display: none; }");
     const script = fs.readFileSync("index.html", "utf8");
-    expect(script).toContain('if (isNex && !calm && !sessionStorage.getItem("nex-intro"))');
+    expect(script).toContain('if (isNexHome && !calm && !sessionStorage.getItem("nex-intro"))');
     expect(script).toContain('if (!isNex && !calm && !sessionStorage.getItem("sz-intro"))');
   });
 

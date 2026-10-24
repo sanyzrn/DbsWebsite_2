@@ -30,6 +30,15 @@ export const AXE_RUN_OPTIONS = {
 export const A11Y_ROUTES = [
   { urlPath: "/nex/", file: "nex/index.html" },
   { urlPath: "/en/nex/", file: "en/nex/index.html" },
+  { urlPath: "/nex/features", file: "nex/features/index.html" },
+  { urlPath: "/nex/guide", file: "nex/guide/index.html" },
+  { urlPath: "/en/nex/guide", file: "en/nex/guide/index.html" },
+  { urlPath: "/nex/changelog", file: "nex/changelog/index.html" },
+  { urlPath: "/nex/themes", file: "nex/themes/index.html" },
+  { urlPath: "/en/nex/themes", file: "en/nex/themes/index.html" },
+  { urlPath: "/nex/privacy", file: "nex/privacy/index.html" },
+  { urlPath: "/nex/faq", file: "nex/faq/index.html" },
+  { urlPath: "/nex/download", file: "nex/download/index.html" },
   { urlPath: "/", file: "index.html" },
   { urlPath: "/en", file: "en/index.html" },
   { urlPath: "/projects", file: "projects/index.html" },
@@ -188,7 +197,8 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
     for (const route of resolvedRoutes) {
       for (const theme of THEMES) {
         const isNex = /^\/(?:en\/)?nex\/?$/.test(route.urlPath);
-        const viewports = isNex ? [{ width: 1440, height: 900 }, { width: 820, height: 900 }, { width: 320, height: 740 }] : [{ width: 1280, height: 720 }];
+        const isNexPage = /^\/(?:en\/)?nex(?:\/|$)/.test(route.urlPath);
+        const viewports = isNexPage ? [{ width: 1440, height: 900 }, { width: 820, height: 900 }, { width: 320, height: 740 }] : [{ width: 1280, height: 720 }];
         for (const viewport of viewports) {
         const context = await browser.newContext({ reducedMotion: "reduce", viewport });
         await context.addInitScript((themeName) => {
@@ -294,6 +304,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await assertNexLayoutStable(page, "vault closing", () => page.locator(".nex-vault summary").click());
           const afterClose = await page.locator("#nex-first-day").evaluate((el) => el.getBoundingClientRect().top + globalThis.scrollY);
           if (Math.abs(beforeVault - afterClose) > 1) throw new Error("Nex vault close displaced the timeline");
+          if (await page.locator(".nex-ai-quiet-notes > div").count() !== 3) throw new Error("Nex AI-off view must contain three prepared thoughts");
           await page.locator(".nex-ai-switch").focus();
           await assertNexLayoutStable(page, "AI activation", () => page.locator(".nex-ai-switch").press("Space"));
           if (await page.locator(".nex-ai-switch").getAttribute("aria-checked") !== "true" || await page.locator(".nex-ai-connections li").count() !== 3) throw new Error("Nex AI demo did not connect the example thought");
@@ -311,7 +322,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.waitForFunction(() => globalThis.scrollY <= 1);
           const layout = await page.evaluate(() => {
             const width = globalThis.innerWidth;
-            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-store, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro, .nex-story-phone, .nex-calendar-demo, .nex-privacy-map")];
+            const elements = [...globalThis.document.querySelectorAll(".nex-page .nex-card, .nex-store, .nex-hero-copy, .nex-capture-switch, .nex-chapter-intro, .nex-story-slide:not([aria-hidden=true]) .nex-story-phone, .nex-calendar-demo, .nex-privacy-map")];
             return elements.filter((el) => {
               const box = el.getBoundingClientRect();
               return box.left < -1 || box.right > width + 1;
@@ -356,6 +367,11 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") !== "");
           await page.emulateMedia({ reducedMotion: "reduce" });
           await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") === "");
+        }
+
+        if (isNexPage) {
+          const overflow = await page.evaluate(() => globalThis.document.documentElement.scrollWidth > globalThis.innerWidth + 1);
+          if (overflow) throw new Error(`Nex page overflows at ${viewport.width}px: ${route.urlPath}`);
         }
 
         // Load axe as a same-origin external script (CSP script-src 'self').

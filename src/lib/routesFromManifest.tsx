@@ -7,24 +7,24 @@ import { DAILY_DIGEST_ENABLED } from "./news";
 /**
  * SSR/test-compatible lazy wrapper.
  *
- * Starts loading the module immediately at import time (creating separate
+ * Defers page loading until navigation (creating separate
  * JS chunks in the client build while reducing the initial bundle). When the
  * module has already resolved — i.e. during SSR prerender after ensureLoaded(),
  * or in tests after setup.ts awaits preloadAllPages() — the lazy component
  * resolves synchronously via a custom thenable so React.lazy does not suspend
  * inside renderToString.
  */
+const pagePreloaders: (() => Promise<unknown>)[] = [];
+
 function syncCompatibleLazy<T extends ComponentType<object>>(
   factory: () => Promise<{ default: T }>
 ): React.LazyExoticComponent<T> {
   let resolvedModule: { default: T } | undefined;
 
-  // Fire the import immediately: chunks start downloading in the browser,
-  // and in SSR/test environments the module is ready before renderToString.
-  const load = factory().then((mod) => {
-    resolvedModule = mod;
-    return mod;
-  });
+  // SSR/tests call preloadAllPages; ordinary visits download only their route.
+  let load: Promise<{ default: T }> | undefined;
+  const start = () => load ??= factory().then((mod) => { resolvedModule = mod; return mod; });
+  pagePreloaders.push(start);
 
   return lazy((): Promise<{ default: T }> => {
     if (resolvedModule !== undefined) {
@@ -41,7 +41,7 @@ function syncCompatibleLazy<T extends ComponentType<object>>(
         },
       } as unknown as Promise<{ default: T }>;
     }
-    return load;
+    return start();
   });
 }
 
@@ -56,6 +56,14 @@ const ContactPage = syncCompatibleLazy(() => import("../pages/ContactPage"));
 const PrivacyPage = syncCompatibleLazy(() => import("../pages/PrivacyPage"));
 const TermsPage = syncCompatibleLazy(() => import("../pages/TermsPage"));
 const NexPage = syncCompatibleLazy(() => import("../pages/NexLandingPage"));
+const NexFeaturesPage = syncCompatibleLazy(() => import("../pages/nex/NexFeaturesPage"));
+const NexGuidePage = syncCompatibleLazy(() => import("../pages/nex/NexGuidePage"));
+const NexChangelogPage = syncCompatibleLazy(() => import("../pages/nex/NexChangelogPage"));
+const NexDownloadPage = syncCompatibleLazy(() => import("../pages/nex/NexDownloadPage"));
+const NexThemesPage = syncCompatibleLazy(() => import("../pages/nex/NexThemesPage"));
+const NexFaqPage = syncCompatibleLazy(() => import("../pages/nex/NexFaqPage"));
+const NexPrivacyPage = syncCompatibleLazy(() => import("../pages/nex/NexPrivacyPage"));
+
 const LaunchPage = syncCompatibleLazy(() => import("../pages/ComingSoonPage"));
 
 /** Page key → component. Keys match shared/site-routes.json pageKeys + dynamicPaths.page */
@@ -72,6 +80,13 @@ const PAGES = {
   terms: TermsPage,
   launch: LaunchPage,
   nex: NexPage,
+  nexFeatures: NexFeaturesPage,
+  nexGuide: NexGuidePage,
+  nexChangelog: NexChangelogPage,
+  nexDownload: NexDownloadPage,
+  nexThemes: NexThemesPage,
+  nexFaq: NexFaqPage,
+  nexPrivacy: NexPrivacyPage,
 } as const;
 
 type PageKey = keyof typeof PAGES;
@@ -85,20 +100,7 @@ function enPath(bare: string): string {
  * in SSR (prerender) and test environments. Must be awaited before renderToString.
  */
 export async function preloadAllPages(): Promise<void> {
-  await Promise.all([
-    import("../pages/HomePage"),
-    import("../pages/ProjectsPage"),
-    import("../pages/ProjectDetailPage"),
-    import("../pages/ArticlesPage"),
-    import("../pages/ArticleDetailPage"),
-    import("../pages/NewsPage"),
-    import("../pages/AboutPage"),
-    import("../pages/ContactPage"),
-    import("../pages/PrivacyPage"),
-    import("../pages/TermsPage"),
-    import("../pages/ComingSoonPage"),
-    import("../pages/NexLandingPage"),
-  ]);
+  await Promise.all(pagePreloaders.map((load) => load()));
 }
 
 /**

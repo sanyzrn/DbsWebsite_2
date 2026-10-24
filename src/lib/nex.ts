@@ -1,3 +1,4 @@
+import { NEX_PRODUCT_COPY } from "./nexProductCopy";
 import type { Lang } from "./i18n";
 
 /** Replace only when the owner supplies the real store destinations. */
@@ -13,6 +14,7 @@ export const NEX_NOTE_LIMIT = 1200;
 /** Product copy is isolated from the portfolio dictionary. Keep FA and EN keys aligned. */
 export const NEX_COPY = {
   fa: {
+    ...NEX_PRODUCT_COPY.fa,
     seoTitle: "Nex | یادداشت، صدا و ایده؛ در یک تایم‌لاین",
     seoDescription: "نکس برای ثبت سریع یادداشت، صدا، عکس و چک‌لیست در اندروید. فارسی، بدون حساب کاربری و با یادآوری شمسی؛ یک تایم‌لاین برای هرچه در ذهن دارید.",
     pageLabel: "یک روز با نکس",
@@ -157,6 +159,7 @@ export const NEX_COPY = {
     backToPin: "برگشت به یادداشت سنجاق‌شده",
   },
   en: {
+    ...NEX_PRODUCT_COPY.en,
     seoTitle: "Nex | Notes, voice and ideas in one timeline",
     seoDescription: "Capture notes, voice, photos and checklists on Android. Persian-first, no account, with Jalali reminders. One timeline for everything on your mind.",
     pageLabel: "A day with Nex",
@@ -300,4 +303,4 @@ export const NEX_COPY = {
     maker: "Made by DbsStudio",
     backToPin: "Back to the pinned note",
   },
-} satisfies Record<Lang, Record<string, string | string[]>>;
+} satisfies Record<Lang, Record<string, string | readonly string[]>>;

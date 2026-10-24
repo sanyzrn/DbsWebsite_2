@@ -114,6 +114,104 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dbsstudio.ir/nex/features</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/features" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/features" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex/features</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/features" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/features" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/nex/guide</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex/guide</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/guide" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/nex/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/changelog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/changelog" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/changelog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/changelog" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/nex/download</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/download" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/download" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex/download</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/download" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/download" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/nex/themes</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/themes" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/themes" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex/themes</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/themes" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/themes" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/nex/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/faq" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/faq" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/faq" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/faq" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/nex/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nex/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nex/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nex/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dbsstudio.ir/projects/dbsai</loc>
     <lastmod>2026-10-10</lastmod>
     <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/projects/dbsai" />

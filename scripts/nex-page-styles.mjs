@@ -1,7 +1,8 @@
 /** Route-local CSS from Vite's authoritative client manifest, before hydration. */
 export function nexPageStyles(urlPath, manifest) {
-  if (!/^\/(?:en\/)?nex\/?$/.test(urlPath)) return [];
-  const source = "src/pages/NexLandingPage.tsx";
+  const match = urlPath.match(/^\/(?:en\/)?nex(?:\/(features|guide|changelog|download|themes|faq|privacy))?\/?$/);
+  if (!match) return [];
+  const source = match[1] ? `src/pages/nex/Nex${match[1][0].toUpperCase() + match[1].slice(1)}Page.tsx` : "src/pages/NexLandingPage.tsx";
   if (!manifest[source]) throw new Error(`Nex stylesheet manifest entry missing: ${source}`);
   const styles = new Set();
   const visited = new Set();
