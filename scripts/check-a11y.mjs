@@ -196,6 +196,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
   const results = [];
 
   try {
+    await verifyNexOffline(browser, origin);
     for (const route of resolvedRoutes) {
       for (const theme of THEMES) {
         const isNex = /^\/(?:en\/)?nex\/?$/.test(route.urlPath);
@@ -387,6 +388,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         await page.addScriptTag({ url: `${origin}/__a11y/axe.js` });
         const axeResults = await page.evaluate(`axe.run(document, ${JSON.stringify(AXE_RUN_OPTIONS)})`);
         if (isNexPage && process.env.NEX_QA_SCREENSHOTS && [1440,320].includes(viewport.width)) {
+          await page.evaluate(() => globalThis.scrollTo({ top: 0, behavior: "instant" }));
           fs.mkdirSync(process.env.NEX_QA_SCREENSHOTS, { recursive: true });
           await page.screenshot({ path: path.join(process.env.NEX_QA_SCREENSHOTS, `${route.urlPath.replace(/[^a-z0-9]+/gi,'-')}-${theme.name}-${viewport.width}.png`) });
         }
@@ -424,7 +426,6 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         }
       }
     }
-    await verifyNexOffline(browser, origin);
   } finally {
     await browser.close();
     await new Promise((r) => server.close(r));

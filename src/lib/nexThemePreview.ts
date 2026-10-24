@@ -6,7 +6,8 @@ function mix(a: string, b: string, weight: number) { const x = rgb(a), y = rgb(b
 export function themeVariables(theme: NexTheme, dark: boolean): CSSProperties {
   const bg = (dark ? theme.dark : theme.light) ?? (dark ? '#0b111b' : '#f7f9fc');
   const ink = dark ? '#edf3fc' : '#172333';
+  const card = mix(bg, ink, .025);
   let accent = theme.seed;
-  for (let i = 0; i < 20; i++) { const a = luminance(accent), b = luminance(bg); if ((Math.max(a, b) + .05) / (Math.min(a, b) + .05) >= 4.5) break; accent = mix(accent, ink, .15); }
-  return { '--nx-bg': bg, '--nx-card': mix(bg, ink, .025), '--nx-ink': ink, '--nx-muted': mix(bg, ink, .72), '--nx-rule': mix(bg, ink, .22), '--nx-blue': accent, '--nx-blue-ink': accent, '--nx-tint': mix(bg, accent, .1), colorScheme: dark ? 'dark' : 'light' } as CSSProperties;
+  for (let i = 0; i < 20; i++) { const a = luminance(accent); if ([bg, card, mix(bg, accent, .1)].every((surface) => { const b = luminance(surface); return (Math.max(a, b) + .05) / (Math.min(a, b) + .05) >= 4.5; })) break; accent = mix(accent, ink, .15); }
+  return { '--nx-bg': bg, '--nx-card': card, '--nx-ink': ink, '--nx-muted': mix(bg, ink, .72), '--nx-rule': mix(bg, ink, .22), '--nx-blue': accent, '--nx-blue-ink': accent, '--nx-tint': mix(bg, accent, .1), colorScheme: dark ? 'dark' : 'light' } as CSSProperties;
 }

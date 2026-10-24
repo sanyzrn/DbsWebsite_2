@@ -16,6 +16,7 @@ import {
   walkHtmlFiles,
   writeCspToHostingConfigs,
 } from "./csp.mjs";
+import { assertNexLandingBudget } from "./nex-bundle-budget.mjs";
 import { nexPageStyles } from "./nex-page-styles.mjs";
 import { serializeJsonLd } from "./jsonld-serialize.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
@@ -179,6 +180,7 @@ async function main() {
   const template = fs.readFileSync(templatePath, "utf8");
   const paths = listPrerenderPaths();
   const clientManifest = JSON.parse(fs.readFileSync(path.join(dist, ".vite", "manifest.json"), "utf8"));
+  assertNexLandingBudget(dist, clientManifest);
 
   const scriptBodies = new Set();
   const styleHashes = new Set();

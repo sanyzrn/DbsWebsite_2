@@ -13,7 +13,7 @@ export async function verifyNexOffline(browser, origin) {
       await page.locator('.nex-product-heading h1').waitFor();
       if (await page.locator('header.nav-bar').count()) throw new Error(`Portfolio shell leaked into offline ${route}`);
       if (route.endsWith('/guide')) {
-        if (await page.locator('[data-guide-chapter]').count() !== 19) throw new Error('Offline guide chapters missing');
+        await page.waitForFunction(() => globalThis.document.querySelectorAll('[data-guide-chapter]').length === 19).catch(async (error) => { throw new Error(`Offline guide failed at ${route}: ${await page.locator('body').innerText().then(text => text.slice(0, 700))}; ${error.message}`); });
         const search = page.locator('.nex-guide-toolbar input');
         await search.fill('zz-no-match-zz');
         await page.waitForFunction(() => globalThis.document.querySelectorAll('[data-guide-chapter]').length === 0);

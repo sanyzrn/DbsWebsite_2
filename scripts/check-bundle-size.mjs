@@ -118,18 +118,3 @@ if (errors.length) {
 }
 
 console.log("check:bundle OK");
-
-// Nex is a separate product shell. Its landing must not eagerly import full
-// guides, the release archive or the theme gallery. Only static imports count.
-const manifest = JSON.parse(fs.readFileSync(path.join(DIST, '.vite/manifest.json'), 'utf8'));
-const nexImports = new Set();
-function collectNex(key) {
-  if (nexImports.has(key)) return;
-  nexImports.add(key);
-  for (const dependency of manifest[key]?.imports ?? []) collectNex(dependency);
-}
-collectNex('src/pages/NexLandingPage.tsx');
-if ([...nexImports].some((key) => /Nex(?:Guide|Changelog|Themes)Page/.test(key))) throw new Error('Heavy Nex product routes became eager landing imports');
-const nexGzip = [...nexImports].reduce((sum, key) => sum + (manifest[key]?.file.endsWith('.js') ? gzipSize(path.join(DIST, manifest[key].file)) : 0), 0);
-if (nexGzip > 190 * 1024) throw new Error(`Nex landing dependency graph exceeds 190 KiB gzip: ${fmt(nexGzip)}`);
-console.log(`Nex landing graph ${fmt(nexGzip)}/190 KiB — guide/archive/themes remain separate route chunks`);
