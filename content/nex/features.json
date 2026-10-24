@@ -1,0 +1,480 @@
+{
+  "sourceRevision": "6a653a3620c18e68af37fdf3bcce3c7d78ae052a",
+  "features": [
+    {
+      "id": "quick-note",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-01",
+      "title": {
+        "fa": "یادداشت، بدون دکمه‌ی ذخیره",
+        "en": "Notes without a Save button"
+      },
+      "description": {
+        "fa": "متن را بنویس؛ یادداشت از همان لحظه‌ای که محتوا دارد ثبت می‌شود.",
+        "en": "Write. A note is committed the moment it has content."
+      }
+    },
+    {
+      "id": "voice",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-01",
+      "title": {
+        "fa": "صدای فکرها",
+        "en": "Voice notes"
+      },
+      "description": {
+        "fa": "صدا را ضبط کن و کنار بقیه‌ی یادداشت‌ها نگه دار.",
+        "en": "Record a thought and keep it alongside your other notes."
+      }
+    },
+    {
+      "id": "photo",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-01",
+      "title": {
+        "fa": "عکس، با کادر خودت",
+        "en": "Photos with a crop step"
+      },
+      "description": {
+        "fa": "عکس را بگیر یا انتخاب کن و پیش از ثبت، کادرش را تنظیم کن.",
+        "en": "Take or choose a photo, then crop it before capture."
+      }
+    },
+    {
+      "id": "files",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-05",
+      "title": {
+        "fa": "فایل‌ها هم جا دارند",
+        "en": "A place for files"
+      },
+      "description": {
+        "fa": "فایل، ویدیو و PDF را در تایم‌لاین نگه دار؛ فایل‌های متنی سازگار به یادداشت تبدیل می‌شوند.",
+        "en": "Keep files, video and PDFs in the timeline; supported text files can become editable notes."
+      }
+    },
+    {
+      "id": "checklist",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-01",
+      "title": {
+        "fa": "چک‌لیست و اشتراک از اپ‌ها",
+        "en": "Checklists and sharing in"
+      },
+      "description": {
+        "fa": "چک‌لیست بساز یا متن و فایل را از برنامه‌ای دیگر به نکس بفرست.",
+        "en": "Make checklists, or share text and files to Nex from another app."
+      }
+    },
+    {
+      "id": "timeline",
+      "category": 1,
+      "status": 0,
+      "chapter": "guide-02",
+      "title": {
+        "fa": "یک جریان از روزها",
+        "en": "One stream of days"
+      },
+      "description": {
+        "fa": "روزها را باز و بسته کن؛ یادداشت‌ها را سنجاق کن، کنار بگذار یا دسته‌جمعی تغییر بده.",
+        "en": "Fold days, pin or set aside notes, and work on several at once."
+      }
+    },
+    {
+      "id": "search",
+      "category": 1,
+      "status": 0,
+      "chapter": "guide-03",
+      "title": {
+        "fa": "جست‌وجویی که فارسی را می‌فهمد",
+        "en": "Search that understands Persian"
+      },
+      "description": {
+        "fa": "جست‌وجوی متنی FTS5 با یکسان‌سازی حروف و رقم‌ها، فیلتر نوع، تاریخ و برچسب.",
+        "en": "FTS5 full-text search with Persian folding and type, date and tag filters."
+      }
+    },
+    {
+      "id": "editor",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-04",
+      "title": {
+        "fa": "نوشتن با ابزارهای آشنای گوشی",
+        "en": "Your phone’s familiar editor"
+      },
+      "description": {
+        "fa": "ویرایشگر سیستمی اندروید، انتخاب متن و جهت درست خط‌های فارسی و انگلیسی.",
+        "en": "Android’s own text editor, selection tools and per-line text direction."
+      }
+    },
+    {
+      "id": "markdown",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-05",
+      "title": {
+        "fa": "متن بلند و Markdown",
+        "en": "Long notes and Markdown"
+      },
+      "description": {
+        "fa": "یادداشت بلند را باز کن، بخوان و به فایل Markdown تبدیل کن.",
+        "en": "Open long notes, read on and turn them into Markdown files."
+      }
+    },
+    {
+      "id": "drafts",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-06",
+      "title": {
+        "fa": "از همان‌جا ادامه بده",
+        "en": "Pick up where you left off"
+      },
+      "description": {
+        "fa": "کارهای نیمه‌تمام را بازیابی کن؛ لازم نیست دوباره از اول شروع کنی.",
+        "en": "Recover unfinished work rather than starting again."
+      }
+    },
+    {
+      "id": "reminders",
+      "category": 2,
+      "status": 0,
+      "chapter": "guide-07",
+      "title": {
+        "fa": "قرار بعدی با یک فکر",
+        "en": "Come back to a thought"
+      },
+      "description": {
+        "fa": "یادآوری یک‌باره یا تکرارشونده، با اجازه‌های لازم اندروید.",
+        "en": "One-off and repeating reminders, with the required Android permissions."
+      }
+    },
+    {
+      "id": "recurring",
+      "category": 2,
+      "status": 0,
+      "chapter": "guide-08",
+      "title": {
+        "fa": "تکرار، در تقویم خودش",
+        "en": "Repeat in its own calendar"
+      },
+      "description": {
+        "fa": "موارد تکرارشونده را با تقویم شمسی یا میلادی نگه دار.",
+        "en": "Keep recurring items in the Persian or Gregorian calendar."
+      }
+    },
+    {
+      "id": "assistant",
+      "category": 3,
+      "status": 1,
+      "chapter": "guide-09",
+      "title": {
+        "fa": "دستیار، فقط اگر بخواهی",
+        "en": "An assistant, if you want one"
+      },
+      "description": {
+        "fa": "دستیار مبتنی بر یادداشت‌ها و خلاصه‌ی هوشمند؛ پیش‌فرض خاموش، با ارائه‌دهنده‌ی انتخابی تو.",
+        "en": "A notes-grounded assistant and smart summary; off by default, with a provider you choose."
+      }
+    },
+    {
+      "id": "transcription",
+      "category": 3,
+      "status": 1,
+      "chapter": "guide-09",
+      "title": {
+        "fa": "از صدا و عکس به متن",
+        "en": "From voice and images to text"
+      },
+      "description": {
+        "fa": "رونویسی، خواندن تصویر و خلاصه با قابلیت‌های مدلی که انتخاب و آزمایش می‌کنی.",
+        "en": "Transcription, image reading and summaries depend on the capabilities of your tested model."
+      }
+    },
+    {
+      "id": "local-ai",
+      "category": 3,
+      "status": 1,
+      "chapter": "guide-09",
+      "title": {
+        "fa": "مدل روی گوشی یا سرویس ابری",
+        "en": "On-device or cloud AI"
+      },
+      "description": {
+        "fa": "مدل محلی پس از دانلود روی دستگاه اجرا می‌شود؛ سرویس ابری فقط با انتخاب تو فعال می‌شود.",
+        "en": "A downloaded local model runs on the device; cloud AI is an explicit choice."
+      }
+    },
+    {
+      "id": "vault",
+      "category": 4,
+      "status": 0,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "چند چیز، فقط برای خودت",
+        "en": "A few things just for you"
+      },
+      "description": {
+        "fa": "خزانه‌ی رمزگذاری‌شده برای رمز، کارت و پیام خصوصی، جدا از دستیار و جست‌وجوی یادداشت‌ها.",
+        "en": "An encrypted vault for passwords, cards and private messages, isolated from the assistant and note search."
+      }
+    },
+    {
+      "id": "backups",
+      "category": 4,
+      "status": 0,
+      "chapter": "guide-15",
+      "title": {
+        "fa": "راهی برای برگشتن",
+        "en": "A way back"
+      },
+      "description": {
+        "fa": "نقطه‌ی بازیابی، پشتیبان کامل و خروجی قابل‌خواندن؛ تنظیمات و کلیدها رمزگذاری می‌شوند، یادداشت‌ها خوانا می‌مانند.",
+        "en": "Restore points, complete backups and readable exports. Settings and keys are encrypted; notes remain readable."
+      }
+    },
+    {
+      "id": "lock",
+      "category": 4,
+      "status": 0,
+      "chapter": "guide-16",
+      "title": {
+        "fa": "قفل، با انتخاب تو",
+        "en": "Lock it your way"
+      },
+      "description": {
+        "fa": "قفل اپ با اثر انگشت یا قفل خود گوشی و زمان قفل‌شدن انتخابی.",
+        "en": "App lock using the phone’s fingerprint or screen lock, with a chosen locking interval."
+      }
+    },
+    {
+      "id": "widgets",
+      "category": 2,
+      "status": 0,
+      "chapter": "guide-14",
+      "title": {
+        "fa": "نکس روی صفحه‌ی اصلی",
+        "en": "Nex on your home screen"
+      },
+      "description": {
+        "fa": "ویجت‌های صفحه‌ی اصلی با کنترل نمایش اطلاعات هنگام بسته‌بودن قفل.",
+        "en": "Home-screen widgets with controls for what appears while the app is locked."
+      }
+    },
+    {
+      "id": "appearance",
+      "category": 5,
+      "status": 0,
+      "chapter": "guide-12",
+      "title": {
+        "fa": "ظاهر، زبان و تقویم",
+        "en": "Look, language and calendar"
+      },
+      "description": {
+        "fa": "تم‌ها، اندازه‌ی متن و کارت، آیکون اپ، فارسی و انگلیسی و دو تقویم.",
+        "en": "Palettes, text and card sizes, app icons, Persian and English, and both calendars."
+      }
+    },
+    {
+      "id": "cycle",
+      "category": 6,
+      "status": 0,
+      "chapter": "guide-11",
+      "title": {
+        "fa": "چرخه",
+        "en": "Cycle"
+      },
+      "description": {
+        "fa": "افزونه‌ی اختیاری و خصوصی برای ثبت چرخه؛ داده‌ها روی گوشی‌اند و پیش‌بینی‌ها توصیه‌ی پزشکی نیستند.",
+        "en": "An optional private cycle log. Data stays on the phone; predictions are not medical advice."
+      },
+      "moduleId": "cycle"
+    },
+    {
+      "id": "habits",
+      "moduleId": "habits",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "عادت‌ها",
+        "en": "Habits"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "price_lens",
+      "moduleId": "price_lens",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "مقایسه‌ی قیمت",
+        "en": "Price Lens"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "lent_borrowed",
+      "moduleId": "lent_borrowed",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "قرض و امانت",
+        "en": "Lent & Borrowed"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "smoke_free",
+      "moduleId": "smoke_free",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "ترک عادت",
+        "en": "Quit Habits"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "occasions",
+      "moduleId": "occasions",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "مناسبت‌ها",
+        "en": "Occasions"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "expenses",
+      "moduleId": "expenses",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "هزینه‌ها",
+        "en": "Expenses"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "gold",
+      "moduleId": "gold",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "طلا",
+        "en": "Gold"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "words",
+      "moduleId": "words",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "واژه‌ها",
+        "en": "Words"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "parking",
+      "moduleId": "parking",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "پارکینگ",
+        "en": "Parking"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "medicine",
+      "moduleId": "medicine",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "دارو",
+        "en": "Medicine"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "warranty",
+      "moduleId": "warranty",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "گارانتی",
+        "en": "Warranty"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    },
+    {
+      "id": "maintenance",
+      "moduleId": "maintenance",
+      "category": 6,
+      "status": 2,
+      "chapter": "guide-10",
+      "title": {
+        "fa": "نگهداری",
+        "en": "Maintenance"
+      },
+      "description": {
+        "fa": "در فهرست افزونه‌هاست؛ در نسخه‌ی فعلی هنوز قابل‌افزودن نیست.",
+        "en": "Listed as a module, but not available to add in the current release."
+      }
+    }
+  ]
+}

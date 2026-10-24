@@ -20,7 +20,7 @@ This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScr
 - Typecheck: `npm run typecheck` (`tsc --noEmit`)
 - Tests: `npm test` (Vitest + Testing Library smoke tests)
 - Build: `npm run build` (client bundle + SSR prerender → static HTML per route in `dist/`)
-- Nex snapshot: `npm run fetch:nex` (also prebuild); `NEX_DATA_OFFLINE=1 npm run build` uses committed data. Read `content/nex/README.md` for sources, anonymous runtime refresh, scheduled workflow and optional publisher dispatch. Never add a GitHub token to client code.
+- Nex snapshot: `npm run fetch:nex` then `npm run generate:nex` (both prebuild); `NEX_DATA_OFFLINE=1 npm run build` uses committed data. Read `content/nex/README.md` for sources, anonymous runtime refresh, scheduled workflow and optional publisher dispatch. Never add a GitHub token to client code.
 - Nex upgrade phases and remaining work: `docs/nex-website-roadmap.md`. Keep all work on `cursor-dev`; snapshot refresh must not promote production.
 
 ### Notes
@@ -35,4 +35,5 @@ This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScr
 - Mobile: sections that would stack long (projects, disciplines, skills) use the `Slider` in `src/components/ui.tsx` below `lg`; the process dieline scrolls sideways. The bottom quick-nav (`FloatingQuickNav`) shows below `lg` only: closed by default, a registration-mark button that unfolds into the destinations; mirrored in Persian (dock bottom-left opening rightward, scroll-to-top bottom-right).
 - Accent colour is switchable (`src/lib/accent.ts`, `AccentPicker.tsx`): six ink-named spot colours set via `html[data-accent]`, persisted as `sz-accent`, applied pre-paint in `index.html`. Graphite is the default (no attribute). In dark mode the page/surface/ink/footer grounds are mixed from `--accent`, so the whole sheet follows the chosen colour. Structural borders use the soft `--rule` token, never `--ink`.
 - Intro loader (`src/components/IntroLoader.tsx`, `.intro*` in `src/index.css`): a ~3s design → engineering → intelligence sequence ending in the registration mark. Plays once per session via `html.intro-play` set by the pre-paint script (never under reduced motion, never without JS); tap or any key skips. Hero animations wait on `--intro-delay`.
+- Nex product pages under `/nex/{features,guide,changelog,download,themes,faq,privacy}` and their English counterparts use their own shell. Upstream Markdown is untrusted data: allowlisted JSON AST only, never executable MDX. Temporary theme try-on stays scoped to Nex; keep other sites and portfolio accents unchanged.
 - Nex intro (`src/components/nex/NexIntro.tsx`, `src/components/nex/nex-intro.css`): the app's splash on /nex and /en/nex, once per session via `html.nex-intro-play` from the same pre-paint script (the portfolio intro never plays there); same rules: no reduced motion, no JS-less play, tap or key skips.

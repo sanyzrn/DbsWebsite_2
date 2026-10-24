@@ -11,7 +11,14 @@
     "/nex",
     "/nexahr",
     "/nexachatai",
-    "/nexaslider"
+    "/nexaslider",
+    "/nex/features",
+    "/nex/guide",
+    "/nex/changelog",
+    "/nex/download",
+    "/nex/themes",
+    "/nex/faq",
+    "/nex/privacy"
   ],
   "specialPaths": [
     "/404"
@@ -39,7 +46,14 @@
     "/nex": "nex",
     "/nexahr": "launch",
     "/nexachatai": "launch",
-    "/nexaslider": "launch"
+    "/nexaslider": "launch",
+    "/nex/features": "nex",
+    "/nex/guide": "nex",
+    "/nex/changelog": "nex",
+    "/nex/download": "nex",
+    "/nex/themes": "nex",
+    "/nex/faq": "nex",
+    "/nex/privacy": "nex"
   },
   "pageKeys": {
     "/": "home",
@@ -53,7 +67,14 @@
     "/nex": "nex",
     "/nexahr": "launch",
     "/nexachatai": "launch",
-    "/nexaslider": "launch"
+    "/nexaslider": "launch",
+    "/nex/features": "nexFeatures",
+    "/nex/guide": "nexGuide",
+    "/nex/changelog": "nexChangelog",
+    "/nex/download": "nexDownload",
+    "/nex/themes": "nexThemes",
+    "/nex/faq": "nexFaq",
+    "/nex/privacy": "nexPrivacy"
   },
   "noindexPaths": [
     "/nexahr",

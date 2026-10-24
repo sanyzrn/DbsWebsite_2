@@ -27,14 +27,14 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Refresh public releases and product source
-        run: npm run fetch:nex
+        run: npm run fetch:nex && npm run generate:nex
         env:
           NEX_SOURCE_TOKEN: ${{ secrets.NEX_SOURCE_TOKEN }}
       - name: Detect snapshot changes
         id: changes
         shell: bash
         run: |
-          git add content/nex public/images/nex/guide
+          git add content/nex public/images/nex/guide public/nex public/en/nex
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else

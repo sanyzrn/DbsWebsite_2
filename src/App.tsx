@@ -13,6 +13,7 @@ import { PageTransition } from "./components/PageTransition";
 import NotFoundPage from "./pages/NotFoundPage";
 import { routesFromManifest } from "./lib/routesFromManifest";
 import { cn } from "./utils/cn";
+import { NexAppearanceProvider } from "./components/nex/NexAppearance";
 import { isLaunchSlug } from "./lib/launches";
 import { stripLangPrefix } from "./lib/paths";
 
@@ -23,7 +24,7 @@ function isHomePath(pathname: string) {
 /** Product launch pages have their own full-screen shell, not the portfolio chrome. */
 function isProductLandingPath(pathname: string): boolean {
   const slug = stripLangPrefix(pathname).replace(/^\/+|\/+$/g, "");
-  return isLaunchSlug(slug);
+  return /^nex(?:\/|$)/.test(slug) || isLaunchSlug(slug);
 }
 
 /**
@@ -73,7 +74,7 @@ function Layout() {
         <a href="#main" className="skip-link">
           {t.a11y.skip}
         </a>
-        <main id="main"><Outlet /></main>
+        <NexAppearanceProvider key={/^\/nex(?:\/|$)/.test(stripLangPrefix(pathname)) ? "nex" : "launch"}><main id="main"><Outlet /></main><CommandPalette /></NexAppearanceProvider>
       </div>
     );
   }

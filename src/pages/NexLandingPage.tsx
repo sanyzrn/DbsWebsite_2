@@ -1,6 +1,7 @@
+import { useNexAppearance } from "../lib/nexAppearance";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowDownLeft, ArrowUp, Check, Circle, FileText, Image, Link2, LockKeyhole, Mic, Moon, Plus, Repeat2, Sun } from "lucide-react";
+import { ArrowDown, ArrowDownLeft, BookOpen, GitCompareArrows, Layers, Palette, ArrowUp, Check, Circle, FileText, Image, Link2, LockKeyhole, Mic, Moon, Plus, Repeat2, Sun } from "lucide-react";
 import { PageMeta } from "../components/PageMeta";
 import LocalNote from "../components/nex/LocalNote";
 import NexIntro from "../components/nex/NexIntro";
@@ -12,6 +13,9 @@ import IntelligenceDemo from "../components/nex/IntelligenceDemo";
 import ReleaseDownload, { ReleaseBadge } from "../components/nex/ReleaseDownload";
 import TimelineThread from "../components/nex/TimelineThread";
 import TimelinePreview from "../components/nex/TimelinePreview";
+import NexNavigation from "../components/nex/NexNavigation";
+import { NexAppearanceNotice } from "../components/nex/NexAppearance";
+import { nexPath } from "../lib/nexContent";
 import DayStory from "../components/nex/DayStory";
 import ReminderCalendar from "../components/nex/ReminderCalendar";
 import PrivacyExplorer from "../components/nex/PrivacyExplorer";
@@ -21,6 +25,7 @@ import { useNexReleases } from "../lib/useNexReleases";
 import { NEX_EXPERIENCE } from "../lib/nexExperience";
 import "./nex-landing.css";
 import "../components/nex/nex-experiences.css";
+import "../components/nex/nex-product.css";
 
 const WAVE = [10, 17, 25, 13, 30, 39, 19, 29, 43, 32, 18, 10, 22, 34, 46, 29, 18, 32, 39, 25, 15, 9, 18, 29, 40, 27, 14, 22, 32, 43, 28, 16, 10, 20, 29, 37, 23, 14];
 
@@ -44,6 +49,7 @@ function Lines({ text }: { text: string }) {
 
 export default function NexLandingPage() {
   const { lang, dir, toggleTheme } = useApp();
+  const { style } = useNexAppearance();
   const c = NEX_COPY[lang];
   const e = NEX_EXPERIENCE[lang];
   const fa = lang === "fa";
@@ -73,7 +79,7 @@ export default function NexLandingPage() {
 
   return <>
     <PageMeta page="nex" />
-    <div id="nex-top" className="nex-page" dir={dir} lang={lang} data-enhanced={ready}>
+    <div id="nex-top" className="nex-page" dir={dir} lang={lang} data-enhanced={ready} style={style}>
       <NexIntro tagline={c.tagline} />
       <div className="nex-reading-progress" aria-hidden="true" />
       <div className="nex-shell">
@@ -85,9 +91,7 @@ export default function NexLandingPage() {
             <button className="nex-theme" type="button" onClick={toggleTheme} aria-label={c.themeLabel}><Moon className="nex-theme-moon" size={17} aria-hidden="true" /><Sun className="nex-theme-sun" size={17} aria-hidden="true" /></button>
           </div>
         </header>
-        <nav className="nex-product-nav" aria-label={c.productNav}>
-          {[["#nex-story", c.navStory], ["#nex-today", c.navCapture], ["#nex-calendar", c.navReminder], ["#nex-privacy", c.navPrivacy], ["#nex-download", c.downloadLabel]].map(([href, label]) => <a key={href} href={href}>{label}</a>)}
-        </nav>
+        <NexNavigation lang={lang} /><NexAppearanceNotice />
 
         <section id="nex-world" className="nex-hero" aria-labelledby="nex-hero-title">
           <div className="nex-hero-copy">
@@ -157,6 +161,7 @@ export default function NexLandingPage() {
             </Day>
           </div>
         </div>
+        <section className="nex-explore"><h2>{c.exploreTitle}</h2><p>{c.exploreLead}</p><div className="nex-explore-grid">{[Layers, BookOpen, GitCompareArrows, Palette].map((Icon,i)=><Link key={i} to={nexPath(lang, ["features","guide","changelog","themes"][i])}><Icon size={25} strokeWidth={1.3} aria-hidden="true"/><span>{c.exploreActions[i]}</span></Link>)}</div></section>
         <ReleaseDownload releases={releases} lang={lang} />
         <footer className="nex-footer"><span className="nex-footer-brand" dir="ltr"><NexWordmark className="nex-footer-word" /> / DbsStudio</span><a href="#nex-top">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
       </div>

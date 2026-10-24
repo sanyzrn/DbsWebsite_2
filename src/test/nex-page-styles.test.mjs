@@ -12,6 +12,9 @@ describe("prerendered Nex CSS", () => {
   it.each(["/", "/about", "/nexahr", "/en/nexaslider"])("keeps other routes unchanged: %s", (path) => {
     expect(nexPageStyles(path, {})).toEqual([]);
   });
+  it("includes each subpage's own stylesheet and shared Nex styles", () => {
+    expect(nexPageStyles("/en/nex/guide", { "src/pages/nex/NexGuidePage.tsx": { css: ["assets/guide.css"], imports: ["frame"] }, frame: { css: ["assets/frame.css"] } })).toEqual(["/assets/guide.css", "/assets/frame.css"]);
+  });
   it("fails a build with missing Nex CSS rather than shipping an unstyled page", () => {
     expect(() => nexPageStyles("/nex", {})).toThrow(/missing/i);
     expect(() => nexPageStyles("/nex", { "src/pages/NexLandingPage.tsx": {} })).toThrow(/CSS/);

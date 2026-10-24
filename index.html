@@ -59,10 +59,11 @@
           if (accent && accent !== "graphite" && /^[a-z-]{2,20}$/.test(accent)) root.setAttribute("data-accent", accent);
           // Intro plays once per browser session, never under reduced motion.
           var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          var isNex = /^\/(?:en\/)?nex\/?$/.test(path);
+          var isNex = /^\/(?:en\/)?nex(?:\/|$)/.test(path);
+          var isNexHome = /^\/(?:en\/)?nex\/?$/.test(path);
           if (isNex) root.setAttribute("data-nex-theme", dark ? "dark" : "light");
           // Nex has its own intro, the app's splash, once per session as well.
-          if (isNex && !calm && !sessionStorage.getItem("nex-intro")) {
+          if (isNexHome && !calm && !sessionStorage.getItem("nex-intro")) {
             root.classList.add("nex-intro-play");
             sessionStorage.setItem("nex-intro", "1");
           }

@@ -97,7 +97,7 @@ describe("Product demonstrations", () => {
     fireEvent.click(night);
     expect(night).toHaveAttribute("aria-pressed", "true");
     expect(container.querySelector(".nex-day-story")).toHaveAttribute("data-active", "3");
-    expect(screen.getAllByRole("article")).toHaveLength(4);
+    expect(container.querySelectorAll("article")).toHaveLength(4);
     expect(screen.getByText(NEX_COPY.en.screenshotPreview)).toBeVisible();
     expect(container.querySelector('img[src*="/guide/"]')).toBeNull();
   });

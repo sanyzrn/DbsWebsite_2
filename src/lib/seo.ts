@@ -8,6 +8,7 @@ import { getSiteUrl } from "./siteUrl";
 import { truncateDescription } from "./truncate";
 import siteRoutes from "../../shared/site-routes.json";
 import { NEX_COPY } from "./nex";
+import { NEX_PAGE_SLUGS } from "./nexContent";
 import nexLatest from "../../content/nex/latest.json";
 import { isLaunchSlug, LAUNCH_PAGES } from "./launches";
 
@@ -111,7 +112,9 @@ export function resolvePageSeo(
   } else if (page === "nex") {
     title = NEX_COPY[lang].seoTitle;
     description = NEX_COPY[lang].seoDescription;
-    path = localePath(lang, "/nex");
+    path = opts?.path ?? localePath(lang, "/nex");
+    const index = NEX_PAGE_SLUGS.indexOf(stripLangPrefix(path).split("/")[2] as typeof NEX_PAGE_SLUGS[number]);
+    if (index > 0) { title = `${NEX_COPY[lang].productPages[index]} | Nex`; description = NEX_COPY[lang].productDescriptions[index]; }
   } else if (page === "launch") {
     const slug = stripLangPrefix(path).replace(/^\/|\/$/g, "");
     if (isLaunchSlug(slug)) {
@@ -210,10 +213,13 @@ function buildJsonLd(
   };
 
   if (page === "nex") {
-    const url = `${origin}${localePath(lang, "/nex")}`;
+    const url = `${origin}${path}`;
+    const appUrl = `${origin}${localePath(lang, "/nex")}`;
+    const pageIndex = NEX_PAGE_SLUGS.indexOf(stripLangPrefix(path).split("/")[2] as typeof NEX_PAGE_SLUGS[number]);
+    const pageName = pageIndex > 0 ? `${NEX_COPY[lang].productPages[pageIndex]} | Nex` : NEX_COPY[lang].seoTitle;
     return [{ "@context": "https://schema.org", "@graph": [
-      { "@type": "SoftwareApplication", "@id": `${url}#app`, name: "Nex", operatingSystem: "Android 7.0+", applicationCategory: "ProductivityApplication", inLanguage: ["fa", "en"], description: NEX_COPY[lang].seoDescription, softwareVersion: nexLatest.releases[0].version, dateModified: nexLatest.releases[0].publishedAt, downloadUrl: nexLatest.releases[0].assets.find((a) => a.kind === "universal")?.url ?? nexLatest.releases[0].url, url, image: `${origin}/images/nex/og.jpg`, creator: { "@id": `${origin}/#organization` } },
-      { "@type": "WebPage", "@id": `${url}#webpage`, url, name: NEX_COPY[lang].seoTitle, inLanguage: lang, mainEntity: { "@id": `${url}#app` }, isPartOf: { "@id": `${origin}/#website` } },
+      { "@type": "SoftwareApplication", "@id": `${appUrl}#app`, name: "Nex", operatingSystem: "Android 7.0+", applicationCategory: "ProductivityApplication", inLanguage: ["fa", "en"], description: NEX_COPY[lang].seoDescription, softwareVersion: nexLatest.releases[0].version, dateModified: nexLatest.releases[0].publishedAt, downloadUrl: nexLatest.releases[0].assets.find((a) => a.kind === "universal")?.url ?? nexLatest.releases[0].url, url: appUrl, image: `${origin}/images/nex/og.jpg`, creator: { "@id": `${origin}/#organization` } },
+      { "@type": "WebPage", "@id": `${url}#webpage`, url, name: pageName, inLanguage: lang, mainEntity: { "@id": `${appUrl}#app` }, isPartOf: { "@id": `${origin}/#website` } },
       organization, website,
     ] }];
   }
@@ -421,7 +427,7 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   if (bare === "/404") {
     return resolvePageSeo(lang, "notFound", { path });
   }
-  if (bare.replace(/\/$/, "") === "/nex") {
+  if (/^\/nex(?:\/(?:features|guide|changelog|download|themes|faq|privacy))?\/?$/.test(bare)) {
     return resolvePageSeo(lang, "nex", { path });
   }
   if (isLaunchSlug(bare.replace(/^\/|\/$/g, ""))) {
