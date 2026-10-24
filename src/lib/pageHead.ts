@@ -109,7 +109,7 @@ export function applyPageHead(seo: PageSeo, ogType: "article" | "website"): void
   setMeta("property", "og:image", seo.image);
   setMeta("property", "og:image:alt", seo.imageAlt);
   // Only the default OG artwork is known to have 1200×630 dimensions.
-  const defaultOgImage = seo.image.endsWith("/og.jpg");
+  const defaultOgImage = seo.image.endsWith("/og.jpg") || seo.image.includes("/images/nex/share/");
   setMeta("property", "og:image:width", defaultOgImage ? "1200" : null);
   setMeta("property", "og:image:height", defaultOgImage ? "630" : null);
 

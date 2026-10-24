@@ -46,13 +46,13 @@ Keep the existing octopus, bilingual typography, independent Nex palette, intro 
 ## Phase 4 — Integration and release verification
 
 - [x] Extend prerender, sitemap, canonical/hreflang, command palette and URL checks for every route. Included with Phase 3 to keep new routes usable.
-- [ ] Per-page OG/SoftwareApplication/FAQ structured data where factual.
+- [x] Per-page OG/SoftwareApplication/FAQ structured data where factual.
 - [x] Complete guide refresh delivery, generated theme data and content schema checks. Included with Phase 3.
-- [ ] Finish automatic production rebuild integration through existing deployment; Phase 1 workflow only updates `cursor-dev`, never promotes it.
-- [ ] PWA/offline coverage and bounded GitHub runtime caching; never precache GitHub responses.
-- [ ] Lazy-load heavy demos/galleries; check bundle, contrast, keyboard use and reduced motion.
-- [ ] All required repository checks and actual mobile/desktop, FA/EN, light/dark visual review.
-- [ ] Report the five creative experiences implemented and remaining owner inputs.
+- [x] Complete separate main-only production refresh and exact CI-artifact FTPS deployment; development snapshots never merge/promote code.
+- [x] PWA/offline coverage and bounded GitHub runtime caching; never precache GitHub responses.
+- [x] Lazy-load heavy demos/galleries; check bundle, contrast, keyboard use and reduced motion.
+- [x] All required repository checks and actual mobile/desktop, FA/EN, light/dark visual review.
+- [x] Report the five creative experiences implemented and remaining owner inputs.
 
 ## Phase 1 verification
 
@@ -110,3 +110,21 @@ Verification: full pre-final suite 55 files / 281 tests passed; an additional pa
 Development browser: Persian story layout and a short RTL mouse drag advancing to slide 2; AI on/off with the restored three-note stack; full archive/old-version selection; Persian guide; English source-theme preview/temporary try-on inspected. The real mobile touch gesture and production hydration still require the CI/browser checks. `check:a11y` is blocked by the missing Playwright Chromium executable; `check:pwa` is blocked by executor-to-supervisor loopback refusal. These are not passing checks. The a11y gate now covers nine additional product layouts/locales at 1440/820/320px, AI-off content and containment of active carousel content. No browser-download retry was made.
 
 Earlier work confirmed complete: main CI 40021961359 and deployment 40022449021 succeeded for the reviewed dependency merge. This is not a Phase 3 CI/deployment result. Phase 3 remains on cursor-dev for review.
+
+## Phase 4 — integration and final handoff
+
+Implemented on 2026-10-24:
+
+- Sixteen page-specific FA/EN share cards, generated with source vector branding and local fonts, plus factual FAQPage data from the eleven visible answers. No analytics added.
+- Four three-step guide paths as native disclosures and chapter anchors. They work without JavaScript and add a useful starting point to the full guide.
+- Found and fixed an existing offline defect: raw Workbox imports were being copied into the final worker. The worker is now bundled as a classic script, with production constants, before precache injection. Apache extensionless product routes and revisioned offline/404 fallbacks also resolve correctly.
+- Public releases use a narrowly scoped anonymous runtime cache (3 successful responses / 20 minutes); no remote response in precache. Admin/API/PHP navigation exclusions remain. All product locale HTML/code remains available offline after worker installation. Share-card images avoid eager PWA download.
+- Main-only six-hour production refresh reuses the full CI gate and existing FTPS hosting. Deploy consumes only the corresponding verified artifact, checks provenance/current main/no version downgrade, skips unchanged output and never merges cursor-dev automatically. Existing site-specific FTPS sync isolation is preserved.
+- CI also runs on cursor-dev pushes, enabling validation without opening an unrequested PR. Browser coverage includes real touch/mouse story input, all gallery palettes in light/dark, mobile contents and installed-worker offline FA/EN guide search. Responsive review images are retained as a CI artifact.
+- Heavy guide/archive/theme code remains in separate route chunks. A new 190 KiB gzip ceiling covers the complete Nex landing dependency graph, alongside the existing global bundle budgets; full route-data imports into the landing are rejected.
+
+Local verification: TypeScript/lint pass; 57 files / 298 tests pass. Clean offline build prerenders 68 routes. Dist validates 70 HTML files, 100 JSON-LD blocks and all 16 share-card dimensions. PWA artifact checks pass 31/31; global initial JS stays 80.2/90 KiB gzip. Development browser inspected the Persian dark short paths and native opening; localized share art was inspected directly. CI is the final browser gate because this container lacks Chromium; do not infer browser success from static checks. Main phase-3 CI 40064969099 and hosting deploy 40065295077 succeeded before this phase.
+
+Five required creative experiences are complete: searchable fictional notes with Persian folding; accurate dual-calendar recurrence; privacy data-flow explorer; four-moment day carousel (revised to owner-requested drag/swipe); cumulative changes since an installed version. Additional work includes 14 source-theme try-ons, three prepared AI-off cards, short guide paths and editorial share cards.
+
+Remaining owner inputs: real Persian/English screenshots and visual/hash approval; actual Android store URLs. Optional publisher dispatch must be added in the app/release publishing job only by separate authorization; six-hour production polling already covers updates after these workflows are merged. No separate app Terms source exists, and no unsupported pricing/comparison claim is added. Changes to the new production pipeline become active only after the owner merges this phase into main.

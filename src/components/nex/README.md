@@ -55,3 +55,9 @@ Keep using the permanent `cursor-dev` branch and its PR to `main`. Merge through
 `NexPageFrame`, `NexNavigation` and `nex-product.css` provide shared navigation and an independent product shell. Copy in `nexProductCopy.ts` is composed into `NEX_COPY` for FA/EN parity. Safe content contracts, release merging and date formatting live in `nexContent.ts`; the build-only parser is `shared/nex-content.mjs`. Heavy guide/history data stays in route chunks. Theme previews use `nexThemePreview.ts` and context scoped to the Nex route family, never global accent variables or persistence.
 
 `DayStory` now uses a native horizontal scroll-snap track, mouse drag, touch scrolling and RTL-aware keyboard/manual controls. All four slides remain prerendered, with inactive slides inert after hydration. The AI-off canvas contains three prepared thoughts instead of empty space. `VersionBridge` adds cumulative changes since an installed version. See the roadmap for source facts, verification and remaining screenshot inputs.
+
+## Final integration
+
+`GuidePaths` supplies four native short-path disclosures (three source chapter links each), usable without JavaScript. `generate-nex-og.mjs` builds sixteen bilingual 1200×630 editorial share cards from the actual vector brand, local fonts and page headings; every route uses its own localized card. FAQ structured data uses the same eleven visible source answers. No rating, price, store URL or testimonial is invented.
+
+The worker is compiled into a standalone classic script before manifest injection. `check:pwa` statically verifies all Nex pages are precached, no GitHub payload is precached, and imports/Node globals cannot break the worker. The Chromium gate adds native desktop drag/mobile touch, both gallery modes, installed-worker offline guide search and mobile contents. For publishing and production refresh see `content/nex/README.md`.

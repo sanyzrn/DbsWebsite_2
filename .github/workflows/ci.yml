@@ -2,8 +2,16 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, cursor-dev]
   pull_request:
+  workflow_call:
+    inputs:
+      refresh_nex:
+        type: boolean
+        default: false
+    secrets:
+      NEX_SOURCE_TOKEN:
+        required: false
 
 jobs:
   build:
@@ -15,18 +23,47 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Refresh production data from the checked-out main code
+        if: ${{ inputs.refresh_nex == true }}
+        run: npm run fetch:nex && npm run generate:nex
+        env:
+          NEX_SOURCE_TOKEN: ${{ secrets.NEX_SOURCE_TOKEN }}
       - run: npx playwright install --with-deps chromium
       - run: npx tsc --noEmit
       - run: npm run lint
       - run: npm run check:i18n
       - run: npm test -- --run
       - run: npm run build
+        env:
+          NEX_DATA_OFFLINE: "1"
       # Post-build: internal links + canonical/OG vs SITE_URL (extends check-urls.mjs)
       - run: npm run check:dist
       # Playwright + axe-core (color-contrast enabled) against key prerendered routes
       - run: npm run check:a11y
+        env:
+          NEX_QA_SCREENSHOTS: qa-screenshots
+      - name: Retain responsive Nex review images
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: nex-visual-review
+          path: qa-screenshots/
+          if-no-files-found: ignore
+          retention-days: 7
       # Initial JS/CSS/HTML/font/first-paint gzip ceilings
       - run: npm run check:bundle
+      - run: npm run check:pwa
+      - name: Retain the exact verified production output
+        if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: verified-site
+          path: |
+            dist/
+            !dist/server/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
       # Optional live promotion gate (set repo Variable DEPLOY_CHECK_BASE_URL to an https origin)
       - name: check:deploy (live HTTP 404 + noindex + SITE_URL HTTPS)
         if: ${{ vars.DEPLOY_CHECK_BASE_URL != '' }}

@@ -17,7 +17,7 @@ Runtime refresh uses only the public releases API, anonymously. The browser vali
 
 ## Scheduled refresh
 
-`.github/workflows/refresh-nex.yml` runs every six hours, manually, or on `repository_dispatch` type `nex-release-published`. It checks out `cursor-dev`, refreshes data, builds changed snapshots and pushes only data/images back to that branch. A competing branch update rejects its ordinary push; it never force-pushes. Scheduled/dispatch workflows become active after the workflow exists on the repository's default branch. No main merge or production deployment happens in this phase. Production continues through the existing reviewed `cursor-dev` → `main` flow.
+`.github/workflows/refresh-nex.yml` runs every six hours, manually, or on `repository_dispatch` type `nex-release-published`. It checks out `cursor-dev`, refreshes data, builds changed snapshots and pushes only data/images back to that branch. A competing branch update rejects its ordinary push; it never force-pushes. Scheduled/dispatch workflows become active after the workflow exists on the repository's default branch. This workflow never merges or deploys development code. Production code still changes only through the reviewed `cursor-dev` → `main` flow.
 
 Public sources need no secret. If app sources become private, optionally add build-only `NEX_SOURCE_TOKEN` with read access to `sanyzrn/DbsNex`. Never use a `VITE_` variable for credentials. Private-source materialization needs review if raw-file authentication changes; releases still work without it.
 
@@ -37,3 +37,13 @@ When explicitly requested, add a final step with a fine-grained secret `WEBSITE_
 ```
 
 Alternatively place the same step in a tiny `workflow_dispatch` / `release: { types: [published] }` workflow in `DbsNex-releases` if that release event is known to fire in the publishing setup. Six-hour polling remains the fallback. Token creation and the cross-repo hook are owner setup; no secret is committed here.
+
+## Production refresh and exact verified output (Phase 4)
+
+After these workflows reach `main`, `refresh-nex-production.yml` runs every six hours (UTC 00:47/06:47/12:47/18:47), on manual dispatch or the existing `nex-release-published` repository dispatch. It checks the same reviewed `main` code through the reusable CI workflow, refreshes only public product data, runs TypeScript, lint, tests, build, dist, browser accessibility/offline and PWA/bundle gates, and retains a `verified-site` artifact. It makes no commits or automatic branch merges. The development snapshot workflow continues independently at minute 23.
+
+The existing FTPS deployment now downloads the exact artifact from the successful main verification run, including hidden Apache rules. It does not fetch data or rebuild again after validation. Its read-only promotion gate checks the expected commit, rejects stale main code or a lower public app version, and skips FTP when both the live commit and content fingerprint match. The public `/nex/build.json` contains only commit/version/source revision/content hash; no credentials. Bale configuration is still generated only on the deployment runner, after validation, and is never uploaded as an artifact. FTP target, per-site sync state and `dangerous-clean-slate: false` remain unchanged.
+
+The service worker is now bundled before manifest injection: `injectManifest` alone does not resolve bare Workbox imports. All product HTML and code needed to read/search offline stay revisioned in precache. Explicit extensionless-route lookup and `matchPrecache` handle Apache URLs and revisioned offline/404 fallbacks. Remote GitHub responses never enter precache. Only anonymous GETs to the exact public release-list API use a bounded stale-while-revalidate runtime cache (3 entries, 20 minutes, successful 200 responses); authenticated requests, other repositories and downloads are excluded. Existing localStorage validation/fallback remains authoritative for the UI.
+
+`check:pwa` defaults to direct artifact checks, so it requires no local HTTP server; pass an origin to check live files. Browser registration, native story touch/mouse input, mobile contents and offline FA/EN guide search are checked by `check:a11y` in CI. CI retains `nex-visual-review` screenshots at 320/1440px, light/dark, for the Nex layouts. Heavy guide/history/theme pages remain separate route chunks; their background PWA precache is intentional for complete offline reading. Share cards are not eagerly precached.

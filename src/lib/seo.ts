@@ -9,6 +9,9 @@ import { truncateDescription } from "./truncate";
 import siteRoutes from "../../shared/site-routes.json";
 import { NEX_COPY } from "./nex";
 import { NEX_PAGE_SLUGS } from "./nexContent";
+import faqFa from "../../content/nex/faq.fa.json";
+import faqEn from "../../content/nex/faq.en.json";
+import { nodeText, type ContentNode } from "./nexContent";
 import nexLatest from "../../content/nex/latest.json";
 import { isLaunchSlug, LAUNCH_PAGES } from "./launches";
 
@@ -133,7 +136,7 @@ export function resolvePageSeo(
 
   // Per-page OG image: use project's own image when available (§5), else og.jpg fallback.
   const projectImage = opts?.project?.image_url;
-  const image = page === "nex" ? `${origin}/images/nex/og.jpg` : projectImage
+  const image = page === "nex" ? `${origin}/images/nex/share/${lang}/${stripLangPrefix(path).split("/")[2] || "home"}.jpg` : projectImage
     ? projectImage.startsWith("http")
       ? projectImage
       : `${origin}${projectImage}`
@@ -155,7 +158,7 @@ export function resolvePageSeo(
     ogLocale: lang === "fa" ? "fa_IR" : "en_US",
     ogLocaleAlternate: lang === "fa" ? "en_US" : "fa_IR",
     image,
-    imageAlt: page === "nex" ? NEX_COPY[lang].tagline : opts?.project ? `${opts.project.name}: ${opts.project.subtitle}` : "DbsStudio — Saeed Zarrini",
+    imageAlt: page === "nex" ? title : opts?.project ? `${opts.project.name}: ${opts.project.subtitle}` : "DbsStudio — Saeed Zarrini",
     canonical: `${origin}${path === "/" ? "/" : path}`,
     alternateFa: `${origin}${pathFa === "/" ? "/" : pathFa}`,
     alternateEn: `${origin}${pathEn}`,
@@ -217,7 +220,9 @@ function buildJsonLd(
     const appUrl = `${origin}${localePath(lang, "/nex")}`;
     const pageIndex = NEX_PAGE_SLUGS.indexOf(stripLangPrefix(path).split("/")[2] as typeof NEX_PAGE_SLUGS[number]);
     const pageName = pageIndex > 0 ? `${NEX_COPY[lang].productPages[pageIndex]} | Nex` : NEX_COPY[lang].seoTitle;
+    const faq = pageIndex === 6 ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: (lang === "fa" ? faqFa : faqEn).map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: nodeText(item.answer as ContentNode[]).trim() } })) }] : [];
     return [{ "@context": "https://schema.org", "@graph": [
+      ...faq,
       { "@type": "SoftwareApplication", "@id": `${appUrl}#app`, name: "Nex", operatingSystem: "Android 7.0+", applicationCategory: "ProductivityApplication", inLanguage: ["fa", "en"], description: NEX_COPY[lang].seoDescription, softwareVersion: nexLatest.releases[0].version, dateModified: nexLatest.releases[0].publishedAt, downloadUrl: nexLatest.releases[0].assets.find((a) => a.kind === "universal")?.url ?? nexLatest.releases[0].url, url: appUrl, image: `${origin}/images/nex/og.jpg`, creator: { "@id": `${origin}/#organization` } },
       { "@type": "WebPage", "@id": `${url}#webpage`, url, name: pageName, inLanguage: lang, mainEntity: { "@id": `${appUrl}#app` }, isPartOf: { "@id": `${origin}/#website` } },
       organization, website,

@@ -12,10 +12,11 @@
  * This avoids the previous bug where navigateFallback='/offline.html' caused online
  * users landing on a non-existent URL to see the offline page instead of a real 404.
  */
+import { isPublicNexReleaseRequest, NEX_RUNTIME_CACHE } from "./nex-cache-policy.mjs";
 import { clientsClaim } from "workbox-core";
-import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
+import { cleanupOutdatedCaches, precacheAndRoute, matchPrecache } from "workbox-precaching";
 import { NavigationRoute, registerRoute } from "workbox-routing";
-import { CacheFirst, NetworkFirst, NetworkOnly } from "workbox-strategies";
+import { CacheFirst, NetworkFirst, NetworkOnly, StaleWhileRevalidate } from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
@@ -27,6 +28,12 @@ cleanupOutdatedCaches();
 // All prerendered HTML (every locale/route) is included after running
 // scripts/generate-sw.mjs post-prerender.
 precacheAndRoute(self.__WB_MANIFEST);
+
+// Public data is never precached. The page still validates it and retains its snapshot.
+registerRoute(isPublicNexReleaseRequest, new StaleWhileRevalidate({
+  cacheName: NEX_RUNTIME_CACHE.name,
+  plugins: [new ExpirationPlugin({ maxEntries: NEX_RUNTIME_CACHE.maxEntries, maxAgeSeconds: NEX_RUNTIME_CACHE.maxAgeSeconds }), new CacheableResponsePlugin({ statuses: [200] })],
+}));
 
 // Project screenshots / OG / studio photos — long-lived cache-first.
 registerRoute(
@@ -67,23 +74,29 @@ const navHandler = new NetworkOnly();
 registerRoute(
   new NavigationRoute(
     async (params) => {
+      // Apache serves extensionless directories; Workbox's default directoryIndex
+      // only expands URLs already ending with a slash.
+      const pathname = new URL(params.request.url).pathname;
+      const documentKey = pathname.endsWith('/') ? `${pathname}index.html` : `${pathname}/index.html`;
+      const knownPage = await matchPrecache(documentKey);
+      if (knownPage) return knownPage;
       try {
         return await navHandler.handle(params);
       } catch {
         if (!navigator.onLine) {
-          const offline = await caches.match("/offline.html");
+          const offline = await matchPrecache("/offline.html");
           if (offline) return offline;
         }
         // Network error while online → serve cached locale 404 page.
         const pathname = new URL(params.request.url).pathname;
         const notFoundUrl = pathname.startsWith("/en") ? "/en/404.html" : "/404.html";
-        const cached404 = await caches.match(notFoundUrl);
+        const cached404 = await matchPrecache(notFoundUrl);
         if (cached404) return cached404;
         // Last resort: offline page or a bare 404 response.
-        const offlineFallback = await caches.match("/offline.html");
+        const offlineFallback = await matchPrecache("/offline.html");
         return offlineFallback ?? new Response("Not Found", { status: 404 });
       }
     },
-    { denylist: [/^\/admin(?:\/|$)/i, /^\/nex(?:\/|$)/i, /\.php$/i] }
+    { denylist: [/^\/(?:admin|api)(?:\/|$)/i, /\.php$/i] }
   )
 );

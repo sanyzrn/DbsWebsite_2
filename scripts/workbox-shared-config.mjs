@@ -24,6 +24,8 @@ export const workboxGlobPatterns = [
 export const workboxUnusedAssetGlobs = [
   // Private client proposal: never eager-precache it for unrelated visitors.
   "**/tpnojine/**",
+  // Social crawlers fetch these; website visitors need no eager share-card download.
+  "**/images/nex/share/**",
   "**/assets/*-cyrillic-*.woff2",
   "**/assets/*-vietnamese-*.woff2",
   "**/assets/*-latin-ext-*.woff2",

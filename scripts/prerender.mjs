@@ -42,7 +42,7 @@ export function buildHeadTags(seo) {
   const jsonLd = seo.jsonLd
     .map((block) => `<script type="application/ld+json">${serializeJsonLd(block)}</script>`)
     .join("\n    ");
-  const defaultOgImage = seo.image.endsWith("/og.jpg");
+  const defaultOgImage = seo.image.endsWith("/og.jpg") || seo.image.includes("/images/nex/share/");
   const ogDimensions = defaultOgImage
     ? '\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />'
     : "";

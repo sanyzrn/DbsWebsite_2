@@ -1,0 +1,21 @@
+# Rebuild public data using reviewed main code. Never merge cursor-dev automatically.
+name: Refresh Nex production
+on:
+  schedule:
+    - cron: "47 */6 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [nex-release-published]
+permissions:
+  contents: read
+concurrency:
+  group: nex-production-refresh
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    uses: ./.github/workflows/ci.yml
+    with:
+      refresh_nex: true
+    secrets:
+      NEX_SOURCE_TOKEN: ${{ secrets.NEX_SOURCE_TOKEN }}

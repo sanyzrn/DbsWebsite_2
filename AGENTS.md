@@ -21,14 +21,14 @@ This repo is a single, frontend-only React 19 + Vite 7 + Tailwind CSS 4 (TypeScr
 - Tests: `npm test` (Vitest + Testing Library smoke tests)
 - Build: `npm run build` (client bundle + SSR prerender → static HTML per route in `dist/`)
 - Nex snapshot: `npm run fetch:nex` then `npm run generate:nex` (both prebuild); `NEX_DATA_OFFLINE=1 npm run build` uses committed data. Read `content/nex/README.md` for sources, anonymous runtime refresh, scheduled workflow and optional publisher dispatch. Never add a GitHub token to client code.
-- Nex upgrade phases and remaining work: `docs/nex-website-roadmap.md`. Keep all work on `cursor-dev`; snapshot refresh must not promote production.
+- Nex upgrade phases and remaining work: `docs/nex-website-roadmap.md`. Keep all work on `cursor-dev`; the cursor-dev snapshot refresh must never merge or promote development code. The separate production refresh validates reviewed main code with fresh data, then publishes only its verified artifact through the existing FTPS workflow.
 
 ### Notes
 - Dependencies are installed on startup via the update script (`npm install`), so you normally don't need to reinstall.
 - Production build emits normal Vite assets plus a static HTML file per route (prerender). Locale is derived from the URL (`/` = fa, `/en…` = en); `localStorage` only remembers preference for redirecting a first visit to `/` toward `/en` when appropriate.
 - All UI copy lives in `src/lib/i18n.ts` (Persian + English); project case studies live in `content/projects/*.json`. Theme (light/dark) is managed via React Context in `src/lib/app.tsx` and persisted to `localStorage`. An inline script in `index.html` applies theme + URL-derived lang/dir before first paint to avoid FOUC.
 - Contact form: posts JSON to same-origin `/api/contact.php`, which forwards to Bale via a server-side bot token (GitHub Actions secrets → `dist/api/bale-config.php` at deploy). Always keep the visible direct-email link.
-- PWA: `vite-plugin-pwa` (generateSW). Icons via `npm run generate:icons`. After prerender, `scripts/generate-sw.mjs` rebuilds the service worker so all locale HTML is precached. Offline fallback is `public/offline.html`. Admin/PHP routes are denylisted.
+- PWA: `vite-plugin-pwa` (generateSW), followed by standalone worker bundling and manifest injection. Icons via `npm run generate:icons`. After prerender, `scripts/generate-sw.mjs` rebuilds the service worker so all locale HTML is precached. Offline fallback is `public/offline.html`; extensionless routes resolve through revisioned precache keys. `check:pwa` defaults to static dist verification; browser registration/offline is part of `check:a11y`. Admin/PHP routes are denylisted.
 - ⌘K / Ctrl+K opens the command palette.
 - Type: Archivo variable (wdth + wght) for all Latin text, Vazirmatn variable for Persian body, Noto Kufi Arabic variable for Persian display — subset-trimmed `@font-face` rules in `src/styles/fonts.css`.
 - Design system ("press proof"): tokens, printer's-mark primitives (crop marks, registration mark, colour bar) and the hero register animation live in `src/index.css` + `src/components/ui.tsx`. Keep motion to the single hero moment; respect `prefers-reduced-motion`.
