@@ -11,7 +11,7 @@ function StoryScreen({ lang, active }: { lang: Lang; active: number }) {
   const c = NEX_COPY[lang];
   const name = `${screenNames[active]}${lang === "fa" ? "_fa" : ""}.webp`;
   const screenshot = product.images.find((image) => image.name === name && image.verified && image.src);
-  if (screenshot?.src) return <figure className="nex-story-real"><img src={screenshot.src} width={screenshot.width} height={screenshot.height} loading="lazy" alt={c.storyScreens[active]} /></figure>;
+  if (screenshot?.src) return <figure className="nex-story-real"><img src={screenshot.src} width={screenshot.width} height={screenshot.height} draggable={false} loading="lazy" alt={c.storyScreens[active]} /></figure>;
   return <figure className="nex-story-illustration">
     <div className="nex-story-phone" aria-hidden="true">
       <div className="nex-story-phone-top"><span>{c.storyTimes[active]}</span><NexWordmark /></div>

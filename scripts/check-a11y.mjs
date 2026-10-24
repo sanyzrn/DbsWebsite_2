@@ -367,7 +367,11 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.locator(".nex-orbit-scene").scrollIntoViewIfNeeded();
           const scene = await page.locator(".nex-orbit-scene").boundingBox();
           await page.mouse.move(scene.x + scene.width * .9, scene.y + scene.height * .35);
-          await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") !== "");
+          if (viewport.width > 820) {
+            await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") !== "");
+          } else if (await page.locator(".nex-orbit-scene").evaluate(el => el.style.getPropertyValue("--nx-eye-x") !== "")) {
+            throw new Error("Nex touch devices must not chase a mouse pointer");
+          }
           await page.emulateMedia({ reducedMotion: "reduce" });
           await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") === "");
         }
