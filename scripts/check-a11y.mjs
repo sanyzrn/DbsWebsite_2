@@ -7,6 +7,8 @@
  * Usage: node scripts/check-a11y.mjs   (requires `dist/` from `npm run build`)
  */
 import fs from "node:fs";
+import { verifyStoryGesture } from "./check-story-gestures.mjs";
+import { verifyNexOffline } from "./check-nex-offline.mjs";
 import http from "node:http";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -194,13 +196,14 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
   const results = [];
 
   try {
+    await verifyNexOffline(browser, origin);
     for (const route of resolvedRoutes) {
       for (const theme of THEMES) {
         const isNex = /^\/(?:en\/)?nex\/?$/.test(route.urlPath);
         const isNexPage = /^\/(?:en\/)?nex(?:\/|$)/.test(route.urlPath);
         const viewports = isNexPage ? [{ width: 1440, height: 900 }, { width: 820, height: 900 }, { width: 320, height: 740 }] : [{ width: 1280, height: 720 }];
         for (const viewport of viewports) {
-        const context = await browser.newContext({ reducedMotion: "reduce", viewport });
+        const context = await browser.newContext({ reducedMotion: "reduce", viewport, hasTouch: viewport.width <= 820 });
         await context.addInitScript((themeName) => {
           try {
             localStorage.setItem("sz-theme", themeName);
@@ -264,6 +267,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await assertNexLayoutStable(page, "search miss", () => page.locator("#nex-search-demo").fill("unrelated"));
           await assertNexLayoutStable(page, "search clearing", () => page.locator("#nex-search-demo").fill(""));
           if (await page.locator(".nex-search-result li").count() !== 48) throw new Error("Nex must expose all 48 fictional demo notes");
+          await verifyStoryGesture(page, viewport, !route.urlPath.startsWith("/en"));
           await page.locator(".nex-story-controls button").last().focus();
           await page.locator(".nex-story-controls button").last().press("Space");
           if (await page.locator("#nex-story").getAttribute("data-active") !== "3") throw new Error("Nex reduced-motion story must support manual selection");
@@ -364,7 +368,11 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           await page.locator(".nex-orbit-scene").scrollIntoViewIfNeeded();
           const scene = await page.locator(".nex-orbit-scene").boundingBox();
           await page.mouse.move(scene.x + scene.width * .9, scene.y + scene.height * .35);
-          await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") !== "");
+          if (viewport.width > 820) {
+            await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") !== "");
+          } else if (await page.locator(".nex-orbit-scene").evaluate(el => el.style.getPropertyValue("--nx-eye-x") !== "")) {
+            throw new Error("Nex touch devices must not chase a mouse pointer");
+          }
           await page.emulateMedia({ reducedMotion: "reduce" });
           await page.waitForFunction(() => globalThis.document.querySelector(".nex-orbit-scene").style.getPropertyValue("--nx-eye-x") === "");
         }
@@ -374,10 +382,16 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           if (overflow) throw new Error(`Nex page overflows at ${viewport.width}px: ${route.urlPath}`);
         }
 
+        if (route.urlPath.endsWith('/themes') && theme.dark) await page.locator('.nex-theme-toolbar button').last().click();
         // Load axe as a same-origin external script (CSP script-src 'self').
         // Playwright's addScriptTag has no nonce option, so inline content is blocked.
         await page.addScriptTag({ url: `${origin}/__a11y/axe.js` });
         const axeResults = await page.evaluate(`axe.run(document, ${JSON.stringify(AXE_RUN_OPTIONS)})`);
+        if (isNexPage && process.env.NEX_QA_SCREENSHOTS && [1440,320].includes(viewport.width)) {
+          await page.evaluate(() => globalThis.scrollTo({ top: 0, behavior: "instant" }));
+          fs.mkdirSync(process.env.NEX_QA_SCREENSHOTS, { recursive: true });
+          await page.screenshot({ path: path.join(process.env.NEX_QA_SCREENSHOTS, `${route.urlPath.replace(/[^a-z0-9]+/gi,'-')}-${theme.name}-${viewport.width}.png`) });
+        }
 
         if (runtimeErrors.length) {
           throw new Error(`${route.urlPath} [${theme.name}] runtime/hydration errors:\n${runtimeErrors.join("\n")}`);

@@ -39,7 +39,7 @@ describe('Source-backed product content', () => {
     expect(themes.themes).toHaveLength(14);
     for (const theme of themes.themes as NexTheme[]) for (const dark of [false, true]) {
       const vars = themeVariables(theme, dark) as Record<string, string>;
-      for (const token of ['--nx-ink', '--nx-muted', '--nx-blue']) expect(contrast(vars[token], vars['--nx-bg'])).toBeGreaterThanOrEqual(4.5);
+      for (const token of ['--nx-ink', '--nx-muted', '--nx-blue']) for (const surface of ['--nx-bg', '--nx-card', '--nx-tint']) expect(contrast(vars[token], vars[surface])).toBeGreaterThanOrEqual(4.5);
     }
   });
   it.each(['features', 'guide', 'changelog', 'download', 'themes', 'faq', 'privacy'])('prerenders both locales with reciprocal canonical metadata: %s', slug => {

@@ -16,6 +16,7 @@ import {
   walkHtmlFiles,
   writeCspToHostingConfigs,
 } from "./csp.mjs";
+import { assertNexLandingBudget } from "./nex-bundle-budget.mjs";
 import { nexPageStyles } from "./nex-page-styles.mjs";
 import { serializeJsonLd } from "./jsonld-serialize.mjs";
 import { ROOT, getSiteUrl } from "./site-url.mjs";
@@ -42,7 +43,7 @@ export function buildHeadTags(seo) {
   const jsonLd = seo.jsonLd
     .map((block) => `<script type="application/ld+json">${serializeJsonLd(block)}</script>`)
     .join("\n    ");
-  const defaultOgImage = seo.image.endsWith("/og.jpg");
+  const defaultOgImage = seo.image.endsWith("/og.jpg") || seo.image.includes("/images/nex/share/");
   const ogDimensions = defaultOgImage
     ? '\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />'
     : "";
@@ -179,6 +180,7 @@ async function main() {
   const template = fs.readFileSync(templatePath, "utf8");
   const paths = listPrerenderPaths();
   const clientManifest = JSON.parse(fs.readFileSync(path.join(dist, ".vite", "manifest.json"), "utf8"));
+  assertNexLandingBudget(dist, clientManifest);
 
   const scriptBodies = new Set();
   const styleHashes = new Set();

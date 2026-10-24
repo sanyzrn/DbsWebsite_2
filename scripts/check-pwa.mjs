@@ -1,17 +1,22 @@
 /**
- * PWA installability checklist against a running preview server.
+ * PWA artifact contract, optionally against a running preview server.
  * Note: full Lighthouse PWA audit needs a working headed/headless Chrome;
  * this script covers the same installability criteria without Chrome.
  *
- * Usage: node scripts/check-pwa.mjs [baseUrl]
+ * Usage: node scripts/check-pwa.mjs [baseUrl] (default: dist/; browser install/offline gate is in check:a11y)
  */
+import fs from "node:fs/promises";
+import path from "node:path";
+import { ROOT } from "./site-url.mjs";
+import routes from "../shared/site-routes.json" with { type: "json" };
 import http from "node:http";
 import https from "node:https";
 
-const base = (process.argv[2] || "http://127.0.0.1:4173").replace(/\/+$/, "");
+const base = (process.argv[2] || "").replace(/\/+$/, "");
 const client = base.startsWith("https") ? https : http;
 
 function get(url) {
+  if (!base) return fs.readFile(path.join(ROOT, "dist", url === "/" ? "index.html" : url.replace(/^\//, ""))).then((body) => ({ status: 200, headers: {}, body }));
   return new Promise((resolve, reject) => {
     client.get(url, (res) => {
       const chunks = [];
@@ -56,11 +61,18 @@ for (const icon of m.icons || []) {
 
 const sw = await get(base + "/sw.js");
 ok("service worker sw.js 200", sw.status === 200);
-ok("sw precacheAndRoute", sw.body.toString().includes("precacheAndRoute"));
+const worker = sw.body.toString();
+ok("compiled worker has no bare Workbox imports", !/from\s*["']workbox-|importScripts\(["']https?:/.test(worker) && !/^import\s/m.test(worker) && !worker.includes("process.env"));
+const manifests = [...worker.matchAll(/\[\{(?:"revision"|"url"):[\s\S]*?\}\]/g)].map((match) => { try { return JSON.parse(match[0]); } catch { return []; } });
+const precache = manifests.find((entries) => entries.length && entries.every((entry) => typeof entry.url === "string")) ?? [];
+ok("revisioned precache manifest exists", precache.length > 50);
+ok("all Nex locale pages precached", routes.staticPaths.filter((p) => /^\/nex(?:\/|$)/.test(p)).every((p) => ['', '/en'].every((prefix) => precache.some((entry) => entry.url.replace(/^\//,'') === `${prefix}${p}/index.html`.replace(/^\//,'')))));
+ok("no GitHub/API payloads precached", precache.every((entry) => !/^https?:|api\.github\.com/i.test(entry.url)));
+ok("bounded public Nex runtime cache", worker.includes("nex-public-releases-v1"));
 ok("sw navigateFallback offline.html", sw.body.toString().includes("/offline.html"));
-ok("sw denylist admin/nex/php", /admin/.test(sw.body.toString()) && /nex/.test(sw.body.toString()) && /\.php/.test(sw.body.toString()));
-ok("sw CacheFirst images", sw.body.toString().includes("CacheFirst"));
-ok("sw NetworkFirst seo", sw.body.toString().includes("NetworkFirst"));
+ok("private admin/API/PHP navigation denied", /admin\|api/.test(worker) && /\\.php/.test(worker));
+ok("sw CacheFirst images", /cacheName\s*:\s*[`"']images/.test(worker));
+ok("sw NetworkFirst seo", /cacheName\s*:\s*[`"']seo-files/.test(worker));
 // Workbox emits the manifest as JSON ("revision":"…"); minifiers may drop the key quotes.
 ok("sw revisioning active", /"?revision"?:\s*"[a-f0-9]+"/.test(sw.body.toString()));
 ok("precache includes en locale HTML", sw.body.toString().includes("en/about/index.html"));

@@ -238,6 +238,9 @@ for (const rel of ["nex/index.html", "en/nex/index.html"]) {
   }
 }
 await assertOgImageDimensions(path.join(DIST, "images/nex/og.jpg"), "Nex og.jpg");
+for (const lang of ['fa','en']) for (const slug of ['home','features','guide','changelog','download','themes','faq','privacy']) {
+  await assertOgImageDimensions(path.join(DIST, `images/nex/share/${lang}/${slug}.jpg`), `Nex ${lang}/${slug} share card`);
+}
 
 // Open Graph / Twitter Card image — must stay exactly 1200×630 (LinkedIn / X / Telegram)
 await assertOgImageDimensions(path.join(ROOT, "public", "og.jpg"), "public/og.jpg");

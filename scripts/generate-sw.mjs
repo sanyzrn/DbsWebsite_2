@@ -11,6 +11,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import os from "node:os";
+import { build } from "vite";
 import { injectManifest } from "workbox-build";
 import { ROOT } from "./site-url.mjs";
 import {
@@ -36,8 +38,15 @@ for (const name of fs.readdirSync(DIST)) {
   }
 }
 
+// injectManifest only substitutes the manifest: it does not bundle bare imports.
+// Compile an ordinary self-contained worker before injecting route revisions.
+const compiled = fs.mkdtempSync(path.join(os.tmpdir(), "dbs-sw-"));
+await build({ configFile: false, publicDir: false, logLevel: "warn", define: { "process.env.NODE_ENV": JSON.stringify("production") }, build: {
+  outDir: compiled, emptyOutDir: true, target: "es2022", minify: true,
+  lib: { entry: SW_TEMPLATE, formats: ["iife"], name: "DbsServiceWorker", fileName: () => "sw.js" },
+} });
 const { count, size, warnings } = await injectManifest({
-  swSrc: SW_TEMPLATE,
+  swSrc: path.join(compiled, "sw.js"),
   swDest: path.join(DIST, "sw.js"),
   globDirectory: DIST,
   globPatterns: workboxGlobPatterns,

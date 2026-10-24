@@ -214,7 +214,7 @@ describe("Nex SEO, sitemap and isolated motion", () => {
       expect(seo.canonical).toBe(`https://dbsstudio.ir${path}`);
       expect(seo.alternateFa).toBe("https://dbsstudio.ir/nex");
       expect(seo.alternateEn).toBe("https://dbsstudio.ir/en/nex");
-      expect(seo.image).toBe("https://dbsstudio.ir/images/nex/og.jpg");
+      expect(seo.image).toBe(`https://dbsstudio.ir/images/nex/share/${path.startsWith("/en") ? "en" : "fa"}/home.jpg`);
       const graph = seo.jsonLd[0]["@graph"] as Record<string, unknown>[];
       const app = graph.find((entry) => entry["@type"] === "SoftwareApplication");
       expect(app?.operatingSystem).toBe("Android 7.0+");
