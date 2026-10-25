@@ -2,6 +2,66 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.3.1",
+      "tag": "v2.3.1",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.1",
+      "publishedAt": "2026-10-25T08:56:31.000Z",
+      "notes": {
+        "en": "- **Repeating reminders: Done only.** A reminder that repeats now has just **Done** in its notification. It comes back at its own time anyway, and an extra one an hour later only muddled which time it keeps. One-time reminders still have **In an hour**, and an \"in an hour\" you set is no longer lost when Nex is opened before it rings.\r\n- **Recurring items in the notification.** A Recurring item's reminder now has **Done**: it is ticked at the moment you press it and moves on to its next turn, the same as ticking it on the page. Tapping the notification opens the Recurring page.\r\n- **Swipe the other way.** In the archive and the trash, a card is swiped toward the start edge to bring it back, so it no longer gets in the way of swiping back to the previous page.\r\n- **Undo in the archive and the trash.** Unarchiving or deleting a single note in the archive, and restoring or deleting one for good in the trash, now offers **Undo**. A permanent delete waits until its Undo is gone before it runs.\r\n- **Archive: Delete all.** The archive's menu now has **Delete all** beside **Unarchive all**, and both ask before they act, the way Empty trash does.\r\n- **What's new, in About.** It no longer opens over the home screen after an update. **About → What's new** has every release Nex has had, the current one on top, the rest folded to their headlines, and a search through all of them.",
+        "fa": "- **یادآور تکرارشونده: فقط «انجام شد».** یادآوری که تکرار می‌شود حالا در اعلانش فقط **انجام شد** دارد. خودش سر وقتش برمی‌گردد و یک بار اضافه یک ساعت بعد فقط ساعتش را به هم می‌ریخت. یادآورهای یک‌باره هنوز **یک ساعت دیگر** دارند، و «یک ساعت دیگر»ی که زده‌اید اگر پیش از زنگ زدن نکس را باز کنید دیگر از بین نمی‌رود.\r\n- **موارد تکرارشونده در اعلان.** یادآور هر مورد تکرارشونده حالا **انجام شد** دارد: همان لحظه‌ای که می‌زنید انجام‌شده ثبت می‌شود و به نوبت بعدی می‌رود، درست مثل تیک زدن در صفحه‌اش. زدن خود اعلان صفحهٔ موارد تکرارشونده را باز می‌کند.\r\n- **کشیدن از سمت دیگر.** در بایگانی و سطل زباله، کارت را به سمت لبهٔ شروع بکشید تا برگردد؛ دیگر با کشیدن برای برگشت به صفحهٔ قبل تداخل ندارد.\r\n- **واگرد در بایگانی و سطل زباله.** خروج از بایگانی یا حذف یک یادداشت در بایگانی، و بازیابی یا حذف همیشگی یک یادداشت در سطل زباله، حالا **واگرد** دارد. حذف همیشگی تا وقتی دکمهٔ واگردش هست انجام نمی‌شود.\r\n- **بایگانی: حذف همه.** منوی بایگانی حالا کنار **خروج همه از بایگانی**، **حذف همه** هم دارد و هر دو پیش از انجام، مثل خالی کردن سطل، تأیید می‌گیرند.\r\n- **تازه‌ها، در درباره.** دیگر بعد از به‌روزرسانی روی صفحهٔ اصلی باز نمی‌شود. **درباره ← تازه‌ها** همهٔ نسخه‌های نکس را دارد: نسخهٔ فعلی بالا، بقیه جمع‌شده با سرتیترهایشان، و جست‌وجو در همهٔ آن‌ها."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.3.1-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.1/Nex-2.3.1-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 58249489,
+          "downloads": 2,
+          "sha256": "c91254386cdcda5a02583cd25270f85b297b4a6a20f3343f2e75265c2806107b"
+        },
+        {
+          "name": "Nex-2.3.1-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.1/Nex-2.3.1-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 35162935,
+          "downloads": 0,
+          "sha256": "b8ed19c24612988310d63f4ce6ccb86601b445f637c130c673ce467ae17c7338"
+        },
+        {
+          "name": "Nex-2.3.1-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.1/Nex-2.3.1-universal.apk",
+          "kind": "universal",
+          "size": 146429222,
+          "downloads": 0,
+          "sha256": "411cc74a28407cb4de6f533652db1fa43d0130235dc59bf1bd71155ef9249a22"
+        },
+        {
+          "name": "Nex-2.3.1-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.1/Nex-2.3.1-x86_64.apk",
+          "kind": "x64",
+          "size": 63803660,
+          "downloads": 0,
+          "sha256": "b7add46336bd83041637ef0f33cd6759e074a8c87fbf3a1bc6f02551c3b09630"
+        },
+        {
+          "name": "Nex-2.3.1.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.1/Nex-2.3.1.aab",
+          "kind": "bundle",
+          "size": 109971611,
+          "downloads": 0,
+          "sha256": "ec4697492b4eeb3c4cae65e5d2fa9bee836fab06dd3af59c6dba3a477266929b"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.1/SHA256SUMS",
+          "kind": "other",
+          "size": 434,
+          "downloads": 1,
+          "sha256": "90431d89f8ccdfa524f35dcfe6f1bb9578789866a0a8b4f5ac25a0322da708aa"
+        }
+      ]
+    },
+    {
       "version": "2.3.0",
       "tag": "v2.3.0",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.0",
@@ -32,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.0/Nex-2.3.0-universal.apk",
           "kind": "universal",
           "size": 146378610,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "d1a84627eeec87afe34155f1898ae69c8d9855ca2cd1544069879aae8fd283a6"
         },
         {
