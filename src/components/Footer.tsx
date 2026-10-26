@@ -29,6 +29,7 @@ export default function Footer() {
   const legal = [
     { label: t.footer.privacy, to: localePath(lang, "/privacy") },
     { label: t.footer.terms, to: localePath(lang, "/terms") },
+    { label: t.footer.issues, to: localePath(lang, "/issues") },
   ];
   const socials = [
     { icon: GithubIcon, label: "GitHub", href: "https://github.com/sanyzrn/" },

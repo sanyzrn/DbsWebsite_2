@@ -47,6 +47,7 @@ export const A11Y_ROUTES = [
   { urlPath: "/articles", file: "articles/index.html" },
   { urlPath: "/about", file: "about/index.html" },
   { urlPath: "/contact", file: "contact/index.html" },
+  { urlPath: "/issues", file: "issues/index.html" },
   { urlPath: "/404", file: "404.html" },
   { urlPath: "/projects/dbsai", file: "projects/dbsai/index.html", fallbackDir: "projects" },
   {

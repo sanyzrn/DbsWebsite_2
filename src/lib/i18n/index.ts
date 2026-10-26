@@ -1,9 +1,19 @@
 import { getLocalizedProjects, type LocalizedProject } from "../projects";
-import fa, { type UiDict, type Lang, PROJECT_TYPE_IDS, DEFAULT_PROJECT_TYPE, type ProjectTypeId } from "./fa";
+import fa, {
+  type UiDict,
+  type Lang,
+  PROJECT_TYPE_IDS,
+  DEFAULT_PROJECT_TYPE,
+  type ProjectTypeId,
+  ISSUE_PRODUCT_IDS,
+  ISSUE_KIND_IDS,
+  type IssueProductId,
+  type IssueKindId,
+} from "./fa";
 import en from "./en";
 
-export type { Lang, UiDict, ProjectTypeId };
-export { PROJECT_TYPE_IDS, DEFAULT_PROJECT_TYPE, fa, en };
+export type { Lang, UiDict, ProjectTypeId, IssueProductId, IssueKindId };
+export { PROJECT_TYPE_IDS, DEFAULT_PROJECT_TYPE, ISSUE_PRODUCT_IDS, ISSUE_KIND_IDS, fa, en };
 
 export const dictionaries: Record<Lang, UiDict> = { fa, en };
 

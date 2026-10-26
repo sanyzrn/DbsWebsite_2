@@ -145,7 +145,7 @@ SITE_URL=https://dbsstudio.ir npm run check:deploy
 
 (or set `DEPLOY_CHECK_BASE_URL` to another HTTPS origin). This hits the live URL over HTTPS and asserts real HTTP 404 + `noindex` on unknown paths.
 
-### Contact form
+### Contact and problem-report forms
 
 The interactive contact form POSTs JSON to same-origin `/api/contact.php`. That PHP
 proxy validates the payload (honeypot, timing, rate limit) and forwards a plain-text
@@ -153,6 +153,12 @@ message via the Bale Bot API (`https://tapi.bale.ai`). Bot credentials are GitHu
 Actions secrets (`BALE_BOT_TOKEN`, `BALE_CHAT_ID`) written into `dist/api/bale-config.php`
 only during deploy — they never appear in the client bundle or git history
 (`public/api/.gitignore` ignores `bale-config.php`).
+
+The problem-report page (`/issues`, `/en/issues`) works the same way through
+`/api/issue.php`: product, report kind, version, environment, name, email and message
+are validated against allow-lists and caps (honeypot, timing, 5 reports/hour per IP) and
+forwarded to the same Bale chat. `/issues?product=nexachatai&version=1.7.8&kind=bug`
+opens the form pre-filled, so products can link to it.
 
 The visible direct-email link remains on the contact UI as a backup.
 

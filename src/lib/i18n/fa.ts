@@ -16,6 +16,12 @@ export const PROJECT_TYPE_IDS = [
 export type ProjectTypeId = (typeof PROJECT_TYPE_IDS)[number];
 export const DEFAULT_PROJECT_TYPE: ProjectTypeId = PROJECT_TYPE_IDS[0];
 
+/** Products and report kinds of the /issues form (order = select order; keep in sync with public/api/issue.php). */
+export const ISSUE_PRODUCT_IDS = ["nexachatai", "nex-android", "nex-windows", "nexahr", "other"] as const;
+export const ISSUE_KIND_IDS = ["bug", "security", "suggestion", "question"] as const;
+export type IssueProductId = (typeof ISSUE_PRODUCT_IDS)[number];
+export type IssueKindId = (typeof ISSUE_KIND_IDS)[number];
+
 const fa = {
   dir: "rtl" as "rtl" | "ltr",
   brand: {
@@ -50,6 +56,10 @@ const fa = {
       title: "Saeed Zarrini | تماس",
       description:
         "برای شروع یک پروژه یا گفت‌وگو درباره ایده، محصول دیجیتال یا یکپارچه‌سازی هوش مصنوعی با سعید در تماس باشید.",
+    },
+    issues: {
+      title: "گزارش مشکل | DbsStudio",
+      description: "مشکل یا پیشنهادی دربارهٔ NexaChatAI، Nex یا NexaHR دارید؟ از همین‌جا خصوصی و مستقیم گزارش دهید.",
     },
     privacy: {
       title: "حریم خصوصی | Saeed Zarrini",
@@ -390,6 +400,63 @@ const fa = {
       } satisfies Record<ProjectTypeId, string>,
     },
   },
+  issues: {
+    kicker: "پشتیبانی",
+    title: "گزارش مشکل",
+    lead: "مشکلی دیدید یا پیشنهادی دارید؟ بنویسید؛ گزارش شما خصوصی است و مستقیم به من می‌رسد.",
+    strong: "هر چه جزئیات بیشتری بدهید، سریع‌تر می‌توانم مشکل را بازتولید و رفع کنم.",
+    lines: [
+      "نام محصول و نسخهٔ آن را بنویسید؛ در افزونه، نسخه در صفحهٔ «دربارهٔ افزونه» است.",
+      "مراحلی که به مشکل رسید، نتیجهٔ مورد انتظار و نتیجهٔ واقعی را بنویسید.",
+      "نسخهٔ وردپرس و PHP، یا نسخهٔ اندروید و ویندوز را در بخش «محیط» بیاورید.",
+    ],
+    form: {
+      title: "فرم گزارش",
+      desc: "محصول را انتخاب کنید و مشکل را بنویسید. گزارش از طریق پیام‌رسان بله به من می‌رسد و جایی منتشر نمی‌شود.",
+      product: "محصول",
+      products: {
+        nexachatai: "NexaChatAI (افزونهٔ وردپرس)",
+        "nex-android": "Nex (اندروید)",
+        "nex-windows": "Nex (ویندوز)",
+        nexahr: "NexaHR",
+        other: "سایر",
+      } satisfies Record<IssueProductId, string>,
+      kind: "نوع گزارش",
+      kinds: {
+        bug: "اشکال",
+        security: "مشکل امنیتی",
+        suggestion: "پیشنهاد",
+        question: "پرسش",
+      } satisfies Record<IssueKindId, string>,
+      securityNote: "برای مشکل امنیتی، جزئیات را فقط در همین فرم بنویسید و جای دیگری منتشر نکنید.",
+      version: "نسخه",
+      versionPh: "مثلاً 1.7.8",
+      environment: "محیط",
+      environmentPh: "مثلاً وردپرس ۶٫۸ و PHP 8.2، یا اندروید ۱۴",
+      name: "نام شما",
+      namePh: "نام و نام خانوادگی",
+      email: "ایمیل",
+      emailPh: "you@example.com",
+      message: "شرح مشکل",
+      messagePh: "چه کردید، چه انتظاری داشتید و چه اتفاقی افتاد؟",
+      optionalDetails: "جزئیات فنی (اختیاری)",
+      optionalDetailsHint: "نسخه و محیط اجرا به بازتولید مشکل کمک می‌کند؛ اگر نمی‌دانید، خالی بگذارید.",
+      submit: "ارسال گزارش",
+      sending: "در حال ارسال…",
+      deliveredTitle: "گزارش ارسال شد.",
+      deliveredBody: "سپاس. گزارش را بررسی می‌کنم و در صورت نیاز از طریق ایمیل پاسخ می‌دهم.",
+      timeoutTitle: "ارسال بیش از حد طول کشید.",
+      timeoutBody: "اتصال کندتر از حد انتظار بود — دوباره تلاش کنید یا مستقیم ایمیل بزنید.",
+      errorTitle: "ارسال ناموفق بود.",
+      errorBody: "لطفاً دوباره تلاش کنید یا مستقیم ایمیل بزنید.",
+      rateLimitedTitle: "به حد مجاز ارسال رسیده‌اید.",
+      rateLimitedBody: "تعداد گزارش‌های شما در یک ساعت به حد مجاز رسیده است. بعداً دوباره تلاش کنید یا به {email} ایمیل بزنید.",
+      fieldTooLong: "متن این بخش بیش از حد طولانی است (حداکثر {n} نویسه).",
+      directEmail: "یا مستقیم ایمیل بزنید:",
+      required: "لطفاً این بخش را تکمیل کنید.",
+      invalidEmail: "لطفاً یک نشانی ایمیل معتبر وارد کنید.",
+    },
+  },
   footer: {
     colophon: "حروف‌چینی با آرچیوو، وزیرمتن و نوتو کوفی. طراحی و ساخت: سعید.",
     emailCta: "یا مستقیم ایمیل بزنید",
@@ -403,6 +470,7 @@ const fa = {
     backTop: "بازگشت به بالا",
     privacy: "حریم خصوصی",
     terms: "شرایط استفاده",
+    issues: "گزارش مشکل",
   },
   privacy: {
     kicker: "حقوقی",
@@ -414,8 +482,8 @@ const fa = {
         body: "این وب‌سایت یک نمونه‌کار شخصی است و به‌طور پیش‌فرض سرویس تحلیل شخص ثالثی ندارد. انتخاب زبان، حالت نمایش، رنگ اصلی و وضعیت پیشنهاد نصب فقط در مرورگر شما ذخیره می‌شود. برای محدودکردن تعداد پیام‌ها در بازه‌های یک‌ساعته، زمان ارسال‌ها با شناسه‌ای برگرفته از نشانی IP در فایل موقت سرور ذخیره می‌شود. اگر سرویس تحلیلی اضافه شود، این سیاست به‌روزرسانی خواهد شد.",
       },
       {
-        heading: "فرم تماس",
-        body: "با ارسال فرم تماس، نام، ایمیل، متن پیام و جزئیات اختیاری شما، از جمله شمارهٔ تماس، به سرور همین سایت ارسال می‌شود. پیام سپس از طریق ربات بله به سعید می‌رسد. این اطلاعات فقط برای پاسخ‌گویی به درخواست شما استفاده می‌شود و فروخته نمی‌شود. پردازش پیام در بله تابع سیاست حریم خصوصی آن سرویس است (https://bale.ai).",
+        heading: "فرم تماس و گزارش مشکل",
+        body: "با ارسال فرم تماس یا فرم گزارش مشکل (/issues)، نام، ایمیل، متن پیام و جزئیات اختیاری شما (مثل شمارهٔ تماس، نسخهٔ محصول و محیط اجرا) به سرور همین سایت ارسال می‌شود. پیام سپس از طریق ربات بله به سعید می‌رسد. این اطلاعات فقط برای پاسخ‌گویی به درخواست شما استفاده می‌شود و فروخته نمی‌شود. پردازش پیام در بله تابع سیاست حریم خصوصی آن سرویس است (https://bale.ai).",
       },
       {
         heading: "نگهداری اطلاعات",

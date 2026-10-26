@@ -49,7 +49,7 @@ rather than a per-build nonce, so hosting configs and HTML stay in sync automati
 | `style-src 'self'` (+ optional `'unsafe-hashes' sha256-…`) | Bundled CSS; app avoids inline `style=` attrs. Any remaining prerendered style attrs are hashed |
 | `font-src 'self' data:` | Self-hosted `@fontsource` fonts (no Google Fonts CDN) |
 | `img-src 'self' data: blob:` | Site images + inline/data URLs |
-| `connect-src 'self'` | Contact form POST to `/api/contact.php` (same-origin) |
+| `connect-src 'self'` | Contact form POST to `/api/contact.php` and problem-report form POST to `/api/issue.php` (same-origin) |
 | `form-action 'self'` | Native form posts stay same-origin |
 | `worker-src 'self' blob:` | PWA service worker + any blob workers (e.g. three.js) |
 | `frame-ancestors 'none'` | Clickjacking protection (pairs with `X-Frame-Options`) |

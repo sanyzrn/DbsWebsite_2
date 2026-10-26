@@ -34,6 +34,42 @@ Working convention:
 
 ## Unreleased
 
+## v2.3.3
+
+- **An archived note is read only.** Opened from the archive it says so at the top, with when it comes back, and offers only what fits a note put away: open, share, copy, unarchive, details and delete. Editing, tags, threads, pinning and the Nex AI workspace wait until it is unarchived; a reminder it already had can still be changed or cleared.
+- **Hidden AI results stay hidden.** Hiding the Nex AI results of a note is remembered, so they stay hidden the next time you open it, until you show them again.
+- **Pull to refresh, with the wordmark.** Pulling the home screen down now opens a strip of sky above it: dotted clouds drifting at three depths and the "nex" wordmark in the middle. The further you pull, the more of the x's blue stroke is written in; when letting go will refresh, the dot after it pops into place. While the summary refreshes a light runs along the stroke and the dot hops, and when it is done the dot hops once more and the strip closes.
+- **Nex AI, redesigned.** The section under a note is rebuilt from scratch. Its tools are labelled buttons instead of bare icons; a tool that already has a result shows a check and shows it rather than asking again, and the separate row of result tabs is gone. The chosen result sits in a card of its own with **Run again**, the full text on request, **Copy** and **Add to caption**; suggested tags get their own card; **Hide** and **Show** sit in the section's header, aligned with its title.
+- **Translation, rebuilt.** Translate no longer asks which language: a Persian note goes into English and an English one into Persian, shown as one line ("Persian → English"), so it can no longer fail by translating a note into its own language. A note written in both gets a swap. Long notes are translated in pieces, so they no longer come back cut off and fail. A translation stays for the session, as its own tab, without asking again; it can be translated again, copied, kept as a note or added to a caption.
+- **Archive: two buttons on each card.** Like the trash, each archived note now has two buttons side by side, **Unarchive** and **Delete**, instead of a menu for deleting. Cards in the archive and the trash no longer swipe; a sideways swipe is always the swipe back to the previous page.
+
+## v2.3.2
+
+- **Scheduled, in the Library.** Notes on their way now have their own tile in the Library, beside the archive, saying how many are waiting (it is still in Tools too). The page is redesigned like the archive: each note as its own card with when it arrives, how many days are left, a bar for how much of the wait is behind it, and a button to deliver it now.
+- **Swipe back works from a card.** In the archive and the trash, a swipe back that starts on a card now takes you back, instead of doing nothing. Swiping a card toward the start edge still brings it back.
+- **Search first in What's new.** The search field now sits at the top of **About → What's new**, above the current release.
+- **One colour per shelf.** Archive, Scheduled, Tags, Threads and Trash each open in the colour of their tile in the Library, instead of a different colour inside.
+
+## v2.3.1
+
+- **Repeating reminders: Done only.** A reminder that repeats now has just **Done** in its notification. It comes back at its own time anyway, and an extra one an hour later only muddled which time it keeps. One-time reminders still have **In an hour**, and an "in an hour" you set is no longer lost when Nex is opened before it rings.
+- **Recurring items in the notification.** A Recurring item's reminder now has **Done**: it is ticked at the moment you press it and moves on to its next turn, the same as ticking it on the page. Tapping the notification opens the Recurring page.
+- **Swipe the other way.** In the archive and the trash, a card is swiped toward the start edge to bring it back, so it no longer gets in the way of swiping back to the previous page.
+- **Undo in the archive and the trash.** Unarchiving or deleting a single note in the archive, and restoring or deleting one for good in the trash, now offers **Undo**. A permanent delete waits until its Undo is gone before it runs.
+- **Archive: Delete all.** The archive's menu now has **Delete all** beside **Unarchive all**, and both ask before they act, the way Empty trash does.
+- **What's new, in About.** It no longer opens over the home screen after an update. **About → What's new** has every release Nex has had, the current one on top, the rest folded to their headlines, and a search through all of them.
+
+## v2.3.0
+
+- **A reminder rings on its card.** When a reminder goes off, its card swings a small bell in place of its icon until you open it, and the notification stays in your notifications until you do. Tapping a notification while Nex is closed now opens it straight onto the card, the same as when it is already open.
+- **Done and In an hour, right in the notification.** Each reminder notification has two buttons: **Done** clears it, **In an hour** brings it back an hour later. Neither needs Nex to open.
+- **Archive.** "Set aside" is now **Archive**. The archive page shows what comes back on its own and what waits for you, as separate cards with a button to unarchive, a swipe to do the same and **Unarchive all**. Deleting from it works again, and an archived note no longer offers Pin or full screen.
+- **Tags, Trash and Threads, redesigned.** Each is a page of separate cards: tags in their own colour with how much of your library carries them, trash with how many days each note has left, threads with how many notes they hold and when one was last added.
+- **Home layout at a glance.** The home layout sheet is now a set of quick tiles: what to show, card size with a small preview of each, and text size in four steps. It no longer appears while searching.
+- **A new pull to refresh.** Pull the home screen down and the arms of Nex's mark reach out; let go and they sweep round while the summary refreshes, then a light passes over the summary and the page.
+- **What's new.** After an update, Nex shows what changed once, the first time you open it.
+- **Smoother switching in the composer.** Moving between Note, Checklist and Link no longer makes the keyboard jump.
+
 ## v2.2.2
 
 - **The portrait arrives as you scroll.** Each part of your writing portrait — the figures, the 30-day bars, the ring, the shape of your traits — now plays its entrance when you scroll to it, instead of everything finishing the moment the page opens. The page also opens lighter, so the small stutter on entering is gone.

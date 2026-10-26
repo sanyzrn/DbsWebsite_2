@@ -22,6 +22,7 @@ export type PageSeoKey =
   | "news"
   | "about"
   | "contact"
+  | "issues"
   | "project"
   | "article"
   | "privacy"
@@ -88,6 +89,10 @@ export function resolvePageSeo(
     title = seo.contact.title;
     description = seo.contact.description;
     path = opts?.path ?? localePath(lang, "/contact");
+  } else if (page === "issues" && seo.issues) {
+    title = seo.issues.title;
+    description = seo.issues.description;
+    path = opts?.path ?? localePath(lang, "/issues");
   } else if (page === "privacy" && seo.privacy) {
     title = seo.privacy.title;
     description = seo.privacy.description;
@@ -422,6 +427,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   }
   if (bare === "/contact") {
     return resolvePageSeo(lang, "contact", { path });
+  }
+  if (bare === "/issues") {
+    return resolvePageSeo(lang, "issues", { path });
   }
   if (bare === "/privacy") {
     return resolvePageSeo(lang, "privacy", { path });

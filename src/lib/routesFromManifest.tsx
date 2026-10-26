@@ -53,6 +53,7 @@ const ArticleDetailPage = syncCompatibleLazy(() => import("../pages/ArticleDetai
 const NewsPage = syncCompatibleLazy(() => import("../pages/NewsPage"));
 const AboutPage = syncCompatibleLazy(() => import("../pages/AboutPage"));
 const ContactPage = syncCompatibleLazy(() => import("../pages/ContactPage"));
+const IssuesPage = syncCompatibleLazy(() => import("../pages/IssuesPage"));
 const PrivacyPage = syncCompatibleLazy(() => import("../pages/PrivacyPage"));
 const TermsPage = syncCompatibleLazy(() => import("../pages/TermsPage"));
 const NexPage = syncCompatibleLazy(() => import("../pages/NexLandingPage"));
@@ -76,6 +77,7 @@ const PAGES = {
   news: NewsPage,
   about: AboutPage,
   contact: ContactPage,
+  issues: IssuesPage,
   privacy: PrivacyPage,
   terms: TermsPage,
   launch: LaunchPage,
