@@ -1,13 +1,16 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { MemoryRouter } from "react-router-dom";
 import { calendarMonth, calendarParts, dateOnly, isoDate, nextMonthlyOccurrences } from "../lib/nexCalendar";
 import { highlightRanges, NEX_DEMO_NOTES, searchDemoNotes } from "../lib/nexDemoSearch";
 import { normalizeNexDemo } from "../lib/nexExperience";
 import { NEX_COPY } from "../lib/nex";
 import ReminderCalendar from "../components/nex/ReminderCalendar";
 import PrivacyExplorer from "../components/nex/PrivacyExplorer";
-import DayStory from "../components/nex/DayStory";
+import ScreenGallery from "../components/nex/ScreenGallery";
+import { NEX_SCREENS } from "../lib/nexScreens";
+import NexHighlights from "../components/nex/NexHighlights";
 
 afterEach(() => { cleanup(); vi.useRealTimers(); vi.restoreAllMocks(); });
 
@@ -89,16 +92,22 @@ describe("Product demonstrations", () => {
       expect(container.querySelector(".nex-privacy-explanation")).toHaveTextContent(NEX_COPY.fa.privacyDescriptions[i]);
       expect(container.querySelectorAll('[aria-pressed="true"]')).toHaveLength(1);
     }
-    expect(screen.getByRole("link", { name: NEX_COPY.fa.privacyPolicy })).toHaveAttribute("href", "https://github.com/sanyzrn/DbsNex/blob/main/apps/client/assets/privacy/fa.md");
+    expect(screen.getByRole("link", { name: NEX_COPY.fa.privacyPolicy })).toHaveAttribute("href", "/nex/privacy");
   });
-  it("lets keyboard users choose a story moment, while all story copy remains readable", () => {
-    const { container } = render(<DayStory lang="en" />);
-    const night = screen.getByRole("button", { name: `22:00 — ${NEX_COPY.en.storyScreens[3]}` });
-    fireEvent.click(night);
-    expect(night).toHaveAttribute("aria-pressed", "true");
-    expect(container.querySelector(".nex-day-story")).toHaveAttribute("data-active", "3");
-    expect(container.querySelectorAll("article")).toHaveLength(4);
-    expect(screen.getByText(NEX_COPY.en.screenshotPreview)).toBeVisible();
+  it("lists twelve features at a glance with a link to the full list", () => {
+    const { container } = render(<MemoryRouter><NexHighlights lang="fa" /></MemoryRouter>);
+    expect(container.querySelectorAll(".nex-highlights-grid li")).toHaveLength(12);
+    expect(screen.getByRole("link", { name: "همهٔ امکانات" })).toHaveAttribute("href", "/nex/features");
+  });
+  it("shows all ten real screens, the page language first, and filters by language", () => {
+    const { container } = render(<ScreenGallery lang="en" />);
+    const shots = container.querySelectorAll(".nex-screen");
+    expect(shots).toHaveLength(10);
+    expect(shots[0].querySelector("img")).toHaveAttribute("src", "/images/nex/screens/en_1_home_light-540.webp");
+    for (const shot of NEX_SCREENS) expect(screen.getByRole("heading", { name: shot.title.en })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "فارسی" }));
+    expect(container.querySelectorAll(".nex-screen")).toHaveLength(7);
+    expect(screen.getByRole("button", { name: "فارسی" })).toHaveAttribute("aria-pressed", "true");
     expect(container.querySelector('img[src*="/guide/"]')).toBeNull();
   });
 });

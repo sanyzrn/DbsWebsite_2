@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowDown, ArrowUpRight, Check, Cloud, FolderOpen, HardDrive, LockKeyhole, Smartphone } from "lucide-react";
 import type { Lang } from "../../lib/i18n";
 import { NEX_COPY } from "../../lib/nex";
+import { nexPath } from "../../lib/nexContent";
 
 const icons = [HardDrive, Smartphone, Cloud, FolderOpen, LockKeyhole];
 export default function PrivacyExplorer({ lang }: { lang: Lang }) {
@@ -20,7 +21,8 @@ export default function PrivacyExplorer({ lang }: { lang: Lang }) {
     </div>
     <ul className="nex-privacy-checklist">{c.privacyChecklist.map((line) => <li key={line}><Check size={14} aria-hidden="true" />{line}</li>)}</ul>
     <details className="nex-network-disclosure"><summary>{c.privacyNetwork}</summary><p>{c.privacyNetworkText}</p></details>
-    <a className="nex-release-source" href={`https://github.com/sanyzrn/DbsNex/blob/main/apps/client/assets/privacy/${lang}.md`}>{c.privacyPolicy}<ArrowUpRight size={14} aria-hidden="true" /></a>
+    {/* The site's own copy of the policy: the app's source repository is private, so a link into it reached a 404. */}
+    <a className="nex-release-source" href={nexPath(lang, "privacy")}>{c.privacyPolicy}<ArrowUpRight size={14} aria-hidden="true" /></a>
     <p className="nex-demo-disclaimer">{c.privacyDemo}</p>
   </section>;
 }

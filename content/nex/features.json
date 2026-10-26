@@ -39,8 +39,8 @@
         "en": "Photos with a crop step"
       },
       "description": {
-        "fa": "عکس را بگیر یا انتخاب کن و پیش از ثبت، کادرش را تنظیم کن.",
-        "en": "Take or choose a photo, then crop it before capture."
+        "fa": "با دوربین خود نکس عکس بگیر یا از گالری انتخاب کن؛ برش، چرخش، طراحی و نوشتن روی عکس، پیش یا پس از ثبت.",
+        "en": "Shoot with Nex’s own camera or pick from the gallery; crop, rotate, draw and write on a photo before or after capture."
       }
     },
     {
@@ -58,6 +58,20 @@
       }
     },
     {
+      "id": "media",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-05",
+      "title": {
+        "fa": "PDF، ویدئو و صدا در خود برنامه",
+        "en": "PDF, video and audio inside the app"
+      },
+      "description": {
+        "fa": "PDF را ورق بزن، ویدئو را در کارت پخش کن و صدا را با سرعت ۱٫۵ یا ۲ برابر بشنو؛ یک یادداشت چند پیوست می‌گیرد.",
+        "en": "Page through PDFs, play video in the card and listen at 1.5× or 2×. One note can hold several attachments."
+      }
+    },
+    {
       "id": "checklist",
       "category": 0,
       "status": 0,
@@ -72,6 +86,20 @@
       }
     },
     {
+      "id": "quick-capture",
+      "category": 0,
+      "status": 0,
+      "chapter": "guide-01",
+      "title": {
+        "fa": "ثبت بدون باز کردن برنامه",
+        "en": "Capture without opening the app"
+      },
+      "description": {
+        "fa": "کاشی تنظیمات سریع، ردیف کشوی اعلان، ویجت، «ذخیره در Nex» در منوی انتخاب متن و هم‌رسانی از هر برنامه.",
+        "en": "A Quick Settings tile, a quiet notification row, widgets, Save to Nex in the text-selection menu, and sharing from any app."
+      }
+    },
+    {
       "id": "timeline",
       "category": 1,
       "status": 0,
@@ -81,8 +109,36 @@
         "en": "One stream of days"
       },
       "description": {
-        "fa": "روزها را باز و بسته کن؛ یادداشت‌ها را سنجاق کن، کنار بگذار یا دسته‌جمعی تغییر بده.",
-        "en": "Fold days, pin or set aside notes, and work on several at once."
+        "fa": "روزها را باز و بسته کن، تا پنج یادداشت را سنجاق کن و با کشیدن کارت کاری را که خودت انتخاب کرده‌ای انجام بده.",
+        "en": "Fold days, pin up to five notes and swipe a card to run the action you chose."
+      }
+    },
+    {
+      "id": "archive",
+      "category": 1,
+      "status": 0,
+      "chapter": "guide-02",
+      "title": {
+        "fa": "بایگانی با تاریخ برگشت",
+        "en": "Archive with a return date"
+      },
+      "description": {
+        "fa": "یادداشتی که حالا لازم نیست کنار می‌رود و اگر بخواهی، روزی که انتخاب کرده‌ای خودش برمی‌گردد.",
+        "en": "A note you don’t need right now steps aside and, if you like, comes back by itself on the day you chose."
+      }
+    },
+    {
+      "id": "multi-select",
+      "category": 1,
+      "status": 0,
+      "chapter": "guide-02",
+      "title": {
+        "fa": "چند یادداشت با هم",
+        "en": "Several notes at once"
+      },
+      "description": {
+        "fa": "چند کارت را انتخاب کن و یک‌جا برچسب بزن، به رشته ببر، سنجاق یا بایگانی کن، هم‌رسانی یا حذف کن.",
+        "en": "Select several cards and tag, thread, pin, archive, share or delete them together."
       }
     },
     {
@@ -97,6 +153,48 @@
       "description": {
         "fa": "جست‌وجوی متنی FTS5 با یکسان‌سازی حروف و رقم‌ها، فیلتر نوع، تاریخ و برچسب.",
         "en": "FTS5 full-text search with Persian folding and type, date and tag filters."
+      }
+    },
+    {
+      "id": "semantic-search",
+      "category": 1,
+      "status": 1,
+      "chapter": "guide-03",
+      "title": {
+        "fa": "جست‌وجو بر اساس معنا",
+        "en": "Search by meaning"
+      },
+      "description": {
+        "fa": "یادداشت‌های هم‌موضوع حتی بدون کلمهٔ مشترک پیدا می‌شوند؛ همیشه بعد از نتیجه‌هایی که کلمه‌های تو را دارند.",
+        "en": "Notes on the same topic turn up without a shared word, always after the ones that contain your words."
+      }
+    },
+    {
+      "id": "tags-threads",
+      "category": 1,
+      "status": 0,
+      "chapter": "guide-03",
+      "title": {
+        "fa": "برچسب‌های رنگی و رشته‌ها",
+        "en": "Coloured tags and threads"
+      },
+      "description": {
+        "fa": "هر برچسب رنگ خودش را دارد؛ رشته‌ها یادداشت‌های یک سفر یا پروژه را بی‌آنکه جابه‌جا شوند کنار هم می‌گذارند.",
+        "en": "Every tag has its own colour; threads gather the notes of a trip or project without moving them."
+      }
+    },
+    {
+      "id": "trash-undo",
+      "category": 1,
+      "status": 0,
+      "chapter": "guide-03",
+      "title": {
+        "fa": "سطل زباله و واگرد",
+        "en": "Trash and undo"
+      },
+      "description": {
+        "fa": "حذف‌شده‌ها ۳۰ روز می‌مانند و از بایگانی تا حذف همیشگی، تقریباً هر کاری «واگرد» دارد.",
+        "en": "Deleted notes wait 30 days, and nearly every action, from archiving to deleting forever, can be undone."
       }
     },
     {
@@ -151,8 +249,22 @@
         "en": "Come back to a thought"
       },
       "description": {
-        "fa": "یادآوری یک‌باره یا تکرارشونده، با اجازه‌های لازم اندروید.",
-        "en": "One-off and repeating reminders, with the required Android permissions."
+        "fa": "یادآوری یک‌باره یا تکرارشونده؛ اعلان تا وقتی ببینی‌اش می‌ماند و دکمه‌های «انجام شد» و «یک ساعت دیگر» دارد.",
+        "en": "One-off or repeating reminders. The notification stays until you see it, with Done and In an hour buttons."
+      }
+    },
+    {
+      "id": "scheduled",
+      "category": 2,
+      "status": 0,
+      "chapter": "guide-01",
+      "title": {
+        "fa": "نامه به آینده",
+        "en": "A note for later"
+      },
+      "description": {
+        "fa": "یادداشتی بنویس که فردا، ماه بعد یا سال بعد برسد؛ تا آن روز پنهان می‌ماند و سر وقت با یک اعلان می‌آید.",
+        "en": "Write a note that arrives tomorrow, next month or next year. It stays hidden until then and arrives with a notification."
       }
     },
     {
@@ -165,8 +277,8 @@
         "en": "Repeat in its own calendar"
       },
       "description": {
-        "fa": "موارد تکرارشونده را با تقویم شمسی یا میلادی نگه دار.",
-        "en": "Keep recurring items in the Persian or Gregorian calendar."
+        "fa": "اجاره، بیمه، قرص و آب؛ موعد بعدی هر کدام، نمای فهرست و تقویم، مبلغ و جمع ۳۰ روز آینده، با تقویم شمسی یا میلادی.",
+        "en": "Rent, insurance, pills and water: each next date, list and calendar views, amounts with a 30-day total, in the Persian or Gregorian calendar."
       }
     },
     {
@@ -181,6 +293,48 @@
       "description": {
         "fa": "دستیار مبتنی بر یادداشت‌ها و خلاصه‌ی هوشمند؛ پیش‌فرض خاموش، با ارائه‌دهنده‌ی انتخابی تو.",
         "en": "A notes-grounded assistant and smart summary; off by default, with a provider you choose."
+      }
+    },
+    {
+      "id": "ai-tools",
+      "category": 3,
+      "status": 1,
+      "chapter": "guide-09",
+      "title": {
+        "fa": "خلاصه، ترجمه و شرح عکس",
+        "en": "Summary, translation and photo descriptions"
+      },
+      "description": {
+        "fa": "کنار هر یادداشت: خلاصهٔ متن بلند، ترجمهٔ فارسی و انگلیسی، شرح و خواندن متن عکس؛ فقط وقتی دکمه‌اش را بزنی.",
+        "en": "Beside each note: a summary of long text, Persian–English translation, and reading a photo, only when you tap."
+      }
+    },
+    {
+      "id": "smart-brief",
+      "category": 3,
+      "status": 1,
+      "chapter": "guide-09",
+      "title": {
+        "fa": "خلاصهٔ هوشمند روزانه",
+        "en": "A smart daily brief"
+      },
+      "description": {
+        "fa": "بالای صفحهٔ اصلی، کارهای امروز و آنچه در راه است در چند خط؛ با ویجت مخصوص خودش.",
+        "en": "Today’s tasks and what’s coming, in a few lines at the top of home, with its own widget."
+      }
+    },
+    {
+      "id": "youtube",
+      "category": 3,
+      "status": 1,
+      "chapter": "guide-09",
+      "title": {
+        "fa": "تحلیل ویدئوی یوتیوب",
+        "en": "YouTube video analysis"
+      },
+      "description": {
+        "fa": "با Gemini، لینک یوتیوب به خلاصه‌ای با نکته‌های اصلی و زمان هر کدام تبدیل می‌شود.",
+        "en": "With Gemini, a YouTube link becomes a summary of its key points with their timestamps."
       }
     },
     {

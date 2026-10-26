@@ -6,7 +6,7 @@ The current page has a published-version badge, real APK download ticket, honest
 
 `content/nex/latest.json` is the small first-render snapshot; `releases.json` keeps the full archive for future product pages. Both guides, changelogs, module rollout, theme source and guide-image metadata are refreshed by `scripts/fetch-nex-data.mjs`. See `content/nex/README.md` for caching, offline builds and the scheduled refresh/optional publisher dispatch. `docs/nex-website-roadmap.md` tracks all four phases.
 
-Only Cafe Bazaar, Myket and Google Play are shown as upcoming store destinations. App Store and Microsoft Store were removed because the product source explicitly says only Android is published. No store link is invented. `NEX_APK` has been replaced with validated release data. Upstream guide images are themselves placeholders, so `TimelinePreview.tsx` shows a labelled illustration; actual screenshots remain an owner input and require visual/hash approval before publishing. The interactive story below continues to share the same locale/theme state and build pipeline.
+Only Cafe Bazaar, Myket and Google Play are shown as upcoming store destinations. App Store and Microsoft Store were removed because the product source explicitly says only Android is published. No store link is invented. `NEX_APK` has been replaced with validated release data. Upstream guide images are themselves placeholders, so `TimelinePreview.tsx` shows a labelled illustration; real app screenshots now live in the gallery under the hero. The interactive story below continues to share the same locale/theme state and build pipeline.
 
 Nex owns `/nex/`, its seven product subpages and their `/en` counterparts. It uses the existing React router, locale/theme context, Vite build, static prerender, sitemap and Apache/FTPS workflow. No independent project or deployment was added.
 
@@ -54,7 +54,7 @@ Keep using the permanent `cursor-dev` branch and its PR to `main`. Merge through
 
 `NexPageFrame`, `NexNavigation` and `nex-product.css` provide shared navigation and an independent product shell. Copy in `nexProductCopy.ts` is composed into `NEX_COPY` for FA/EN parity. Safe content contracts, release merging and date formatting live in `nexContent.ts`; the build-only parser is `shared/nex-content.mjs`. Heavy guide/history data stays in route chunks. Theme previews use `nexThemePreview.ts` and context scoped to the Nex route family, never global accent variables or persistence.
 
-`DayStory` now uses a native horizontal scroll-snap track, mouse drag, touch scrolling and RTL-aware keyboard/manual controls. All four slides remain prerendered, with inactive slides inert after hydration. The AI-off canvas contains three prepared thoughts instead of empty space. `VersionBridge` adds cumulative changes since an installed version. See the roadmap for source facts, verification and remaining screenshot inputs.
+`ScreenGallery` replaced the illustrated four-moment `DayStory`: ten real screens of Nex 2.3.5 (`public/images/nex/screens/`, 540 and 1080 px WebP, lazy and not precached) in a native scroll-snap rail with arrows and a language filter, the page language first, every caption in both languages (`src/lib/nexScreens.ts`). `NexHighlights` follows it with twelve features at a glance (`src/lib/nexHighlights.ts`); the features page holds the full list. `VersionBridge` adds cumulative changes since an installed version. See the roadmap for source facts and verification.
 
 ## Final integration
 

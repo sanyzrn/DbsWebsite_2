@@ -8,7 +8,8 @@ import history from '../../content/nex/history.json';
 import themes from '../../content/nex/themes.json';
 import guideFa from '../../content/nex/guide.fa.json';
 import guideEn from '../../content/nex/guide.en.json';
-import DayStory from '../components/nex/DayStory';
+import ScreenGallery from '../components/nex/ScreenGallery';
+import { NEX_SCREENS } from '../lib/nexScreens';
 import IntelligenceDemo from '../components/nex/IntelligenceDemo';
 import { NEX_COPY } from '../lib/nex';
 afterEach(cleanup);
@@ -47,12 +48,13 @@ describe('Source-backed product content', () => {
   });
 });
 describe('Requested landing interactions', () => {
-  it.each(['fa', 'en'] as const)('navigates the four story moments with RTL-aware keyboard controls: %s', lang => {
-    const { container } = render(<DayStory lang={lang} />); const track = container.querySelector('.nex-story-track')!;
-    fireEvent.keyDown(track, { key: lang === 'fa' ? 'ArrowLeft' : 'ArrowRight' }); expect(container.querySelector('.nex-day-story')).toHaveAttribute('data-active', '1');
-    fireEvent.keyDown(track, { key: 'End' }); expect(container.querySelector('.nex-day-story')).toHaveAttribute('data-active', '3');
-    expect(container.querySelectorAll('.nex-story-slide')).toHaveLength(4); expect(container.querySelectorAll('.nex-story-slide[inert]')).toHaveLength(3);
-    fireEvent.keyDown(track, { key: 'Home' }); expect(container.querySelector('.nex-day-story')).toHaveAttribute('data-active', '0');
+  it.each(['fa', 'en'] as const)('lists the real screens with their captions in the page language: %s', lang => {
+    const { container } = render(<ScreenGallery lang={lang} />);
+    const images = [...container.querySelectorAll('.nex-screen img')];
+    expect(images).toHaveLength(10);
+    expect(images.every(img => img.getAttribute('srcset')?.includes('-1080.webp 1080w') && img.getAttribute('loading') === 'lazy')).toBe(true);
+    expect(images.slice(0, lang === 'fa' ? 7 : 3).every(img => img.getAttribute('src')!.includes(`/${lang}_`))).toBe(true);
+    for (const shot of NEX_SCREENS) expect(container).toHaveTextContent(shot.text[lang]);
   });
   it('fills AI-off mode with three prepared notes and restores them after switching off', () => {
     const { container } = render(<IntelligenceDemo lang="fa" />);

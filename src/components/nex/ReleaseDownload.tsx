@@ -2,7 +2,8 @@ import { ArrowDown, ArrowUpRight, Download, FileCheck2, Plus } from "lucide-reac
 import { useEffect, useState } from "react";
 import type { Lang } from "../../lib/i18n";
 import { NEX_COPY } from "../../lib/nex";
-import { NEX_RELEASES_URL, selectApk, type NexAsset, type NexRelease } from "../../../shared/nex-releases.mjs";
+import { nexPath } from "../../lib/nexContent";
+import { selectApk, type NexAsset, type NexRelease } from "../../../shared/nex-releases.mjs";
 import StoreLinks from "./StoreLinks";
 import "./release-download.css";
 
@@ -47,6 +48,9 @@ export default function ReleaseDownload({ releases, lang }: { releases: NexRelea
   const bullets = notes.split(/\r?\n/).filter((line) => /^\s*[-*]\s+/.test(line)).map((line) => line.replace(/^\s*[-*]\s+/, ""));
   const apkDownloads = release.assets.filter((a) => /\.apk$/i.test(a.name)).reduce((sum, a) => sum + a.downloads, 0);
 
+  // The site's own history page, at that version: the release pages these
+  // used to open are on GitHub, which the Nex pages no longer link to.
+  const versionPage = (version: string) => `${nexPath(lang, "changelog")}#v${version}`;
   return <section id="nex-download" className="nex-download" aria-labelledby="nex-download-title">
     <div className="nex-download-label"><Download size={16} aria-hidden="true" />{c.downloadLabel}</div>
     <h2 id="nex-download-title">{c.downloadTitle}</h2>
@@ -55,23 +59,23 @@ export default function ReleaseDownload({ releases, lang }: { releases: NexRelea
       <div className="nex-release-ticket">
         <div className="nex-ticket-heading"><span>{c.releaseLabel}</span><strong dir="ltr">v{release.version}</strong></div>
         <dl className="nex-release-facts"><div><dt>{c.releaseDate}</dt><dd><time dateTime={release.publishedAt}>{date(release.publishedAt, lang)}</time></dd></div><div><dt>{c.releaseDownloads}</dt><dd>{number(apkDownloads, lang)}</dd></div></dl>
-        <a className="nex-install-button" data-store="apk" href={apk?.url ?? release.url}><Download size={20} aria-hidden="true" /><span>{apk ? c.downloadNow : c.releasePage}<bdi>v{release.version}</bdi></span><ArrowDown size={18} aria-hidden="true" /></a>
+        <a className="nex-install-button" data-store="apk" href={apk?.url ?? versionPage(release.version)}><Download size={20} aria-hidden="true" /><span>{apk ? c.downloadNow : c.releasePage}<bdi>v{release.version}</bdi></span><ArrowDown size={18} aria-hidden="true" /></a>
         <p className="nex-apk-caption">{apk && <><span>{c[apk.kind]}</span><span>{fileSize(apk.size, lang)}</span></>}{c.android}</p>
         <p className="nex-universal-hint">{c.universalHint}</p>
         <details className="nex-release-disclosure"><summary>{c.latestChanges}<Plus size={17} aria-hidden="true" /></summary>
           {lang === "fa" && !release.notes.fa && <p className="nex-fine-print">{c.englishNotes}</p>}
           <div lang={lang === "fa" && release.notes.fa ? "fa" : "en"} dir={lang === "fa" && release.notes.fa ? "rtl" : "ltr"}>{bullets.length ? <ul className="nex-release-notes">{bullets.map((line, i) => <li key={i}><ReleaseText text={line} /></li>)}</ul> : <p><ReleaseText text={notes} /></p>}</div>
-          <a className="nex-release-source" href={release.url}>{c.releasePage}<ArrowUpRight size={15} aria-hidden="true" /></a>
+          <a className="nex-release-source" href={versionPage(release.version)}>{c.releasePage}<ArrowUpRight size={15} aria-hidden="true" /></a>
         </details>
         <details className="nex-release-disclosure"><summary>{c.allFiles}<span>{number(release.assets.length, lang)}</span><Plus size={17} aria-hidden="true" /></summary><ul className="nex-release-files">{release.assets.map((asset) => <AssetRow key={asset.name} asset={asset} lang={lang} />)}</ul></details>
-        {releases.length > 1 && <details className="nex-release-disclosure"><summary>{c.oldVersions}<Plus size={17} aria-hidden="true" /></summary><ul className="nex-old-releases">{releases.slice(1, 8).map((old) => <li key={old.version}><a href={old.url}><bdi>v{old.version}</bdi><time dateTime={old.publishedAt}>{date(old.publishedAt, lang)}</time><ArrowUpRight size={15} aria-hidden="true" /></a></li>)}</ul><a className="nex-release-source" href={NEX_RELEASES_URL}>{c.allReleases}</a></details>}
+        {releases.length > 1 && <details className="nex-release-disclosure"><summary>{c.oldVersions}<Plus size={17} aria-hidden="true" /></summary><ul className="nex-old-releases">{releases.slice(1, 8).map((old) => <li key={old.version}><a href={versionPage(old.version)}><bdi>v{old.version}</bdi><time dateTime={old.publishedAt}>{date(old.publishedAt, lang)}</time><ArrowUpRight size={15} aria-hidden="true" /></a></li>)}</ul><a className="nex-release-source" href={nexPath(lang, "changelog")}>{c.allReleases}</a></details>}
       </div>
       <div className="nex-release-intro">
         <h3>{c.installGuide}</h3>
         <ol className="nex-install-steps">
           {[c.installStep1, c.installStep2, c.installStep3].map((step, i) => <li key={step}><span aria-hidden="true">{number(i + 1, lang)}</span><p>{step}</p></li>)}
         </ol>
-        <a className="nex-release-source" href={NEX_RELEASES_URL}>{c.allReleases}<ArrowUpRight size={15} aria-hidden="true" /></a>
+        <a className="nex-release-source" href={nexPath(lang, "changelog")}>{c.allReleases}<ArrowUpRight size={15} aria-hidden="true" /></a>
       </div>
     </div>
     <StoreLinks lang={lang} />
