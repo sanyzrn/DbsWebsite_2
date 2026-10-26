@@ -89,7 +89,7 @@ describe("Product demonstrations", () => {
       expect(container.querySelector(".nex-privacy-explanation")).toHaveTextContent(NEX_COPY.fa.privacyDescriptions[i]);
       expect(container.querySelectorAll('[aria-pressed="true"]')).toHaveLength(1);
     }
-    expect(screen.getByRole("link", { name: NEX_COPY.fa.privacyPolicy })).toHaveAttribute("href", "https://github.com/sanyzrn/DbsNex/blob/main/apps/client/assets/privacy/fa.md");
+    expect(screen.getByRole("link", { name: NEX_COPY.fa.privacyPolicy })).toHaveAttribute("href", "/nex/privacy");
   });
   it("lets keyboard users choose a story moment, while all story copy remains readable", () => {
     const { container } = render(<DayStory lang="en" />);
