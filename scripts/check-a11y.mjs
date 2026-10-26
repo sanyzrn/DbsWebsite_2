@@ -408,7 +408,10 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
       // The world and chronological content must also stand alone as static HTML.
       if (/^\/(?:en\/)?nex\/?$/.test(route.urlPath)) {
         for (const colorScheme of ["light", "dark"]) {
-          const context = await browser.newContext({ javaScriptEnabled: false, colorScheme, viewport: { width: 320, height: 740 } });
+          // Reduced motion turns off the page's smooth scrolling; without it every
+          // scroll Playwright makes to reach a control glides, so the control is
+          // never "stable" and clicks such as the vault's time out at random.
+          const context = await browser.newContext({ javaScriptEnabled: false, reducedMotion: "reduce", colorScheme, viewport: { width: 320, height: 740 } });
           const page = await context.newPage();
           await page.goto(`${origin}${route.urlPath}`, { waitUntil: "networkidle" });
           if (!(await page.locator("#nex-hero-title").isVisible()) || !(await page.locator(".nex-origin-copy").isVisible())) throw new Error("Nex static content is missing");
