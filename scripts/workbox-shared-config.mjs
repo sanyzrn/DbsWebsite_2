@@ -26,6 +26,8 @@ export const workboxUnusedAssetGlobs = [
   "**/tpnojine/**",
   // Social crawlers fetch these; website visitors need no eager share-card download.
   "**/images/nex/share/**",
+  // App screenshots load lazily as the gallery scrolls into view.
+  "**/images/nex/screens/**",
   "**/assets/*-cyrillic-*.woff2",
   "**/assets/*-vietnamese-*.woff2",
   "**/assets/*-latin-ext-*.woff2",

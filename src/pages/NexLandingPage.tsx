@@ -16,7 +16,8 @@ import TimelinePreview from "../components/nex/TimelinePreview";
 import NexNavigation from "../components/nex/NexNavigation";
 import { NexAppearanceNotice } from "../components/nex/NexAppearance";
 import { nexPath } from "../lib/nexContent";
-import DayStory from "../components/nex/DayStory";
+import ScreenGallery from "../components/nex/ScreenGallery";
+import NexHighlights from "../components/nex/NexHighlights";
 import ReminderCalendar from "../components/nex/ReminderCalendar";
 import PrivacyExplorer from "../components/nex/PrivacyExplorer";
 import { useApp } from "../lib/app";
@@ -106,7 +107,8 @@ export default function NexLandingPage() {
           <div className="nex-scroll-cue"><span>{e.scrollCue}</span><ArrowDown size={15} aria-hidden="true" /></div>
         </section>
 
-        <DayStory lang={lang} />
+        <ScreenGallery lang={lang} />
+        <NexHighlights lang={lang} />
 
         <div className="nex-chronicle">
           <nav className="nex-day-nav" aria-label={e.dayNav}>
