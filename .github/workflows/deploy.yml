@@ -67,8 +67,10 @@ jobs:
             "define('BALE_CHAT_ID', '${{ secrets.BALE_CHAT_ID }}');" \
             > dist/api/bale-config.php
           test -f dist/api/contact.php
+          test -f dist/api/issue.php
           test -f dist/api/bale-config.php
           php -l dist/api/contact.php
+          php -l dist/api/issue.php
           php -l dist/api/bale-config.php
 
       # Hidden Apache configuration must come from the verified artifact itself.

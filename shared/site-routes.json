@@ -6,6 +6,7 @@
     "/news",
     "/about",
     "/contact",
+    "/issues",
     "/privacy",
     "/terms",
     "/nex",
@@ -53,7 +54,8 @@
     "/nex/download": "nex",
     "/nex/themes": "nex",
     "/nex/faq": "nex",
-    "/nex/privacy": "nex"
+    "/nex/privacy": "nex",
+    "/issues": "issues"
   },
   "pageKeys": {
     "/": "home",
@@ -74,7 +76,8 @@
     "/nex/download": "nexDownload",
     "/nex/themes": "nexThemes",
     "/nex/faq": "nexFaq",
-    "/nex/privacy": "nexPrivacy"
+    "/nex/privacy": "nexPrivacy",
+    "/issues": "issues"
   },
   "noindexPaths": [
     "/nexahr",
