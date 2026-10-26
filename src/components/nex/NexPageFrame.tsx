@@ -22,6 +22,6 @@ export default function NexPageFrame({ page, children }: { page: number; childre
     <NexNavigation lang={lang} /><NexAppearanceNotice />
     <header className="nex-product-heading"><p className="nex-demo-kicker">NEX / {c.productPages[page]}</p><h1>{c.productTitles[page]}</h1><p>{c.productDescriptions[page]}</p></header>
     {children}
-    <footer className="nex-product-footer"><Link to="/">{c.productMadeBy}</Link><div><Link to={nexPath(lang, 'faq')}>{c.productPages[6]}</Link><Link to={nexPath(lang, 'privacy')}>{c.productPrivacy}</Link></div></footer>
+    <footer className="nex-product-footer"><Link to="/">{c.productMadeBy}</Link><div><Link to={nexPath(lang, 'faq')}>{c.productPages[6]}</Link><Link to={nexPath(lang, 'privacy')}>{c.productPrivacy}</Link><Link to={`${nexPath(lang, 'privacy')}#licence`}>{c.productLicense}</Link></div></footer>
   </div></div></>;
 }
