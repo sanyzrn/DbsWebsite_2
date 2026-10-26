@@ -2,6 +2,66 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.3.4",
+      "tag": "v2.3.4",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.4",
+      "publishedAt": "2026-10-26T07:04:37.000Z",
+      "notes": {
+        "en": "- **Nex AI, tidier.** The tools are round icons again — hold one for its name — with a small check on those that already have a result. **Hide** sits at the far end of the header, and the translation's **Translate again** at the far end of its line. The arrow that opens a result in full only appears when there is more to read.\r\n- **Pull to refresh.** More clouds, drifting faster, and a slightly smaller wordmark. The light that passes over the summary and the page after a refresh is brighter, so it can actually be seen.\r\n- **Menus on a bank card.** In the light theme the icons of the menu on a card in **Tools → Bank cards** were drawn in the card's own white. Every menu now draws its icons in the theme's colour.\r\n- **Scheduled lives in the Library.** It is no longer repeated in **Tools**; a pin of it on the home screen goes away.",
+        "fa": "- **Nex AI مرتب‌تر.** ابزارها دوباره آیکون‌های گردند — برای دیدن نامشان نگهشان دارید — و آن‌هایی که نتیجه دارند تیک کوچکی دارند. **پنهان کردن** در انتهای سربرگ است و **ترجمهٔ دوباره** در انتهای خط ترجمه. فلشی که نتیجه را کامل باز می‌کند فقط وقتی می‌آید که چیزی بیشتر برای خواندن باشد.\r\n- **کشیدن برای تازه‌سازی.** ابرهای بیشتر که تندتر حرکت می‌کنند و نوشتهٔ nex کمی کوچک‌تر. نوری که بعد از تازه شدن از روی خلاصه و صفحه می‌گذرد پررنگ‌تر شده تا واقعاً دیده شود.\r\n- **منوی کارت بانکی.** در تم روشن، آیکون‌های منوی کارت در **ابزارها ← کارت‌های بانکی** به رنگ سفید خود کارت کشیده می‌شدند. حالا همهٔ منوها آیکون‌ها را با رنگ تم نشان می‌دهند.\r\n- **زمان‌بندی‌شده‌ها فقط در کتابخانه.** دیگر در **ابزارها** تکرار نمی‌شود؛ اگر روی صفحهٔ اصلی سنجاق شده بود برداشته می‌شود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.3.4-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 58318641,
+          "downloads": 1,
+          "sha256": "3916585a2f9ff8bb4375e9d14035d47083e0b2a7ddbc76dfdf9b967e1b9d4d48"
+        },
+        {
+          "name": "Nex-2.3.4-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 35182935,
+          "downloads": 0,
+          "sha256": "ea7b2156ac3a922e13dcd03b2220200078042a2978be76d9b64f2dde8ef1c9c5"
+        },
+        {
+          "name": "Nex-2.3.4-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4-universal.apk",
+          "kind": "universal",
+          "size": 146514758,
+          "downloads": 0,
+          "sha256": "f7ffd5d1e0091ec57eba8f377b6b44d52653026f9a495714b61af444ffee54e7"
+        },
+        {
+          "name": "Nex-2.3.4-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4-x86_64.apk",
+          "kind": "x64",
+          "size": 63807276,
+          "downloads": 0,
+          "sha256": "38bb962a1449c3d86420e2ecadd65f7813ec61f4944d6beb4711ce43e5d4377d"
+        },
+        {
+          "name": "Nex-2.3.4.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4.aab",
+          "kind": "bundle",
+          "size": 110015902,
+          "downloads": 0,
+          "sha256": "d0277a9074fa9981e9b3a107c3c4ed6a7bcf6a07b305ba981ece86448a6095e6"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/SHA256SUMS",
+          "kind": "other",
+          "size": 434,
+          "downloads": 1,
+          "sha256": "4dcbb0c1e41a70e9882ec842c1b0ae98389981a797936501df89423b498443ef"
+        }
+      ]
+    },
+    {
       "version": "2.3.3",
       "tag": "v2.3.3",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.3",
@@ -32,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.3/Nex-2.3.3-universal.apk",
           "kind": "universal",
           "size": 146514198,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "1e075ae1599a32b87f4c624124c961450a243ac6139acbf358bc066c14504b66"
         },
         {
