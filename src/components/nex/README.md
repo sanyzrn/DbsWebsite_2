@@ -2,7 +2,7 @@
 
 ## Product website upgrade — Phase 1
 
-The current page has a published-version badge, real APK download ticket, honestly labelled HTML/CSS timeline illustration, SHA-256/details disclosures and links to older stable releases. `ReleaseDownload.tsx` receives the same refreshed data as the hero badge; its styles are scoped in `release-download.css`. Universal is the server/default download. Only an explicit architecture in an Android UA changes that choice after hydration.
+The current page has a published-version badge, upcoming Android market installs, an honestly labelled HTML/CSS timeline illustration and links to older release notes. `ReleaseDownload.tsx` receives the same refreshed data as the hero badge; its styles are scoped in `release-download.css`. Direct APK files, checksums and sideloading instructions are not displayed.
 
 `content/nex/latest.json` is the small first-render snapshot; `releases.json` keeps the full archive for future product pages. Both guides, changelogs, module rollout, theme source and guide-image metadata are refreshed by `scripts/fetch-nex-data.mjs`. See `content/nex/README.md` for caching, offline builds and the scheduled refresh/optional publisher dispatch. `docs/nex-website-roadmap.md` tracks all four phases.
 
@@ -42,7 +42,7 @@ The octopus (`NexMark.tsx`, with both eyes) and the wordmark (`NexWordmark.tsx`,
 
 Loading intro (`NexIntro.tsx`, `nex-intro.css`): the app's splash screen retold, about 2.9 s. It opens on the two eyes (the blue one blinks), the octopus grows out from between them, six pieces of a day are pulled in along threads to its arms, `nex` rises letter by letter with its blue stroke and dot, the tagline follows, and the page opens from the eyes. It plays once per browser session via `html.nex-intro-play`, set by the pre-paint script in `index.html` (never under reduced motion, never without JavaScript, never on client-side navigation); a tap or any key skips it. It is decorative and `aria-hidden`.
 
-`StoreLinks.tsx` renders three Android markets with real, self-hosted brand marks. Native disabled buttons show به‌زودی / Coming soon while their configured URL is `#`; actual URLs activate links automatically. The separate release ticket supplies the direct APK action. Artwork sources remain documented under `public/images/nex/stores/`.
+`StoreLinks.tsx` renders three Android markets with real, self-hosted brand marks. Native disabled buttons show به‌زودی / Coming soon while their configured URL is `#`; actual URLs activate links automatically. Nex installation is available only through these markets; the release ticket and changelog do not expose APK downloads. Artwork sources remain documented under `public/images/nex/stores/`.
 
 ## Validate / publish
 
