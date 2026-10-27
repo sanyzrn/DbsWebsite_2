@@ -2,6 +2,17 @@ import type { UiDict } from "./fa";
 
 const en: UiDict = {
   dir: "ltr" as const,
+  studio: {
+    madeBy: "Made by", menu: "From the studio", title: "The DbsStudio product family",
+    heading: "More from the studio", homeHeading: "Studio products",
+    intro: "Different tools. A shared approach to design and building.",
+    about: "About the studio", collaborate: "Start a project", invitation: "Shall we build something for your business?",
+    preview: "Product page coming soon", current: "You are here",
+    nex: "Your second memory. Capture and find things in seconds.",
+    nexachatai: "An AI assistant for conversations on your website.",
+    nexahr: "A more human approach to people and performance.",
+    nexaslider: "A product slider plugin for WordPress websites.",
+  },
   brand: {
     name: "DbsStudio",
     sub: "AI Solutions Engineer",

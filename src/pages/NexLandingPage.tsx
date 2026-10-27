@@ -1,3 +1,4 @@
+import { StudioDiscovery, StudioSignature } from "../components/StudioFamily";
 import { useNexAppearance } from "../lib/nexAppearance";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
@@ -86,6 +87,7 @@ export default function NexLandingPage() {
       <div className="nex-shell">
         <header className="nex-masthead">
           <a className="nex-brand" href="#nex-top" aria-label={c.pageLabel}><NexWordmark className="nex-wordmark" /></a>
+          <StudioSignature />
           <span className="nex-masthead-line">{e.eyebrow}</span>
           <div className="nex-tools">
             <Link to={fa ? "/en/nex/" : "/nex/"} lang={fa ? "en" : "fa"} aria-label={c.languageLabel}>{c.language}</Link>
@@ -165,6 +167,7 @@ export default function NexLandingPage() {
         </div>
         <section className="nex-explore"><h2>{c.exploreTitle}</h2><p>{c.exploreLead}</p><div className="nex-explore-grid">{[Layers, BookOpen, GitCompareArrows, Palette].map((Icon,i)=><Link key={i} to={nexPath(lang, ["features","guide","changelog","themes"][i])}><Icon size={25} strokeWidth={1.3} aria-hidden="true"/><span>{c.exploreActions[i]}</span></Link>)}</div></section>
         <ReleaseDownload releases={releases} lang={lang} />
+        <StudioDiscovery />
         <footer className="nex-footer"><span className="nex-footer-brand" dir="ltr"><NexWordmark className="nex-footer-word" /> / DbsStudio</span><a href="#nex-top">{e.backToHero}<ArrowUp size={15} aria-hidden="true" /></a></footer>
       </div>
     </div>
