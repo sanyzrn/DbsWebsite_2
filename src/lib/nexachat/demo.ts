@@ -72,6 +72,7 @@ export function buildDemoConfig(lang: DemoLang): Record<string, unknown> {
     nonce: "",
     preview: false,
     themeMode: "dark",
+    primaryColor: "#b61615",
     assistantName: lang === "fa" ? "نکسا" : "Nexa",
     orgName: lang === "fa" ? "آواساند" : "Ava Sound",
     welcomeText:

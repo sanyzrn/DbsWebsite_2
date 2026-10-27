@@ -121,7 +121,6 @@ export default function NexaChatPage() {
 
       <div id="top">
         <section className="ncl-hero">
-          <div className="ncl-glow" aria-hidden="true" />
           <div className="ncl-wrap ncl-hero__grid">
             <div className="ncl-hero__copy">
               <p className="ncl-eyebrow">{l.eyebrow}</p>
@@ -338,7 +337,6 @@ export default function NexaChatPage() {
         </section>
 
         <section className="ncl-closing">
-          <div className="ncl-glow ncl-glow--end" aria-hidden="true" />
           <div className="ncl-wrap">
             <h2 className="ncl-h2 ncl-h2--xl">{l.closing.title}</h2>
             <p className="ncl-sub ncl-sub--c">{l.closing.text}</p>
