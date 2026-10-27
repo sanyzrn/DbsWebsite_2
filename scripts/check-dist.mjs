@@ -233,8 +233,24 @@ for (const rel of ["nex/index.html", "en/nex/index.html"]) {
   if (!html.includes('id="nex-download"') || !html.includes("nex-draft") || /name="robots"[^>]*noindex/.test(html)) {
     throw new Error(`check:dist ${rel} must be an indexable, prerendered Nex timeline`);
   }
-  if (html.indexOf('id="nex-download"') < html.indexOf('id="nex-first-day"') || !html.includes('data-store="apk"')) {
-    throw new Error(`check:dist ${rel} must place downloads and direct APK after the timeline`);
+  if (html.indexOf('id="nex-download"') < html.indexOf('id="nex-first-day"')) {
+    throw new Error(`check:dist ${rel} must place market installs after the timeline`);
+  }
+}
+// Market-only distribution applies to both locales, including the release archive.
+for (const prefix of ["", "en/"]) for (const slug of ["", "download/", "changelog/"]) {
+  const rel = `${prefix}nex/${slug}index.html`;
+  const html = fs.readFileSync(path.join(DIST, rel), "utf8");
+  if (html.includes('data-store="apk"') || /href=["'][^"']*(?:\.apk(?:[?#]|["'])|github\.com\/[^"']*\/releases\/download\/)/i.test(html)) {
+    throw new Error(`check:dist ${rel} must not expose direct APK downloads`);
+  }
+  if (/Use the APK for now|فعلاً از فایل APK/.test(html)) {
+    throw new Error(`check:dist ${rel} must not recommend sideloading`);
+  }
+  if (slug !== "changelog/") for (const store of ["bazaar", "myket", "googlePlay"]) {
+    if (!new RegExp(`<button[^>]*data-store="${store}"[^>]*disabled`).test(html)) {
+      throw new Error(`check:dist ${rel} must show ${store} as coming soon`);
+    }
   }
 }
 await assertOgImageDimensions(path.join(DIST, "images/nex/og.jpg"), "Nex og.jpg");

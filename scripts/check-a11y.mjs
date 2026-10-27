@@ -251,7 +251,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
           if (await page.locator(".nex-motion-toggle").count() || await page.locator(".nex-brand svg").count() !== 1) throw new Error("Nex masthead must only show its wordmark and locale/theme controls");
           if (viewport.width <= 600 && (await page.locator(".nex-wordmark").boundingBox()).height > 22) throw new Error("Nex mobile wordmark is too large");
           if (await page.locator(".nex-store-links button:disabled").count() !== 3) throw new Error("Nex must show three coming-soon Android stores");
-          if (!/^https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//.test(await page.locator('a[data-store="apk"]').getAttribute("href"))) throw new Error("Nex must offer a real release APK");
+          if (await page.locator('a[data-store="apk"], a[href*="/releases/download/"], a[href$=".apk"]').count()) throw new Error("Nex must not offer direct APK downloads");
           const downloadPlacement = await page.locator("#nex-download").evaluate((el) => el.compareDocumentPosition(globalThis.document.querySelector(".nex-chronicle")) & globalThis.Node.DOCUMENT_POSITION_PRECEDING);
           if (!downloadPlacement || await page.locator(".nex-hero .nex-store-links").count()) throw new Error("Nex downloads must follow the timeline");
           const logosLoaded = await page.locator(".nex-store-links img").evaluateAll((images) => images.every((img) => img.complete && img.naturalWidth > 0));
