@@ -1,0 +1,1161 @@
+/**
+ * NexaChatAI — frontend widget styles (v5).
+ * Direction-agnostic: logical CSS properties only (RTL and LTR both work).
+ * Theming: light/dark/auto via [data-theme]; auto handled by JS +
+ * prefers-color-scheme. No external requests.
+ */
+
+.ssc-root {
+	--ssc-primary: #16203a;
+	--ssc-primary-contrast: #fff;
+	--ssc-bg: #f6f7f9;
+	--ssc-card: #ffffff;
+	--ssc-line: #e4e7ec;
+	--ssc-ink: #101322;
+	--ssc-muted: #5b6472;
+	/* Custom bubble colours arrive as *-custom (set by the script with a
+	 * contrast-picked ink); without them the theme colours apply. */
+	--ssc-user-bubble: var(--ssc-user-bubble-custom, var(--ssc-primary));
+	--ssc-user-ink: var(--ssc-user-ink-custom, var(--ssc-primary-contrast));
+	--ssc-bot-bubble: var(--ssc-bot-bubble-custom, var(--ssc-card));
+	--ssc-bot-ink: var(--ssc-bot-ink-custom, var(--ssc-ink));
+	--ssc-font: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+	--ssc-font-size: 14px;
+	--ssc-win-width: 384px;
+	--ssc-win-radius: 24px;
+	--ssc-bubble-radius: 16px;
+	--ssc-launcher-size: 60px;
+	/* Floating button spacing. The script writes the -d (desktop) and -m (phone)
+	 * pairs from the settings; --ssc-lift is how far a fixed bottom bar on the
+	 * page (tab bar, cookie notice) pushes the button up, detected at runtime. */
+	--ssc-off-x: var(--ssc-off-x-d, 22px);
+	--ssc-off-y: var(--ssc-off-y-d, 22px);
+	--ssc-lift: 0px;
+	--ssc-safe: env(safe-area-inset-bottom, 0px);
+	--ssc-bottom: calc(var(--ssc-off-y) + var(--ssc-safe));
+	--ssc-shadow: 0 8px 28px rgba(16, 19, 34, 0.16);
+	--ssc-z: 99990;
+
+	/* Isolate from host theme inheritance without resetting our own cascade.
+	 * Note: do NOT use contain:layout — it would make this box the containing
+	 * block for position:fixed launcher/window and break floating placement. */
+	all: initial;
+	display: block;
+	box-sizing: border-box;
+	font-family: var(--ssc-font);
+	font-size: var(--ssc-font-size);
+	color: var(--ssc-ink);
+	line-height: 1.6;
+	isolation: isolate;
+	/* Lift the isolation context itself above positioned theme content. */
+	position: relative;
+	z-index: var(--ssc-z);
+	/* Neutralize common theme inheritance for descendants. */
+	font-weight: 400;
+	font-style: normal;
+	text-align: start;
+	text-transform: none;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-indent: 0;
+	white-space: normal;
+}
+
+/* Whichever is higher wins: the configured distance, or clear of a bottom bar. */
+@supports (width: max(1px, 2px)) {
+	.ssc-root { --ssc-bottom: max(calc(var(--ssc-off-y) + var(--ssc-safe)), var(--ssc-lift)); }
+}
+
+/* Native controls (checkboxes, select lists, scrollbars) follow the widget
+ * theme, not the host page's. */
+.ssc-root[data-theme="light"] { color-scheme: light; }
+.ssc-root input[type="checkbox"],
+.ssc-root input[type="radio"] { accent-color: var(--ssc-primary); }
+
+.ssc-root[data-theme="dark"] {
+	color-scheme: dark;
+	--ssc-bg: #15181f;
+	--ssc-card: #1d212b;
+	--ssc-line: #2b3140;
+	--ssc-ink: #e8eaf0;
+	--ssc-muted: #9aa3b2;
+	--ssc-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+/* A light bot bubble chosen for the light theme (e.g. white) would be a
+ * glaring block in dark mode: dark mode uses its own card colour instead. */
+.ssc-root[data-theme="dark"][data-bot-bubble="light"] {
+	--ssc-bot-bubble: var(--ssc-card);
+	--ssc-bot-ink: var(--ssc-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+	.ssc-root[data-theme="auto"] {
+		color-scheme: dark;
+		--ssc-bg: #15181f;
+		--ssc-card: #1d212b;
+		--ssc-line: #2b3140;
+		--ssc-ink: #e8eaf0;
+		--ssc-muted: #9aa3b2;
+		--ssc-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+	}
+}
+
+.ssc-root *,
+.ssc-root *::before,
+.ssc-root *::after {
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+/*
+ * Theme hardening. Themes style bare button/input/select/textarea/p/ul
+ * elements; without this reset their margins, uppercase text, shadows and
+ * fixed heights leak into the widget. Component rules below all start with
+ * `.ssc-root .ssc-*` (two classes), so they still win over this block and
+ * over typical theme selectors such as `input[type="text"]:focus`.
+ */
+.ssc-root button,
+.ssc-root input,
+.ssc-root select,
+.ssc-root textarea {
+	margin: 0;
+	font: inherit;
+	line-height: 1.4;
+	letter-spacing: normal;
+	text-transform: none;
+	text-shadow: none;
+	box-shadow: none;
+	min-height: 0;
+	min-width: 0;
+	height: auto;
+	background-image: none;
+	float: none;
+}
+
+/* Keep host-theme hover/focus fades out of enabled widget controls. Inner
+ * icons still own their opacity (e.g. the launcher's open/close transition). */
+.ssc-root button:is(.ssc-chip, .ssc-launcher):not(:disabled),
+.ssc-root button:is(.ssc-chip, .ssc-launcher):not(:disabled):is(:hover, :focus, :active) {
+	opacity: 1;
+	filter: none;
+}
+
+.ssc-root p,
+.ssc-root ul,
+.ssc-root ol,
+.ssc-root h3,
+.ssc-root fieldset {
+	margin: 0;
+	padding: 0;
+}
+
+.ssc-root svg { display: block; max-width: none; }
+
+/* ------------------------------------------------------------------ *
+ * Launcher. Floating placement uses PHYSICAL sides: the setting reads
+ * "bottom right / left", which must not flip on RTL sites.
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-launcher {
+	position: fixed;
+	inset-block-end: var(--ssc-bottom);
+	right: var(--ssc-off-x);
+	width: var(--ssc-launcher-size);
+	height: var(--ssc-launcher-size);
+	border-radius: 50%;
+	border: 0;
+	background: var(--ssc-primary);
+	color: var(--ssc-primary-contrast);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 6px 18px rgba(16, 19, 34, 0.28);
+	z-index: var(--ssc-z);
+	padding: 0;
+	transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, inset-block-end 0.25s ease;
+}
+
+.ssc-root.ssc-pos-left .ssc-launcher,
+.ssc-root .ssc-launcher.ssc-pos-left {
+	right: auto;
+	left: var(--ssc-off-x);
+}
+
+.ssc-root button.ssc-launcher:is(:hover, :focus, :active) {
+	background: var(--ssc-primary);
+	background: color-mix(in srgb, var(--ssc-primary) 88%, #000);
+	color: var(--ssc-primary-contrast);
+	border-radius: 50%;
+	box-shadow: 0 8px 22px rgba(16, 19, 34, 0.34);
+}
+.ssc-root .ssc-launcher:hover { transform: translateY(-2px); }
+.ssc-root .ssc-launcher:active { transform: scale(0.97); }
+.ssc-root .ssc-launcher:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: 3px; }
+
+.ssc-root .ssc-launcher__icon,
+.ssc-root .ssc-launcher__close {
+	width: 46%;
+	height: 46%;
+	display: block;
+	transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.ssc-root .ssc-launcher__icon svg,
+.ssc-root .ssc-launcher__close svg { width: 100%; height: 100%; }
+
+/* Open state: the launcher turns into a close button. */
+.ssc-root .ssc-launcher__close { position: absolute; opacity: 0; transform: rotate(-90deg); }
+.ssc-root.is-open .ssc-launcher__close { opacity: 1; transform: none; }
+.ssc-root.is-open .ssc-launcher__icon,
+.ssc-root.is-open .ssc-launcher__img { opacity: 0; transform: rotate(90deg) scale(0.6); }
+.ssc-root.is-open .ssc-launcher__badge,
+.ssc-root.is-open .ssc-launcher__dot { display: none; }
+
+.ssc-root .ssc-launcher__img,
+.ssc-root .ssc-launcher__img img { width: 100%; height: 100%; border-radius: 50%; display: block; object-fit: cover; }
+.ssc-root .ssc-launcher__img { width: 100%; height: 100%; overflow: hidden; transition: transform 0.2s ease, opacity 0.2s ease; }
+
+.ssc-root .ssc-launcher__dot {
+	position: absolute;
+	inset-block-start: 4px;
+	inset-inline-end: 4px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: #34d399;
+	border: 2px solid var(--ssc-primary-contrast);
+	display: none;
+}
+
+.ssc-root .ssc-launcher.is-error { background: #b42318; }
+
+.ssc-root .ssc-launcher__badge {
+	position: absolute;
+	inset-block-start: -4px;
+	inset-inline-start: -4px;
+	min-width: 20px;
+	height: 20px;
+	padding: 0 5px;
+	border-radius: 999px;
+	background: #b42318;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 20px;
+	text-align: center;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+	pointer-events: none;
+}
+
+.ssc-root .ssc-launcher__badge[hidden] { display: none !important; }
+
+.ssc-root[data-status="offline"] .ssc-launcher__dot {
+	display: block;
+	background: #f59e0b;
+}
+
+.ssc-root[data-status="offline"] .ssc-head__status {
+	color: #b45309;
+}
+
+.ssc-root .ssc-msg--bot.is-streaming { white-space: pre-wrap; }
+
+.ssc-root .ssc-msg--bot.is-streaming::after {
+	content: '▍';
+	opacity: 0.55;
+	animation: ssc-caret 1s steps(1) infinite;
+}
+
+@keyframes ssc-scrim {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes ssc-caret {
+	0%, 50% { opacity: 0.55; }
+	51%, 100% { opacity: 0; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Window
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-window {
+	position: fixed;
+	inset-block-end: calc(var(--ssc-bottom) + var(--ssc-launcher-size) + 12px);
+	right: var(--ssc-off-x);
+	width: var(--ssc-win-width);
+	max-width: calc(100vw - var(--ssc-off-x) - 16px);
+	height: min(620px, calc(100vh - var(--ssc-bottom) - var(--ssc-launcher-size) - 48px));
+	display: flex;
+	flex-direction: column;
+	background: var(--ssc-bg);
+	border: 1px solid var(--ssc-line);
+	border-radius: var(--ssc-win-radius);
+	box-shadow: var(--ssc-shadow);
+	overflow: hidden;
+	z-index: calc(var(--ssc-z) + 1);
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ssc-root.ssc-pos-left .ssc-window {
+	right: auto;
+	left: var(--ssc-off-x);
+}
+
+/* Closed = truly invisible AND unfocusable (WCAG-safe). */
+.ssc-root .ssc-window.is-closed {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transform: translateY(10px);
+}
+
+.ssc-root .ssc-window--inline,
+.ssc-preview-mount.ssc-root .ssc-window {
+	position: static;
+	height: 480px;
+	margin: 0 auto;
+}
+
+.ssc-preview-mount.ssc-root .ssc-launcher,
+.ssc-root [hidden] { display: none !important; }
+
+/* ------------------------------------------------------------------ *
+ * Header
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 13px 16px;
+	background: var(--ssc-card);
+	border-block-end: 1px solid var(--ssc-line);
+	flex: none;
+}
+
+.ssc-root .ssc-head__avatar {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: var(--ssc-primary);
+	flex: none;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--ssc-primary-contrast);
+}
+
+.ssc-root .ssc-head__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.ssc-root .ssc-head__avatar svg { width: 20px; height: 20px; }
+
+.ssc-root .ssc-head__titles { min-width: 0; flex: 1; }
+
+.ssc-root .ssc-head__title {
+	display: block;
+	font-size: 14.5px;
+	font-weight: 650;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.ssc-root .ssc-head__status {
+	display: block;
+	font-size: 11.5px;
+	color: var(--ssc-muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.ssc-root .ssc-head__actions { display: flex; gap: 4px; }
+
+.ssc-root .ssc-iconbtn {
+	width: 32px;
+	height: 32px;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	background: transparent;
+	color: var(--ssc-muted);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+.ssc-root .ssc-iconbtn:hover { background: var(--ssc-bg); color: var(--ssc-ink); }
+.ssc-root .ssc-iconbtn:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: 2px; }
+.ssc-root .ssc-iconbtn svg { width: 17px; height: 17px; }
+
+.ssc-root .ssc-iconbtn.is-live { color: var(--ssc-primary); animation: ssc-mic-pulse 1.2s ease infinite; }
+.ssc-root .ssc-iconbtn.is-speaking { color: var(--ssc-primary); }
+
+@keyframes ssc-mic-pulse {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(22, 32, 58, 0.25); }
+	50% { box-shadow: 0 0 0 6px rgba(22, 32, 58, 0.08); }
+}
+
+/* ------------------------------------------------------------------ *
+ * Thread
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-thread {
+	flex: 1;
+	overflow-y: auto;
+	padding: 16px 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	scroll-behavior: smooth;
+	overscroll-behavior: contain;
+}
+
+.ssc-root .ssc-msg {
+	max-width: 86%;
+	padding: 9px 13px;
+	border-radius: var(--ssc-bubble-radius);
+	font-size: var(--ssc-font-size);
+	line-height: 1.65;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+.ssc-root .ssc-msg--bot {
+	align-self: flex-start;
+	background: var(--ssc-bot-bubble);
+	color: var(--ssc-bot-ink);
+	border: 1px solid var(--ssc-line);
+	border-start-start-radius: 5px;
+}
+
+.ssc-root .ssc-msg--user {
+	align-self: flex-end;
+	background: var(--ssc-user-bubble);
+	color: var(--ssc-user-ink);
+	border-start-end-radius: 5px;
+}
+
+.ssc-root .ssc-msg--success {
+	align-self: center;
+	background: #ecfdf3;
+	color: #067647;
+	border: 1px solid #c9f0d9;
+	font-size: 12.5px;
+	text-align: center;
+	border-radius: 999px;
+	padding: 6px 16px;
+}
+
+.ssc-root[data-theme="dark"] .ssc-msg--success { background: #053321; color: #75e0a7; border-color: #085d3a; }
+
+.ssc-root .ssc-msg a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+/* Direction per bubble (dir="auto"): mixed Persian/English stays readable. */
+.ssc-root .ssc-msg,
+.ssc-root .ssc-disclaimer,
+.ssc-root .ssc-f__label,
+.ssc-root .ssc-cardform__title { unicode-bidi: plaintext; }
+.ssc-root .ssc-msg { text-align: start; }
+
+/* Rich answers (safe markdown subset). */
+.ssc-root .ssc-msg p { margin: 0 0 0.55em; }
+.ssc-root .ssc-msg p:last-child { margin-block-end: 0; }
+.ssc-root .ssc-msg ul,
+.ssc-root .ssc-msg ol { margin: 0.2em 0 0.6em; padding-inline-start: 1.3em; }
+.ssc-root .ssc-msg li { margin: 0.15em 0; }
+.ssc-root .ssc-msg ul:last-child,
+.ssc-root .ssc-msg ol:last-child { margin-block-end: 0; }
+.ssc-root .ssc-msg .ssc-md-h { margin-block-start: 0.35em; }
+.ssc-root .ssc-msg code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.88em;
+	background: var(--ssc-bg);
+	border: 1px solid var(--ssc-line);
+	border-radius: 5px;
+	padding: 0 0.3em;
+	unicode-bidi: isolate;
+	direction: ltr;
+}
+
+/* Composer textarea. */
+.ssc-root textarea.ssc-input { resize: none; overflow-y: auto; max-height: 132px; line-height: 1.5; border-radius: 20px; display: block; }
+
+/* Caption before suggestion chips ("Related questions:"). */
+.ssc-root .ssc-chips__label { flex-basis: 100%; font-size: 11.5px; color: var(--ssc-muted); }
+
+/* Screen-reader-only text. */
+.ssc-root .ssc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.ssc-root a.ssc-iconbtn { text-decoration: none; }
+
+/* Source citations under an answer. */
+.ssc-root .ssc-sources { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin-block-start: 8px; padding-block-start: 7px; border-block-start: 1px dashed var(--ssc-line); font-size: 11.5px; color: var(--ssc-muted); }
+.ssc-root .ssc-sources__label { font-weight: 600; }
+.ssc-root .ssc-sources__item { background: var(--ssc-bg); border: 1px solid var(--ssc-line); border-radius: 999px; padding: 1px 8px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: inherit; text-decoration: none; }
+.ssc-root .ssc-msg a.ssc-sources__item { text-decoration: none; }
+.ssc-root a.ssc-sources__item:hover { color: var(--ssc-ink); border-color: var(--ssc-primary); }
+
+/* Answer tools (copy + feedback). */
+.ssc-root .ssc-msgtools { display: flex; align-items: center; gap: 2px; margin-block-start: 6px; }
+.ssc-root .ssc-msgtools__btn {
+	width: 26px;
+	height: 26px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--ssc-muted);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	opacity: 0.7;
+}
+.ssc-root .ssc-msgtools__btn svg { width: 14px; height: 14px; }
+.ssc-root .ssc-msgtools__btn:hover,
+.ssc-root .ssc-msgtools__btn.is-done { opacity: 1; background: var(--ssc-bg); color: var(--ssc-ink); }
+.ssc-root .ssc-msgtools__btn:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: 1px; }
+
+.ssc-root .ssc-msg--bot strong { font-weight: 650; }
+
+/* Typing indicator. */
+.ssc-root .ssc-typing { display: flex; gap: 4px; align-items: center; padding: 12px 14px; }
+
+.ssc-root .ssc-typing__dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--ssc-muted);
+	animation: ssc-bounce 1.2s infinite ease-in-out;
+}
+
+.ssc-root .ssc-typing__dot:nth-child(2) { animation-delay: 0.15s; }
+.ssc-root .ssc-typing__dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes ssc-bounce {
+	0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+	40% { transform: scale(1); opacity: 1; }
+}
+
+/* Feedback thumbs. */
+.ssc-root .ssc-feedback { display: inline-flex; gap: 2px; font-size: 13px; color: var(--ssc-muted); }
+
+.ssc-root .ssc-feedback__btn {
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	font-size: 13px;
+	opacity: 0.45;
+	padding: 1px 4px;
+	border-radius: 5px;
+}
+
+.ssc-root .ssc-feedback__btn:hover { opacity: 1; }
+.ssc-root .ssc-feedback__btn:focus-visible { outline: 1.5px solid var(--ssc-primary); opacity: 1; }
+
+/* ------------------------------------------------------------------ *
+ * Chips
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	margin-block-start: 2px;
+}
+
+/* Header "Main menu" feedback: the menu briefly glows so the click visibly lands. */
+.ssc-root .ssc-chips.ssc-flash { animation: ssc-menu-flash 1.2s ease; border-radius: 12px; }
+
+@keyframes ssc-menu-flash {
+	0%, 100% { box-shadow: 0 0 0 0 transparent; }
+	25% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--ssc-primary) 30%, transparent); }
+}
+
+.ssc-root .ssc-chip {
+	border: 1px solid var(--ssc-line);
+	background: var(--ssc-card);
+	color: var(--ssc-ink);
+	border-radius: 999px;
+	padding: 7px 14px;
+	font-size: 12.5px;
+	font-weight: 550;
+	cursor: pointer;
+	font-family: inherit;
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.ssc-root .ssc-chip:hover { border-color: var(--ssc-primary); transform: translateY(-1px); }
+.ssc-root button.ssc-chip:is(:hover, :focus, :active) {
+	background: var(--ssc-primary);
+	color: var(--ssc-primary-contrast);
+	border-color: var(--ssc-primary);
+	border-radius: 999px;
+}
+.ssc-root .ssc-chip:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: 2px; }
+.ssc-root .ssc-chip--outline { background: transparent; }
+
+/* ------------------------------------------------------------------ *
+ * Forms inside the chat
+ * ------------------------------------------------------------------ */
+
+/* WooCommerce: product cards, order status, coupon. */
+.ssc-root .ssc-pcards { display: flex; gap: 8px; overflow-x: auto; padding-block: 8px 4px; margin-inline: -4px; padding-inline: 4px; scroll-snap-type: x proximity; }
+.ssc-root .ssc-pcard { flex: 0 0 148px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 4px; background: var(--ssc-card); border: 1px solid var(--ssc-line); border-radius: 12px; padding: 8px; font-size: 12px; color: var(--ssc-ink); }
+.ssc-root .ssc-pcard.is-out { opacity: 0.75; }
+.ssc-root .ssc-pcard__media { display: block; aspect-ratio: 1 / 1; border-radius: 8px; overflow: hidden; background: var(--ssc-bg); }
+.ssc-root .ssc-pcard__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ssc-root .ssc-pcard__name { color: var(--ssc-ink); font-weight: 600; text-decoration: none; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.9em; }
+.ssc-root .ssc-pcard__price { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; font-weight: 700; }
+.ssc-root .ssc-pcard__price del { color: var(--ssc-muted); font-weight: 400; font-size: 11px; }
+.ssc-root .ssc-pcard__stock { font-size: 11px; color: var(--ssc-muted); }
+.ssc-root .ssc-pcard.is-out .ssc-pcard__stock { color: #b42318; }
+.ssc-root .ssc-pcard__btn { margin-block-start: auto; display: inline-flex; justify-content: center; align-items: center; border: 0; border-radius: 999px; padding: 6px 10px; background: var(--ssc-primary); color: var(--ssc-primary-contrast); font: inherit; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; }
+.ssc-root .ssc-pcard__btn--ghost { background: transparent; color: var(--ssc-primary); border: 1px solid var(--ssc-primary); }
+.ssc-root[data-theme="dark"] .ssc-pcard__btn--ghost { color: var(--ssc-ink); border-color: var(--ssc-line); }
+.ssc-root .ssc-pcard__btn.is-done { background: #067647; color: #fff; }
+.ssc-root .ssc-pcard__btn:disabled { cursor: default; opacity: 0.85; }
+.ssc-root .ssc-pcard__cart { text-align: center; font-size: 11.5px; color: var(--ssc-primary); }
+.ssc-root[data-theme="dark"] .ssc-pcard__cart { color: var(--ssc-ink); }
+.ssc-root .ssc-order__title { display: block; margin-block-end: 6px; }
+.ssc-root .ssc-order__list { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; font-size: 12.5px; }
+.ssc-root .ssc-order__list dt { color: var(--ssc-muted); }
+.ssc-root .ssc-order__list dd { margin: 0; }
+.ssc-root .ssc-order__track { margin-block-start: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12.5px; }
+.ssc-root .ssc-order__copy, .ssc-root .ssc-order__link { border: 0; background: none; color: var(--ssc-primary); font: inherit; cursor: pointer; text-decoration: underline; padding: 0; }
+.ssc-root .ssc-coupon__text { margin: 0 0 8px; }
+.ssc-root .ssc-coupon__code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 20px; font-weight: 700; letter-spacing: 2px; text-align: center; padding: 8px; border: 2px dashed var(--ssc-primary); border-radius: 10px; }
+.ssc-root .ssc-coupon__exp { margin: 6px 0; font-size: 11.5px; color: var(--ssc-muted); }
+.ssc-root .ssc-coupon__row { display: flex; gap: 6px; flex-wrap: wrap; }
+.ssc-root .ssc-proactive--offer .ssc-proactive__text { font-weight: 600; }
+
+/* Live chat: operator bubbles, system notes and the status bar. */
+.ssc-root .ssc-msg--operator { align-self: flex-start; background: var(--ssc-bot-bubble); color: var(--ssc-bot-ink); border: 1px solid var(--ssc-line); border-inline-start: 3px solid var(--ssc-primary); }
+.ssc-root .ssc-msg__who { display: block; font-size: 11px; font-weight: 700; color: var(--ssc-primary); margin-block-end: 2px; }
+.ssc-root[data-theme="dark"] .ssc-msg__who { color: var(--ssc-ink); }
+.ssc-root .ssc-msg--note { align-self: center; background: none; border: 0; box-shadow: none; color: var(--ssc-muted); font-size: 11.5px; padding: 2px 8px; max-width: 90%; text-align: center; }
+.ssc-root .ssc-livebar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 14px; font-size: 12px; background: color-mix(in srgb, var(--ssc-primary) 10%, var(--ssc-card)); color: var(--ssc-ink); border-block-start: 1px solid var(--ssc-line); }
+.ssc-root .ssc-livebar[hidden] { display: none; }
+.ssc-root .ssc-livebar__back { border: 0; background: none; color: var(--ssc-primary); font: inherit; font-weight: 600; cursor: pointer; padding: 2px 4px; text-decoration: underline; }
+.ssc-root[data-theme="dark"] .ssc-livebar__back { color: var(--ssc-ink); }
+
+.ssc-root .ssc-cardform__intro { margin: 0 0 10px; font-size: 12.5px; color: var(--ssc-muted); line-height: 1.6; }
+.ssc-root .ssc-cardform__more { border: 1px dashed var(--ssc-line); border-radius: 12px; padding: 4px 10px; margin-block: 4px 10px; }
+.ssc-root .ssc-cardform__more[open] { padding-block-end: 10px; }
+.ssc-root .ssc-cardform__more-toggle { cursor: pointer; padding: 6px 0; font-size: 12.5px; font-weight: 600; color: var(--ssc-primary); list-style-position: inside; }
+.ssc-root[data-theme="dark"] .ssc-cardform__more-toggle { color: var(--ssc-ink); }
+.ssc-root .ssc-cardform__more > .ssc-f:first-of-type { margin-block-start: 6px; }
+
+.ssc-root .ssc-cardform {
+	align-self: stretch;
+	background: var(--ssc-card);
+	border: 1px solid var(--ssc-line);
+	border-radius: var(--ssc-bubble-radius);
+	padding: 14px;
+}
+
+.ssc-root .ssc-cardform__title {
+	margin: 0 0 10px;
+	font-size: 13.5px;
+	font-weight: 650;
+}
+
+.ssc-root .ssc-cardform__form { display: flex; flex-direction: column; gap: 10px; }
+
+.ssc-root .ssc-f { display: flex; flex-direction: column; gap: 4px; }
+.ssc-root .ssc-f__label { font-size: 11.5px; font-weight: 600; color: var(--ssc-muted); }
+.ssc-root .ssc-f__input {
+	border: 1px solid var(--ssc-line);
+	border-radius: 9px;
+	background: var(--ssc-bg);
+	padding: 8px 11px;
+	font-size: 13px;
+	font-family: inherit;
+	color: var(--ssc-ink);
+	width: 100%;
+}
+
+.ssc-root .ssc-f__input:focus { outline: 2px solid var(--ssc-primary); outline-offset: 1px; border-color: transparent; }
+.ssc-root .ssc-f--check { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; min-height: 44px; cursor: pointer; }
+.ssc-root .ssc-f--check .ssc-f__label { flex: 1; min-width: 0; font-weight: 500; color: var(--ssc-ink); }
+.ssc-root .ssc-f--consent .ssc-f__label { font-weight: 400; line-height: 1.75; }
+.ssc-root .ssc-f--check input.ssc-f__check[type="checkbox"] {
+	appearance: auto;
+	-webkit-appearance: checkbox;
+	flex: 0 0 22px;
+	width: 22px;
+	height: 22px;
+	min-width: 22px;
+	min-height: 22px;
+	max-width: 22px;
+	max-height: 22px;
+	margin: 2px 0 0;
+	padding: 0;
+	transform: none;
+	opacity: 1;
+	accent-color: var(--ssc-primary);
+	cursor: pointer;
+}
+.ssc-root .ssc-f--check input.ssc-f__check[type="checkbox"]:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: 3px; }
+.ssc-root .ssc-f--group { border: 1px dashed var(--ssc-line); border-radius: 9px; padding: 9px; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.ssc-root .ssc-f--group .ssc-f__label { font-weight: 600; }
+.ssc-root .ssc-f--group legend { padding: 0 4px; }
+
+.ssc-root .ssc-hp {
+	position: absolute !important;
+	inset-inline-start: -9999px !important;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.ssc-root .ssc-btn2 {
+	align-self: flex-start;
+	background: var(--ssc-primary);
+	color: var(--ssc-primary-contrast);
+	border: 0;
+	border-radius: 999px;
+	padding: 9px 20px;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+.ssc-root .ssc-btn2:hover { filter: brightness(1.12); }
+.ssc-root .ssc-btn2[disabled] { opacity: 0.55; cursor: wait; }
+.ssc-root .ssc-btn2:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: 2px; }
+
+.ssc-root .ssc-cardform__error { color: #b42318; font-size: 12px; margin: 0; min-height: 0; }
+.ssc-root .ssc-cardform__error:empty { display: none; }
+
+/* ADR-specific accent. */
+.ssc-root .ssc-cardform--adr { border-color: #f0c6c2; }
+.ssc-root .ssc-cardform--adr .ssc-cardform__title { color: #b42318; }
+
+/* ------------------------------------------------------------------ *
+ * CSAT
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-cardform--csat { text-align: center; align-self: center; max-width: 85%; }
+
+.ssc-root .ssc-csat { display: flex; justify-content: center; gap: 4px; }
+
+.ssc-root .ssc-csat__star {
+	border: 0;
+	background: transparent;
+	font-size: 22px;
+	line-height: 1;
+	cursor: pointer;
+	color: #cbd5e1;
+	padding: 2px 5px;
+	border-radius: 6px;
+}
+
+.ssc-root .ssc-csat__star:hover,
+.ssc-root .ssc-csat__star:focus-visible { color: #f59e0b; transform: scale(1.12); }
+.ssc-root .ssc-csat__star:focus-visible { outline: 1.5px solid var(--ssc-primary); outline-offset: 1px; }
+
+.ssc-root .ssc-csat__skip {
+	border: 0;
+	background: transparent;
+	color: var(--ssc-muted);
+	font-size: 11.5px;
+	cursor: pointer;
+	margin-block-start: 6px;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	font-family: inherit;
+}
+
+/* ------------------------------------------------------------------ *
+ * Composer
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-composer {
+	display: flex;
+	align-items: flex-end;
+	gap: 7px;
+	padding: 10px 12px;
+	background: var(--ssc-card);
+	border-block-start: 1px solid var(--ssc-line);
+	flex: none;
+}
+
+.ssc-root .ssc-composer__left { display: flex; }
+
+.ssc-root .ssc-input {
+	flex: 1;
+	border: 1px solid var(--ssc-line);
+	border-radius: 999px;
+	background: var(--ssc-bg);
+	padding: 9px 15px;
+	font-size: 13.5px;
+	font-family: inherit;
+	color: var(--ssc-ink);
+	min-width: 0;
+	text-align: start;
+}
+
+/* dir=auto follows typed text; an empty composer follows the widget locale
+ * so a Persian placeholder cannot inherit an LTR host page's alignment. */
+.ssc-root[dir="rtl"] .ssc-input:placeholder-shown { direction: rtl; text-align: right; }
+.ssc-root[dir="ltr"] .ssc-input:placeholder-shown { direction: ltr; text-align: left; }
+.ssc-root .ssc-input::placeholder { color: var(--ssc-muted); opacity: 1; }
+
+.ssc-root .ssc-input:focus { outline: 2px solid var(--ssc-primary); outline-offset: 1px; border-color: transparent; box-shadow: none; }
+
+.ssc-root .ssc-send {
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	border: 0;
+	background: var(--ssc-primary);
+	color: var(--ssc-primary-contrast);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	padding: 0;
+}
+
+.ssc-root .ssc-send svg { width: 16px; height: 16px; }
+.ssc-root[dir="rtl"] .ssc-send svg { transform: scaleX(-1); }
+.ssc-root .ssc-send:hover { filter: brightness(1.12); }
+.ssc-root .ssc-send:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: 2px; }
+
+.ssc-root .ssc-disclaimer {
+	margin: 0;
+	padding: 6px 14px 9px;
+	font-size: 10.5px;
+	color: var(--ssc-muted);
+	text-align: center;
+	background: var(--ssc-card);
+	flex: none;
+	border-block-start: 1px solid var(--ssc-line);
+}
+
+/* ------------------------------------------------------------------ *
+ * Proactive invitation
+ * ------------------------------------------------------------------ */
+
+.ssc-root .ssc-proactive {
+	position: fixed;
+	inset-block-end: calc(var(--ssc-bottom) + var(--ssc-launcher-size) + 14px);
+	right: var(--ssc-off-x);
+	max-width: min(300px, calc(100vw - 3rem));
+	background: var(--ssc-card);
+	border: 1px solid var(--ssc-line);
+	border-radius: 14px;
+	box-shadow: var(--ssc-shadow);
+	padding: 12px 16px;
+	cursor: pointer;
+	z-index: var(--ssc-z);
+	animation: ssc-rise 0.25s ease;
+}
+
+.ssc-root.ssc-pos-left .ssc-proactive { right: auto; left: var(--ssc-off-x); }
+.ssc-root .ssc-proactive__text {
+	border: 0;
+	background: transparent;
+	padding: 0;
+	padding-inline-end: 18px;
+	font-size: 13px;
+	color: var(--ssc-ink);
+	cursor: pointer;
+	text-align: start;
+}
+.ssc-root .ssc-proactive__close {
+	position: absolute;
+	inset-block-start: 6px;
+	inset-inline-end: 6px;
+	width: 20px;
+	height: 20px;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--ssc-muted);
+	cursor: pointer;
+	padding: 3px;
+}
+.ssc-root .ssc-proactive__close:hover { background: var(--ssc-bg); color: var(--ssc-ink); }
+
+@keyframes ssc-rise {
+	from { opacity: 0; transform: translateY(8px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------------ *
+ * Responsive + safe areas + reduced motion
+ * ------------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+	.ssc-root {
+		--ssc-off-x: var(--ssc-off-x-m, 18px);
+		--ssc-off-y: var(--ssc-off-y-m, 18px);
+	}
+
+	/* Phones: the open window is a floating card, not a full-screen sheet. It
+	 * keeps a margin on both sides, rests where the launcher was (so it also
+	 * clears a bottom bar the launcher avoided), and never grows taller than
+	 * the visible area. --ssc-kb / --ssc-vvh come from the visual viewport
+	 * (see syncViewport) so an on-screen keyboard never covers the composer. */
+	.ssc-root .ssc-window,
+	.ssc-root.ssc-pos-left .ssc-window {
+		inset-block-end: max(var(--ssc-bottom), calc(var(--ssc-kb, 0px) + 8px));
+		left: min(var(--ssc-off-x), 16px);
+		right: min(var(--ssc-off-x), 16px);
+		width: auto;
+		max-width: none;
+		height: min(680px, 80vh, calc(var(--ssc-vvh, 100vh) - max(var(--ssc-bottom), calc(var(--ssc-kb, 0px) + 8px)) - 16px));
+		height: min(680px, 80dvh, calc(var(--ssc-vvh, 100dvh) - max(var(--ssc-bottom), calc(var(--ssc-kb, 0px) + 8px)) - 16px));
+		min-height: 320px;
+		border-radius: var(--ssc-win-radius);
+		border: 1px solid var(--ssc-line);
+	}
+
+	/* Embedded (shortcode / block) and preview windows stay in the page flow. */
+	.ssc-root.ssc-root .ssc-window--inline,
+	.ssc-root.ssc-preview-mount .ssc-window { width: 100%; height: 480px; min-height: 0; left: auto; right: auto; }
+
+	.ssc-root.is-open .ssc-launcher { display: none; }
+
+	/* The open card must sit above the WordPress toolbar and the host's own
+	 * fixed bars, or its header (and close button) hides behind them. */
+	.ssc-root.is-open:not(.ssc-preview-mount) { z-index: 100000; }
+
+	/* A soft scrim behind the card keeps the page quiet; tapping it closes the
+	 * chat (the pointer handler treats a tap on the root itself as "outside"). */
+	.ssc-root.is-open:not(.ssc-preview-mount)::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		background: rgba(16, 19, 34, 0.38);
+		z-index: var(--ssc-z);
+		animation: ssc-scrim 0.2s ease both;
+	}
+	.ssc-root.is-open:not(.ssc-preview-mount) .ssc-window { z-index: calc(var(--ssc-z) + 1); }
+
+	/* 16px stops iOS from zooming into the field on focus. */
+	.ssc-root .ssc-input,
+	.ssc-root .ssc-f__input { font-size: 16px; }
+
+	.ssc-root .ssc-msg { max-width: 92%; }
+	.ssc-root .ssc-proactive { inset-inline: 10px; max-width: none; }
+	.ssc-root.ssc-pos-left .ssc-proactive { left: 10px; right: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ssc-root *,
+	.ssc-root {
+		animation: none !important;
+		transition: none !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Higher-contrast mode niceties. */
+@media (forced-colors: active) {
+	.ssc-root .ssc-chip,
+	.ssc-root .ssc-msg,
+	.ssc-root .ssc-cardform,
+	.ssc-root .ssc-input { border: 1px solid CanvasText; }
+	.ssc-root .ssc-launcher,
+	.ssc-root .ssc-send { border: 1px solid ButtonText; }
+}
+
+/* Conversations-are-saved notice: quieter than the disclaimer. */
+.ssc-root .ssc-saved-notice { font-size: 10.5px; opacity: 0.75; }
+
+/* Previous conversations (signed-in users). */
+.ssc-root .ssc-history {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	background: var(--ssc-bg);
+}
+.ssc-root .ssc-history + .ssc-thread { display: none; }
+.ssc-root .ssc-history__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 12px 14px;
+	border-bottom: 1px solid var(--ssc-line);
+}
+.ssc-root .ssc-history__back {
+	border: 1px solid var(--ssc-line);
+	background: var(--ssc-card);
+	color: var(--ssc-ink);
+	border-radius: 999px;
+	padding: 5px 12px;
+	font: inherit;
+	font-size: 12px;
+	cursor: pointer;
+}
+.ssc-root .ssc-history__list { flex: 1; overflow-y: auto; padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
+.ssc-root .ssc-history__row {
+	display: flex;
+	align-items: stretch;
+	background: var(--ssc-card);
+	border: 1px solid var(--ssc-line);
+	border-radius: 12px;
+	overflow: hidden;
+}
+.ssc-root .ssc-history__row.is-current { border-color: var(--ssc-primary); }
+.ssc-root .ssc-history__open {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+	padding: 9px 12px;
+	border: 0;
+	background: none;
+	color: var(--ssc-ink);
+	font: inherit;
+	text-align: start;
+	cursor: pointer;
+}
+.ssc-root .ssc-history__title { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ssc-root .ssc-history__meta { font-size: 11px; color: var(--ssc-muted); }
+.ssc-root .ssc-history__del {
+	border: 0;
+	background: none;
+	color: var(--ssc-muted);
+	font-size: 18px;
+	width: 38px;
+	cursor: pointer;
+}
+.ssc-root .ssc-history__del:hover { color: #c0392b; }
+.ssc-root .ssc-history__open:focus-visible,
+.ssc-root .ssc-history__del:focus-visible,
+.ssc-root .ssc-history__back:focus-visible { outline: 2px solid var(--ssc-primary); outline-offset: -2px; }
+.ssc-root .ssc-history__empty { margin: 16px 4px; color: var(--ssc-muted); text-align: center; }
+.ssc-root .ssc-disclaimer + .ssc-saved-notice { border-block-start: 0; padding-block-start: 0; }
+
+/* ------------------------------------------------------------------ *
+ * The assistant's character (launcher + header face).
+ *
+ * Loops are slow and small: something that is always in the corner of the
+ * page must look alive, never demand attention. What answers the visitor
+ * (hover hop, grin, wink, looking up while thinking) may be quicker,
+ * because the visitor started it. Every transform sits on SVG nodes, so
+ * each needs transform-box: fill-box to scale in place.
+ * ------------------------------------------------------------------ */
+.ssc-root { --ssc-mascot: var(--ssc-primary); --ssc-mascot-ink: var(--ssc-primary-contrast); }
+.ssc-root .ssc-mascot { width: 100%; height: 100%; display: block; overflow: visible; }
+.ssc-root .ssc-launcher--mascot {
+	background: transparent;
+	box-shadow: none;
+	overflow: visible;
+}
+.ssc-root .ssc-launcher--mascot:hover { transform: none; }
+.ssc-root:not(.is-open) button.ssc-launcher--mascot:is(:hover, :focus, :active) { background: transparent; box-shadow: none; }
+.ssc-root .ssc-launcher__mascot {
+	width: 100%;
+	height: 100%;
+	display: block;
+	filter: drop-shadow(0 5px 10px rgba(16, 19, 34, 0.28));
+	transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.ssc-root.is-open .ssc-launcher--mascot { background: var(--ssc-primary); box-shadow: var(--ssc-shadow); }
+.ssc-root.is-open .ssc-launcher__mascot { opacity: 0; transform: scale(0.5); }
+.ssc-root .ssc-launcher--mascot .ssc-launcher__close { color: var(--ssc-primary-contrast); }
+
+@keyframes ssc-m-breathe {
+	0%, 100% { transform: scale(1, 1); }
+	50% { transform: scale(0.985, 1.02); }
+}
+/* Two blinks at uneven gaps: a regular rhythm looks mechanical. */
+@keyframes ssc-m-blink {
+	0%, 45%, 51%, 87%, 92%, 100% { transform: scaleY(1); }
+	48%, 89.5% { transform: scaleY(0.1); }
+}
+@keyframes ssc-m-sway {
+	0%, 100% { transform: rotate(-5deg); }
+	50% { transform: rotate(6deg); }
+}
+@keyframes ssc-m-hop {
+	0% { transform: translateY(0) scale(1, 1); }
+	30% { transform: translateY(-8%) scale(0.96, 1.05); }
+	60% { transform: translateY(0) scale(1.05, 0.95); }
+	100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes ssc-m-think {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-3%); }
+}
+@keyframes ssc-m-glow {
+	0%, 100% { fill-opacity: 1; }
+	50% { fill-opacity: 0.45; }
+}
+
+.ssc-root .ssc-mascot .ssc-m-body {
+	animation: ssc-m-breathe 3.3s ease-in-out infinite;
+	transform-origin: center 90%;
+	transform-box: fill-box;
+}
+.ssc-root .ssc-mascot .ssc-m-eyes {
+	animation: ssc-m-blink 7s ease-in-out infinite;
+	transform-origin: center 50%;
+	transform-box: fill-box;
+}
+.ssc-root .ssc-mascot .ssc-m-tuft {
+	animation: ssc-m-sway 4.2s ease-in-out infinite;
+	transform-origin: center bottom;
+	transform-box: fill-box;
+}
+.ssc-root .ssc-mascot .ssc-m-grin { opacity: 0; }
+.ssc-root .ssc-mascot .ssc-m-pupils,
+.ssc-root .ssc-mascot .ssc-m-face { transition: transform 0.12s linear; }
+
+/* Hover / keyboard focus: it hops, grins and opens its eyes wide. */
+.ssc-root .ssc-launcher--mascot:hover .ssc-m-body,
+.ssc-root .ssc-launcher--mascot:focus-visible .ssc-m-body { animation: ssc-m-hop 0.55s ease-out; }
+.ssc-root .ssc-launcher--mascot:hover .ssc-m-smile,
+.ssc-root .ssc-launcher--mascot:focus-visible .ssc-m-smile { opacity: 0; }
+.ssc-root .ssc-launcher--mascot:hover .ssc-m-grin,
+.ssc-root .ssc-launcher--mascot:focus-visible .ssc-m-grin { opacity: 1; transition: opacity 0.12s ease-out; }
+.ssc-root .ssc-launcher--mascot:hover .ssc-m-eyes,
+.ssc-root .ssc-launcher--mascot:focus-visible .ssc-m-eyes { animation: none; transform: scale(1.07); transition: transform 0.18s ease-out; }
+/* Click: a wink with one eye (both at once would be a blink). */
+.ssc-root .ssc-launcher--mascot:active .ssc-m-eyes > ellipse:nth-of-type(2),
+.ssc-root .ssc-launcher--mascot:active .ssc-m-eyes > ellipse:nth-of-type(4),
+.ssc-root .ssc-launcher--mascot:active .ssc-m-pupils circle:nth-of-type(2),
+.ssc-root .ssc-launcher--mascot:active .ssc-m-pupils circle:nth-of-type(4) {
+	transform: scaleY(0.1);
+	transform-origin: 61.4px 50px;
+	transform-box: view-box;
+}
+
+/* Thinking: eyes up, a slow bob, the antenna tip pulses. */
+.ssc-root.is-thinking .ssc-mascot .ssc-m-pupils { transform: translate(1.5px, -3.5px) !important; }
+.ssc-root.is-thinking .ssc-mascot .ssc-m-body { animation: ssc-m-think 1.1s ease-in-out infinite; }
+.ssc-root.is-thinking .ssc-mascot .ssc-m-tip { animation: ssc-m-glow 0.9s ease-in-out infinite; }
+
+/* Header face. */
+.ssc-root .ssc-head__avatar.has-mascot { background: transparent; padding: 0; overflow: visible; }
+.ssc-root .ssc-head__avatar.has-mascot .ssc-mascot { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25)); }
+
+@media (prefers-reduced-motion: reduce) {
+	.ssc-root .ssc-mascot .ssc-m-body,
+	.ssc-root .ssc-mascot .ssc-m-eyes,
+	.ssc-root .ssc-mascot .ssc-m-tuft,
+	.ssc-root .ssc-mascot .ssc-m-tip,
+	.ssc-root.is-thinking .ssc-mascot .ssc-m-body,
+	.ssc-root .ssc-launcher--mascot:hover .ssc-m-body { animation: none !important; }
+}
+.ssc-root .ssc-head__avatar.has-mascot svg { width: 100%; height: 100%; }

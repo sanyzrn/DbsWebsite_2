@@ -1,0 +1,122 @@
+/* NexaChatAI product page (/nexachat): blocks, the live-demo stage and the sample-question chips. */
+.nexachat-block {
+  margin-top: clamp(48px, 7vw, 112px);
+  border-top: 1px solid var(--rule);
+  padding-top: clamp(24px, 3vw, 40px);
+}
+.nexachat-block__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.nexachat-cards {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--line);
+  border: 1px solid var(--line);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+@media (min-width: 640px) {
+  .nexachat-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.nexachat-cards li {
+  background: var(--page);
+  padding: 20px 22px 22px;
+}
+.nexachat-cards h3 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.nexachat-cards p {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--ink2);
+}
+
+.nexachat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.nexachat-list li {
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--ink2);
+}
+
+.nexachat-faq {
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+}
+.nexachat-faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 32px;
+}
+.nexachat-faq p {
+  margin-top: 10px;
+  line-height: 1.9;
+  color: var(--ink2);
+}
+
+/* The demo stage: the plugin's own inline widget, with the sample questions beside it. */
+.nexachat-demo {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .nexachat-demo {
+    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  }
+}
+.nexachat-demo__host {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 12px;
+  background: var(--surface);
+  min-height: 504px;
+}
+.nexachat-demo__note {
+  grid-column: 1 / -1;
+  font-size: 0.875rem;
+  color: var(--ink3);
+}
+.nexachat-demo__try {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink2);
+}
+.nexachat-demo__starters ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.nexachat-demo__starters .chip {
+  min-height: 40px;
+  padding-inline: 14px;
+  cursor: pointer;
+  text-align: start;
+}
+.nexachat-demo__starters .chip:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.nexachat-closing {
+  padding-bottom: 16px;
+}

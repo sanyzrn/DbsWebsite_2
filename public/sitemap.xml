@@ -86,6 +86,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dbsstudio.ir/nexachat</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nexachat" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nexachat" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dbsstudio.ir/en/nexachat</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/nexachat" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/nexachat" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dbsstudio.ir/privacy</loc>
     <xhtml:link rel="alternate" hreflang="fa" href="https://dbsstudio.ir/privacy" />
     <xhtml:link rel="alternate" hreflang="en" href="https://dbsstudio.ir/en/privacy" />
