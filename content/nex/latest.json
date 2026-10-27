@@ -32,7 +32,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4-universal.apk",
           "kind": "universal",
           "size": 146514758,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "f7ffd5d1e0091ec57eba8f377b6b44d52653026f9a495714b61af444ffee54e7"
         },
         {
@@ -56,7 +56,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/SHA256SUMS",
           "kind": "other",
           "size": 434,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "4dcbb0c1e41a70e9882ec842c1b0ae98389981a797936501df89423b498443ef"
         }
       ]
