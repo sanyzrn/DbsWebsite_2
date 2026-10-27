@@ -30,9 +30,13 @@ export const PLACEHOLDER_MARKERS = [
   "will be filled in later",
 ];
 
+// A link is an absolute URL, or an on-site path such as "/nexachatai" (with an optional "/en/…" twin).
+const sitePath = z.string().regex(/^\/[^\s/][^\s]*$/);
+const linkTarget = z.union([z.string().url(), sitePath]);
 const projectLink = z.object({
   label: localeText,
-  href: z.string().url(),
+  href: linkTarget,
+  hrefEn: linkTarget.optional(),
 });
 
 export const projectContentSchema = z.object({

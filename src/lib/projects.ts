@@ -16,7 +16,7 @@ export type ProjectSchemaType = "SoftwareApplication" | "CreativeWork" | "Articl
  * Runtime shape is enforced by `scripts/project-content.mjs` (Zod) at build time.
  */
 /** Public repo/demo link in content JSON (bilingual label). */
-export type ProjectLink = { label: LocaleText; href: string };
+export type ProjectLink = { label: LocaleText; href: string; /** Optional English-locale target (e.g. "/en/…" for an on-site page). */ hrefEn?: string };
 
 export type ProjectContent = {
   id: string;
@@ -179,7 +179,7 @@ export function localizeProject(project: ProjectContent, lang: Lang): LocalizedP
     teamSize: project.teamSize,
     updatedAt: project.updatedAt,
     clientType: project.clientType ? pick(project.clientType) : undefined,
-    links: project.links?.map((link) => ({ label: pick(link.label), href: link.href })),
+    links: project.links?.map((link) => ({ label: pick(link.label), href: (lang === "en" && link.hrefEn) || link.href })),
   };
 }
 

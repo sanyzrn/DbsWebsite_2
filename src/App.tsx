@@ -21,6 +21,11 @@ function isHomePath(pathname: string) {
   return pathname === "/" || pathname === "/en" || pathname === "/en/";
 }
 
+/** The NexaChatAI landing is a standalone page: no portfolio header, footer, intro or palette. */
+function isStandaloneLandingPath(pathname: string): boolean {
+  return stripLangPrefix(pathname).replace(/^\/+|\/+$/g, "") === "nexachatai";
+}
+
 /** Product launch pages have their own full-screen shell, not the portfolio chrome. */
 function isProductLandingPath(pathname: string): boolean {
   const slug = stripLangPrefix(pathname).replace(/^\/+|\/+$/g, "");
@@ -67,6 +72,19 @@ function PageLoadingFallback() {
 function Layout() {
   const { t } = useApp();
   const { pathname } = useLocation();
+
+  if (isStandaloneLandingPath(pathname)) {
+    return (
+      <div className="min-h-screen font-sans">
+        <a href="#top" className="skip-link">
+          {t.a11y.skip}
+        </a>
+        <main id="main">
+          <Outlet />
+        </main>
+      </div>
+    );
+  }
 
   if (isProductLandingPath(pathname)) {
     return (

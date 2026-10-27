@@ -1,4 +1,4 @@
-/** Copy of the NexaChatAI product page (/nexachat). Persian first; keep both languages in step. */
+/** Product facts of the NexaChatAI page (/nexachatai); the landing copy is in landing.ts. Persian first; keep both languages in step. */
 import type { Lang } from "../i18n";
 
 export const NEXACHAT_BUY_URL = "https://rtl-theme.com/?p=322159";
@@ -7,47 +7,22 @@ export const NEXACHAT_VERSION = "1.7.9";
 export type NexaChatCopy = {
   seoTitle: string;
   seoDescription: string;
-  kicker: string;
-  title: string;
-  lead: string;
   ctaBuy: string;
-  ctaDemo: string;
   ctaReport: string;
   versionLine: string;
-  demo: {
-    title: string;
-    lead: string;
-    tryLabel: string;
-    loading: string;
-    failed: string;
-    note: string;
-  };
   features: { title: string; items: { name: string; text: string }[] };
   forWho: { title: string; items: { name: string; text: string }[] };
   steps: { title: string; items: { name: string; text: string }[] };
   needs: { title: string; items: string[] };
   faq: { title: string; items: { q: string; a: string }[] };
-  closing: { title: string; text: string };
 };
 
 const fa: NexaChatCopy = {
   seoTitle: "NexaChatAI؛ چت‌بات هوش مصنوعی وردپرس | DbsStudio",
   seoDescription: "دستیار هوشمند فارسی وردپرس که از دانش کسب‌وکار شما پاسخ می‌دهد؛ دمو زنده، چت زنده، ربات بله و تلگرام، دستیار فروش ووکامرس.",
-  kicker: "افزونهٔ وردپرس",
-  title: "NexaChatAI",
-  lead: "دستیاری که کسب‌وکار شما را می‌شناسد. محصول، قیمت، ساعت کاری و فایل‌های شما را یاد می‌گیرد و به مشتری‌ها به فارسی پاسخ می‌دهد.",
   ctaBuy: "خرید و دانلود از راست‌چین",
-  ctaDemo: "امتحان دمو",
   ctaReport: "گزارش مشکل",
   versionLine: `نسخهٔ ${NEXACHAT_VERSION} · وردپرس ۵٫۶ به بالا · PHP 7.4 به بالا`,
-  demo: {
-    title: "دمو زنده",
-    lead: "این همان ویجت افزونه است؛ فقط پاسخ‌ها از پیش نوشته شده‌اند تا بدون کلید هوش مصنوعی امتحانش کنید. یک پرسش را بزنید یا خودتان بنویسید.",
-    tryLabel: "پرسش‌های نمونه",
-    loading: "در حال بارگذاری ویجت…",
-    failed: "بارگذاری دمو ممکن نشد. صفحه را دوباره باز کنید.",
-    note: "فروشگاه، محصول‌ها و قیمت‌ها نمونه‌اند. در سایت واقعی، دستیار از دانش شما و مدل انتخابی‌تان پاسخ می‌دهد.",
-  },
   features: {
     title: "چه کارهایی می‌کند",
     items: [
@@ -96,30 +71,14 @@ const fa: NexaChatCopy = {
       { q: "مشکل یا پیشنهادی دارم.", a: "از صفحهٔ گزارش مشکل استفاده کنید؛ گزارش خصوصی است و مستقیم به من می‌رسد." },
     ],
   },
-  closing: {
-    title: "امتحانش کنید",
-    text: "دمو را همین بالا ببینید و اگر مناسب بود، از راست‌چین تهیه کنید.",
-  },
 };
 
 const en: NexaChatCopy = {
   seoTitle: "NexaChatAI: AI chatbot for WordPress | DbsStudio",
   seoDescription: "A Persian-first WordPress assistant that answers from your business knowledge: live demo, live chat, Bale and Telegram bot, WooCommerce sales assistant.",
-  kicker: "WordPress plugin",
-  title: "NexaChatAI",
-  lead: "An assistant that knows your business. It learns your products, prices, opening hours and files, and answers customers in their language.",
   ctaBuy: "Get it on RTL-Theme",
-  ctaDemo: "Try the demo",
   ctaReport: "Report a problem",
   versionLine: `Version ${NEXACHAT_VERSION} · WordPress 5.6+ · PHP 7.4+`,
-  demo: {
-    title: "Live demo",
-    lead: "This is the plugin's own widget; only the answers are scripted so you can try it without an AI key. Tap a question or type your own.",
-    tryLabel: "Sample questions",
-    loading: "Loading the widget…",
-    failed: "The demo could not load. Reload the page.",
-    note: "The shop, products and prices are samples. On a real site the assistant answers from your knowledge and the model you choose.",
-  },
   features: {
     title: "What it does",
     items: [
@@ -167,10 +126,6 @@ const en: NexaChatCopy = {
       { q: "Does it work with WooCommerce, Elementor and Gutenberg?", a: "Yes. The WooCommerce module reads price and stock from WooCommerce and declares HPOS compatibility. The floating button appears automatically, and there is an Elementor widget, a Gutenberg block and a shortcode." },
       { q: "I have a problem or a suggestion.", a: "Use the problem-report page; the report is private and reaches me directly." },
     ],
-  },
-  closing: {
-    title: "Try it",
-    text: "Use the demo above and, if it fits, get the plugin on RTL-Theme.",
   },
 };
 
