@@ -136,7 +136,7 @@ export default function NexaChatPage() {
                   {l.ctaDemo}
                 </button>
               </div>
-              <ul className="ncl-badges">
+              <ul className="ncl-badges ncl-desk">
                 {l.badges.map((b) => (
                   <li key={b}>{b}</li>
                 ))}
@@ -144,7 +144,7 @@ export default function NexaChatPage() {
               <p className="ncl-version">{c.versionLine}</p>
             </div>
 
-            <div className="ncl-hero__art" aria-hidden="true">
+            <div className="ncl-hero__art ncl-desk" aria-hidden="true">
               <div className="ncl-store">
                 <div className="ncl-store__bar">
                   <i />
@@ -179,7 +179,7 @@ export default function NexaChatPage() {
           </div>
         </section>
 
-        <section className="ncl-stats" aria-label="NexaChatAI">
+        <section className="ncl-stats ncl-desk" aria-label="NexaChatAI">
           <div className="ncl-wrap">
             <ul>
               {l.stats.map((s) => (
@@ -199,8 +199,8 @@ export default function NexaChatPage() {
             </h2>
             <p className="ncl-sub">{l.demo.lead}</p>
             <ul className="ncl-chips">
-              {starters.map((q) => (
-                <li key={q}>
+              {starters.map((q, i) => (
+                <li key={q} className={i >= 6 ? "ncl-desk" : undefined}>
                   <button type="button" className="ncl-chip" onClick={() => ask(q)}>
                     {q}
                   </button>
@@ -224,7 +224,7 @@ export default function NexaChatPage() {
             </h2>
             <ul className="ncl-cards ncl-cards--3">
               {c.features.items.map((item, i) => (
-                <li key={item.name}>
+                <li key={item.name} className={i >= 3 ? "ncl-desk" : undefined}>
                   <span className="ncl-ico">
                     <Icon n={i} />
                   </span>
@@ -236,7 +236,7 @@ export default function NexaChatPage() {
           </div>
         </section>
 
-        <section id="panel" className="ncl-sec ncl-panel" aria-labelledby="ncl-p-t">
+        <section id="panel" className="ncl-sec ncl-panel ncl-desk" aria-labelledby="ncl-p-t">
           <div className="ncl-wrap">
             <h2 id="ncl-p-t" className="ncl-h2">
               {l.dashboard.title}
@@ -256,7 +256,7 @@ export default function NexaChatPage() {
           </div>
         </section>
 
-        <section id="why" className="ncl-sec" aria-labelledby="ncl-w-t">
+        <section id="why" className="ncl-sec ncl-desk" aria-labelledby="ncl-w-t">
           <div className="ncl-wrap">
             <h2 id="ncl-w-t" className="ncl-h2">
               {l.why.title}
@@ -278,7 +278,7 @@ export default function NexaChatPage() {
           </div>
         </section>
 
-        <section className="ncl-sec ncl-two" aria-labelledby="ncl-for-t">
+        <section className="ncl-sec ncl-two ncl-desk" aria-labelledby="ncl-for-t">
           <div className="ncl-wrap ncl-two__grid">
             <div>
               <h2 id="ncl-for-t" className="ncl-h2">
@@ -307,7 +307,7 @@ export default function NexaChatPage() {
           </div>
         </section>
 
-        <section className="ncl-sec" aria-labelledby="ncl-n-t">
+        <section className="ncl-sec ncl-desk" aria-labelledby="ncl-n-t">
           <div className="ncl-wrap">
             <h2 id="ncl-n-t" className="ncl-h2">
               {c.needs.title}

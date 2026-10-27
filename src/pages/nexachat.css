@@ -233,6 +233,8 @@ html:has(.ncl) { background: #1e2024; }
   .ncl-stats li:nth-child(n + 3) { border-top: 1px solid var(--line); }
 }
 @media (max-width: 640px) {
+  /* On phones keep the essentials: the pitch, the demo, the feature list, the FAQ and the call to action. */
+  .ncl .ncl-desk { display: none; }
   .ncl-wrap { width: calc(100% - 32px); }
   .ncl-top__in { gap: 10px; }
   .ncl-top__end .ncl-btn { display: none; }
