@@ -662,7 +662,12 @@ function JobTicket({ project }: { project: ProjectItem }) {
       value: (
         <span className="flex flex-wrap gap-x-4 gap-y-1">
           {project.links.map((link) => (
-            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="link">
+            <a
+              key={link.href}
+              href={link.href}
+              {...(link.href.startsWith("/") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+              className="link"
+            >
               {link.label}
             </a>
           ))}
