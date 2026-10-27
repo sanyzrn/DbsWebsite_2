@@ -32,7 +32,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-store.aab",
           "kind": "bundle",
           "size": 110016412,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "dfd721d9241f6d8ee07e0a156e4a66138b7cdd287d0d7cf801e39d70dc84ac1d"
         },
         {
@@ -40,7 +40,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-store.apk",
           "kind": "other",
           "size": 146516394,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "b10fc065c897fece70c7b63158fb8328656580fc93484a0d4fb4e563773a9c66"
         },
         {
