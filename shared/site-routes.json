@@ -46,7 +46,7 @@
     "/404": "notFound",
     "/nex": "nex",
     "/nexahr": "launch",
-    "/nexachatai": "launch",
+    "/nexachatai": "nexachat",
     "/nexaslider": "launch",
     "/nex/features": "nex",
     "/nex/guide": "nex",
@@ -68,7 +68,7 @@
     "/terms": "terms",
     "/nex": "nex",
     "/nexahr": "launch",
-    "/nexachatai": "launch",
+    "/nexachatai": "nexachat",
     "/nexaslider": "launch",
     "/nex/features": "nexFeatures",
     "/nex/guide": "nexGuide",
@@ -81,7 +81,6 @@
   },
   "noindexPaths": [
     "/nexahr",
-    "/nexachatai",
     "/nexaslider"
   ]
 }

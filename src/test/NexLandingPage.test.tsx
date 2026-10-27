@@ -203,7 +203,7 @@ describe("Nex SEO, sitemap and isolated motion", () => {
   it("maps both routes to a real, indexable page with reciprocal locale SEO and factual software data", () => {
     expect(siteRoutes.pageKeys["/nex"]).toBe("nex");
     expect(siteRoutes.noindexPaths).not.toContain("/nex");
-    for (const slug of ["nexahr", "nexachatai", "nexaslider"]) {
+    for (const slug of ["nexahr", "nexaslider"]) {
       expect(siteRoutes.noindexPaths).toContain(`/${slug}`);
       expect(resolveSeoForPath(`/${slug}`).robots).toBe("noindex, follow");
     }
@@ -224,10 +224,17 @@ describe("Nex SEO, sitemap and isolated motion", () => {
     }
   });
 
+  it("serves NexaChatAI as an indexable product page, not a placeholder", () => {
+    expect(siteRoutes.noindexPaths).not.toContain("/nexachatai");
+    expect(siteRoutes.pageKeys["/nexachatai"]).toBe("nexachat");
+    expect(resolveSeoForPath("/nexachatai").robots).toBeUndefined();
+    expect(fs.readFileSync("public/sitemap.xml", "utf8")).toContain("<loc>https://dbsstudio.ir/nexachatai</loc>");
+  });
+
   it("includes only Nex among the completed product landings in the generated sitemap", () => {
     const xml = fs.readFileSync("public/sitemap.xml", "utf8");
     for (const path of ["/nex", "/en/nex"]) expect(xml).toContain(`<loc>https://dbsstudio.ir${path}</loc>`);
-    for (const slug of ["nexahr", "nexachatai", "nexaslider"]) expect(xml).not.toContain(`<loc>https://dbsstudio.ir/${slug}</loc>`);
+    for (const slug of ["nexahr", "nexaslider"]) expect(xml).not.toContain(`<loc>https://dbsstudio.ir/${slug}</loc>`);
   });
 
   it("keeps animation enhancement visible and provides reduced-motion and 320px layout rules", () => {

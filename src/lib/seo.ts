@@ -14,6 +14,7 @@ import faqEn from "../../content/nex/faq.en.json";
 import { nodeText, type ContentNode } from "./nexContent";
 import nexLatest from "../../content/nex/latest.json";
 import { isLaunchSlug, LAUNCH_PAGES } from "./launches";
+import { NEXACHAT_COPY } from "./nexachat/copy";
 
 export type PageSeoKey =
   | "home"
@@ -23,6 +24,7 @@ export type PageSeoKey =
   | "about"
   | "contact"
   | "issues"
+  | "nexachat"
   | "project"
   | "article"
   | "privacy"
@@ -89,6 +91,10 @@ export function resolvePageSeo(
     title = seo.contact.title;
     description = seo.contact.description;
     path = opts?.path ?? localePath(lang, "/contact");
+  } else if (page === "nexachat") {
+    title = NEXACHAT_COPY[lang].seoTitle;
+    description = NEXACHAT_COPY[lang].seoDescription;
+    path = opts?.path ?? localePath(lang, "/nexachatai");
   } else if (page === "issues" && seo.issues) {
     title = seo.issues.title;
     description = seo.issues.description;
@@ -427,6 +433,9 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   }
   if (bare === "/contact") {
     return resolvePageSeo(lang, "contact", { path });
+  }
+  if (bare === "/nexachatai") {
+    return resolvePageSeo(lang, "nexachat", { path });
   }
   if (bare === "/issues") {
     return resolvePageSeo(lang, "issues", { path });

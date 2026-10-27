@@ -129,7 +129,7 @@ describe("route SEO meta (both locales)", () => {
   });
 
   it("serves bilingual product launch placeholders with unique SEO and noindex", () => {
-    const slugs = ["nexahr", "nexachatai", "nexaslider"];
+    const slugs = ["nexahr", "nexaslider"];
     const paths = listPrerenderPaths();
     const titles = new Set<string>();
     for (const slug of slugs) {
@@ -150,7 +150,7 @@ describe("route SEO meta (both locales)", () => {
   });
 
   it("renders all launch pages without portfolio header, footer, or padding", () => {
-    const launches = ["nex", "nexahr", "nexachatai", "nexaslider"];
+    const launches = ["nex", "nexahr", "nexaslider"];
     for (const slug of launches) {
       for (const prefix of ["", "/en"]) {
         cleanup();
