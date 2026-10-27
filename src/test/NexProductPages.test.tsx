@@ -15,6 +15,10 @@ describe('Independent bilingual Nex pages', () => {
       const html = renderToString(<StaticRouter location={path}><AppShell /></StaticRouter>);
       expect(html).toContain(NEX_COPY[lang].productTitles[NEX_PAGE_SLUGS.indexOf(slug)]);
       expect(html).toContain(`href="${lang === 'fa' ? '/en' : ''}/nex/${slug}"`);
+      if (slug === 'download' || slug === 'changelog') {
+        expect(html).not.toMatch(/href="https:\/\/github.com\/[^"]*\/releases\/download\//);
+        expect(html).not.toMatch(/Use the APK for now|فعلاً از فایل APK/);
+      }
       expect(html).not.toContain('class="nav-bar'); expect(html).not.toContain('class="intro"');
     }
   });

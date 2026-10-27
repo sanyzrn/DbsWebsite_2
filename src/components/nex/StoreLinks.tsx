@@ -14,6 +14,5 @@ export default function StoreLinks({ lang }: { lang: Lang }) {
         return pending ? <button key={id} type="button" className="nex-store" data-store={id} data-todo={store.todo} aria-label={`${c[id]} ${c.storeSoon}`} disabled>{content}</button> : <a key={id} className="nex-store" data-store={id} href={store.href}>{content}</a>;
       })}
     </div>
-    {STORE_IDS.some((id) => NEX_STORES[id].href === "#") && <p className="nex-fine-print">{c.storePending}</p>}
   </>;
 }

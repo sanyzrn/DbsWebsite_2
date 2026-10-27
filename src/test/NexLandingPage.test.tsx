@@ -65,7 +65,7 @@ describe("Nex timeline and routing", () => {
       expect(html).toContain(c.privateText);
       expect(html).toContain(c.tagline);
       expect(html).toContain("<details");
-      expect(html).toMatch(/href="https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//);
+      expect(html).not.toMatch(/href="https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//);
       expect(html).toContain(c.screenshotPreview);
       expect(html).toContain("<noscript>");
       expect(html).toMatch(/<textarea[^>]*disabled/);
@@ -74,7 +74,7 @@ describe("Nex timeline and routing", () => {
     }
   });
 
-  it.each(["fa", "en"] as const)("shows Android stores as coming soon, a real APK and an honestly labelled preview in %s", (lang) => {
+  it.each(["fa", "en"] as const)("shows Android stores as coming soon, no direct APK and an honestly labelled preview in %s", (lang) => {
     open(lang === "fa" ? "/nex/" : "/en/nex/");
     const c = NEX_COPY[lang];
     const downloads = document.querySelector<HTMLElement>("#nex-download")!;
@@ -88,11 +88,11 @@ describe("Nex timeline and routing", () => {
       expect(fs.existsSync(`public${src}`)).toBe(true);
     }
     expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(3);
-    expect(document.querySelector('a[data-store="apk"]')).toHaveAttribute("href", expect.stringMatching(/^https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//));
+    expect(document.querySelector('a[data-store="apk"]')).toBeNull();
     expect(document.querySelector(".nex-hero .nex-store-links")).toBeNull();
     expect(document.querySelector(".nex-chronicle")!.compareDocumentPosition(downloads) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(downloads.querySelectorAll(".nex-store")).toHaveLength(3);
-    expect(screen.getByText(c.storePending)).toBeVisible();
+    expect(downloads.textContent).not.toMatch(/Use the APK for now|فعلاً از فایل APK/);
     expect(screen.getAllByText(c.screenshotPreview).every((caption) => caption.tagName === "FIGCAPTION")).toBe(true);
     expect(document.querySelector('img[src*="/guide/home"]')).toBeNull();
     expect(document.querySelector(".nex-photo-placeholder")).toBeNull();
