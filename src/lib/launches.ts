@@ -51,30 +51,6 @@ export const LAUNCH_PAGES = {
       },
     },
   },
-  nexachatai: {
-    name: "NexaChatAI",
-    number: "03",
-    copy: {
-      fa: {
-        label: "در حال ساخت",
-        line: "گفت‌وگوهای هوشمند، تجربه‌ای ساده‌تر.",
-        note: "خانه تازه NexaChatAI در حال ساخته‌شدن است. این گفتگو تازه شروع شده.",
-        back: "بازگشت به استودیو",
-        footer: "گفت‌وگو ادامه دارد",
-        seoTitle: "NexaChatAI | در حال ساخت | DbsStudio",
-        seoDescription: "صفحه اختصاصی NexaChatAI در DbsStudio در حال آماده‌سازی است.",
-      },
-      en: {
-        label: "Under construction",
-        line: "Intelligent conversations, simpler experiences.",
-        note: "A new home for NexaChatAI is on the way. The conversation has just begun.",
-        back: "Back to studio",
-        footer: "To be continued",
-        seoTitle: "NexaChatAI | Coming Soon | DbsStudio",
-        seoDescription: "The official NexaChatAI product page is under construction.",
-      },
-    },
-  },
   nexaslider: {
     name: "Nexa Slider",
     number: "04",

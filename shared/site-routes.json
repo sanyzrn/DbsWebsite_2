@@ -7,7 +7,6 @@
     "/about",
     "/contact",
     "/issues",
-    "/nexachat",
     "/privacy",
     "/terms",
     "/nex",
@@ -47,7 +46,7 @@
     "/404": "notFound",
     "/nex": "nex",
     "/nexahr": "launch",
-    "/nexachatai": "launch",
+    "/nexachatai": "nexachat",
     "/nexaslider": "launch",
     "/nex/features": "nex",
     "/nex/guide": "nex",
@@ -56,8 +55,7 @@
     "/nex/themes": "nex",
     "/nex/faq": "nex",
     "/nex/privacy": "nex",
-    "/issues": "issues",
-    "/nexachat": "nexachat"
+    "/issues": "issues"
   },
   "pageKeys": {
     "/": "home",
@@ -70,7 +68,7 @@
     "/terms": "terms",
     "/nex": "nex",
     "/nexahr": "launch",
-    "/nexachatai": "launch",
+    "/nexachatai": "nexachat",
     "/nexaslider": "launch",
     "/nex/features": "nexFeatures",
     "/nex/guide": "nexGuide",
@@ -79,12 +77,10 @@
     "/nex/themes": "nexThemes",
     "/nex/faq": "nexFaq",
     "/nex/privacy": "nexPrivacy",
-    "/issues": "issues",
-    "/nexachat": "nexachat"
+    "/issues": "issues"
   },
   "noindexPaths": [
     "/nexahr",
-    "/nexachatai",
     "/nexaslider"
   ]
 }

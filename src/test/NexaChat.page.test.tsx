@@ -14,10 +14,10 @@ afterEach(() => {
 describe("NexaChatAI demo page", () => {
   it("is prerendered in both languages with its own SEO", () => {
     const paths = listPrerenderPaths();
-    expect(paths).toContain("/nexachat");
-    expect(paths).toContain("/en/nexachat");
-    expect(resolveSeoForPath("/nexachat").title).toBe(NEXACHAT_COPY.fa.seoTitle);
-    expect(resolveSeoForPath("/en/nexachat").title).toBe(NEXACHAT_COPY.en.seoTitle);
+    expect(paths).toContain("/nexachatai");
+    expect(paths).toContain("/en/nexachatai");
+    expect(resolveSeoForPath("/nexachatai").title).toBe(NEXACHAT_COPY.fa.seoTitle);
+    expect(resolveSeoForPath("/en/nexachatai").title).toBe(NEXACHAT_COPY.en.seoTitle);
   });
 
   it("keeps Persian and English copy aligned", () => {
@@ -29,8 +29,8 @@ describe("NexaChatAI demo page", () => {
   });
 
   it.each([
-    ["/nexachat", "rtl"],
-    ["/en/nexachat", "ltr"],
+    ["/nexachatai", "rtl"],
+    ["/en/nexachatai", "ltr"],
   ])("renders %s with a single h1 and a demo host", (path) => {
     window.history.replaceState(null, "", path);
     const { container } = render(<App />);

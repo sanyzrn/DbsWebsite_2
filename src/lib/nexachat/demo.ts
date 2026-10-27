@@ -1,5 +1,5 @@
 /**
- * Scripted back end for the live NexaChatAI demo on /nexachat.
+ * Scripted back end for the live NexaChatAI demo on /nexachatai.
  *
  * The page runs the plugin's own widget (public/nexachat-demo/chatbot.js) with the plugin's own
  * configuration (widget-config.json, the output of the plugin's build_config() for a demo shop).

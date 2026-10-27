@@ -1,4 +1,4 @@
-/* NexaChatAI product page (/nexachat): blocks, the live-demo stage and the sample-question chips. */
+/* NexaChatAI product page (/nexachatai): blocks, the live-demo stage and the sample-question chips. */
 .nexachat-block {
   margin-top: clamp(48px, 7vw, 112px);
   border-top: 1px solid var(--rule);

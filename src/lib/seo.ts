@@ -94,7 +94,7 @@ export function resolvePageSeo(
   } else if (page === "nexachat") {
     title = NEXACHAT_COPY[lang].seoTitle;
     description = NEXACHAT_COPY[lang].seoDescription;
-    path = opts?.path ?? localePath(lang, "/nexachat");
+    path = opts?.path ?? localePath(lang, "/nexachatai");
   } else if (page === "issues" && seo.issues) {
     title = seo.issues.title;
     description = seo.issues.description;
@@ -434,7 +434,7 @@ export function resolveSeoForPath(pathname: string): PageSeo {
   if (bare === "/contact") {
     return resolvePageSeo(lang, "contact", { path });
   }
-  if (bare === "/nexachat") {
+  if (bare === "/nexachatai") {
     return resolvePageSeo(lang, "nexachat", { path });
   }
   if (bare === "/issues") {
