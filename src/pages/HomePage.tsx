@@ -1,3 +1,4 @@
+import { StudioDiscovery } from "../components/StudioFamily";
 import Hero from "../components/Hero";
 import Intro from "../components/Intro";
 import { Process } from "../components/Thinking";
@@ -10,6 +11,7 @@ export default function HomePage() {
       <PageMeta page="home" />
       <Hero />
       <Intro />
+      <StudioDiscovery home />
       <Projects mode="teaser" />
       <Process />
     </>

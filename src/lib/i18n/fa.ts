@@ -24,6 +24,17 @@ export type IssueKindId = (typeof ISSUE_KIND_IDS)[number];
 
 const fa = {
   dir: "rtl" as "rtl" | "ltr",
+  studio: {
+    madeBy: "ساختهٔ", menu: "از استودیو", title: "خانوادهٔ محصولات DbsStudio",
+    heading: "ساخته‌های دیگر استودیو", homeHeading: "محصولات استودیو",
+    intro: "ابزارهای متفاوت، با یک نگاه مشترک به طراحی و ساخت.",
+    about: "دربارهٔ استودیو", collaborate: "شروع همکاری", invitation: "برای کسب‌وکارت چیزی بسازیم؟",
+    preview: "صفحه در حال آماده‌سازی", current: "همین‌جا هستید",
+    nex: "حافظهٔ دوم شما؛ ثبت و پیدا کردن در چند ثانیه.",
+    nexachatai: "دستیار هوشمند برای پاسخ‌گویی در وب‌سایت شما.",
+    nexahr: "نگاهی انسانی‌تر به مدیریت و ارزیابی عملکرد.",
+    nexaslider: "افزونهٔ اسلایدر محصولات برای وب‌سایت‌های وردپرسی.",
+  },
   brand: {
     name: "DbsStudio",
     sub: "مهندس راهکارهای هوش مصنوعی",

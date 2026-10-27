@@ -1,3 +1,4 @@
+import { StudioDiscovery, StudioSignature } from "../components/StudioFamily";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowUpLeft } from "lucide-react";
 import { PageMeta } from "../components/PageMeta";
@@ -26,7 +27,7 @@ export default function ComingSoonPage() {
         <div className="product-launch__grid" aria-hidden="true" />
         <div className="product-launch__wrap">
           <div className="product-launch__masthead">
-            <span className="product-launch__signature">DBS<span className="product-launch__signature-mark">/</span>STUDIO</span>
+            <StudioSignature />
             <span className="product-launch__edition" dir="ltr">PROJECT PREVIEW / {product.number}</span>
           </div>
 
@@ -64,6 +65,7 @@ export default function ComingSoonPage() {
             </div>
           </div>
 
+          <StudioDiscovery />
           <div className="product-launch__foot">
             <span>© DbsStudio</span>
             <span className="product-launch__foot-rule" aria-hidden="true"><i /></span>
