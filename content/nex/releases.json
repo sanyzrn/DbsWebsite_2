@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.3.5",
+      "tag": "v2.3.5",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.5",
+      "publishedAt": "2026-10-27T06:28:02.000Z",
+      "notes": {
+        "en": "- **Clouds that drift in.** In pull to refresh, a cloud now drifts in from beyond the edge instead of appearing inside the sky, and the drift runs as one smooth, endless loop — it no longer jumps every few seconds.\r\n- **A copy made for Cafe Bazaar and Myket.** The copy published for the stores has no in-app updater and no longer asks for permission to install apps, because the store keeps it up to date.\r\n- **No unencrypted connections at all.** The installed app now refuses unencrypted (http) connections everywhere; the one exception, for developers' own test machines, is left in development builds only.\r\n- **Privacy policy brought up to date.** It names Cycle as health data, says what the sponsor card is, lists the permissions as they are now, and adds how long things are kept, how they are secured, a note on children and a contact email. The same text is on the website, at DbsStudio.ir/nex/privacy.",
+        "fa": "- **ابرهایی که از بیرون می‌آیند.** در کشیدن برای تازه‌سازی، هر ابر حالا از بیرون لبه وارد آسمان می‌شود، نه اینکه یک‌دفعه داخلش ظاهر شود، و حرکتشان یک چرخهٔ نرم و بی‌پایان است — دیگر هر چند ثانیه یک‌بار به هم نمی‌ریزد.\r\n- **نسخه‌ای برای کافه‌بازار و مایکت.** نسخه‌ای که برای این فروشگاه‌ها منتشر می‌شود به‌روزرسان درون‌برنامه ندارد و دیگر اجازهٔ نصب برنامه نمی‌خواهد، چون خود فروشگاه به‌روزش می‌کند.\r\n- **هیچ اتصال رمزنشده‌ای.** برنامهٔ نصب‌شده حالا اتصال رمزنشده (http) را هیچ‌جا نمی‌پذیرد؛ تنها استثنا، که برای دستگاه آزمایشی توسعه‌دهنده بود، فقط در نسخه‌های توسعه مانده.\r\n- **سیاست حریم خصوصی به‌روز شد.** چرخه را داده‌ای سلامت‌محور می‌نامد، می‌گوید کارت حامی چیست، دسترسی‌ها را همان‌طور که حالا هستند فهرست می‌کند، و بخش‌های مدت نگهداری، امنیت، کودکان و ایمیل تماس را اضافه می‌کند. همین متن در سایت، در DbsStudio.ir/nex/privacy، هم هست."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.3.5-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 58320317,
+          "downloads": 1,
+          "sha256": "b386e9deff63847a784082458f7c402349258d529b07fbcd6576ce18c04a297b"
+        },
+        {
+          "name": "Nex-2.3.5-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 35184607,
+          "downloads": 0,
+          "sha256": "5c9650fc2dbbe0f48432691ed00fec52330dcb1f81b68f53545982ee1db0a179"
+        },
+        {
+          "name": "Nex-2.3.5-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-store.aab",
+          "kind": "bundle",
+          "size": 110016412,
+          "downloads": 0,
+          "sha256": "dfd721d9241f6d8ee07e0a156e4a66138b7cdd287d0d7cf801e39d70dc84ac1d"
+        },
+        {
+          "name": "Nex-2.3.5-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-store.apk",
+          "kind": "other",
+          "size": 146516394,
+          "downloads": 0,
+          "sha256": "b10fc065c897fece70c7b63158fb8328656580fc93484a0d4fb4e563773a9c66"
+        },
+        {
+          "name": "Nex-2.3.5-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-universal.apk",
+          "kind": "universal",
+          "size": 146516430,
+          "downloads": 0,
+          "sha256": "0f7e72f434afa5c20dcf8584e1fd7ca5335374b80e596273f612e4e0e1c826b3"
+        },
+        {
+          "name": "Nex-2.3.5-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5-x86_64.apk",
+          "kind": "x64",
+          "size": 63808952,
+          "downloads": 0,
+          "sha256": "eb8314357fabb586845d3f5a15f5cef98c0673efb7de6dcbc6c2f84595f7c5c1"
+        },
+        {
+          "name": "Nex-2.3.5.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/Nex-2.3.5.aab",
+          "kind": "bundle",
+          "size": 110019091,
+          "downloads": 0,
+          "sha256": "d8193e68ec534f03d523388d98f02cf9cb3fab30a47fbdf5a2cbd1e29c5cd4ff"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.5/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 1,
+          "sha256": "6b41192d8a7544407daa500c654c1d5ae80affc2e3514ebbb14ca456511b9dfb"
+        }
+      ]
+    },
+    {
       "version": "2.3.4",
       "tag": "v2.3.4",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.4",
@@ -16,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4-arm64-v8a.apk",
           "kind": "arm64",
           "size": 58318641,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "3916585a2f9ff8bb4375e9d14035d47083e0b2a7ddbc76dfdf9b967e1b9d4d48"
         },
         {
@@ -32,7 +108,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/Nex-2.3.4-universal.apk",
           "kind": "universal",
           "size": 146514758,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "f7ffd5d1e0091ec57eba8f377b6b44d52653026f9a495714b61af444ffee54e7"
         },
         {
@@ -56,7 +132,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.4/SHA256SUMS",
           "kind": "other",
           "size": 434,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "4dcbb0c1e41a70e9882ec842c1b0ae98389981a797936501df89423b498443ef"
         }
       ]
