@@ -74,11 +74,15 @@ describe("Nex timeline and routing", () => {
     }
   });
 
-  it.each(["fa", "en"] as const)("shows Android stores as coming soon, no direct APK and an honestly labelled preview in %s", (lang) => {
+  it.each(["fa", "en"] as const)("links to Cafe Bazaar, keeps other stores coming soon and offers no direct APK in %s", (lang) => {
     open(lang === "fa" ? "/nex/" : "/en/nex/");
     const c = NEX_COPY[lang];
     const downloads = document.querySelector<HTMLElement>("#nex-download")!;
-    for (const id of Object.keys(NEX_STORES) as (keyof typeof NEX_STORES)[]) {
+    const bazaar = within(downloads).getByRole("link", { name: c.bazaar });
+    expect(bazaar).toHaveAttribute("href", "https://cafebazaar.ir/app/com.sanyzrn.nex");
+    expect(bazaar).not.toHaveTextContent(c.storeSoon);
+    expect(bazaar.querySelector("img")).toHaveAttribute("src", NEX_STORES.bazaar.logo);
+    for (const id of ["myket", "googlePlay"] as const) {
       const store = within(downloads).getByRole("button", { name: `${c[id]} ${c.storeSoon}` });
       expect(store).toBeDisabled();
       expect(store).not.toHaveAttribute("href");
@@ -87,7 +91,7 @@ describe("Nex timeline and routing", () => {
       expect(src).toBe(NEX_STORES[id].logo);
       expect(fs.existsSync(`public${src}`)).toBe(true);
     }
-    expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(3);
+    expect(document.querySelectorAll(".nex-store-links button")).toHaveLength(2);
     expect(document.querySelector('a[data-store="apk"]')).toBeNull();
     expect(document.querySelector(".nex-hero .nex-store-links")).toBeNull();
     expect(document.querySelector(".nex-chronicle")!.compareDocumentPosition(downloads) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();

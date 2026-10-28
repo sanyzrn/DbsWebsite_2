@@ -250,7 +250,8 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
         if (isNex) {
           if (await page.locator(".nex-motion-toggle").count() || await page.locator(".nex-brand svg").count() !== 1) throw new Error("Nex masthead must only show its wordmark and locale/theme controls");
           if (viewport.width <= 600 && (await page.locator(".nex-wordmark").boundingBox()).height > 22) throw new Error("Nex mobile wordmark is too large");
-          if (await page.locator(".nex-store-links button:disabled").count() !== 3) throw new Error("Nex must show three coming-soon Android stores");
+          if (await page.locator('a[data-store="bazaar"]').getAttribute("href") !== "https://cafebazaar.ir/app/com.sanyzrn.nex") throw new Error("Nex must link to its published Cafe Bazaar listing");
+          if (await page.locator('.nex-store-links button:disabled[data-store="myket"], .nex-store-links button:disabled[data-store="googlePlay"]').count() !== 2) throw new Error("Myket and Google Play must remain coming soon");
           if (await page.locator('a[data-store="apk"], a[href*="/releases/download/"], a[href$=".apk"]').count()) throw new Error("Nex must not offer direct APK downloads");
           const downloadPlacement = await page.locator("#nex-download").evaluate((el) => el.compareDocumentPosition(globalThis.document.querySelector(".nex-chronicle")) & globalThis.Node.DOCUMENT_POSITION_PRECEDING);
           if (!downloadPlacement || await page.locator(".nex-hero .nex-store-links").count()) throw new Error("Nex downloads must follow the timeline");

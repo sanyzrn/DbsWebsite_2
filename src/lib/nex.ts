@@ -3,7 +3,7 @@ import type { Lang } from "./i18n";
 
 /** Replace only when the owner supplies the real store destinations. */
 export const NEX_STORES = {
-  bazaar: { href: "#", logo: "/images/nex/stores/bazaar.png", todo: "TODO: Cafe Bazaar app URL" },
+  bazaar: { href: "https://cafebazaar.ir/app/com.sanyzrn.nex", logo: "/images/nex/stores/bazaar.png", todo: "" },
   myket: { href: "#", logo: "/images/nex/stores/myket.png", todo: "TODO: Myket app URL" },
   googlePlay: { href: "#", logo: "/images/nex/stores/googleplay.svg", todo: "TODO: Google Play app URL" },
 };
