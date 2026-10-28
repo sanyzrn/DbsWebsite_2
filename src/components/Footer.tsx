@@ -25,6 +25,10 @@ export default function Footer() {
     { label: t.nav.process, to: `${home}#process` },
     { label: t.nav.about, to: localePath(lang, "/about") },
     { label: t.nav.contact, to: localePath(lang, "/contact") },
+    { label: "Nex", to: localePath(lang, "/nex") },
+    { label: "NexaChatAI", to: localePath(lang, "/nexachatai") },
+    { label: "NexaHR", to: localePath(lang, "/nexahr") },
+    { label: "Nexa Slider", to: localePath(lang, "/nexaslider") },
   ];
   const legal = [
     { label: t.footer.privacy, to: localePath(lang, "/privacy") },
