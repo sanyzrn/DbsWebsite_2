@@ -55,25 +55,7 @@
 .nex-old-releases time { margin-inline-start: auto; color: var(--nx-muted); }
 .nex-download :where(a,summary):focus-visible { outline: 2px solid var(--nx-blue-ink); outline-offset: 4px; border-radius: 4px; }
 .nex-timeline-preview { margin: 18px 0 0; }
-.nex-preview-phone { width: 100%; max-width: 290px; padding: 20px 15px 15px; margin-inline: auto; background: var(--nx-bg); border: 1px solid var(--nx-rule); border-radius: 24px; }
-.nex-preview-phone header { display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: var(--nx-muted); }
-.nex-preview-phone header svg { width: 45px; height: 22px; --nx-mark-accent: var(--nx-blue); }
-.nex-preview-search { display: flex; gap: 8px; align-items: center; margin-top: 20px; border: 1px solid var(--nx-rule); border-radius: 10px; padding: 9px; font-size: 9px; color: var(--nx-muted); }
-.nex-preview-date { color: var(--nx-muted); font-size: 9px; margin-block: 16px 9px; }
-.nex-preview-items { border-inline-start: 1px solid var(--nx-rule); margin-inline-start: 8px; }
-.nex-preview-items > div { position: relative; display: flex; gap: 10px; margin-bottom: 14px; margin-inline-start: -8px; }
-.nex-preview-items > div > svg { color: var(--nx-blue-ink); background: var(--nx-bg); flex-shrink: 0; margin-top: 12px; }
-.nex-preview-items p { flex: 1; min-width: 0; padding: 12px; border: 1px solid var(--nx-rule); border-radius: 10px; background: var(--nx-card); font-size: 11px; line-height: 1.9; white-space: pre-line; }
-.nex-preview-items small { display: block; color: var(--nx-muted); font-size: 8px; margin-top: 9px; }
-.nex-preview-wave { display: flex; align-items: center; gap: 3px; height: 28px; }
-.nex-preview-wave i { width: 3px; border-radius: 2px; height: 8px; background: var(--nx-blue-ink); }
-.nex-preview-wave .nex-preview-bar-1 { height: 16px; }
-.nex-preview-wave .nex-preview-bar-2 { height: 26px; }
-.nex-preview-wave .nex-preview-bar-3 { height: 12px; }
-.nex-preview-wave .nex-preview-bar-4 { height: 20px; }
-.nex-preview-check { display: flex; align-items: baseline; gap: 6px; margin-block: 2px; font-size: 9px; }
-.nex-preview-check svg { color: var(--nx-blue-ink); flex-shrink: 0; }
-.nex-preview-plus { display: grid; place-items: center; width: 40px; height: 40px; margin: 18px auto 0; border-radius: 50%; color: var(--nx-bg); background: var(--nx-ink); }
+.nex-timeline-screenshot { display: block; width: 100%; max-width: 290px; height: auto; margin-inline: auto; border: 1px solid var(--nx-rule); border-radius: 24px; }
 .nex-timeline-preview figcaption { color: var(--nx-muted); text-align: center; margin-top: 12px; font-size: 10px; }
 @media (max-width: 820px) {
   .nex-release-layout { grid-template-columns: 1fr; gap: 24px; }
