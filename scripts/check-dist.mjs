@@ -247,9 +247,15 @@ for (const prefix of ["", "en/"]) for (const slug of ["", "download/", "changelo
   if (/Use the APK for now|فعلاً از فایل APK/.test(html)) {
     throw new Error(`check:dist ${rel} must not recommend sideloading`);
   }
-  if (slug !== "changelog/") for (const store of ["bazaar", "myket", "googlePlay"]) {
-    if (!new RegExp(`<button[^>]*data-store="${store}"[^>]*disabled`).test(html)) {
-      throw new Error(`check:dist ${rel} must show ${store} as coming soon`);
+  if (slug !== "changelog/") {
+    const bazaar = html.match(/<a\b[^>]*data-store="bazaar"[^>]*>/)?.[0];
+    if (!bazaar?.includes('href="https://cafebazaar.ir/app/com.sanyzrn.nex"')) {
+      throw new Error(`check:dist ${rel} must link to the published Cafe Bazaar listing`);
+    }
+    for (const store of ["myket", "googlePlay"]) {
+      if (!new RegExp(`<button[^>]*data-store="${store}"[^>]*disabled`).test(html)) {
+        throw new Error(`check:dist ${rel} must show ${store} as coming soon`);
+      }
     }
   }
 }
