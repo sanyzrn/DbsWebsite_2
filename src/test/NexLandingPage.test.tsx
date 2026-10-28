@@ -66,7 +66,7 @@ describe("Nex timeline and routing", () => {
       expect(html).toContain(c.tagline);
       expect(html).toContain("<details");
       expect(html).not.toMatch(/href="https:\/\/github.com\/sanyzrn\/DbsNex-releases\/releases\/download\//);
-      expect(html).toContain(c.screenshotPreview);
+      expect(html).toContain(c.screenshotCaption);
       expect(html).toContain("<noscript>");
       expect(html).toMatch(/<textarea[^>]*disabled/);
       expect(html).not.toContain("product-launch__hero");
@@ -97,7 +97,12 @@ describe("Nex timeline and routing", () => {
     expect(document.querySelector(".nex-chronicle")!.compareDocumentPosition(downloads) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(downloads.querySelectorAll(".nex-store")).toHaveLength(3);
     expect(downloads.textContent).not.toMatch(/Use the APK for now|فعلاً از فایل APK/);
-    expect(screen.getAllByText(c.screenshotPreview).every((caption) => caption.tagName === "FIGCAPTION")).toBe(true);
+    expect(screen.getAllByText(c.screenshotCaption).every((caption) => caption.tagName === "FIGCAPTION")).toBe(true);
+    const timelineShot = document.querySelector<HTMLImageElement>(".nex-timeline-screenshot")!;
+    expect(timelineShot).toHaveAttribute("src", `/images/nex/screens/${lang}_1_home_light-540.webp`);
+    expect(timelineShot).toHaveAttribute("alt", c.screenshotAlt);
+    expect(fs.existsSync(`public${timelineShot.getAttribute("src")}`)).toBe(true);
+    expect(document.querySelector(".nex-preview-phone")).toBeNull();
     expect(document.querySelector('img[src*="/guide/home"]')).toBeNull();
     expect(document.querySelector(".nex-photo-placeholder")).toBeNull();
   });
