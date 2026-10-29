@@ -1,0 +1,51 @@
+name: Idea encryption public key
+
+# Publish only the public half of a deterministic sealed-box key so scheduled
+# ChatGPT tasks can encrypt ideas without being given a private server secret.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-key:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Derive non-sensitive sealed-box public key
+        env:
+          IDEA_SHARED_SECRET: ${{ secrets.BALE_BOT_TOKEN }}
+        run: |
+          if [ "${#IDEA_SHARED_SECRET}" -lt 15 ]; then
+            echo "::error::Required Actions secret is missing"
+            exit 1
+          fi
+          php -r '
+          $seed=hash_hkdf("sha256", getenv("IDEA_SHARED_SECRET"), SODIUM_CRYPTO_BOX_SEEDBYTES, "dbsstudio.idea.sealed-box.v1");
+          $pair=sodium_crypto_box_seed_keypair($seed);
+          sodium_memzero($seed);
+          $public=sodium_crypto_box_publickey($pair);
+          sodium_memzero($pair);
+          file_put_contents("public/idea/public-key.json", json_encode([
+            "version"=>"DBS-IDEA-V1",
+            "algorithm"=>"crypto_box_seal",
+            "public_key_base64"=>base64_encode($public)
+          ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)."\n");
+          '
+      - name: Commit public key only if changed
+        run: |
+          if git diff --quiet -- public/idea/public-key.json && [ -f public/idea/public-key.json ] && ! git ls-files --others --exclude-standard public/idea/public-key.json | grep -q .; then
+            echo "Public key is already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/idea/public-key.json
+          git commit -m "chore(idea): refresh public encryption key [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
