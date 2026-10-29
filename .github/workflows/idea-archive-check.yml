@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: PHP syntax and password gate
         run: |
-          for file in public/idea/*.php; do php -l "$file"; done
+          for file in public/idea/*.php .github/scripts/idea-decrypt.php; do php -l "$file"; done
           php -r 'if (!extension_loaded("sodium")) exit(1);'
           # Never deploy this fixture; it is only created within the ephemeral CI runner.
           printf '%s\n' '<?php define("BALE_BOT_TOKEN", "ci-test-bot-secret-with-enough-entropy-for-derivation");' > public/api/bale-config.php
@@ -50,14 +50,18 @@ jobs:
             'scores' => ['demand'=>5,'differentiation'=>5,'build'=>5,'reach'=>5,'revenue'=>5,'scale'=>5],
           ];
           $envelope = 'DBS-IDEA-V1:' . base64_encode(sodium_crypto_box_seal(json_encode($idea, JSON_UNESCAPED_UNICODE), sodium_crypto_box_publickey($pair)));
-          echo json_encode(['envelope'=>$envelope]), "\n";
-          echo hash_hmac('sha256', $envelope, (string) BALE_BOT_TOKEN), "\n";
+          $body = json_encode(['idea'=>$idea], JSON_UNESCAPED_UNICODE);
+          echo $envelope, "\n";
+          echo $body, "\n";
+          echo hash_hmac('sha256', $body, (string) BALE_BOT_TOKEN), "\n";
           PHP
-          envelope_json=$(head -n 1 /tmp/idea-encoded.txt)
-          signature=$(tail -n 1 /tmp/idea-encoded.txt)
-          curl --fail --silent --show-error -H "content-type: application/json" -H "x-idea-signature: $signature" --data "$envelope_json" http://127.0.0.1:8765/idea/ingest.php | grep -q '"saved":true'
-          curl --fail --silent --show-error -H "content-type: application/json" -H "x-idea-signature: $signature" --data "$envelope_json" http://127.0.0.1:8765/idea/ingest.php | grep -q '"duplicate":true'
-          bad_status=$(curl --silent --output /dev/null --write-out '%{http_code}' -H 'content-type: application/json' -H 'x-idea-signature: 0000000000000000000000000000000000000000000000000000000000000000' --data "$envelope_json" http://127.0.0.1:8765/idea/ingest.php)
+          envelope=$(head -n 1 /tmp/idea-encoded.txt)
+          IDEA_SHARED_SECRET='ci-test-bot-secret-with-enough-entropy-for-derivation' php .github/scripts/idea-decrypt.php <<< "$envelope" | grep -q 'CI test private idea'
+          signed_json=$(sed -n '2p' /tmp/idea-encoded.txt)
+          signature=$(sed -n '3p' /tmp/idea-encoded.txt)
+          curl --fail --silent --show-error -H "content-type: application/json" -H "x-idea-signature: $signature" --data "$signed_json" http://127.0.0.1:8765/idea/ingest.php | grep -q '"saved":true'
+          curl --fail --silent --show-error -H "content-type: application/json" -H "x-idea-signature: $signature" --data "$signed_json" http://127.0.0.1:8765/idea/ingest.php | grep -q '"duplicate":true'
+          bad_status=$(curl --silent --output /dev/null --write-out '%{http_code}' -H 'content-type: application/json' -H 'x-idea-signature: 0000000000000000000000000000000000000000000000000000000000000000' --data "$signed_json" http://127.0.0.1:8765/idea/ingest.php)
           test "$bad_status" = '401'
           # The protected page must NEVER expose private idea data to unauthorized sessions.
           curl --fail --silent --show-error http://127.0.0.1:8765/idea/index.php -o /tmp/idea-login-after.html
@@ -65,3 +69,11 @@ jobs:
             echo 'Unauthorized disclosure of archived idea'
             exit 1
           fi
+
+      - name: Check live public endpoint response metadata (non-blocking)
+        continue-on-error: true
+        run: |
+          curl -L -sS --max-time 15 --output /tmp/idea-public-response --dump-header /tmp/idea-public-headers --write-out 'pubkey HTTP %{http_code}, content_type %{content_type}, bytes %{size_download}, final_url %{url_effective}\n' https://dbsstudio.ir/idea/pubkey.php
+          grep -iE '^(HTTP/|content-type:|location:|server:)' /tmp/idea-public-headers || true
+          curl -L -sS --max-time 15 --output /tmp/idea-ingest-response --dump-header /tmp/idea-ingest-headers --write-out 'ingest HTTP %{http_code}, content_type %{content_type}, bytes %{size_download}, final_url %{url_effective}\n' -H 'content-type: application/json' -H 'x-idea-signature: invalid' -d '{"envelope":"invalid"}' https://dbsstudio.ir/idea/ingest.php
+          grep -iE '^(HTTP/|content-type:|location:|server:)' /tmp/idea-ingest-headers || true

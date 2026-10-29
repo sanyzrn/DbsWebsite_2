@@ -1,8 +1,8 @@
 <?php
 /**
- * Signed, sealed automated ingestion. GitHub Actions signs opaque ciphertext with
- * a secret never exposed in the public repository. No plaintext idea passes via
- * GitHub Issues or Actions logs. Decryption happens only on the actual PHP host.
+ * Authenticated automated ingestion. GitHub Issues only contain ciphertext;
+ * GitHub Actions decrypts in memory and POSTs a signed idea over TLS. The PHP
+ * hosting needs no Sodium extension and never exposes private data to visitors.
  */
 declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
@@ -20,23 +20,20 @@ if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 45000) failIngest(413, 'payload_too
 $raw = file_get_contents('php://input', false, null, 0, 45001);
 if ($raw === false || strlen($raw) > 45000) failIngest(413, 'payload_too_large');
 $json = json_decode($raw, true);
-$envelope = is_array($json) ? ($json['envelope'] ?? null) : null;
 $signature = $_SERVER['HTTP_X_IDEA_SIGNATURE'] ?? '';
-if (!is_string($envelope) || !preg_match('/^DBS-IDEA-V1:([A-Za-z0-9+\/=]{50,40000})$/D', $envelope, $match)) failIngest(400, 'invalid_envelope');
 if (!is_string($signature) || !preg_match('/^[a-f0-9]{64}$/D', $signature)) failIngest(401, 'unauthorized');
 try {
-    require_once __DIR__ . '/crypto.php';
+    $config = dirname(__DIR__) . '/api/bale-config.php';
+    if (!is_file($config)) failIngest(503, 'configuration_missing');
+    require_once $config;
     require_once __DIR__ . '/storage.php';
-    $pair = ideaBoxKeypair();
-    $expected = hash_hmac('sha256', $envelope, (string) BALE_BOT_TOKEN);
+    if (!defined('BALE_BOT_TOKEN') || strlen((string) BALE_BOT_TOKEN) < 15) failIngest(503, 'configuration_missing');
+    // The GitHub Actions runner decrypts sealed ciphertext inside its privileged
+    // process and sends plaintext to this endpoint only over authenticated TLS.
+    // This shared host therefore needs no PHP Sodium extension.
+    $expected = hash_hmac('sha256', $raw, (string) BALE_BOT_TOKEN);
     if (!hash_equals($expected, $signature)) failIngest(401, 'unauthorized');
-    $ciphertext = base64_decode($match[1], true);
-    if ($ciphertext === false || strlen($ciphertext) > 30000) failIngest(400, 'invalid_ciphertext');
-    $plaintext = sodium_crypto_box_seal_open($ciphertext, $pair);
-    sodium_memzero($pair);
-    if ($plaintext === false) failIngest(400, 'decryption_failed');
-    $item = json_decode($plaintext, true);
-    sodium_memzero($plaintext);
+    $item = is_array($json) ? ($json['idea'] ?? null) : null;
     if (!is_array($item)) failIngest(400, 'invalid_idea');
     $fields = ['title','category','audience','problem','evidence','product','pricing','mvp','risk','acquisition','validation','notes'];
     $idea = [];
