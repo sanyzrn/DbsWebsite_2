@@ -2,80 +2,91 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.4.0",
+      "tag": "v2.4.0",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.4.0",
+      "publishedAt": "2026-10-29T15:45:39.000Z",
+      "notes": {
+        "en": "- **Birthdays & occasions is here.** Add it from Tools → Add modules. The nearest date leads the page in a coloured card with a countdown ring; every date below is a little calendar page that says how far away it is. Each kind has three greetings to copy or share, and on the day itself they are right on the card. A new date reminds you a day before and on the day, and the reminders keep themselves up to date every year without opening the module. A remembrance's notification never shows its name.\r\n- **Word by Word is here.** Keep the words you meet and review them on a ladder of days. A new look: a deck card showing what is waiting, how your words are spread from new to learned and your streak; each word with its language and a strength meter; a flashcard that turns over in review, with coloured answers. New: an optional review reminder, only on days with words waiting.\r\n- **Warmer greetings.** The line at the top of the home screen is larger, in a typeface of its own (Fraunces in English, Markazi in Persian), and has new, friendlier words — the Persian ones now sound like a friend talking, not a translation — and it is always in the app's language: «صبحت بخیر، Saeed» rather than a whole English line in a Persian app. With AI on, the greeting also takes your writing portrait into account.\r\n- **Pause: a breathing break.** A new module in Tools → Add modules. Choose Calm (5.5 seconds in, 5.5 out), Focus (box breathing, 4·4·4·4) or Relax (4-7-8): a line drawing opens and closes with each breath, the words say when to breathe in, hold and breathe out, and a soft chord, chimes and gentle taps guide you even with your eyes closed. The sound is made on the phone — nothing to download — and sound and vibration each have their own switch. Tap the card to pause; the screen stays on until the session ends with a singing bowl.\r\n- **The smart summary says what it is.** Its card now has a heading, and an **AI** badge when a model writes it. The plain report, which Nex writes itself, shows no badge.\r\n- **One edge for the top of the home screen.** The search field, the filter button beside it, the tags and the smart summary now share the same thin border in every theme, including Liquid Glass, where the filter button had been left flat. Tag names are a softer grey, like the search hint.",
+        "fa": "- **تولدها و مناسبت‌ها آمد.** از ابزارها ← افزودن ماژول اضافه‌اش کنید. نزدیک‌ترین مناسبت در کارتی رنگی با حلقهٔ شمارش معکوس بالای صفحه است و هر تاریخ زیر آن مثل برگ کوچک تقویم می‌گوید چقدر مانده. برای هر نوع سه پیام تبریک برای کپی یا ارسال هست و در خود روز، همان‌جا روی کارت. هر تاریخ تازه یک روز قبل و در خود روز یادآوری می‌کند و یادآوری‌ها هر سال، بدون باز کردن ماژول، خودشان به‌روز می‌مانند. اعلانِ یادبود هیچ‌وقت نام را نشان نمی‌دهد.\r\n- **واژه به واژه آمد.** واژه‌هایی که می‌بینید را نگه دارید و روی نردبان روزها مرورشان کنید. ظاهری تازه: کارتی که نشان می‌دهد چه چیزی منتظر است، واژه‌هایتان از تازه تا آموخته چطور پخش شده‌اند و چند روز پشت سر هم مرور کرده‌اید؛ هر واژه با زبانش و نشانگر یادگیری؛ کارت مرور که برمی‌گردد و پاسخ‌های رنگی. تازه: یادآوری مرور اختیاری، فقط روزهایی که واژه‌ای منتظر است.\r\n- **خوشامدگویی گرم‌تر.** جملهٔ بالای صفحهٔ اصلی بزرگ‌تر شده، با قلمی مخصوص خودش (مرکزی برای فارسی و فرانسس برای انگلیسی)، و واژه‌های تازه و صمیمی‌تری دارد — فارسی‌اش حالا مثل حرف زدن یک دوست است، نه ترجمه — و همیشه به زبان اپ است: «صبحت بخیر، Saeed»، نه یک جملهٔ انگلیسی کامل در اپ فارسی. با هوش مصنوعیِ روشن، خوشامد پرترهٔ نوشتن شما را هم در نظر می‌گیرد.\r\n- **مکث: وقفه‌ای برای تنفس.** ماژولی تازه در ابزارها ← افزودن ماژول. آرامش (۵٫۵ ثانیه دم، ۵٫۵ بازدم)، تمرکز (تنفس مربعی، ۴·۴·۴·۴) یا آسودگی (۴-۷-۸) را انتخاب کنید: طرحی خطی با هر نفس باز و بسته می‌شود، کلمه‌ها می‌گویند کی دم بگیرید، نگه دارید و بازدم کنید، و آکوردی آرام، زنگ‌های کوچک و ضربه‌های نرم حتی با چشم بسته همراهی‌تان می‌کنند. صدا روی خود گوشی ساخته می‌شود و چیزی دانلود نمی‌شود؛ صدا و لرزش هر کدام کلید خودشان را دارند. با زدن کارت مکث کنید؛ صفحه تا پایان جلسه روشن می‌ماند و جلسه با صدای کاسهٔ تبتی تمام می‌شود.\r\n- **خلاصهٔ هوشمند می‌گوید چیست.** کارتش حالا عنوان دارد و وقتی هوش مصنوعی آن را می‌نویسد، نشان **هوش مصنوعی** کنارش است. گزارش سادهٔ خود نکس این نشان را ندارد.\r\n- **یک حاشیه برای بالای صفحهٔ اصلی.** کادر جست‌وجو، دکمهٔ فیلتر کنارش، برچسب‌ها و خلاصهٔ هوشمند حالا در همهٔ تم‌ها، از جمله لیکویید گلس که دکمهٔ فیلتر در آن تخت مانده بود، یک حاشیهٔ نازک یکسان دارند. نام برچسب‌ها خاکستری ملایم‌تری شده، هم‌رنگ متن راهنمای جست‌وجو."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.4.0-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 58885065,
+          "downloads": 2,
+          "sha256": "81e1b8c061422de6d5466efe9a344ead6f8b9d2faa47b9d53962bae250cbf67d"
+        },
+        {
+          "name": "Nex-2.4.0-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 35798507,
+          "downloads": 1,
+          "sha256": "abdf2988a986270ef1535970f489265eb38f220fcba4c389374a7f61a4753d9b"
+        },
+        {
+          "name": "Nex-2.4.0-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0-store.aab",
+          "kind": "bundle",
+          "size": 110682777,
+          "downloads": 1,
+          "sha256": "01f1b1f57e96ca193e36a5b9efa513d042b54c50d72a0a4f6c85c0a13aa22e2a"
+        },
+        {
+          "name": "Nex-2.4.0-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0-store.apk",
+          "kind": "other",
+          "size": 147589066,
+          "downloads": 1,
+          "sha256": "e743c36371afe73f07e1a99b4c0be10a0b1a22799b156e1f461d4c15ce730805"
+        },
+        {
+          "name": "Nex-2.4.0-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0-universal.apk",
+          "kind": "universal",
+          "size": 147589082,
+          "downloads": 1,
+          "sha256": "ad8d5938e8ac07825ca000ea8613a4ee0265d9f61f381f1b6b542af6c1da7ec2"
+        },
+        {
+          "name": "Nex-2.4.0-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0-x86_64.apk",
+          "kind": "x64",
+          "size": 64439236,
+          "downloads": 1,
+          "sha256": "3927fe333f6a66367a41db8d263c224cc4c62b8beaa0f9b1f212bf7f2c152905"
+        },
+        {
+          "name": "Nex-2.4.0.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0.aab",
+          "kind": "bundle",
+          "size": 110686655,
+          "downloads": 1,
+          "sha256": "d2dc8063004548d9f44c14357abcef44d4cb30116ff1d0fb0c2e063973f8ad36"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "d396e1777f6e98f051c941cb61c7e5b439f9a2c4375e031f84940c78df8aeda2"
+        }
+      ]
+    },
+    {
       "version": "2.3.6",
       "tag": "v2.3.6",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.6",
       "publishedAt": "2026-10-28T19:14:17.000Z",
       "notes": {
-        "en": "- **Close a long note from anywhere.** The handle at the top of a note stays in place while you scroll, sits lower so pulling it no longer opens the phone's notifications, and is easier to grab: read to the last line and pull it down.\r\n- **Coming soon: Prompt Studio.** A new module on its way — write what you want in plain words and turn it into a clear, complete prompt for any AI.\r\n- **A removed announcement goes away.** Emptying the announcement file now takes the card down at the next check, like deleting it, instead of staying for up to two days.\r\n- **Installable without a camera or microphone.** Stores no longer limit Nex to phones that have them; everything else works without them.",
-        "fa": "- **بستن یادداشت طولانی از هر جا.** دستگیرهٔ بالای یادداشت هنگام پیمایش سر جایش می‌ماند، پایین‌تر نشسته تا کشیدنش دیگر نوار اعلان گوشی را باز نکند، و راحت‌تر گرفته می‌شود: تا خط آخر بخوانید و آن را پایین بکشید.\r\n- **به‌زودی: کارگاه پرامپت.** ماژولی تازه در راه است — آنچه می‌خواهید را ساده بنویسید و آن را به پرامپتی روشن و کامل برای هر هوش مصنوعی تبدیل کنید.\r\n- **آگهیِ برداشته‌شده می‌رود.** خالی‌کردن فایل آگهی هم مثل حذفش، در بررسی بعدی کارت را برمی‌دارد؛ دیگر تا دو روز در برنامه نمی‌ماند.\r\n- **نصب بدون دوربین و میکروفون.** فروشگاه‌ها دیگر نکس را به گوشی‌های دارای آن‌ها محدود نمی‌کنند؛ بقیهٔ برنامه بدون آن‌ها کار می‌کند."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.3.6-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/Nex-2.3.6-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 58386589,
-          "downloads": 2,
-          "sha256": "0b154c4dcd9f6d059fc5e8c78417e701ca2dbe224c5cf0e4b517f6dd2c8b5300"
-        },
-        {
-          "name": "Nex-2.3.6-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/Nex-2.3.6-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 35267263,
-          "downloads": 0,
-          "sha256": "4af3c756bb7a81459a870fa48fd29cde03e01b49afad3aefd856059462b6edee"
-        },
-        {
-          "name": "Nex-2.3.6-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/Nex-2.3.6-store.aab",
-          "kind": "bundle",
-          "size": 110103567,
-          "downloads": 1,
-          "sha256": "6d4c9172fd717fbb3bff8965177ab0388e0bb2f038dfb37910c7e93f3c252c39"
-        },
-        {
-          "name": "Nex-2.3.6-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/Nex-2.3.6-store.apk",
-          "kind": "other",
-          "size": 146795678,
-          "downloads": 1,
-          "sha256": "bdd3830ba80abb2d08c7ac9c9e395e238ba0bdc69d2815a710acaa0dee4f0cff"
-        },
-        {
-          "name": "Nex-2.3.6-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/Nex-2.3.6-universal.apk",
-          "kind": "universal",
-          "size": 146795694,
-          "downloads": 0,
-          "sha256": "a163cd4b0a49768a1c58e6a32326e7ed1d262e235ce041486140e6fb7d98ffd7"
-        },
-        {
-          "name": "Nex-2.3.6-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/Nex-2.3.6-x86_64.apk",
-          "kind": "x64",
-          "size": 63940760,
-          "downloads": 0,
-          "sha256": "5baa55249a9adb609e6d44f4166257d99e306b586cd68483f9cee629e4a42f3c"
-        },
-        {
-          "name": "Nex-2.3.6.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/Nex-2.3.6.aab",
-          "kind": "bundle",
-          "size": 110107260,
-          "downloads": 0,
-          "sha256": "340a672eccdc5f77aaf26e8caca8889d09abe3bb98dd9f9742d433016b93b423"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.3.6/SHA256SUMS",
-          "kind": "other",
-          "size": 604,
-          "downloads": 1,
-          "sha256": "1901cad1f5da8817134adcb9084e5e60979c1772c7fea74c5a3692410910697e"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.3.5",
@@ -137,17 +148,6 @@
       "tag": "v2.3.0",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.3.0",
       "publishedAt": "2026-10-25T06:10:06.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.2.2",
-      "tag": "v2.2.2",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.2.2",
-      "publishedAt": "2026-10-23T08:50:39.000Z",
       "notes": {
         "en": "",
         "fa": null
