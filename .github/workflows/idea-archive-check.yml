@@ -1,0 +1,36 @@
+name: Idea archive security smoke
+on:
+  push:
+    branches: [cursor-dev]
+    paths:
+      - 'public/idea/**'
+      - '.github/workflows/idea-archive-check.yml'
+  pull_request:
+    paths:
+      - 'public/idea/**'
+      - '.github/workflows/idea-archive-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  php-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP syntax and password gate
+        run: |
+          php -l public/idea/index.php
+          php -r 'if (!password_verify("0000000", "$2y$12$jkdip4u4THVXINzeUeuVTuBcCA65kd0yR2Ij5XCNyl3I./FDESYEK")) { echo "Wrong password properly rejected\n"; } else { exit(1); }'
+          php -S 127.0.0.1:8765 -t public >/tmp/idea-php.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          sleep 2
+          curl --fail --silent --show-error --dump-header /tmp/idea-headers.txt http://127.0.0.1:8765/idea/index.php -o /tmp/idea-login.html
+          grep -q 'ایده‌ها اینجان' /tmp/idea-login.html
+          grep -qi 'no-store' /tmp/idea-headers.txt
+          grep -qi 'noindex' /tmp/idea-headers.txt
+          if grep -q 'THE ARCHIVE' /tmp/idea-login.html; then
+            echo 'Private archive was disclosed without login'
+            exit 1
+          fi
