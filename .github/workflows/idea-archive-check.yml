@@ -65,3 +65,11 @@ jobs:
             echo 'Unauthorized disclosure of archived idea'
             exit 1
           fi
+
+      - name: Check live public endpoint response metadata (non-blocking)
+        continue-on-error: true
+        run: |
+          curl -L -sS --max-time 15 --output /tmp/idea-public-response --dump-header /tmp/idea-public-headers --write-out 'pubkey HTTP %{http_code}, content_type %{content_type}, bytes %{size_download}, final_url %{url_effective}\n' https://dbsstudio.ir/idea/pubkey.php
+          grep -iE '^(HTTP/|content-type:|location:|server:)' /tmp/idea-public-headers || true
+          curl -L -sS --max-time 15 --output /tmp/idea-ingest-response --dump-header /tmp/idea-ingest-headers --write-out 'ingest HTTP %{http_code}, content_type %{content_type}, bytes %{size_download}, final_url %{url_effective}\n' -H 'content-type: application/json' -H 'x-idea-signature: invalid' -d '{"envelope":"invalid"}' https://dbsstudio.ir/idea/ingest.php
+          grep -iE '^(HTTP/|content-type:|location:|server:)' /tmp/idea-ingest-headers || true
