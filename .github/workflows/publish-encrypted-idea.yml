@@ -1,0 +1,64 @@
+name: Publish encrypted idea
+
+# Public Issues only carry libsodium sealed-box ciphertext, never private idea text.
+# This dispatch is owner-only and uses existing BALE_BOT_TOKEN Actions secret.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: >-
+      github.event.issue.user.login == 'sanyzrn' &&
+      github.event.issue.title == 'DBS-IDEA-V1'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Deliver encrypted idea to server
+        uses: actions/github-script@v8
+        env:
+          IDEA_SHARED_SECRET: ${{ secrets.BALE_BOT_TOKEN }}
+        with:
+          script: |
+            const crypto = require('node:crypto');
+            const issue = context.payload.issue;
+            const envelope = (issue.body || '').trim();
+            const secret = process.env.IDEA_SHARED_SECRET || '';
+            if (secret.length < 15) {
+              core.setFailed('Idea publishing secret unavailable');
+              return;
+            }
+            if (!/^DBS-IDEA-V1:[a-zA-Z0-9+/=]{50,40000}$/.test(envelope)) {
+              core.setFailed('Invalid encrypted envelope');
+              return;
+            }
+            const signature = crypto.createHmac('sha256', secret).update(envelope, 'utf8').digest('hex');
+            const response = await fetch('https://dbsstudio.ir/idea/ingest.php', {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json',
+                'x-idea-signature': signature,
+              },
+              body: JSON.stringify({ envelope }),
+              signal: AbortSignal.timeout(25000),
+            });
+            let result;
+            try { result = await response.json(); }
+            catch { core.setFailed('Idea endpoint returned invalid JSON'); return; }
+            if (!response.ok || !result.ok) {
+              core.setFailed(`Idea delivery failed: HTTP ${response.status} ${result.error || 'unknown'}`);
+              return;
+            }
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              state: 'closed',
+              body: 'Encrypted payload delivered to the private idea archive. No readable idea text was stored on GitHub.',
+            });
+            core.info(result.duplicate ? 'Idea already archived.' : 'New idea archived.');
