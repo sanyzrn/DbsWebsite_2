@@ -19,6 +19,7 @@ jobs:
       contents: read
       issues: write
     steps:
+      - uses: actions/checkout@v4
       - name: Deliver encrypted idea to server
         uses: actions/github-script@v8
         env:
@@ -26,6 +27,7 @@ jobs:
         with:
           script: |
             const crypto = require('node:crypto');
+            const { spawnSync } = require('node:child_process');
             const issue = context.payload.issue;
             const envelope = (issue.body || '').trim();
             const secret = process.env.IDEA_SHARED_SECRET || '';
@@ -37,14 +39,25 @@ jobs:
               core.setFailed('Invalid encrypted envelope');
               return;
             }
-            const signature = crypto.createHmac('sha256', secret).update(envelope, 'utf8').digest('hex');
+            const decrypted = spawnSync('php', ['.github/scripts/idea-decrypt.php'], {
+              input: envelope, env: process.env, encoding: 'utf8', maxBuffer: 65000,
+            });
+            if (decrypted.status !== 0 || !decrypted.stdout) {
+              core.setFailed(`Failed to decrypt private idea in runner (exit ${decrypted.status})`);
+              return;
+            }
+            let idea;
+            try { idea = JSON.parse(decrypted.stdout); }
+            catch { core.setFailed('Invalid private idea JSON'); return; }
+            const body = JSON.stringify({ idea });
+            const signature = crypto.createHmac('sha256', secret).update(body, 'utf8').digest('hex');
             const response = await fetch('https://dbsstudio.ir/idea/ingest.php', {
               method: 'POST',
               headers: {
                 'content-type': 'application/json',
                 'x-idea-signature': signature,
               },
-              body: JSON.stringify({ envelope }),
+              body,
               signal: AbortSignal.timeout(25000),
             });
             const responseText = await response.text();
