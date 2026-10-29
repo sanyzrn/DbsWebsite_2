@@ -4,7 +4,7 @@ name: Publish encrypted idea
 # This dispatch is owner-only and uses existing BALE_BOT_TOKEN Actions secret.
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: read
@@ -47,9 +47,17 @@ jobs:
               body: JSON.stringify({ envelope }),
               signal: AbortSignal.timeout(25000),
             });
+            const responseText = await response.text();
             let result;
-            try { result = await response.json(); }
-            catch { core.setFailed('Idea endpoint returned invalid JSON'); return; }
+            try { result = JSON.parse(responseText); }
+            catch {
+              core.setFailed(
+                `Idea endpoint returned invalid JSON: HTTP ${response.status}, ` +
+                `content-type=${response.headers.get('content-type') || 'missing'}, ` +
+                `bytes=${responseText.length}, location=${response.headers.get('location') || 'none'}`
+              );
+              return;
+            }
             if (!response.ok || !result.ok) {
               core.setFailed(`Idea delivery failed: HTTP ${response.status} ${result.error || 'unknown'}`);
               return;
