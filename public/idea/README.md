@@ -17,7 +17,7 @@ Standalone Apache/PHP feature for https://dbsstudio.ir/idea/. This site is **Rea
 
 A GitHub Issues bridge securely publishes new ideas without placing plaintext in public repository files, workflow inputs or workflow logs:
 
-1. On a reviewed `main` push, `.github/workflows/idea-encryption-public-key.yml` derives a public encryption key from the **already-configured** `BALE_BOT_TOKEN` GitHub Actions secret and commits only the public key at `public/idea/public-key.json` (GitHub connector can read this file).
+1. On a reviewed `main` push, `.github/workflows/idea-encryption-public-key.yml` derives a public encryption key from the **already-configured** `BALE_BOT_TOKEN` GitHub Actions secret and updates only the public key at `public/idea/public-key.json` on the `cursor-dev` branch (GitHub connector can read it). The production `main` branch is never mutated by this key refresh.
 2. The idea-generation automation reads the public key from the GitHub repo, encrypts exactly one structured idea as a libsodium `crypto_box_seal` envelope and creates a GitHub Issue with exact title `DBS-IDEA-V1`. The issue body must contain ONLY `DBS-IDEA-V1:<base64 sealed box ciphertext>` (no title, prompt, URLs or plaintext details).
 3. The `Publish encrypted idea` workflow runs only for issues opened by `sanyzrn` with that exact title. It signs the ciphertext using the existing Actions secret and POSTs it to `/idea/ingest.php` over HTTPS.
 4. The PHP endpoint verifies signature, decrypts using the secret already available to `/api/bale-config.php`, validates schema and scores, and uses the **same** locked private storage as the manual form. A successful delivery closes the GitHub Issue and replaces its encrypted body with a success statement.
@@ -25,7 +25,7 @@ A GitHub Issues bridge securely publishes new ideas without placing plaintext in
 
 Both PHP endpoints and the public key require the PHP Sodium extension; CI tests cryptography, duplicate detection, authentication and unauthenticated page privacy. The public key is non-secret; the Bale token, signing key, plaintext idea, password, and `.ideas.php` must never be logged or committed.
 
-**Operational caveats:** Publishing only works if GitHub repository Actions can commit the public key, Issues are enabled, and the host has the correct Bale config + Sodium. This implementation uses a pre-existing secret rather than introducing a new unconfigured token. If the Bale bot token rotates, re-run the public key workflow before publishing more ideas. The archive is server-side and remains usable by hand even if GitHub delivery is unavailable.
+**Operational caveats:** Publishing only works if GitHub repository Actions can update the public key on `cursor-dev`, Issues are enabled, and the host has the correct Bale config + Sodium. This implementation uses a pre-existing secret rather than introducing a new unconfigured token. If the Bale bot token rotates, re-run the public key workflow before publishing more ideas. The archive is server-side and remains usable by hand even if GitHub delivery is unavailable.
 
 ## Non-goals
 No WordPress plugin, no React route changes, no public plaintext idea export, no front-end dependencies and no changes to other public pages.
