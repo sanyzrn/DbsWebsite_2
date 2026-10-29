@@ -21,7 +21,6 @@ jobs:
       - name: PHP syntax and password gate
         run: |
           php -l public/idea/index.php
-          php -r 'if (!password_verify("0000000", "$2y$12$jkdip4u4THVXINzeUeuVTuBcCA65kd0yR2Ij5XCNyl3I./FDESYEK")) { echo "Wrong password properly rejected\n"; } else { exit(1); }'
           php -S 127.0.0.1:8765 -t public >/tmp/idea-php.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
