@@ -1,0 +1,20 @@
+# Isolated password-protected Idea Vault; does not change the main site's routing.
+DirectoryIndex index.php
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+  Header always set Cache-Control "private, no-store, max-age=0"
+  Header always set Referrer-Policy "no-referrer"
+</IfModule>
+
+# Prevent direct retrieval of runtime data, temporary files and instructions.
+<FilesMatch "^(\.|data\.php$|README\.md$)">
+  Require all denied
+</FilesMatch>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "^(\.|data\.php$|README\.md$)">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>
