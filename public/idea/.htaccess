@@ -9,11 +9,11 @@ Options -Indexes
 </IfModule>
 
 # Prevent direct retrieval of runtime data, temporary files and instructions.
-<FilesMatch "^(\.|data\.php$|README\.md$)">
+<FilesMatch "^(\.|storage\.php$|crypto\.php$|README\.md$)">
   Require all denied
 </FilesMatch>
 <IfModule !mod_authz_core.c>
-  <FilesMatch "^(\.|data\.php$|README\.md$)">
+  <FilesMatch "^(\.|storage\.php$|crypto\.php$|README\.md$)">
     Order allow,deny
     Deny from all
   </FilesMatch>
