@@ -1,20 +1,12 @@
-# Isolated password-protected Idea Vault; does not change the main site's routing.
-DirectoryIndex index.php
+# DBS Studio idea archive — standalone public static page.
+# Does not alter the rest of the website, its React router or Apache rules.
+DirectoryIndex index.html
 Options -Indexes
-
-<IfModule mod_headers.c>
-  Header always set X-Robots-Tag "noindex, nofollow, noarchive"
-  Header always set Cache-Control "private, no-store, max-age=0"
-  Header always set Referrer-Policy "no-referrer"
-</IfModule>
-
-# Prevent direct retrieval of runtime data, temporary files and instructions.
-<FilesMatch "^(\.|storage\.php$|crypto\.php$|README\.md$)">
+<FilesMatch "^\.">
   Require all denied
 </FilesMatch>
-<IfModule !mod_authz_core.c>
-  <FilesMatch "^(\.|storage\.php$|crypto\.php$|README\.md$)">
-    Order allow,deny
-    Deny from all
-  </FilesMatch>
+<IfModule mod_headers.c>
+  <Files "ideas.json">
+    Header always set Cache-Control "no-cache, no-store, must-revalidate"
+  </Files>
 </IfModule>

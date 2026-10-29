@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#edeee9">
+  <meta name="description" content="آرشیو ایده‌های کسب‌وکار DBS Studio با تحقیق بازار ایران، بررسی رقبا و ارزیابی شش‌معیاره.">
+  <title>ایده‌های پول‌ساز | DBS Studio</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/idea/style.css">
+  <script defer src="/idea/app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="mark" href="/idea/" aria-label="خانه ایده‌های دی‌بی‌اس">DBS<span> / </span>IDEAS</a>
+      <a class="back-link" href="/" aria-label="بازگشت به DBS Studio">DBS Studio ↗</a>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <span class="eyebrow">IDEA LAB · فرصت‌های بازار ایران</span>
+          <h1>ایده‌های پول‌ساز<span class="dot">.</span></h1>
+          <p class="subdued">هر روز دو ایده بررسی‌شده؛ از مسئله و رقیب تا مدل درآمد و آزمون فروش.</p>
+        </div>
+        <span class="eyebrow">BUILD · TEST · SELL</span>
+      </div>
+      <section class="stats" aria-label="آمار آرشیو">
+        <div class="stat"><span>ایده‌های ثبت‌شده</span><strong id="stat-count">—</strong></div>
+        <div class="stat"><span>میانگین امتیاز</span><strong><span id="stat-average">—</span><small> / ۱۰</small></strong></div>
+        <div class="stat"><span>آخرین ایده</span><strong class="date" id="stat-date">—</strong></div>
+      </section>
+      <div class="list-head">
+        <div><span class="eyebrow">THE ARCHIVE</span><h2>همه ایده‌ها</h2></div>
+        <label class="search-wrap"><span class="sr-only">جستجوی ایده‌ها</span>
+          <input id="idea-search" type="search" placeholder="جستجو در ایده‌ها..." autocomplete="off" aria-label="جستجو در ایده‌ها">
+        </label>
+      </div>
+      <div class="filters" id="idea-filters" aria-label="فیلتر دسته‌بندی"></div>
+      <div class="ideas" id="idea-list" aria-live="polite"></div>
+      <div class="empty" id="empty-state" hidden>
+        <div aria-hidden="true">✳</div>
+        <h3>اولین ایده در راهه</h3>
+        <p>به‌محض ثبت نخستین ایده، اینجا نمایش داده می‌شود.</p>
+      </div>
+      <div class="empty" id="error-state" role="alert" hidden>
+        <h3>دریافت ایده‌ها فعلاً ممکن نیست</h3>
+        <p>فایل آرشیو بارگذاری نشد. یک‌بار دوباره تلاش کن.</p>
+        <button id="retry-load" type="button" class="quiet">تلاش دوباره</button>
+      </div>
+      <p class="no-matches" id="no-matches" hidden>با این فیلتر ایده‌ای پیدا نشد.</p>
+    </main>
+    <footer class="footer">DBS Studio <span>·</span> Idea Lab <span>·</span> ایده‌ها تضمین درآمد نیستند؛ قبل از ساخت اعتبارسنجی کن.</footer>
+  </div>
+</body>
+</html>
