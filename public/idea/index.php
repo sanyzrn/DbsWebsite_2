@@ -7,8 +7,7 @@
 declare(strict_types=1);
 
 const IDEA_PASSWORD_HASH = '$2y$12$jkdip4u4THVXINzeUeuVTuBcCA65kd0yR2Ij5XCNyl3I./FDESYEK';
-const IDEA_DATA_FILE = __DIR__ . '/.ideas.php';
-const IDEA_LOCK_FILE = __DIR__ . '/.ideas.lock';
+require_once __DIR__ . '/storage.php';
 const IDEA_MAX_POST_BYTES = 75000;
 
 date_default_timezone_set('Asia/Tehran');
@@ -49,35 +48,6 @@ function bodyText(string $value): string {
         return '<a href="' . e($url) . '" target="_blank" rel="noopener noreferrer nofollow">' . e($url) . '</a>';
     }, $escaped);
     return nl2br($linked ?? $escaped);
-}
-function readIdeas(): array {
-    if (!is_file(IDEA_DATA_FILE)) return [];
-    $items = require IDEA_DATA_FILE;
-    return is_array($items) ? array_values(array_filter($items, 'is_array')) : [];
-}
-function storeIdea(array $idea): bool {
-    $handle = @fopen(IDEA_LOCK_FILE, 'c');
-    if (!$handle || !flock($handle, LOCK_EX)) return false;
-    try {
-        $items = readIdeas();
-        foreach ($items as $existing) {
-            if (($existing['id'] ?? '') === $idea['id']) return false;
-        }
-        array_unshift($items, $idea);
-        $payload = "<?php\n// Private runtime data. No HTTP output; never commit this file.\nreturn " . var_export($items, true) . ";\n";
-        $temp = __DIR__ . '/.ideas-' . bin2hex(random_bytes(10)) . '.php';
-        if (@file_put_contents($temp, $payload, LOCK_EX) === false) return false;
-        @chmod($temp, 0600);
-        if (!@rename($temp, IDEA_DATA_FILE)) {
-            @unlink($temp);
-            return false;
-        }
-        @chmod(IDEA_DATA_FILE, 0600);
-        return true;
-    } finally {
-        flock($handle, LOCK_UN);
-        fclose($handle);
-    }
 }
 function loginBlocked(): bool {
     $file = sys_get_temp_dir() . '/dbs_idea_login_' . hash('sha256', (string)($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
@@ -166,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $idea['score'] = round(array_sum($scores) / count($scores), 1);
                 $idea['id'] = hash('sha256', $date . '|' . mb_strtolower($idea['title']));
                 $idea['added_at'] = date('c');
-                if (storeIdea($idea)) {
+                if (ideaStoreItem($idea)) {
                     header('Location: /idea/?added=1', true, 303);
                     exit;
                 }
@@ -176,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 $authorized = ($_SESSION['idea_auth'] ?? false) === true;
-$ideas = $authorized ? readIdeas() : [];
+$ideas = $authorized ? ideaReadItems() : [];
 usort($ideas, static fn($a, $b) => strcmp((string)($b['added_at'] ?? ''), (string)($a['added_at'] ?? '')));
 $count = count($ideas);
 $avg = $count ? round(array_sum(array_map(static fn($i) => (float)($i['score'] ?? 0), $ideas)) / $count, 1) : 0;

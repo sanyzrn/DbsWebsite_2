@@ -20,7 +20,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: PHP syntax and password gate
         run: |
-          php -l public/idea/index.php
+          for file in public/idea/*.php; do php -l "$file"; done
+          php -r 'if (!extension_loaded("sodium")) exit(1);'
+          # Never deploy this fixture; it is only created within the ephemeral CI runner.
+          printf '%s\n' '<?php define("BALE_BOT_TOKEN", "ci-test-bot-secret-with-enough-entropy-for-derivation");' > public/api/bale-config.php
           php -S 127.0.0.1:8765 -t public >/tmp/idea-php.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
@@ -31,5 +34,34 @@ jobs:
           grep -qi 'noindex' /tmp/idea-headers.txt
           if grep -q 'THE ARCHIVE' /tmp/idea-login.html; then
             echo 'Private archive was disclosed without login'
+            exit 1
+          fi
+          curl --fail --silent --show-error http://127.0.0.1:8765/idea/pubkey.php | grep -q '"public_key_base64"'
+          php <<'PHP' > /tmp/idea-encoded.txt
+          <?php
+          require 'public/idea/crypto.php';
+          $pair = ideaBoxKeypair();
+          $idea = [
+            'date' => '2026-10-29', 'title' => 'CI test private idea', 'category' => 'SaaS',
+            'audience' => 'Test', 'problem' => 'Secret marker never appears before login',
+            'evidence' => 'CI fixture only', 'product' => 'Unit test',
+            'pricing' => 'No pricing', 'mvp' => '1 day', 'risk' => 'None',
+            'acquisition' => 'Test', 'validation' => 'Test', 'notes' => '',
+            'scores' => ['demand'=>5,'differentiation'=>5,'build'=>5,'reach'=>5,'revenue'=>5,'scale'=>5],
+          ];
+          $envelope = 'DBS-IDEA-V1:' . base64_encode(sodium_crypto_box_seal(json_encode($idea, JSON_UNESCAPED_UNICODE), sodium_crypto_box_publickey($pair)));
+          echo json_encode(['envelope'=>$envelope]), "\n";
+          echo hash_hmac('sha256', $envelope, (string) BALE_BOT_TOKEN), "\n";
+          PHP
+          envelope_json=$(head -n 1 /tmp/idea-encoded.txt)
+          signature=$(tail -n 1 /tmp/idea-encoded.txt)
+          curl --fail --silent --show-error -H "content-type: application/json" -H "x-idea-signature: $signature" --data "$envelope_json" http://127.0.0.1:8765/idea/ingest.php | grep -q '"saved":true'
+          curl --fail --silent --show-error -H "content-type: application/json" -H "x-idea-signature: $signature" --data "$envelope_json" http://127.0.0.1:8765/idea/ingest.php | grep -q '"duplicate":true'
+          bad_status=$(curl --silent --output /dev/null --write-out '%{http_code}' -H 'content-type: application/json' -H 'x-idea-signature: 0000000000000000000000000000000000000000000000000000000000000000' --data "$envelope_json" http://127.0.0.1:8765/idea/ingest.php)
+          test "$bad_status" = '401'
+          # The protected page must NEVER expose private idea data to unauthorized sessions.
+          curl --fail --silent --show-error http://127.0.0.1:8765/idea/index.php -o /tmp/idea-login-after.html
+          if grep -q 'CI test private idea' /tmp/idea-login-after.html; then
+            echo 'Unauthorized disclosure of archived idea'
             exit 1
           fi
