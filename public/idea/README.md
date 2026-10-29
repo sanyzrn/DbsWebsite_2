@@ -1,31 +1,31 @@
-# DBS Studio private idea archive
+# DBS Studio · Idea Lab
 
-Standalone Apache/PHP feature for https://dbsstudio.ir/idea/. This site is **React/Vite**, not WordPress; the /idea/ folder deliberately does not affect the React router, page registry, sitemap, shared styles, or existing pages.
+Static public archive: [dbsstudio.ir/idea/](https://dbsstudio.ir/idea/).
 
-## Publishing
-- Files in public/idea/ copy into dist/idea/ during the normal Vite build and are deployed by the existing main -> CI -> FTPS workflow.
-- Apache's inherited root config has `DirectoryIndex index.html`; local .htaccess overrides it with `DirectoryIndex index.php`.
-- PHP is already required by /api/contact.php. Test /idea/ on the real Apache host; static Vite preview cannot execute PHP.
-- The password is verified server-side via bcrypt and protected by CSRF, secure-session cookies on HTTPS and IP-limited login attempts. The default requested passphrase is **not stored in plaintext** in this public repo. As a 7-digit passcode it has limited entropy: use a longer unique passphrase for stronger protection.
-- The app sets noindex and no-store on responses, and creates no client-side static copy of private data.
-- Runtime idea data is written to `public/idea/.ideas.php` **on the host**, not in GitHub or dist. The PHP file returns its data without rendering anything on direct access; Apache denies dotfiles. Permission to create files within /idea/ is needed for publishing. Failed saves display an error.
-- The runtime idea file is intentionally NOT in the repo or deployment artifact, so ordinary FTP syncs should not overwrite it. Back up this runtime file separately: GitHub does not store it.
-- Login -> expand "افزودن ایده جدید" -> submit. The six score fields determine the average score automatically.
-- URLs in evidence fields become links after HTML escaping; raw HTML is never rendered.
+This is an isolated static subdirectory of the React/Vite portfolio, **not WordPress**. The page at `index.html` fetches **one file**: `ideas.json`. No password, database, webhook, PHP, encryption, Issues, or additional GitHub Actions are needed.
 
-## Automated twice-daily idea publishing
+## Automatic publication
 
-A GitHub Issues bridge securely publishes new ideas without placing plaintext in public repository files, workflow inputs or workflow logs:
+The existing ChatGPT automation runs daily at **11:00 and 20:00 Asia/Tehran**:
 
-1. On a reviewed `main` push, `.github/workflows/idea-encryption-public-key.yml` derives a public encryption key from the **already-configured** `BALE_BOT_TOKEN` GitHub Actions secret and updates only the public key at `public/idea/public-key.json` on the `cursor-dev` branch (GitHub connector can read it). The production `main` branch is never mutated by this key refresh.
-2. The idea-generation automation reads the public key from the GitHub repo, encrypts exactly one structured idea as a libsodium `crypto_box_seal` envelope and creates a GitHub Issue with exact title `DBS-IDEA-V1`. The issue body must contain ONLY `DBS-IDEA-V1:<base64 sealed box ciphertext>` (no title, prompt, URLs or plaintext details).
-3. The `Publish encrypted idea` workflow runs only for issues opened by `sanyzrn` with that exact title. It decrypts the sealed box **inside the privileged runner** using the existing Actions secret, HMAC-signs the in-memory JSON, and POSTs it to `/idea/ingest.php` over HTTPS. Neither the plaintext nor the secret is printed in logs or stored in repository files.
-4. The PHP endpoint verifies the HMAC signature using the secret already available in `/api/bale-config.php`, validates schema and scores, and uses the **same** locked private storage as the manual form. No Sodium extension is required on the shared hosting server. A successful delivery closes the GitHub Issue and replaces its encrypted body with a success statement.
-5. If delivery fails, the Issue remains open and the workflow fails. Never claim success based merely on an Issue being created; confirm the GitHub Actions workflow result.
+1. Research one concrete opportunity for an independent developer/designer serving the Iranian market.
+2. Fetch `public/idea/ideas.json` from the **main** branch of `sanyzrn/DbsWebsite_2` through the GitHub connector.
+3. Preserve all existing entries. Prepend a new idea, update `updatedAt`, and commit **only** this JSON file to `main` using its latest blob SHA.
+4. GitHub's existing CI → verified artifact → FTPS deployment publishes the changed JSON to the host. **A successful commit is not proof that deployment completed.** No workflow manually dispatches a deployment.
+5. Report if GitHub access, content validation, CI, or deployment fails. Do not claim site publication until verified.
 
-The GitHub Actions runner requires PHP Sodium (already tested in CI); the production PHP host does **not**. `/idea/pubkey.php` can serve the non-secret deployed public-key snapshot for diagnostics. CI tests cryptography, duplicate detection, authentication and unauthenticated page privacy. The public key is non-secret; the Bale token, signing key, plaintext idea, password, and `.ideas.php` must never be logged or committed.
+The repo is public and so is `ideas.json`. Never put credentials, private client information or unapproved confidential material in it. The previous host-only `.ideas.php` file, if present, is not read or deleted by the archive; old private ideas must be exported separately if desired.
 
-**Operational caveats:** Publishing only works if GitHub repository Actions can update the public key on `cursor-dev`, Issues are enabled, and the host has the correct Bale config + Sodium. This implementation uses a pre-existing secret rather than introducing a new unconfigured token. If the Bale bot token rotates, re-run the public key workflow before publishing more ideas; the scheduled task reads `cursor-dev`, not the static deployed public-key snapshot. The archive is server-side and remains usable by hand even if GitHub delivery is unavailable.
+## File format
 
-## Non-goals
-No WordPress plugin, no React route changes, no public plaintext idea export, no front-end dependencies and no changes to other public pages.
+```json
+{
+  "schemaVersion": 1,
+  "updatedAt": null,
+  "ideas": []
+}
+```
+
+Each idea includes `id`, `date` (YYYY-MM-DD), `title`, `category`, `audience`, `problem`, `evidence`, `product`, `pricing`, `mvp`, `risk`, `acquisition`, `validation`, `notes`, and six integer `scores`: demand, differentiation, build, reach, revenue, scale. The UI calculates the average and displays progress bars. The archive order is newest first. The UI treats JSON content as untrusted, uses DOM text nodes, and only links validated HTTP(S) URLs.
+
+No other site routes, components, source data, styles or deployment workflows need modification.
