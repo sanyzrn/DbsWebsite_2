@@ -310,7 +310,7 @@ $metricLabels = [
               <h4>ارزیابی فرصت</h4>
               <div class="metrics">
                 <?php foreach ($metricLabels as $key => $label): $n = (float)($idea['scores'][$key] ?? 0); ?>
-                  <div class="metric"><div><span><?= e($label) ?></span><b><?= e((string)$n) ?> / ۱۰</b></div><progress max="10" value="<?= e((string)$n) ?>"><?= e((string)$n ?></progress></div>
+                  <div class="metric"><div><span><?= e($label) ?></span><b><?= e((string)$n) ?> / ۱۰</b></div><progress max="10" value="<?= e((string)$n) ?>"><?= e((string)$n) ?></progress></div>
                 <?php endforeach; ?>
               </div>
             </div>
