@@ -28,6 +28,7 @@ jobs:
         with:
           # Deploy the exact commit CI validated, not whatever tip main has now.
           ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 2
 
       - uses: actions/setup-node@v7
         with:
@@ -45,6 +46,7 @@ jobs:
         id: promotion
         env:
           EXPECTED_COMMIT: ${{ github.event.workflow_run.head_sha }}
+          SOURCE_WORKFLOW: ${{ github.event.workflow_run.name }}
         run: node scripts/check-promotion.mjs >> "$GITHUB_OUTPUT"
 
       # Refuse to publish URLs for the previous domain.
@@ -56,6 +58,23 @@ jobs:
             echo "::error::SITE_URL must be https://dbsstudio.ir before deploying."
             exit 1
           fi
+
+      # Publish the verified idea archive separately, even when Nex cannot be promoted.
+      - name: Deploy ideas via FTPS
+        if: steps.promotion.outputs.idea_deploy == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/idea/
+          server-dir: ./idea/
+          state-name: .dbswebsite-idea-sync-state.json
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
 
       - name: Generate Bale config
         if: steps.promotion.outputs.deploy == 'true'
@@ -103,3 +122,4 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
+            idea/**
