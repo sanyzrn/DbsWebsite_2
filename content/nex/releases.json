@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.4.1",
+      "tag": "v2.4.1",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.4.1",
+      "publishedAt": "2026-10-30T15:12:17.000Z",
+      "notes": {
+        "en": "- **Habits is back.** A new Today page groups what is left, done and resting; each habit has its own colour, icon, progress ring, calendar and history.\r\n- **Make the plan yours.** Choose every day, selected weekdays, a weekly target or every few days. Log a tick or part of an amount, start from a ready-made idea, and see your best streak and consistency without losing older check-ins.\r\n- **Reminders follow the plan.** A reminder skips days off and completed goals. Opening Nex renews the next reminder. Archiving pauses it and restoring a habit keeps its history and reminder preference.\r\n- **Habits in your daily brief.** A short line shows how many habits are left today. This is calculated on your device and never sent to AI.",
+        "fa": "- **عادت‌ها برگشت.** صفحهٔ تازهٔ امروز، عادت‌های مانده، انجام‌شده و روز استراحت را جدا نشان می‌دهد؛ هر عادت رنگ، آیکون، حلقهٔ پیشرفت، تقویم و تاریخچهٔ خودش را دارد.\r\n- **برنامه‌ای به سلیقهٔ شما.** هر روز، روزهای مشخص هفته، چند بار در هفته یا هر چند روز را انتخاب کنید. انجام‌شدن را با یک تیک یا ثبت بخشی از مقدار هدف مشخص کنید، از ایده‌های آماده شروع کنید و بهترین تداوم و میزان پایبندی‌تان را ببینید؛ ثبت‌های قبلی هم حفظ می‌شوند.\r\n- **یادآوری همراه برنامه.** یادآور در روزهای استراحت و برای هدف‌های انجام‌شده زنگ نمی‌زند. بازکردن نکس یادآوری بعدی را به‌روز می‌کند. بایگانی‌کردن عادت، یادآورش را متوقف می‌کند و برگرداندن عادت، تاریخچه و تنظیم یادآورش را نگه می‌دارد.\r\n- **عادت‌ها در خلاصهٔ روزانه.** یک خط کوتاه می‌گوید امروز چند عادت مانده. این عدد روی خود گوشی حساب می‌شود و برای هوش مصنوعی فرستاده نمی‌شود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.4.1-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/Nex-2.4.1-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 59019553,
+          "downloads": 2,
+          "sha256": "68fa62595bb58a347c152c6892eeb82311f316446bb3013c87ab874c6ca41e1c"
+        },
+        {
+          "name": "Nex-2.4.1-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/Nex-2.4.1-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 35932995,
+          "downloads": 1,
+          "sha256": "3e0c89cca4c7732da143ba22a9748aac10fbbddfcd26e9263b646dcf99ca6f75"
+        },
+        {
+          "name": "Nex-2.4.1-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/Nex-2.4.1-store.aab",
+          "kind": "bundle",
+          "size": 110839115,
+          "downloads": 1,
+          "sha256": "72a094026b3d2a26f91bcea8d447d9485ab8eed8650da21ec02e60889f891cb0"
+        },
+        {
+          "name": "Nex-2.4.1-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/Nex-2.4.1-store.apk",
+          "kind": "other",
+          "size": 147985694,
+          "downloads": 1,
+          "sha256": "399f0745a7c3488fdbcb04d80c7fd5c7ce67a6e94c448313a4d9d6da236809f6"
+        },
+        {
+          "name": "Nex-2.4.1-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/Nex-2.4.1-universal.apk",
+          "kind": "universal",
+          "size": 147985714,
+          "downloads": 1,
+          "sha256": "2eb305a32b58e5655706b940b6b0774e555a7a43b860ddbcb6346443f546b67f"
+        },
+        {
+          "name": "Nex-2.4.1-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/Nex-2.4.1-x86_64.apk",
+          "kind": "x64",
+          "size": 64573720,
+          "downloads": 2,
+          "sha256": "a853a9df78475ccb7f93f0128c516ad11e31013212c4729636b395d7a00013c3"
+        },
+        {
+          "name": "Nex-2.4.1.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/Nex-2.4.1.aab",
+          "kind": "bundle",
+          "size": 110843877,
+          "downloads": 0,
+          "sha256": "e05612ca41de9ecb47e0dfced24e60594c0b5637bf795703287b13bc68003001"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.1/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "d32edc408160c7b0d788728777e4a804b5a230c6e76ee88aec02a0c4fac24396"
+        }
+      ]
+    },
+    {
       "version": "2.4.0",
       "tag": "v2.4.0",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.4.0",
@@ -48,7 +124,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.4.0/Nex-2.4.0-universal.apk",
           "kind": "universal",
           "size": 147589082,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "ad8d5938e8ac07825ca000ea8613a4ee0265d9f61f381f1b6b542af6c1da7ec2"
         },
         {
@@ -2548,7 +2624,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.92/Nex-1.99.92-x86_64.apk",
           "kind": "x64",
           "size": 60447094,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "721874f9751a056d2a2ec64f69bd6584cfbf7238b83f6c5cd3f37f97be9b9a9f"
         },
         {
@@ -3304,7 +3380,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.7/Nex-1.99.7-arm64-v8a.apk",
           "kind": "arm64",
           "size": 54150711,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "f2b68626be9b3b750d329d365a4395e61e067d15e2d5359cb4a61ae4438a9c59"
         },
         {
@@ -3372,7 +3448,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.6/Nex-1.99.6-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 30665633,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "77e78486cfdb5ae15b0bd49764cf3c992ea34e5823d6ba4fe9bf37b4a12745c8"
         },
         {
@@ -3396,7 +3472,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.6/Nex-1.99.6.aab",
           "kind": "bundle",
           "size": 104468212,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "dc6b904ea72c272eb61259ab72a97facbf02f98aed1ab865d26d86d66c1a377f"
         },
         {
@@ -3544,7 +3620,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.3/Nex-1.99.3-arm64-v8a.apk",
           "kind": "arm64",
           "size": 54144319,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "3f6af406bd7aaabb2880a9451f86bebd08eb6667c5f48c92808966c35ed95f7d"
         },
         {
@@ -3680,7 +3756,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.1/Nex-1.99.1-universal.apk",
           "kind": "universal",
           "size": 130313656,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "1e62ed196d2c8b77642f8c50fa3e03dd31a7acc80572b9ff5b02661fdfea745c"
         },
         {
@@ -3724,7 +3800,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.0/Nex-1.99.0-arm64-v8a.apk",
           "kind": "arm64",
           "size": 52471607,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "4dd257194feebeacd4c1980ef269da9b2d1530f25dd091def4a459d2696b12a6"
         },
         {
@@ -3964,7 +4040,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.93.5/Nex-1.93.5-arm64-v8a.apk",
           "kind": "arm64",
           "size": 51969527,
-          "downloads": 7,
+          "downloads": 8,
           "sha256": "6d174e1ea7e2cdf5e7add782683fb8e32db8920ec4c6359837af0bac3989d91d"
         },
         {
@@ -4364,7 +4440,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.92.1/SHA256SUMS",
           "kind": "other",
           "size": 439,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "261ea4b92e3cf4ebefb751a62309f8f92d0564fc49f698591469bd81ae0f292d"
         }
       ]
@@ -5376,7 +5452,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.22.1/Nex-1.22.1.aab",
           "kind": "bundle",
           "size": 93652996,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "22a372da51604ba07640bed58c01923abd0b990ad87ab62a512ee4cc0fa7dc7b"
         },
         {
@@ -5736,7 +5812,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.18.0/Nex-1.18.0.aab",
           "kind": "bundle",
           "size": 93597648,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "76f0d68ad200f16799c7c23ff4631b1137ac42269e882daad18b444a9776c0a9"
         },
         {
@@ -6800,7 +6876,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.5.0/Nex-1.5.0-universal.apk",
           "kind": "universal",
           "size": 120887837,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "ce92edd4befd2429fc78b098eccbd027c00e893ffe71fc195e4080228b31a1ba"
         },
         {
