@@ -6,8 +6,21 @@ const artifact = JSON.parse(await fs.readFile('dist/nex/build.json', 'utf8'));
 if (artifact.schemaVersion !== 1 || artifact.commit !== process.env.EXPECTED_COMMIT || !/^[a-f0-9]{64}$/.test(artifact.contentHash)) throw new Error('Artifact does not match the validated commit');
 const currentMain = execFileSync('git', ['ls-remote', 'origin', 'refs/heads/main'], { encoding: 'utf8' }).split(/\s/)[0];
 if (!/^[a-f0-9]{40}$/.test(currentMain)) throw new Error('Cannot verify current production branch');
-const current = currentMain === artifact.commit;
-console.log(`idea_deploy=${current}`);
+// A newer idea-only commit does not invalidate a verified site/Nex artifact:
+// /idea/ is now published independently and excluded from the main FTP sync.
+let eligible = currentMain === artifact.commit;
+if (!eligible) {
+  try {
+    const shallow = execFileSync('git', ['rev-parse', '--is-shallow-repository'], { encoding: 'utf8' }).trim() === 'true';
+    execFileSync('git', ['fetch', '--no-tags', ...(shallow ? ['--unshallow'] : []), 'origin', 'main'], { stdio: 'pipe' });
+    execFileSync('git', ['merge-base', '--is-ancestor', artifact.commit, currentMain], { stdio: 'pipe' });
+    const newerFiles = execFileSync('git', ['diff', '--name-only', artifact.commit, currentMain], { encoding: 'utf8' }).trim().split(/\r?\n/).filter(Boolean);
+    eligible = newerFiles.length > 0 && newerFiles.every(file => file.startsWith('public/idea/'));
+    if (eligible) console.error('Only newer idea files detected; validated Nex artifact remains publishable.');
+  } catch {
+    console.error('Skipping stale artifact: newer main changes could not be verified as idea-only.');
+  }
+}
 
 // Idea-only commits never promote the rest of the site or its Nex files.
 let ideaOnly = false;
@@ -15,7 +28,7 @@ if (process.env.SOURCE_WORKFLOW === 'CI') {
   const changed = execFileSync('git', ['diff-tree', '--no-commit-id', '--name-only', '-r', 'HEAD'], { encoding: 'utf8' }).trim().split('\n').filter(Boolean);
   ideaOnly = changed.length > 0 && changed.every(file => file.startsWith('public/idea/'));
 }
-let deploy = current && !ideaOnly;
+let deploy = eligible && !ideaOnly;
 try {
   const response = await fetch('https://dbsstudio.ir/nex/build.json', { signal: AbortSignal.timeout(10000), cache: 'no-store' });
   if (response.ok) {
