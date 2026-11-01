@@ -1,0 +1,55 @@
+# Publish the standalone Idea Lab without rebuilding or touching Nex/site assets.
+name: Deploy ideas to hosting
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/idea/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dbsstudio-idea-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy-ideas:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Always publish current main so a queued run cannot roll back newer ideas.
+          ref: main
+      - name: Validate and stage the standalone Idea Lab
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const archive = JSON.parse(fs.readFileSync('public/idea/ideas.json', 'utf8'));
+          if (archive.schemaVersion !== 1 || !Array.isArray(archive.ideas)) throw new Error('Invalid idea archive');
+          const ids = new Set();
+          for (const idea of archive.ideas) {
+            if (typeof idea.id !== 'string' || !idea.id || ids.has(idea.id)) throw new Error('Missing or duplicate idea ID');
+            ids.add(idea.id);
+          }
+          JS
+          mkdir -p .idea-publish
+          cp public/idea/{index.html,app.js,style.css,ideas.json} .idea-publish/
+          test -s .idea-publish/index.html
+          test -s .idea-publish/ideas.json
+      - name: Publish only /idea/ via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./.idea-publish/
+          server-dir: ./idea/
+          state-name: .dbswebsite-idea-sync-state.json
+          dangerous-clean-slate: false
