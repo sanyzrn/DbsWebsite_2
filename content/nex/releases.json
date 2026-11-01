@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.5.1",
+      "tag": "v2.5.1",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.5.1",
+      "publishedAt": "2026-11-01T15:07:56.000Z",
+      "notes": {
+        "en": "- **Habits in your brief, by choice.** Opt in to include relevant habit goals, progress and short statistics in the home summary and daily notification. Switching it off hides previous habit content while keeping the notes summary and independent reminders.\r\n- **Useful habit reminders.** See which habit is due, mark a tick done, open an amount's progress form, or ask for a reminder later.\r\n- **Notifications open the right place.** Module notifications lead to their item or relevant section, including when Nex was closed, while respecting the app lock.\r\n- **Consistent home AI.** Greetings follow the app language even after a failed request. Changing the brief's length or style applies on return from settings, without waiting for the hourly refresh.\r\n- **Better AI editing.** Auto style corrects and organises writing. All six tools better preserve meaning and key details; Undo and Save remain under your control.\r\n- **Clearer What's New.** Release history focuses on useful features and important fixes, with concise titles and clearer Persian.\r\n- **A matching filter button.** When search is hidden, the filter button shares the tag pills' height and style.",
+        "fa": "- **عادت‌ها در خلاصه، به انتخاب شما** با یک گزینه، هدف، پیشرفت و آمار کوتاه عادت‌های مرتبط را به خلاصهٔ صفحهٔ اصلی و اعلان روزانه اضافه کنید. خاموش‌کردن آن، محتوای قبلی عادت‌ها را هم پنهان می‌کند؛ خلاصهٔ یادداشت‌ها و یادآورهای مستقل باقی می‌مانند.\r\n- **یادآور کاربردی عادت‌ها** نام عادت و پیشرفتش را ببینید؛ انجام‌شدن را ثبت کنید، فرم ثبت مقدار را باز کنید یا یادآوری را به بعد بیندازید.\r\n- **از اعلان به همان آیتم** اعلان ماژول‌ها، حتی با برنامهٔ بسته، آیتم یا بخش مرتبط را باز می‌کند و قفل برنامه هم رعایت می‌شود.\r\n- **خوش‌آمد و خلاصهٔ هماهنگ** خوش‌آمد حتی هنگام خطای هوش مصنوعی به زبان برنامه نمایش داده می‌شود. تغییر طول یا سبک خلاصه با برگشتن از تنظیمات اعمال می‌شود و منتظر تازه‌سازی ساعتی نمی‌ماند.\r\n- **ویرایش هوشمند بهتر** Auto style هم نگارش را اصلاح می‌کند و هم به متن نظم می‌دهد. هر شش ابزار با حفظ بهتر معنا و اطلاعات مهم کار می‌کنند؛ ذخیره و بازگردانی همچنان در اختیار شماست.\r\n- **تازه‌های خواندنی‌تر** تاریخچهٔ نسخه‌ها روی قابلیت‌های کاربردی و رفع مشکلات مهم تمرکز دارد؛ با عنوان‌های کوتاه و فارسی روان‌تر.\r\n- **فیلتر هماهنگ با تگ‌ها** وقتی کادر جست‌وجو پنهان است، دکمهٔ فیلتر با ارتفاع و ظاهر تگ‌ها هماهنگ می‌شود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.5.1-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/Nex-2.5.1-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 59028765,
+          "downloads": 2,
+          "sha256": "1577a4bbffd1bfae61139c582af7744a2e8677a3c020841ad1bb42da2e14f3dd"
+        },
+        {
+          "name": "Nex-2.5.1-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/Nex-2.5.1-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 35893055,
+          "downloads": 1,
+          "sha256": "49708e12adfff40e781eedb85d85331080ad1782362a43b2c4b8d2d937335ee9"
+        },
+        {
+          "name": "Nex-2.5.1-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/Nex-2.5.1-store.aab",
+          "kind": "bundle",
+          "size": 110846655,
+          "downloads": 1,
+          "sha256": "9eb61a73757cc78da3b89eabab66aa85cf2b9ba1d1b80fc12b2b0017c43da026"
+        },
+        {
+          "name": "Nex-2.5.1-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/Nex-2.5.1-store.apk",
+          "kind": "other",
+          "size": 148191518,
+          "downloads": 1,
+          "sha256": "f4959235f03f7b69c9fc6c9c1b974dbaaf54b59a91b0084006d00b89525d560d"
+        },
+        {
+          "name": "Nex-2.5.1-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/Nex-2.5.1-universal.apk",
+          "kind": "universal",
+          "size": 148207918,
+          "downloads": 1,
+          "sha256": "2f8a71d28328fa184b72c2d1a5d96829a13819d85af0df3c4d544e6dde0b1576"
+        },
+        {
+          "name": "Nex-2.5.1-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/Nex-2.5.1-x86_64.apk",
+          "kind": "x64",
+          "size": 64582936,
+          "downloads": 1,
+          "sha256": "2149fc92fc6362e2381ef13131103c0307cd8ca1431942c8046a3e1140a89d4c"
+        },
+        {
+          "name": "Nex-2.5.1.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/Nex-2.5.1.aab",
+          "kind": "bundle",
+          "size": 110850286,
+          "downloads": 1,
+          "sha256": "6e510704be5277ee50a96ea930ef6dbdfef3fcfbaea6a4088541b2e89d092e4c"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.1/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "3a281064ddb534df7928b5230bc6b371f35ebbe83f5af8b491af71b90f0b143c"
+        }
+      ]
+    },
+    {
       "version": "2.5.0",
       "tag": "v2.5.0",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.5.0",
