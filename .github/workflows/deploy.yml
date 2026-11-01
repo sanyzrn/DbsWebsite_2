@@ -59,23 +59,6 @@ jobs:
             exit 1
           fi
 
-      # Publish the verified idea archive separately, even when Nex cannot be promoted.
-      - name: Deploy ideas via FTPS
-        if: steps.promotion.outputs.idea_deploy == 'true'
-        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./dist/idea/
-          server-dir: ./idea/
-          state-name: .dbswebsite-idea-sync-state.json
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-
       - name: Generate Bale config
         if: steps.promotion.outputs.deploy == 'true'
         run: |
