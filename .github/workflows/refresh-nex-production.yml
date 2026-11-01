@@ -1,8 +1,11 @@
-# Rebuild public data using reviewed main code. Never merge cursor-dev automatically.
+# Refresh reviewed Nex production data every three Tehran calendar days at 03:00.
+# Manual runs and nex-release-published dispatches still refresh immediately.
+# The daily UTC cron is a lightweight trigger; the cadence gate skips the
+# expensive verification on the other two days. Tehran is UTC+03:30 year-round.
 name: Refresh Nex production
 on:
   schedule:
-    - cron: "47 */6 * * *"
+    - cron: "30 23 * * *"
   workflow_dispatch:
   repository_dispatch:
     types: [nex-release-published]
@@ -12,8 +15,40 @@ concurrency:
   group: nex-production-refresh
   cancel-in-progress: false
 jobs:
+  cadence:
+    runs-on: ubuntu-latest
+    outputs:
+      due: ${{ steps.check.outputs.due }}
+    steps:
+      - name: Allow immediate releases and every third day at 03:00 Tehran
+        id: check
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" != "schedule" ]]; then
+            echo "due=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # The first scheduled refresh is 2026-11-04 at 03:00 Tehran.
+          # UTC epoch days avoid a day-of-month cron reset at month boundaries.
+          tehran_date="$(TZ=Asia/Tehran date +%F)"
+          current_day=$(( $(date -u -d "$tehran_date" +%s) / 86400 ))
+          anchor_day=$(( $(date -u -d "2026-11-04" +%s) / 86400 ))
+          elapsed_days=$(( current_day - anchor_day ))
+          if (( elapsed_days >= 0 && elapsed_days % 3 == 0 )); then
+            echo "due=true" >> "$GITHUB_OUTPUT"
+            echo "Scheduled Nex refresh due for $tehran_date (Tehran)."
+          else
+            echo "due=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping Nex refresh for $tehran_date (Tehran); not a third day."
+          fi
+
   verify:
-    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: cadence
+    if: ${{ github.ref == 'refs/heads/main' && needs.cadence.outputs.due == 'true' }}
     uses: ./.github/workflows/ci.yml
     with:
       refresh_nex: true
