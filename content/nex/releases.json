@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.5.2",
+      "tag": "v2.5.2",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.5.2",
+      "publishedAt": "2026-11-01T19:39:35.000Z",
+      "notes": {
+        "en": "- **Readable wide tables.** Markdown and DOCX tables scroll horizontally with readable column widths, while surrounding text stays within the page.\r\n- **Consistent notifications.** Opening Nex keeps module notifications in the notification centre. In-app messages use the top capsule throughout Nex, including Undo and retry actions.\r\n- **Notes stay at the heart of your brief.** Preset summaries keep useful note content alongside optional habit progress. Full has room for more topics, and Plain report also includes recent notes without reminders.",
+        "fa": "- **جدول‌های عریض و خوانا** جدول‌های Markdown و DOCX با عرض خوانای ستون‌ها به‌صورت افقی اسکرول می‌شوند؛ متن اطراف جدول همچنان در عرض صفحه می‌ماند.\r\n- **اعلان‌های یکپارچه** ورود به نکس اعلان‌های ماژول‌ها را از مرکز اعلان پاک نمی‌کند. پیام‌های داخل برنامه در همهٔ بخش‌ها از کپسول بالای صفحه استفاده می‌کنند و گزینه‌های بازگردانی و تلاش مجدد حفظ شده‌اند.\r\n- **خلاصه‌ای از یادداشت‌ها، در کنار عادت‌ها** حالت‌های پیش‌فرض دوباره محتوای کاربردی یادداشت‌ها را پوشش می‌دهند و عادت‌ها جای آن‌ها را نمی‌گیرند. حالت «کامل» فضای بیشتری برای موضوع‌های مهم دارد؛ «گزارش ساده» هم یادداشت‌های اخیرِ بدون یادآور را نشان می‌دهد."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.5.2-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/Nex-2.5.2-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 58898789,
+          "downloads": 2,
+          "sha256": "dfe5a3be56cff03afca2d50a2c7f662df9da2f61509f73accddfdc93766780bf"
+        },
+        {
+          "name": "Nex-2.5.2-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/Nex-2.5.2-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 35861383,
+          "downloads": 1,
+          "sha256": "e3c341fc47b7be7c4a989df197bf35a5c65f4603bd42d743961bbe0c5cfd5d1c"
+        },
+        {
+          "name": "Nex-2.5.2-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/Nex-2.5.2-store.aab",
+          "kind": "bundle",
+          "size": 110803268,
+          "downloads": 1,
+          "sha256": "0e0ff2f3d453d389af9218679930f7eafdd47d86dea55dfc7eedb58ce8dc68ac"
+        },
+        {
+          "name": "Nex-2.5.2-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/Nex-2.5.2-store.apk",
+          "kind": "other",
+          "size": 147897702,
+          "downloads": 1,
+          "sha256": "051501d1d1c285231184c75b1eb7edc5ad07b8985432b929a51cac071c602ea4"
+        },
+        {
+          "name": "Nex-2.5.2-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/Nex-2.5.2-universal.apk",
+          "kind": "universal",
+          "size": 147914106,
+          "downloads": 1,
+          "sha256": "85db036925208393e58448e420d6b05275347d65b6dd066168a8724ac1218272"
+        },
+        {
+          "name": "Nex-2.5.2-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/Nex-2.5.2-x86_64.apk",
+          "kind": "x64",
+          "size": 64452960,
+          "downloads": 1,
+          "sha256": "5b036e1c8efab1bbfcde37889443dd0aad45915d26efb50cc693b5ef0de7f32b"
+        },
+        {
+          "name": "Nex-2.5.2.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/Nex-2.5.2.aab",
+          "kind": "bundle",
+          "size": 110807150,
+          "downloads": 1,
+          "sha256": "013170763c0278fcb44ce3813b975046005e978d60dc24f63b43ac28d78fdd36"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.5.2/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "84a7c4f3fd4bc755f5c97327a2993e15053764e32569200782a33e00b273c71e"
+        }
+      ]
+    },
+    {
       "version": "2.5.1",
       "tag": "v2.5.1",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.5.1",
