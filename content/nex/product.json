@@ -1,9 +1,13 @@
 {
   "schemaVersion": 1,
-  "version": "2.3.5",
-  "sourceRevision": "b44accd8c7b299b047809837f5895729e2a46366",
+  "version": "2.5.4",
+  "sourceRevision": "c71f7dfa1c2f623e6549a41c9b8ac16f76581af8",
   "availableModules": [
-    "cycle"
+    "cycle",
+    "pause",
+    "occasions",
+    "words",
+    "habits"
   ],
   "images": [
     {
