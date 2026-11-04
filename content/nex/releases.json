@@ -2,6 +2,158 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.3",
+      "tag": "v2.6.3",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.3",
+      "publishedAt": "2026-11-04T16:35:33.000Z",
+      "notes": {
+        "en": "- **More room for your notes.** Timeline previews keep their full width in every card size, including three lines in Large. Reminder, urgent and attachment marks sit over the lower edge with a soft fade, while short notes stay fully visible and captions remain grey.",
+        "fa": "- **فضای بیشتر برای متن یادداشت‌ها.** پیش‌نمایش در هر سه اندازه، تمام عرض کارت را دارد و حالت بزرگ سه خط را حفظ می‌کند. نشان‌های یادآور، فوری و پیوست با لبهٔ محو روی بخش پایین قرار می‌گیرند؛ متن کوتاه کامل دیده می‌شود و کپشن همچنان طوسی است."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.3-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/Nex-2.6.3-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 59105945,
+          "downloads": 2,
+          "sha256": "d3c20af22ba23cc3b59a9425918004c9fdacd1a03c5d2644c2efd2e10eb9e49e"
+        },
+        {
+          "name": "Nex-2.6.3-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/Nex-2.6.3-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 36052159,
+          "downloads": 1,
+          "sha256": "65477706040edd132b58fbe77ad8d888425bed25ea0246b99e9720ab26fa8919"
+        },
+        {
+          "name": "Nex-2.6.3-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/Nex-2.6.3-store.aab",
+          "kind": "bundle",
+          "size": 111028036,
+          "downloads": 0,
+          "sha256": "4ae4ad642500d756453803557a2be9454c79ff4431e8d140043f326a5a1ff45d"
+        },
+        {
+          "name": "Nex-2.6.3-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/Nex-2.6.3-store.apk",
+          "kind": "other",
+          "size": 148481682,
+          "downloads": 0,
+          "sha256": "16f961dccb0b3ab68c4eedbff273e775f608a548fb8f737a7b68b8aa00d3d4c8"
+        },
+        {
+          "name": "Nex-2.6.3-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/Nex-2.6.3-universal.apk",
+          "kind": "universal",
+          "size": 148498094,
+          "downloads": 1,
+          "sha256": "bfb3516a62fa1e38ebb5a5d7b03294107ab20ffb36bc6d93f4fea25f9b0b9617"
+        },
+        {
+          "name": "Nex-2.6.3-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/Nex-2.6.3-x86_64.apk",
+          "kind": "x64",
+          "size": 64660120,
+          "downloads": 1,
+          "sha256": "1c97f10545313faff3893313f0a3324881184b45710ecd5aca7a9261e504f93c"
+        },
+        {
+          "name": "Nex-2.6.3.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/Nex-2.6.3.aab",
+          "kind": "bundle",
+          "size": 111031605,
+          "downloads": 1,
+          "sha256": "55329d77890b0a495eefb35ac125248928fbc97c1b9f7f4ff8b34237d501befa"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.3/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 1,
+          "sha256": "ed10b246cecdabd7a5ad0fa47ba7ad3f584d64f421fb9d492c6bf2592de91f13"
+        }
+      ]
+    },
+    {
+      "version": "2.6.2",
+      "tag": "v2.6.2",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.2",
+      "publishedAt": "2026-11-04T12:44:22.000Z",
+      "notes": {
+        "en": "- **Uniform timeline cards.** Collapsed notes keep one height across text, photos, links, checklists and voice. Captions use a quieter preview line; reminder, urgent and attachment marks stay together in a separate area without empty slots.",
+        "fa": "- **کارت‌های هم‌اندازه و مرتب‌تر.** همهٔ یادداشت‌ها در حالت جمع‌شده هم‌ارتفاع‌اند. کپشن طوسی از فضای پیش‌نمایش استفاده می‌کند و نشان‌های یادآور، فوری و پیوست در جای مشخص، کنار هم و بدون جای خالی می‌آیند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.2-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/Nex-2.6.2-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 59105781,
+          "downloads": 3,
+          "sha256": "792e974554e67f632873b5b8c9277f17aa4a88a722725e26c4a77a4bddc89987"
+        },
+        {
+          "name": "Nex-2.6.2-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/Nex-2.6.2-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 36035615,
+          "downloads": 1,
+          "sha256": "0fc1567a12006116e90fbcb1af5a831e3d8b01bb30e05bb8dbeef79332328586"
+        },
+        {
+          "name": "Nex-2.6.2-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/Nex-2.6.2-store.aab",
+          "kind": "bundle",
+          "size": 111019963,
+          "downloads": 1,
+          "sha256": "60bcc0ac9c270f1a4b47a569d22e68a3c6fdeaa3a16033b8bad4b2f49615b00f"
+        },
+        {
+          "name": "Nex-2.6.2-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/Nex-2.6.2-store.apk",
+          "kind": "other",
+          "size": 148481518,
+          "downloads": 1,
+          "sha256": "14f6aaa5d1804366b5398ee4c448adfba29a4f565dd98a61d6b60a08cb1eed8b"
+        },
+        {
+          "name": "Nex-2.6.2-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/Nex-2.6.2-universal.apk",
+          "kind": "universal",
+          "size": 148481546,
+          "downloads": 1,
+          "sha256": "0578240ef0a2ad8f0fd2ebed4a614d14219e42d2f88334e19a9d13bda6b1f458"
+        },
+        {
+          "name": "Nex-2.6.2-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/Nex-2.6.2-x86_64.apk",
+          "kind": "x64",
+          "size": 64659956,
+          "downloads": 1,
+          "sha256": "53aafa38a1c2d361daa4ac392d6bf36ada7ac854aabcf780c26917feeff75aaf"
+        },
+        {
+          "name": "Nex-2.6.2.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/Nex-2.6.2.aab",
+          "kind": "bundle",
+          "size": 111023829,
+          "downloads": 1,
+          "sha256": "c963c13e340fce993985e41d00025b5b72e67eae1ab3f4a077fd5426b7cf8fff"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.2/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "5477afa045483d18ddcf40fef293bbef8370ed854b5b0dcd286b75791fa80793"
+        }
+      ]
+    },
+    {
       "version": "2.6.1",
       "tag": "v2.6.1",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.1",
