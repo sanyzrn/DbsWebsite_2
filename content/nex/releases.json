@@ -2,6 +2,158 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.5",
+      "tag": "v2.6.5",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.5",
+      "publishedAt": "2026-11-04T23:35:02.000Z",
+      "notes": {
+        "en": "- **Rescue library backups.** Keep recoverable notes and files even when some attachments are missing, with a clear missing-file list. Normal backups keep their complete-file checks.\r\n- **More responsive libraries.** Capture stays available during sync network waits, and smart search does less repeated work in large libraries. Card status icons sit closer together with a consistent small bottom gap.\r\n\r\n- **Complete private-vault backups.** Choosing Include private vault now carries its encrypted photos, recordings and files to the restored device. Large private lists and draft saving are lighter.\r\n- **Safer sync and updates.** Unsent conflicting edits are kept as a separate note. Approved interrupted downloads can resume after restarting Nex; store copies continue to update only through their store. File saving and scheduled-note processing are more reliable.",
+        "fa": "- **بکاپ نجات کتابخانه.** اگر بعضی پیوست‌ها مفقود شده‌اند، یادداشت‌ها و فایل‌های موجود را همراه با فهرست دقیق فایل‌های مفقود ذخیره کنید. بکاپ عادی همچنان کامل‌بودن فایل‌ها را بررسی می‌کند.\r\n- **کتابخانهٔ روان‌تر.** هنگام انتظار همگام‌سازی برای اینترنت، ثبت یادداشت در دسترس می‌ماند و محاسبات تکراری جستجوی هوشمند در آرشیوهای بزرگ کمتر می‌شود. نشان‌های کارت به هم نزدیک‌تر شده‌اند و فاصلهٔ کمی و یکسان از لبهٔ پایین دارند.\r\n\r\n- **بکاپ کامل خزانه.** با انتخاب «خزانه هم ذخیره شود»، عکس‌ها، صداها و فایل‌های خصوصی هم امن به گوشی جدید منتقل می‌شوند. ذخیرهٔ پیش‌نویس و نمایش فهرست‌های بزرگ خزانه سبک‌تر شده است.\r\n- **همگام‌سازی و آپدیت مطمئن‌تر.** هنگام اختلاف نسخه‌ها، ویرایش ارسال‌نشده به‌صورت یادداشت جدا حفظ می‌شود. دانلود تأییدشده پس از بازکردن دوبارهٔ برنامه ادامه پیدا می‌کند؛ نسخه‌های استور همچنان فقط از همان استور به‌روز می‌شوند. ذخیرهٔ فایل و پردازش یادداشت‌های زمان‌بندی‌شده هم بهبود یافته است."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.5-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/Nex-2.6.5-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 59107205,
+          "downloads": 1,
+          "sha256": "90e5b4785477f3c5f66daffba4e0517a90fdd231267e3a63149316ed7f90f5a0"
+        },
+        {
+          "name": "Nex-2.6.5-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/Nex-2.6.5-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 36037035,
+          "downloads": 1,
+          "sha256": "eacbeec324a1462b0585da3d6b19473e0f5d8500e8bfb65d0f681b1cd4044449"
+        },
+        {
+          "name": "Nex-2.6.5-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/Nex-2.6.5-store.aab",
+          "kind": "bundle",
+          "size": 111021151,
+          "downloads": 1,
+          "sha256": "ac563f839a6dca645e7a0fcfbe1a794b736eeff6b75061aa4d1107925125a8e6"
+        },
+        {
+          "name": "Nex-2.6.5-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/Nex-2.6.5-store.apk",
+          "kind": "other",
+          "size": 148335482,
+          "downloads": 1,
+          "sha256": "ed4ed7150366c3801768e8c5a8f303d9c9e73e4cef584d0d6017eb9c21c8bd18"
+        },
+        {
+          "name": "Nex-2.6.5-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/Nex-2.6.5-universal.apk",
+          "kind": "universal",
+          "size": 148482966,
+          "downloads": 1,
+          "sha256": "bec4c7d6e884be36f4a416389943dbbc806e1c22a0208b71546cf3828ccfa8a3"
+        },
+        {
+          "name": "Nex-2.6.5-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/Nex-2.6.5-x86_64.apk",
+          "kind": "x64",
+          "size": 64661376,
+          "downloads": 1,
+          "sha256": "61824941fa14f6f39d0585709581492843ecc2a87b690f9b0e1647b638f1aa04"
+        },
+        {
+          "name": "Nex-2.6.5.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/Nex-2.6.5.aab",
+          "kind": "bundle",
+          "size": 111034221,
+          "downloads": 1,
+          "sha256": "2fe25113d6e4954cd054bee95ecace95f4011ce9975bcd06269b36a6f0bb4b4e"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.5/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "af328d8829856c50a6c4fa7f981035be2b4ee07781729e6e7386c2cd62ea73e8"
+        }
+      ]
+    },
+    {
+      "version": "2.6.4",
+      "tag": "v2.6.4",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.4",
+      "publishedAt": "2026-11-04T19:40:39.000Z",
+      "notes": {
+        "en": "- **Balanced timeline cards.** File names and one-line or multiline previews are vertically centred again. Reminder, attachment and urgent icons appear in that order with tiny separate halos that follow the card's press highlight. Reminder times and attachment counts are temporarily hidden on cards; their data and accessible descriptions remain available.",
+        "fa": "- **کارت‌های متعادل‌تر.** نام فایل‌ها و متن‌های یک‌خطی و چندخطی دوباره وسط ارتفاع کارت قرار می‌گیرند. نشان‌های یادآور، پیوست و فوری به همین ترتیب، با هاله‌های کوچک و جداگانه نمایش داده می‌شوند و با افکت لمس کارت هماهنگ‌اند. زمان یادآور و تعداد پیوست فعلاً روی کارت پنهان‌اند؛ اطلاعات و توضیحات دسترس‌پذیر آن‌ها حفظ شده است."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.4-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/Nex-2.6.4-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 59106201,
+          "downloads": 2,
+          "sha256": "64ff64ebfa5f13ca719001c2057851c2b400e101e23fd6ea267c6e1df8bc64ee"
+        },
+        {
+          "name": "Nex-2.6.4-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/Nex-2.6.4-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 36036031,
+          "downloads": 0,
+          "sha256": "7c4fdeec211d83a5a29235c66b585a509d723e3e131c8404dcce75716cc61a4e"
+        },
+        {
+          "name": "Nex-2.6.4-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/Nex-2.6.4-store.aab",
+          "kind": "bundle",
+          "size": 111019949,
+          "downloads": 1,
+          "sha256": "f2c435ec06cc97ca8a15e9d740c6a2babfd3eaf0817d79364318cc2a1c85a941"
+        },
+        {
+          "name": "Nex-2.6.4-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/Nex-2.6.4-store.apk",
+          "kind": "other",
+          "size": 148465550,
+          "downloads": 1,
+          "sha256": "fd3801902d0260a230733df96a1d62a79b9f2417adeacf986f4cc0f9652ad4ae"
+        },
+        {
+          "name": "Nex-2.6.4-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/Nex-2.6.4-universal.apk",
+          "kind": "universal",
+          "size": 148481966,
+          "downloads": 1,
+          "sha256": "3959bef69d50b0ca51e77338e19e37eadf67bc01ee493ae21d97239225434aeb"
+        },
+        {
+          "name": "Nex-2.6.4-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/Nex-2.6.4-x86_64.apk",
+          "kind": "x64",
+          "size": 64660372,
+          "downloads": 1,
+          "sha256": "82299b2c9ce3d088cb0a7e61d843ec6e74a10e0e13eb11e7e3c52866b9274e8f"
+        },
+        {
+          "name": "Nex-2.6.4.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/Nex-2.6.4.aab",
+          "kind": "bundle",
+          "size": 111023609,
+          "downloads": 1,
+          "sha256": "4814ff796c53b00ede9e1a11e8643b1bb0e48aa7b6228005f93095e60373d607"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.4/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "2e33f64609debd5c594462c3d6fd5d3fb0fb21119583886ece99d32d82c67e1b"
+        }
+      ]
+    },
+    {
       "version": "2.6.3",
       "tag": "v2.6.3",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.3",

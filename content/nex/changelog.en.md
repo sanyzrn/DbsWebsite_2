@@ -4,6 +4,51 @@ User-facing release notes. Detailed technical history is preserved in [the devel
 
 ## Unreleased
 
+## v2.6.5
+
+- **Rescue library backups.** Keep recoverable notes and files even when some attachments are missing, with a clear missing-file list. Normal backups keep their complete-file checks.
+- **More responsive libraries.** Capture stays available during sync network waits, and smart search does less repeated work in large libraries. Card status icons sit closer together with a consistent small bottom gap.
+
+- **Complete private-vault backups.** Choosing Include private vault now carries its encrypted photos, recordings and files to the restored device. Large private lists and draft saving are lighter.
+- **Safer sync and updates.** Unsent conflicting edits are kept as a separate note. Approved interrupted downloads can resume after restarting Nex; store copies continue to update only through their store. File saving and scheduled-note processing are more reliable.
+
+## v2.6.4
+
+- **Balanced timeline cards.** File names and one-line or multiline previews are vertically centred again. Reminder, attachment and urgent icons appear in that order with tiny separate halos that follow the card's press highlight. Reminder times and attachment counts are temporarily hidden on cards; their data and accessible descriptions remain available.
+
+## v2.6.3
+
+- **More room for your notes.** Timeline previews keep their full width in every card size, including three lines in Large. Reminder, urgent and attachment marks sit over the lower edge with a soft fade, while short notes stay fully visible and captions remain grey.
+
+## v2.6.2
+
+- **Uniform timeline cards.** Collapsed notes keep one height across text, photos, links, checklists and voice. Captions use a quieter preview line; reminder, urgent and attachment marks stay together in a separate area without empty slots.
+
+## v2.6.1
+
+- **A more useful smart summary.** Pending work, reminders and important notes take priority; routine completed habits no longer crowd them out.
+- **Calmer capture and easier translation.** Paste fades smoothly as its space closes, and the whole translation language bar opens the picker.
+- **Steadier timeline cards.** Reminder, attachment and urgent marks share the preview space on ordinary collapsed cards, while captions and expanded notes keep their room.
+- **Optional assistant Memory.** Keep a short introduction behind a separate opt-in, with your existing text preserved. Assistant, smart-summary and Memory settings dim when AI is off.
+- **One place for AI request history.** What left this device stays under Security and privacy.
+- **More selective note summaries.** Long explanations are condensed instead of merely reformatted, while short or information-dense notes keep the room their facts need.
+- **Reliable quick capture.** Notification shortcuts open the right capture tool even when the timeline widget is active.
+- **Safer photo editing.** Clearing all drawings and text now asks for confirmation before removing your work.
+- **Control over assistant reads.** Reading Recently Deleted or recurring items for an answer waits for your approval.
+- **Clearer selected filters.** Selected tag labels remain readable in light, dark and Comfort themes, including custom accents.
+
+## v2.6.0
+
+- **Easier photo cropping.** Larger touch areas make all four crop handles easier to drag while keeping the visible crop controls in place.
+- **A clearer assistant history.** Conversations are grouped by time with reply previews and a current-chat indicator. Individual deletion is in each conversation’s menu.
+- **A steadier pull to refresh.** Reversing your drag closes the refresh strip before the notes scroll. A quiet Nex accent marks success, with separate handling for cancelled and failed refreshes.
+- **Find notes without tags.** Untagged stays at the end of the tag row and works with note-type and reminder filters.
+- **More room to write.** The capture clipboard fades away once you start writing and gives its space back to the editor; clearing the text brings it back.
+- **Clearer recurring cards.** Countdown and exact time sit together, with balanced spacing and centred actions. The check button explicitly marks one occurrence done.
+- **Captions for text notes.** Add a separate optional caption without replacing the note on its timeline card. Captions are included in search and AI context.
+- **Mark what is urgent.** Use More Actions or the hold menu to add a small flame. Urgency is independent of Pin and keeps notes in their existing order.
+- **Daily nudges without AI.** Get brief local reminders based on urgent notes, nearby or recently overdue reminders, unfinished checklists and recurring items. A fresh smart summary is optional; otherwise Nex uses local text, with varied prompts for quiet and empty libraries and at most one daily notification.
+
 ## v2.5.4
 
 - **Clearer note summaries.** More compact summaries better preserve decisions, conditions and figures, with readable formatting and a full expanded view.
@@ -663,5 +708,3 @@ User-facing release notes. Detailed technical history is preserved in [the devel
 ## v0.9.1
 
 - **Personalise and capture.** Adjust size and colour, edit photos, search by meaning and send feedback.
-
-
