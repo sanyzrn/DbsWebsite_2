@@ -4472,7 +4472,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.4/Nex-1.99.4-arm64-v8a.apk",
           "kind": "arm64",
           "size": 54144635,
-          "downloads": 5,
+          "downloads": 6,
           "sha256": "7c37a782aa6721df23d42c710bfb9a8ab2fe75a43f1b59f5db19c5ae9ce29376"
         },
         {
@@ -4512,7 +4512,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.4/SHA256SUMS",
           "kind": "other",
           "size": 439,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "6b07f456fd77d5999a726b1338e289fdd70e3b4afc58151a1af722dc5748a5a7"
         }
       ]
@@ -7172,7 +7172,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.8.0/Nex-1.8.0-arm64-v8a.apk",
           "kind": "arm64",
           "size": 48833562,
-          "downloads": 7,
+          "downloads": 8,
           "sha256": "e136f8eedb648465d87f47e8ca3423ae213b01e45c5da752de11d8081dad1caf"
         },
         {
