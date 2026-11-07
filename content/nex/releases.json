@@ -4488,7 +4488,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.4/Nex-1.99.4-universal.apk",
           "kind": "universal",
           "size": 134099592,
-          "downloads": 4,
+          "downloads": 5,
           "sha256": "01e8fb25b4a2d6e1c46eba6ea1c2f4cf27d518b24d35f519676199bdf81cf81c"
         },
         {
@@ -7180,7 +7180,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.8.0/Nex-1.8.0-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 26631480,
-          "downloads": 5,
+          "downloads": 6,
           "sha256": "dfdc328e1f434610e198dedf27fffe125e1a2842c5638e793e1f69767a10f059"
         },
         {
