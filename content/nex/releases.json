@@ -2508,7 +2508,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.0.10/Nex-2.0.10-arm64-v8a.apk",
           "kind": "arm64",
           "size": 57143591,
-          "downloads": 5,
+          "downloads": 6,
           "sha256": "fa1745d59e34f8444209e84f987f9fe50996a5652cc755e1eff3a9d1bfd35057"
         },
         {
@@ -2548,7 +2548,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.0.10/SHA256SUMS",
           "kind": "other",
           "size": 439,
-          "downloads": 5,
+          "downloads": 6,
           "sha256": "5379615bd679cccb73d4f5fc5ae89eb07a6d043e37055a81ff5fe79ee3bf35be"
         }
       ]
@@ -3228,7 +3228,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.98/Nex-1.99.98-arm64-v8a.apk",
           "kind": "arm64",
           "size": 55031635,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "c03e7ac6d8c84f6cbebc01286da58464cea753c823731d61f94f9c8e4d861b9c"
         },
         {
@@ -3268,7 +3268,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.98/SHA256SUMS",
           "kind": "other",
           "size": 444,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "f470209323b5e3be4859cef4d26bbcb969cdcb9f6ac979630d369e22fc61d6ab"
         }
       ]
@@ -4580,7 +4580,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.99.4/Nex-1.99.4.aab",
           "kind": "bundle",
           "size": 104441270,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "6fd01c843ea7888d2910a7d35d46564b34abf089f30781aaf60e50e289bf1db9"
         },
         {
@@ -7272,7 +7272,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v1.8.0/Nex-1.8.0-x86_64.apk",
           "kind": "x64",
           "size": 53723099,
-          "downloads": 5,
+          "downloads": 6,
           "sha256": "15c8280838a59a527ae8bb4ed1e305f9801653983c7d0ad1fe31abe3cbf182cb"
         },
         {

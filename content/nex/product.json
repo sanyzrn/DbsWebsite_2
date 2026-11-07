@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "2.6.6",
-  "sourceRevision": "68f65512f970c19c8a4af77584fae0d0c404dfa5",
+  "version": "2.6.7",
+  "sourceRevision": "28d10840f67645c02c957427c7f4c78bca4514a4",
   "availableModules": [
     "cycle",
     "pause",
