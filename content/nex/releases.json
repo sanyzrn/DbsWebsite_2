@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.10",
+      "tag": "v2.6.10",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.10",
+      "publishedAt": "2026-11-08T17:14:21.000Z",
+      "notes": {
+        "en": "- **Smoother scrolling with long notes.** Timeline previews now do far less work when a note contains lengthy text or Markdown, so the list responds more smoothly.\r\n- **Lighter expand and collapse.** Opening or closing groups of long notes is faster, without changing the full contents of your notes or their appearance.",
+        "fa": "- **اسکرول روان‌تر با یادداشت‌های بلند.** پیش‌نمایش کارت‌ها هنگام نمایش متن‌های طولانی و فایل‌های مارک‌داون پردازش کمتری انجام می‌دهد تا خط زمانی روان‌تر باشد.\r\n- **باز و بسته شدن سریع‌تر گروه‌ها.** نمایش گروه‌های دارای یادداشت‌های سنگین سبک‌تر شده، بدون تغییر در متن کامل یادداشت‌ها یا ظاهر کارت‌ها."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.10-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/Nex-2.6.10-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61197620,
+          "downloads": 2,
+          "sha256": "db47d47934f0b993d30907538c8608a76061772fe4bf35f775476483ffb390ce"
+        },
+        {
+          "name": "Nex-2.6.10-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/Nex-2.6.10-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38537046,
+          "downloads": 1,
+          "sha256": "1d0378be32a6b3394f693b27e6500f149bbcbf7db3d35680f43e99b00563d639"
+        },
+        {
+          "name": "Nex-2.6.10-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/Nex-2.6.10-store.aab",
+          "kind": "bundle",
+          "size": 144285560,
+          "downloads": 1,
+          "sha256": "d0f3a16cb4d253f8f721c45afcd6bb6fd1fc658ceac946f7491d4166e8f27f5e"
+        },
+        {
+          "name": "Nex-2.6.10-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/Nex-2.6.10-store.apk",
+          "kind": "other",
+          "size": 155816237,
+          "downloads": 1,
+          "sha256": "3fe5be9e64b998a8b72475c3f8e850d8064ea9eba1babab5e97e103770d8926b"
+        },
+        {
+          "name": "Nex-2.6.10-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/Nex-2.6.10-universal.apk",
+          "kind": "universal",
+          "size": 155832645,
+          "downloads": 1,
+          "sha256": "3f0f64763b13657fbe6888968c126f79b0c0b601762051d043f2472fb7f31982"
+        },
+        {
+          "name": "Nex-2.6.10-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/Nex-2.6.10-x86_64.apk",
+          "kind": "x64",
+          "size": 67308843,
+          "downloads": 1,
+          "sha256": "3d36f40e1e249a8e08af61e729bfcb2895e79b9337d75d037fdeab0f120968e0"
+        },
+        {
+          "name": "Nex-2.6.10.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/Nex-2.6.10.aab",
+          "kind": "bundle",
+          "size": 144312100,
+          "downloads": 1,
+          "sha256": "33862443acc9619c84302e93a03689e023f8d9dca7fa0fa1550ce1b233f0dec8"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.10/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "64bc6fc1eea6c3e2d3dda213d5c03aabf295a056240a926471b7ca1964bc20e3"
+        }
+      ]
+    },
+    {
       "version": "2.6.9",
       "tag": "v2.6.9",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.9",
@@ -16,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61197384,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "0248a6be7f465c7db5ae47b9c343bd9c18c29ee1fa0d48ac8865d42a58e12d0e"
         },
         {
@@ -24,7 +100,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 38536814,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "d86cffc6f17e5129c9511ed5635c6548d793a5acbb9542ab3baaa3e4d7e7cc26"
         },
         {
@@ -32,7 +108,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-store.aab",
           "kind": "bundle",
           "size": 144278240,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "7f3d0343368db3c331bdd0285a5bed4e22573a2cd669d04f60e7355fa3f85d95"
         },
         {
@@ -40,7 +116,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-store.apk",
           "kind": "other",
           "size": 155816001,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "bc2a41d7796844e2cdc145e952638475604c0999887c797638c6e0b2e0fabe3a"
         },
         {
@@ -48,7 +124,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-universal.apk",
           "kind": "universal",
           "size": 155832413,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "be30c58c260c5557e341ad5471a90f65d22f2150588301857b9089320c8f961a"
         },
         {
@@ -56,7 +132,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-x86_64.apk",
           "kind": "x64",
           "size": 67308611,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "a377078a7efae95ed5caa2d2fa9085e459c8b77e5ba22183c9ea1986d50cf9c6"
         },
         {
@@ -64,7 +140,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9.aab",
           "kind": "bundle",
           "size": 144306082,
-          "downloads": 0,
+          "downloads": 1,
           "sha256": "fbe8d900f8a54b9798a8a406df1d02335a87cffebfd272da23d73505adb25746"
         },
         {
@@ -72,7 +148,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/SHA256SUMS",
           "kind": "other",
           "size": 604,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "5469ecaad5555146ed5cdbd9dba6abad3b6d713309da408638327ded92189a73"
         }
       ]
