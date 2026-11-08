@@ -2,80 +2,102 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.9",
+      "tag": "v2.6.9",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.9",
+      "publishedAt": "2026-11-08T12:17:05.000Z",
+      "notes": {
+        "en": "- **Precisely aligned note badges.** The centres of tag dots above and attachment, priority and reminder badges below now sit on the full-size note icon's actual circular rim. The main icon stays the same size even with multiple badges, and spacing adapts to the card density.\r\n- **Three tags, without losing your data.** New notes cannot take a fourth tag. Older notes keep existing extra tags until you remove them in note details. Imports with more than three distinct tags on a note are rejected before saving any notes, with a clear warning rather than silently discarding tags.",
+        "fa": "- **چیدمان دقیق نشانگرهای کارت.** مرکز نقطه‌های رنگی تگ در بالا و نشان‌های پیوست، فوری و یادآور در پایین دقیقاً روی محیط دایره اصلی قرار گرفته است. اندازه دایره اصلی ثابت می‌ماند و فاصله نشانگرها با اندازه کارت هماهنگ می‌شود.\r\n- **حداکثر سه تگ بدون حذف اطلاعات.** افزودن تگ چهارم ممکن نیست. تگ‌های اضافه یادداشت‌های قدیمی بدون اجازه پاک نمی‌شوند و می‌توانید از جزئیات یادداشت آن‌ها را حذف کنید. هنگام واردکردن فایل دارای یادداشتی با بیش از سه تگ متفاوت، پیش از ذخیره هر یادداشت هشدار واضح نمایش داده می‌شود تا تگی بی‌خبر حذف نشود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.9-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61197384,
+          "downloads": 1,
+          "sha256": "0248a6be7f465c7db5ae47b9c343bd9c18c29ee1fa0d48ac8865d42a58e12d0e"
+        },
+        {
+          "name": "Nex-2.6.9-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38536814,
+          "downloads": 0,
+          "sha256": "d86cffc6f17e5129c9511ed5635c6548d793a5acbb9542ab3baaa3e4d7e7cc26"
+        },
+        {
+          "name": "Nex-2.6.9-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-store.aab",
+          "kind": "bundle",
+          "size": 144278240,
+          "downloads": 0,
+          "sha256": "7f3d0343368db3c331bdd0285a5bed4e22573a2cd669d04f60e7355fa3f85d95"
+        },
+        {
+          "name": "Nex-2.6.9-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-store.apk",
+          "kind": "other",
+          "size": 155816001,
+          "downloads": 0,
+          "sha256": "bc2a41d7796844e2cdc145e952638475604c0999887c797638c6e0b2e0fabe3a"
+        },
+        {
+          "name": "Nex-2.6.9-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-universal.apk",
+          "kind": "universal",
+          "size": 155832413,
+          "downloads": 0,
+          "sha256": "be30c58c260c5557e341ad5471a90f65d22f2150588301857b9089320c8f961a"
+        },
+        {
+          "name": "Nex-2.6.9-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9-x86_64.apk",
+          "kind": "x64",
+          "size": 67308611,
+          "downloads": 0,
+          "sha256": "a377078a7efae95ed5caa2d2fa9085e459c8b77e5ba22183c9ea1986d50cf9c6"
+        },
+        {
+          "name": "Nex-2.6.9.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/Nex-2.6.9.aab",
+          "kind": "bundle",
+          "size": 144306082,
+          "downloads": 0,
+          "sha256": "fbe8d900f8a54b9798a8a406df1d02335a87cffebfd272da23d73505adb25746"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.9/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 1,
+          "sha256": "5469ecaad5555146ed5cdbd9dba6abad3b6d713309da408638327ded92189a73"
+        }
+      ]
+    },
+    {
+      "version": "2.6.8",
+      "tag": "v2.6.8",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.8",
+      "publishedAt": "2026-11-08T06:39:38.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
       "version": "2.6.7",
       "tag": "v2.6.7",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.7",
       "publishedAt": "2026-11-07T04:03:02.000Z",
       "notes": {
-        "en": "- **Night is now true OLED black.** A pure-black page, charcoal cards and softer text give Night its own quiet look.\r\n- **Light feels calmer.** A white page and gentle grey cards make notes easier to scan, without decorative card borders or shadows.\r\n- **Clearer fields and matching Android colours.** Text fields keep a slim visible outline; Android launch and home-widget colours follow the new look. Your accent, Liquid Glass and accessibility settings still work.",
-        "fa": "- **شب با مشکی واقعی OLED.** زمینهٔ کاملاً مشکی، کارت‌های زغالی و نوشته‌های ملایم‌تر، حالت شب را آرام‌تر و یکدست‌تر کرده‌اند.\r\n- **روشنِ خلوت‌تر و چشم‌نوازتر.** کارت‌های خاکستری لطیف روی زمینهٔ سفید، بدون حاشیه و سایهٔ تزئینی، خواندن یادداشت‌ها را راحت‌تر می‌کنند.\r\n- **کادرهای مشخص‌تر و رنگ‌های هماهنگ.** دور کادرهای ورود متن یک خط ظریف دیده می‌شود و رنگ‌های صفحهٔ شروع و ویجت‌های اندروید با ظاهر جدید هماهنگ‌اند. رنگ دلخواه، لیکویید گلس و تنظیمات دسترس‌پذیری حفظ شده‌اند."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.6.7-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/Nex-2.6.7-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 61163724,
-          "downloads": 2,
-          "sha256": "d394a37cda1cc020ee068bacaa103e9769111eb30698e009bfa71ed9a4260020"
-        },
-        {
-          "name": "Nex-2.6.7-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/Nex-2.6.7-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 38519538,
-          "downloads": 1,
-          "sha256": "a51f0538a0bf9d4bea16b49fcc0b2ac19a1d8be9a35fe0f5a1e4600b14bdd582"
-        },
-        {
-          "name": "Nex-2.6.7-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/Nex-2.6.7-store.aab",
-          "kind": "bundle",
-          "size": 144208203,
-          "downloads": 1,
-          "sha256": "dbf53ce7d0d0cc3e217ebbd555fbf80f0bc9562c00bd1ed9ed0146e680a8b8c4"
-        },
-        {
-          "name": "Nex-2.6.7-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/Nex-2.6.7-store.apk",
-          "kind": "other",
-          "size": 155765957,
-          "downloads": 1,
-          "sha256": "81003c6fad4dda4d45c3208d0b9c6199d6318479fc87ea73c742419d46c8e86d"
-        },
-        {
-          "name": "Nex-2.6.7-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/Nex-2.6.7-universal.apk",
-          "kind": "universal",
-          "size": 155765985,
-          "downloads": 1,
-          "sha256": "471a826130189ebba550d8c05b68398a43a62ac906e5b81a76853db395424793"
-        },
-        {
-          "name": "Nex-2.6.7-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/Nex-2.6.7-x86_64.apk",
-          "kind": "x64",
-          "size": 67291335,
-          "downloads": 1,
-          "sha256": "bfefed12b1cb21b3383e88eed2bcd0d7a499c4aade1436d470631ae1f991b4bb"
-        },
-        {
-          "name": "Nex-2.6.7.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/Nex-2.6.7.aab",
-          "kind": "bundle",
-          "size": 144240916,
-          "downloads": 1,
-          "sha256": "79000b59d5ac27d3a873db035bfd6cc82d83800c5acf0af90460ce13b5a25905"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.7/SHA256SUMS",
-          "kind": "other",
-          "size": 604,
-          "downloads": 2,
-          "sha256": "08fde3a641fb37e269037a9ba782f836074522587232eefd718c6d5cc4e9a05a"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.6.6",
@@ -126,28 +148,6 @@
       "tag": "v2.6.2",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.2",
       "publishedAt": "2026-11-04T12:44:22.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.1",
-      "tag": "v2.6.1",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.1",
-      "publishedAt": "2026-11-04T07:57:17.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.0",
-      "tag": "v2.6.0",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.0",
-      "publishedAt": "2026-11-03T07:09:46.000Z",
       "notes": {
         "en": "",
         "fa": null
