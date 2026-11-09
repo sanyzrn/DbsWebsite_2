@@ -2,6 +2,158 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.13",
+      "tag": "v2.6.13",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.13",
+      "publishedAt": "2026-11-09T12:04:24.000Z",
+      "notes": {
+        "en": "- **Faster opening of long notes and text files.** The first page appears with the detail sheet instead of waiting for it to finish opening.\r\n- **Smoother reading and actions.** Long documents reveal progressively and keep menus and scrolling more responsive; Markdown blocks and whitespace stay intact.",
+        "fa": "- **باز شدن سریع‌تر یادداشت‌ها و فایل‌های متنی بلند.** پیش‌نمایش متن هم‌زمان با باز شدن جزئیات نمایش داده می‌شود و منتظر پایان انیمیشن نمی‌ماند.\r\n- **خواندن و منوهای روان‌تر.** متن‌های بلند تدریجی باز می‌شوند و اسکرول و منوها سبک‌تر اجرا می‌شوند؛ فاصله‌ها و بلوک‌های مارک‌داون حفظ می‌شوند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.13-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61198552,
+          "downloads": 2,
+          "sha256": "b3de4c3eea3bc2e24b91f4b29e42ad6a91b3f17ab5751e899d38d12408b2d896"
+        },
+        {
+          "name": "Nex-2.6.13-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38537982,
+          "downloads": 1,
+          "sha256": "6aaf311ccc3eb8c799bde34598f72ab287777546d24a5de5e5e46f25ce5d45e1"
+        },
+        {
+          "name": "Nex-2.6.13-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-store.aab",
+          "kind": "bundle",
+          "size": 144309021,
+          "downloads": 1,
+          "sha256": "3593e9306116e10005e018144eeee35cc6e350308568eca5423597350f54e069"
+        },
+        {
+          "name": "Nex-2.6.13-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-store.apk",
+          "kind": "other",
+          "size": 155833557,
+          "downloads": 1,
+          "sha256": "588eb7523fc1b96880fd315e3dd973772ba3ab62465c8b17e87115479744803d"
+        },
+        {
+          "name": "Nex-2.6.13-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-universal.apk",
+          "kind": "universal",
+          "size": 155833581,
+          "downloads": 1,
+          "sha256": "9caa5af5fa3c2d31691c6a7f721beef599c2639beaadb439616b44e7c3a7a23b"
+        },
+        {
+          "name": "Nex-2.6.13-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-x86_64.apk",
+          "kind": "x64",
+          "size": 67309783,
+          "downloads": 1,
+          "sha256": "f47844914a7a7eb3f19d6d32368a275ed46255b3594af6d5e5a65ac32f9c2179"
+        },
+        {
+          "name": "Nex-2.6.13.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13.aab",
+          "kind": "bundle",
+          "size": 144337443,
+          "downloads": 1,
+          "sha256": "6f1a97794eb9c2e3501e9f8e0a966f45bed48faf250d8de7aabe9e89774976ef"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "611400c70b5564e85e1de85a7a930fa572c819e5e24f420968fb3d646355c84d"
+        }
+      ]
+    },
+    {
+      "version": "2.6.12",
+      "tag": "v2.6.12",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.12",
+      "publishedAt": "2026-11-09T07:55:26.000Z",
+      "notes": {
+        "en": "- **Smoother returns from Settings and Recurring.** Unchanged recurring commitments no longer trigger a full Home screen redraw when closing these pages.\r\n- **Reliable recurring updates.** Changes to schedules, completion history and attached details still appear, and today's completion counts refresh correctly after midnight.\r\n\r\n- **Smoother navigation throughout Nex.** Unchanged screens in Threads, Library, Set Aside, note details, Home layout, and Intelligence no longer redraw unnecessarily after returning.\r\n- **Real changes remain visible.** Notes, tags, attachments, and thread membership continue to update when edited.",
+        "fa": "- **بازگشت روان‌تر از تنظیمات و تعهدات تکرارشونده.** وقتی اطلاعات تغییری نکرده، بستن این صفحات دیگر باعث بازسازی بی‌دلیل صفحه اصلی نمی‌شود.\r\n- **به‌روزرسانی دقیق تعهدات.** تغییر زمان‌بندی، سوابق انجام و جزئیات تعهدات همچنان نمایش داده می‌شود؛ شمارندهٔ انجام امروز نیز پس از تغییر روز درست به‌روز می‌شود.\r\n\r\n- **بازگشت روان‌تر در بخش‌های مختلف نکس.** بستن رشته‌ها، کتابخانه، کنارگذاشته‌ها، جزئیات یادداشت، چیدمان خانه و هوشمندی، بدون تغییر اطلاعات دیگر بازسازی اضافی ایجاد نمی‌کند.\r\n- **حفظ به‌روزرسانی تغییرات واقعی.** تغییرات یادداشت، تگ، پیوست و عضویت در رشته‌ها همچنان نمایش داده می‌شوند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.12-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/Nex-2.6.12-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61263880,
+          "downloads": 2,
+          "sha256": "f7c35db2d5cf9f211ebe210c4ad9f0d92b3b10372d362b72c2736b51183f056e"
+        },
+        {
+          "name": "Nex-2.6.12-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/Nex-2.6.12-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38554154,
+          "downloads": 2,
+          "sha256": "9c5dbbdb0b2920587c521159e124adb632f39d2b8a3a81e04d119d658e86c9a2"
+        },
+        {
+          "name": "Nex-2.6.12-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/Nex-2.6.12-store.aab",
+          "kind": "bundle",
+          "size": 144325414,
+          "downloads": 1,
+          "sha256": "3f20d123b39e8d8006172d7d52c3b5458abbca2c838d64b61942d0ebef9d1a1f"
+        },
+        {
+          "name": "Nex-2.6.12-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/Nex-2.6.12-store.apk",
+          "kind": "other",
+          "size": 155833345,
+          "downloads": 1,
+          "sha256": "1a8938481626d4812ffca245f4273f9d42b0b1473ade5ec7fa57157ccd1fb9b4"
+        },
+        {
+          "name": "Nex-2.6.12-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/Nex-2.6.12-universal.apk",
+          "kind": "universal",
+          "size": 155915293,
+          "downloads": 1,
+          "sha256": "7576e2486ab767767c0114891978c5218f0e552c92a31e1264391c74f2f4a34e"
+        },
+        {
+          "name": "Nex-2.6.12-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/Nex-2.6.12-x86_64.apk",
+          "kind": "x64",
+          "size": 67309575,
+          "downloads": 1,
+          "sha256": "9715e613adb3a409b5fe6e8d28c2057239d9b17f01e1eff79b1fc46ac32da956"
+        },
+        {
+          "name": "Nex-2.6.12.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/Nex-2.6.12.aab",
+          "kind": "bundle",
+          "size": 144357015,
+          "downloads": 2,
+          "sha256": "d0783cd1a7999e07d5a54cbe25835903afc229fe9ed3ebc804983553b8a78db4"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.12/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "a46d3839f09d8244131eb161f8a764babe9fe3fa724062d1ca79e07681eb04d4"
+        }
+      ]
+    },
+    {
       "version": "2.6.11",
       "tag": "v2.6.11",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.11",
