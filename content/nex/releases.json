@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.11",
+      "tag": "v2.6.11",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.11",
+      "publishedAt": "2026-11-09T03:40:07.000Z",
+      "notes": {
+        "en": "- **Smoother return to Home.** Closing note details or returning from another page avoids unnecessary timeline rebuilding when nothing has changed.\r\n- **Reliable note updates.** Actual changes to notes, reminders, tags and AI-enriched content continue to appear, even while filters are active.\r\n- **Tidier circular note markers.** Reminder, urgent and attachment indicators now sit precisely on the main icon's rim rather than overlapping its centre.",
+        "fa": "- **بازگشت روان‌تر به صفحه اصلی.** با بستن جزئیات یادداشت یا برگشت از صفحات دیگر، وقتی چیزی عوض نشده، کارت‌ها بی‌دلیل دوباره بازسازی نمی‌شوند.\r\n- **نمایش درست تغییرات.** ویرایش یادداشت، یادآورها، تگ‌ها و متن‌های پردازش‌شده با هوش مصنوعی حتی هنگام فعال بودن فیلترها به‌درستی به‌روزرسانی می‌شوند.\r\n- **نشانگرهای مرتب‌تر کارت.** علامت‌های یادآور، فوری و پیوست دقیقاً روی محیط دایره اصلی قرار می‌گیرند و روی آیکون وسط نمی‌افتند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.11-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/Nex-2.6.11-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61197940,
+          "downloads": 2,
+          "sha256": "ac280e4411db071e4b0fd524ecd1ac4ef81e47045b2f743668210268060f9d97"
+        },
+        {
+          "name": "Nex-2.6.11-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/Nex-2.6.11-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38537370,
+          "downloads": 1,
+          "sha256": "3a808d636b40d07efae8b7c8efa413512d58caa7f1fc528c820d8311b578ee6a"
+        },
+        {
+          "name": "Nex-2.6.11-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/Nex-2.6.11-store.aab",
+          "kind": "bundle",
+          "size": 144302250,
+          "downloads": 1,
+          "sha256": "a9dfdffc1b849114aeace685b18dbed9de9f45686cdde173508c716d274935f5"
+        },
+        {
+          "name": "Nex-2.6.11-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/Nex-2.6.11-store.apk",
+          "kind": "other",
+          "size": 155816561,
+          "downloads": 1,
+          "sha256": "c29579f5bfe34de83791db4d0172dd2b5b169eca1e4f74e9aa40236acb956a6c"
+        },
+        {
+          "name": "Nex-2.6.11-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/Nex-2.6.11-universal.apk",
+          "kind": "universal",
+          "size": 155832969,
+          "downloads": 1,
+          "sha256": "d8bcc365a6b573bdb21cc95ba75e4b55bf974afe158be4f933fa2ba838d24bc1"
+        },
+        {
+          "name": "Nex-2.6.11-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/Nex-2.6.11-x86_64.apk",
+          "kind": "x64",
+          "size": 67309167,
+          "downloads": 1,
+          "sha256": "27c8a2423ffcac578fea7ed932183780d3ffd2ff333e65f499c509cda3655df6"
+        },
+        {
+          "name": "Nex-2.6.11.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/Nex-2.6.11.aab",
+          "kind": "bundle",
+          "size": 144326223,
+          "downloads": 1,
+          "sha256": "80b8477dfe5fb20c1bb62894c267b68214ac17f4e7eca9cc5eca9ce5d208d099"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.11/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "4c6360149d7242881623f788b75122f733d5cfbf31b368daaaba2949e2eae4b5"
+        }
+      ]
+    },
+    {
       "version": "2.6.10",
       "tag": "v2.6.10",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.10",
