@@ -2,6 +2,28 @@
 
 User-facing release notes. Detailed technical history is preserved in [the development archive](docs/development/CHANGELOG.md).
 
+## v2.6.16
+
+- **An Undo can no longer be swallowed silently.** A plain banner arriving while an actionable one is still up waits its turn instead of eating it — and a banner replaced by a newer one leaves through the edge it came from, with its exit animation.
+- **Banners keep their own time.** They arrive in half the time they used to, their words are readable from the first third of the entrance, the countdown starts once the entrance is over, scales with the message's length, and holding a banner pauses it.
+- **Sending a note reads as success.** The capture sheet leaves as soon as the words are settled — the timeline reloads behind the closing animation — and the send button becomes a ✓ rather than greying the sheet out like a failure.
+- **The first keystroke changes no sizes.** Paste keeps its column with only its icon fading, and the schedule hint waits for the words to be still, so nothing jumps around under the arriving keyboard.
+- **Paste shows when there is something to paste.** The sheet asks — without reading the clipboard — on open and on return, so an empty clipboard no longer shows a button that visibly does nothing.
+- **A link's Open sits on the toolbar.** Each note kind's primary action — Open for links and files, Edit for text — takes the first slot by rank, not by matching translated labels, which is why Open always used to hide behind More.
+- **Long notes open the editor full screen.** Past about eight lines the editor owns the screen from the start instead of a 220px box, and ✕ and ✓ are its controls in either size.
+- **Pickers arrive like the rest of the app.** The time and date pickers rise and settle on the app's own beat and scrim rather than Flutter's flat 150ms fade, and the assistant's settings sheet is the app's own sheet again.
+- **The camera's wait is spoken.** While the sensor is being asked for, the panel shows a faint skeleton and says what it is doing — and six seconds in it offers the phone's camera app, before the timeout does.
+- **Covered, not cleared.** Pulling the shade over the vault lays a blur across it and comes straight back with the form as it was — words, caret and place — instead of rebuilding it from a draft; being away past the grace period still locks.
+- **The assistant hold hint gets a button.** "Got it" is a real button now rather than part of the sentence, and the hint keeps to the app's own label style — still shown only when the assistant can actually answer.
+- **A toast leaves the way it arrived.** Its content's exit — a small settle and fade on the exit token — completes the entrance it always had.
+- **A cut preview says so.** A multiline bilingual preview that runs out of rows ends in an ellipsis instead of reading as the note's ending, and blank lines are no longer spent from the budget.
+- **A fast retreat is not a flick.** Pulling back through the middle to cancel a capture flick no longer fires the opposite side's shortcut; the opposite side still works by crossing its full arm.
+- **The wide-window scale is said out loud.** Appearance now notes that a wide window draws everything at 90% of the chosen size — the factor was always there, silently, on the notes' own text too.
+- **One clearance rule for the dock.** A single helper reserves the capture dock's room instead of the same sum written out screen by screen, and the dock itself gives way under an open keyboard.
+- **Chosen Night hands over in black.** With Night chosen, the window between the system splash and the app's first frame is painted black instead of flashing Soft Dark's grey.
+
+## v2.6.15
+
 - **A tap in the search field is no longer a re-run.** Touching the field to move the caret or paste no longer restarts the whole search and re-fades the results; the keyboard's Search key now actually runs the query instead of just closing the keyboard.
 - **Leaving search keeps your words.** With text typed, a touch outside the field now only lowers the keyboard — it never wipes the query. Clearing stays on the ✕ and Back.
 - **One buzz per delete.** Deleting a note used to vibrate three times in a row (gesture, action, banner). Now the one confirming buzz is the whole receipt.
@@ -16,6 +38,24 @@ User-facing release notes. Detailed technical history is preserved in [the devel
 - **Crop and annotation failures look and sound like failures** — a proper message in your language, not a success-styled banner with a raw exception in it.
 - **PDF page arrows follow the reading direction** in Persian, agreeing with the swipe instead of arguing with it.
 - **Smaller controls reach the 48dp touch floor.** The Undo banner's button and the voice speed chip now meet the app's own minimum touch size.
+
+- **Passwords in the vault are masked.** The editor dots them while typing and the list dots them at rest; the eye beside either lends the real characters for a few seconds and covers them again by itself.
+- **The editor's caret starts where the words start.** Opening a note no longer drops the caret after the last character; a recovered draft still opens with the caret at its end, where typing left off.
+- **Merging tags says what it will do before it does it.** Both names and how many notes follow, with a receipt naming the tag that kept them — the same confirmation deleting a tag always had.
+- **Back lifts the timeline's filter before it leaves the app.** A filtered list used to survive the Back key: now Back takes the filter off first, and only a second Back exits.
+- **A pin says so, and shows the way.** Pinning from the menu or a swipe raises a short banner whose action scrolls to the pinned cards — and the five-pin limit now offers the same trip instead of a bare refusal. The button in the note sheet keeps its word, "Pin", and says the limit only when pressed there.
+- **Capture keeps its buzzes to one per event.** The sheet's failure banners respect the haptics setting, a broken journal is announced once per sheet rather than per keystroke, and a capture that converts to a list or link no longer buzzes twice.
+- **The day summary folds under a real scroll, not a tremble.** Four pixels used to close it — and save the closure for every launch after; now it takes a finger-dragged 56, lasts the session, and the preference belongs to its own chevron.
+- **A typed complaint is guarded like typed words.** The feedback sheet asks before Back, a swipe or a tap outside closes over what was written.
+- **Removing a tag from a note can be undone.** The ✕ now leaves a banner: the tag's name, and an Undo that puts it straight back.
+- **Several tags in one visit.** The tag picker takes ticks in place and one Add commits them all — three tags on a note no longer cost three rounds of open, pick, wait for the close.
+- **Technical tags read as themselves in Persian.** `C++`, `#work`, `v2.0!` keep their own order on the timeline's filter pills instead of coming out reversed.
+- **One receipt for every copy.** The hold menu, the note sheet and the selection all use one voice; Android 13+ leaves the word to the system's own clipboard preview, and everywhere else the banner says it.
+- **The hold menu answers the hold.** A tick when it opens, the card ducks a hair while it is up, and the menu hangs from the card's top edge rather than from under the finger.
+- **Copied text is only the text.** Empty lines copy as lines, not as invisible zero-width spaces, and neighbouring lines whose boxes touch no longer glue together with spaces.
+- **Home's tag filters take effect at once.** Tapping a tag, type or reminder filter now updates the notes on screen in the same breath; they used to keep showing the previous selection until something else rebuilt the screen.
+- **Home's tag counts count Home.** The number beside a tag says how many notes on the timeline carry it — archived and set-aside notes no longer inflate it.
+- **Code blocks read left-to-right inside Persian notes.** Fenced code in a Markdown note keeps its own direction, alignment and horizontal scrolling instead of being reordered by the note's Persian layout.
 
 ## v2.6.14
 

@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.16",
+      "tag": "v2.6.16",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.16",
+      "publishedAt": "2026-11-10T15:18:19.000Z",
+      "notes": {
+        "en": "- **An Undo can no longer be swallowed silently.** A plain banner arriving while an actionable one is still up waits its turn instead of eating it — and a banner replaced by a newer one leaves through the edge it came from, with its exit animation.\r\n- **Banners keep their own time.** They arrive in half the time they used to, their words are readable from the first third of the entrance, the countdown starts once the entrance is over, scales with the message's length, and holding a banner pauses it.\r\n- **Sending a note reads as success.** The capture sheet leaves as soon as the words are settled — the timeline reloads behind the closing animation — and the send button becomes a ✓ rather than greying the sheet out like a failure.\r\n- **The first keystroke changes no sizes.** Paste keeps its column with only its icon fading, and the schedule hint waits for the words to be still, so nothing jumps around under the arriving keyboard.\r\n- **Paste shows when there is something to paste.** The sheet asks — without reading the clipboard — on open and on return, so an empty clipboard no longer shows a button that visibly does nothing.\r\n- **A link's Open sits on the toolbar.** Each note kind's primary action — Open for links and files, Edit for text — takes the first slot by rank, not by matching translated labels, which is why Open always used to hide behind More.\r\n- **Long notes open the editor full screen.** Past about eight lines the editor owns the screen from the start instead of a 220px box, and ✕ and ✓ are its controls in either size.\r\n- **Pickers arrive like the rest of the app.** The time and date pickers rise and settle on the app's own beat and scrim rather than Flutter's flat 150ms fade, and the assistant's settings sheet is the app's own sheet again.\r\n- **The camera's wait is spoken.** While the sensor is being asked for, the panel shows a faint skeleton and says what it is doing — and six seconds in it offers the phone's camera app, before the timeout does.\r\n- **Covered, not cleared.** Pulling the shade over the vault lays a blur across it and comes straight back with the form as it was — words, caret and place — instead of rebuilding it from a draft; being away past the grace period still locks.\r\n- **The assistant hold hint gets a button.** \"Got it\" is a real button now rather than part of the sentence, and the hint keeps to the app's own label style — still shown only when the assistant can actually answer.\r\n- **A toast leaves the way it arrived.** Its content's exit — a small settle and fade on the exit token — completes the entrance it always had.\r\n- **A cut preview says so.** A multiline bilingual preview that runs out of rows ends in an ellipsis instead of reading as the note's ending, and blank lines are no longer spent from the budget.\r\n- **A fast retreat is not a flick.** Pulling back through the middle to cancel a capture flick no longer fires the opposite side's shortcut; the opposite side still works by crossing its full arm.\r\n- **The wide-window scale is said out loud.** Appearance now notes that a wide window draws everything at 90% of the chosen size — the factor was always there, silently, on the notes' own text too.\r\n- **One clearance rule for the dock.** A single helper reserves the capture dock's room instead of the same sum written out screen by screen, and the dock itself gives way under an open keyboard.\r\n- **Chosen Night hands over in black.** With Night chosen, the window between the system splash and the app's first frame is painted black instead of flashing Soft Dark's grey.",
+        "fa": "- **دیگر هیچ بازگردانی‌ای بی‌صدا بلعیده نمی‌شود.** بنر ساده‌ای که وقتی بنر اکشن‌دار هنوز روی صفحه است برسد، نوبت خودش را صبر می‌کند و منتظر می‌ماند؛ و بنری که جایگزین می‌شود از همان لبه‌ای که آمده بود، با انیمیشن خروجش، بیرون می‌رود.\r\n- **بنرها زمانِ خودشان را دارند.** نصف زمان قبلی وارد می‌شوند، حرف‌هایشان از یک‌سوم اولِ ورود خوانا می‌شود، شمارش عمر پس از پایان ورود شروع می‌شود و با طول پیام کش می‌آید؛ و نگه‌داشتن بنر، شمارشش را نگه می‌دارد.\r\n- **ارسال یادداشت، موفقیت را نشان می‌دهد.** شیت ثبت به‌محض جاافتادن کلمه‌ها بسته می‌شود — بارگیری دوبارهٔ تایم‌لاین پشت انیمیشن بستن اجرا می‌شود — و دکمهٔ ارسال به ✓ تبدیل می‌شود، نه اینکه کل شیت مثل خطا خاکستری و قفل شود.\r\n- **اولین حرف هیچ اندازه‌ای را عوض نمی‌کند.** Paste ستون خودش را نگه می‌دارد و فقط آیکنش محو می‌شود، و راهنمای زمان‌بندی برای ساکن‌شدن کلمه‌ها صبر می‌کند — دیگر چیزی زیر کیبوردِ در حال آمدن نمی‌پرد.\r\n- **Paste فقط وقتی دیده می‌شود که چیزی برای چسباندن هست.** شیت هنگام باز شدن و بازگشت اپ می‌پرسد — بدون خواندن کلیپ‌بورد — تا کلیپ‌بورد خالی دیگر دکمه‌ای نشان ندهد که معلوس هیچ کاری نمی‌کند.\r\n- **«باز کردن» لینک روی نوار ابزار جزئیات است.** اقدام اصلی هر نوع یادداشت — باز کردن برای لینک و فایل، ویرایش برای متن — با رتبه در جایگاه اول می‌نشیند، نه با مقایسهٔ برچسب ترجمه‌شده؛ همان چیزی که «باز کردن» را همیشه پشت «بیشتر» پنهان می‌کرد.\r\n- **یادداشت بلند، ویرایشگر را تمام‌صفحه باز می‌کند.** از حدود هشت خط به بعد ویرایشگر از همان ابتدا صاحب صفحه است، نه جعبهٔ ۲۲۰ پیکسلی؛ و ✕ و ✓ کنترل‌های هر دو حالت‌اند.\r\n- **انتخابگرها مثل بقیهٔ اپ می‌آیند.** انتخابگر زمان و تاریخ با ریتم و اسکریم خود اپ بالا می‌آیند و جا می‌شوند، نه محوشدن ۱۵۰ میلی‌ثانیه‌ای خام فلاتر؛ و شیت تنظیمات دستیار دوباره شیت خود اپ است.\r\n- **انتظار دوربین گفته می‌شود.** تا سنسور درخواست شود، پنل اسکلت کم‌رنگ و حرف‌هایش را نشان می‌دهد — و در ثانیهٔ ششم، پیش از تایم‌اوت، دوربین گوشی را همان‌جا پیشنهاد می‌دهد.\r\n- **پوشیده، نه پاک‌شده.** پایین‌کشیدن سایهٔ اعلان روی گاوصندوق یک لایهٔ بلور رویش می‌اندازد و برگشت، فرم را همان‌طور که بود برمی‌گرداند — کلمه‌ها، مکان‌نما و جای خودش — به‌جای بازسازی از پیش‌نویس؛ رفتنِ بیش از مهلت هنوز قفل می‌کند.\r\n- **راهنمای نگه‌داشتن دکمه پیدا کرد.** «فهمیدم» حالا دکمهٔ واقعی است نه بخشی از جمله، و راهنما به سبک متن خود اپ می‌ماند — همچنان فقط وقتی نمایش داده می‌شود که دستیار واقعاً جواب بدهد.\r\n- **توست همان‌طور که می‌آید می‌رود.** خروج محتوایش — یک نشست کوچک و محو روی توکن خروج — ورودی را که همیشه داشت کامل می‌کند.\r\n- **پیش‌نمایش بریده، این را می‌گوید.** پیش‌نمایش دوزبانه‌ای که ردیف‌هایش تمام می‌شود به «…» ختم می‌شود، نه اینکه پایانِ یادداشت جلوه کند؛ و سطرهای خالی دیگر از بودجه خرج نمی‌شوند.\r\n- **پس‌کشیدنِ سریع، پرتاب نیست.** برگشتن از وسط برای لغو پرتاب ثبت، دیگر میان‌بر سمت مقابل را شلیک نمی‌کند؛ سمت مقابل همچنان با عبور کامل از آستانه‌اش کار می‌کند.\r\n- **مقیاس پنجرهٔ پهن، به زبان آورده شد.** صفحهٔ ظاهر حالا می‌گوید پنجرهٔ پهن همه‌چیز را در ۹۰٪ اندازهٔ انتخاب‌شده رسم می‌کند — ضریبی که همیشه بود، بی‌سروصدا، روی متن خود یادداشت‌ها هم.\r\n- **یک قاعدهٔ کلیرنس برای داک.** یک تابع واحد جای خالی داک ثبت را رزرو می‌کند، به‌جای جمعِ یکسانی که صفحه‌به‌صفحه نوشته می‌شد؛ و خود داک زیر کیبوردِ باز کنار می‌رود.\r\n- **Night انتخابی، تحویل را سیاه می‌گیرد.** وقتی Night انتخاب شده، پنجرهٔ بین اسپلش سیستم و اولین فریم اپ سیاه رسم می‌شود، به‌جای اینکه اول خاکستری Soft Dark فلش بزند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.16-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61272424,
+          "downloads": 3,
+          "sha256": "8ebadc3fa0b0328503f0199fc1d843dca9a8ea2b93940d82eabe60425d8b6ee0"
+        },
+        {
+          "name": "Nex-2.6.16-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38579086,
+          "downloads": 1,
+          "sha256": "2e119b81a8b33d0a38c0549ba0010abd70da318c92cc00c04999bc3015ba7bd6"
+        },
+        {
+          "name": "Nex-2.6.16-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-store.aab",
+          "kind": "bundle",
+          "size": 144387321,
+          "downloads": 1,
+          "sha256": "8f4073a4a3d73946e5c64f5315a789a728ee261888f4eb5768da7c6ea41dd4e1"
+        },
+        {
+          "name": "Nex-2.6.16-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-store.apk",
+          "kind": "other",
+          "size": 155940193,
+          "downloads": 1,
+          "sha256": "7473b7670f9b27dbe58afac92aff8b9df7d163378b5c19e5ac5e2a43b8c24daf"
+        },
+        {
+          "name": "Nex-2.6.16-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-universal.apk",
+          "kind": "universal",
+          "size": 155940221,
+          "downloads": 1,
+          "sha256": "de0159977a48bf460d5910719e8366119c07e60d3c434a6eacafd9a0a98e77b3"
+        },
+        {
+          "name": "Nex-2.6.16-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-x86_64.apk",
+          "kind": "x64",
+          "size": 67318115,
+          "downloads": 1,
+          "sha256": "94866ffa6e2bdf52950cfb4d3be8ed33c515e0a137fd312e4baf075f3d9d519f"
+        },
+        {
+          "name": "Nex-2.6.16.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16.aab",
+          "kind": "bundle",
+          "size": 144411405,
+          "downloads": 1,
+          "sha256": "45107ff63852b3eb28875ef8795d7b0ad67f7433e46075e7e49f407403499d0f"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "8623b3b33fd57f4244d2d922cb3097c08060db1e9f8599271ba548615c0f375b"
+        }
+      ]
+    },
+    {
       "version": "2.6.14",
       "tag": "v2.6.14",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.14",
@@ -16,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61266952,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "4fd0b72db555055472113f0c2cdab468c8d6490799c71870ac1da3486a4c64c2"
         },
         {
@@ -24,7 +100,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 38540846,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "a52c1971f909fab8d08edd68e9e4d9e476d612991fcfb4bc17a1091744482a53"
         },
         {
@@ -40,7 +116,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-store.apk",
           "kind": "other",
           "size": 155820037,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "5710ee4c9d3604054e363dc5e1fada56d0311ea6471396ee5aedb7c456a92da3"
         },
         {
@@ -48,7 +124,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-universal.apk",
           "kind": "universal",
           "size": 155901977,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "f0c22e6b76453119bd0be4e6d520bea6a56ae277edb500da2d8d22bb5d3c59a3"
         },
         {
@@ -56,7 +132,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-x86_64.apk",
           "kind": "x64",
           "size": 67312643,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "115409b58ea713edeed0595a5e627537655870cd6a869fe3112e88a5dfbae5c7"
         },
         {
