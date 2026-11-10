@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.14",
+      "tag": "v2.6.14",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.14",
+      "publishedAt": "2026-11-10T04:45:23.000Z",
+      "notes": {
+        "en": "- **Working tag filters in search.** The Tags row finally appears in the search filter sheet, typing `tag:` finds your tags, and several chosen tags now mean \"any of them\" — the same as the timeline's filter chips.\r\n- **An honest Undo in the trash.** Leaving the trash after deleting a note for good no longer leaves an Undo banner that cannot bring it back.\r\n- **Reading an AI answer or a translation no longer closes the note.** Scrolling a long result inside its box stays inside the box, instead of taking the whole sheet with it.\r\n- **Delete works from a recurring item's linked notes.** Deleting a linked note there now moves it to the trash with an Undo, instead of quietly doing nothing.\r\n- **A friendlier link capture.** Pasting text that is not an address no longer dead-ends: Send keeps it as the note it already is and says so, a Clear button appears, and the \"not a link\" hint waits until you stop typing.\r\n- **The back gesture keeps a recording in progress.** Leaving the recording sheet the way Android goes back now keeps the recording — the same as Stop — instead of throwing it away.",
+        "fa": "- **کار کردن فیلتر تگ در جست‌وجو.** ردیف تگ‌ها بالاخره در شیت فیلتر جست‌وجو دیده می‌شود، نوشتن `tag:` تگ‌های شما را پیدا می‌کند و انتخاب چند تگ یعنی «یکی از این‌ها» — همان معنای چیپ‌های فیلتر تایم‌لاین.\r\n- **برگردانِ صادق در سطل بازیافت.** با خروج از سطل بازیافت بعد از حذف قطعی، دیگر بنر «برگردان»ی نمی‌ماند که چیزی را برنگرداند.\r\n- **خواندن پاسخ هوش مصنوعی یا ترجمه، یادداشت را نمی‌بندد.** اسکرولِ نتیجهٔ بلند داخل قاب خودش می‌ماند، نه اینکه کل شیت را با خود ببرد.\r\n- **حذف از فهرست یادداشت‌های پیوندشدهٔ تعهدات تکرارشونده کار می‌کند.** حذفِ آنجا یادداشت را با یک برگردان به سطل بازیافت می‌فرستد، نه اینکه بی‌صدا هیچ کاری نکند.\r\n- **کپچر لینکِ دوستانه‌تر.** چسباندن متنی که لینک نیست دیگر بن‌بست نیست: ارسال، آن را به‌عنوان همان یادداشتی که هست نگه می‌دارد و دلیلش را می‌گوید؛ دکمهٔ پاک‌کردن ظاهر می‌شود و پیام «شبیه لینک نیست» تا پایان تایپ صبر می‌کند.\r\n- **ژست بازگشت، ضبطِ در جریان را دور نمی‌ریزد.** برگشتن از شیت ضبط مثل دکمهٔ توقف ضبط را نگه می‌دارد، نه اینکه بی‌صدا پاکش کند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.14-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61266952,
+          "downloads": 2,
+          "sha256": "4fd0b72db555055472113f0c2cdab468c8d6490799c71870ac1da3486a4c64c2"
+        },
+        {
+          "name": "Nex-2.6.14-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38540846,
+          "downloads": 1,
+          "sha256": "a52c1971f909fab8d08edd68e9e4d9e476d612991fcfb4bc17a1091744482a53"
+        },
+        {
+          "name": "Nex-2.6.14-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-store.aab",
+          "kind": "bundle",
+          "size": 144346746,
+          "downloads": 1,
+          "sha256": "62465a0739e4985bedcde0c2c9461c32aa865b403adc5b0fc4d50f17ab4df130"
+        },
+        {
+          "name": "Nex-2.6.14-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-store.apk",
+          "kind": "other",
+          "size": 155820037,
+          "downloads": 1,
+          "sha256": "5710ee4c9d3604054e363dc5e1fada56d0311ea6471396ee5aedb7c456a92da3"
+        },
+        {
+          "name": "Nex-2.6.14-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-universal.apk",
+          "kind": "universal",
+          "size": 155901977,
+          "downloads": 1,
+          "sha256": "f0c22e6b76453119bd0be4e6d520bea6a56ae277edb500da2d8d22bb5d3c59a3"
+        },
+        {
+          "name": "Nex-2.6.14-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14-x86_64.apk",
+          "kind": "x64",
+          "size": 67312643,
+          "downloads": 1,
+          "sha256": "115409b58ea713edeed0595a5e627537655870cd6a869fe3112e88a5dfbae5c7"
+        },
+        {
+          "name": "Nex-2.6.14.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/Nex-2.6.14.aab",
+          "kind": "bundle",
+          "size": 144375493,
+          "downloads": 1,
+          "sha256": "876c92c0a8ecf41d07e73e0be7035c42a6131ac21068d754431ef8f05340dcf5"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.14/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "6461bd23d6cee32b51d54fc2c6e4f7784af2ac3fa580253e7c6d32dff2124f1a"
+        }
+      ]
+    },
+    {
       "version": "2.6.13",
       "tag": "v2.6.13",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.13",
@@ -16,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61198552,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "b3de4c3eea3bc2e24b91f4b29e42ad6a91b3f17ab5751e899d38d12408b2d896"
         },
         {
@@ -24,7 +100,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 38537982,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "6aaf311ccc3eb8c799bde34598f72ab287777546d24a5de5e5e46f25ce5d45e1"
         },
         {
@@ -40,7 +116,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-store.apk",
           "kind": "other",
           "size": 155833557,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "588eb7523fc1b96880fd315e3dd973772ba3ab62465c8b17e87115479744803d"
         },
         {
@@ -48,7 +124,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-universal.apk",
           "kind": "universal",
           "size": 155833581,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "9caa5af5fa3c2d31691c6a7f721beef599c2639beaadb439616b44e7c3a7a23b"
         },
         {
@@ -56,7 +132,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.13/Nex-2.6.13-x86_64.apk",
           "kind": "x64",
           "size": 67309783,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "f47844914a7a7eb3f19d6d32368a275ed46255b3594af6d5e5a65ac32f9c2179"
         },
         {
