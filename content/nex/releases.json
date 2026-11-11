@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.18",
+      "tag": "v2.6.18",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.18",
+      "publishedAt": "2026-11-11T12:57:02.000Z",
+      "notes": {
+        "en": "- **More readable surfaces.** Stronger contrast for vault bank cards, banners, module icons, tags, switches and urgent markers across Light, Dark and Night.\r\n- **Better Persian typography.** More comfortable line height, legible counters and consistently sized attachment badges.\r\n- **Quieter motion when requested.** Reduced-motion settings now apply to pages, sheets, camera, onboarding and loading indicators.\r\n- **Clearer, gentler feedback.** Unified touch feedback for reminders, checklists and switches; faster banner exits, smoother filters and more efficient reminder-bell animation.",
+        "fa": "- **خوانایی بیشتر در همهٔ تم‌ها.** کنتراست کارت‌های گاوصندوق، پیام‌ها، آیکون ماژول‌ها، تگ‌ها، سوییچ‌ها و نشان فوری بهتر شده است.\r\n- **متن فارسی خواناتر.** فاصلهٔ خطوط مناسب‌تر و اندازهٔ شمارنده‌ها و نشان‌های پیوست یکدست شده است.\r\n- **رعایت کاهش حرکت.** تنظیم کاهش انیمیشن گوشی در صفحه‌ها، پنجره‌ها، دوربین، راه‌اندازی اولیه و نشانگرهای بارگذاری اعمال می‌شود.\r\n- **بازخورد و حرکت هماهنگ‌تر.** لرزش یادآورها، چک‌لیست و سوییچ‌ها هماهنگ‌تر و خروج پیام‌ها، تغییر فیلتر و انیمیشن زنگوله روان‌تر شده است."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.18-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/Nex-2.6.18-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61274468,
+          "downloads": 2,
+          "sha256": "2f4e9567e906b1f03c377b607644aa15473c8d6242dbe923238ddd9b507542b8"
+        },
+        {
+          "name": "Nex-2.6.18-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/Nex-2.6.18-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38613894,
+          "downloads": 1,
+          "sha256": "c168eecae6794a8218f623e97a611e1d86bc4e6d065fed916abc146b401cd9e1"
+        },
+        {
+          "name": "Nex-2.6.18-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/Nex-2.6.18-store.aab",
+          "kind": "bundle",
+          "size": 144468649,
+          "downloads": 1,
+          "sha256": "b75b61fd5953e9c1e1f914e3b6f9494271bb4282c7b24802a642c7cf996c8216"
+        },
+        {
+          "name": "Nex-2.6.18-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/Nex-2.6.18-store.apk",
+          "kind": "other",
+          "size": 156007773,
+          "downloads": 1,
+          "sha256": "2efb781ca0dc57417c3b36fa9659ba01f0253ff3aba7e40c32fb3f18f103b245"
+        },
+        {
+          "name": "Nex-2.6.18-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/Nex-2.6.18-universal.apk",
+          "kind": "universal",
+          "size": 156040565,
+          "downloads": 1,
+          "sha256": "33e6b2b3551eeb6fe4f0c70056f4dc5396c8008f2739c6c76aa31ae5ec9b1ed1"
+        },
+        {
+          "name": "Nex-2.6.18-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/Nex-2.6.18-x86_64.apk",
+          "kind": "x64",
+          "size": 67385695,
+          "downloads": 1,
+          "sha256": "0deb6f1a5563cd7dcbe97a87c929481d0a85d04e66b4cf2ac6fd612fd18203d1"
+        },
+        {
+          "name": "Nex-2.6.18.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/Nex-2.6.18.aab",
+          "kind": "bundle",
+          "size": 144498067,
+          "downloads": 1,
+          "sha256": "c82e3b7b21d81ba683f036216a06e587b6638516913ec4279cf5e58e4f16b374"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.18/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "4d8da26cadc5302d241324c28d2a310389629c3c54153044974280da84ef6dfc"
+        }
+      ]
+    },
+    {
       "version": "2.6.17",
       "tag": "v2.6.17",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.17",
@@ -16,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61274044,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "c43e98f397ec5453191f4f6020133835a8d79357f7cd1d41204a40616d98fef1"
         },
         {
@@ -24,7 +100,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 38613470,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "88036fc57a29fd049efeab397b9b70bc17973a66585e264057434c69531824f2"
         },
         {
@@ -40,7 +116,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-store.apk",
           "kind": "other",
           "size": 156007349,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "d3a3a882247144d960d42a3be233d24b6177a328fd23474854bc663a15d80b7b"
         },
         {
@@ -48,7 +124,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-universal.apk",
           "kind": "universal",
           "size": 156040141,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "c1a21417f39dcc2c5609c8654c9bf60ec5d3288b0ba5cc05a1e37bcaae5a54d2"
         },
         {
@@ -56,7 +132,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-x86_64.apk",
           "kind": "x64",
           "size": 67385271,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "f9d99485bdaa9c59daf318da2c1b6302f0486668b4f15025e380d75fe259baf8"
         },
         {
