@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.17",
+      "tag": "v2.6.17",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.17",
+      "publishedAt": "2026-11-11T05:51:24.000Z",
+      "notes": {
+        "en": "- **Larger files, clear refusals.** Ordinary attachments now allow 500 MB; oversized or unreadable selections explain why they were not imported.\r\n- **Untagged appears only when useful.** The filter hides when every timeline note has tags and clears an empty active selection.\r\n- **Undo keeps its promise.** Permanent trash deletion waits until its Undo actually closes, and AI edits keep an Undo button in compact editors.\r\n- **Capture preserves unsaved work.** Failed writes stop media handoff; failed conversions keep the original reminder and retry without duplicating the converted note.\r\n- **Reminder taps survive the lock.** Recurring reminders open their destination after unlocking.\r\n\r\n- **Editing continues at the end.** Notes, captions and attachment captions open with the caret after the existing text.\r\n\r\n- **Assistant answers use real library totals.** Counts come from the database; internal searches stay out of replies and interrupted cloud answers get one bounded retry.\r\n\r\n- **Bottom navigation is easier to see.** A subtle outline and a distinct background separate the dock from content in Light, Dark and Night.\r\n- **Navigation returns quietly after capture.** Closing capture restores the dock without the rotation and zoom animation.\r\n- **Restore checks compatibility before changing your library.** Older supported libraries are upgraded on a temporary copy; incompatible or malformed backups leave the current library untouched.\r\n- **Interrupted restores keep a recovery path.** Library, media and full-backup settings can return to the previous state; cleanup failures after a successful restore no longer report failure or stop the app opening.\r\n- **A healthy backup can repair missing files.** Missing photos in the current library no longer prevent restoration, and the safety copy records which files were already missing.\r\n- **Backup files keep their meaning when shared.** A library backup renamed to `.zip` is recognized, and shared rescue backups retain their missing-file report. Invalid appearance settings are rejected before installation.",
+        "fa": "- **فایل بزرگ‌تر، پیام روشن‌تر.** سقف پیوست عادی ۵۰۰ مگابایت شد؛ انتخاب فایل بیش‌ازحد بزرگ یا ناخوانا با پیام مشخص رد می‌شود.\r\n- **«بدون تگ» فقط وقتی کاربرد دارد نمایش داده می‌شود.** با تگ‌دارشدن همهٔ یادداشت‌های تایم‌لاین، گزینه پنهان و فیلتر فعالِ خالی پاک می‌شود.\r\n- **Undo واقعاً فرصت برگشت می‌دهد.** حذف قطعی سطل‌زباله تا بسته‌شدن واقعی پیام منتظر می‌ماند و ویرایش هوش مصنوعی در ادیتور کوتاه هم دکمهٔ برگشت دارد.\r\n- **ثبت، متن ذخیره‌نشده را نگه می‌دارد.** خطای ذخیره مانع رفتن به انتخاب رسانه می‌شود؛ شکست تبدیل هم یادآور اصلی را حفظ می‌کند و تلاش مجدد یادداشت تکراری نمی‌سازد.\r\n- **مقصد یادآور پشت قفل حفظ می‌شود.** لمس اعلان موارد تکرارشونده بعد از بازشدن قفل به صفحهٔ مربوط می‌رود.\r\n\r\n- **ویرایش از انتهای متن ادامه پیدا می‌کند.** نشانگر یادداشت، کپشن و کپشن پیوست هنگام بازکردن ویرایش در انتهای متن قرار می‌گیرد.\r\n\r\n- **دستیار از آمار واقعی کتابخانه استفاده می‌کند.** تعدادها از دیتابیس خوانده می‌شوند؛ فرمان داخلی وارد پاسخ نمی‌شود و پاسخ ابری ناتمام یک‌بار با ظرفیت بیشتر تکرار می‌شود.\r\n\r\n- **ناوبری پایین واضح‌تر است.** زمینهٔ متمایز و خط باریک دور نوار در هر سه تم، آن را از کارت‌ها جدا می‌کند.\r\n- **بازگشت آرام ناوبری پس از ثبت.** پس از بستن ثبت جدید، نوار ناوبری بدون چرخش و بزرگ‌نمایی به جای خود برمی‌گردد.\r\n- **سازگاری بکاپ پیش از تغییر اطلاعات بررسی می‌شود.** ساختارهای قدیمیِ پشتیبانی‌شده روی کپی موقت ارتقا می‌یابند؛ بکاپ ناسازگار یا خراب، اطلاعات فعلی را دست‌نخورده نگه می‌دارد.\r\n- **بازیابی نیمه‌کاره راه برگشت دارد.** کتابخانه، فایل‌ها و تنظیمات بکاپ کامل به وضعیت قبلی برمی‌گردند؛ شکست پاک‌سازی پس از بازیابی موفق هم دیگر خطای کاذب یا مانع اجرای اپ نمی‌شود.\r\n- **بکاپ سالم می‌تواند فایل‌های گمشده را برگرداند.** نبودن عکس در کتابخانهٔ فعلی دیگر مانع ریستور نیست و نسخهٔ ایمنی، فایل‌هایی را که از قبل گم شده بودند ثبت می‌کند.\r\n- **اشتراک‌گذاری معنای بکاپ را عوض نمی‌کند.** بکاپ کتابخانه با پسوند تغییریافتهٔ `.zip` شناسایی می‌شود و گزارش فایل‌های گمشده در بکاپ نجات باقی می‌ماند. تنظیمات ظاهری نامعتبر نیز پیش از نصب رد می‌شوند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.17-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61274044,
+          "downloads": 2,
+          "sha256": "c43e98f397ec5453191f4f6020133835a8d79357f7cd1d41204a40616d98fef1"
+        },
+        {
+          "name": "Nex-2.6.17-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38613470,
+          "downloads": 1,
+          "sha256": "88036fc57a29fd049efeab397b9b70bc17973a66585e264057434c69531824f2"
+        },
+        {
+          "name": "Nex-2.6.17-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-store.aab",
+          "kind": "bundle",
+          "size": 144454435,
+          "downloads": 1,
+          "sha256": "e3b0179a72188a25e57cfc4880f37377f17c620ddac571310f95a226946a254e"
+        },
+        {
+          "name": "Nex-2.6.17-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-store.apk",
+          "kind": "other",
+          "size": 156007349,
+          "downloads": 1,
+          "sha256": "d3a3a882247144d960d42a3be233d24b6177a328fd23474854bc663a15d80b7b"
+        },
+        {
+          "name": "Nex-2.6.17-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-universal.apk",
+          "kind": "universal",
+          "size": 156040141,
+          "downloads": 1,
+          "sha256": "c1a21417f39dcc2c5609c8654c9bf60ec5d3288b0ba5cc05a1e37bcaae5a54d2"
+        },
+        {
+          "name": "Nex-2.6.17-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17-x86_64.apk",
+          "kind": "x64",
+          "size": 67385271,
+          "downloads": 1,
+          "sha256": "f9d99485bdaa9c59daf318da2c1b6302f0486668b4f15025e380d75fe259baf8"
+        },
+        {
+          "name": "Nex-2.6.17.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/Nex-2.6.17.aab",
+          "kind": "bundle",
+          "size": 144483365,
+          "downloads": 1,
+          "sha256": "201dae2dbad2b2aec21cda2ff1ba56a22b792caae48e0dd937732a8f22cf95c9"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.17/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "9711466b2e9ab95e912fc9758a10c27567414f0b8220f12db69d0e4500663f24"
+        }
+      ]
+    },
+    {
       "version": "2.6.16",
       "tag": "v2.6.16",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.16",
@@ -16,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61272424,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "8ebadc3fa0b0328503f0199fc1d843dca9a8ea2b93940d82eabe60425d8b6ee0"
         },
         {
@@ -24,7 +100,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 38579086,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "2e119b81a8b33d0a38c0549ba0010abd70da318c92cc00c04999bc3015ba7bd6"
         },
         {
@@ -40,7 +116,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-store.apk",
           "kind": "other",
           "size": 155940193,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "7473b7670f9b27dbe58afac92aff8b9df7d163378b5c19e5ac5e2a43b8c24daf"
         },
         {
@@ -48,7 +124,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-universal.apk",
           "kind": "universal",
           "size": 155940221,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "de0159977a48bf460d5910719e8366119c07e60d3c434a6eacafd9a0a98e77b3"
         },
         {
@@ -56,7 +132,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.16/Nex-2.6.16-x86_64.apk",
           "kind": "x64",
           "size": 67318115,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "94866ffa6e2bdf52950cfb4d3be8ed33c515e0a137fd312e4baf075f3d9d519f"
         },
         {
