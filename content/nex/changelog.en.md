@@ -2,6 +2,30 @@
 
 User-facing release notes. Detailed technical history is preserved in [the development archive](docs/development/CHANGELOG.md).
 
+## Unreleased
+
+- **The daily nudge keeps saying something real.** A phone that delivers it late — an inexact alarm, a strict battery manager — no longer replaces the day's notes and reminders with a generic line, and a failed delivery no longer costs the day. The notification's channel name also follows the app's language instead of staying in the one it was created in.
+
+## v2.6.21
+
+- **Liquid Glass, rebuilt and switched back on.** The frosted material behind the top bar, menus, sheets, dialogs and the dock is new: noticeably more of the page's colour comes through, every pane catches a light along its top edge, and Dark and Night have their own tuning so a panel is finally visible against the page behind it. Off by default — turn it on in Settings → Appearance.
+- **The glass top bar finally draws.** In the retired material the frosted strip behind the title silently rendered at zero height, so the title sat straight on the scrolling notes. It is a real band now, with the same hairline the panes carry.
+
+## v2.6.20
+
+- **Important notes reach Smart Summary.** Older urgent notes and reminders are considered even when they fall outside the timeline's newest 200 notes.
+- **More reliable daily brief.** Pull-to-refresh is honoured during automatic updates, unnecessary refreshes are eliminated, and long notes no longer flood the greeting request.
+- **Stop an on-device assistant answer.** The Stop button now works with the phone's own model too; late results are discarded and the question remains available to retry.
+- **Clearer note names in assistant chat.** Captioned photos, recordings and files appear by their own captions in the conversation and source chips.
+- **Useful error messages.** Follow-up searches distinguish timeouts, connection issues, rate limits and rejected keys instead of a generic failed reply.
+
+## v2.6.19
+
+- **A snappier library at every size.** Saving, editing and deleting a note no longer rereads the whole search index to find the one row it is changing, so every write — a capture, an edit, a tag, a reminder — costs the same on a large library as on a small one.
+- **The home screen settles sooner after each change.** The tag filter row's live counts, and what is due back from Set aside, are answered from a narrow index built for exactly those questions, rather than by rereading every note in the library.
+- **Opening a large library is faster.** The index check each open makes now asks its questions of the index's own keys instead of reading every indexed note, and the one-time reorganisation an upgrading library performs takes seconds where it took minutes.
+- **Tag-filtered lists and reminders release on time.** Lists narrowed by a tag read the tag's own index, and Set-aside notes returning on schedule hand their list back sooner.
+
 ## v2.6.18
 
 - **More readable surfaces.** Stronger contrast for vault bank cards, banners, module icons, tags, switches and urgent markers across Light, Dark and Night.
