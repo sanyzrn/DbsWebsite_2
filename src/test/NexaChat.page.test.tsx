@@ -12,7 +12,7 @@ afterEach(() => {
   window.history.replaceState(null, "", "/");
 });
 
-describe("NexaChatAI demo page", () => {
+describe("Vazho demo page", () => {
   it("is prerendered in both languages with its own SEO", () => {
     const paths = listPrerenderPaths();
     expect(paths).toContain("/nexachatai");

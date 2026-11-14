@@ -120,7 +120,7 @@ export default function Nav() {
   return (
     <header
       className={cn(
-        "nav-bar fixed inset-x-0 top-0 z-50 border-b border-transparent",
+        "nav-bar absolute inset-x-0 top-0 z-50 border-b border-transparent",
         (scrolled || open || onProductLaunch) && "is-solid"
       )}
     >

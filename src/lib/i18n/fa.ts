@@ -75,7 +75,7 @@ const fa = {
     },
     issues: {
       title: "گزارش مشکل | DbsStudio",
-      description: "مشکل یا پیشنهادی دربارهٔ NexaChatAI، Nex یا NexaHR دارید؟ از همین‌جا خصوصی و مستقیم گزارش دهید.",
+      description: "مشکل یا پیشنهادی دربارهٔ Vazho، Nex یا NexaHR دارید؟ از همین‌جا خصوصی و مستقیم گزارش دهید.",
     },
     privacy: {
       title: "حریم خصوصی | Saeed Zarrini",
@@ -431,7 +431,7 @@ const fa = {
       desc: "محصول را انتخاب کنید و مشکل را بنویسید. گزارش از طریق پیام‌رسان بله به من می‌رسد و جایی منتشر نمی‌شود.",
       product: "محصول",
       products: {
-        nexachatai: "NexaChatAI (افزونهٔ وردپرس)",
+        nexachatai: "Vazho (افزونهٔ وردپرس)",
         "nex-android": "Nex (اندروید)",
         "nex-windows": "Nex (ویندوز)",
         nexahr: "NexaHR",

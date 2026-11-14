@@ -237,7 +237,7 @@ describe("Nex SEO, sitemap and isolated motion", () => {
     }
   });
 
-  it("serves NexaChatAI as an indexable product page, not a placeholder", () => {
+  it("serves Vazho as an indexable product page, not a placeholder", () => {
     expect(siteRoutes.noindexPaths).not.toContain("/nexachatai");
     expect(siteRoutes.pageKeys["/nexachatai"]).toBe("nexachat");
     expect(resolveSeoForPath("/nexachatai").robots).toBeUndefined();

@@ -7,7 +7,7 @@ html.dark .studio-site:has(.nex-page) { background: #0b111b; }
 .studio-site:has(.product-launch) { background: #101613; }
 .studio-site:has(.product-launch--nexaslider) { background: #17120f; }
 #nex-top { scroll-margin-top: var(--studio-ledge); }
-.studio-site .nav-bar, .studio-site .ncl-top { top: var(--studio-ledge); }
+.studio-site .nav-bar { top: var(--studio-ledge); }
 .studio-dock { position: fixed; inset: 0 16px auto; z-index: 160; max-width: 1080px; margin-inline: auto; color: #f4f4ef; font-family: var(--font-sans, 'Vazirmatn Variable', sans-serif); }
 .studio-dock:not([data-ready="true"]) { visibility: hidden; }
 .studio-dock, .studio-dock * { box-sizing: border-box; }

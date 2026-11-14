@@ -98,11 +98,11 @@ export default function NexaChatPage() {
 
       <header className="ncl-top">
         <div className="ncl-wrap ncl-top__in">
-          <a className="ncl-brand" href="#top" aria-label="NexaChatAI">
+          <a className="ncl-brand" href="#top" aria-label="Vazho">
             <span className="ncl-brand__mark" aria-hidden="true" />
-            NexaChatAI
+            Vazho
           </a>
-          <nav className="ncl-nav" aria-label="NexaChatAI">
+          <nav className="ncl-nav" aria-label="Vazho">
             <a href="#features">{l.nav.features}</a>
             <a href="#demo">{l.nav.demo}</a>
             <a href="#panel">{l.nav.dashboard}</a>
@@ -180,7 +180,7 @@ export default function NexaChatPage() {
           </div>
         </section>
 
-        <section className="ncl-stats ncl-desk" aria-label="NexaChatAI">
+        <section className="ncl-stats ncl-desk" aria-label="Vazho">
           <div className="ncl-wrap">
             <ul>
               {l.stats.map((s) => (
@@ -358,7 +358,7 @@ export default function NexaChatPage() {
       <footer className="ncl-foot">
         <div className="ncl-wrap ncl-foot__in">
           <span>
-            NexaChatAI · {l.footer.credit}
+            Vazho · {l.footer.credit}
           </span>
           <span className="ncl-foot__links">
             <Link to={`${localePath(lang, "/issues")}?product=nexachatai`}>{l.footer.report}</Link>

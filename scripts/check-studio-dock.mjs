@@ -15,7 +15,7 @@ export async function verifyStudioDock(browser, origin) {
       await dialog.waitFor();
       await page.locator('.studio-product--nex:focus').waitFor();
       if (await dialog.locator('.studio-products > a').count() !== 4) throw new Error('Studio collection is incomplete');
-      if (await dialog.getByRole('link', { name: 'NexaChatAI', exact: true }).getAttribute('href') !== `${prefix}/nexachatai`) throw new Error('Studio collection lost its locale');
+      if (await dialog.getByRole('link', { name: 'Vazho', exact: true }).getAttribute('href') !== `${prefix}/nexachatai`) throw new Error('Studio collection lost its locale');
       const overflow = await dialog.evaluate(el => el.scrollWidth > el.clientWidth + 1);
       if (overflow) throw new Error(`Studio drawer overflows at ${width}px`);
       await toggle.focus();
@@ -35,7 +35,7 @@ export async function verifyStudioDock(browser, origin) {
       await page.keyboard.press('Escape');
       if (await toggle.getAttribute('aria-expanded') !== 'false' || !await toggle.evaluate(el => el === globalThis.document.activeElement)) throw new Error('Studio drawer did not restore focus');
       await toggle.click();
-      await dialog.getByRole('link', { name: 'NexaChatAI', exact: true }).click();
+      await dialog.getByRole('link', { name: 'Vazho', exact: true }).click();
       await page.waitForURL(`**${prefix}/nexachatai`);
       if (await toggle.getAttribute('aria-expanded') !== 'false') throw new Error('Studio drawer stayed open after navigation');
     } finally { await context.close(); }
