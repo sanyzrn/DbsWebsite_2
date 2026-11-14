@@ -252,7 +252,11 @@ for (const prefix of ["", "en/"]) for (const slug of ["", "download/", "changelo
     if (!bazaar?.includes('href="https://cafebazaar.ir/app/com.sanyzrn.nex"')) {
       throw new Error(`check:dist ${rel} must link to the published Cafe Bazaar listing`);
     }
-    for (const store of ["myket", "googlePlay"]) {
+    const myket = html.match(/<a\b[^>]*data-store="myket"[^>]*>/)?.[0];
+    if (!myket?.includes('href="https://myket.ir/app/com.sanyzrn.nex"')) {
+      throw new Error(`check:dist ${rel} must link to the published Myket listing`);
+    }
+    for (const store of ["googlePlay"]) {
       if (!new RegExp(`<button[^>]*data-store="${store}"[^>]*disabled`).test(html)) {
         throw new Error(`check:dist ${rel} must show ${store} as coming soon`);
       }
