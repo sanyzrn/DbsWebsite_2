@@ -1,4 +1,4 @@
-import { StudioDiscovery, StudioSignature } from "../components/StudioFamily";
+import { StudioDiscovery } from "../components/StudioFamily";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/PageMeta";
@@ -102,7 +102,6 @@ export default function NexaChatPage() {
             <span className="ncl-brand__mark" aria-hidden="true" />
             NexaChatAI
           </a>
-          <StudioSignature />
           <nav className="ncl-nav" aria-label="NexaChatAI">
             <a href="#features">{l.nav.features}</a>
             <a href="#demo">{l.nav.demo}</a>

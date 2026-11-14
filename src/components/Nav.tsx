@@ -9,7 +9,6 @@ import { localePath, stripLangPrefix } from "../lib/paths";
 import { isLaunchSlug } from "../lib/launches";
 import { cn } from "../utils/cn";
 import BrandLogo from "./BrandLogo";
-import { StudioSignature } from "./StudioFamily";
 import { AccentMenu, AccentSwatches } from "./AccentPicker";
 
 const PANEL_ID = "mobile-nav-panel";
@@ -128,7 +127,7 @@ export default function Nav() {
       <div className="wrap relative z-10 flex h-[68px] items-center justify-between gap-4 md:h-[76px]">
         <div className="flex items-center gap-3"><Link to={home} className="flex items-center" aria-label={t.nav.homeLinkLabel}>
           <BrandLogo variant="icon" imgClassName="h-8 w-8 object-contain" alt="" />
-        </Link><StudioSignature portfolio /></div>
+        </Link></div>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label={t.nav.primaryNavLabel}>
           {links.map((l) => (
