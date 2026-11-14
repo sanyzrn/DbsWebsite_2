@@ -7,6 +7,7 @@
  * Usage: node scripts/check-a11y.mjs   (requires `dist/` from `npm run build`)
  */
 import fs from "node:fs";
+import { installNexA11yNetwork } from "./nex-a11y-network.mjs";
 import { verifyScreenGallery } from "./check-screen-gallery.mjs";
 import { verifyNexOffline } from "./check-nex-offline.mjs";
 import http from "node:http";
@@ -213,6 +214,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
             /* ignore */
           }
         }, theme.name);
+        await installNexA11yNetwork(context, JSON.parse(fs.readFileSync(path.join(ROOT, "content/nex/releases.json"), "utf8")).releases);
         const page = await context.newPage();
         const runtimeErrors = [];
         page.on("pageerror", (error) => runtimeErrors.push(String(error)));

@@ -75,8 +75,13 @@
   }
   const str = (v) => typeof v === "string" ? v : "";
 
-  function renderIdea(idea, i) {
-    const article = el("article", "idea-card");
+
+  function renderIdea(idea) {
+    // The entire idea is a native, keyboard-accessible accordion item.
+    // Grouping by name keeps only one idea expanded at a time.
+    const article = el("details", "idea-card");
+    article.setAttribute("name", "idea-archive");
+    const toggle = el("summary", "idea-toggle");
     const top = el("div", "card-top");
     const left = el("div");
     left.append(el("span", "category", str(idea.category) || "سایر"));
@@ -84,16 +89,32 @@
     const scorePill = el("span", "score-pill", score(idea).toFixed(1));
     scorePill.append(el("small", "", " / ۱۰"));
     top.append(left, scorePill);
-    article.append(top, el("h3", "", str(idea.title)), el("p", "summary", str(idea.problem)));
+    toggle.append(top, el("h3", "idea-title", str(idea.title)));
 
+    const hint = el("span", "expand-hint");
+    const action = el("span", "expand-text", "مشاهده جزئیات");
+    const arrow = el("span", "expand-arrow", "⌄");
+    arrow.setAttribute("aria-hidden", "true");
+    hint.append(action, arrow);
+    toggle.append(hint);
+    article.append(toggle);
+
+    // Fallback for browsers without support for the details "name" group.
+    article.addEventListener("toggle", () => {
+      action.textContent = article.open ? "بستن جزئیات" : "مشاهده جزئیات";
+      if (article.open) {
+        for (const other of cards.querySelectorAll(".idea-card[open]")) {
+          if (other !== article) other.open = false;
+        }
+      }
+    });
+
+    const body = el("div", "idea-body");
+    body.append(el("p", "summary", str(idea.problem)));
     const audience = el("div", "audience");
     audience.append(el("span", "", "مشتری هدف"), el("strong", "", str(idea.audience)));
-    article.append(audience);
+    body.append(audience);
 
-    const details = el("details", "read-more");
-    // Show the latest idea expanded by default.
-    details.open = i === 0;
-    details.append(el("summary", "", "جزئیات تحقیق و امتیازها  ＋"));
     const grid = el("div", "detail-grid");
     for (const [key, label] of fields) {
       if (!str(idea[key]).trim()) continue;
@@ -104,7 +125,7 @@
       section.append(content);
       grid.append(section);
     }
-    details.append(grid);
+    body.append(grid);
 
     const scoring = el("div", "scoreboard");
     scoring.append(el("h4", "", "ارزیابی شش‌معیاره"));
@@ -122,8 +143,8 @@
       rows.append(row);
     }
     scoring.append(rows);
-    details.append(scoring);
-    article.append(details);
+    body.append(scoring);
+    article.append(body);
     return article;
   }
 
@@ -161,7 +182,7 @@
       if (payload?.schemaVersion !== 1 || !Array.isArray(payload.ideas)) throw Error("Invalid archive schema");
       data = payload.ideas.filter((i) => i && typeof i === "object" && typeof i.title === "string");
       const average = data.length ? data.reduce((acc, idea) => acc + score(idea), 0) / data.length : 0;
-      $("stat-count").textContent = data.toLocaleString("fa-IR");
+      $("stat-count").textContent = data.length.toLocaleString("fa-IR");
       $("stat-average").textContent = data.length ? average.toFixed(1) : "—";
       $("stat-date").textContent = data[0]?.date || "—";
       renderFilters();

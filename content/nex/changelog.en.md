@@ -4,6 +4,64 @@ User-facing release notes. Detailed technical history is preserved in [the devel
 
 ## Unreleased
 
+## v2.6.29
+
+- **No duplicate checklists.** If closing the capture box to save a checklist was interrupted after the list was already saved, trying again used to make a second, identical list. It now finds the one already made.
+- **A file that could not be saved says so.** Picking a file whose copy went missing, or saving onto a full phone, used to fail silently. It now says why, with a retry, as photos do.
+- **Smoother typing in the capture box.** While you type, Nex no longer reloads the whole timeline behind the box at every pause; it updates once when the box closes.
+- **Lighter photos and recordings.** Photos kept as taken, extra photos picked with them and finished recordings are saved straight from the file instead of being loaded into memory twice.
+- **Widgets in Vazirmatn.** On a Persian phone, the home-screen widgets now use the app's own Persian font. The widget picker shows real sample rows for the Timeline and Recap widgets instead of an empty card, the Cycle ring grows with the widget, and the capture buttons respond to touch.
+- **A quieter grid.** Grid tiles carry only a hint of their kind's colour now, and a day folds away with motion as well as opening with it — by tap or by pinch.
+- **A smoother timeline in a big library.** Picking a note, a reminder ringing or the daily summary arriving no longer makes Nex regroup every loaded note, and a sideways swipe along the tag row no longer folds the summary or loads older notes. The date under the filters also updates as soon as notes arrive or go.
+
+## v2.6.28
+
+- **A better grid view.** Card size now applies to the grid: compact fits three tiles to a row, standard and easier to read two. Tiles show more of each note — its words, a checklist's items with their ticks, the photo itself, a voice note's length — and a reminder with its time ("in 3 hours"). Urgent notes carry the same flame as in the list, the colours are calmer, and a day folds and opens smoothly, by tap or by pinch. Show in full no longer appears in a tile's menu, where it had nothing to do.
+- **Clearer menu icons.** Urgent and Remind now look like Pin in a note's hold menu and its More actions: a filled icon while it is on, an outlined one while it is off.
+- **Choose list or grid from the start.** The last welcome page asks how you want your notes laid out, as Settings → Appearance does.
+- **Coming soon: Converter.** A new module on the way, shown under Modules: dates between the Persian, Gregorian and lunar calendars, and weights, lengths, temperatures and clothing, shoe and ring sizes between systems, offline.
+
+## v2.6.27
+
+- **Six new themes.** Bolder palettes that pair a deep colour with a bright one, each in light and dark: Lavender, Peach & charcoal, Bloom (maroon and mustard), Dusk (plum and peach), Coral and Sunflower (black and yellow). Find them in Settings → Appearance → Theme.
+- **A grid view.** Settings → Appearance → View → Grid (or Home layout) shows your notes as tiles, two to a row, each in its kind's own soft colour, with the same days, pins and folds as the list. The list stays the default.
+- **Pick a note from its icon.** Tap the round icon at the start of a card — the mark of its kind — to select it, the way a mail app selects from the avatar; tap it again to put it back. Holding and choosing Select still works.
+- **Clearer colours in every theme.** A full contrast check of Light, Dark and Night across every palette: the Undo and Got it buttons on the message capsule were too faint to read in all of them and now stand out; filled boxes in the classic light theme, field edges in three palettes, and very bright accent colours you pick now all meet the readability standard.
+- **A tidier daily nudge.** What is due now reads one item a line, the most pressing first: "Urgent: …", "Today at 10:00 · …", "Overdue: …". It used to be one run-on sentence behind a changing lead-in ("A quick reminder: Urgent: …"). A note written in the other language no longer jumbles its quotation marks, and the expanded notification no longer leaves empty lines under the text — the same goes for note reminders. The greeting above it is now in the app's language too, whatever script your name is written in.
+- **Recent searches run again.** On the search screen, touching one of your recent or kept searches closed search instead of searching for it. It now runs that search.
+- **Exported photos open as the right picture.** In a library export, two photos with the same file name were both saved, but the second note's Markdown pointed at the first one's file, so opened outside Nex it showed the wrong photo. Each note now links to its own.
+- **Every search box works the same way.** The searches in Settings, Modules, What's new, the vault, Words, tags, languages and the rest now share one design: the same look, a clear button as soon as you type that resets the list at once, and Persian or English text running the right way as you type it.
+
+## v2.6.26
+
+- **Ready for Android 16.** Nex now targets the latest Android. On a tablet or an unfolded foldable it turns with the device instead of staying upright, with the notes kept to a comfortable reading width in landscape; photos taken there are saved the way you held the device. Phones stay in portrait as before.
+- **Smoother opening and closing.** Opening a note, a page or a menu over the timeline used to rebuild every card on it, and closing it did the same again — the stutter as a note rose and fell. The timeline now stays as it is underneath. The wordmark in the corner now moves only when you touch it, instead of every few seconds on its own.
+- **Liquid Glass is paused.** It was too heavy for some phones, so its switch has left Settings → Appearance until it is reworked, and the app uses its plain surfaces. A choice you made is kept for when it returns.
+- **A pasted address becomes a link.** Paste a web address into an empty note with the paste button and the note turns into a link, saved with the page's title and summary instead of as a line of text. Tap Note to keep it as plain text.
+- **One name for the daily nudge.** Settings, its sound and Android's notification settings now all call it the same thing, in both languages; Android's list no longer switches between two names.
+
+## v2.6.25
+
+- **Redesigned themes.** Choose from 14 palettes in Settings → Appearance, each with its own light and dark colours. Your saved theme returns automatically, custom accents keep their hue with readable text, and Liquid Glass follows the palette.
+
+- **A scheduled note comes back whole.** Sending a note later used to return only its words: the title and the tags it was filed under were dropped while it waited. They come back with it now, and a note that carries files stays in the library instead of being scheduled away from them.
+- **Backups survive a wrong clock.** If the phone's date moved backwards, automatic backups stopped for as long as it took the clock to catch up, and the copy just written could be treated as the oldest and pruned. Both now behave.
+- **Backups without media are refused before restore.** Restoring one no longer closes the open library first, only to fail on a file that was never there. And a complete restore that fails no longer leaves a hidden undo step that would roll the library — and everything written after it — back on the next launch.
+
+## v2.6.24
+
+- **Liquid Glass now has depth.** With the material on, each pane is lit rather than merely tinted: the page's own colour comes through more vividly, a bevel catches the light along the top edge, a soft bounce lifts the bottom edge, and the top bar, dock, menus, dialogs and sheets throw a faint halo onto the page. Dark and Night have their own bounce and warmth, and high contrast still falls back to a solid surface.
+- **A reminder marked Done stays answered.** If you press **Done** on a reminder before opening Nex, the daily nudge no longer brings that reminder back on the same day, even when the plan is built as the app starts. The note keeps its due date, so a repeating or future reminder still arrives on time.
+
+## v2.6.23
+
+- **Nex opens without the wait.** The opening animation used to hold every launch for two seconds, including a tap on the capture widget. It now plays in full only the first time a new version runs; every other launch goes straight from the icon to your notes the moment the library is ready.
+- **On this day.** On a day with nothing due, the daily nudge can bring back a note you wrote on the same date in an earlier year — "A year ago today you wrote…" — instead of a general line. It follows your calendar (Persian or Gregorian), never uses deleted or set-aside notes, stays entirely on the phone, and has its own switch under Settings → Reminders and notifications.
+
+## v2.6.22
+
+- **Reminders from the modules respect the app lock too.** With the app lock on, a habit, medication, parking or appointment reminder still showed what it was about on the lock screen; only note reminders were hidden. Every reminder follows the lock now.
+- **A habit reminder ticks the right day.** One that rang between midnight and your zone's offset from UTC logged its check against the previous day — and **Done** pressed from the notification could be thrown away as "not today". The day it registers against is now the day it actually rings on.
 - **The daily nudge keeps saying something real.** A phone that delivers it late — an inexact alarm, a strict battery manager — no longer replaces the day's notes and reminders with a generic line, and a failed delivery no longer costs the day. The notification's channel name also follows the app's language instead of staying in the one it was created in.
 
 ## v2.6.21

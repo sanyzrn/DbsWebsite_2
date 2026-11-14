@@ -2,80 +2,135 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.29",
+      "tag": "v2.6.29",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.29",
+      "publishedAt": "2026-11-14T06:45:01.000Z",
+      "notes": {
+        "en": "- **No duplicate checklists.** If closing the capture box to save a checklist was interrupted after the list was already saved, trying again used to make a second, identical list. It now finds the one already made.\r\n- **A file that could not be saved says so.** Picking a file whose copy went missing, or saving onto a full phone, used to fail silently. It now says why, with a retry, as photos do.\r\n- **Smoother typing in the capture box.** While you type, Nex no longer reloads the whole timeline behind the box at every pause; it updates once when the box closes.\r\n- **Lighter photos and recordings.** Photos kept as taken, extra photos picked with them and finished recordings are saved straight from the file instead of being loaded into memory twice.\r\n- **Widgets in Vazirmatn.** On a Persian phone, the home-screen widgets now use the app's own Persian font. The widget picker shows real sample rows for the Timeline and Recap widgets instead of an empty card, the Cycle ring grows with the widget, and the capture buttons respond to touch.\r\n- **A quieter grid.** Grid tiles carry only a hint of their kind's colour now, and a day folds away with motion as well as opening with it — by tap or by pinch.\r\n- **A smoother timeline in a big library.** Picking a note, a reminder ringing or the daily summary arriving no longer makes Nex regroup every loaded note, and a sideways swipe along the tag row no longer folds the summary or loads older notes. The date under the filters also updates as soon as notes arrive or go.",
+        "fa": "- **دیگر چک‌لیست تکراری ساخته نمی‌شود.** اگر بستن جعبهٔ ثبت برای ذخیرهٔ چک‌لیست بعد از ذخیره شدن فهرست قطع می‌شد، تلاش دوباره یک فهرست دوم و یکسان می‌ساخت. حالا همان فهرستِ ساخته‌شده پیدا می‌شود.\r\n- **فایلی که ذخیره نشد، می‌گوید چرا.** انتخاب فایلی که نسخه‌اش گم شده بود یا ذخیره روی حافظهٔ پر، بی‌صدا شکست می‌خورد. حالا مثل عکس، دلیلش را می‌گوید و دکمهٔ تلاش دوباره دارد.\r\n- **تایپ روان‌تر در جعبهٔ ثبت.** هنگام نوشتن، دیگر با هر مکث کل فهرست یادداشت‌های پشت جعبه از نو بارگذاری نمی‌شود؛ یک بار، هنگام بستن جعبه، به‌روز می‌شود.\r\n- **عکس و ضبط سبک‌تر.** عکسی که بدون ویرایش نگه داشته می‌شود، عکس‌های اضافهٔ همراهش و ضبط تمام‌شده مستقیم از روی فایل ذخیره می‌شوند، نه با دو بار بارگذاری در حافظه.\r\n- **ویجت‌ها با قلم وزیرمتن.** روی گوشی فارسی، ویجت‌های صفحهٔ اصلی حالا با همان قلم فارسی برنامه نوشته می‌شوند. در فهرست انتخاب ویجت، ویجت‌های «خط زمانی» و «خلاصهٔ هوشمند» به‌جای کارت خالی، نمونهٔ واقعی نشان می‌دهند، حلقهٔ ویجت چرخه با بزرگ شدن ویجت بزرگ می‌شود و دکمه‌های ثبت به لمس واکنش نشان می‌دهند.\r\n- **نمای شبکه‌ای آرام‌تر.** کاشی‌ها حالا فقط ته‌رنگی از رنگ نوعشان دارند، و روزها، با لمس یا نیشگون، هم موقع باز شدن و هم موقع جمع شدن با حرکت نرم انجام می‌شوند.\r\n- **خط زمانی روان‌تر در کتابخانه‌های بزرگ.** انتخاب یک یادداشت، زنگ زدن یادآور یا رسیدن خلاصهٔ روز دیگر همهٔ یادداشت‌های بارگذاری‌شده را از نو گروه‌بندی نمی‌کند، و کشیدن ردیف برچسب‌ها به طرفین دیگر خلاصه را جمع نمی‌کند یا یادداشت‌های قدیمی‌تر را بار نمی‌آورد. تاریخ زیر ردیف فیلترها هم با رسیدن یا حذف یادداشت همان لحظه به‌روز می‌شود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.29-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61695520,
+          "downloads": 2,
+          "sha256": "3e3ff3facf6e0b8310dc6699f8430910ef22ecc033fb6bf04cce6bc57bc02475"
+        },
+        {
+          "name": "Nex-2.6.29-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39018566,
+          "downloads": 1,
+          "sha256": "d4abbfc415dc602a0677d876896e3fcc02fb9349ea526d96e1895b00883ba221"
+        },
+        {
+          "name": "Nex-2.6.29-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-store.aab",
+          "kind": "bundle",
+          "size": 145264801,
+          "downloads": 1,
+          "sha256": "09082c938cc62db00dc6ba2b697b0fb73a35d2e2b996ebd37c39cffb58f937ee"
+        },
+        {
+          "name": "Nex-2.6.29-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-store.apk",
+          "kind": "other",
+          "size": 156936737,
+          "downloads": 1,
+          "sha256": "693bc8deab90d321eac0924b87466274af3637b940cc7f531e4f5524cc03e051"
+        },
+        {
+          "name": "Nex-2.6.29-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-universal.apk",
+          "kind": "universal",
+          "size": 156969521,
+          "downloads": 1,
+          "sha256": "1bb730eadb4cc11a42e9eb167d18e71fa2076000ef987b5650d347ea2aab7e52"
+        },
+        {
+          "name": "Nex-2.6.29-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-x86_64.apk",
+          "kind": "x64",
+          "size": 67806747,
+          "downloads": 1,
+          "sha256": "f64d7c4aa5ccbb5bae80c88d850a8592e596e0d6d1b62e8516a2fa658cc149af"
+        },
+        {
+          "name": "Nex-2.6.29.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29.aab",
+          "kind": "bundle",
+          "size": 145296160,
+          "downloads": 1,
+          "sha256": "b895745685b508e9827336bec0947b6e0cade311f83b588c54e7366283863d5b"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "431a97bc84e52789fe24da2b8ec37105d767ada36803da6cbe7809a3921e5e42"
+        }
+      ]
+    },
+    {
+      "version": "2.6.28",
+      "tag": "v2.6.28",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.28",
+      "publishedAt": "2026-11-13T20:54:53.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.6.27",
+      "tag": "v2.6.27",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.27",
+      "publishedAt": "2026-11-13T18:44:07.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.6.26",
+      "tag": "v2.6.26",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.26",
+      "publishedAt": "2026-11-13T13:20:38.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.6.25",
+      "tag": "v2.6.25",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.25",
+      "publishedAt": "2026-11-13T08:31:00.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
       "version": "2.6.24",
       "tag": "v2.6.24",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.24",
       "publishedAt": "2026-11-13T01:45:42.000Z",
       "notes": {
-        "en": "- **Liquid Glass now has depth.** With the material on, each pane is lit rather than merely tinted: the page's own colour comes through more vividly, a bevel catches the light along the top edge, a soft bounce lifts the bottom edge, and the top bar, dock, menus, dialogs and sheets throw a faint halo onto the page. Dark and Night have their own bounce and warmth, and high contrast still falls back to a solid surface.\r\n- **A reminder marked Done stays answered.** If you press **Done** on a reminder before opening Nex, the daily nudge no longer brings that reminder back on the same day, even when the plan is built as the app starts. The note keeps its due date, so a repeating or future reminder still arrives on time.",
-        "fa": "- **شیشهٔ مایع حالا عمق دارد.** با روشن بودن شیشه، هر سطح فقط رنگ‌آمیزی نمی‌شود؛ رنگ خود صفحه زنده‌تر از پشت آن دیده می‌شود، لبهٔ بالایی در نور برجسته می‌شود، لبهٔ پایینی بازتاب نور صفحه را برمی‌گرداند و نوار بالا، داک، منوها، دیالوگ‌ها و شیت‌ها هالهٔ نرمی روی صفحه می‌اندازند. Dark و Night بازتاب و گرمای جداگانه دارند و حالت تضاد بالا همچنان سطح مات و یکدست می‌دهد.\r\n- **یادآوری‌ای که «انجام شد» می‌گیرد، انجام‌شده می‌ماند.** اگر پیش از باز کردن نکس روی یادآوری «انجام شد» بزنید، یادآوری روزانهٔ همان روز دیگر آن را مطرح نمی‌کند؛ حتی وقتی همراه با باز شدن برنامه ساخته شود. زمان یادآوری روی یادداشت باقی می‌ماند، پس یادآور تکرارشونده یا آینده همچنان سر وقت می‌رسد."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.6.24-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 61343888,
-          "downloads": 3,
-          "sha256": "ab7ebdf7b95eb3093c846b3abaf020d208324df3746b852102616e8850d679db"
-        },
-        {
-          "name": "Nex-2.6.24-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 38666934,
-          "downloads": 1,
-          "sha256": "5e74677f525fb6816995c1ece03470b8c3ee9b408501a055d288c9d97a733f0b"
-        },
-        {
-          "name": "Nex-2.6.24-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-store.aab",
-          "kind": "bundle",
-          "size": 144592295,
-          "downloads": 1,
-          "sha256": "fce7059269c455f75b43c69234382000efc6bcc4e6a67c90259390b526a49dc7"
-        },
-        {
-          "name": "Nex-2.6.24-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-store.apk",
-          "kind": "other",
-          "size": 156060809,
-          "downloads": 1,
-          "sha256": "6612dff76ea3c3f1eeeabf187551dcb5f74e40a1a1c3722be5a24f503be3e6cf"
-        },
-        {
-          "name": "Nex-2.6.24-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-universal.apk",
-          "kind": "universal",
-          "size": 156159141,
-          "downloads": 1,
-          "sha256": "96008c277137d57df000d66a8afed3d2ea4a0e6082d4075f9752b6a5cb397386"
-        },
-        {
-          "name": "Nex-2.6.24-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-x86_64.apk",
-          "kind": "x64",
-          "size": 67389579,
-          "downloads": 1,
-          "sha256": "cb76fd8b490ba3fdf006212045a266ee0b3fbd9f78a5d7103d9dc0bb3725d307"
-        },
-        {
-          "name": "Nex-2.6.24.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24.aab",
-          "kind": "bundle",
-          "size": 144620288,
-          "downloads": 1,
-          "sha256": "d551c1d573c11c8c495f47ac1fe447d3cea3e885b3b7a414633d55fd4513ce98"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/SHA256SUMS",
-          "kind": "other",
-          "size": 611,
-          "downloads": 2,
-          "sha256": "8f851b023eb1b3dba5aa8a2ecbdfabc7a2ca38675487168325093183f76be9de"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.6.23",
@@ -93,61 +148,6 @@
       "tag": "v2.6.22",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.22",
       "publishedAt": "2026-11-12T18:11:24.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.21",
-      "tag": "v2.6.21",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.21",
-      "publishedAt": "2026-11-12T10:09:40.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.19",
-      "tag": "v2.6.19",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.19",
-      "publishedAt": "2026-11-12T00:50:13.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.18",
-      "tag": "v2.6.18",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.18",
-      "publishedAt": "2026-11-11T12:57:02.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.17",
-      "tag": "v2.6.17",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.17",
-      "publishedAt": "2026-11-11T05:51:24.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.16",
-      "tag": "v2.6.16",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.16",
-      "publishedAt": "2026-11-10T15:18:19.000Z",
       "notes": {
         "en": "",
         "fa": null

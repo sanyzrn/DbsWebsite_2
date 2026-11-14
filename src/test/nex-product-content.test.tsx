@@ -36,8 +36,9 @@ describe('Source-backed product content', () => {
     expect(history.releases.length).toBeGreaterThan(130); expect(new Set(history.releases.map(r => r.version)).size).toBe(history.releases.length);
     expect(history.releases.every(r => /^\d+\.\d+\.\d+$/.test(r.version) && r.url.startsWith('https://github.com/'))).toBe(true);
   });
-  it('keeps text and accent readable across all 14 source themes in both modes', () => {
-    expect(themes.themes).toHaveLength(14);
+  it('keeps text and accent readable across all source themes in both modes', () => {
+    expect(themes.themes.length).toBeGreaterThanOrEqual(14);
+    expect(new Set(themes.themes.map(theme => theme.id)).size).toBe(themes.themes.length);
     for (const theme of themes.themes as NexTheme[]) for (const dark of [false, true]) {
       const vars = themeVariables(theme, dark) as Record<string, string>;
       for (const token of ['--nx-ink', '--nx-muted', '--nx-blue']) for (const surface of ['--nx-bg', '--nx-card', '--nx-tint']) expect(contrast(vars[token], vars[surface])).toBeGreaterThanOrEqual(4.5);

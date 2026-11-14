@@ -4,6 +4,7 @@ import App, { AppShell } from '../App';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 import { NEX_COPY } from '../lib/nex';
+import themes from '../../content/nex/themes.json';
 import { NEX_PAGE_SLUGS } from '../lib/nexContent';
 function open(path: string) { window.history.replaceState(null, '', path); return render(<App />); }
 beforeEach(() => localStorage.clear());
@@ -39,9 +40,9 @@ describe('Independent bilingual Nex pages', () => {
   it('tries a mood across Nex navigation and clears it when leaving the product', () => {
     const { container } = open('/en/nex/themes');
     fireEvent.click(screen.getAllByRole('button', { name: NEX_COPY.en.themeTry })[1]);
-    expect(container.querySelector('.nex-page')?.getAttribute('style')).toContain('--nx-bg: #f5eedc');
+    expect(container.querySelector('.nex-page')?.getAttribute('style')).toContain(`--nx-bg: ${themes.themes[1].light}`);
     fireEvent.click(screen.getByRole('link', { name: NEX_COPY.en.productPages[1] }));
-    expect(container.querySelector('.nex-page')?.getAttribute('style')).toContain('--nx-bg: #f5eedc');
+    expect(container.querySelector('.nex-page')?.getAttribute('style')).toContain(`--nx-bg: ${themes.themes[1].light}`);
     fireEvent.click(screen.getByRole('link', { name: NEX_COPY.en.productMadeBy }));
     expect(container.querySelector('.nex-page')).toBeNull();
     expect(document.documentElement.style.getPropertyValue('--nx-bg')).toBe('');

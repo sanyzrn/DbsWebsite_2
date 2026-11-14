@@ -44,12 +44,25 @@ export function parseChangelog(text) {
   });
   return sections;
 }
-export function parseThemePresets(dart) {
+export function parseThemePresets(dart, rampSources = '') {
+  const ramps = new Map([...rampSources.matchAll(/const\s+(_\w+)\s*=\s*NexSurfaceRamp\s*\(([\s\S]*?)\);/g)].map((match) => {
+    const page = match[2].match(/\bpage:\s*Color\(0xFF([A-Fa-f0-9]{6})\)/)?.[1];
+    if (!page) throw new Error(`Missing page color for theme ramp ${match[1]}`);
+    return [match[1], `#${page.toLowerCase()}`];
+  }));
   const textures = new Map([...dart.matchAll(/'([a-z]+)'\s*=>\s*NexThemeTexture\.(\w+)/g)].map((m) => [m[1], m[2]]));
   const presets = [...dart.matchAll(/\(\s*id:\s*'([a-z]+)',([\s\S]*?)\n\s*\),/g)].map((match) => {
     const body = match[2];
     const string = (name) => body.match(new RegExp(`${name}: '((?:\\\\.|[^'])*)'`))?.[1].replace(/\\'/g, "'");
-    const color = (name) => { const value = body.match(new RegExp(`${name}: (?:Color\\(0xFF([A-Fa-f0-9]{6})\\)|null)`)); if (!value) throw new Error(`Missing theme color ${name}`); return value[1] ? `#${value[1].toLowerCase()}` : null; };
+    const color = (name) => {
+      const value = body.match(new RegExp(`\\b${name}:\\s*(Color\\(0xFF([A-Fa-f0-9]{6})\\)|null|_\\w+)\\s*,`));
+      if (!value) throw new Error(`Missing theme color ${name}`);
+      if (value[1] === 'null') return null;
+      if (value[2]) return `#${value[2].toLowerCase()}`;
+      const page = ramps.get(value[1]);
+      if (!page) throw new Error(`Missing theme ramp ${value[1]}`);
+      return page;
+    };
     const theme = { id: match[1], name: { fa: string('fa'), en: string('en') }, description: { fa: string('faDescription'), en: string('enDescription') }, seed: color('seed'), light: color('light'), dark: color('dark'), texture: textures.get(match[1]) ?? 'none' };
     if (!theme.name.fa || !theme.name.en || !theme.description.fa || !theme.description.en || !theme.seed) throw new Error('Incomplete theme source');
     return theme;

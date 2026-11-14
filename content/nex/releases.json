@@ -2,6 +2,386 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.6.29",
+      "tag": "v2.6.29",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.29",
+      "publishedAt": "2026-11-14T06:45:01.000Z",
+      "notes": {
+        "en": "- **No duplicate checklists.** If closing the capture box to save a checklist was interrupted after the list was already saved, trying again used to make a second, identical list. It now finds the one already made.\r\n- **A file that could not be saved says so.** Picking a file whose copy went missing, or saving onto a full phone, used to fail silently. It now says why, with a retry, as photos do.\r\n- **Smoother typing in the capture box.** While you type, Nex no longer reloads the whole timeline behind the box at every pause; it updates once when the box closes.\r\n- **Lighter photos and recordings.** Photos kept as taken, extra photos picked with them and finished recordings are saved straight from the file instead of being loaded into memory twice.\r\n- **Widgets in Vazirmatn.** On a Persian phone, the home-screen widgets now use the app's own Persian font. The widget picker shows real sample rows for the Timeline and Recap widgets instead of an empty card, the Cycle ring grows with the widget, and the capture buttons respond to touch.\r\n- **A quieter grid.** Grid tiles carry only a hint of their kind's colour now, and a day folds away with motion as well as opening with it — by tap or by pinch.\r\n- **A smoother timeline in a big library.** Picking a note, a reminder ringing or the daily summary arriving no longer makes Nex regroup every loaded note, and a sideways swipe along the tag row no longer folds the summary or loads older notes. The date under the filters also updates as soon as notes arrive or go.",
+        "fa": "- **دیگر چک‌لیست تکراری ساخته نمی‌شود.** اگر بستن جعبهٔ ثبت برای ذخیرهٔ چک‌لیست بعد از ذخیره شدن فهرست قطع می‌شد، تلاش دوباره یک فهرست دوم و یکسان می‌ساخت. حالا همان فهرستِ ساخته‌شده پیدا می‌شود.\r\n- **فایلی که ذخیره نشد، می‌گوید چرا.** انتخاب فایلی که نسخه‌اش گم شده بود یا ذخیره روی حافظهٔ پر، بی‌صدا شکست می‌خورد. حالا مثل عکس، دلیلش را می‌گوید و دکمهٔ تلاش دوباره دارد.\r\n- **تایپ روان‌تر در جعبهٔ ثبت.** هنگام نوشتن، دیگر با هر مکث کل فهرست یادداشت‌های پشت جعبه از نو بارگذاری نمی‌شود؛ یک بار، هنگام بستن جعبه، به‌روز می‌شود.\r\n- **عکس و ضبط سبک‌تر.** عکسی که بدون ویرایش نگه داشته می‌شود، عکس‌های اضافهٔ همراهش و ضبط تمام‌شده مستقیم از روی فایل ذخیره می‌شوند، نه با دو بار بارگذاری در حافظه.\r\n- **ویجت‌ها با قلم وزیرمتن.** روی گوشی فارسی، ویجت‌های صفحهٔ اصلی حالا با همان قلم فارسی برنامه نوشته می‌شوند. در فهرست انتخاب ویجت، ویجت‌های «خط زمانی» و «خلاصهٔ هوشمند» به‌جای کارت خالی، نمونهٔ واقعی نشان می‌دهند، حلقهٔ ویجت چرخه با بزرگ شدن ویجت بزرگ می‌شود و دکمه‌های ثبت به لمس واکنش نشان می‌دهند.\r\n- **نمای شبکه‌ای آرام‌تر.** کاشی‌ها حالا فقط ته‌رنگی از رنگ نوعشان دارند، و روزها، با لمس یا نیشگون، هم موقع باز شدن و هم موقع جمع شدن با حرکت نرم انجام می‌شوند.\r\n- **خط زمانی روان‌تر در کتابخانه‌های بزرگ.** انتخاب یک یادداشت، زنگ زدن یادآور یا رسیدن خلاصهٔ روز دیگر همهٔ یادداشت‌های بارگذاری‌شده را از نو گروه‌بندی نمی‌کند، و کشیدن ردیف برچسب‌ها به طرفین دیگر خلاصه را جمع نمی‌کند یا یادداشت‌های قدیمی‌تر را بار نمی‌آورد. تاریخ زیر ردیف فیلترها هم با رسیدن یا حذف یادداشت همان لحظه به‌روز می‌شود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.29-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61695520,
+          "downloads": 2,
+          "sha256": "3e3ff3facf6e0b8310dc6699f8430910ef22ecc033fb6bf04cce6bc57bc02475"
+        },
+        {
+          "name": "Nex-2.6.29-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39018566,
+          "downloads": 1,
+          "sha256": "d4abbfc415dc602a0677d876896e3fcc02fb9349ea526d96e1895b00883ba221"
+        },
+        {
+          "name": "Nex-2.6.29-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-store.aab",
+          "kind": "bundle",
+          "size": 145264801,
+          "downloads": 1,
+          "sha256": "09082c938cc62db00dc6ba2b697b0fb73a35d2e2b996ebd37c39cffb58f937ee"
+        },
+        {
+          "name": "Nex-2.6.29-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-store.apk",
+          "kind": "other",
+          "size": 156936737,
+          "downloads": 1,
+          "sha256": "693bc8deab90d321eac0924b87466274af3637b940cc7f531e4f5524cc03e051"
+        },
+        {
+          "name": "Nex-2.6.29-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-universal.apk",
+          "kind": "universal",
+          "size": 156969521,
+          "downloads": 1,
+          "sha256": "1bb730eadb4cc11a42e9eb167d18e71fa2076000ef987b5650d347ea2aab7e52"
+        },
+        {
+          "name": "Nex-2.6.29-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29-x86_64.apk",
+          "kind": "x64",
+          "size": 67806747,
+          "downloads": 1,
+          "sha256": "f64d7c4aa5ccbb5bae80c88d850a8592e596e0d6d1b62e8516a2fa658cc149af"
+        },
+        {
+          "name": "Nex-2.6.29.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/Nex-2.6.29.aab",
+          "kind": "bundle",
+          "size": 145296160,
+          "downloads": 1,
+          "sha256": "b895745685b508e9827336bec0947b6e0cade311f83b588c54e7366283863d5b"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.29/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "431a97bc84e52789fe24da2b8ec37105d767ada36803da6cbe7809a3921e5e42"
+        }
+      ]
+    },
+    {
+      "version": "2.6.28",
+      "tag": "v2.6.28",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.28",
+      "publishedAt": "2026-11-13T20:54:53.000Z",
+      "notes": {
+        "en": "- **A better grid view.** Card size now applies to the grid: compact fits three tiles to a row, standard and easier to read two. Tiles show more of each note — its words, a checklist's items with their ticks, the photo itself, a voice note's length — and a reminder with its time (\"in 3 hours\"). Urgent notes carry the same flame as in the list, the colours are calmer, and a day folds and opens smoothly, by tap or by pinch. Show in full no longer appears in a tile's menu, where it had nothing to do.\r\n- **Clearer menu icons.** Urgent and Remind now look like Pin in a note's hold menu and its More actions: a filled icon while it is on, an outlined one while it is off.\r\n- **Choose list or grid from the start.** The last welcome page asks how you want your notes laid out, as Settings → Appearance does.\r\n- **Coming soon: Converter.** A new module on the way, shown under Modules: dates between the Persian, Gregorian and lunar calendars, and weights, lengths, temperatures and clothing, shoe and ring sizes between systems, offline.",
+        "fa": "- **نمای شبکه‌ای بهتر.** اندازهٔ کارت‌ها حالا در نمای شبکه‌ای هم اعمال می‌شود: در حالت فشرده سه کاشی در هر ردیف و در معمولی و خواناتر دو کاشی. کاشی‌ها محتوای بیشتری نشان می‌دهند — متن یادداشت، موارد چک‌لیست با تیک‌هایشان، خود عکس و مدت یادداشت صوتی — و یادآور را با زمانش («۳ ساعت دیگر»). یادداشت فوری همان شعلهٔ نمای فهرستی را دارد، رنگ‌ها آرام‌ترند و باز و بسته شدن روزها، با لمس یا با نیشگون، حالا با حرکت نرم انجام می‌شود. «نمایش کامل» هم که در کاشی کاری نمی‌کرد از منوی آن برداشته شد.\r\n- **آیکون‌های واضح‌تر در منو.** «فوری» و «یادآور» حالا مثل «سنجاق» در منوی نگه‌داشتن و «کارهای بیشتر» رفتار می‌کنند: وقتی فعال‌اند آیکون پر و وقتی نیستند آیکون توخالی.\r\n- **انتخاب فهرستی یا شبکه‌ای از همان ابتدا.** صفحهٔ آخر خوش‌آمد می‌پرسد یادداشت‌ها چطور چیده شوند، مثل تنظیمات ← ظاهر.\r\n- **به‌زودی: تبدیل‌گر.** ماژول تازه‌ای در راه است که در بخش ماژول‌ها دیده می‌شود: تبدیل تاریخ بین شمسی، میلادی و قمری، و تبدیل وزن، طول، دما و سایز لباس، کفش و انگشتر بین سیستم‌های مختلف، بدون اینترنت."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.28-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/Nex-2.6.28-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61415480,
+          "downloads": 3,
+          "sha256": "348a260e5aa10183c6901a16c962f568c0df0ed06b3ebec4c486bfd8abbd17e6"
+        },
+        {
+          "name": "Nex-2.6.28-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/Nex-2.6.28-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38705758,
+          "downloads": 2,
+          "sha256": "dce834d5d9e3d3984a2f486184e9306d6412c8388015662c2b37f17dd8aa4239"
+        },
+        {
+          "name": "Nex-2.6.28-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/Nex-2.6.28-store.aab",
+          "kind": "bundle",
+          "size": 144700282,
+          "downloads": 1,
+          "sha256": "189d1c107f92deb572c4c0e79edcc40b4605cb7b484a55482ca7622d7925145d"
+        },
+        {
+          "name": "Nex-2.6.28-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/Nex-2.6.28-store.apk",
+          "kind": "other",
+          "size": 156247097,
+          "downloads": 2,
+          "sha256": "1c887f9b91b47ed91e68c6bea4928a67744777ca746bae927c4c09cb6246f0e0"
+        },
+        {
+          "name": "Nex-2.6.28-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/Nex-2.6.28-universal.apk",
+          "kind": "universal",
+          "size": 156329037,
+          "downloads": 2,
+          "sha256": "b23a035726df99a111b8823734a6853b474cd79ebf6bb51264057cf378857d33"
+        },
+        {
+          "name": "Nex-2.6.28-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/Nex-2.6.28-x86_64.apk",
+          "kind": "x64",
+          "size": 67461171,
+          "downloads": 2,
+          "sha256": "056c1e1cbf6f0fade7af7a13221fc90e0dda7e335a8f5487d60d9ee34e911e16"
+        },
+        {
+          "name": "Nex-2.6.28.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/Nex-2.6.28.aab",
+          "kind": "bundle",
+          "size": 144730033,
+          "downloads": 1,
+          "sha256": "d09cc822c11a6a0eea98a9a3d8c3d407ffff8fbb96bd3abfefccb92f5d0e7b74"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.28/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "7dc3f017855f4dc196ee83f6cff9a244afc531498f60ffa5675a261978b80a11"
+        }
+      ]
+    },
+    {
+      "version": "2.6.27",
+      "tag": "v2.6.27",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.27",
+      "publishedAt": "2026-11-13T18:44:07.000Z",
+      "notes": {
+        "en": "- **Six new themes.** Bolder palettes that pair a deep colour with a bright one, each in light and dark: Lavender, Peach & charcoal, Bloom (maroon and mustard), Dusk (plum and peach), Coral and Sunflower (black and yellow). Find them in Settings → Appearance → Theme.\r\n- **A grid view.** Settings → Appearance → View → Grid (or Home layout) shows your notes as tiles, two to a row, each in its kind's own soft colour, with the same days, pins and folds as the list. The list stays the default.\r\n- **Pick a note from its icon.** Tap the round icon at the start of a card — the mark of its kind — to select it, the way a mail app selects from the avatar; tap it again to put it back. Holding and choosing Select still works.\r\n- **Clearer colours in every theme.** A full contrast check of Light, Dark and Night across every palette: the Undo and Got it buttons on the message capsule were too faint to read in all of them and now stand out; filled boxes in the classic light theme, field edges in three palettes, and very bright accent colours you pick now all meet the readability standard.\r\n- **A tidier daily nudge.** What is due now reads one item a line, the most pressing first: \"Urgent: …\", \"Today at 10:00 · …\", \"Overdue: …\". It used to be one run-on sentence behind a changing lead-in (\"A quick reminder: Urgent: …\"). A note written in the other language no longer jumbles its quotation marks, and the expanded notification no longer leaves empty lines under the text — the same goes for note reminders. The greeting above it is now in the app's language too, whatever script your name is written in.\r\n- **Recent searches run again.** On the search screen, touching one of your recent or kept searches closed search instead of searching for it. It now runs that search.\r\n- **Exported photos open as the right picture.** In a library export, two photos with the same file name were both saved, but the second note's Markdown pointed at the first one's file, so opened outside Nex it showed the wrong photo. Each note now links to its own.\r\n- **Every search box works the same way.** The searches in Settings, Modules, What's new, the vault, Words, tags, languages and the rest now share one design: the same look, a clear button as soon as you type that resets the list at once, and Persian or English text running the right way as you type it.",
+        "fa": "- **شش تم تازه.** پالت‌های جسورتری که رنگی عمیق را کنار رنگی روشن می‌گذارند، هر کدام با نسخهٔ روشن و تیره: اسطوخودوس، هلو و زغال، شکوفا (زرشکی و خردلی)، شامگاه (آلویی و هلویی)، مرجان و آفتابگردان (مشکی و زرد). در تنظیمات ← ظاهر ← تم.\r\n- **نمای شبکه‌ای.** در تنظیمات ← ظاهر ← نمایش ← شبکه‌ای (یا چیدمان خانه) یادداشت‌ها کاشی‌کاشی، دوتا در هر ردیف و هر کدام با رنگ ملایم نوع خودش نشان داده می‌شوند؛ روزها، سنجاق‌ها و جمع‌شدن‌ها همان فهرست است. نمای فهرستی همچنان پیش‌فرض است.\r\n- **انتخاب با آیکون.** روی آیکون گرد ابتدای کارت — نشانِ نوع یادداشت — بزنید تا انتخاب شود، مثل انتخاب نامه از روی عکس در برنامه‌های ایمیل؛ لمس دوباره از انتخاب بیرونش می‌آورد. نگه‌داشتن و «انتخاب» هم مثل قبل کار می‌کند.\r\n- **رنگ‌های خواناتر در همهٔ پوسته‌ها.** کنتراست روشن، تیره و شب در همهٔ پالت‌ها کامل بررسی شد: دکمه‌های «برگرداندن» و «فهمیدم» روی کپسول پیام در همه کم‌رنگ بودند و حالا واضح‌اند؛ کادرهای پرشده در پوستهٔ روشن اصلی، لبهٔ فیلدها در سه پالت و رنگ‌های تأکیدی خیلی روشنی که انتخاب می‌کنید حالا همه به استاندارد خوانایی می‌رسند.\r\n- **یادآوری روزانهٔ مرتب‌تر.** کارهای پیش رو حالا هر کدام در یک خط و مهم‌ترین اول می‌آیند: «فوری: …»، «امروز ساعت ۱۰:۰۰ · …»، «عقب‌افتاده: …». قبلاً همه در یک جملهٔ طولانی، پشت یک مقدمهٔ متغیر مثل «یادآوری کوتاه: فوری: …» می‌آمدند. یادداشتی که به زبان دیگر نوشته شده دیگر گیومه‌هایش به‌هم نمی‌ریزد، و اعلان بازشده دیگر زیر متن خط‌های خالی ندارد؛ یادآورهای یادداشت‌ها هم همین‌طور. سلامِ بالای آن هم حالا به زبان برنامه است، به هر خطی که نامتان را نوشته باشید.\r\n- **جست‌وجوهای اخیر دوباره اجرا می‌شوند.** در صفحهٔ جست‌وجو، لمس یکی از جست‌وجوهای اخیر یا ذخیره‌شده، به‌جای جست‌وجو، صفحه را می‌بست. حالا همان جست‌وجو را انجام می‌دهد.\r\n- **عکس‌های خروجی درست باز می‌شوند.** در خروجی کتابخانه، اگر دو عکس نام فایل یکسانی داشتند هر دو ذخیره می‌شدند، اما فایل Markdown یادداشت دوم به عکس اولی اشاره می‌کرد؛ برای همین بیرون از نکس عکس اشتباه نشان داده می‌شد. حالا هر یادداشت به عکس خودش اشاره می‌کند.\r\n- **همهٔ کادرهای جست‌وجو یکسان شدند.** جست‌وجوی تنظیمات، ماژول‌ها، تازه‌ها، خزانه، واژه‌به‌واژه، برچسب‌ها، زبان‌ها و بقیه حالا یک طراحی دارند: ظاهر یکسان، دکمهٔ پاک‌کردن که با شروع تایپ ظاهر می‌شود و فهرست را فوراً برمی‌گرداند، و متن فارسی یا انگلیسی که از همان ابتدا در جهت درست نوشته می‌شود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.27-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/Nex-2.6.27-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61348724,
+          "downloads": 4,
+          "sha256": "661a8b6ac4a0c4316d75ea7d0f58cec563a3e49d62b457f0165fd50f6ead1400"
+        },
+        {
+          "name": "Nex-2.6.27-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/Nex-2.6.27-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38688154,
+          "downloads": 2,
+          "sha256": "fba153ec7cb8f74e7b667aa4ee0cd5f7448bdbf17ddcb19d96739505b97b2f4b"
+        },
+        {
+          "name": "Nex-2.6.27-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/Nex-2.6.27-store.aab",
+          "kind": "bundle",
+          "size": 144643943,
+          "downloads": 1,
+          "sha256": "18d3ef3e74addba1557592f1ece07da336c64d7690bb9207066862ebee470df8"
+        },
+        {
+          "name": "Nex-2.6.27-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/Nex-2.6.27-store.apk",
+          "kind": "other",
+          "size": 156229493,
+          "downloads": 2,
+          "sha256": "e221cd811fa442d48121a779bc3942ff9d3e7594839e5e7fb28413688e93fdda"
+        },
+        {
+          "name": "Nex-2.6.27-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/Nex-2.6.27-universal.apk",
+          "kind": "universal",
+          "size": 156245897,
+          "downloads": 2,
+          "sha256": "11a1675c7fe219e93fc622c529c0b6ed69ed766aab9eb1ff934c48314392b018"
+        },
+        {
+          "name": "Nex-2.6.27-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/Nex-2.6.27-x86_64.apk",
+          "kind": "x64",
+          "size": 67459951,
+          "downloads": 2,
+          "sha256": "ca42f91b9c30464d46f7e746b8a45abfa980dd472a8bb8bd4f2ebe7ec68d7845"
+        },
+        {
+          "name": "Nex-2.6.27.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/Nex-2.6.27.aab",
+          "kind": "bundle",
+          "size": 144673921,
+          "downloads": 1,
+          "sha256": "2a265f7a18fdb0a2b91b90f03250e89460be76ad211a1a3241b1bdf2b7a3299c"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.27/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "3cc46ab4943b247de9e8b969182110fa5ad3315d9307fe71e16143f53b2ec118"
+        }
+      ]
+    },
+    {
+      "version": "2.6.26",
+      "tag": "v2.6.26",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.26",
+      "publishedAt": "2026-11-13T13:20:38.000Z",
+      "notes": {
+        "en": "- **Ready for Android 16.** Nex now targets the latest Android. On a tablet or an unfolded foldable it turns with the device instead of staying upright, with the notes kept to a comfortable reading width in landscape; photos taken there are saved the way you held the device. Phones stay in portrait as before.\r\n- **Smoother opening and closing.** Opening a note, a page or a menu over the timeline used to rebuild every card on it, and closing it did the same again — the stutter as a note rose and fell. The timeline now stays as it is underneath. The wordmark in the corner now moves only when you touch it, instead of every few seconds on its own.\r\n- **Liquid Glass is paused.** It was too heavy for some phones, so its switch has left Settings → Appearance until it is reworked, and the app uses its plain surfaces. A choice you made is kept for when it returns.\r\n- **A pasted address becomes a link.** Paste a web address into an empty note with the paste button and the note turns into a link, saved with the page's title and summary instead of as a line of text. Tap Note to keep it as plain text.\r\n- **One name for the daily nudge.** Settings, its sound and Android's notification settings now all call it the same thing, in both languages; Android's list no longer switches between two names.",
+        "fa": "- **آماده برای اندروید ۱۶.** نکس حالا برای جدیدترین نسخهٔ اندروید ساخته می‌شود. روی تبلت یا گوشی تاشوی بازشده، به‌جای ایستادن در حالت عمودی، همراه دستگاه می‌چرخد و یادداشت‌ها در حالت افقی هم در پهنایی راحت برای خواندن می‌مانند؛ عکسی هم که آنجا می‌گیرید همان‌طور که دستگاه را نگه داشته‌اید ذخیره می‌شود. روی گوشی‌ها مثل قبل همه‌چیز عمودی است.\r\n- **باز و بسته شدن روان‌تر.** باز کردن یک یادداشت، صفحه یا منو روی خط زمانی همهٔ کارت‌های آن را از نو می‌ساخت و بستنش هم دوباره همین کار را می‌کرد؛ همان مکثی که هنگام بالا آمدن و پایین رفتن یادداشت حس می‌شد. حالا خط زمانی زیر آن دست‌نخورده می‌ماند. لوگوی گوشهٔ صفحه هم حالا فقط با لمس حرکت می‌کند، نه هر چند ثانیه یک بار به‌خودی‌خود.\r\n- **لیکویید گلس فعلاً متوقف است.** برای بعضی گوشی‌ها بیش از حد سنگین بود؛ برای همین تا بازطراحی، گزینه‌اش از تنظیمات ← ظاهر برداشته شده و برنامه سطح‌های ساده‌اش را نشان می‌دهد. اگر روشنش کرده بودید، انتخابتان برای بازگشتش نگه داشته می‌شود.\r\n- **آدرس چسبانده‌شده لینک می‌شود.** اگر با دکمهٔ چسباندن یک آدرس اینترنتی را در یادداشت خالی بچسبانید، یادداشت به لینک تبدیل می‌شود و به‌جای یک خط متن، با عنوان و خلاصهٔ صفحه ذخیره می‌شود. برای نگه‌داشتنش به‌صورت متن ساده، «یادداشت» را بزنید.\r\n- **یک نام برای یادآوری روزانه.** تنظیمات، صدای آن و تنظیمات اعلان اندروید حالا همه همان «یادآوری روزانه» را می‌گویند و فهرست اعلان‌های اندروید دیگر بین دو نام عوض نمی‌شود."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.26-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/Nex-2.6.26-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61345744,
+          "downloads": 3,
+          "sha256": "86e64c9d05b86e80582ff681feb00f4b661eb3bda4814a9c2ed8313acde1edc7"
+        },
+        {
+          "name": "Nex-2.6.26-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/Nex-2.6.26-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38668790,
+          "downloads": 2,
+          "sha256": "8ee234935855421ee9f0fc2b34fd1ed3738da83d47433e53faeb83e6917183b1"
+        },
+        {
+          "name": "Nex-2.6.26-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/Nex-2.6.26-store.aab",
+          "kind": "bundle",
+          "size": 144594820,
+          "downloads": 1,
+          "sha256": "c4c9d6aa04d5a30eebd35f392875a0655a093d4d760b85234413fc8c04bb3356"
+        },
+        {
+          "name": "Nex-2.6.26-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/Nex-2.6.26-store.apk",
+          "kind": "other",
+          "size": 156079057,
+          "downloads": 2,
+          "sha256": "3496c3ea66e87fd5fa8221edf580bbf308bc72748eea418bf8a0c86f2ab732bd"
+        },
+        {
+          "name": "Nex-2.6.26-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/Nex-2.6.26-universal.apk",
+          "kind": "universal",
+          "size": 156226533,
+          "downloads": 2,
+          "sha256": "fd91f84ec738bd1d7c90fcba0e3622d4b06105f90703940402ec3bc6b5af1793"
+        },
+        {
+          "name": "Nex-2.6.26-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/Nex-2.6.26-x86_64.apk",
+          "kind": "x64",
+          "size": 67456971,
+          "downloads": 2,
+          "sha256": "c07d39c81e5f1f24444e97421a9da3fb59ffa3eeb663536534e7941810ef738a"
+        },
+        {
+          "name": "Nex-2.6.26.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/Nex-2.6.26.aab",
+          "kind": "bundle",
+          "size": 144614455,
+          "downloads": 1,
+          "sha256": "de8cfe0deda2f24f6243181ec7f96c89474f63588c0f17c993bcc63a922962bb"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.26/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 2,
+          "sha256": "27ee40cee97b563735d8eec9bd219a280cbf576a3e262fecb092db1980a735ed"
+        }
+      ]
+    },
+    {
+      "version": "2.6.25",
+      "tag": "v2.6.25",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.25",
+      "publishedAt": "2026-11-13T08:31:00.000Z",
+      "notes": {
+        "en": "- **Redesigned themes.** Choose from 14 palettes in Settings → Appearance, each with its own light and dark colours. Your saved theme returns automatically, custom accents keep their hue with readable text, and Liquid Glass follows the palette.\r\n\r\n- **A scheduled note comes back whole.** Sending a note later used to return only its words: the title and the tags it was filed under were dropped while it waited. They come back with it now, and a note that carries files stays in the library instead of being scheduled away from them.\r\n- **Backups survive a wrong clock.** If the phone's date moved backwards, automatic backups stopped for as long as it took the clock to catch up, and the copy just written could be treated as the oldest and pruned. Both now behave.\r\n- **Backups without media are refused before restore.** Restoring one no longer closes the open library first, only to fail on a file that was never there. And a complete restore that fails no longer leaves a hidden undo step that would roll the library — and everything written after it — back on the next launch.",
+        "fa": "- **تم‌ها با طراحی تازه برگشتند.** در تنظیمات ← ظاهر، از میان ۱۴ تم با رنگ‌های اختصاصی روشن و تیره انتخاب کنید. تم قبلی شما خودکار برمی‌گردد، رنگ دلخواهتان با حفظ خوانایی نوشته‌ها اعمال می‌شود و لیکویید گلس هم با رنگ تم هماهنگ است.\r\n\r\n- **یادداشت زمان‌بندی‌شده کامل برمی‌گردد.** فرستادن یادداشت برای بعد فقط متنش را برمی‌گرداند؛ عنوان و تگ‌هایی که روی آن گذاشته بودید در مدت انتظار از بین می‌رفتند. حالا همراه آن برمی‌گردند، و یادداشتی که فایل ضمیمه دارد از کتابخانه بیرون برده نمی‌شود تا فایل‌هایش گم شوند.\r\n- **پشتیبان‌گیری با ساعت اشتباه از کار نمی‌افتد.** اگر تاریخ گوشی عقب برود، پشتیبان خودکار تا هم‌رسیدن ساعت متوقف می‌شد و نسخه‌ای که تازه نوشته شده بود ممکن بود قدیمی‌ترین حساب شود و پاک شود. هر دو درست شد.\r\n- **بکاپ ناقص پیش از بازیابی رد می‌شود.** بازیابی‌اش دیگر اول کتابخانه را نمی‌بندد تا بعد برای فایلی که هرگز نبوده شکست بخورد. بازیابی کاملِ ناموفق هم دیگر یک «برگرداندن» پنهان باقی نمی‌گذارد که دفعهٔ بعد کتابخانه و هر چه بعدش نوشته‌اید را عقب ببرد."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.6.25-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/Nex-2.6.25-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61279384,
+          "downloads": 3,
+          "sha256": "d8903e2ecb5fe1b0f22d1adcc58bb1edb029682affafc77d35474fa55747dbd8"
+        },
+        {
+          "name": "Nex-2.6.25-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/Nex-2.6.25-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 38667962,
+          "downloads": 2,
+          "sha256": "c42267b17e011cb324311e0889f3f5dd8b38a788dc91a18680429f7a6088c2ed"
+        },
+        {
+          "name": "Nex-2.6.25-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/Nex-2.6.25-store.aab",
+          "kind": "bundle",
+          "size": 144578789,
+          "downloads": 1,
+          "sha256": "7d5aa1ec9204634506610003ef0519dd6cc970a183f147558909bba731ef8bcf"
+        },
+        {
+          "name": "Nex-2.6.25-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/Nex-2.6.25-store.apk",
+          "kind": "other",
+          "size": 156078225,
+          "downloads": 2,
+          "sha256": "3e829dda5b43455f2f4b429711accd3d85467d48dc99980ac18bb280175cb099"
+        },
+        {
+          "name": "Nex-2.6.25-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/Nex-2.6.25-universal.apk",
+          "kind": "universal",
+          "size": 156160169,
+          "downloads": 2,
+          "sha256": "1a3c32d7048cbf7901ad17dc5be0b660d3520fb3682243e236fabb26c4eaba5f"
+        },
+        {
+          "name": "Nex-2.6.25-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/Nex-2.6.25-x86_64.apk",
+          "kind": "x64",
+          "size": 67456143,
+          "downloads": 3,
+          "sha256": "127154e2ac4d06b333e9bfd21d2f121f0da20cc06709c183760bdae2a9b01995"
+        },
+        {
+          "name": "Nex-2.6.25.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/Nex-2.6.25.aab",
+          "kind": "bundle",
+          "size": 144606531,
+          "downloads": 1,
+          "sha256": "12152eabbcd09a40580c0c7c3e9ec9a24b47cc494cd93d95fc75c2c8fc2b3fa9"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.25/SHA256SUMS",
+          "kind": "other",
+          "size": 611,
+          "downloads": 3,
+          "sha256": "53e8176e54411b09ecee6fe43a360ac2186fcd7cd1e95679c9959fc7d3046239"
+        }
+      ]
+    },
+    {
       "version": "2.6.24",
       "tag": "v2.6.24",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.24",
@@ -16,7 +396,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61343888,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "ab7ebdf7b95eb3093c846b3abaf020d208324df3746b852102616e8850d679db"
         },
         {
@@ -24,7 +404,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 38666934,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "5e74677f525fb6816995c1ece03470b8c3ee9b408501a055d288c9d97a733f0b"
         },
         {
@@ -40,7 +420,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-store.apk",
           "kind": "other",
           "size": 156060809,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "6612dff76ea3c3f1eeeabf187551dcb5f74e40a1a1c3722be5a24f503be3e6cf"
         },
         {
@@ -48,7 +428,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-universal.apk",
           "kind": "universal",
           "size": 156159141,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "96008c277137d57df000d66a8afed3d2ea4a0e6082d4075f9752b6a5cb397386"
         },
         {
@@ -56,7 +436,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.6.24/Nex-2.6.24-x86_64.apk",
           "kind": "x64",
           "size": 67389579,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "cb76fd8b490ba3fdf006212045a266ee0b3fbd9f78a5d7103d9dc0bb3725d307"
         },
         {
