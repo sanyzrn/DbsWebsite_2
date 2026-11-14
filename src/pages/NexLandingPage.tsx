@@ -1,4 +1,4 @@
-import { StudioDiscovery, StudioSignature } from "../components/StudioFamily";
+import { StudioDiscovery } from "../components/StudioFamily";
 import { useNexAppearance } from "../lib/nexAppearance";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
@@ -87,7 +87,6 @@ export default function NexLandingPage() {
       <div className="nex-shell">
         <header className="nex-masthead">
           <a className="nex-brand" href="#nex-top" aria-label={c.pageLabel}><NexWordmark className="nex-wordmark" /></a>
-          <StudioSignature />
           <span className="nex-masthead-line">{e.eyebrow}</span>
           <div className="nex-tools">
             <Link to={fa ? "/en/nex/" : "/nex/"} lang={fa ? "en" : "fa"} aria-label={c.languageLabel}>{c.language}</Link>

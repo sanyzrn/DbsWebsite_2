@@ -3,11 +3,16 @@ import type { UiDict } from "./fa";
 const en: UiDict = {
   dir: "ltr" as const,
   studio: {
+    drawerHeading: "Different worlds. One studio.",
+    drawerIntro: "Thoughtfully made tools for everyday life and work.",
+    drawerFootnote: "Design, engineering & a little curiosity.",
+    close: "Close product drawer", explore: "Explore product",
+    short: { nex: "A home for everyday thoughts", nexachatai: "A smarter voice for your business", nexahr: "People, beyond the numbers", nexaslider: "A little motion. A better showcase." },
     madeBy: "Made by", menu: "From the studio", title: "The DbsStudio product family",
     heading: "More from the studio", homeHeading: "Studio products",
     intro: "Different tools. A shared approach to design and building.",
     about: "About the studio", collaborate: "Start a project", invitation: "Shall we build something for your business?",
-    preview: "Product page coming soon", current: "You are here",
+    preview: "Coming soon", current: "You are here",
     nex: "Your second memory. Capture and find things in seconds.",
     nexachatai: "An AI assistant for conversations on your website.",
     nexahr: "A more human approach to people and performance.",

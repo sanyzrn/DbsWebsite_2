@@ -9,6 +9,7 @@
 import fs from "node:fs";
 import { installNexA11yNetwork } from "./nex-a11y-network.mjs";
 import { verifyScreenGallery } from "./check-screen-gallery.mjs";
+import { verifyStudioDock } from "./check-studio-dock.mjs";
 import { verifyNexOffline } from "./check-nex-offline.mjs";
 import http from "node:http";
 import path from "node:path";
@@ -200,6 +201,7 @@ export async function runA11yCheck({ routes = A11Y_ROUTES, dist = DIST } = {}) {
 
   try {
     await verifyNexOffline(browser, origin);
+    await verifyStudioDock(browser, origin);
     for (const route of resolvedRoutes) {
       for (const theme of THEMES) {
         const isNex = /^\/(?:en\/)?nex\/?$/.test(route.urlPath);

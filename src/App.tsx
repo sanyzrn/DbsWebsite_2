@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { BrowserRouter, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { AppProvider, useApp } from "./lib/app";
+import { StudioDock } from "./components/StudioFamily";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
@@ -168,7 +169,8 @@ export function AppShell() {
       <AppProvider>
         <ScrollToTop />
         <LocalePreferenceRedirect />
-        <AppRoutes />
+        <StudioDock />
+        <div className="studio-site"><AppRoutes /></div>
       </AppProvider>
     </Suspense>
   );
