@@ -15,13 +15,46 @@ concurrency:
   group: dbsstudio-production-deploy
   cancel-in-progress: false
 jobs:
-  deploy:
+  verification:
     if: >-
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_repository.full_name == github.repository &&
       github.event.workflow_run.head_branch == 'main' &&
       ((github.event.workflow_run.name == 'CI' && github.event.workflow_run.event == 'push') ||
        (github.event.workflow_run.name == 'Refresh Nex production' && contains(fromJSON('["schedule","workflow_dispatch","repository_dispatch"]'), github.event.workflow_run.event)))
+    runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.source.outputs.deploy }}
+    steps:
+      - uses: actions/github-script@v8
+        id: source
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const run = context.payload.workflow_run;
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+              owner, repo, run_id: run.id, filter: 'latest'
+            });
+            const skippedRefresh = run.name === 'Refresh Nex production' &&
+              jobs.some(job => job.name === 'cadence' && job.conclusion === 'success') &&
+              jobs.some(job => job.name === 'verify' && job.conclusion === 'skipped') &&
+              !jobs.some(job => job.name.startsWith('verify /'));
+            if (skippedRefresh) {
+              core.info('No production refresh due; skipping deployment.');
+              core.setOutput('deploy', 'false');
+              return;
+            }
+            const { data } = await github.rest.actions.listWorkflowRunArtifacts({
+              owner, repo, run_id: run.id, name: 'verified-site'
+            });
+            if (!data.artifacts.some(artifact => artifact.name === 'verified-site' && !artifact.expired)) {
+              throw new Error('Successful verification run is missing its verified-site artifact.');
+            }
+            core.setOutput('deploy', 'true');
+
+  deploy:
+    needs: verification
+    if: needs.verification.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

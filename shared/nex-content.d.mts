@@ -6,4 +6,4 @@ export function contentText(nodes: ContentNode[]): string;
 export function parseGuide(value: string): { intro: ContentNode[]; sections: GuideSection[] };
 export function parseChangelog(value: string): Map<string, ContentNode[]>;
 export type NexTheme = { id: string; name: {fa:string;en:string}; description:{fa:string;en:string}; seed:string;light:string|null;dark:string|null;texture:string };
-export function parseThemePresets(value: string): NexTheme[];
+export function parseThemePresets(value: string, rampSources?: string): NexTheme[];

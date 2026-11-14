@@ -18,7 +18,11 @@ const history = releases.map((release) => ({ ...release, notes: {
   en: notes.en.get(release.version) ?? parseMarkdown(release.notes.en),
 } }));
 await save('history.json', { sourceRevision: source.sourceRevision, releases: history });
-await save('themes.json', { sourceRevision: source.sourceRevision, themes: parseThemePresets(await read('theme-presets.dart')) });
+const presets = await read('theme-presets.dart');
+const parts = [...presets.matchAll(/^part '([^']+)';/gm)].map((match) => match[1]);
+if (parts.some((name) => !/^theme_preset_ramps(?:_[a-z]+)?\.dart$/.test(name))) throw new Error('Unexpected theme part source');
+const themes = parseThemePresets(presets, (await Promise.all(parts.map(read))).join('\n'));
+await save('themes.json', { sourceRevision: source.sourceRevision, themes });
 for (const lang of ['fa', 'en']) {
   const faq = guides[lang].sections[17];
   const list = faq.blocks.find((node) => node.type === 'list');
@@ -32,4 +36,4 @@ for (const lang of ['fa', 'en']) {
   await fs.mkdir(destination, { recursive: true });
   await fs.writeFile(path.join(destination, 'changelog.xml'), `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Nex — ${lang === 'fa' ? 'تغییرات نسخه‌ها' : 'Changelog'}</title><link>${url}</link><description>Nex public release history</description><language>${lang}</language>${items}</channel></rss>\n`);
 }
-console.log(`Nex product content: ${history.length} public releases, 19 guide chapters, ${parseThemePresets(await read('theme-presets.dart')).length} themes`);
+console.log(`Nex product content: ${history.length} public releases, 19 guide chapters, ${themes.length} themes`);

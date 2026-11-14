@@ -6,6 +6,8 @@ import sharp from "sharp";
 import { createHash } from "node:crypto";
 import { NEX_RELEASES_API, normalizeReleases } from "../shared/nex-releases.mjs";
 
+import { parseThemePresets } from "../shared/nex-content.mjs";
+
 const root = fileURLToPath(new URL("../", import.meta.url));
 const destination = path.join(root, "content/nex");
 const strict = process.argv.includes("--strict");
@@ -67,6 +69,14 @@ async function refreshProduct(version) {
     ["license.txt", "LICENSE"],
   ];
   const results = await Promise.all(sources.map(async ([name, source]) => [name, await get(raw + source, "text")]));
+  // Theme Atelier stores the designed light/dark ramps in Dart part files.
+  // Fetch only allowlisted sibling files, pinned to the same source revision.
+  const presets = results.find(([name]) => name === 'theme-presets.dart')[1];
+  const parts = [...presets.matchAll(/^part '([^']+)';/gm)].map((match) => match[1]);
+  if (parts.some((name) => !/^theme_preset_ramps(?:_[a-z]+)?\.dart$/.test(name))) throw new Error('Unexpected theme part source');
+  const ramps = await Promise.all(parts.map(async (name) => [name, await get(raw + 'apps/client/lib/platform/' + name, 'text')]));
+  parseThemePresets(presets, ramps.map(([, text]) => text).join('\n'));
+  results.push(...ramps);
   if (results.some(([, text]) => text.length < 20)) throw new Error("Empty product source");
   const guideImages = [...new Set(results.filter(([name]) => name.startsWith("guide.")).flatMap(([, text]) => [...text.matchAll(/!\[[^\]]*\]\(([-a-zA-Z0-9_]+\.webp)\)/g)].map((m) => m[1])))].sort();
   const images = await Promise.all(guideImages.map(async (name) => {

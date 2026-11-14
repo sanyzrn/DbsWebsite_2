@@ -28,7 +28,14 @@ jobs:
         run: npm run fetch:nex && npm run generate:nex
         env:
           NEX_SOURCE_TOKEN: ${{ secrets.NEX_SOURCE_TOKEN }}
-      - run: npx playwright install --with-deps chromium
+      - name: Install browser and dependencies (retry transient mirror failures)
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            if npx playwright install --with-deps chromium; then exit 0; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+            sleep $((attempt * 5))
+          done
       - run: npx tsc --noEmit
       - run: npm run lint
       - run: npm run check:i18n
