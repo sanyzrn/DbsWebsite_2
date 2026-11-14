@@ -179,8 +179,8 @@ export const FA: Knowledge = {
       id: "about",
       keys: ["دستیار", "چطور کار", "نکسا", "nexachat", "هوش مصنوعی", "افزونه", "چیست", "کیستی", "تو کی"],
       reply:
-        "من نسخهٔ نمایشی NexaChatAI هستم. افزونه اطلاعات کسب‌وکار شما را (متن، پرسش‌های متداول، PDF، Word و صفحه‌های سایت) یاد می‌گیرد و به مشتری‌ها به فارسی پاسخ می‌دهد و منبع پاسخ را زیرش نشان می‌دهد. اگر چیزی را نداند، می‌گوید نمی‌داند.",
-      sources: [{ title: "معرفی NexaChatAI" }],
+        "من نسخهٔ نمایشی Vazho هستم. افزونه اطلاعات کسب‌وکار شما را (متن، پرسش‌های متداول، PDF، Word و صفحه‌های سایت) یاد می‌گیرد و به مشتری‌ها به فارسی پاسخ می‌دهد و منبع پاسخ را زیرش نشان می‌دهد. اگر چیزی را نداند، می‌گوید نمی‌داند.",
+      sources: [{ title: "معرفی Vazho" }],
       follow: ["اطلاعات من کجا ذخیره می‌شود؟", "با یک کارشناس صحبت کنم"],
     },
   ],
@@ -333,8 +333,8 @@ export const EN: Knowledge = {
     {
       id: "about",
       keys: ["assistant", "how does", "nexachat", "ai", "plugin", "what is", "who are you", "work"],
-      reply: "I am the demo of NexaChatAI. The plugin learns your business information (text, FAQs, PDF, Word and site pages) and answers customers in their language, showing the source under each answer. If it does not know, it says so.",
-      sources: [{ title: "About NexaChatAI" }],
+      reply: "I am the demo of Vazho. The plugin learns your business information (text, FAQs, PDF, Word and site pages) and answers customers in their language, showing the source under each answer. If it does not know, it says so.",
+      sources: [{ title: "About Vazho" }],
       follow: ["Where is my data stored?", "Let me talk to a person"],
     },
   ],

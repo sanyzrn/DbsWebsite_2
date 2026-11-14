@@ -1,4 +1,4 @@
-/** Product facts of the NexaChatAI page (/nexachatai); the landing copy is in landing.ts. Persian first; keep both languages in step. */
+/** Product facts of the Vazho page (/nexachatai); the landing copy is in landing.ts. Persian first; keep both languages in step. */
 import type { Lang } from "../i18n";
 
 export const NEXACHAT_BUY_URL = "https://rtl-theme.com/?p=322159";
@@ -18,7 +18,7 @@ export type NexaChatCopy = {
 };
 
 const fa: NexaChatCopy = {
-  seoTitle: "NexaChatAI؛ چت‌بات هوش مصنوعی وردپرس | DbsStudio",
+  seoTitle: "Vazho؛ چت‌بات هوش مصنوعی وردپرس | DbsStudio",
   seoDescription: "دستیار هوشمند فارسی وردپرس که از دانش کسب‌وکار شما پاسخ می‌دهد؛ دمو زنده، چت زنده، ربات بله و تلگرام، دستیار فروش ووکامرس.",
   ctaBuy: "خرید و دانلود از راست‌چین",
   ctaReport: "گزارش مشکل",
@@ -74,7 +74,7 @@ const fa: NexaChatCopy = {
 };
 
 const en: NexaChatCopy = {
-  seoTitle: "NexaChatAI: AI chatbot for WordPress | DbsStudio",
+  seoTitle: "Vazho: AI chatbot for WordPress | DbsStudio",
   seoDescription: "A Persian-first WordPress assistant that answers from your business knowledge: live demo, live chat, Bale and Telegram bot, WooCommerce sales assistant.",
   ctaBuy: "Get it on RTL-Theme",
   ctaReport: "Report a problem",

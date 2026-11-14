@@ -53,7 +53,7 @@ const en: UiDict = {
     },
     issues: {
       title: "Report a problem | DbsStudio",
-      description: "Found a problem or have an idea about NexaChatAI, Nex or NexaHR? Report it here, privately and directly.",
+      description: "Found a problem or have an idea about Vazho, Nex or NexaHR? Report it here, privately and directly.",
     },
     privacy: {
       title: "Privacy | Saeed Zarrini",
@@ -409,7 +409,7 @@ const en: UiDict = {
       desc: "Choose the product and describe the problem. The report reaches me on Bale and is not published anywhere.",
       product: "Product",
       products: {
-        nexachatai: "NexaChatAI (WordPress plugin)",
+        nexachatai: "Vazho (WordPress plugin)",
         "nex-android": "Nex (Android)",
         "nex-windows": "Nex (Windows)",
         nexahr: "NexaHR",

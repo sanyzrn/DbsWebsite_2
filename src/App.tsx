@@ -22,7 +22,7 @@ function isHomePath(pathname: string) {
   return pathname === "/" || pathname === "/en" || pathname === "/en/";
 }
 
-/** The NexaChatAI landing is a standalone page: no portfolio header, footer, intro or palette. */
+/** The Vazho landing is a standalone page: no portfolio header, footer, intro or palette. */
 function isStandaloneLandingPath(pathname: string): boolean {
   return stripLangPrefix(pathname).replace(/^\/+|\/+$/g, "") === "nexachatai";
 }

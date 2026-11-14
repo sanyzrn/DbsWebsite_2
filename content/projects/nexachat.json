@@ -8,24 +8,24 @@
   "featured": false,
   "order": 4,
   "name": {
-    "fa": "NexaChatAI",
-    "en": "NexaChatAI"
+    "fa": "Vazho",
+    "en": "Vazho"
   },
   "subtitle": {
     "fa": "افزونهٔ چت‌بات هوش مصنوعی وردپرس: پاسخ از دانش کسب‌وکار شما، چت زنده، ربات بله و تلگرام و دستیار فروش ووکامرس.",
     "en": "A WordPress AI chatbot plugin: answers from your business knowledge, live chat, a Bale and Telegram bot and a WooCommerce sales assistant."
   },
   "desc": {
-    "fa": "NexaChatAI افزونه‌ای برای افزودن دستیار هوشمند فارسی به وب‌سایت وردپرسی است. محتوای کسب‌وکار از متن، پرسش‌های متداول، PDF، Word و صفحه‌های سایت یاد گرفته می‌شود و پاسخ‌ها با ذکر منبع داده می‌شوند. راه‌اندازی با جادوگر پنج‌مرحله‌ای، پشتیبانی از OpenAI، Gemini، Claude، OpenRouter و هر سرویس سازگار، چت زنده با اپراتور، ربات بله و تلگرام، دستیار فروش ووکامرس و پنل مدیریت کامل فارسی و راست‌چین. نسخهٔ ۱٫۷٫۹ منتشر شده است.",
-    "en": "NexaChatAI adds a Persian-first assistant to a WordPress site. It learns your business from text, FAQs, PDF, Word and site pages and answers with the source shown. It comes with a five-step setup wizard, support for OpenAI, Gemini, Claude, OpenRouter and any compatible service, live chat with an operator, a Bale and Telegram bot, a WooCommerce sales assistant and a fully localised admin panel. Version 1.7.9 is released."
+    "fa": "Vazho افزونه‌ای برای افزودن دستیار هوشمند فارسی به وب‌سایت وردپرسی است. محتوای کسب‌وکار از متن، پرسش‌های متداول، PDF، Word و صفحه‌های سایت یاد گرفته می‌شود و پاسخ‌ها با ذکر منبع داده می‌شوند. راه‌اندازی با جادوگر پنج‌مرحله‌ای، پشتیبانی از OpenAI، Gemini، Claude، OpenRouter و هر سرویس سازگار، چت زنده با اپراتور، ربات بله و تلگرام، دستیار فروش ووکامرس و پنل مدیریت کامل فارسی و راست‌چین. نسخهٔ ۱٫۷٫۹ منتشر شده است.",
+    "en": "Vazho adds a Persian-first assistant to a WordPress site. It learns your business from text, FAQs, PDF, Word and site pages and answers with the source shown. It comes with a five-step setup wizard, support for OpenAI, Gemini, Claude, OpenRouter and any compatible service, live chat with an operator, a Bale and Telegram bot, a WooCommerce sales assistant and a fully localised admin panel. Version 1.7.9 is released."
   },
   "problem": {
     "fa": "یک ویجت چت ساده، نه دانش سایت را می‌فهمد، نه به فروش و پشتیبانی وصل است و نه چیزی به تیم یاد می‌دهد. نتیجه، پاسخ‌های بی‌ربط، لیدهای از دست‌رفته و هزینهٔ هوش مصنوعی بدون بازده است.",
     "en": "A basic chat widget understands neither the site knowledge nor the sales and support workflow — and teaches the team nothing. The result is irrelevant answers, lost leads and AI spend with no measurable return."
   },
   "approach": {
-    "fa": "NexaChatAI بر یک بازیابی دانش واقعی (RAG) بنا شده: محتوا ساختارمند تکه‌بندی و بازیابی می‌شود و پاسخ با منبعش نمایش داده می‌شود. چند مدل و چند سرویس‌دهنده با failover، داشبورد کیفیت، صندوق گفتگوی انسانی، فرم لید و درخواست مشاوره، بانک پاسخ، گزارش سؤال‌های بی‌پاسخ، جست‌وجوی زندهٔ وب، ماژول ووکامرس با پیگیری سفارش و کوپن هوشمند، و پشتیبانی عمیق فارسی و راست‌چین آن را به یک لایهٔ کامل ارتباط با مشتری تبدیل می‌کند؛ نه یک حباب تزئینی گوشهٔ سایت. داده‌ها در پایگاه‌دادهٔ وردپرس خودِ مشتری می‌مانند و افزونه ردیابی ندارد.",
-    "en": "NexaChatAI is built on real knowledge retrieval (RAG): content is structured, chunked and retrieved, and each answer shows its source. Multiple models and providers with failover, a quality dashboard, a human conversation inbox, lead and consultation forms, an answer bank, a report of unanswered questions, live web search, a WooCommerce module with order tracking and a capped smart coupon, and deep Persian/RTL support make it a full customer-communication layer, not a decorative bubble in the corner of a site. Data stays in the customer's own WordPress database and the plugin does not track."
+    "fa": "Vazho بر یک بازیابی دانش واقعی (RAG) بنا شده: محتوا ساختارمند تکه‌بندی و بازیابی می‌شود و پاسخ با منبعش نمایش داده می‌شود. چند مدل و چند سرویس‌دهنده با failover، داشبورد کیفیت، صندوق گفتگوی انسانی، فرم لید و درخواست مشاوره، بانک پاسخ، گزارش سؤال‌های بی‌پاسخ، جست‌وجوی زندهٔ وب، ماژول ووکامرس با پیگیری سفارش و کوپن هوشمند، و پشتیبانی عمیق فارسی و راست‌چین آن را به یک لایهٔ کامل ارتباط با مشتری تبدیل می‌کند؛ نه یک حباب تزئینی گوشهٔ سایت. داده‌ها در پایگاه‌دادهٔ وردپرس خودِ مشتری می‌مانند و افزونه ردیابی ندارد.",
+    "en": "Vazho is built on real knowledge retrieval (RAG): content is structured, chunked and retrieved, and each answer shows its source. Multiple models and providers with failover, a quality dashboard, a human conversation inbox, lead and consultation forms, an answer bank, a report of unanswered questions, live web search, a WooCommerce module with order tracking and a capped smart coupon, and deep Persian/RTL support make it a full customer-communication layer, not a decorative bubble in the corner of a site. Data stays in the customer's own WordPress database and the plugin does not track."
   },
   "result": {
     "fa": "افزونهٔ منتشرشده (نسخهٔ ۱٫۷٫۹) با صفحهٔ اختصاصی و دموی زنده، آمادهٔ استفاده در سایت‌های وردپرسی فارسی‌زبان.",
@@ -75,12 +75,12 @@
     }
   ],
   "seoTitle": {
-    "fa": "NexaChatAI | افزونهٔ چت‌بات هوش مصنوعی وردپرس | DbsStudio",
-    "en": "NexaChatAI | WordPress AI Chatbot Plugin | DbsStudio"
+    "fa": "Vazho | افزونهٔ چت‌بات هوش مصنوعی وردپرس | DbsStudio",
+    "en": "Vazho | WordPress AI Chatbot Plugin | DbsStudio"
   },
   "seoDescription": {
-    "fa": "معرفی NexaChatAI، افزونهٔ چت‌بات هوش مصنوعی وردپرس با پاسخ از دانش کسب‌وکار، چت زنده، ربات بله و تلگرام و دستیار فروش ووکامرس.",
-    "en": "NexaChatAI is a WordPress AI chatbot plugin with answers from your business knowledge, live chat, a Bale and Telegram bot and a WooCommerce sales assistant."
+    "fa": "معرفی Vazho، افزونهٔ چت‌بات هوش مصنوعی وردپرس با پاسخ از دانش کسب‌وکار، چت زنده، ربات بله و تلگرام و دستیار فروش ووکامرس.",
+    "en": "Vazho is a WordPress AI chatbot plugin with answers from your business knowledge, live chat, a Bale and Telegram bot and a WooCommerce sales assistant."
   },
   "applicationCategory": "BusinessApplication",
   "updatedAt": "2026-10-27"

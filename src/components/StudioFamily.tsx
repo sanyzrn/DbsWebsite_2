@@ -9,7 +9,7 @@ import "./studio-family.css";
 
 const products = [
   { id: "nex", name: "Nex", Icon: ScanLine },
-  { id: "nexachatai", name: "NexaChatAI", Icon: MessageCircle },
+  { id: "nexachatai", name: "Vazho", Icon: MessageCircle },
   { id: "nexahr", name: "NexaHR", Icon: Users, preview: true },
   { id: "nexaslider", name: "Nexa Slider", Icon: PanelsTopLeft, preview: true },
 ] as const;

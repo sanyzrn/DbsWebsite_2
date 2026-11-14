@@ -48,7 +48,7 @@ if ($elapsedMs < 2000) {
 
 // Allowed values — keep in sync with ISSUE_PRODUCT_IDS / ISSUE_KIND_IDS in src/lib/i18n/fa.ts.
 $products = [
-  'nexachatai' => 'NexaChatAI (WordPress plugin)',
+  'nexachatai' => 'Vazho (WordPress plugin)',
   'nex-android' => 'Nex (Android)',
   'nex-windows' => 'Nex (Windows)',
   'nexahr' => 'NexaHR',

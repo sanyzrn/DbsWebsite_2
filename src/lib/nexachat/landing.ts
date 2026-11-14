@@ -1,5 +1,5 @@
 /**
- * Landing-page copy of the NexaChatAI product page (/nexachatai), beyond the product facts in
+ * Landing-page copy of the Vazho product page (/nexachatai), beyond the product facts in
  * copy.ts: hero, fictional store mock-up, numbers, dashboard shots and the case for buying.
  * Persian first; keep both languages in step.
  */
@@ -34,11 +34,11 @@ export type Landing = {
 };
 
 const fa: Landing = {
-  nav: { features: "امکانات", demo: "دمو", dashboard: "پنل مدیریت", why: "چرا NexaChatAI", faq: "پرسش‌ها" },
+  nav: { features: "امکانات", demo: "دمو", dashboard: "پنل مدیریت", why: "چرا Vazho", faq: "پرسش‌ها" },
   eyebrow: "افزونهٔ هوش مصنوعی برای وردپرس",
   headA: "دستیاری که کسب‌وکارت را می‌شناسد",
   headB: "و شبانه‌روز به مشتری جواب می‌دهد.",
-  lead: "NexaChatAI محصول‌ها، قیمت‌ها، ساعت کاری و فایل‌های تو را یاد می‌گیرد و به فارسی، با ذکر منبع، پاسخ می‌دهد. اگر چیزی را نداند، صادقانه می‌گوید و گفتگو را به یک انسان می‌سپارد.",
+  lead: "Vazho محصول‌ها، قیمت‌ها، ساعت کاری و فایل‌های تو را یاد می‌گیرد و به فارسی، با ذکر منبع، پاسخ می‌دهد. اگر چیزی را نداند، صادقانه می‌گوید و گفتگو را به یک انسان می‌سپارد.",
   badges: ["فارسی و راست‌چین کامل", "هر مدل هوش مصنوعی", "ووکامرس، بله و تلگرام", "داده‌ها روی سایت خودت"],
   ctaDemo: "با دمو زنده گفتگو کن",
   heroHint: "دستیار را گوشهٔ صفحه ببین و همین حالا چیزی بپرس.",
@@ -82,7 +82,7 @@ const fa: Landing = {
   },
   why: {
     title: "چرا یک افزونهٔ حرفه‌ای",
-    lead: "یک ویجت چت ساده است. NexaChatAI یک لایهٔ کامل از ارتباط با مشتری است که برای کسب‌وکار فارسی‌زبان ساخته شده.",
+    lead: "یک ویجت چت ساده است. Vazho یک لایهٔ کامل از ارتباط با مشتری است که برای کسب‌وکار فارسی‌زبان ساخته شده.",
     items: [
       { name: "پاسخ با منبع، نه حدس", text: "هر جواب از دانش خودت می‌آید و منبعش زیرش نشان داده می‌شود. اگر پاسخ را ندارد، می‌گوید." },
       { name: "داده‌ها مال خودت", text: "گفتگوها در پایگاه‌دادهٔ وردپرس خودت می‌مانند. افزونه ردیابی و بررسی به‌روزرسانی ندارد و کلید هوش مصنوعی هیچ‌وقت به مرورگر بازدیدکننده نمی‌رسد." },
@@ -102,11 +102,11 @@ const fa: Landing = {
 };
 
 const en: Landing = {
-  nav: { features: "Features", demo: "Demo", dashboard: "Admin", why: "Why NexaChatAI", faq: "FAQ" },
+  nav: { features: "Features", demo: "Demo", dashboard: "Admin", why: "Why Vazho", faq: "FAQ" },
   eyebrow: "The AI assistant plugin for WordPress",
   headA: "An assistant that knows your business",
   headB: "and answers customers around the clock.",
-  lead: "NexaChatAI learns your products, prices, opening hours and files, and answers in your customers' language with the source shown. When it does not know, it says so and hands the chat to a person.",
+  lead: "Vazho learns your products, prices, opening hours and files, and answers in your customers' language with the source shown. When it does not know, it says so and hands the chat to a person.",
   badges: ["Persian and RTL, fully", "Any AI model", "WooCommerce, Bale and Telegram", "Your data stays on your site"],
   ctaDemo: "Chat with the live demo",
   heroHint: "Look at the corner of the page and ask something right now.",
@@ -150,7 +150,7 @@ const en: Landing = {
   },
   why: {
     title: "Why a professional plugin",
-    lead: "A chat widget is simple. NexaChatAI is a full customer-communication layer built for Persian-speaking businesses.",
+    lead: "A chat widget is simple. Vazho is a full customer-communication layer built for Persian-speaking businesses.",
     items: [
       { name: "Answers with sources, not guesses", text: "Each answer comes from your knowledge and its source is shown beneath it. If it does not have the answer, it says so." },
       { name: "Your data is yours", text: "Conversations stay in your own WordPress database. The plugin has no tracking or update check, and the AI key never reaches a visitor's browser." },

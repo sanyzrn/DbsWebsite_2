@@ -41,7 +41,7 @@ describe("problem report page (/issues)", () => {
     expect(screen.getByRole("heading", { level: 1, name: dictionaries.en.issues.title })).toBeTruthy();
     const product = screen.getByLabelText(new RegExp(`^${f.product}`)) as HTMLSelectElement;
     const labels = [...product.options].map((o) => o.text);
-    for (const name of ["NexaChatAI (WordPress plugin)", "Nex (Android)", "Nex (Windows)", "NexaHR"]) {
+    for (const name of ["Vazho (WordPress plugin)", "Nex (Android)", "Nex (Windows)", "NexaHR"]) {
       expect(labels).toContain(name);
     }
     expect(product.options).toHaveLength(ISSUE_PRODUCT_IDS.length);
