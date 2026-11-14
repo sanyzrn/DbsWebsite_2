@@ -6,7 +6,7 @@ The current page has a published-version badge, upcoming Android market installs
 
 `content/nex/latest.json` is the small first-render snapshot; `releases.json` keeps the full archive for future product pages. Both guides, changelogs, module rollout, theme source and guide-image metadata are refreshed by `scripts/fetch-nex-data.mjs`. See `content/nex/README.md` for caching, offline builds and the scheduled refresh/optional publisher dispatch. `docs/nex-website-roadmap.md` tracks all four phases.
 
-Only Cafe Bazaar, Myket and Google Play are shown as upcoming store destinations. App Store and Microsoft Store were removed because the product source explicitly says only Android is published. No store link is invented. `NEX_APK` has been replaced with validated release data. Upstream guide images are themselves placeholders, so `TimelinePreview.tsx` shows a labelled illustration; real app screenshots now live in the gallery under the hero. The interactive story below continues to share the same locale/theme state and build pipeline.
+Cafe Bazaar and Myket link to their published listings; Google Play remains an upcoming store destination. App Store and Microsoft Store were removed because the product source explicitly says only Android is published. No store link is invented. `NEX_APK` has been replaced with validated release data. Upstream guide images are themselves placeholders, so `TimelinePreview.tsx` shows a labelled illustration; real app screenshots now live in the gallery under the hero. The interactive story below continues to share the same locale/theme state and build pipeline.
 
 Nex owns `/nex/`, its seven product subpages and their `/en` counterparts. It uses the existing React router, locale/theme context, Vite build, static prerender, sitemap and Apache/FTPS workflow. No independent project or deployment was added.
 
@@ -35,7 +35,7 @@ Capturing with Enter connects the personal note to a fixed-height, decorative ne
 
 ## Remaining owner inputs
 
-1. Supply actual Android marketplace URLs when available: Cafe Bazaar, Myket and Google Play. Set the matching `NEX_STORES` href; the rest stay disabled.
+1. Supply the Google Play URL when available in `NEX_STORES`. Cafe Bazaar and Myket are already active.
 2. Optional: activate the publisher dispatch documented in `content/nex/README.md` after the workflow reaches the default branch. Polling/runtime release refresh do not require a publisher-side change.
 
 The octopus (`NexMark.tsx`, with both eyes) and the wordmark (`NexWordmark.tsx`, with its dot) are the final brand artwork, drawn from `docs/brand/nex_logo.svg` and `nex_logo_type.svg` in the Nex repository; the path data lives once in `brand.ts`. Their outlines follow `currentColor` and the blue parts `--nx-mark-accent`. The share image `public/images/nex/og.jpg` carries the same wordmark and the app icon.
