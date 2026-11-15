@@ -4,6 +4,30 @@ User-facing release notes. Detailed technical history is preserved in [the devel
 
 ## Unreleased
 
+## v2.7.1
+
+- **Pinch works on shelves.** Arranged by kind or tag, a pinch now folds every shelf and a spread opens them all, as it does with days. The list also holds still while two fingers are on it, so a pinch no longer scrolls the page away under your fingers.
+- **Tidier shelf headings.** The fold arrow sits in the same place on every heading, and in Persian it points the way you read. Opening **See all**, coming back, choosing a filter or another arrangement now fades the list in instead of cutting to it.
+- **Older dates in the date picker.** Choosing a year and a month in the Persian calendar now moves the selected day with them, so a date like 27 Bahman 1365 can be set without hunting for the day first.
+- **Converter reads dates the way you write them.** Besides 1365/11/27, the date field accepts the day first (27/11/1365) and month names (۲۷ بهمن ۱۳۶۵, 16 Feb 1987), and a number written as ۲/۵ reads as two and a half.
+- **Recent keeps only real conversions.** Switching tabs, calendars, categories or charts no longer fills **Recent** with default values; a date or number you type is kept once, even while you are still correcting it.
+- **The vault asks for what you set.** With **Fingerprint or biometrics** on, opening a private tool asks for your fingerprint or face alone, as the app lock does; cancelling the prompt is no longer shown as an error.
+- **A locked vault leaves nothing open.** When the vault locks — by its timer, by the app lock or after time away — a private photo open full screen and a recording in progress close with it, the privacy cover now covers them too, and decrypted copies of attachments are cleared. A password you copied is wiped when the vault hides, and a password shown in the editor hides itself again after a few seconds.
+- **Private attachments always open.** Two attachments added at the very first moment the vault was used could seal one of them under a key that was then replaced, leaving it unreadable. Both now share one key.
+- **A quicker, sturdier start.** Opening asks the system less and no longer queues the library's bookkeeping in front of the database, so the timeline is ready sooner. If the library ever fails to open, **Try again** starts clean, and a file that never answers can no longer keep a restart waiting.
+- **Lighter in the background.** With the on-device search model installed, going behind another app now releases it, as the assistant's model already was, so the system has less reason to close Nex while you are elsewhere.
+- **Lighter, safer attachments.** Picking several photos onto a note no longer loads each one whole into memory, a voice clip recorded onto a note is saved straight into the library — so a save that fails no longer loses the recording — and sharing a photo with no location in it sends the original file.
+
+## v2.7.0
+
+- **Group the home screen by kind or by tag.** Besides time, the home screen can now sort notes onto shelves by what they are — writing, checklists, voice, photos, links, files — or by tag, so a note is found by what you remember about it. Each shelf shows its newest six and how many it holds, **See all** opens the rest, and shelves can be moved up or down. Choose it in the layout menu or under **Settings → Appearance**.
+- **Converter.** A new module: dates across the solar, Gregorian and lunar calendars, with the days between two dates and adding or taking away days; units in six categories, Iranian units included; and eight size charts for clothes, shoes and rings. Add it from **Tools → Modules**; it works fully offline.
+- **List cards in their kind's colour.** The soft wash the grid tiles carry now sits behind list cards too, so a text, a checklist or a voice note can be told apart at a glance in either layout.
+- **Search no longer loses words.** Adding a caption, or an edit arriving from another device, could drop the words read from a note's attached photo or file out of search until the note was edited again. Now nothing is dropped, and the first start after this update repairs notes affected before.
+- **Persian tags and kinds in search.** `tag:` finds a tag written with the Arabic ک or ی or with different spacing, and `type:` understands Persian names such as عکس, صوتی or چک‌لیست.
+- **A closest match for long notes too.** When nothing matches, "The closest thing you wrote" now compares word by word, so a near miss inside a long note or a voice transcript is offered as well.
+- **Steadier search results.** Searching with filters alone lists notes the way the timeline does — pinned first, then by last change — and a stray half-space or quote mark no longer brings up the whole library. Each keystroke also searches once instead of twice.
+
 ## v2.6.29
 
 - **No duplicate checklists.** If closing the capture box to save a checklist was interrupted after the list was already saved, trying again used to make a second, identical list. It now finds the one already made.
