@@ -2,80 +2,91 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.7.2",
+      "tag": "v2.7.2",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.2",
+      "publishedAt": "2026-11-15T08:39:05.000Z",
+      "notes": {
+        "en": "- **Warranties is here.** A new module for what you bought and who stands behind it: the warranty company, its support number and card number beside the shop, what ends in the next 30 days at the top, a reminder offered while you save, and a service file a repair centre can use. Add it from **Tools → Modules**.\r\n- **List cards get the grid's edge.** A list card is now outlined in a fine line of its kind's colour, the way a grid tile is, so the two layouts draw a note alike.\r\n- **Steady grid tiles.** Selecting a tile no longer shifts its words or drops a line, and a tile shows only whole lines — the last one is no longer cut through the middle.\r\n- **Quicker module saves.** Checking off a habit or saving in any module no longer re-arms every reminder of every module; only the reminders of what you changed are touched. A daily module reminder now keeps its clock time — 9:00 stays 9:00 — when daylight saving or your time zone changes.\r\n- **Safer delete and re-add for modules.** Deleting a habit with everything under it happens all at once, so a crash can no longer leave it half-deleted. A module you add back rings its kept reminders right away instead of after the next restart, and if removing a module with its data fails, it now stays and tells you rather than looking removed.\r\n- **Smooth grid scrolling.** Scrolling the grid no longer rebuilds every tile on screen at every frame; it now scrolls as lightly as the list — or lighter.\r\n- **Captions on tiles, headings only when written.** A text note's caption now shows at the foot of its grid tile, as it does on its list card, and a first line is shown as a bold heading only when it was written as one (with `#`), so a note looks the same in both layouts. The thin line joining a day's list cards is gone, now that each card carries its own colour and edge. In Persian, a note's caption is called «توضیح» everywhere.",
+        "fa": "- **ماژول گارانتی‌ها آمد.** جایی برای چیزهایی که خریده‌اید و کسی که پشتشان است: شرکت گارانتی، شمارهٔ پشتیبانی و شمارهٔ کارت کنار فروشگاه، آنچه در ۳۰ روز آینده تمام می‌شود بالای فهرست، یادآوری پیشنهادی هنگام ذخیره، و پروندهٔ خدماتی که مرکز تعمیر می‌تواند از آن استفاده کند. از **ابزارها ← ماژول‌ها** اضافه‌اش کنید.\r\n- **کارت‌های فهرست هم لبهٔ کاشی‌های شبکه‌ای را دارند.** دور کارت فهرست حالا خطی نازک به رنگ نوع یادداشت است، درست مثل کاشی‌های شبکه‌ای؛ پس هر دو چیدمان یادداشت را یک‌جور نشان می‌دهند.\r\n- **کاشی‌های شبکه‌ای ثابت می‌مانند.** انتخاب کاشی دیگر متنش را جابه‌جا نمی‌کند و خطی از آن کم نمی‌شود، و کاشی فقط خط‌های کامل را نشان می‌دهد؛ خط آخر دیگر از وسط بریده نمی‌شود.\r\n- **ذخیرهٔ سریع‌تر در ماژول‌ها.** تیک زدن یک عادت یا ذخیره در هر ماژول دیگر همهٔ یادآورهای همهٔ ماژول‌ها را از نو تنظیم نمی‌کند؛ فقط یادآورهای همان چیزی که عوض کرده‌اید. یادآور روزانهٔ ماژول‌ها هم با تغییر ساعت تابستانی یا منطقهٔ زمانی، ساعت خودش را نگه می‌دارد؛ ۹ همان ۹ می‌ماند.\r\n- **حذف و افزودن دوبارهٔ ماژول‌ها مطمئن‌تر.** حذف یک عادت با همهٔ ثبت‌هایش یک‌جا انجام می‌شود، پس قطع ناگهانی برنامه دیگر نمی‌تواند آن را نیمه‌کاره حذف کند. ماژولی که دوباره اضافه می‌کنید یادآورهای نگه‌داشته‌اش را همان لحظه به کار می‌اندازد، نه بعد از باز شدن دوبارهٔ برنامه؛ و اگر حذف ماژول همراه داده‌هایش ناموفق باشد، ماژول می‌ماند و همین را می‌گوید، نه اینکه برداشته به نظر برسد.\r\n- **پیمایش روان در حالت شبکه‌ای.** پیمایش کاشی‌ها دیگر در هر لحظه همهٔ کاشی‌های روی صفحه را از نو نمی‌سازد؛ حالا به سبکی حالت فهرستی — یا سبک‌تر — پیمایش می‌شود.\r\n- **توضیح روی کاشی‌ها، عنوان فقط وقتی نوشته شده.** توضیحِ یادداشت متنی حالا پایین کاشی هم دیده می‌شود، مثل کارت فهرست، و خط اول فقط وقتی پررنگ و به‌شکل عنوان نشان داده می‌شود که واقعاً عنوان نوشته شده باشد (با `#`)؛ پس یادداشت در هر دو چیدمان یک‌جور دیده می‌شود. خط نازکی که کارت‌های یک روز را به هم وصل می‌کرد هم برداشته شد، حالا که هر کارت رنگ و لبهٔ خودش را دارد. نام «کپشن» و «شرح» هم برای توضیح یادداشت همه‌جا یکی شد: «توضیح»."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.7.2-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61769212,
+          "downloads": 2,
+          "sha256": "8099b24d5d4de39e4e3aa12243aea63193b3d88d438465b71f1e99a836f7db0d"
+        },
+        {
+          "name": "Nex-2.7.2-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39157794,
+          "downloads": 1,
+          "sha256": "181f64476dc084049b572187f52aeec78ac823a9f10c29b5a5bece226757c8ec"
+        },
+        {
+          "name": "Nex-2.7.2-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-store.aab",
+          "kind": "bundle",
+          "size": 145631240,
+          "downloads": 1,
+          "sha256": "5bddd2a15a2aa701cd595caa197755defa9c621cc2cdf7dd0ff7615ad989e104"
+        },
+        {
+          "name": "Nex-2.7.2-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-store.apk",
+          "kind": "other",
+          "size": 157239805,
+          "downloads": 1,
+          "sha256": "d5c488746c361a0bdfc3e7aa632ad52daabef3bcb7e5e02be75cae414d3db7f2"
+        },
+        {
+          "name": "Nex-2.7.2-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-universal.apk",
+          "kind": "universal",
+          "size": 157239825,
+          "downloads": 1,
+          "sha256": "dfaf86b70792d8569ebedf238576dc577915284bdfdc37e67534b0b8d3df705b"
+        },
+        {
+          "name": "Nex-2.7.2-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-x86_64.apk",
+          "kind": "x64",
+          "size": 67880439,
+          "downloads": 1,
+          "sha256": "a630032249ceab682c67c41b175fa80b1c60f3ac6751d1e74b3ea4b7613296e2"
+        },
+        {
+          "name": "Nex-2.7.2.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2.aab",
+          "kind": "bundle",
+          "size": 145652529,
+          "downloads": 1,
+          "sha256": "b7b8e6152c7c93072affbf63970f7119a307ff9ba326214b06cbd3fcdb3fbadc"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 3,
+          "sha256": "55b5d2b161ff5ff00683240c861ea91810cf77b399cf230c507cf4fc9597e709"
+        }
+      ]
+    },
+    {
       "version": "2.7.1",
       "tag": "v2.7.1",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.1",
       "publishedAt": "2026-11-14T17:53:48.000Z",
       "notes": {
-        "en": "- **Pinch works on shelves.** Arranged by kind or tag, a pinch now folds every shelf and a spread opens them all, as it does with days. The list also holds still while two fingers are on it, so a pinch no longer scrolls the page away under your fingers.\r\n- **Tidier shelf headings.** The fold arrow sits in the same place on every heading, and in Persian it points the way you read. Opening **See all**, coming back, choosing a filter or another arrangement now fades the list in instead of cutting to it.\r\n- **Older dates in the date picker.** Choosing a year and a month in the Persian calendar now moves the selected day with them, so a date like 27 Bahman 1365 can be set without hunting for the day first.\r\n- **Converter reads dates the way you write them.** Besides 1365/11/27, the date field accepts the day first (27/11/1365) and month names (۲۷ بهمن ۱۳۶۵, 16 Feb 1987), and a number written as ۲/۵ reads as two and a half.\r\n- **Recent keeps only real conversions.** Switching tabs, calendars, categories or charts no longer fills **Recent** with default values; a date or number you type is kept once, even while you are still correcting it.\r\n- **The vault asks for what you set.** With **Fingerprint or biometrics** on, opening a private tool asks for your fingerprint or face alone, as the app lock does; cancelling the prompt is no longer shown as an error.\r\n- **A locked vault leaves nothing open.** When the vault locks — by its timer, by the app lock or after time away — a private photo open full screen and a recording in progress close with it, the privacy cover now covers them too, and decrypted copies of attachments are cleared. A password you copied is wiped when the vault hides, and a password shown in the editor hides itself again after a few seconds.\r\n- **Private attachments always open.** Two attachments added at the very first moment the vault was used could seal one of them under a key that was then replaced, leaving it unreadable. Both now share one key.\r\n- **A quicker, sturdier start.** Opening asks the system less and no longer queues the library's bookkeeping in front of the database, so the timeline is ready sooner. If the library ever fails to open, **Try again** starts clean, and a file that never answers can no longer keep a restart waiting.\r\n- **Lighter in the background.** With the on-device search model installed, going behind another app now releases it, as the assistant's model already was, so the system has less reason to close Nex while you are elsewhere.\r\n- **Lighter, safer attachments.** Picking several photos onto a note no longer loads each one whole into memory, a voice clip recorded onto a note is saved straight into the library — so a save that fails no longer loses the recording — and sharing a photo with no location in it sends the original file.",
-        "fa": "- **نیشگون روی قفسه‌ها هم کار می‌کند.** در دسته‌بندی بر اساس نوع یا تگ، نیشگون حالا همهٔ قفسه‌ها را می‌بندد و باز کردن انگشت‌ها همه را باز می‌کند، درست مثل روزها. وقتی دو انگشت روی صفحه است فهرست هم ثابت می‌ماند تا نیشگون صفحه را از زیر دستتان جابه‌جا نکند.\r\n- **عنوان قفسه‌ها مرتب‌تر.** فلش جمع‌کردن روی همهٔ عنوان‌ها یک جا می‌نشیند و در فارسی به سمت خواندن اشاره می‌کند. باز کردن **دیدن همه**، برگشتن از آن، انتخاب فیلتر یا دسته‌بندی دیگر حالا با محوشدنی نرم انجام می‌شود، نه با پرشی ناگهانی.\r\n- **تاریخ‌های قدیمی در انتخابگر تاریخ.** با انتخاب سال و ماه در تقویم شمسی، روز انتخاب‌شده هم همراهشان می‌آید؛ پس تاریخی مثل ۲۷ بهمن ۱۳۶۵ بی‌دردسر انتخاب می‌شود.\r\n- **تبدیل‌گر تاریخ را همان‌طور که می‌نویسید می‌خواند.** جز ۱۳۶۵/۱۱/۲۷، روز اول (۲۷/۱۱/۱۳۶۵) و نام ماه (۲۷ بهمن ۱۳۶۵ یا 16 Feb 1987) هم پذیرفته می‌شود و عددی مثل ۲/۵ دو و نیم خوانده می‌شود.\r\n- **«اخیر» فقط تبدیل‌های واقعی را نگه می‌دارد.** عوض کردن زبانه، تقویم، دسته یا جدول دیگر مقدارهای پیش‌فرض را در **اخیر** ثبت نمی‌کند؛ تاریخ یا عددی که می‌نویسید یک بار نگه داشته می‌شود، حتی وقتی هنوز در حال اصلاحش هستید.\r\n- **گاوصندوق همان چیزی را می‌خواهد که تنظیم کرده‌اید.** با روشن بودن **اثر انگشت یا بیومتریک**، باز کردن ابزارهای خصوصی هم مثل قفل برنامه فقط اثر انگشت یا چهره می‌خواهد؛ لغو کردن درخواست هم دیگر خطا نشان داده نمی‌شود.\r\n- **گاوصندوق قفل‌شده چیزی را باز نمی‌گذارد.** وقتی گاوصندوق قفل می‌شود — با زمان‌سنج خودش، با قفل برنامه یا بعد از دوری از برنامه — عکس خصوصیِ بازشده در تمام‌صفحه و ضبطِ در جریان هم بسته می‌شوند، پردهٔ حریم آن‌ها را هم می‌پوشاند و نسخه‌های بازشدهٔ پیوست‌ها پاک می‌شوند. رمزی که رونوشت کرده‌اید با پنهان شدن گاوصندوق پاک می‌شود و رمزِ نمایش‌داده‌شده در ویرایشگر بعد از چند ثانیه دوباره پوشیده می‌شود.\r\n- **پیوست‌های خصوصی همیشه باز می‌شوند.** اگر در اولین لحظهٔ استفاده از گاوصندوق دو پیوست هم‌زمان اضافه می‌شد، ممکن بود یکی با کلیدی قفل شود که بعد جایگزین می‌شد و دیگر خوانده نشود. حالا هر دو یک کلید دارند.\r\n- **باز شدن سریع‌تر و مطمئن‌تر.** موقع باز شدن کمتر از سیستم سؤال می‌شود و کارهای جانبی کتابخانه جلوی پایگاه داده صف نمی‌کشند؛ پس صفحهٔ اصلی زودتر آماده است. اگر کتابخانه باز نشود، **تلاش دوباره** از وضعیت تمیز شروع می‌کند و فایلی که جواب نمی‌دهد دیگر نمی‌تواند راه‌اندازی دوباره را معطل نگه دارد.\r\n- **سبک‌تر در پس‌زمینه.** اگر مدل جست‌وجوی روی گوشی نصب باشد، رفتن نکس به پشت برنامه‌های دیگر آن را آزاد می‌کند، همان‌طور که مدل دستیار آزاد می‌شد؛ پس سیستم دلیل کمتری برای بستن نکس دارد.\r\n- **پیوست‌هایی سبک‌تر و مطمئن‌تر.** انتخاب چند عکس برای یک یادداشت دیگر هر عکس را کامل در حافظه بار نمی‌کند، صدایی که روی یادداشت ضبط می‌کنید مستقیم در کتابخانه ذخیره می‌شود — پس ذخیرهٔ ناموفق دیگر ضبط را از بین نمی‌برد — و اشتراک‌گذاری عکسی که مکانی در خودش ندارد همان فایل اصلی را می‌فرستد."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.7.1-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 61766740,
-          "downloads": 2,
-          "sha256": "93682e43d02a89fcbe0d745f19241d9e5a5988da109fc63c625f504d37ae63e1"
-        },
-        {
-          "name": "Nex-2.7.1-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 39122554,
-          "downloads": 1,
-          "sha256": "a79f8c8d6d8f42305ba42f9d94ddc2f66158e5bf4ab618d4eb9251ac68c0b3cc"
-        },
-        {
-          "name": "Nex-2.7.1-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-store.aab",
-          "kind": "bundle",
-          "size": 145532589,
-          "downloads": 1,
-          "sha256": "8f39d439278ee27e7ca2dcc72d0f3dfaad710fa0648e220cab9ac2c68d31c52f"
-        },
-        {
-          "name": "Nex-2.7.1-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-store.apk",
-          "kind": "other",
-          "size": 157188181,
-          "downloads": 1,
-          "sha256": "56ad7ea44d60da8656dfccf63042212b8de8ccd9c60763851431fd2506db0a76"
-        },
-        {
-          "name": "Nex-2.7.1-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-universal.apk",
-          "kind": "universal",
-          "size": 157204585,
-          "downloads": 1,
-          "sha256": "1f492747e2fe09be8da05c07959b792828394b7ac52b363f781a438968eede39"
-        },
-        {
-          "name": "Nex-2.7.1-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-x86_64.apk",
-          "kind": "x64",
-          "size": 67877971,
-          "downloads": 1,
-          "sha256": "e88a52788699ef923f453f542bbf94158311dc6a6ce692c68fff586883595ca7"
-        },
-        {
-          "name": "Nex-2.7.1.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1.aab",
-          "kind": "bundle",
-          "size": 145553983,
-          "downloads": 1,
-          "sha256": "2d9e958adb92a89761185b32fcf163a53e34027177849204a1d28cd9b1f1e3ae"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/SHA256SUMS",
-          "kind": "other",
-          "size": 604,
-          "downloads": 2,
-          "sha256": "b34f0aaa216c074b0cfcee0aff107d70d7c1d074af2cf2f55ce92bba64a97195"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.7.0",
@@ -137,17 +148,6 @@
       "tag": "v2.6.25",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.25",
       "publishedAt": "2026-11-13T08:31:00.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.24",
-      "tag": "v2.6.24",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.24",
-      "publishedAt": "2026-11-13T01:45:42.000Z",
       "notes": {
         "en": "",
         "fa": null

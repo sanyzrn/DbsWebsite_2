@@ -1,14 +1,15 @@
 {
   "schemaVersion": 1,
-  "version": "2.7.1",
-  "sourceRevision": "044aa2a5115afd21756d1edf9facf8bb71559958",
+  "version": "2.7.2",
+  "sourceRevision": "f27852e8e4c57d9c637e480ff3a5c2dad9219d37",
   "availableModules": [
     "cycle",
     "pause",
     "occasions",
     "words",
     "habits",
-    "converter"
+    "converter",
+    "warranty"
   ],
   "images": [
     {

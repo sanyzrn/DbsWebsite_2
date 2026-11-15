@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.7.2",
+      "tag": "v2.7.2",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.2",
+      "publishedAt": "2026-11-15T08:39:05.000Z",
+      "notes": {
+        "en": "- **Warranties is here.** A new module for what you bought and who stands behind it: the warranty company, its support number and card number beside the shop, what ends in the next 30 days at the top, a reminder offered while you save, and a service file a repair centre can use. Add it from **Tools → Modules**.\r\n- **List cards get the grid's edge.** A list card is now outlined in a fine line of its kind's colour, the way a grid tile is, so the two layouts draw a note alike.\r\n- **Steady grid tiles.** Selecting a tile no longer shifts its words or drops a line, and a tile shows only whole lines — the last one is no longer cut through the middle.\r\n- **Quicker module saves.** Checking off a habit or saving in any module no longer re-arms every reminder of every module; only the reminders of what you changed are touched. A daily module reminder now keeps its clock time — 9:00 stays 9:00 — when daylight saving or your time zone changes.\r\n- **Safer delete and re-add for modules.** Deleting a habit with everything under it happens all at once, so a crash can no longer leave it half-deleted. A module you add back rings its kept reminders right away instead of after the next restart, and if removing a module with its data fails, it now stays and tells you rather than looking removed.\r\n- **Smooth grid scrolling.** Scrolling the grid no longer rebuilds every tile on screen at every frame; it now scrolls as lightly as the list — or lighter.\r\n- **Captions on tiles, headings only when written.** A text note's caption now shows at the foot of its grid tile, as it does on its list card, and a first line is shown as a bold heading only when it was written as one (with `#`), so a note looks the same in both layouts. The thin line joining a day's list cards is gone, now that each card carries its own colour and edge. In Persian, a note's caption is called «توضیح» everywhere.",
+        "fa": "- **ماژول گارانتی‌ها آمد.** جایی برای چیزهایی که خریده‌اید و کسی که پشتشان است: شرکت گارانتی، شمارهٔ پشتیبانی و شمارهٔ کارت کنار فروشگاه، آنچه در ۳۰ روز آینده تمام می‌شود بالای فهرست، یادآوری پیشنهادی هنگام ذخیره، و پروندهٔ خدماتی که مرکز تعمیر می‌تواند از آن استفاده کند. از **ابزارها ← ماژول‌ها** اضافه‌اش کنید.\r\n- **کارت‌های فهرست هم لبهٔ کاشی‌های شبکه‌ای را دارند.** دور کارت فهرست حالا خطی نازک به رنگ نوع یادداشت است، درست مثل کاشی‌های شبکه‌ای؛ پس هر دو چیدمان یادداشت را یک‌جور نشان می‌دهند.\r\n- **کاشی‌های شبکه‌ای ثابت می‌مانند.** انتخاب کاشی دیگر متنش را جابه‌جا نمی‌کند و خطی از آن کم نمی‌شود، و کاشی فقط خط‌های کامل را نشان می‌دهد؛ خط آخر دیگر از وسط بریده نمی‌شود.\r\n- **ذخیرهٔ سریع‌تر در ماژول‌ها.** تیک زدن یک عادت یا ذخیره در هر ماژول دیگر همهٔ یادآورهای همهٔ ماژول‌ها را از نو تنظیم نمی‌کند؛ فقط یادآورهای همان چیزی که عوض کرده‌اید. یادآور روزانهٔ ماژول‌ها هم با تغییر ساعت تابستانی یا منطقهٔ زمانی، ساعت خودش را نگه می‌دارد؛ ۹ همان ۹ می‌ماند.\r\n- **حذف و افزودن دوبارهٔ ماژول‌ها مطمئن‌تر.** حذف یک عادت با همهٔ ثبت‌هایش یک‌جا انجام می‌شود، پس قطع ناگهانی برنامه دیگر نمی‌تواند آن را نیمه‌کاره حذف کند. ماژولی که دوباره اضافه می‌کنید یادآورهای نگه‌داشته‌اش را همان لحظه به کار می‌اندازد، نه بعد از باز شدن دوبارهٔ برنامه؛ و اگر حذف ماژول همراه داده‌هایش ناموفق باشد، ماژول می‌ماند و همین را می‌گوید، نه اینکه برداشته به نظر برسد.\r\n- **پیمایش روان در حالت شبکه‌ای.** پیمایش کاشی‌ها دیگر در هر لحظه همهٔ کاشی‌های روی صفحه را از نو نمی‌سازد؛ حالا به سبکی حالت فهرستی — یا سبک‌تر — پیمایش می‌شود.\r\n- **توضیح روی کاشی‌ها، عنوان فقط وقتی نوشته شده.** توضیحِ یادداشت متنی حالا پایین کاشی هم دیده می‌شود، مثل کارت فهرست، و خط اول فقط وقتی پررنگ و به‌شکل عنوان نشان داده می‌شود که واقعاً عنوان نوشته شده باشد (با `#`)؛ پس یادداشت در هر دو چیدمان یک‌جور دیده می‌شود. خط نازکی که کارت‌های یک روز را به هم وصل می‌کرد هم برداشته شد، حالا که هر کارت رنگ و لبهٔ خودش را دارد. نام «کپشن» و «شرح» هم برای توضیح یادداشت همه‌جا یکی شد: «توضیح»."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.7.2-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61769212,
+          "downloads": 2,
+          "sha256": "8099b24d5d4de39e4e3aa12243aea63193b3d88d438465b71f1e99a836f7db0d"
+        },
+        {
+          "name": "Nex-2.7.2-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39157794,
+          "downloads": 1,
+          "sha256": "181f64476dc084049b572187f52aeec78ac823a9f10c29b5a5bece226757c8ec"
+        },
+        {
+          "name": "Nex-2.7.2-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-store.aab",
+          "kind": "bundle",
+          "size": 145631240,
+          "downloads": 1,
+          "sha256": "5bddd2a15a2aa701cd595caa197755defa9c621cc2cdf7dd0ff7615ad989e104"
+        },
+        {
+          "name": "Nex-2.7.2-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-store.apk",
+          "kind": "other",
+          "size": 157239805,
+          "downloads": 1,
+          "sha256": "d5c488746c361a0bdfc3e7aa632ad52daabef3bcb7e5e02be75cae414d3db7f2"
+        },
+        {
+          "name": "Nex-2.7.2-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-universal.apk",
+          "kind": "universal",
+          "size": 157239825,
+          "downloads": 1,
+          "sha256": "dfaf86b70792d8569ebedf238576dc577915284bdfdc37e67534b0b8d3df705b"
+        },
+        {
+          "name": "Nex-2.7.2-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-x86_64.apk",
+          "kind": "x64",
+          "size": 67880439,
+          "downloads": 1,
+          "sha256": "a630032249ceab682c67c41b175fa80b1c60f3ac6751d1e74b3ea4b7613296e2"
+        },
+        {
+          "name": "Nex-2.7.2.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2.aab",
+          "kind": "bundle",
+          "size": 145652529,
+          "downloads": 1,
+          "sha256": "b7b8e6152c7c93072affbf63970f7119a307ff9ba326214b06cbd3fcdb3fbadc"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 3,
+          "sha256": "55b5d2b161ff5ff00683240c861ea91810cf77b399cf230c507cf4fc9597e709"
+        }
+      ]
+    },
+    {
       "version": "2.7.1",
       "tag": "v2.7.1",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.1",
@@ -16,7 +92,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61766740,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "93682e43d02a89fcbe0d745f19241d9e5a5988da109fc63c625f504d37ae63e1"
         },
         {
@@ -24,7 +100,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 39122554,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "a79f8c8d6d8f42305ba42f9d94ddc2f66158e5bf4ab618d4eb9251ac68c0b3cc"
         },
         {
@@ -40,7 +116,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-store.apk",
           "kind": "other",
           "size": 157188181,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "56ad7ea44d60da8656dfccf63042212b8de8ccd9c60763851431fd2506db0a76"
         },
         {
@@ -48,7 +124,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-universal.apk",
           "kind": "universal",
           "size": 157204585,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "1f492747e2fe09be8da05c07959b792828394b7ac52b363f781a438968eede39"
         },
         {
@@ -56,7 +132,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.1/Nex-2.7.1-x86_64.apk",
           "kind": "x64",
           "size": 67877971,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "e88a52788699ef923f453f542bbf94158311dc6a6ce692c68fff586883595ca7"
         },
         {
