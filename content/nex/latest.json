@@ -2,80 +2,91 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.8.0",
+      "tag": "v2.8.0",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.0",
+      "publishedAt": "2026-11-17T04:30:43.000Z",
+      "notes": {
+        "en": "- **A new home screen.** The top of Nex is now one calm header for the day — the date, your greeting, the smart summary and your pinned tools — with your notes starting right under it, so far more of them fit on the first screen.\r\n- **Search that stays put.** The search field has moved into the top bar, beside the Nex mark, and stays there however far you scroll. Tap it from anywhere in the list and the bar gives its whole width to what you type.\r\n- **A smart summary you can act on.** Tap a line Nex wrote about a note — a reminder, an unfinished list, a recent note — and that note opens. The summary now sits on a soft wash of your accent colour, so it is never taken for one of your own notes; folded, it keeps its first two lines and says how many more are tucked away. It no longer folds by itself while you scroll, and a note written over two lines stays one line of the summary.\r\n- **Pinned tools in one row.** Tools and modules pinned to the home screen are now one row of small live tiles that scrolls sideways, instead of a grid that pushed your notes down. Habits and Cycle draw today's progress as a ring round their icon, and you can pin or unpin tools from **Home layout** as well as by holding them.\r\n- **List or grid in one tap.** A switch at the end of the tag row changes between list and grid; the filter button sits at the start of the same row, or inside the search field until you have tags.\r\n- **More room to read.** As you scroll down through your notes, the bottom bar's four buttons step out of the way and **+** stays exactly where it is; scroll back up a little, or reach the top or the end, and they return.\r\n- **Calmer movement.** The greeting settles back as your notes scroll over it, the first notes ease in when Nex opens, and the dock's icons respond under your finger. The day chip now appears only once the tag row is held at the top, and no longer repeats a heading that is already on screen.",
+        "fa": "- **صفحهٔ اصلی تازه.** بالای Nex حالا یک سربرگ آرام برای همان روز است — تاریخ، خوش‌آمدگویی، خلاصهٔ هوشمند و ابزارهای سنجاق‌شده — و یادداشت‌ها درست زیر آن شروع می‌شوند؛ در همان نگاه اول یادداشت‌های خیلی بیشتری می‌بینید.\r\n- **جست‌وجو همیشه سر جایش.** کادر جست‌وجو به نوار بالا، کنار نشان Nex آمده و هر قدر هم پایین بروید همان‌جا می‌ماند. از هر جای فهرست رویش بزنید؛ نوار تمام پهنایش را به نوشتهٔ شما می‌دهد.\r\n- **خلاصهٔ هوشمندی که می‌شود رویش زد.** روی خطی که Nex دربارهٔ یک یادداشت نوشته — یک یادآور، یک فهرست ناتمام، یک یادداشت تازه — بزنید تا همان یادداشت باز شود. خلاصه حالا روی ته‌رنگی ملایم از رنگ تأکیدی شما نشسته تا با یادداشت‌های خودتان اشتباه نشود؛ جمع‌شده، دو خط اولش را نگه می‌دارد و می‌گوید چند مورد دیگر دارد. دیگر هنگام پیمایش خودبه‌خود جمع نمی‌شود، و یادداشتی که در دو خط نوشته‌اید در خلاصه یک خط می‌ماند.\r\n- **ابزارهای سنجاق‌شده در یک ردیف.** ابزارها و ماژول‌های سنجاق‌شده حالا یک ردیف کاشی کوچک و زنده‌اند که به پهلو ورق می‌خورد، نه شبکه‌ای که یادداشت‌ها را پایین می‌راند. عادت‌ها و چرخه پیشرفت امروز را مثل حلقه‌ای دور آیکون‌شان نشان می‌دهند، و ابزارها را علاوه بر نگه‌داشتن، از **چیدمان خانه** هم می‌توانید سنجاق کنید یا بردارید.\r\n- **فهرستی یا شبکه‌ای با یک لمس.** کلیدی در انتهای ردیف برچسب‌ها بین نمای فهرستی و شبکه‌ای جابه‌جا می‌کند؛ دکمهٔ فیلتر سرِ همان ردیف است، و تا وقتی برچسبی ندارید داخل کادر جست‌وجو.\r\n- **جای بیشتر برای خواندن.** وقتی در یادداشت‌ها پایین می‌روید، چهار دکمهٔ نوار پایین کنار می‌روند و **+** درست سر جایش می‌ماند؛ کمی که بالا برگردید، یا به ابتدا یا انتهای فهرست برسید، برمی‌گردند.\r\n- **حرکت‌های آرام‌تر.** خوش‌آمدگویی هنگام بالا آمدن یادداشت‌ها آرام عقب می‌نشیند، یادداشت‌ها هنگام باز شدن Nex نرم ظاهر می‌شوند و آیکون‌های نوار پایین زیر انگشت واکنش نشان می‌دهند. برچسب روز هم فقط وقتی ردیف برچسب‌ها بالای صفحه ثابت شده دیده می‌شود و عنوانی را که روی صفحه هست تکرار نمی‌کند."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.0-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 61902716,
+          "downloads": 2,
+          "sha256": "70530a3703ec13a005eae259e5ede7a22d2953fc9bb02604df0c6f8e5dd89465"
+        },
+        {
+          "name": "Nex-2.8.0-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39209378,
+          "downloads": 1,
+          "sha256": "9c1f8e49631bb58c0e2d264db65e249a898fa74e6eb957bd8fb46036fd2f40cd"
+        },
+        {
+          "name": "Nex-2.8.0-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-store.aab",
+          "kind": "bundle",
+          "size": 145711633,
+          "downloads": 1,
+          "sha256": "111138004869e8e13d238ee324b80f665569ecba3d2eef5daaec51b9e9e528f4"
+        },
+        {
+          "name": "Nex-2.8.0-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-store.apk",
+          "kind": "other",
+          "size": 157324153,
+          "downloads": 1,
+          "sha256": "6ac2798e50e4d236600b3a789fc36c0b1108f2c71b0e20ddaf488024bf47e22d"
+        },
+        {
+          "name": "Nex-2.8.0-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-universal.apk",
+          "kind": "universal",
+          "size": 157488013,
+          "downloads": 1,
+          "sha256": "9aa10e268aae0611ba8951ad211109e2ad499c261a0e643719df5bb1057aae88"
+        },
+        {
+          "name": "Nex-2.8.0-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-x86_64.apk",
+          "kind": "x64",
+          "size": 67948407,
+          "downloads": 1,
+          "sha256": "17d34526f7209ed86098ea8402b984ac6017e573d24934cba32fc81f555d06e1"
+        },
+        {
+          "name": "Nex-2.8.0.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0.aab",
+          "kind": "bundle",
+          "size": 145743422,
+          "downloads": 1,
+          "sha256": "59be8184071e973e88244fbf4f87805d0cd006fc388f8d9a76952e3d4731c40c"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "986f5ee2e3b3a0e1a9c25938d1117fd051ed83af0ebe8210c45989cf83ef3fe1"
+        }
+      ]
+    },
+    {
       "version": "2.7.2",
       "tag": "v2.7.2",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.2",
       "publishedAt": "2026-11-15T08:39:05.000Z",
       "notes": {
-        "en": "- **Warranties is here.** A new module for what you bought and who stands behind it: the warranty company, its support number and card number beside the shop, what ends in the next 30 days at the top, a reminder offered while you save, and a service file a repair centre can use. Add it from **Tools → Modules**.\r\n- **List cards get the grid's edge.** A list card is now outlined in a fine line of its kind's colour, the way a grid tile is, so the two layouts draw a note alike.\r\n- **Steady grid tiles.** Selecting a tile no longer shifts its words or drops a line, and a tile shows only whole lines — the last one is no longer cut through the middle.\r\n- **Quicker module saves.** Checking off a habit or saving in any module no longer re-arms every reminder of every module; only the reminders of what you changed are touched. A daily module reminder now keeps its clock time — 9:00 stays 9:00 — when daylight saving or your time zone changes.\r\n- **Safer delete and re-add for modules.** Deleting a habit with everything under it happens all at once, so a crash can no longer leave it half-deleted. A module you add back rings its kept reminders right away instead of after the next restart, and if removing a module with its data fails, it now stays and tells you rather than looking removed.\r\n- **Smooth grid scrolling.** Scrolling the grid no longer rebuilds every tile on screen at every frame; it now scrolls as lightly as the list — or lighter.\r\n- **Captions on tiles, headings only when written.** A text note's caption now shows at the foot of its grid tile, as it does on its list card, and a first line is shown as a bold heading only when it was written as one (with `#`), so a note looks the same in both layouts. The thin line joining a day's list cards is gone, now that each card carries its own colour and edge. In Persian, a note's caption is called «توضیح» everywhere.",
-        "fa": "- **ماژول گارانتی‌ها آمد.** جایی برای چیزهایی که خریده‌اید و کسی که پشتشان است: شرکت گارانتی، شمارهٔ پشتیبانی و شمارهٔ کارت کنار فروشگاه، آنچه در ۳۰ روز آینده تمام می‌شود بالای فهرست، یادآوری پیشنهادی هنگام ذخیره، و پروندهٔ خدماتی که مرکز تعمیر می‌تواند از آن استفاده کند. از **ابزارها ← ماژول‌ها** اضافه‌اش کنید.\r\n- **کارت‌های فهرست هم لبهٔ کاشی‌های شبکه‌ای را دارند.** دور کارت فهرست حالا خطی نازک به رنگ نوع یادداشت است، درست مثل کاشی‌های شبکه‌ای؛ پس هر دو چیدمان یادداشت را یک‌جور نشان می‌دهند.\r\n- **کاشی‌های شبکه‌ای ثابت می‌مانند.** انتخاب کاشی دیگر متنش را جابه‌جا نمی‌کند و خطی از آن کم نمی‌شود، و کاشی فقط خط‌های کامل را نشان می‌دهد؛ خط آخر دیگر از وسط بریده نمی‌شود.\r\n- **ذخیرهٔ سریع‌تر در ماژول‌ها.** تیک زدن یک عادت یا ذخیره در هر ماژول دیگر همهٔ یادآورهای همهٔ ماژول‌ها را از نو تنظیم نمی‌کند؛ فقط یادآورهای همان چیزی که عوض کرده‌اید. یادآور روزانهٔ ماژول‌ها هم با تغییر ساعت تابستانی یا منطقهٔ زمانی، ساعت خودش را نگه می‌دارد؛ ۹ همان ۹ می‌ماند.\r\n- **حذف و افزودن دوبارهٔ ماژول‌ها مطمئن‌تر.** حذف یک عادت با همهٔ ثبت‌هایش یک‌جا انجام می‌شود، پس قطع ناگهانی برنامه دیگر نمی‌تواند آن را نیمه‌کاره حذف کند. ماژولی که دوباره اضافه می‌کنید یادآورهای نگه‌داشته‌اش را همان لحظه به کار می‌اندازد، نه بعد از باز شدن دوبارهٔ برنامه؛ و اگر حذف ماژول همراه داده‌هایش ناموفق باشد، ماژول می‌ماند و همین را می‌گوید، نه اینکه برداشته به نظر برسد.\r\n- **پیمایش روان در حالت شبکه‌ای.** پیمایش کاشی‌ها دیگر در هر لحظه همهٔ کاشی‌های روی صفحه را از نو نمی‌سازد؛ حالا به سبکی حالت فهرستی — یا سبک‌تر — پیمایش می‌شود.\r\n- **توضیح روی کاشی‌ها، عنوان فقط وقتی نوشته شده.** توضیحِ یادداشت متنی حالا پایین کاشی هم دیده می‌شود، مثل کارت فهرست، و خط اول فقط وقتی پررنگ و به‌شکل عنوان نشان داده می‌شود که واقعاً عنوان نوشته شده باشد (با `#`)؛ پس یادداشت در هر دو چیدمان یک‌جور دیده می‌شود. خط نازکی که کارت‌های یک روز را به هم وصل می‌کرد هم برداشته شد، حالا که هر کارت رنگ و لبهٔ خودش را دارد. نام «کپشن» و «شرح» هم برای توضیح یادداشت همه‌جا یکی شد: «توضیح»."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.7.2-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 61769212,
-          "downloads": 2,
-          "sha256": "8099b24d5d4de39e4e3aa12243aea63193b3d88d438465b71f1e99a836f7db0d"
-        },
-        {
-          "name": "Nex-2.7.2-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 39157794,
-          "downloads": 1,
-          "sha256": "181f64476dc084049b572187f52aeec78ac823a9f10c29b5a5bece226757c8ec"
-        },
-        {
-          "name": "Nex-2.7.2-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-store.aab",
-          "kind": "bundle",
-          "size": 145631240,
-          "downloads": 1,
-          "sha256": "5bddd2a15a2aa701cd595caa197755defa9c621cc2cdf7dd0ff7615ad989e104"
-        },
-        {
-          "name": "Nex-2.7.2-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-store.apk",
-          "kind": "other",
-          "size": 157239805,
-          "downloads": 1,
-          "sha256": "d5c488746c361a0bdfc3e7aa632ad52daabef3bcb7e5e02be75cae414d3db7f2"
-        },
-        {
-          "name": "Nex-2.7.2-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-universal.apk",
-          "kind": "universal",
-          "size": 157239825,
-          "downloads": 1,
-          "sha256": "dfaf86b70792d8569ebedf238576dc577915284bdfdc37e67534b0b8d3df705b"
-        },
-        {
-          "name": "Nex-2.7.2-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2-x86_64.apk",
-          "kind": "x64",
-          "size": 67880439,
-          "downloads": 1,
-          "sha256": "a630032249ceab682c67c41b175fa80b1c60f3ac6751d1e74b3ea4b7613296e2"
-        },
-        {
-          "name": "Nex-2.7.2.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/Nex-2.7.2.aab",
-          "kind": "bundle",
-          "size": 145652529,
-          "downloads": 1,
-          "sha256": "b7b8e6152c7c93072affbf63970f7119a307ff9ba326214b06cbd3fcdb3fbadc"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.7.2/SHA256SUMS",
-          "kind": "other",
-          "size": 604,
-          "downloads": 3,
-          "sha256": "55b5d2b161ff5ff00683240c861ea91810cf77b399cf230c507cf4fc9597e709"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.7.1",
@@ -137,17 +148,6 @@
       "tag": "v2.6.26",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.26",
       "publishedAt": "2026-11-13T13:20:38.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.25",
-      "tag": "v2.6.25",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.25",
-      "publishedAt": "2026-11-13T08:31:00.000Z",
       "notes": {
         "en": "",
         "fa": null
