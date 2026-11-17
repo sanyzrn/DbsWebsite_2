@@ -2,6 +2,234 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.8.3",
+      "tag": "v2.8.3",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.3",
+      "publishedAt": "2026-11-17T19:32:27.000Z",
+      "notes": {
+        "en": "- **Links that show what they point at.** A link's card now shows the page's own picture and the site's icon, and a YouTube link its thumbnail and title. Pictures come straight from the site, are kept on your phone, and are fetched once later for links saved earlier or while offline.\r\n- **Links that make sense even offline.** Without a connection, or for a site that is out of reach, a link still shows the site's name and colour, what it is — a video, a post, an article, a repository, a place — and the title its address spells out, instead of a bare address. A video gets a small screen with Play on it.\r\n- **Arrange your tools and modules.** A new Arrange page, from Tools or Modules, puts a pin beside every tool, lets you drag what's on your home screen into the order you like, and sets the order of your modules on the Tools page. Pinning moved here from Home layout, which now keeps to the home screen's own pieces.\r\n- **A friendlier Modules page.** See at a glance how many modules you've added, narrow the list to money, health and habits, everyday, or security and work, and add or open a module straight from its card.\r\n- **Tell us which module you want.** Modules that are still to come have an \"I want this\" button, with an offer to tell the developer in a ready-written message.",
+        "fa": "- **لینک‌هایی که نشان می‌دهند به کجا می‌روند.** کارت لینک حالا تصویر خود صفحه و آیکون سایت را نشان می‌دهد و لینک یوتیوب، تصویر و عنوان ویدئو را. تصویرها مستقیم از خود سایت گرفته و روی گوشی نگه داشته می‌شوند، و برای لینک‌هایی که قبلاً یا بدون اینترنت ذخیره شده‌اند هم یک بار بعداً گرفته می‌شوند.\r\n- **لینک‌ها حتی بی‌اینترنت هم گویا هستند.** بدون اینترنت، یا برای سایتی که در دسترس نیست، لینک باز هم نام و رنگ سایت را نشان می‌دهد، می‌گوید چیست —ویدئو، پست، مطلب، مخزن کد یا مکان— و عنوانی را که از خود آدرس پیداست، نه یک آدرس خشک و خالی. ویدئو هم یک صفحهٔ کوچک با دکمهٔ پخش می‌گیرد.\r\n- **چیدمان ابزارها و ماژول‌ها.** صفحهٔ تازهٔ «چیدمان»، از ابزارها یا ماژول‌ها، کنار هر ابزار یک سنجاق دارد؛ با کشیدن، ترتیب چیزهایی را که روی صفحهٔ اصلی است عوض می‌کنید و ترتیب ماژول‌هایتان را در صفحهٔ ابزارها می‌چینید. سنجاق‌کردن از «چیدمان خانه» به همین‌جا آمده و آن صفحه فقط به بخش‌های خود صفحهٔ اصلی می‌پردازد.\r\n- **صفحهٔ ماژول‌ها، راحت‌تر.** یک نگاه می‌گوید چند ماژول اضافه کرده‌اید؛ فهرست را به پول، سلامت و عادت، روزمره یا امنیت و کار محدود کنید و ماژول را از روی همان کارتش اضافه یا باز کنید.\r\n- **بگویید کدام ماژول را می‌خواهید.** ماژول‌هایی که هنوز در راه‌اند دکمهٔ «این را می‌خواهم» دارند و پیشنهاد می‌کنند با یک پیام آماده به سازنده هم بگویید."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.3-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 62502492,
+          "downloads": 3,
+          "sha256": "2113b6354bb74fa53fd0b00727bc23bb24ec084efa91c15caf14e3f4963f5f2c"
+        },
+        {
+          "name": "Nex-2.8.3-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39825538,
+          "downloads": 1,
+          "sha256": "154e1affaa305873be46be054ba3fab28be7afd9cdc0c28d030eeb0126fe76fd"
+        },
+        {
+          "name": "Nex-2.8.3-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-store.aab",
+          "kind": "bundle",
+          "size": 147316564,
+          "downloads": 1,
+          "sha256": "cd7dbe0c12605fef10fb30093dd89a20ba4e6f13e0e4ac38f62cd786edc5c126"
+        },
+        {
+          "name": "Nex-2.8.3-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-store.apk",
+          "kind": "other",
+          "size": 159152733,
+          "downloads": 1,
+          "sha256": "8cd390ae1b1218cfee67c64bf9b605019baac9deaf019c34531b49dc22c08908"
+        },
+        {
+          "name": "Nex-2.8.3-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-universal.apk",
+          "kind": "universal",
+          "size": 159349365,
+          "downloads": 1,
+          "sha256": "3871c2e15a3c5fd21a699061a04b64c90e51d9fc01bc45ca8cb2a173858e8867"
+        },
+        {
+          "name": "Nex-2.8.3-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-x86_64.apk",
+          "kind": "x64",
+          "size": 68613723,
+          "downloads": 1,
+          "sha256": "3eb2965b69342ad51ec91d313ebf75adf0e430717547d7d1fc5d29f955e37707"
+        },
+        {
+          "name": "Nex-2.8.3.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3.aab",
+          "kind": "bundle",
+          "size": 147334737,
+          "downloads": 1,
+          "sha256": "87c4325b398ae52e7d0639f3ee5338a4838394bad44ac6b4ed4e676044aebf15"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "5c644e560a4723bb559d226a0736fd05833f1ee48b7463cedafe9a8333e9d912"
+        }
+      ]
+    },
+    {
+      "version": "2.8.2",
+      "tag": "v2.8.2",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.2",
+      "publishedAt": "2026-11-17T13:20:07.000Z",
+      "notes": {
+        "en": "- **Photos that fill their tile.** In the grid, a photo now covers its whole tile, with its caption over it, and drifts gently as you scroll — a tall picture is seen whole, a little at a time.\r\n- **Several photos at a glance.** A note with more than one photo shows three of them side by side on its tile, and how many more there are.\r\n- **Videos and PDFs you can recognise.** A video's tile shows a frame from it with a play mark; a PDF's shows its first page and how many pages it has.\r\n- **Play voice notes from the card.** A voice note plays right on its card, in the grid and in the list, with its own waveform — once it's playing, tap or drag along it to move through the recording; anywhere else on the card still opens the note. One plays at a time, and it stops when you open something else or leave the app.\r\n- **Tick checklists from the grid.** A checklist's tile shows a ring of how much is done, and a tap on an item ticks it without opening the note.\r\n- **Links with a face.** A link's tile shows the site as a coloured mark with its name, drawn from the address alone — nothing is fetched from the site.\r\n- **Buttons that stay on their own page.** Opening Habits, Warranties or any other module from the home screen and coming back, its \"New\" button no longer flies into the home screen's + button on the way.\r\n- **Gold Check's tabs switch in place.** Buy, Sell and Melted gold now change without the page leaving and coming back, and what you typed in each is kept as you move between them.\r\n- **Smoother changes of view.** Switching between list and grid, choosing a tag or a filter, folding and opening the recap, and the switches in Prompt Studio, the Converter, the Security toolbox and the Recurring sheet now fade from one view to the next instead of jumping. In Lent & Borrowed, each tab comes back where you left it.\r\n- **A plain recap again.** The recap card is back on the plain card background, without the tinted wash.",
+        "fa": "- **عکس‌هایی که کل کاشی را پر می‌کنند.** در نمای شبکه‌ای، عکس حالا کل کاشی را با توضیحش رویش می‌پوشاند و هنگام پیمایش آرام جابه‌جا می‌شود؛ عکس بلند کم‌کم کامل دیده می‌شود.\r\n- **چند عکس در یک نگاه.** یادداشتی که بیش از یک عکس دارد، سه‌تایشان را کنار هم روی کاشی نشان می‌دهد و می‌گوید چندتای دیگر هست.\r\n- **ویدئو و PDF که می‌شود شناخت.** کاشی ویدئو فریمی از خودش را با نشان پخش نشان می‌دهد و کاشی PDF صفحهٔ اولش را با تعداد صفحه‌ها.\r\n- **پخش صدا از روی کارت.** یادداشت صوتی همان‌جا روی کارتش پخش می‌شود، هم در شبکه و هم در فهرست، با شکل صدای خودش؛ وقتی در حال پخش است، با زدن یا کشیدن روی آن جلو و عقب می‌روید و هر جای دیگر کارت همچنان یادداشت را باز می‌کند. هر بار یکی پخش می‌شود و با باز کردن چیز دیگری یا رفتن از برنامه می‌ایستد.\r\n- **تیک زدن چک‌لیست از شبکه.** کاشی چک‌لیست حلقه‌ای دارد که نشان می‌دهد چقدرش انجام شده، و با زدن روی هر مورد بدون باز کردن یادداشت تیک می‌خورد.\r\n- **لینک‌هایی با چهره.** کاشی لینک، سایت را با یک نشان رنگی و نامش نشان می‌دهد که فقط از خود آدرس ساخته می‌شود — چیزی از سایت گرفته نمی‌شود.\r\n- **دکمهٔ هر صفحه سر جای خودش.** با رفتن از صفحهٔ اصلی به عادت‌ها، ضمانت‌ها یا هر ماژول دیگری و برگشتن، دکمهٔ «جدید» آن دیگر در راه برگشت به دکمهٔ + صفحهٔ اصلی تبدیل نمی‌شود.\r\n- **تب‌های طلاسنج بی‌پرش.** خرید، فروش و طلای آب‌شده حالا بدون رفتن و برگشتن کل صفحه عوض می‌شوند و هرچه در هر کدام نوشته‌اید، با رفت‌وآمد بینشان سر جایش می‌ماند.\r\n- **تغییر نما با حرکتی نرم.** رفتن بین فهرست و شبکه، انتخاب برچسب یا فیلتر، بستن و باز کردن خلاصهٔ روز، و جابه‌جایی گزینه‌ها در کارگاه پرامپت، تبدیل‌گر، جعبه‌ابزار امنیت و برگهٔ موارد تکرارشونده، حالا آرام از یک نما به نمای بعدی می‌رسند و دیگر نمی‌پرند. در قرض و طلب هم هر تب همان‌جایی باز می‌شود که رهایش کرده بودید.\r\n- **خلاصهٔ روز، دوباره ساده.** کارت خلاصهٔ روز به همان زمینهٔ سادهٔ کارت برگشته و رنگ‌مایهٔ پشتش برداشته شده است."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.2-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/Nex-2.8.2-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 62369560,
+          "downloads": 3,
+          "sha256": "88199b928354be121b91060b5a114bcb244a53ce4ccb5c76efc9f540197bbe4a"
+        },
+        {
+          "name": "Nex-2.8.2-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/Nex-2.8.2-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39758142,
+          "downloads": 2,
+          "sha256": "c16f3df9b318f9feddec39a9444e2b83159667fca945b102cca72dc8f48796b0"
+        },
+        {
+          "name": "Nex-2.8.2-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/Nex-2.8.2-store.aab",
+          "kind": "bundle",
+          "size": 147084541,
+          "downloads": 1,
+          "sha256": "51a1ad7727f2b8271053b58752d265eae8af128b9e9da4421a53ec829c4bc3cf"
+        },
+        {
+          "name": "Nex-2.8.2-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/Nex-2.8.2-store.apk",
+          "kind": "other",
+          "size": 159003413,
+          "downloads": 2,
+          "sha256": "b7e18894f3ee7d88e18944998d3aa6f387e020b5bbd6573dd089c3723a250279"
+        },
+        {
+          "name": "Nex-2.8.2-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/Nex-2.8.2-universal.apk",
+          "kind": "universal",
+          "size": 159019821,
+          "downloads": 2,
+          "sha256": "d4e88c37fb3945ed9ac30dfcae616727eced8c42b8399cf6ba5d98a3ea1419e6"
+        },
+        {
+          "name": "Nex-2.8.2-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/Nex-2.8.2-x86_64.apk",
+          "kind": "x64",
+          "size": 68480787,
+          "downloads": 2,
+          "sha256": "8a9d046327086f1ec1ba345b3dd15b3991d5c80ef7e49d92312d108119ba102e"
+        },
+        {
+          "name": "Nex-2.8.2.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/Nex-2.8.2.aab",
+          "kind": "bundle",
+          "size": 147112606,
+          "downloads": 1,
+          "sha256": "2d56fd54a49ec9b4fe5ebaaf9506ad9d763a4972e3c778da566cbd89e9989d9a"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.2/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "59a0af0ffd8be417b2b9b2fe5c556556244d5ce8f9873bd4e78cbb5736332cbc"
+        }
+      ]
+    },
+    {
+      "version": "2.8.1",
+      "tag": "v2.8.1",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.1",
+      "publishedAt": "2026-11-17T09:13:01.000Z",
+      "notes": {
+        "en": "- **Five modules arrive.** Finished and reviewed, and ready to add from **Tools → Modules**:\r\n  - **Gold Check** estimates buying, selling or melted gold from the weight, purity and rates you enter, shows how much of a price is gold and how much is making, profit and tax, and keeps a receipt to check against the shop's.\r\n  - **Lent & Borrowed** keeps money and things you lent or borrowed, in tomans or rials, with partial returns, a page for each person, a due-day reminder and a polite reminder message to send.\r\n  - **Quit Habits** counts your days free of anything you are quitting, with the money and time kept, your own reason, and **I need help now** for a hard moment.\r\n  - **Prompt Studio** keeps the AI prompts you reuse, with blanks to fill each time, blocks to insert and earlier versions to go back to.\r\n  - **Security toolbox** makes random passwords and passphrases, looks over a suspicious link without opening it, keeps a checklist for each of your accounts and converts text to Base64, URL and Hex — all offline.\r\n- **The kind's edge on list cards, in every look.** The fine outline in each note's colour that 2.7.2 gave list cards was left out in most appearances — every palette and the soft looks — so few people ever saw it. It is now drawn everywhere, as it always was on grid tiles.\r\n- **The new smart summary shows for everyone.** The summary's soft wash of your accent colour and its edge from 2.8.0 were missing in the same appearances, so it looked as it did before. They now show in every look.\r\n- **A tidier summary heading.** When the summary was last updated now sits under its name instead of being squeezed beside the arrow. How many lines are folded away and the arrow that opens them sit together in one small button at the end, so opening and folding move nothing else on the card. Opening it now grows the card in one smooth movement, and the hidden lines come in one after another.\r\n- **A bottom bar that tucks in.** Scrolling down through your notes, the bar now draws in towards **+** and slips away, and **+** gives a small pulse as it takes it in. Scroll back up and the bar opens out again from **+**. A quick flick now hides it just as a slow drag does — before, it often stayed.\r\n- **Smoother scrolling on every theme.** A theme's own look — paper fibre, tilework stars, falling leaves — was drawn stroke by stroke on every frame the list moved, which is why some themes scrolled heavier than plain Nex. It is now drawn once and simply shown, so every theme scrolls as lightly as Nex, on 90 and 120 Hz screens too.\r\n- **A scheduled note stays scheduled.** On a synced device, a note held for later could turn up early with the next sync, or arrive twice. It now stays out of sight until its time, travels with every backup while it waits, and lands under its own day everywhere. Throwing one away moves it to **Recently deleted**, where it can be brought back.\r\n- **Tag changes show everywhere at once.** Renaming, recolouring, merging or deleting a tag now updates the cards, the tag row, the grouped shelves and the home-screen widget straight away, instead of at the next unrelated change. Merged and deleted tags also reach your other devices.\r\n- **A ticked line shows on the card.** Ticking a checklist line in a note's details now shows on its card right away.\r\n- **Imported notes ring on time.** Notes imported from another app's export get their reminders set at once, not after the next start.\r\n- **A note that cannot be scheduled keeps its reminder.** Scheduling a note with attachments is still refused, but the attempt no longer takes its reminder away.\r\n- **One password generator.** Making a password now lives in the Security toolbox, which also makes passphrases; the separate generator under Tools is gone. Like the old one, it keeps the screen out of screenshots and the app switcher while it is open.\r\n- **Reminders without the empty space.** A reminder no longer repeats its note's words under its title: a one-line note is its title alone, and a longer one shows only what comes after the first line — which also removes the blank lines that appeared when the note's language differed from the phone's.\r\n- **A daily nudge worth reading.** Its title now counts what is waiting — \"2 overdue · 3 today\" — and each item gets its own line, with how many more there are. On a day with nothing due and nothing to bring back it stays silent instead of sending a general line.\r\n- **Tidier photo crop.** The shape choices (Free, 1:1, 4:3…) are even pills with their labels centred, and the chosen one changes smoothly.\r\n- **Card size shown as it looks.** In **Appearance**, the card-size choices are drawn like the view and grouping choices beside them: cards in their kinds' colours, more and slimmer for Compact, fewer and fuller for Easier to read.\r\n- **The logo in your colour.** On the About page, the x in the Nex logo and \"AI\" under it take your accent colour.\r\n- **Picking tags moves nothing.** Ticking a tag no longer widens it and pushes the others onto another line: the tick takes the place of its colour dot, and a ticked tag is washed in its own colour.\r\n- **The Untagged shelf keeps up.** Arranged by tag, tagging notes from their details or from the assistant no longer leaves an \"Untagged\" shelf counting notes that all have tags now.",
+        "fa": "- **پنج ماژول تازه.** کامل و بازبینی‌شده‌اند و از **ابزارها ← ماژول‌ها** اضافه می‌شوند:\r\n  - **طلاسنج** قیمت خرید، فروش یا طلای آب‌شده را با وزن، عیار و نرخ‌هایی که خودتان وارد می‌کنید تخمین می‌زند، نشان می‌دهد چه سهمی از قیمت خود طلاست و چقدر اجرت و سود و مالیات، و رسیدی برای مقایسه با فاکتور فروشگاه می‌دهد.\r\n  - **قرض و طلب** پول و وسیله‌ای را که قرض داده یا گرفته‌اید به تومان یا ریال نگه می‌دارد؛ با برگشت‌های جزئی، صفحهٔ هر شخص، یادآوری روز موعد و یک پیام یادآوری مؤدبانه برای فرستادن.\r\n  - **ترک عادت** روزهایی را که از چیزی دور مانده‌اید می‌شمارد، با پولی و وقتی که ماند، دلیل خودتان و دکمهٔ **همین الان کمک می‌خواهم** برای لحظه‌های سخت.\r\n  - **کارگاه پرامپت** پرامپت‌هایی را که بارها با هوش مصنوعی به کار می‌برید نگه می‌دارد؛ با جای خالی برای پر کردن، قطعه‌های قابل درج و نسخه‌های قبلی.\r\n  - **جعبه‌ابزار امنیت** رمز و عبارت عبور تصادفی می‌سازد، لینک مشکوک را بدون باز کردن بررسی می‌کند، برای هر حسابتان چک‌لیست نگه می‌دارد و متن را به Base64، URL و Hex تبدیل می‌کند — همه بدون اینترنت.\r\n- **لبهٔ رنگی کارت‌های فهرست، در همهٔ پوسته‌ها.** خط نازکی که در ۲.۷.۲ به رنگ نوع هر یادداشت دور کارت‌های فهرست آمد، در بیشتر پوسته‌ها — همهٔ پالت‌ها و پوسته‌های نرم — کشیده نمی‌شد و تقریباً کسی آن را ندید. حالا همه‌جا هست، همان‌طور که روی کاشی‌های شبکه بود.\r\n- **خلاصهٔ هوشمند تازه برای همه.** ته‌رنگ ملایم و لبهٔ خلاصه که در ۲.۸.۰ آمد، در همان پوسته‌ها دیده نمی‌شد و خلاصه مثل قبل به نظر می‌آمد. حالا در همهٔ پوسته‌ها پیداست.\r\n- **سربرگ مرتب‌تر برای خلاصه.** زمان به‌روزرسانی حالا زیر عنوان خلاصه می‌آید، نه فشرده کنار فلش. تعداد خط‌های جمع‌شده و فلش باز کردن با هم در یک دکمهٔ کوچک ته سربرگ نشسته‌اند، پس باز و بسته کردن چیز دیگری را در کارت جابه‌جا نمی‌کند. کارت حالا با یک حرکت نرم باز می‌شود و خط‌های پنهان یکی پس از دیگری از راه می‌رسند.\r\n- **نوار پایین که جمع می‌شود.** وقتی یادداشت‌ها را پایین می‌روید، نوار به سمت **+** جمع می‌شود و کنار می‌رود و **+** با یک تپش کوچک آن را در خودش می‌گیرد؛ کمی بالا بروید تا دوباره از دل **+** باز شود. یک کشیدن سریع حالا هم مثل کشیدن آرام نوار را کنار می‌برد — قبلاً اغلب سر جایش می‌ماند.\r\n- **پیمایش روان در همهٔ پوسته‌ها.** طرح مخصوص هر پوسته — تارهای کاغذ، نقش کاشی، برگ‌های پاییزی — در هر فریمی که فهرست حرکت می‌کرد از نو کشیده می‌شد؛ برای همین بعضی پوسته‌ها سنگین‌تر از نکسِ ساده پیمایش می‌شدند. حالا طرح یک بار کشیده می‌شود و فقط نمایش داده می‌شود، پس همهٔ پوسته‌ها به سبکی نکس پیمایش می‌شوند، روی صفحه‌های ۹۰ و ۱۲۰ هرتز هم.\r\n- **یادداشت زمان‌بندی‌شده سر وقتش می‌رسد.** روی دستگاهی که همگام‌سازی دارد، یادداشتی که برای بعد نگه داشته بودید ممکن بود با همگام‌سازی بعدی زودتر پیدا شود یا دو بار برسد. حالا تا وقتش پنهان می‌ماند، در این مدت همراه پشتیبان‌ها هست و سر وقت زیر روز خودش می‌نشیند. اگر دورش بیندازید به **اخیراً حذف‌شده** می‌رود و می‌شود برش گرداند.\r\n- **تغییر برچسب‌ها همه‌جا فوری دیده می‌شود.** تغییر نام، رنگ، ادغام یا حذف یک برچسب حالا همان لحظه کارت‌ها، ردیف برچسب‌ها، قفسه‌ها و ویجت صفحهٔ اصلی را به‌روز می‌کند، نه با تغییر بعدی. ادغام و حذف برچسب به دستگاه‌های دیگرتان هم می‌رسد.\r\n- **تیک چک‌لیست روی کارت هم دیده می‌شود.** خطی که در جزئیات یادداشت تیک می‌زنید، همان لحظه روی کارتش هم تیک‌خورده است.\r\n- **یادداشت‌های درون‌ریزی‌شده سر وقت یادآوری می‌کنند.** یادآور یادداشت‌هایی که از خروجی اپ دیگری می‌آورید همان لحظه تنظیم می‌شود، نه بعد از اجرای بعدی.\r\n- **یادداشتی که زمان‌بندی نمی‌شود، یادآورش را نگه می‌دارد.** زمان‌بندی یادداشتِ پیوست‌دار مثل قبل ممکن نیست، ولی این تلاش دیگر یادآورش را پاک نمی‌کند.\r\n- **یک جا برای ساختن رمز.** ساختن رمز حالا در جعبه‌ابزار امنیت است که عبارت عبور هم می‌سازد؛ تولیدکنندهٔ جداگانهٔ رمز در ابزارها برداشته شد. مثل قبل، تا وقتی باز است صفحه در اسکرین‌شات و فهرست برنامه‌های اخیر دیده نمی‌شود.\r\n- **یادآورها بدون فاصلهٔ خالی.** یادآور دیگر متن یادداشت را زیر عنوانش تکرار نمی‌کند: یادداشت یک‌خطی فقط عنوان است و یادداشت بلندتر فقط ادامهٔ خط اول را نشان می‌دهد؛ همین، خط‌های خالیِ اعلان را هم وقتی زبان یادداشت با زبان گوشی فرق داشت از بین برد.\r\n- **یادآوری روزانه‌ای که به خواندن می‌ارزد.** عنوانش حالا می‌شمارد چه چیزهایی منتظرند — «۲ عقب‌افتاده · ۳ برای امروز» — و هر مورد خط خودش را دارد، با تعداد موارد باقی‌مانده. روزی که چیزی سررسید ندارد و یادداشتی هم برای یادآوری نیست، به جای یک جملهٔ کلی ساکت می‌ماند.\r\n- **برش عکس مرتب‌تر.** گزینه‌های قاب (آزاد، ۱:۱، ۴:۳ و…) قرص‌های یک‌اندازه با نوشتهٔ وسط‌چین‌اند و انتخاب‌شده نرم عوض می‌شود.\r\n- **اندازهٔ کارت همان‌طور که دیده می‌شود.** در **ظاهر**، گزینه‌های اندازهٔ کارت مثل گزینه‌های نما و دسته‌بندی کنارشان کشیده شده‌اند: کارت‌هایی به رنگ نوعشان، فشرده با کارت‌های بیشتر و باریک‌تر، خواناتر با کارت‌های کمتر و پرتر.\r\n- **لوگو به رنگ شما.** در صفحهٔ دربارهٔ نکس، x لوگو و «AI» زیرش رنگ تأکیدی شما را می‌گیرند.\r\n- **انتخاب برچسب چیزی را جابه‌جا نمی‌کند.** تیک زدن برچسب دیگر آن را پهن‌تر نمی‌کند و بقیه را به خط بعد نمی‌برد: تیک جای نقطهٔ رنگی‌اش می‌نشیند و برچسب انتخاب‌شده به رنگ خودش درمی‌آید.\r\n- **قفسهٔ «بدون برچسب» به‌روز می‌ماند.** در چیدمان بر اساس برچسب، برچسب زدن از جزئیات یادداشت یا دستیار دیگر قفسهٔ «بدون برچسب» را با شماری از یادداشت‌هایی که حالا برچسب دارند باقی نمی‌گذارد."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.1-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/Nex-2.8.1-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 62302120,
+          "downloads": 3,
+          "sha256": "818d6c39873d29daba259226037ad4a49332dd66e2428bd4b8722fd3055654e2"
+        },
+        {
+          "name": "Nex-2.8.1-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/Nex-2.8.1-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39674318,
+          "downloads": 2,
+          "sha256": "64cf8fda34f9d5a2c5446571306013db002950f51569446219c8e3e709b9c8e6"
+        },
+        {
+          "name": "Nex-2.8.1-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/Nex-2.8.1-store.aab",
+          "kind": "bundle",
+          "size": 146877612,
+          "downloads": 1,
+          "sha256": "990fa5972175d67bb3c7eddb24c0263d03d10988815afea06e36232f4abf480e"
+        },
+        {
+          "name": "Nex-2.8.1-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/Nex-2.8.1-store.apk",
+          "kind": "other",
+          "size": 158804905,
+          "downloads": 2,
+          "sha256": "22ff9809855a8f9f76ea6006e30ab90ce9e1a2ca45c941b63752ee86aad7e573"
+        },
+        {
+          "name": "Nex-2.8.1-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/Nex-2.8.1-universal.apk",
+          "kind": "universal",
+          "size": 158804925,
+          "downloads": 2,
+          "sha256": "08e6ef2a8355e60bc52ea872fde6d79a4d592f586d06127514bee17edf83730a"
+        },
+        {
+          "name": "Nex-2.8.1-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/Nex-2.8.1-x86_64.apk",
+          "kind": "x64",
+          "size": 68413347,
+          "downloads": 2,
+          "sha256": "150855d5df684ae12d73940b6e1034f115116201fce9605e387580315fe517cc"
+        },
+        {
+          "name": "Nex-2.8.1.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/Nex-2.8.1.aab",
+          "kind": "bundle",
+          "size": 146907330,
+          "downloads": 1,
+          "sha256": "6b32c764960234da6b1cfb52528d0cfef8a8763122787f78813c6f54912dcac7"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.1/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "2933cdbfa3b83ba1335d41d234a7572d9496a7d5c6c2b4368551987cb963a7ec"
+        }
+      ]
+    },
+    {
       "version": "2.8.0",
       "tag": "v2.8.0",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.0",
@@ -16,7 +244,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-arm64-v8a.apk",
           "kind": "arm64",
           "size": 61902716,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "70530a3703ec13a005eae259e5ede7a22d2953fc9bb02604df0c6f8e5dd89465"
         },
         {
@@ -24,7 +252,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 39209378,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "9c1f8e49631bb58c0e2d264db65e249a898fa74e6eb957bd8fb46036fd2f40cd"
         },
         {
@@ -40,7 +268,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-store.apk",
           "kind": "other",
           "size": 157324153,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "6ac2798e50e4d236600b3a789fc36c0b1108f2c71b0e20ddaf488024bf47e22d"
         },
         {
@@ -48,7 +276,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-universal.apk",
           "kind": "universal",
           "size": 157488013,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "9aa10e268aae0611ba8951ad211109e2ad499c261a0e643719df5bb1057aae88"
         },
         {
@@ -56,7 +284,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-x86_64.apk",
           "kind": "x64",
           "size": 67948407,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "17d34526f7209ed86098ea8402b984ac6017e573d24934cba32fc81f555d06e1"
         },
         {

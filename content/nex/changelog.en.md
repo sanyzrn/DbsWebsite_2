@@ -4,6 +4,54 @@ User-facing release notes. Detailed technical history is preserved in [the devel
 
 ## Unreleased
 
+## v2.8.3
+
+- **Links that show what they point at.** A link's card now shows the page's own picture and the site's icon, and a YouTube link its thumbnail and title. Pictures come straight from the site, are kept on your phone, and are fetched once later for links saved earlier or while offline.
+- **Links that make sense even offline.** Without a connection, or for a site that is out of reach, a link still shows the site's name and colour, what it is — a video, a post, an article, a repository, a place — and the title its address spells out, instead of a bare address. A video gets a small screen with Play on it.
+- **Arrange your tools and modules.** A new Arrange page, from Tools or Modules, puts a pin beside every tool, lets you drag what's on your home screen into the order you like, and sets the order of your modules on the Tools page. Pinning moved here from Home layout, which now keeps to the home screen's own pieces.
+- **A friendlier Modules page.** See at a glance how many modules you've added, narrow the list to money, health and habits, everyday, or security and work, and add or open a module straight from its card.
+- **Tell us which module you want.** Modules that are still to come have an "I want this" button, with an offer to tell the developer in a ready-written message.
+
+## v2.8.2
+
+- **Photos that fill their tile.** In the grid, a photo now covers its whole tile, with its caption over it, and drifts gently as you scroll — a tall picture is seen whole, a little at a time.
+- **Several photos at a glance.** A note with more than one photo shows three of them side by side on its tile, and how many more there are.
+- **Videos and PDFs you can recognise.** A video's tile shows a frame from it with a play mark; a PDF's shows its first page and how many pages it has.
+- **Play voice notes from the card.** A voice note plays right on its card, in the grid and in the list, with its own waveform — once it's playing, tap or drag along it to move through the recording; anywhere else on the card still opens the note. One plays at a time, and it stops when you open something else or leave the app.
+- **Tick checklists from the grid.** A checklist's tile shows a ring of how much is done, and a tap on an item ticks it without opening the note.
+- **Links with a face.** A link's tile shows the site as a coloured mark with its name, drawn from the address alone — nothing is fetched from the site.
+- **Buttons that stay on their own page.** Opening Habits, Warranties or any other module from the home screen and coming back, its "New" button no longer flies into the home screen's + button on the way.
+- **Gold Check's tabs switch in place.** Buy, Sell and Melted gold now change without the page leaving and coming back, and what you typed in each is kept as you move between them.
+- **Smoother changes of view.** Switching between list and grid, choosing a tag or a filter, folding and opening the recap, and the switches in Prompt Studio, the Converter, the Security toolbox and the Recurring sheet now fade from one view to the next instead of jumping. In Lent & Borrowed, each tab comes back where you left it.
+- **A plain recap again.** The recap card is back on the plain card background, without the tinted wash.
+
+## v2.8.1
+
+- **Five modules arrive.** Finished and reviewed, and ready to add from **Tools → Modules**:
+  - **Gold Check** estimates buying, selling or melted gold from the weight, purity and rates you enter, shows how much of a price is gold and how much is making, profit and tax, and keeps a receipt to check against the shop's.
+  - **Lent & Borrowed** keeps money and things you lent or borrowed, in tomans or rials, with partial returns, a page for each person, a due-day reminder and a polite reminder message to send.
+  - **Quit Habits** counts your days free of anything you are quitting, with the money and time kept, your own reason, and **I need help now** for a hard moment.
+  - **Prompt Studio** keeps the AI prompts you reuse, with blanks to fill each time, blocks to insert and earlier versions to go back to.
+  - **Security toolbox** makes random passwords and passphrases, looks over a suspicious link without opening it, keeps a checklist for each of your accounts and converts text to Base64, URL and Hex — all offline.
+- **The kind's edge on list cards, in every look.** The fine outline in each note's colour that 2.7.2 gave list cards was left out in most appearances — every palette and the soft looks — so few people ever saw it. It is now drawn everywhere, as it always was on grid tiles.
+- **The new smart summary shows for everyone.** The summary's soft wash of your accent colour and its edge from 2.8.0 were missing in the same appearances, so it looked as it did before. They now show in every look.
+- **A tidier summary heading.** When the summary was last updated now sits under its name instead of being squeezed beside the arrow. How many lines are folded away and the arrow that opens them sit together in one small button at the end, so opening and folding move nothing else on the card. Opening it now grows the card in one smooth movement, and the hidden lines come in one after another.
+- **A bottom bar that tucks in.** Scrolling down through your notes, the bar now draws in towards **+** and slips away, and **+** gives a small pulse as it takes it in. Scroll back up and the bar opens out again from **+**. A quick flick now hides it just as a slow drag does — before, it often stayed.
+- **Smoother scrolling on every theme.** A theme's own look — paper fibre, tilework stars, falling leaves — was drawn stroke by stroke on every frame the list moved, which is why some themes scrolled heavier than plain Nex. It is now drawn once and simply shown, so every theme scrolls as lightly as Nex, on 90 and 120 Hz screens too.
+- **A scheduled note stays scheduled.** On a synced device, a note held for later could turn up early with the next sync, or arrive twice. It now stays out of sight until its time, travels with every backup while it waits, and lands under its own day everywhere. Throwing one away moves it to **Recently deleted**, where it can be brought back.
+- **Tag changes show everywhere at once.** Renaming, recolouring, merging or deleting a tag now updates the cards, the tag row, the grouped shelves and the home-screen widget straight away, instead of at the next unrelated change. Merged and deleted tags also reach your other devices.
+- **A ticked line shows on the card.** Ticking a checklist line in a note's details now shows on its card right away.
+- **Imported notes ring on time.** Notes imported from another app's export get their reminders set at once, not after the next start.
+- **A note that cannot be scheduled keeps its reminder.** Scheduling a note with attachments is still refused, but the attempt no longer takes its reminder away.
+- **One password generator.** Making a password now lives in the Security toolbox, which also makes passphrases; the separate generator under Tools is gone. Like the old one, it keeps the screen out of screenshots and the app switcher while it is open.
+- **Reminders without the empty space.** A reminder no longer repeats its note's words under its title: a one-line note is its title alone, and a longer one shows only what comes after the first line — which also removes the blank lines that appeared when the note's language differed from the phone's.
+- **A daily nudge worth reading.** Its title now counts what is waiting — "2 overdue · 3 today" — and each item gets its own line, with how many more there are. On a day with nothing due and nothing to bring back it stays silent instead of sending a general line.
+- **Tidier photo crop.** The shape choices (Free, 1:1, 4:3…) are even pills with their labels centred, and the chosen one changes smoothly.
+- **Card size shown as it looks.** In **Appearance**, the card-size choices are drawn like the view and grouping choices beside them: cards in their kinds' colours, more and slimmer for Compact, fewer and fuller for Easier to read.
+- **The logo in your colour.** On the About page, the x in the Nex logo and "AI" under it take your accent colour.
+- **Picking tags moves nothing.** Ticking a tag no longer widens it and pushes the others onto another line: the tick takes the place of its colour dot, and a ticked tag is washed in its own colour.
+- **The Untagged shelf keeps up.** Arranged by tag, tagging notes from their details or from the assistant no longer leaves an "Untagged" shelf counting notes that all have tags now.
+
 ## v2.8.0
 
 - **A new home screen.** The top of Nex is now one calm header for the day — the date, your greeting, the smart summary and your pinned tools — with your notes starting right under it, so far more of them fit on the first screen.

@@ -2,80 +2,113 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.8.3",
+      "tag": "v2.8.3",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.3",
+      "publishedAt": "2026-11-17T19:32:27.000Z",
+      "notes": {
+        "en": "- **Links that show what they point at.** A link's card now shows the page's own picture and the site's icon, and a YouTube link its thumbnail and title. Pictures come straight from the site, are kept on your phone, and are fetched once later for links saved earlier or while offline.\r\n- **Links that make sense even offline.** Without a connection, or for a site that is out of reach, a link still shows the site's name and colour, what it is — a video, a post, an article, a repository, a place — and the title its address spells out, instead of a bare address. A video gets a small screen with Play on it.\r\n- **Arrange your tools and modules.** A new Arrange page, from Tools or Modules, puts a pin beside every tool, lets you drag what's on your home screen into the order you like, and sets the order of your modules on the Tools page. Pinning moved here from Home layout, which now keeps to the home screen's own pieces.\r\n- **A friendlier Modules page.** See at a glance how many modules you've added, narrow the list to money, health and habits, everyday, or security and work, and add or open a module straight from its card.\r\n- **Tell us which module you want.** Modules that are still to come have an \"I want this\" button, with an offer to tell the developer in a ready-written message.",
+        "fa": "- **لینک‌هایی که نشان می‌دهند به کجا می‌روند.** کارت لینک حالا تصویر خود صفحه و آیکون سایت را نشان می‌دهد و لینک یوتیوب، تصویر و عنوان ویدئو را. تصویرها مستقیم از خود سایت گرفته و روی گوشی نگه داشته می‌شوند، و برای لینک‌هایی که قبلاً یا بدون اینترنت ذخیره شده‌اند هم یک بار بعداً گرفته می‌شوند.\r\n- **لینک‌ها حتی بی‌اینترنت هم گویا هستند.** بدون اینترنت، یا برای سایتی که در دسترس نیست، لینک باز هم نام و رنگ سایت را نشان می‌دهد، می‌گوید چیست —ویدئو، پست، مطلب، مخزن کد یا مکان— و عنوانی را که از خود آدرس پیداست، نه یک آدرس خشک و خالی. ویدئو هم یک صفحهٔ کوچک با دکمهٔ پخش می‌گیرد.\r\n- **چیدمان ابزارها و ماژول‌ها.** صفحهٔ تازهٔ «چیدمان»، از ابزارها یا ماژول‌ها، کنار هر ابزار یک سنجاق دارد؛ با کشیدن، ترتیب چیزهایی را که روی صفحهٔ اصلی است عوض می‌کنید و ترتیب ماژول‌هایتان را در صفحهٔ ابزارها می‌چینید. سنجاق‌کردن از «چیدمان خانه» به همین‌جا آمده و آن صفحه فقط به بخش‌های خود صفحهٔ اصلی می‌پردازد.\r\n- **صفحهٔ ماژول‌ها، راحت‌تر.** یک نگاه می‌گوید چند ماژول اضافه کرده‌اید؛ فهرست را به پول، سلامت و عادت، روزمره یا امنیت و کار محدود کنید و ماژول را از روی همان کارتش اضافه یا باز کنید.\r\n- **بگویید کدام ماژول را می‌خواهید.** ماژول‌هایی که هنوز در راه‌اند دکمهٔ «این را می‌خواهم» دارند و پیشنهاد می‌کنند با یک پیام آماده به سازنده هم بگویید."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.3-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 62502492,
+          "downloads": 3,
+          "sha256": "2113b6354bb74fa53fd0b00727bc23bb24ec084efa91c15caf14e3f4963f5f2c"
+        },
+        {
+          "name": "Nex-2.8.3-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 39825538,
+          "downloads": 1,
+          "sha256": "154e1affaa305873be46be054ba3fab28be7afd9cdc0c28d030eeb0126fe76fd"
+        },
+        {
+          "name": "Nex-2.8.3-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-store.aab",
+          "kind": "bundle",
+          "size": 147316564,
+          "downloads": 1,
+          "sha256": "cd7dbe0c12605fef10fb30093dd89a20ba4e6f13e0e4ac38f62cd786edc5c126"
+        },
+        {
+          "name": "Nex-2.8.3-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-store.apk",
+          "kind": "other",
+          "size": 159152733,
+          "downloads": 1,
+          "sha256": "8cd390ae1b1218cfee67c64bf9b605019baac9deaf019c34531b49dc22c08908"
+        },
+        {
+          "name": "Nex-2.8.3-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-universal.apk",
+          "kind": "universal",
+          "size": 159349365,
+          "downloads": 1,
+          "sha256": "3871c2e15a3c5fd21a699061a04b64c90e51d9fc01bc45ca8cb2a173858e8867"
+        },
+        {
+          "name": "Nex-2.8.3-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3-x86_64.apk",
+          "kind": "x64",
+          "size": 68613723,
+          "downloads": 1,
+          "sha256": "3eb2965b69342ad51ec91d313ebf75adf0e430717547d7d1fc5d29f955e37707"
+        },
+        {
+          "name": "Nex-2.8.3.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/Nex-2.8.3.aab",
+          "kind": "bundle",
+          "size": 147334737,
+          "downloads": 1,
+          "sha256": "87c4325b398ae52e7d0639f3ee5338a4838394bad44ac6b4ed4e676044aebf15"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.3/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "5c644e560a4723bb559d226a0736fd05833f1ee48b7463cedafe9a8333e9d912"
+        }
+      ]
+    },
+    {
+      "version": "2.8.2",
+      "tag": "v2.8.2",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.2",
+      "publishedAt": "2026-11-17T13:20:07.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
+      "version": "2.8.1",
+      "tag": "v2.8.1",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.1",
+      "publishedAt": "2026-11-17T09:13:01.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
       "version": "2.8.0",
       "tag": "v2.8.0",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.0",
       "publishedAt": "2026-11-17T04:30:43.000Z",
       "notes": {
-        "en": "- **A new home screen.** The top of Nex is now one calm header for the day — the date, your greeting, the smart summary and your pinned tools — with your notes starting right under it, so far more of them fit on the first screen.\r\n- **Search that stays put.** The search field has moved into the top bar, beside the Nex mark, and stays there however far you scroll. Tap it from anywhere in the list and the bar gives its whole width to what you type.\r\n- **A smart summary you can act on.** Tap a line Nex wrote about a note — a reminder, an unfinished list, a recent note — and that note opens. The summary now sits on a soft wash of your accent colour, so it is never taken for one of your own notes; folded, it keeps its first two lines and says how many more are tucked away. It no longer folds by itself while you scroll, and a note written over two lines stays one line of the summary.\r\n- **Pinned tools in one row.** Tools and modules pinned to the home screen are now one row of small live tiles that scrolls sideways, instead of a grid that pushed your notes down. Habits and Cycle draw today's progress as a ring round their icon, and you can pin or unpin tools from **Home layout** as well as by holding them.\r\n- **List or grid in one tap.** A switch at the end of the tag row changes between list and grid; the filter button sits at the start of the same row, or inside the search field until you have tags.\r\n- **More room to read.** As you scroll down through your notes, the bottom bar's four buttons step out of the way and **+** stays exactly where it is; scroll back up a little, or reach the top or the end, and they return.\r\n- **Calmer movement.** The greeting settles back as your notes scroll over it, the first notes ease in when Nex opens, and the dock's icons respond under your finger. The day chip now appears only once the tag row is held at the top, and no longer repeats a heading that is already on screen.",
-        "fa": "- **صفحهٔ اصلی تازه.** بالای Nex حالا یک سربرگ آرام برای همان روز است — تاریخ، خوش‌آمدگویی، خلاصهٔ هوشمند و ابزارهای سنجاق‌شده — و یادداشت‌ها درست زیر آن شروع می‌شوند؛ در همان نگاه اول یادداشت‌های خیلی بیشتری می‌بینید.\r\n- **جست‌وجو همیشه سر جایش.** کادر جست‌وجو به نوار بالا، کنار نشان Nex آمده و هر قدر هم پایین بروید همان‌جا می‌ماند. از هر جای فهرست رویش بزنید؛ نوار تمام پهنایش را به نوشتهٔ شما می‌دهد.\r\n- **خلاصهٔ هوشمندی که می‌شود رویش زد.** روی خطی که Nex دربارهٔ یک یادداشت نوشته — یک یادآور، یک فهرست ناتمام، یک یادداشت تازه — بزنید تا همان یادداشت باز شود. خلاصه حالا روی ته‌رنگی ملایم از رنگ تأکیدی شما نشسته تا با یادداشت‌های خودتان اشتباه نشود؛ جمع‌شده، دو خط اولش را نگه می‌دارد و می‌گوید چند مورد دیگر دارد. دیگر هنگام پیمایش خودبه‌خود جمع نمی‌شود، و یادداشتی که در دو خط نوشته‌اید در خلاصه یک خط می‌ماند.\r\n- **ابزارهای سنجاق‌شده در یک ردیف.** ابزارها و ماژول‌های سنجاق‌شده حالا یک ردیف کاشی کوچک و زنده‌اند که به پهلو ورق می‌خورد، نه شبکه‌ای که یادداشت‌ها را پایین می‌راند. عادت‌ها و چرخه پیشرفت امروز را مثل حلقه‌ای دور آیکون‌شان نشان می‌دهند، و ابزارها را علاوه بر نگه‌داشتن، از **چیدمان خانه** هم می‌توانید سنجاق کنید یا بردارید.\r\n- **فهرستی یا شبکه‌ای با یک لمس.** کلیدی در انتهای ردیف برچسب‌ها بین نمای فهرستی و شبکه‌ای جابه‌جا می‌کند؛ دکمهٔ فیلتر سرِ همان ردیف است، و تا وقتی برچسبی ندارید داخل کادر جست‌وجو.\r\n- **جای بیشتر برای خواندن.** وقتی در یادداشت‌ها پایین می‌روید، چهار دکمهٔ نوار پایین کنار می‌روند و **+** درست سر جایش می‌ماند؛ کمی که بالا برگردید، یا به ابتدا یا انتهای فهرست برسید، برمی‌گردند.\r\n- **حرکت‌های آرام‌تر.** خوش‌آمدگویی هنگام بالا آمدن یادداشت‌ها آرام عقب می‌نشیند، یادداشت‌ها هنگام باز شدن Nex نرم ظاهر می‌شوند و آیکون‌های نوار پایین زیر انگشت واکنش نشان می‌دهند. برچسب روز هم فقط وقتی ردیف برچسب‌ها بالای صفحه ثابت شده دیده می‌شود و عنوانی را که روی صفحه هست تکرار نمی‌کند."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.8.0-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 61902716,
-          "downloads": 2,
-          "sha256": "70530a3703ec13a005eae259e5ede7a22d2953fc9bb02604df0c6f8e5dd89465"
-        },
-        {
-          "name": "Nex-2.8.0-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 39209378,
-          "downloads": 1,
-          "sha256": "9c1f8e49631bb58c0e2d264db65e249a898fa74e6eb957bd8fb46036fd2f40cd"
-        },
-        {
-          "name": "Nex-2.8.0-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-store.aab",
-          "kind": "bundle",
-          "size": 145711633,
-          "downloads": 1,
-          "sha256": "111138004869e8e13d238ee324b80f665569ecba3d2eef5daaec51b9e9e528f4"
-        },
-        {
-          "name": "Nex-2.8.0-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-store.apk",
-          "kind": "other",
-          "size": 157324153,
-          "downloads": 1,
-          "sha256": "6ac2798e50e4d236600b3a789fc36c0b1108f2c71b0e20ddaf488024bf47e22d"
-        },
-        {
-          "name": "Nex-2.8.0-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-universal.apk",
-          "kind": "universal",
-          "size": 157488013,
-          "downloads": 1,
-          "sha256": "9aa10e268aae0611ba8951ad211109e2ad499c261a0e643719df5bb1057aae88"
-        },
-        {
-          "name": "Nex-2.8.0-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0-x86_64.apk",
-          "kind": "x64",
-          "size": 67948407,
-          "downloads": 1,
-          "sha256": "17d34526f7209ed86098ea8402b984ac6017e573d24934cba32fc81f555d06e1"
-        },
-        {
-          "name": "Nex-2.8.0.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/Nex-2.8.0.aab",
-          "kind": "bundle",
-          "size": 145743422,
-          "downloads": 1,
-          "sha256": "59be8184071e973e88244fbf4f87805d0cd006fc388f8d9a76952e3d4731c40c"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.0/SHA256SUMS",
-          "kind": "other",
-          "size": 604,
-          "downloads": 2,
-          "sha256": "986f5ee2e3b3a0e1a9c25938d1117fd051ed83af0ebe8210c45989cf83ef3fe1"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.7.2",
@@ -115,39 +148,6 @@
       "tag": "v2.6.29",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.29",
       "publishedAt": "2026-11-14T06:45:01.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.28",
-      "tag": "v2.6.28",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.28",
-      "publishedAt": "2026-11-13T20:54:53.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.27",
-      "tag": "v2.6.27",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.27",
-      "publishedAt": "2026-11-13T18:44:07.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.6.26",
-      "tag": "v2.6.26",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.6.26",
-      "publishedAt": "2026-11-13T13:20:38.000Z",
       "notes": {
         "en": "",
         "fa": null
