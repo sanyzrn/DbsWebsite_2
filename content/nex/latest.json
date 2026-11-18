@@ -2,80 +2,102 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.8.6",
+      "tag": "v2.8.6",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.6",
+      "publishedAt": "2026-11-18T20:03:30.000Z",
+      "notes": {
+        "en": "- **Picking notes stays on the notes.** While several notes are picked, holding another card picks it too instead of opening its menu, and nothing else on the card or the home screen acts in the middle of the choice — a recording's play button, a link, a checklist, the filters, the pinned tools and the recap wait, dimmed, until you finish.\r\n- **A tidier dates card.** The dates from your tools now fold like the recap: the nearest two, with an arrow to open the rest, and it remembers how you left it. A birthday or an occasion no longer lingers as \"17 days late\" — it leaves once its day has gone — while a cheque still to settle stays, marked late. A money or health line now says how many items it stands for.\r\n- **Faster with a big library.** Opening a note's details in a library with threads, searching for something that isn't there, emptying Recently deleted and grouping the home screen by kind all do far less work; a backup no longer holds up writing a note while it runs; returning to the app re-arms reminders, the words' review reminder and link pictures with a fraction of the effort; and the dates card re-reads only the tool that changed.\r\n- **Greetings in one piece.** The greeting at the top is no longer cut off with \"…\" before your name, and a playful opening gets its comma.",
+        "fa": "- **انتخاب، فقط انتخاب.** وقتی چند یادداشت را انتخاب کرده‌اید، نگه‌داشتن کارت دیگر هم آن را انتخاب می‌کند و دیگر منوی حذف و ویرایش آن کارت باز نمی‌شود. وسط انتخاب، هیچ چیز دیگری روی کارت یا صفحهٔ اصلی کار نمی‌کند —پخش صدا، لینک، چک‌لیست، فیلترها، ابزارهای سنجاق‌شده و خلاصهٔ هوشمند کم‌رنگ می‌شوند و منتظر می‌مانند تا کارتان تمام شود.\r\n- **کارت تاریخ‌ها جمع‌وجورتر.** کارت تاریخ‌های ابزارها حالا مثل خلاصهٔ هوشمند جمع می‌شود: دو مورد نزدیک‌تر، با فلشی برای دیدن بقیه، و همان‌طور که گذاشتیدش می‌ماند. تولد و مناسبت دیگر «۱۷ روز گذشته» روی کارت نمی‌ماند و روزش که گذشت می‌رود؛ چکی که هنوز تسویه نشده می‌ماند و «عقب افتاده» نوشته می‌شود. سطر ابزارهای مالی و سلامت حالا تعداد موارد را هم می‌گوید.\r\n- **سریع‌تر با کتابخانهٔ بزرگ.** باز کردن جزئیات یادداشت وقتی رشته دارید، جست‌وجوی چیزی که پیدا نمی‌شود، خالی کردن «اخیراً حذف‌شده» و دسته‌بندی صفحهٔ اصلی بر اساس نوع، کار بسیار کمتری می‌برند؛ پشتیبان‌گیری دیگر ثبت یادداشت را معطل نمی‌کند؛ با برگشتن به اپ، یادآورها، یادآور مرور واژه‌ها و تصویر لینک‌ها با زحمت بسیار کمتری آماده می‌شوند؛ و کارت تاریخ‌ها فقط ابزاری را که تغییر کرده دوباره می‌خواند.\r\n- **سلام، کامل.** جملهٔ خوشامد بالای صفحه دیگر پیش از نامتان با «…» نصفه نمی‌ماند و بعد از خطاب‌های خودمانی‌اش ویرگول می‌آید."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.6-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 63825404,
+          "downloads": 2,
+          "sha256": "9a3e5fe1476cfe0e8a61f9c995895071828f563f442eece72470e260cfeac53b"
+        },
+        {
+          "name": "Nex-2.8.6-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 41345058,
+          "downloads": 1,
+          "sha256": "fa078d988ad08129e5b6cdc997d468ffb1c401547800359bea6f74f17cf38f25"
+        },
+        {
+          "name": "Nex-2.8.6-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6-store.aab",
+          "kind": "bundle",
+          "size": 150902976,
+          "downloads": 1,
+          "sha256": "5ec8711a756b30505970c07d1a71a183f0c1e354705e09af7d6938f719d0bbb0"
+        },
+        {
+          "name": "Nex-2.8.6-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6-store.apk",
+          "kind": "other",
+          "size": 163539449,
+          "downloads": 2,
+          "sha256": "028b0e728b5939234e79795cc8f03f923356450c06ab63db9654c867381564c5"
+        },
+        {
+          "name": "Nex-2.8.6-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6-universal.apk",
+          "kind": "universal",
+          "size": 163555857,
+          "downloads": 1,
+          "sha256": "39d220eae9a79f8ad235a30d3ca9d9edba212ba399f3e6caf9fadc4a042cbf3e"
+        },
+        {
+          "name": "Nex-2.8.6-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6-x86_64.apk",
+          "kind": "x64",
+          "size": 70002167,
+          "downloads": 2,
+          "sha256": "53d2d2731893fd2bc0690bc9dec4da45c7d03e8a1478b121b1aa2b1f44f88cc8"
+        },
+        {
+          "name": "Nex-2.8.6.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6.aab",
+          "kind": "bundle",
+          "size": 150922577,
+          "downloads": 1,
+          "sha256": "d9061691d87f01c8089714cfc0991cc55d38561c3795ec875cb126f61a2da1cb"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "d6388e0cf56724610df777431df7e9aac5f3111f1ec558776f7098af3701008a"
+        }
+      ]
+    },
+    {
+      "version": "2.8.5",
+      "tag": "v2.8.5",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.5",
+      "publishedAt": "2026-11-18T11:25:15.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
       "version": "2.8.4",
       "tag": "v2.8.4",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.4",
       "publishedAt": "2026-11-18T07:10:25.000Z",
       "notes": {
-        "en": "- **Four more modules.** Ready to add from Tools:\r\n  - **Parking** remembers where you left the car — floor, spot, a landmark — and how long you have paid for, with a reminder before the time runs out.\r\n  - **Medicine** keeps your medicine cabinet: what each is for, when to take it with reminders that keep coming, and when a box expires.\r\n  - **Cheques & instalments** follows the cheques you wrote and received and your instalment plans: what falls due this week and this month, what has been paid, and a reminder before each date. Amounts can be hidden with one tap.\r\n  - **Maintenance** is a service log for your car and the things at home, with what is due next by date or by kilometres. A car also gets its insurance and inspection dates, each with a reminder that follows the date when you renew, and a fuel log against your own monthly quotas.\r\n- **Two new tools: Asset book and Family fund.** The Asset book keeps your gold, coins and currency with your own dated prices and shows what they are worth in tomans, in 18k grams and in dollars, opening covered. The Family fund runs a rotating family loan fund: shares, monthly contributions, draws with their history, loans and instalments, a month report, and alerts for the manager that come back every month.\r\n- **Your tools' dates on the home screen.** What your modules have late or falling due this week — a cheque, an instalment, a car's insurance, a fund's payment day — now appears in one small card above your notes; money and health show only the tool's name. Turn it off in Home layout.\r\n- **Word by Word teaches.** Put words into decks for a book, a course or a trip, and review them three ways: turn the card over, type the answer (spelling slips with ی and ک, half-spaces and capitals are forgiven, and one of the meanings is enough) or pick it from choices. A small daily goal replaces the streak, so a missed day costs nothing, and Progress shows what you have learned and how the week went.\r\n- **Expenses and Price Lens arrive.** Expenses is a household book in tomans or rials: a payment is the amount, a category and today; the Jalali month shows what was spent, what came in and what is left, each category against last month, calm budgets, and rent or a subscription offered on its day to log with one tap. Price Lens compares packs by their real unit price, keeps the prices you record for each product — so a smaller pack at the same price shows up — and turns them into a shopping list. Both hide amounts with one tap.\r\n- **Reminders that tidy up.** A one-time reminder can now remove its note once it is done: choose \"Remove the note when done\" beside Repeat. Press Done in the notification, or open the note after it rings and close it, and the note goes to Recently deleted — with Undo, which brings it back as an ordinary note.\r\n- **A tip, now and then.** The home screen sometimes shows one short tip about something Nex can do — never on your first day, never at night, and less often if you keep closing them. Turn them off in Home layout.\r\n- **Meet the modules on day one.** The first-run pages now include the modules, and you can add any of them right there.\r\n- **Smoother typing and lighter screens.** Typing in the capture box or a settings field no longer makes the whole app redraw behind it, link cards and the vault list do less work as they update, and profile photos and previews are loaded at the size they are shown, using less memory.\r\n- **Tags beside reminders.** In the grid, a note with a reminder shows its tag colours again, next to the reminder.\r\n- **Split a shared cost.** Lent & Borrowed now has Splits for a trip or a shared month: add who's in and each cost — divided equally, by shares or by exact amounts — and see everyone's balance and the fewest payments that settle it. Shares come out in whole tomans, and your own payment becomes a loan record with one tap.\r\n- **A book of cards and IBANs.** Save a person's card number or IBAN once: it's checked offline, the bank is named from the card's first digits, it copies in one tap, and the reminder message to that person can carry it.\r\n- **Links stay where they were.** An older link whose title or picture is filled in later no longer jumps to the top of your notes; it keeps its place.\r\n- **Steady site icons.** A site whose icon is animated no longer makes its mark on the card flicker; it shows a still icon.",
-        "fa": "- **چهار ماژول تازه.** از «ابزارها» اضافه کنید:\r\n  - **جای پارک** یادش می‌ماند ماشین را کجا گذاشته‌اید —طبقه، جای پارک، نشانه‌ای در اطراف— و تا کی پول پارک داده‌اید، و پیش از تمام شدن وقت یادآوری می‌کند.\r\n  - **جعبه دارو** داروهای خانه را نگه می‌دارد: هر کدام برای چیست، کی باید خورده شود —با یادآوری‌هایی که ادامه دارند— و تاریخ انقضای هر جعبه.\r\n  - **چک و اقساط** چک‌های صادره و دریافتی و قسط‌هایتان را دنبال می‌کند: این هفته و این ماه چه سررسید می‌شود، چه پرداخت شده، و پیش از هر تاریخ یادآوری می‌کند. مبلغ‌ها با یک لمس پنهان می‌شوند.\r\n  - **تعمیر و نگهداری** دفترچهٔ سرویس ماشین و وسایل خانه است و نوبت بعدی را بر اساس تاریخ یا کیلومتر می‌گوید. برای ماشین، تاریخ بیمه و معاینهٔ فنی هم هست، با یادآوری‌ای که با تمدید، همراه تاریخ جابه‌جا می‌شود، و دفترچهٔ سوخت در برابر سهمیهٔ ماهانهٔ خودتان.\r\n- **دو ابزار تازه: «دفتر دارایی» و «صندوق خانوادگی».** دفتر دارایی طلا، سکه و ارزتان را با قیمت‌های تاریخ‌دار خودتان نگه می‌دارد و ارزششان را به تومان، به گرم طلای ۱۸ عیار و به دلار نشان می‌دهد؛ پوشیده هم باز می‌شود. صندوق خانوادگی گردش صندوق قرض‌الحسنهٔ فامیلی را نگه می‌دارد: سهم‌ها، واریزی ماهانه، قرعه با سابقه‌اش، وام و اقساط، گزارش ماه، و یادآوری‌هایی برای مدیر که هر ماه برمی‌گردند.\r\n- **تاریخ‌های ابزارها روی صفحهٔ اصلی.** هر چه ماژول‌هایتان عقب افتاده یا این هفته سررسید دارند —چک، قسط، بیمهٔ ماشین، روز واریز صندوق— حالا در یک کارت کوچک بالای یادداشت‌ها می‌آید؛ برای پول و سلامت فقط نام ابزار دیده می‌شود. از «چیدمان خانه» خاموش می‌شود.\r\n- **«واژه به واژه» یاد می‌دهد.** واژه‌ها را در دسته‌هایی برای یک کتاب، دوره یا سفر بگذارید و سه جور مرورشان کنید: کارت را برگردانید، پاسخ را بنویسید (خطای ی و ک، نیم‌فاصله و حروف بزرگ و کوچک بخشیده می‌شود و یکی از معناها کافی است) یا از میان گزینه‌ها انتخاب کنید. به‌جای شمارش روزهای پشت سر هم، یک هدف کوچک روزانه هست و روزی که جا بماند چیزی از دست نمی‌رود؛ «پیشرفت» هم نشان می‌دهد چه یاد گرفته‌اید و هفته چطور گذشت.\r\n- **«هزینه‌ها» و «ذره‌بین قیمت» آمدند.** «هزینه‌ها» دفتر خرج خانه است به تومان یا ریال: هر پرداخت یعنی مبلغ، یک دسته و امروز؛ ماه شمسی می‌گوید چقدر خرج شد، چقدر آمد و چقدر ماند، هر دسته نسبت به ماه قبل چه شد، بودجه‌ها آرام می‌مانند و اجاره یا اشتراک روز خودش با یک لمس ثبت می‌شود. «ذره‌بین قیمت» بسته‌ها را با قیمت واقعی هر واحد مقایسه می‌کند، قیمت‌هایی را که برای هر کالا ثبت می‌کنید نگه می‌دارد —تا بستهٔ کوچک‌شده با همان قیمت پیدا شود— و از آن‌ها فهرست خرید می‌سازد. هر دو با یک لمس مبلغ‌ها را پنهان می‌کنند.\r\n- **یادآوری‌ای که خودش جمع می‌کند.** یادآوری یک‌باره حالا می‌تواند پس از انجام، یادداشتش را هم بردارد: کنار «تکرار»، «پس از انجام، یادداشت حذف شود» را بزنید. با «انجام شد» در اعلان، یا باز و بسته کردن یادداشت پس از به صدا درآمدن، یادداشت به «اخیراً حذف‌شده» می‌رود — با دکمهٔ برگرداندن که آن را مثل یک یادداشت معمولی برمی‌گرداند.\r\n- **گاهی یک نکته.** صفحهٔ اصلی گاه‌به‌گاه یک نکتهٔ کوتاه دربارهٔ کارهایی که نکس بلد است نشان می‌دهد — نه در روز اول، نه شب‌ها، و اگر مدام ببندیدشان کمتر. از «چیدمان خانه» خاموش می‌شوند.\r\n- **آشنایی با ماژول‌ها از همان روز اول.** صفحه‌های شروع حالا ماژول‌ها را هم معرفی می‌کنند و همان‌جا می‌شود هر کدام را اضافه کرد.\r\n- **تایپ روان‌تر، صفحه‌های سبک‌تر.** تایپ در کادر ثبت یا فیلدهای تنظیمات دیگر کل برنامه را پشت سرش از نو نمی‌سازد، کارت‌های لینک و فهرست خزانه هنگام به‌روز شدن کار کمتری می‌کنند، و عکس پروفایل و پیش‌نمایش‌ها به همان اندازه‌ای که دیده می‌شوند بارگذاری می‌شوند تا حافظهٔ کمتری بگیرند.\r\n- **برچسب کنار یادآوری.** در نمای شبکه‌ای، یادداشتی که یادآوری دارد دوباره رنگ برچسب‌هایش را کنار یادآوری نشان می‌دهد.\r\n- **تقسیم هزینهٔ مشترک.** «قرض و طلب» حالا «دنگ» دارد، برای سفر یا ماه مشترک: افراد و هر هزینه را اضافه کنید —مساوی، با سهم یا با مبلغ دقیق— تا سهم هر کس و کمترین پرداخت‌هایی که حساب را صاف می‌کند دیده شود. سهم‌ها به تومان کامل حساب می‌شوند و پرداخت خودتان با یک لمس به قرض تبدیل می‌شود.\r\n- **دفترچهٔ کارت و شبا.** شمارهٔ کارت یا شبای هر کس را یک بار ذخیره کنید: آفلاین بررسی می‌شود، نام بانک از رقم‌های اول کارت معلوم می‌شود، با یک لمس کپی می‌شود و در پیام یادآوری به همان شخص هم می‌آید.\r\n- **لینک‌ها سر جایشان می‌مانند.** لینک قدیمی‌ای که عنوان یا تصویرش بعداً کامل می‌شود دیگر به بالای یادداشت‌ها نمی‌پرد و جای خودش را نگه می‌دارد.\r\n- **آیکون سایت، ثابت.** سایتی که آیکونش متحرک است دیگر نشان روی کارت را به پرش نمی‌اندازد؛ آیکونی ثابت نشان داده می‌شود."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.8.4-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/Nex-2.8.4-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 63691272,
-          "downloads": 2,
-          "sha256": "aac2f464fb29efe3cfed80fcf1f1b6542425ad5f2c7262dc17442ed35923510c"
-        },
-        {
-          "name": "Nex-2.8.4-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/Nex-2.8.4-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 41178158,
-          "downloads": 1,
-          "sha256": "0afb2a638edc9686ab8bd652fda226f0fea0fdebd59fe15e1e0b3757769d2a90"
-        },
-        {
-          "name": "Nex-2.8.4-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/Nex-2.8.4-store.aab",
-          "kind": "bundle",
-          "size": 150543552,
-          "downloads": 1,
-          "sha256": "ec2368de900cd8bc311a53ae497c12634e31cfc751aff83db80f9dcc5bf15332"
-        },
-        {
-          "name": "Nex-2.8.4-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/Nex-2.8.4-store.apk",
-          "kind": "other",
-          "size": 163061253,
-          "downloads": 1,
-          "sha256": "4440c642cce71755f8da160e9517e0d0b92de8ca3f9549bd33382aec91105256"
-        },
-        {
-          "name": "Nex-2.8.4-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/Nex-2.8.4-universal.apk",
-          "kind": "universal",
-          "size": 163126813,
-          "downloads": 1,
-          "sha256": "1b5e0df3546de8c8f507a2b43f21c09eb9501c8fae464ca8ccaaaa870d0adb2e"
-        },
-        {
-          "name": "Nex-2.8.4-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/Nex-2.8.4-x86_64.apk",
-          "kind": "x64",
-          "size": 69868035,
-          "downloads": 1,
-          "sha256": "69b11ca1237fde0c395e71ebf4c12e0eb627661e8d75dfe86cf543bf18a24ebb"
-        },
-        {
-          "name": "Nex-2.8.4.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/Nex-2.8.4.aab",
-          "kind": "bundle",
-          "size": 150569880,
-          "downloads": 1,
-          "sha256": "ae09792196ab03bd3c24f32576d6f0cc1e3041c8f6c05d583cfa0ba5f6683b71"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.4/SHA256SUMS",
-          "kind": "other",
-          "size": 604,
-          "downloads": 2,
-          "sha256": "2899fc59256fec309656cb02671bc55aa151b26eef4da7d37dff88b01fc4e985"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.8.3",
@@ -126,28 +148,6 @@
       "tag": "v2.7.2",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.2",
       "publishedAt": "2026-11-15T08:39:05.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.7.1",
-      "tag": "v2.7.1",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.1",
-      "publishedAt": "2026-11-14T17:53:48.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.7.0",
-      "tag": "v2.7.0",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.7.0",
-      "publishedAt": "2026-11-14T09:30:42.000Z",
       "notes": {
         "en": "",
         "fa": null
