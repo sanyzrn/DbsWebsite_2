@@ -2,6 +2,82 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.8.7",
+      "tag": "v2.8.7",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.7",
+      "publishedAt": "2026-11-19T09:03:39.000Z",
+      "notes": {
+        "en": "- **The screen stays still while you pick notes.** The dates card and the tip no longer vanish when you start picking — they stay where they were, dimmed and untouchable like the rest, so the list no longer jumps.\r\n- **Lighter on every return.** Coming back to the app no longer sets every reminder again when nothing changed, a large Word by Word deck is read once instead of several times, and a sync server that is down is retried less and less often instead of every five minutes.",
+        "fa": "- **صفحه هنگام انتخاب تکان نمی‌خورد.** کارت تاریخ‌ها و نکته دیگر با شروع انتخاب ناپدید نمی‌شوند؛ سر جایشان می‌مانند و مثل بقیه کم‌رنگ و غیرقابل لمس می‌شوند، پس فهرست دیگر نمی‌پرد.\r\n- **سبک‌تر در هر بازگشت.** برگشتن به اپ دیگر وقتی چیزی عوض نشده همهٔ یادآورها را از نو تنظیم نمی‌کند، دستهٔ بزرگ واژه‌به‌واژه یک بار خوانده می‌شود نه چند بار، و اگر سرور همگام‌سازی در دسترس نباشد، تلاش دوباره به‌تدریج کم‌تکرارتر می‌شود نه هر پنج دقیقه."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.7-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 63825744,
+          "downloads": 3,
+          "sha256": "ea918e515d6c9e541f1224a9537dee56d89196b4331d4236974dc4954b9d7001"
+        },
+        {
+          "name": "Nex-2.8.7-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 41361778,
+          "downloads": 1,
+          "sha256": "4d8087901b04d98a36700592455f78001d06664d9d5d0d93e31684a4e8163e7a"
+        },
+        {
+          "name": "Nex-2.8.7-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-store.aab",
+          "kind": "bundle",
+          "size": 150926325,
+          "downloads": 2,
+          "sha256": "be4e8a870a3fce30741ea42360b4402f399dc1b778e88f04405f90ca8c5b343b"
+        },
+        {
+          "name": "Nex-2.8.7-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-store.apk",
+          "kind": "other",
+          "size": 163556173,
+          "downloads": 2,
+          "sha256": "6cfba80a7ec2d5322e6a6ec59046397f5e8bcfd60f13ed2ca95ad6a7719b1b77"
+        },
+        {
+          "name": "Nex-2.8.7-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-universal.apk",
+          "kind": "universal",
+          "size": 163572577,
+          "downloads": 1,
+          "sha256": "14ebe6108d7cdf6eef06dc22228075d0902793730e09362773a89fc480cc32ae"
+        },
+        {
+          "name": "Nex-2.8.7-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-x86_64.apk",
+          "kind": "x64",
+          "size": 70002507,
+          "downloads": 1,
+          "sha256": "914af7b76bd56e48085d9a062edcc83f75f3f9f5ba4d99684eac890848bb83ef"
+        },
+        {
+          "name": "Nex-2.8.7.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7.aab",
+          "kind": "bundle",
+          "size": 150955612,
+          "downloads": 1,
+          "sha256": "de7e194ee66c9d4ff417104d9f9d3532e78d47ab80eaf8dcd3fb58b3c7285e23"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 2,
+          "sha256": "1277a72a8ea0564a5255a5f1343724d0b7de428ee34f45d6d62828fbd22353ae"
+        }
+      ]
+    },
+    {
       "version": "2.8.6",
       "tag": "v2.8.6",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.6",
@@ -40,7 +116,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.6/Nex-2.8.6-store.apk",
           "kind": "other",
           "size": 163539449,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "028b0e728b5939234e79795cc8f03f923356450c06ab63db9654c867381564c5"
         },
         {
