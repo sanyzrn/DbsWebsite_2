@@ -16,7 +16,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-arm64-v8a.apk",
           "kind": "arm64",
           "size": 63825744,
-          "downloads": 3,
+          "downloads": 4,
           "sha256": "ea918e515d6c9e541f1224a9537dee56d89196b4331d4236974dc4954b9d7001"
         },
         {
@@ -24,7 +24,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-armeabi-v7a.apk",
           "kind": "arm32",
           "size": 41361778,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "4d8087901b04d98a36700592455f78001d06664d9d5d0d93e31684a4e8163e7a"
         },
         {
@@ -40,7 +40,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-store.apk",
           "kind": "other",
           "size": 163556173,
-          "downloads": 2,
+          "downloads": 3,
           "sha256": "6cfba80a7ec2d5322e6a6ec59046397f5e8bcfd60f13ed2ca95ad6a7719b1b77"
         },
         {
@@ -48,7 +48,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-universal.apk",
           "kind": "universal",
           "size": 163572577,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "14ebe6108d7cdf6eef06dc22228075d0902793730e09362773a89fc480cc32ae"
         },
         {
@@ -56,7 +56,7 @@
           "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-x86_64.apk",
           "kind": "x64",
           "size": 70002507,
-          "downloads": 1,
+          "downloads": 2,
           "sha256": "914af7b76bd56e48085d9a062edcc83f75f3f9f5ba4d99684eac890848bb83ef"
         },
         {
