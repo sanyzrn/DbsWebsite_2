@@ -4,6 +4,27 @@ User-facing release notes. Detailed technical history is preserved in [the devel
 
 ## Unreleased
 
+## v2.8.9
+
+- **Full-width cards in the large list.** Photos, video previews, PDF pages and link covers fill the card, with text and badges on top. Photos and cover images move with the scroll, just as in the grid.
+- **Code in your notes.** Choose **Code** when capturing, paste or type the snippet and pick its language, and it stays exactly as written — fixed-width, left to right, highlighted, with one tap to copy the code itself. Reopen it from **Edit** to change the code or the language. Highlighting includes HTML, CSS and PHP.
+- **HTML source previews.** The preview and expanded view show the code from the first line, including after conversion to Markdown.
+
+## v2.8.8
+
+- **Richer large list cards.** See a bigger photo or the first page of a PDF, play recordings beside their captions and transcripts, and tick checklist items from the list. Standard cards give captions their own space, and Show in full reveals longer captions and recording transcripts.
+- **Shorter rows in the standard grid.** Brief notes and recordings take up less space. Longer previews, captions and media have room when they need it.
+- **File types at a glance.** File cards use distinct icons for PDFs, Markdown, videos, archives, and other common formats.
+- **No jump when picking notes.** Cards and date headings stay in place when you start or stop selecting, and the fold arrow stays inside each heading.
+- **Faster photo editing.** Large photos open and respond faster when cropping, rotating or flipping. Saved edits appear sooner on the note.
+- **Easier typing on Android.** Tap anywhere inside a text field, including by its edges, to start typing.
+- **Fresh prompt fields after copying.** After a successful copy, the fields start empty the next time you open the prompt.
+
+## v2.8.7
+
+- **The screen stays still while you pick notes.** The dates card and the tip no longer vanish when you start picking — they stay where they were, dimmed and untouchable like the rest, so the list no longer jumps.
+- **Lighter on every return.** Coming back to the app no longer sets every reminder again when nothing changed, a large Word by Word deck is read once instead of several times, and a sync server that is down is retried less and less often instead of every five minutes.
+
 ## v2.8.6
 
 - **Picking notes stays on the notes.** While several notes are picked, holding another card picks it too instead of opening its menu, and nothing else on the card or the home screen acts in the middle of the choice — a recording's play button, a link, a checklist, the filters, the pinned tools and the recap wait, dimmed, until you finish.

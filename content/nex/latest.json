@@ -2,80 +2,102 @@
   "schemaVersion": 1,
   "releases": [
     {
+      "version": "2.8.9",
+      "tag": "v2.8.9",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.9",
+      "publishedAt": "2026-11-20T18:16:36.000Z",
+      "notes": {
+        "en": "- **Full-width cards in the large list.** Photos, video previews, PDF pages and link covers fill the card, with text and badges on top. Photos and cover images move with the scroll, just as in the grid.\r\n- **Code in your notes.** Choose **Code** when capturing, paste or type the snippet and pick its language, and it stays exactly as written — fixed-width, left to right, highlighted, with one tap to copy the code itself. Reopen it from **Edit** to change the code or the language. Highlighting includes HTML, CSS and PHP.\r\n- **HTML source previews.** The preview and expanded view show the code from the first line, including after conversion to Markdown.",
+        "fa": "- **کارت‌های تمام‌عرض در فهرست بزرگ.** عکس، پیش‌نمایش ویدئو، صفحهٔ اول PDF و تصویر لینک تمام کارت را می‌گیرند و نوشته‌ها و نشان‌ها روی آن‌ها می‌آیند. عکس‌ها و کاورها هنگام پیمایش مثل نمای شبکه‌ای حرکت می‌کنند.\r\n- **کد در یادداشت‌ها.** موقع ثبت **کد** را انتخاب کن، قطعه‌کد را بچسبان یا بنویس و زبانش را مشخص کن؛ همان‌طور که نوشتی می‌ماند — با فونت ثابت، چپ‌به‌راست، رنگی و با یک لمس برای کپی خود کد. از **ویرایش** بازش کن تا کد یا زبانش را عوض کنی. HTML، CSS و PHP هم رنگ‌بندی مخصوص خودشان را دارند.\r\n- **نمایش کد HTML.** پیش‌نمایش و نمایش کامل از خط اول شروع می‌شود، حتی بعد از تبدیل یادداشت به مارک‌داون."
+      },
+      "assets": [
+        {
+          "name": "Nex-2.8.9-arm64-v8a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/Nex-2.8.9-arm64-v8a.apk",
+          "kind": "arm64",
+          "size": 63893816,
+          "downloads": 2,
+          "sha256": "7b41c572def4b44e2cbdef05e95e8c8641ba7491c42c2691bd801256dbdc018d"
+        },
+        {
+          "name": "Nex-2.8.9-armeabi-v7a.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/Nex-2.8.9-armeabi-v7a.apk",
+          "kind": "arm32",
+          "size": 41462618,
+          "downloads": 1,
+          "sha256": "bef50a749ba1fcf38f0736c31026ef6cde96fed5e7c33ee3fd12051e98a4c73e"
+        },
+        {
+          "name": "Nex-2.8.9-store.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/Nex-2.8.9-store.aab",
+          "kind": "bundle",
+          "size": 151260812,
+          "downloads": 1,
+          "sha256": "7f4bcd65fa6c1822546e5a7e70a4d63d581b6c914109b549eccbf5d539b2d75a"
+        },
+        {
+          "name": "Nex-2.8.9-store.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/Nex-2.8.9-store.apk",
+          "kind": "other",
+          "size": 163804469,
+          "downloads": 1,
+          "sha256": "e876c22f1d5d33069e7e1a2e7b44b0f975946d770443afcb89df63a8d84da83c"
+        },
+        {
+          "name": "Nex-2.8.9-universal.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/Nex-2.8.9-universal.apk",
+          "kind": "universal",
+          "size": 163804493,
+          "downloads": 1,
+          "sha256": "cb307c4f3b3f3492f5d1ff51bfa1d5129f06fdc8ae223768f8cfbe7dfcb5a865"
+        },
+        {
+          "name": "Nex-2.8.9-x86_64.apk",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/Nex-2.8.9-x86_64.apk",
+          "kind": "x64",
+          "size": 70070579,
+          "downloads": 1,
+          "sha256": "0d6cd46e96c7556fb9cde406bdba25c9efa5bfc7177032ca21f5a709886c5aa8"
+        },
+        {
+          "name": "Nex-2.8.9.aab",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/Nex-2.8.9.aab",
+          "kind": "bundle",
+          "size": 151292931,
+          "downloads": 1,
+          "sha256": "03f56bca8e71bdd1e371cdc7d7682972a4fcb68654783acbf97e748e24312002"
+        },
+        {
+          "name": "SHA256SUMS",
+          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.9/SHA256SUMS",
+          "kind": "other",
+          "size": 604,
+          "downloads": 3,
+          "sha256": "5f9c4185650ae84ae929f8d991808e643002d4752ee613da31a6c0954dee011a"
+        }
+      ]
+    },
+    {
+      "version": "2.8.8",
+      "tag": "v2.8.8",
+      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.8",
+      "publishedAt": "2026-11-20T07:44:29.000Z",
+      "notes": {
+        "en": "",
+        "fa": null
+      },
+      "assets": []
+    },
+    {
       "version": "2.8.7",
       "tag": "v2.8.7",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.7",
       "publishedAt": "2026-11-19T09:03:39.000Z",
       "notes": {
-        "en": "- **The screen stays still while you pick notes.** The dates card and the tip no longer vanish when you start picking — they stay where they were, dimmed and untouchable like the rest, so the list no longer jumps.\r\n- **Lighter on every return.** Coming back to the app no longer sets every reminder again when nothing changed, a large Word by Word deck is read once instead of several times, and a sync server that is down is retried less and less often instead of every five minutes.",
-        "fa": "- **صفحه هنگام انتخاب تکان نمی‌خورد.** کارت تاریخ‌ها و نکته دیگر با شروع انتخاب ناپدید نمی‌شوند؛ سر جایشان می‌مانند و مثل بقیه کم‌رنگ و غیرقابل لمس می‌شوند، پس فهرست دیگر نمی‌پرد.\r\n- **سبک‌تر در هر بازگشت.** برگشتن به اپ دیگر وقتی چیزی عوض نشده همهٔ یادآورها را از نو تنظیم نمی‌کند، دستهٔ بزرگ واژه‌به‌واژه یک بار خوانده می‌شود نه چند بار، و اگر سرور همگام‌سازی در دسترس نباشد، تلاش دوباره به‌تدریج کم‌تکرارتر می‌شود نه هر پنج دقیقه."
+        "en": "",
+        "fa": null
       },
-      "assets": [
-        {
-          "name": "Nex-2.8.7-arm64-v8a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-arm64-v8a.apk",
-          "kind": "arm64",
-          "size": 63825744,
-          "downloads": 4,
-          "sha256": "ea918e515d6c9e541f1224a9537dee56d89196b4331d4236974dc4954b9d7001"
-        },
-        {
-          "name": "Nex-2.8.7-armeabi-v7a.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-armeabi-v7a.apk",
-          "kind": "arm32",
-          "size": 41361778,
-          "downloads": 2,
-          "sha256": "4d8087901b04d98a36700592455f78001d06664d9d5d0d93e31684a4e8163e7a"
-        },
-        {
-          "name": "Nex-2.8.7-store.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-store.aab",
-          "kind": "bundle",
-          "size": 150926325,
-          "downloads": 2,
-          "sha256": "be4e8a870a3fce30741ea42360b4402f399dc1b778e88f04405f90ca8c5b343b"
-        },
-        {
-          "name": "Nex-2.8.7-store.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-store.apk",
-          "kind": "other",
-          "size": 163556173,
-          "downloads": 3,
-          "sha256": "6cfba80a7ec2d5322e6a6ec59046397f5e8bcfd60f13ed2ca95ad6a7719b1b77"
-        },
-        {
-          "name": "Nex-2.8.7-universal.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-universal.apk",
-          "kind": "universal",
-          "size": 163572577,
-          "downloads": 2,
-          "sha256": "14ebe6108d7cdf6eef06dc22228075d0902793730e09362773a89fc480cc32ae"
-        },
-        {
-          "name": "Nex-2.8.7-x86_64.apk",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7-x86_64.apk",
-          "kind": "x64",
-          "size": 70002507,
-          "downloads": 2,
-          "sha256": "914af7b76bd56e48085d9a062edcc83f75f3f9f5ba4d99684eac890848bb83ef"
-        },
-        {
-          "name": "Nex-2.8.7.aab",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/Nex-2.8.7.aab",
-          "kind": "bundle",
-          "size": 150955612,
-          "downloads": 1,
-          "sha256": "de7e194ee66c9d4ff417104d9f9d3532e78d47ab80eaf8dcd3fb58b3c7285e23"
-        },
-        {
-          "name": "SHA256SUMS",
-          "url": "https://github.com/sanyzrn/DbsNex-releases/releases/download/v2.8.7/SHA256SUMS",
-          "kind": "other",
-          "size": 604,
-          "downloads": 2,
-          "sha256": "1277a72a8ea0564a5255a5f1343724d0b7de428ee34f45d6d62828fbd22353ae"
-        }
-      ]
+      "assets": []
     },
     {
       "version": "2.8.6",
@@ -126,28 +148,6 @@
       "tag": "v2.8.2",
       "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.2",
       "publishedAt": "2026-11-17T13:20:07.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.8.1",
-      "tag": "v2.8.1",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.1",
-      "publishedAt": "2026-11-17T09:13:01.000Z",
-      "notes": {
-        "en": "",
-        "fa": null
-      },
-      "assets": []
-    },
-    {
-      "version": "2.8.0",
-      "tag": "v2.8.0",
-      "url": "https://github.com/sanyzrn/DbsNex-releases/releases/tag/v2.8.0",
-      "publishedAt": "2026-11-17T04:30:43.000Z",
       "notes": {
         "en": "",
         "fa": null
