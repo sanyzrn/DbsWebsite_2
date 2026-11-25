@@ -1,7 +1,31 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-24T20:00:11+03:30",
+  "updatedAt": "2026-11-25T11:00:20+03:30",
   "ideas": [
+    {
+      "id": "2026-11-25-installment-ledger",
+      "date": "2026-11-25",
+      "title": "قسط‌نگار؛ مدیریت اقساط مستقیم فروشگاه با سررسید شمسی",
+      "category": "افزونه ووکامرس / مدیریت اقساط",
+      "audience": "فروشندگان مبلمان و لوازم خانگی با فروش اقساطی مستقیم",
+      "problem": "پیگیری دستی سررسید و مانده بدهی",
+      "evidence": "بررسی 2026-11-25: SUMO WooCommerce Payment Plans، بازار جهانی CodeCanyon، 2802 فروش، 49 دلار، 4.33 از 67 رأی: https://codecanyon.net/item/sumo-woocommerce-payment-plans-deposits-down-payments-installments-variable-payments-etc/21244868 ؛ Security Deposits با 550 فروش https://codecanyon.net/item/woocommerce-security-deposits-wordpress-plugin/19988389 و Deposits Lite با 39 فروش https://codecanyon.net/item/advanced-woocommerce-deposits-and-payment-plans/48937396 . ایران: تم فور 499500 تومان و 20 دیدگاه https://themefour.com/product/woocommerce-deposits/ ؛ حسابان 5500000 تومان https://ideapardazesh.ir/product/woocommerce-installment-payment-plugin-with-the-possibility-of-calculating-interest-and-checks/ . فروش ایران نامعلوم.",
+      "product": "ثبت برنامه اقساط ثابت برای سفارش موجود، سررسید شمسی، یادآوری پیامکی، لینک پرداخت هر قسط، ثبت پرداخت دستی و خروجی مانده بدهی؛ بدون اعتباردهی، سود، جریمه یا تغییر checkout. مزیت فرضی راه‌اندازی ساده برای فروش حضوری و آنلاین.",
+      "pricing": "فرضیه: 990 هزار تومان سالانه هر سایت، پیامک جداگانه",
+      "mvp": "3 تا 4 هفته، 1 تا 4 میلیون تومان هزینه نقدی بدون دستمزد، مشروط به محدود کردن درگاه و گردش سفارش",
+      "risk": "رقابت ارزان، تطبیق پرداخت و بازپرداخت، مقررات فروش اقساطی؛ توسعه مستقل بدون کپی، بررسی مجوز وابستگی‌ها، بدون API خارجی",
+      "acquisition": "تماس با 30 فروشگاه مبلمان و 10 مجری ووکامرس، دموی ثبت اقساط سفارش موجود",
+      "validation": "14 روز: سه بیعانه قابل استرداد 250 هزار تومانی، دو پایلوت با 20 قسط و تطبیق کامل پرداخت‌ها؛ سقف CAC هدف 200 هزار تومان",
+      "notes": "فروش خارجی مستند ولی سود خالص و تقاضای پولی ایران نامعلوم؛ تمایز گردش سفارش موجود فرضیه است نه فقدان اثبات‌شده در رقبا. امتیاز ساخت متوسط به دلیل حساسیت مالی؛ توسعه مستقل.",
+      "scores": {
+        "demand": 5,
+        "differentiation": 5,
+        "build": 6,
+        "reach": 7,
+        "revenue": 5,
+        "scale": 7
+      }
+    },
     {
       "id": "2026-11-24-shared-house-expenses",
       "date": "2026-11-24",
